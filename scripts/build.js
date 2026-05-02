@@ -1004,11 +1004,20 @@ function build() {
   fs.writeFileSync(path.join(DIST, 'CNAME'), 'bestofmpls.com\n');
   console.log(`  → CNAME (bestofmpls.com)`);
 
-  // Generate OG image (runs build-og.js as a subprocess; needs rsvg-convert)
-  try {
-    execSync(`node "${path.join(__dirname, 'build-og.js')}"`, { stdio: 'inherit' });
-  } catch (e) {
-    console.warn('  ! OG image generation skipped (rsvg-convert missing?)');
+  // Copy any pre-generated OG image (and other static assets) from public/.
+  // The OG image is generated separately via `node scripts/build-og.js`
+  // (requires rsvg-convert) and committed to public/ so it ships in CI builds
+  // where rsvg-convert isn't available.
+  const publicDir = path.join(ROOT, 'public');
+  if (fs.existsSync(publicDir)) {
+    for (const f of fs.readdirSync(publicDir)) {
+      const srcPath = path.join(publicDir, f);
+      const stat = fs.statSync(srcPath);
+      if (stat.isFile()) {
+        fs.copyFileSync(srcPath, path.join(DIST, f));
+        console.log(`  → ${f} (from public/)`);
+      }
+    }
   }
 
   console.log(`\n✓ Built to dist/\n`);

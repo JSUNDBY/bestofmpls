@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.06 0"/>
+      <feComposite in2="SourceGraphic" operator="in"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#1A1714"/>
+
+  <!-- Subtle paper grain overlay -->
+  <rect width="1200" height="630" filter="url(#grain)" opacity="0.5"/>
+
+  <!-- Top hairline -->
+  <line x1="80" y1="80" x2="1120" y2="80" stroke="#F0E9D8" stroke-opacity="0.18" stroke-width="1"/>
+
+  <!-- Top-left issue badge -->
+  <text x="80" y="56" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="600" font-size="14" letter-spacing="3" fill="#D88A55">VOLUME 01 · SPRING 2026</text>
+
+  <!-- Top-right tagline -->
+  <text x="1120" y="56" font-family="Georgia, serif" font-style="italic" font-size="18" fill="#B5AC9C" text-anchor="end">Made for the metro.</text>
+
+  <!-- Brand mark, large -->
+  <text x="80" y="200" font-family="Impact, 'Arial Black', sans-serif" font-size="120" letter-spacing="-3" fill="#F0E9D8">bestofmpls<tspan fill="#D88A55">.</tspan></text>
+
+  <!-- Headline (the city pair) -->
+  <text x="80" y="370" font-family="Impact, 'Arial Black', sans-serif" font-size="96" letter-spacing="-2" fill="#F0E9D8">Minneapolis</text>
+  <text x="80" y="478" font-family="Impact, 'Arial Black', sans-serif" font-size="96" letter-spacing="-2" fill="#F0E9D8"><tspan fill="#D88A55">&amp;</tspan> Saint Paul.</text>
+
+  <!-- Bottom hairline -->
+  <line x1="80" y1="540" x2="1120" y2="540" stroke="#F0E9D8" stroke-opacity="0.18" stroke-width="1"/>
+
+  <!-- Bottom row: deck + URL -->
+  <text x="80" y="580" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="20" fill="#B5AC9C">An independent guide to the museums, music, food, and small good things.</text>
+  <text x="1120" y="580" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="600" font-size="20" fill="#D88A55" text-anchor="end">bestofmpls.com</text>
+</svg>
