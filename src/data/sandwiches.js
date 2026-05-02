@@ -7,10 +7,11 @@ module.exports = {
   entries: [
     {
       name: 'Little Bird Delicatessen',
-      neighborhood: 'Logan Park, Northeast Minneapolis',
+      neighborhood: 'Kingfield, Minneapolis',
       style: 'Slow-roasted meats, modern deli',
-      description: 'A small Northeast deli that opened with one mission: do the slow-roasted meats well, build the bread program around them, and let the menu stay tight. The result is one of the most exciting new lunch counters in the metro. Order whatever the chalkboard tells you to.',
-      address: '1310 Quincy St NE, Minneapolis',
+      description: 'A small Kingfield deli that opened with one mission: do the slow-roasted meats well, build the bread program around them, and let the menu stay tight. The result is one of the most exciting lunch counters in the metro. Order whatever the chalkboard tells you to.',
+      address: '3749 Nicollet Ave, Minneapolis',
+      website: 'https://www.littlebirddelicatessen.com',
       price: '$$'
     },
     {
@@ -20,14 +21,6 @@ module.exports = {
       description: 'A James Beard America’s Classic and the banh mi the rest of the city is judged by. Five dollars gets you a sandwich that has been quietly perfected over four decades. The cured pork with pâté is the move. The pho is the meal you order alongside it.',
       address: '2719 Nicollet Ave, Minneapolis',
       price: '$'
-    },
-    {
-      name: 'Saint Dinette',
-      neighborhood: 'Lowertown, St. Paul',
-      style: 'Bologna with character',
-      description: 'The Saint Dinette bologna sandwich has been on the menu since opening day and is now a small St. Paul institution. House-made bologna, mustard, pickles, soft bread, the kind of sandwich that takes itself only half-seriously and gets that exactly right.',
-      address: '261 5th St E, St. Paul',
-      price: '$$'
     },
     {
       name: 'Cossetta’s',

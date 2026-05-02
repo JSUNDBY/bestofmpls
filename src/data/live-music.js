@@ -11,14 +11,16 @@ module.exports = {
       style: 'Mainroom + intimate club',
       description: 'The room. Prince filmed Purple Rain here. The black stars on the outside wall track every act that has played the venue. The Mainroom is one of the best mid-sized rock clubs in the country, and the 7th St Entry next door is the small room where bands try out the city before they grow into the big stage. If you only see one show in Minneapolis, see it here.',
       address: '701 1st Ave N, Minneapolis',
+      website: 'https://first-avenue.com',
       capacity: '1,550 mainroom / 250 entry'
     },
     {
       name: 'The Fine Line Music Cafe',
       neighborhood: 'Warehouse District, Minneapolis',
       style: 'Mid-sized club, full-service kitchen',
-      description: 'Rebuilt and reopened after a 2020 fire, the Fine Line is back to being one of the best mid-sized rooms in the metro. Two-tier layout, real sightlines from the balcony, a serious kitchen during shows. The kind of room where touring artists actually sound good.',
+      description: 'Rebuilt and reopened after a 2020 fire and now operated by First Avenue, the Fine Line is back to being one of the best mid-sized rooms in the metro. Two-tier layout, real sightlines from the balcony, a serious kitchen during shows.',
       address: '318 N 1st Ave, Minneapolis',
+      website: 'https://first-avenue.com/venue/fine-line/',
       capacity: '650'
     },
     {
@@ -27,15 +29,17 @@ module.exports = {
       style: 'Large concert hall in a 1936 military building',
       description: 'A massive Art Deco former National Guard armory turned into one of the largest concert venues downtown. The arched roof gives it real visual drama, and the standing-room layout works equally well for hip-hop, EDM, and stadium-rock acts looking for a tighter room than Target Center.',
       address: '500 S 6th St, Minneapolis',
-      capacity: '8,400'
+      website: 'https://armorymn.com',
+      capacity: 'Modular'
     },
     {
       name: 'Palace Theatre',
       neighborhood: 'Downtown St. Paul',
       style: 'Restored 1916 vaudeville theater',
-      description: 'A 1916 vaudeville house that sat half-abandoned for decades and was beautifully restored in 2017 as a mid-sized music venue. The original ornate interior was preserved with its peeling-plaster patina intact, which gives every show a haunted-grand quality you do not get anywhere else.',
+      description: 'A 1916 vaudeville house that sat half-abandoned for decades and was beautifully restored in 2017 as a mid-sized music venue. The original ornate interior was preserved with its peeling-plaster patina intact, which gives every show a haunted-grand quality you do not get anywhere else. Operated by First Avenue.',
       address: '17 W 7th Pl, St. Paul',
-      capacity: '2,800'
+      website: 'https://first-avenue.com/venue/palace-theatre/',
+      capacity: '2,500'
     },
     {
       name: 'Cedar Cultural Center',
@@ -43,6 +47,7 @@ module.exports = {
       style: 'World music + listening room',
       description: 'A nonprofit listening room that has been booking world music, folk, and roots artists from across the globe since 1989. The room is small, the sound is excellent, and the curation reaches places few other American venues bother with. A West Bank institution.',
       address: '416 Cedar Ave S, Minneapolis',
+      website: 'https://www.thecedar.org',
       capacity: '600'
     },
     {
@@ -51,6 +56,7 @@ module.exports = {
       style: 'Listening room + restaurant',
       description: 'Half restaurant, half listening room, with a back stage that hosts jazz, indie, and quiet singer-songwriter sets. The food is real and the room is acoustically tuned. If you want to actually hear the music, this is one of the best small rooms in the city.',
       address: '2528 Nicollet Ave, Minneapolis',
+      website: 'https://www.icehousempls.com',
       capacity: '300'
     },
     {
@@ -59,14 +65,16 @@ module.exports = {
       style: 'Supper club jazz',
       description: 'A serious jazz club downtown, with a supper-club seating arrangement and a bookings calendar that brings in genuine national touring jazz acts week after week. The room is dim, the steaks are real, and the music is the focus.',
       address: '1010 Nicollet Mall, Minneapolis',
+      website: 'https://www.dakotacooks.com',
       capacity: '300'
     },
     {
       name: 'The Hook and Ladder Theater',
-      neighborhood: 'Standish, Minneapolis',
+      neighborhood: 'Longfellow, Minneapolis',
       style: 'Converted firehouse',
       description: 'A converted 1907 firehouse running an eclectic music and theater program with a strong local-artist focus. Two-room setup with a big outdoor lot for warm-weather shows. The kind of room where you discover three new bands in a night.',
       address: '3010 Minnehaha Ave, Minneapolis',
+      website: 'https://thehookmpls.com',
       capacity: '500'
     },
     {
@@ -75,6 +83,7 @@ module.exports = {
       style: 'Riverfront cafe + acoustic stage',
       description: 'A small Mississippi-riverfront cafe with a tiny stage that punches well above its size. Acoustic shows, jazz brunches, and a patio that is one of the best in the city for a quiet drink and a song or two on a summer evening.',
       address: '125 SE Main St, Minneapolis',
+      website: 'https://astercafe.com',
       capacity: '120'
     },
     {
@@ -83,23 +92,26 @@ module.exports = {
       style: 'Large EDM, hip-hop',
       description: 'A multi-floor downtown space carved out of an old movie palace, mostly hosting electronic and hip-hop touring acts. Multiple stages, a studio room, and a programming calendar built around the late-night dance crowd.',
       address: '711 Hennepin Ave, Minneapolis',
+      website: 'https://skywaytheatre.com',
       capacity: '2,700'
     },
     {
       name: 'Fitzgerald Theater',
       neighborhood: 'Downtown St. Paul',
       style: 'Restored 1910 theater',
-      description: 'The oldest surviving theater in St. Paul, beautifully restored, and the longtime home of A Prairie Home Companion. Now hosts a mix of touring music, comedy, and live podcast tapings. A genuinely beautiful room with very good sound.',
+      description: 'The oldest surviving theater in St. Paul, beautifully restored, and the longtime home of A Prairie Home Companion. Now operated by First Avenue and hosting a mix of touring music, comedy, and live podcast tapings. A genuinely beautiful room with very good sound.',
       address: '10 E Exchange St, St. Paul',
+      website: 'https://first-avenue.com/venue/the-fitzgerald-theater/',
       capacity: '1,050'
     },
     {
       name: 'Berlin',
-      neighborhood: 'Northeast Minneapolis',
+      neighborhood: 'North Loop, Minneapolis',
       style: 'New listening room',
-      description: 'A newer Northeast listening room from the team behind some of the city’s most respected venues. Tight programming, comfortable seating, a well-designed bar. The kind of small new room that gives you faith in the next generation of Minneapolis music.',
-      address: '204 13th Ave NE, Minneapolis',
-      capacity: '180'
+      description: 'A newer North Loop listening room from the team behind some of the city’s most respected venues. Tight programming, comfortable seating, a well-designed bar. The kind of small new room that gives you faith in the next generation of Minneapolis music.',
+      address: 'North Loop, Minneapolis',
+      website: 'https://www.berlinmpls.com',
+      capacity: '85'
     }
   ]
 };

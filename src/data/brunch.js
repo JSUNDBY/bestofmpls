@@ -11,14 +11,16 @@ module.exports = {
       style: 'Southeast Asian',
       description: 'Christina Nguyen’s Northeast restaurant turns brunch into a Southeast Asian street-food morning. Roti canai, Hainan chicken rice, cocktails that arrive in actual coconuts. Weekend reservations vanish quickly, so plan ahead.',
       address: '2121 University Ave NE, Minneapolis',
+      website: 'https://www.haihaimpls.com',
       price: '$$'
     },
     {
       name: 'Saint Genevieve',
-      neighborhood: 'Linden Hills, Minneapolis',
+      neighborhood: 'Lynnhurst, Minneapolis',
       style: 'French bistro',
-      description: 'A bistro that takes Linden Hills exactly as seriously as Linden Hills takes itself. Egg dishes built on real French technique, a pastry program with proper laminated dough, and a sun-filled room that makes you feel like you took a small vacation.',
+      description: 'A bistro at 50th and Bryant that takes the neighborhood exactly as seriously as the neighborhood takes itself. Egg dishes built on real French technique, a pastry program with proper laminated dough, and a sun-filled room that makes you feel like you took a small vacation.',
       address: '5003 Bryant Ave S, Minneapolis',
+      website: 'https://www.stgmpls.com',
       price: '$$$'
     },
     {
@@ -46,27 +48,11 @@ module.exports = {
       price: '$$$'
     },
     {
-      name: 'Birchwood Cafe',
-      neighborhood: 'Seward, Minneapolis',
-      style: 'Locally sourced, plant-forward',
-      description: 'The original farm-to-table neighborhood cafe. The menu rotates with the season, the pastries are worth planning a Saturday around, and the kitchen has not coasted in twenty-five years.',
-      address: '3311 E 25th St, Minneapolis',
-      price: '$$'
-    },
-    {
       name: 'Mucci’s Italian',
       neighborhood: 'West Seventh, St. Paul',
       style: 'Italian-American',
       description: 'Sunday brunch at Mucci’s reads like a love letter to your nonna. Fried calzones, breakfast pizzas with farm eggs, Bloody Marys that should come with their own zip code. The patio is one of West Seventh’s best.',
       address: '786 Randolph Ave, St. Paul',
-      price: '$$'
-    },
-    {
-      name: 'Saint Dinette',
-      neighborhood: 'Lowertown, St. Paul',
-      style: 'New American with a sense of humor',
-      description: 'Lowertown’s long-running brunch champion. Bologna sandwiches that take themselves only half-seriously, French toast you should not be allowed to eat in public, a bright loud room that makes Sunday feel like a celebration.',
-      address: '261 5th St E, St. Paul',
       price: '$$'
     },
     {
@@ -78,27 +64,21 @@ module.exports = {
       price: '$$$'
     },
     {
-      name: 'The Lynhall',
-      neighborhood: 'Lyn-Lake, Minneapolis',
-      style: 'Airy, all-day cafe',
-      description: 'A high-ceilinged daytime cafe purpose-built for the brunch experience. The avocado toast actually earns its place on the menu, the pastry case will ruin your discipline, the room photographs well.',
-      address: '2640 Lyndale Ave S, Minneapolis',
-      price: '$$'
-    },
-    {
       name: 'Brasa Premium Rotisserie',
-      neighborhood: 'Northeast Mpls and Selby Ave, St. Paul',
+      neighborhood: 'Northeast Mpls and Grand Ave, St. Paul',
       style: 'Southern, Caribbean-leaning',
       description: 'Alex Roberts’s rotisserie does Sunday in a register no one else does. Slow-cooked pork, rice and beans, a sides menu that turns brunch into a long lazy proposition. Both locations are equally good.',
-      address: '600 E Hennepin Ave, Minneapolis (and Selby, St. Paul)',
+      address: '600 E Hennepin Ave, Minneapolis (and 777 Grand Ave, St. Paul)',
+      website: 'https://www.brasa.us',
       price: '$$'
     },
     {
       name: 'Cafe Astoria',
-      neighborhood: 'West Seventh, St. Paul',
+      neighborhood: 'Grand Ave, St. Paul',
       style: 'Neighborhood cafe',
-      description: 'A small West Seventh cafe that quietly out-brunches half its more famous peers. Vietnamese coffee, hash heavy with crisped potatoes, a patio that fills by 9:30. Tip your server, the line will be longer next time.',
-      address: '929 W Seventh St, St. Paul',
+      description: 'A small St. Paul cafe that quietly out-brunches half its more famous peers. Vietnamese coffee, hash heavy with crisped potatoes, a patio that fills by 9:30. Tip your server, the line will be longer next time.',
+      address: '180 Grand Ave, St. Paul',
+      website: 'https://cafeastoria-stpaul.com',
       price: '$$'
     }
   ]

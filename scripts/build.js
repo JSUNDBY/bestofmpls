@@ -45,6 +45,12 @@ const wellness     = require(path.join(SRC, 'data/wellness.js'));
 const dispensaries = require(path.join(SRC, 'data/dispensaries.js'));
 const restaurants  = require(path.join(SRC, 'data/restaurants.js'));
 const foodHalls    = require(path.join(SRC, 'data/food-halls.js'));
+const vietnamese   = require(path.join(SRC, 'data/vietnamese.js'));
+const korean       = require(path.join(SRC, 'data/korean.js'));
+const japanese     = require(path.join(SRC, 'data/japanese.js'));
+const iceCream     = require(path.join(SRC, 'data/ice-cream.js'));
+const lateNight    = require(path.join(SRC, 'data/late-night.js'));
+const itineraries  = require(path.join(SRC, 'data/itineraries.js'));
 const shops        = require(path.join(SRC, 'data/shops.js'));
 const mensClothing = require(path.join(SRC, 'data/mens-clothing.js'));
 const womensClothing = require(path.join(SRC, 'data/womens-clothing.js'));
@@ -66,8 +72,8 @@ const clusters = [
   {
     eyebrow: 'Eat',
     title: 'Where to eat',
-    deck: 'A real food town in ten directions at once. Restaurants worth a reservation, sandwiches, tacos, biryani, sourdough, doro wat, brunch on a slow Sunday, and the burger Minneapolis invented.',
-    categories: [restaurants, foodHalls, coffee, bakeries, sandwiches, burgers, pizza, brunch, mexican, hmong, ethiopian, indian]
+    deck: 'A real food town in fifteen directions at once. Restaurants worth a reservation, sushi, banh mi, tacos, sandwiches, late-night slices, ice cream by the lake, and the burger Minneapolis invented.',
+    categories: [restaurants, foodHalls, coffee, bakeries, sandwiches, burgers, pizza, brunch, mexican, vietnamese, korean, japanese, hmong, ethiopian, indian, iceCream, lateNight]
   },
   {
     eyebrow: 'Drink',
@@ -93,7 +99,8 @@ const categories = [
   // Culture
   museums, liveMusic, theaters, cinemas, lgbtq,
   // Eat
-  restaurants, foodHalls, coffee, bakeries, sandwiches, burgers, pizza, brunch, mexican, hmong, ethiopian, indian,
+  restaurants, foodHalls, coffee, bakeries, sandwiches, burgers, pizza, brunch,
+  mexican, vietnamese, korean, japanese, hmong, ethiopian, indian, iceCream, lateNight,
   // Drink
   cocktailBars, breweries, diveBars, patios, happyHours,
   // Shop
@@ -213,13 +220,15 @@ function header({ activeSlug } = {}) {
   // and the cluster names anchor to the homepage section.
   const navItems = [
     { href: '/', label: 'Cover', slug: '' },
+    { href: '/visit/', label: 'First Time?', slug: 'visit' },
     { href: '/#culture', label: 'Culture' },
     { href: '/#eat', label: 'Eat' },
     { href: '/#drink', label: 'Drink' },
     { href: '/#shop', label: 'Shop' },
-    { href: '/#visit', label: 'For Visitors' },
     { href: '/neighborhoods/', label: 'Neighborhoods', slug: 'neighborhoods' },
     { href: '/festivals/', label: 'Festivals', slug: 'festivals' },
+    { href: '/glossary/', label: "Loon's Nest", slug: 'glossary' },
+    { href: '/search/', label: 'Search', slug: 'search' },
     { href: '/contribute/', label: 'Send a Tip', slug: 'contribute' }
   ];
   return `<header class="site-header">
@@ -231,6 +240,10 @@ function header({ activeSlug } = {}) {
         <button class="mode-toggle" type="button" aria-label="Toggle light or dark mode" data-mode-toggle>
           <span class="mode-toggle-dot"></span>
           <span class="mode-toggle-label">Dark</span>
+        </button>
+        <button class="nav-toggle" type="button" aria-label="Open menu" data-nav-toggle>
+          <span class="nav-toggle-icon">☰</span>
+          <span>Menu</span>
         </button>
       </div>
     </div>
@@ -299,6 +312,16 @@ function footer() {
     document.documentElement.setAttribute('data-mode', next);
     localStorage.setItem('bom-mode', next);
     syncLabel();
+  });
+})();
+
+// Mobile nav: toggle .is-open on .primary-nav when hamburger is clicked.
+(function(){
+  var btn = document.querySelector('[data-nav-toggle]');
+  var nav = document.querySelector('.primary-nav');
+  if (!btn || !nav) return;
+  btn.addEventListener('click', function(){
+    nav.classList.toggle('is-open');
   });
 })();
 
@@ -662,6 +685,182 @@ function renderNeighborhoodPage(nb) {
     footer();
 }
 
+// ---------- First Time / Itineraries page ----------
+function renderItineraries() {
+  const it = itineraries;
+  const description = 'A working playbook for visiting the Twin Cities: 24 hours, a weekend, or a week.';
+
+  const basics = it.basics.map(b => `
+    <div class="basic-block">
+      <div class="basic-block-label">${esc(b.label)}</div>
+      <p class="basic-block-body">${esc(b.body)}</p>
+    </div>
+  `).join('');
+
+  const plans = it.plans.map((plan, i) => `
+    <section class="plan" id="${esc(plan.slug)}">
+      <div class="wrap plan-head">
+        <div class="cluster-eyebrow">${esc(plan.eyebrow)}</div>
+        <h2 class="plan-headline">${esc(plan.headline)}</h2>
+        <p class="cluster-deck">${esc(plan.deck)}</p>
+      </div>
+      <ol class="plan-stops">
+        ${plan.stops.map((s, j) => `
+          <li class="plan-stop">
+            <div class="plan-stop-time">${esc(s.time)}</div>
+            <div class="plan-stop-body">
+              <h3 class="plan-stop-title">${esc(s.title)}</h3>
+              <p class="plan-stop-body-text">${esc(s.body)}</p>
+              ${s.linkSlug ? `<a class="plan-stop-link" href="/${esc(s.linkSlug)}/">See the full list →</a>` : ''}
+            </div>
+          </li>
+        `).join('')}
+      </ol>
+    </section>
+  `).join('');
+
+  const planNav = it.plans.map(p => `<a href="#${esc(p.slug)}" class="plan-nav-link">${esc(p.label)}</a>`).join('');
+
+  return head({ title: it.title, description, slug: 'visit', theme: it.hero_color }) +
+    header({ activeSlug: 'visit' }) +
+    `<section class="section-head">
+      <div class="wrap">
+        <div class="section-eyebrow">For visitors</div>
+        <h1 class="section-title">${esc(it.title)} <em>?</em></h1>
+        <p class="section-deck">${esc(it.intro)}</p>
+        <nav class="plan-nav">${planNav}</nav>
+      </div>
+    </section>
+    <section class="basics">
+      <div class="wrap basics-grid">${basics}</div>
+    </section>
+    ${plans}` +
+    footer();
+}
+
+// ---------- Loon's Nest slang glossary ----------
+function renderSlang() {
+  const title = "The Loon's Nest";
+  const description = 'A short Twin Cities glossary for visitors and recent transplants.';
+  const terms = [
+    { term: 'The Cities', def: 'Minneapolis and Saint Paul, taken together. Locals rarely call them "the metro" or "MSP" in conversation.' },
+    { term: 'Bde Maka Ska', def: 'Pronounced beh-DAY mah-KAH-skah. Formerly Lake Calhoun. Renamed in 2018 to its Dakota name. Use the Dakota name; the old name has aged badly.' },
+    { term: 'NE / Northeast', def: 'Northeast Minneapolis. Pronounced "NORE-east" with a slightly drawn-out vowel. Distinct from "North," which is North Minneapolis (a different neighborhood with very different vibes).' },
+    { term: 'The U', def: 'The University of Minnesota. Specifically the Twin Cities campus. "I went to the U" means UMN.' },
+    { term: 'Eat Street', def: 'The stretch of Nicollet Avenue south of downtown Minneapolis, dense with restaurants. Roughly 24th to Lake Street.' },
+    { term: 'Hot dish', def: 'Casserole. Always casserole. The most-loved version uses tater tots and cream of mushroom.' },
+    { term: 'Lutefisk', def: 'Cod cured in lye. Eaten almost exclusively at Christmas by Norwegian-Lutheran Minnesotans, often as a kind of cultural endurance test.' },
+    { term: 'Lefse', def: 'A thin Norwegian potato flatbread, usually rolled with butter and sugar. Less divisive than lutefisk.' },
+    { term: 'The Mall', def: 'Mall of America in Bloomington. But locals do not actually shop there much. The fact that you have heard of it is the point.' },
+    { term: 'Up Nort', def: 'Anywhere outside the metro, generally. "We went up nort to the cabin" usually means somewhere on a lake within three hours of the city.' },
+    { term: 'The Cabin', def: 'A second house on a lake. Owning one is a Minnesota class signifier. Asking "do you have a cabin" is a small social audit.' },
+    { term: 'Pull tabs', def: 'A paper-tab gambling game played in bars to fund nonprofits, hockey teams, and church basement projects. Legal here, mostly nowhere else.' },
+    { term: 'Skol', def: 'Norwegian "cheers." Also the chant of the Minnesota Vikings, learned and adopted by the entire city in 2018 with the "Skol Vikings" stadium ritual.' },
+    { term: 'Jucy / Juicy Lucy', def: 'A burger with cheese melted inside the patty. Invented in South Minneapolis. Two bars on Cedar Avenue both claim to have invented it. Spelling depends on which bar you back. Pick a side.' },
+    { term: 'Don\'tcha know', def: 'Mostly a stereotype now, but you will hear genuine "ya, you betcha" and "oh, for fun" from older Minnesotans. Not affectations on their part.' },
+    { term: 'Minnesota Nice', def: 'Both real and complicated. Strangers will help you with directions and your car battery. Strangers will also avoid all conflict and never invite you over for dinner.' },
+    { term: 'The State Fair', def: 'The Minnesota State Fair. Held the twelve days ending Labor Day. The largest state fair in the country by daily attendance. Locals call it just "the fair."' },
+    { term: 'On a Stick', def: 'A reference to State Fair food. Hundreds of items are served on sticks. The list of new things on sticks each year is published in newspapers.' },
+    { term: 'The Loop', def: 'Usually the North Loop, the warehouse-conversion neighborhood north of downtown Mpls. Confusingly, "the Loop" alone can also mean the smaller Northeast loop along East Hennepin.' },
+    { term: 'The Suburbs', def: 'Anything outside the I-494/694 ring. Locals divide them by direction (west metro, north metro, south metro). Edina and Wayzata are wealthy west-metro. Brooklyn Park is north. Bloomington is south.' }
+  ];
+
+  const items = terms.map(t => `
+    <div class="slang-entry">
+      <dt class="slang-term">${esc(t.term)}</dt>
+      <dd class="slang-def">${esc(t.def)}</dd>
+    </div>
+  `).join('');
+
+  return head({ title, description, slug: 'glossary', theme: 'sage' }) +
+    header({ activeSlug: 'glossary' }) +
+    `<section class="section-head">
+      <div class="wrap">
+        <div class="section-eyebrow">Twin Cities glossary</div>
+        <h1 class="section-title">${esc(title)} <em>a small dictionary</em></h1>
+        <p class="section-deck">A few things visitors should know before they say them out loud. The terms locals actually use, with some honest notes.</p>
+      </div>
+    </section>
+    <section class="wrap">
+      <dl class="slang-list">${items}</dl>
+    </section>` +
+    footer();
+}
+
+// ---------- Search page (client-side) ----------
+function renderSearch(searchIndex) {
+  const title = 'Search bestofmpls';
+  const description = 'Search every entry on bestofmpls. Restaurants, music, museums, neighborhoods.';
+  return head({ title, description, slug: 'search', theme: 'default' }) +
+    header({ activeSlug: 'search' }) +
+    `<section class="section-head">
+      <div class="wrap">
+        <div class="section-eyebrow">Search</div>
+        <h1 class="section-title">Find <em>anything</em></h1>
+        <p class="section-deck">Type a place, a neighborhood, or what you are looking for. Searches across all ${searchIndex.length}+ entries on the site.</p>
+      </div>
+    </section>
+    <section class="wrap search-wrap">
+      <input id="search-input" type="search" placeholder="Try 'pizza in Northeast' or 'late night St. Paul'" class="search-input" autofocus aria-label="Search">
+      <div id="search-results" class="search-results" aria-live="polite"></div>
+    </section>
+    <script id="search-index" type="application/json">${JSON.stringify(searchIndex)}</script>
+    <script>
+    (function(){
+      var idx = JSON.parse(document.getElementById('search-index').textContent);
+      var input = document.getElementById('search-input');
+      var out = document.getElementById('search-results');
+
+      function score(item, q) {
+        var s = (item.name + ' ' + item.category + ' ' + item.neighborhood + ' ' + item.style + ' ' + item.description).toLowerCase();
+        var terms = q.toLowerCase().split(/\\s+/).filter(Boolean);
+        if (!terms.length) return 0;
+        var hits = 0;
+        terms.forEach(function(t){ if (s.indexOf(t) !== -1) hits++; });
+        if (hits < terms.length) return 0;
+        // Boost if term appears in name
+        var nameHits = 0;
+        terms.forEach(function(t){ if (item.name.toLowerCase().indexOf(t) !== -1) nameHits++; });
+        return hits + nameHits * 3;
+      }
+
+      function render(q) {
+        if (!q || q.length < 2) {
+          out.innerHTML = '<p class="search-empty">Start typing.</p>';
+          return;
+        }
+        var results = idx
+          .map(function(i){ return { item: i, s: score(i, q) }; })
+          .filter(function(r){ return r.s > 0; })
+          .sort(function(a, b){ return b.s - a.s; })
+          .slice(0, 30);
+
+        if (!results.length) {
+          out.innerHTML = '<p class="search-empty">No matches. Try a different word.</p>';
+          return;
+        }
+
+        out.innerHTML = results.map(function(r){
+          var i = r.item;
+          return '<a class="search-result" href="' + i.url + '">' +
+            '<div class="search-result-meta">' + i.category + (i.neighborhood ? ' &middot; ' + i.neighborhood : '') + '</div>' +
+            '<div class="search-result-name">' + i.name + '</div>' +
+            '<p class="search-result-desc">' + i.description.slice(0, 140) + (i.description.length > 140 ? '...' : '') + '</p>' +
+            '</a>';
+        }).join('');
+      }
+
+      var t;
+      input.addEventListener('input', function(e){
+        clearTimeout(t);
+        t = setTimeout(function(){ render(e.target.value); }, 80);
+      });
+      render('');
+    })();
+    </script>` +
+    footer();
+}
+
 function renderContribute() {
   const title = 'Send us a tip';
   const description = 'Submit a place, a correction, or a tip for bestofmpls.';
@@ -715,9 +914,12 @@ function render404() {
 function renderSitemap(neighborhoods) {
   const urls = [
     { loc: SITE + '/', priority: '1.0' },
+    { loc: SITE + '/visit/', priority: '0.9' },
+    { loc: SITE + '/neighborhoods/', priority: '0.8' },
+    { loc: SITE + '/glossary/', priority: '0.6' },
+    { loc: SITE + '/search/', priority: '0.5' },
     { loc: SITE + '/about/', priority: '0.6' },
     { loc: SITE + '/contribute/', priority: '0.5' },
-    { loc: SITE + '/neighborhoods/', priority: '0.8' },
     ...categories.map(c => ({ loc: `${SITE}/${c.slug}/`, priority: '0.9' })),
     ...(neighborhoods || []).map(nb => ({ loc: `${SITE}/neighborhoods/${nb.slug}/`, priority: '0.8' }))
   ];
@@ -759,6 +961,29 @@ function build() {
   const neighborhoods = buildNeighborhoodIndex();
   writeFile('neighborhoods/index.html', renderNeighborhoodIndex(neighborhoods));
   for (const nb of neighborhoods) writeFile(`neighborhoods/${nb.slug}/index.html`, renderNeighborhoodPage(nb));
+
+  // First-time / itineraries page
+  writeFile('visit/index.html', renderItineraries());
+
+  // Loon's Nest slang glossary
+  writeFile('glossary/index.html', renderSlang());
+
+  // Build search index from all entries across all categories
+  const searchIndex = [];
+  for (const c of categories) {
+    if (c.layout === 'seasonal') continue;
+    for (const e of c.entries) {
+      searchIndex.push({
+        name: e.name,
+        category: c.title,
+        neighborhood: e.neighborhood || '',
+        style: e.style || '',
+        description: e.description || '',
+        url: `/${c.slug}/#${e.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`
+      });
+    }
+  }
+  writeFile('search/index.html', renderSearch(searchIndex));
 
   writeFile('about/index.html', renderAbout());
   writeFile('contribute/index.html', renderContribute());
