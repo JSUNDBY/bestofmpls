@@ -4,9 +4,17 @@
    Cream paper, deep forest, warm clay. Easy on the eyes.
    ============================================================ */
 
-/* Fonts loaded via <link> in HTML head for reliability and speed.
-   Fallbacks below are explicit sans-serif specs to avoid browsers
-   defaulting to serif when fonts are still loading. */
+/* Self-host Bowlby One so it loads regardless of Google Fonts being blocked
+   by ad-blockers, network policies, or just slow. Body and label fonts come
+   from Google Fonts via the link in <head>; if those fail the system fallback
+   chain takes over with Helvetica/Arial. */
+@font-face {
+  font-family: 'Bowlby One';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/bowlby-one.ttf') format('truetype');
+}
 
 :root {
   /* Light mode (default) */
