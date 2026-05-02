@@ -75,7 +75,28 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+  position: relative;
 }
+
+/* Paper grain. Subtle SVG noise overlay. Gives the cream a "printed" feel.
+   Inline data URI so no extra request. Pointer-events none so it doesn't
+   intercept clicks. Pinned to viewport so it doesn't scroll with content. */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.045;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0'/></filter><rect width='200' height='200' filter='url(%23n)'/></svg>");
+  mix-blend-mode: multiply;
+}
+html[data-mode="dark"] body::before {
+  opacity: 0.08;
+  mix-blend-mode: screen;
+}
+/* Make sure clickable content sits above the grain */
+.site-header, .site-footer, main, section, footer { position: relative; z-index: 2; }
 
 /* Subtle scroll-fade for cards and entries.
    Set base hidden state, animation triggers when .is-in-view added by IO. */
@@ -179,49 +200,68 @@ p { margin: 0 0 1em; }
   border-right-color: transparent;
 }
 
-/* ===== Cover (homepage hero) ===== */
+/* ===== Cover (homepage magazine) ===== */
 .cover {
-  padding: 72px 0 80px;
   border-bottom: 1px solid var(--ink);
+  position: relative;
+  overflow: hidden;
 }
-.cover-issue {
-  font-family: var(--font-label);
-  font-weight: 600;
-  font-size: 11.5px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--clay);
-  margin-bottom: 20px;
+.cover-wrap {
+  padding: 36px var(--gutter) 64px;
 }
-.cover-headline {
+@media (min-width: 720px) {
+  .cover-wrap { padding: 48px var(--gutter) 80px; }
+}
+
+.cover-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+  padding-bottom: 32px;
+  border-bottom: 1px solid var(--ink);
+  margin-bottom: 48px;
+}
+.cover-badge {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  border: 1.5px solid var(--ink);
+  padding: 12px 18px;
+  border-radius: 0;
+  position: relative;
+}
+.cover-badge::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 1px solid var(--ink);
+  transform: translate(4px, 4px);
+  z-index: -1;
+  background: var(--clay);
+}
+.cover-badge-num {
   font-family: var(--font-display);
   font-weight: 400;
-  font-size: clamp(48px, 9vw, 124px);
-  line-height: 0.92;
-  letter-spacing: -0.035em;
-  margin: 0 0 28px;
-  color: var(--ink);
-  max-width: 1100px;
-}
-.cover-headline em {
-  font-family: var(--font-label);
-  font-style: italic;
-  font-weight: 500;
+  font-size: 22px;
   letter-spacing: -0.01em;
-  color: var(--clay);
+  line-height: 1;
+  color: var(--ink);
 }
-.cover-deck {
-  font-family: var(--font-body);
-  font-weight: 400;
-  font-size: clamp(16px, 1.5vw, 19px);
-  line-height: 1.6;
-  max-width: 620px;
-  margin: 0 0 32px;
+.cover-badge-date {
+  font-family: var(--font-label);
+  font-weight: 600;
+  font-size: 10.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
   color: var(--ink-soft);
+  margin-top: 4px;
 }
+
 .cover-meta {
   display: flex;
-  gap: 28px;
+  gap: 24px 32px;
   font-family: var(--font-label);
   font-weight: 500;
   font-size: 11.5px;
@@ -229,6 +269,87 @@ p { margin: 0 0 1em; }
   text-transform: uppercase;
   color: var(--ink-soft);
   flex-wrap: wrap;
+  align-self: center;
+}
+.cover-meta b {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 18px;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  margin-right: 4px;
+  line-height: 1;
+  vertical-align: -2px;
+}
+
+.cover-headline {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(56px, 13vw, 184px);
+  line-height: 0.86;
+  letter-spacing: -0.04em;
+  margin: 0 0 56px;
+  color: var(--ink);
+  display: block;
+}
+.cover-line {
+  display: block;
+}
+.cover-line-shift {
+  padding-left: clamp(0px, 6vw, 80px);
+}
+.cover-amp {
+  display: inline-block;
+  font-size: 1.45em;
+  line-height: 0.7;
+  color: var(--clay);
+  margin: 0.05em 0.05em 0 -0.05em;
+  vertical-align: -0.18em;
+  font-style: normal;
+}
+
+.cover-bottom {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 48px;
+  align-items: end;
+  border-top: 1px solid var(--ink);
+  padding-top: 36px;
+}
+@media (max-width: 720px) {
+  .cover-bottom { grid-template-columns: 1fr; gap: 28px; }
+  .cover-line-shift { padding-left: 0; }
+}
+.cover-deck {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: clamp(17px, 1.7vw, 22px);
+  line-height: 1.5;
+  max-width: 600px;
+  margin: 0;
+  color: var(--ink);
+}
+.cover-cta {
+  font-family: var(--font-label);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--paper);
+  background: var(--ink);
+  padding: 18px 28px;
+  display: inline-block;
+  justify-self: end;
+  transition: background 0.18s ease, color 0.18s ease, transform 0.18s ease;
+  white-space: nowrap;
+}
+.cover-cta:hover {
+  background: var(--clay);
+  color: var(--ink);
+  transform: translateY(-2px);
+}
+@media (max-width: 720px) {
+  .cover-cta { justify-self: start; }
 }
 
 /* ===== Section header ===== */
@@ -272,13 +393,40 @@ p { margin: 0 0 1em; }
 /* ===== Homepage clusters ===== */
 .cluster {
   border-bottom: 1px solid var(--ink);
+  position: relative;
 }
-.cluster:nth-child(odd of .cluster) { background: var(--paper); }
-.cluster:nth-child(even of .cluster) { background: var(--paper-2); }
-/* Browsers without :nth-child(of) selector support fall back to plain bg, fine. */
+/* Theme tints. Alternate bgs for rhythm. Only paper-2 is strong; the rest
+   are subtle so the categories get the visual weight. */
+.cluster--cream      { background: var(--paper); }
+.cluster--paper      { background: var(--paper-2); }
+.cluster--tint-clay  { background: var(--paper); }
+.cluster--tint-forest{ background: var(--paper-2); }
+.cluster--tint-sky   { background: var(--paper); }
+
 .cluster-head {
-  padding: 64px var(--gutter) 32px;
+  padding: 72px var(--gutter) 36px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 32px;
+  align-items: start;
 }
+@media (max-width: 720px) {
+  .cluster-head { grid-template-columns: 1fr; gap: 16px; padding: 56px var(--gutter) 28px; }
+}
+.cluster-num {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(56px, 8vw, 104px);
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+  color: var(--clay);
+  -webkit-text-stroke: 0;
+}
+.cluster--tint-clay .cluster-num { color: var(--clay); }
+.cluster--tint-forest .cluster-num { color: var(--forest); }
+.cluster--tint-sky .cluster-num { color: var(--sky); }
+
+.cluster-head-text { padding-top: 4px; max-width: 720px; }
 .cluster-eyebrow {
   font-family: var(--font-label);
   font-weight: 600;
@@ -291,10 +439,10 @@ p { margin: 0 0 1em; }
 .cluster-title {
   font-family: var(--font-display);
   font-weight: 400;
-  font-size: clamp(28px, 4vw, 44px);
-  line-height: 1.05;
-  letter-spacing: -0.022em;
-  margin: 0 0 14px;
+  font-size: clamp(32px, 5vw, 56px);
+  line-height: 1;
+  letter-spacing: -0.028em;
+  margin: 0 0 18px;
 }
 .cluster-deck {
   font-family: var(--font-body);
@@ -447,22 +595,38 @@ p { margin: 0 0 1em; }
 }
 .entry-website:hover { color: var(--ink) !important; border-color: var(--ink); }
 
-/* Featured entry (top pick) */
+/* Featured entry (top pick). True magazine treatment.
+   Wider grid layout, oversized rank as a graphic moment, larger name. */
 .entry--featured {
   background: var(--paper-2);
-  padding: 48px var(--gutter);
+  padding: clamp(40px, 6vw, 80px) var(--gutter);
+  grid-template-columns: 1fr;
+  gap: 32px;
+  border-bottom: 2px solid var(--ink);
 }
 .entry--featured .entry-rank {
+  font-family: var(--font-display);
+  font-weight: 400;
   color: var(--clay);
-  font-size: clamp(48px, 5.5vw, 72px);
+  font-size: clamp(72px, 10vw, 144px);
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+  padding-top: 0;
 }
+.entry--featured .entry-meta { font-size: 12px; }
 .entry--featured .entry-name {
-  font-size: clamp(28px, 3.4vw, 40px);
+  font-size: clamp(36px, 5vw, 64px);
+  line-height: 0.95;
+  letter-spacing: -0.025em;
+  margin-bottom: 20px;
+  max-width: 720px;
 }
 .entry--featured .entry-description {
-  font-size: clamp(16.5px, 1.3vw, 19px);
-  line-height: 1.6;
+  font-size: clamp(17px, 1.4vw, 21px);
+  line-height: 1.55;
+  max-width: 700px;
 }
+.entry--featured .entry-body { max-width: 900px; }
 .entry-meta-pick {
   font-family: var(--font-label);
   font-weight: 700;

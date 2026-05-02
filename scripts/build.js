@@ -199,7 +199,7 @@ function head({ title, description, slug, theme }) {
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bowlby+One&family=Archivo:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;450;500;600&display=swap">
-<link rel="stylesheet" href="/styles.css?v=10">
+<link rel="stylesheet" href="/styles.css?v=11">
 <script>
 // Set color mode before paint to avoid flash. Reads localStorage first,
 // falls back to system preference. mode-ready class added after first
@@ -355,15 +355,19 @@ function renderHome() {
 
   // Cluster sections: each cluster gets its own editorial header + grid of cards
   const clusterAnchors = ['culture', 'eat', 'drink', 'shop', 'visit'];
+  const clusterTints = ['cream', 'paper', 'tint-clay', 'tint-forest', 'tint-sky'];
   const clusterSections = clusters.map((cluster, idx) => {
-    // 1-2 categories use 2-column layout. 3+ use 3-column.
     const gridClass = cluster.categories.length <= 2 ? 'cluster-grid cluster-grid--2' : 'cluster-grid';
+    const num = String(idx + 1).padStart(2, '0');
     return `
-    <section class="cluster" id="${clusterAnchors[idx]}">
+    <section class="cluster cluster--${clusterTints[idx] || 'cream'}" id="${clusterAnchors[idx]}">
       <div class="wrap cluster-head">
-        <div class="cluster-eyebrow">${esc(cluster.eyebrow)}</div>
-        <h2 class="cluster-title">${esc(cluster.title)}</h2>
-        <p class="cluster-deck">${esc(cluster.deck)}</p>
+        <div class="cluster-num">${num}</div>
+        <div class="cluster-head-text">
+          <div class="cluster-eyebrow">${esc(cluster.eyebrow)}</div>
+          <h2 class="cluster-title">${esc(cluster.title)}</h2>
+          <p class="cluster-deck">${esc(cluster.deck)}</p>
+        </div>
       </div>
       <div class="${gridClass}">
         ${cluster.categories.map(c => `
@@ -384,14 +388,27 @@ function renderHome() {
   return head({ title, description, slug: '', theme: 'default' }) +
     header({ activeSlug: '' }) +
     `<section class="cover">
-      <div class="wrap">
-        <div class="cover-issue">Vol. 01 · Spring 2026</div>
-        <h1 class="cover-headline">Minneapolis<br><em>&amp;</em> Saint Paul.</h1>
-        <p class="cover-deck">Where to eat, drink, see, hear, sleep, and spend a Saturday in two of the best small cities in America. Made for the metro by the people who live here.</p>
-        <div class="cover-meta">
-          <span>${categories.length} categories</span>
-          <span>${categories.reduce((sum, c) => sum + c.entries.length, 0)} places</span>
-          <span>Updated weekly</span>
+      <div class="wrap cover-wrap">
+        <div class="cover-top">
+          <div class="cover-badge">
+            <span class="cover-badge-num">N°&nbsp;01</span>
+            <span class="cover-badge-date">Spring 2026</span>
+          </div>
+          <div class="cover-meta">
+            <span><b>${categories.length}</b> categories</span>
+            <span><b>${categories.reduce((sum, c) => sum + c.entries.length, 0)}</b> places</span>
+            <span>Updated weekly</span>
+            <span>No sponsored picks</span>
+          </div>
+        </div>
+        <h1 class="cover-headline">
+          <span class="cover-line">Minneapolis</span>
+          <span class="cover-amp">&amp;</span>
+          <span class="cover-line cover-line-shift">Saint Paul.</span>
+        </h1>
+        <div class="cover-bottom">
+          <p class="cover-deck">Where to eat, drink, see, hear, sleep, and spend a Saturday in two of the best small cities in America. Made for the metro by the people who live here.</p>
+          <a class="cover-cta" href="/visit/">First time visiting? Start here →</a>
         </div>
       </div>
     </section>
