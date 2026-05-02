@@ -196,7 +196,10 @@ function head({ title, description, slug, theme }) {
 <meta name="twitter:description" content="${esc(description)}">
 
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-<link rel="stylesheet" href="/styles.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bowlby+One&family=Archivo:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;450;500;600&display=swap">
+<link rel="stylesheet" href="/styles.css?v=10">
 <script>
 // Set color mode before paint to avoid flash. Reads localStorage first,
 // falls back to system preference. mode-ready class added after first
