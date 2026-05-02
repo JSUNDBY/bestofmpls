@@ -4,7 +4,7 @@
    Cream paper, deep forest, warm clay. Easy on the eyes.
    ============================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Eloura+Sans:wght@400&family=Archivo:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;450;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bowlby+One&family=Archivo:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;450;500;600&display=swap');
 
 :root {
   /* Light mode (default) */
@@ -37,12 +37,12 @@ html[data-mode="dark"] {
   --sky:      #95A8B9;
   --rule-soft: rgba(240, 233, 216, 0.16);
 
-  --font-display: 'Eloura Sans', 'Archivo', system-ui, -apple-system, sans-serif;
+  --font-display: 'Bowlby One', 'Archivo', system-ui, -apple-system, sans-serif;
   --font-label:   'Archivo', system-ui, -apple-system, sans-serif;
   --font-body:    'Inter', system-ui, -apple-system, sans-serif;
 
   --max-w: 1180px;
-  --gutter: clamp(20px, 4vw, 48px);
+  --gutter: clamp(28px, 5vw, 56px);
 }
 
 * { box-sizing: border-box; }
