@@ -201,18 +201,8 @@ function head({ title, description, slug, theme }) {
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;450;500;600&display=swap">
 <link rel="stylesheet" href="/style.css">
 <script>
-// Set color mode before paint to avoid flash. Reads localStorage first,
-// falls back to system preference. mode-ready class added after first
-// frame so the smooth transition only kicks in for user toggles.
-(function(){
-  var stored = localStorage.getItem('bom-mode');
-  var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-  var mode = stored || (prefersDark ? 'dark' : 'light');
-  document.documentElement.setAttribute('data-mode', mode);
-  requestAnimationFrame(function(){
-    document.documentElement.classList.add('mode-ready');
-  });
-})();
+// Dark mode only for now (light mode disabled until font issue is resolved).
+document.documentElement.setAttribute('data-mode', 'dark');
 </script>
 </head>
 <body${theme ? ` data-theme="${theme}"` : ''}>`;
@@ -240,10 +230,6 @@ function header({ activeSlug } = {}) {
       <div class="masthead-date">${esc(TODAY)}</div>
       <div class="masthead-controls">
         <span class="masthead-tagline">Made for the metro.</span>
-        <button class="mode-toggle" type="button" aria-label="Toggle light or dark mode" data-mode-toggle>
-          <span class="mode-toggle-dot"></span>
-          <span class="mode-toggle-label">Dark</span>
-        </button>
         <button class="nav-toggle" type="button" aria-label="Open menu" data-nav-toggle>
           <span class="nav-toggle-icon">☰</span>
           <span>Menu</span>
