@@ -992,6 +992,10 @@ function build() {
   writeFile('robots.txt', renderRobots());
   writeFile('favicon.svg', renderFavicon());
 
+  // GitHub Pages custom-domain marker. Tells GH Pages to serve at bestofmpls.com.
+  fs.writeFileSync(path.join(DIST, 'CNAME'), 'bestofmpls.com\n');
+  console.log(`  → CNAME (bestofmpls.com)`);
+
   console.log(`\n✓ Built to dist/\n`);
 }
 
