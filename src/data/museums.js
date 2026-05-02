@@ -11,6 +11,7 @@ module.exports = {
       style: 'Contemporary art, Beard-honored garden',
       description: 'One of the most important contemporary art museums in the country, sitting at the edge of downtown with the Sculpture Garden and Spoonbridge & Cherry across the way. Programming runs deep: dance, film, performance, lectures, and a permanent collection that reaches well beyond what you expect.',
       address: '725 Vineland Pl, Minneapolis',
+      website: 'https://walkerart.org',
       price: 'Pay what you can Thursdays'
     },
     {
@@ -19,6 +20,7 @@ module.exports = {
       style: 'Encyclopedic, free admission',
       description: 'An encyclopedic museum on the scale you usually have to fly to see. Ninety thousand objects spanning five thousand years of art and design. Free admission, a Japanese tea room, period rooms moved over from Europe, and one of the country’s great photography collections. A genuinely civic gift.',
       address: '2400 Third Ave S, Minneapolis',
+      website: 'https://new.artsmia.org',
       price: 'Free'
     },
     {

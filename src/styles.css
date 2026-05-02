@@ -271,6 +271,9 @@ p { margin: 0 0 1em; }
 .cluster {
   border-bottom: 1px solid var(--ink);
 }
+.cluster:nth-child(odd of .cluster) { background: var(--paper); }
+.cluster:nth-child(even of .cluster) { background: var(--paper-2); }
+/* Browsers without :nth-child(of) selector support fall back to plain bg, fine. */
 .cluster-head {
   padding: 64px var(--gutter) 32px;
 }
@@ -333,8 +336,10 @@ p { margin: 0 0 1em; }
 @media (max-width: 600px) {
   .cat-card { border-right: 0 !important; }
 }
-.cat-card:hover { background: var(--paper-2); }
+.cat-card { transform: translateY(0); transition: background 0.18s ease, transform 0.18s ease; }
+.cat-card:hover { background: var(--paper-3); transform: translateY(-2px); }
 .cat-card:hover .cat-card-title { color: var(--clay); }
+.cat-card:hover .cat-card-arrow { color: var(--ink); }
 .cat-card-eyebrow {
   font-family: var(--font-label);
   font-weight: 600;
@@ -764,6 +769,64 @@ body[data-theme="default"]  { --clay: #B0673A; }
   font-weight: 600;
   font-size: clamp(20px, 2.6vw, 32px);
   margin: 14px 0 22px;
+}
+
+/* ===== Neighborhood page ===== */
+.nb-section { border-bottom: 1px solid var(--ink); }
+.nb-section-head {
+  padding: 36px var(--gutter) 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.nb-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0;
+  border-top: 1px solid var(--rule-soft);
+}
+@media (max-width: 720px) {
+  .nb-list { grid-template-columns: 1fr; }
+}
+.nb-entry {
+  padding: 28px var(--gutter);
+  border-right: 1px solid var(--rule-soft);
+  border-bottom: 1px solid var(--rule-soft);
+  transition: background 0.18s ease;
+}
+.nb-entry:nth-child(2n) { border-right: 0; }
+.nb-entry:hover { background: var(--paper-2); }
+.nb-entry-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  font-family: var(--font-label);
+  font-weight: 500;
+  font-size: 11.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: 10px;
+}
+.nb-entry-name {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(20px, 2.2vw, 26px);
+  line-height: 1.1;
+  letter-spacing: -0.018em;
+  margin: 0 0 10px;
+}
+.nb-entry-description {
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--ink);
+  margin: 0 0 12px;
+}
+@media (max-width: 720px) {
+  .nb-entry { border-right: 0 !important; }
 }
 
 /* ===== Mode toggle (light/dark) ===== */

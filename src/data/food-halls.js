@@ -35,15 +35,6 @@ module.exports = {
       price: '$$'
     },
     {
-      name: 'Keg and Case Market',
-      neighborhood: 'West End, St. Paul',
-      style: 'Food hall + bar in old brewery',
-      description: 'A St. Paul food hall in the historic Schmidt Brewery complex on West Seventh. Multiple food vendors, a craft cocktail bar, an ice cream shop, and rotating retail. The brewery bones give the room a character no purpose-built food hall can replicate.',
-      address: '928 W 7th St, St. Paul',
-      website: 'https://www.kegandcase.com',
-      price: '$$'
-    },
-    {
       name: 'Malcolm Yards Market',
       neighborhood: 'Prospect Park, Minneapolis',
       style: 'Food hall in Prospect Park',

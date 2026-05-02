@@ -109,6 +109,55 @@ const esc = (s) => String(s == null ? '' : s)
   .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
   .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 
+// ---------- Neighborhood normalization ----------
+// Free-text neighborhood strings on entries get normalized to a canonical slug.
+// Each canonical neighborhood becomes a /neighborhoods/{slug}/ aggregator page
+// pulling every entry across all categories that lives there.
+const NEIGHBORHOODS = [
+  { slug: 'northeast-minneapolis', name: 'Northeast Minneapolis', short: 'Northeast', match: /(northeast|^ne |northrup king|columbia heights|st\.? anthony main|riverfront, northeast|mississippi riverfront)/i, intro: 'Old breweries turned taprooms, working artist studios, the densest concentration of independent restaurants and music venues in the metro. The most-talked-about Twin Cities neighborhood of the last decade and the easiest to spend a whole weekend in.' },
+  { slug: 'north-loop', name: 'North Loop, Minneapolis', short: 'North Loop', match: /(north loop|warehouse district|mill district)/i, intro: 'Warehouse-conversion restaurants, the city\'s densest run of designer-menswear shops, two destination breweries, and a riverfront that connects to the Stone Arch Bridge. The polished face of downtown Minneapolis.' },
+  { slug: 'downtown-minneapolis', name: 'Downtown Minneapolis', short: 'Downtown Mpls', match: /(downtown minneapolis|hennepin theatre|loring park|nicollet mall|lyn-lake)/i, intro: 'Hennepin Avenue theaters, the Foshay, the IDS Center, the Walker just to the west. A downtown still finding its shape, with some of the best music venues and hotels in the metro.' },
+  { slug: 'uptown-lyn-lake', name: 'Uptown & Lyn-Lake', short: 'Uptown / Lyn-Lake', match: /(lyn-lake|uptown|kingfield)/i, intro: 'The CC Club, Bryant Lake Bowl, Mortimer\'s, Khâluna, and a stretch of Lyndale Avenue that still anchors a lot of Minneapolis nightlife. Less polished than it was, more interesting in some ways.' },
+  { slug: 'whittier-eat-street', name: 'Whittier & Eat Street', short: 'Eat Street / Whittier', match: /(whittier|eat street|nicollet ave)/i, intro: 'The corridor of Nicollet Avenue south of downtown known as Eat Street, dense with restaurants from a dozen cuisines, plus the Black Forest Inn, the new Eat Street Crossing food hall, and Luna & The Bear.' },
+  { slug: 'linden-hills', name: 'Linden Hills, Minneapolis', short: 'Linden Hills', match: /(linden hills|armatage|field, minneapolis)/i, intro: 'A Southwest Minneapolis neighborhood with a tight Main-Street feel: Wild Rumpus, Birchbark Books, Sebastian Joe\'s, Saint Genevieve, Tilia, Martina. Walk the whole thing in 20 minutes and find a reason to come back.' },
+  { slug: 'south-minneapolis', name: 'South Minneapolis', short: 'South Mpls', match: /(longfellow|seward|powderhorn|standish|south minneapolis|cedar avenue, minneapolis|lake street, minneapolis)/i, intro: 'Lake Street, Powderhorn Park, the Mississippi gorge, the Juicy Lucy origin bars on Cedar. The neighborhoods that cover the largest and most diverse stretch of the city.' },
+  { slug: 'southwest-minneapolis', name: 'Southwest Minneapolis', short: 'Southwest Mpls', match: /(bde maka ska|lake harriet|kenwood|southwest minneapolis)/i, intro: 'The Chain of Lakes neighborhoods. Bde Maka Ska, Lake of the Isles, Lake Harriet. Beach, bike paths, the Como-Harriet Streetcar, and one of the best Saturday-afternoon walks in any American city.' },
+  { slug: 'downtown-st-paul', name: 'Downtown St. Paul', short: 'Downtown St. Paul', match: /(downtown st\.? paul|lowertown|landmark center)/i, intro: 'Lowertown\'s warehouse district, the Saint Paul Hotel, Mickey\'s Diner, Mears Park, the Palace Theatre. A downtown that still feels lived-in.' },
+  { slug: 'cathedral-hill', name: 'Cathedral Hill, St. Paul', short: 'Cathedral Hill', match: /(cathedral hill)/i, intro: 'The St. Paul neighborhood under the cathedral. Idun, Hyacinth, Nina\'s Coffee Cafe, all on Selby and Western. A favorite if you want to feel like you took a small vacation without leaving the metro.' },
+  { slug: 'west-seventh', name: 'West Seventh, St. Paul', short: 'West Seventh', match: /(west seventh|west 7th|w 7th|west end, st\.? paul|west end)/i, intro: 'St. Paul\'s long West Seventh corridor. Cossetta\'s, Cafe Astoria, Mucci\'s, plus the historic Schmidt Brewery complex.' },
+  { slug: 'macalester-groveland', name: 'Macalester-Groveland & Highland, St. Paul', short: 'Mac-Groveland', match: /(macalester|highland park|grand avenue|grand ave|randolph)/i, intro: 'St. Paul\'s walkable south-of-Summit neighborhoods. The Nook, Quixotic Coffee, Boludo, and the kind of streets that make people seriously consider moving across the river.' },
+  { slug: 'como-st-paul', name: 'Como & Midway, St. Paul', short: 'Como / Midway', match: /(como, st\.? paul|como park|midway, st\.? paul|hamline|snelling avenue|university avenue, st\.? paul|vandalia)/i, intro: 'A long stretch of St. Paul running from the Como Conservatory through the Midway. Fasika Ethiopian, the Turf Club, the Half Time Rec, Ax-Man Surplus, Lake Monster Brewing.' },
+  { slug: 'west-side-st-paul', name: 'West Side, St. Paul', short: 'West Side', match: /(west side, st\.? paul|west side$)/i, intro: 'The St. Paul Latino-anchored neighborhood across the river from downtown. El Burrito Mercado, Boca Chica, Panaderia La Nopalera. The most tightly-knit immigrant-built neighborhood in either city.' },
+  { slug: 'st-paul-other', name: 'St. Paul (other neighborhoods)', short: 'St. Paul', match: /(st\.? paul|saint paul|payne|east side)/i, intro: 'The rest of St. Paul, including the East Side, Payne-Phalen, and other neighborhoods that did not slot neatly elsewhere on this site.' },
+  { slug: 'west-metro', name: 'West Metro (Edina, Wayzata, Excelsior)', short: 'West Metro', match: /(edina|wayzata|excelsior|spring park|minnetonka|st\.? louis park|robbinsdale|hopkins|brooklyn park|eden prairie|plymouth)/i, intro: 'The west-metro suburbs ringing Lake Minnetonka. Cumin, Hello Pizza, the Hotel Landing, Bawarchi Biryanis. Worth the drive when you want a different pace.' }
+];
+
+function normalizeNeighborhood(n) {
+  if (!n) return null;
+  const s = String(n).toLowerCase();
+  for (const nb of NEIGHBORHOODS) {
+    if (nb.match.test(s)) return nb.slug;
+  }
+  return null;
+}
+
+// Build a neighborhood → entries map after categories are loaded.
+function buildNeighborhoodIndex() {
+  const index = {};
+  for (const nb of NEIGHBORHOODS) index[nb.slug] = { ...nb, entries: [] };
+  for (const c of categories) {
+    if (c.layout === 'seasonal') continue; // skip festivals
+    for (const e of c.entries) {
+      const slug = normalizeNeighborhood(e.neighborhood);
+      if (slug && index[slug]) index[slug].entries.push({ category: c, entry: e });
+    }
+  }
+  // Sort by entry count desc so the densest neighborhoods lead the index page
+  return Object.values(index)
+    .filter(nb => nb.entries.length > 0)
+    .sort((a, b) => b.entries.length - a.entries.length);
+}
+
 const ensureDir = (p) => fs.mkdirSync(p, { recursive: true });
 const writeFile = (rel, content) => {
   const out = path.join(DIST, rel);
@@ -169,6 +218,7 @@ function header({ activeSlug } = {}) {
     { href: '/#drink', label: 'Drink' },
     { href: '/#shop', label: 'Shop' },
     { href: '/#visit', label: 'For Visitors' },
+    { href: '/neighborhoods/', label: 'Neighborhoods', slug: 'neighborhoods' },
     { href: '/festivals/', label: 'Festivals', slug: 'festivals' },
     { href: '/contribute/', label: 'Send a Tip', slug: 'contribute' }
   ];
@@ -532,6 +582,86 @@ function renderAbout() {
     footer();
 }
 
+function renderNeighborhoodIndex(neighborhoods) {
+  const title = 'Neighborhoods';
+  const description = 'Browse the Twin Cities by neighborhood. Every entry on the site mapped to where it lives.';
+  return head({ title, description, slug: 'neighborhoods', theme: 'default' }) +
+    header({ activeSlug: 'neighborhoods' }) +
+    `<section class="section-head">
+      <div class="wrap">
+        <div class="section-eyebrow">${neighborhoods.length} neighborhoods</div>
+        <h1 class="section-title">By <em>neighborhood</em></h1>
+        <p class="section-deck">Every entry on the site, sorted by where it actually lives. Useful when you are trying to plan a single afternoon, or when a friend says "I am staying in the North Loop, where do I go?"</p>
+      </div>
+    </section>
+    <section class="entry-list">
+      ${neighborhoods.map((nb, i) => `
+        <article class="entry${i === 0 ? ' entry--featured' : ''}">
+          <div class="entry-rank">${i === 0 ? '★' : String(i + 1).padStart(2, '0')}</div>
+          <div class="entry-body">
+            <div class="entry-meta">
+              <span>${nb.entries.length} places listed</span>
+              ${i === 0 ? '<span class="entry-meta-pick">Most-listed neighborhood</span>' : ''}
+            </div>
+            <h2 class="entry-name"><a href="/neighborhoods/${nb.slug}/">${esc(nb.name)} →</a></h2>
+            <p class="entry-description">${esc(nb.intro)}</p>
+          </div>
+        </article>
+      `).join('')}
+    </section>` +
+    footer();
+}
+
+function renderNeighborhoodPage(nb) {
+  const title = `${nb.name} guide`;
+  const description = `Every place on bestofmpls in ${nb.name}, from food to music to shops.`;
+
+  // Group this neighborhood's entries by category for clean section breaks
+  const byCategory = {};
+  for (const item of nb.entries) {
+    const k = item.category.slug;
+    byCategory[k] = byCategory[k] || { category: item.category, items: [] };
+    byCategory[k].items.push(item.entry);
+  }
+  const sections = Object.values(byCategory).map(group => `
+    <section class="nb-section">
+      <div class="wrap nb-section-head">
+        <div class="cluster-eyebrow">${esc(group.category.title)} · ${group.items.length}</div>
+        <a class="cat-card-arrow" href="/${group.category.slug}/">See full list →</a>
+      </div>
+      <div class="nb-list">
+        ${group.items.map(e => `
+          <article class="nb-entry">
+            <div class="nb-entry-meta">
+              ${e.style ? `<span class="entry-meta-style">${esc(e.style)}</span>` : ''}
+              ${e.price ? `<span class="entry-footer-price">${esc(e.price)}</span>` : ''}
+            </div>
+            <h3 class="nb-entry-name">${esc(e.name)}</h3>
+            <p class="nb-entry-description">${esc(e.description)}</p>
+            <div class="entry-footer">
+              ${e.address ? `<span>${esc(e.address)}</span>` : ''}
+              ${e.website ? `<a class="entry-website" href="${esc(e.website)}" target="_blank" rel="noopener">${esc(e.website.replace(/^https?:\/\//, '').replace(/\/$/, ''))} →</a>` : ''}
+            </div>
+          </article>
+        `).join('')}
+      </div>
+    </section>
+  `).join('');
+
+  return head({ title, description, slug: `neighborhoods/${nb.slug}`, theme: 'default' }) +
+    header({}) +
+    `<section class="section-head">
+      <div class="wrap">
+        <div class="section-eyebrow">Neighborhood guide · ${nb.entries.length} places</div>
+        <h1 class="section-title">${esc(nb.name)}</h1>
+        <p class="section-deck">${esc(nb.intro)}</p>
+        <p style="margin-top: 16px; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-soft);"><a href="/neighborhoods/" style="color: var(--clay); border-bottom: 1px solid var(--clay);">← All neighborhoods</a></p>
+      </div>
+    </section>
+    ${sections}` +
+    footer();
+}
+
 function renderContribute() {
   const title = 'Send us a tip';
   const description = 'Submit a place, a correction, or a tip for bestofmpls.';
@@ -582,11 +712,14 @@ function render404() {
     footer();
 }
 
-function renderSitemap() {
+function renderSitemap(neighborhoods) {
   const urls = [
     { loc: SITE + '/', priority: '1.0' },
     { loc: SITE + '/about/', priority: '0.6' },
-    ...categories.map(c => ({ loc: `${SITE}/${c.slug}/`, priority: '0.9' }))
+    { loc: SITE + '/contribute/', priority: '0.5' },
+    { loc: SITE + '/neighborhoods/', priority: '0.8' },
+    ...categories.map(c => ({ loc: `${SITE}/${c.slug}/`, priority: '0.9' })),
+    ...(neighborhoods || []).map(nb => ({ loc: `${SITE}/neighborhoods/${nb.slug}/`, priority: '0.8' }))
   ];
   return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -622,10 +755,15 @@ function build() {
 
   writeFile('index.html', renderHome());
   for (const c of categories) writeFile(`${c.slug}/index.html`, renderCategory(c));
+  // Neighborhood pages
+  const neighborhoods = buildNeighborhoodIndex();
+  writeFile('neighborhoods/index.html', renderNeighborhoodIndex(neighborhoods));
+  for (const nb of neighborhoods) writeFile(`neighborhoods/${nb.slug}/index.html`, renderNeighborhoodPage(nb));
+
   writeFile('about/index.html', renderAbout());
   writeFile('contribute/index.html', renderContribute());
   writeFile('404.html', render404());
-  writeFile('sitemap.xml', renderSitemap());
+  writeFile('sitemap.xml', renderSitemap(neighborhoods));
   writeFile('robots.txt', renderRobots());
   writeFile('favicon.svg', renderFavicon());
 

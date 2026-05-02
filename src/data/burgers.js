@@ -8,27 +8,39 @@ module.exports = {
   entries: [
     {
       name: 'Matt’s Bar',
-      neighborhood: 'South Minneapolis',
-      style: 'The Juicy Lucy origin claim',
-      description: 'Open since 1954 on Cedar Avenue. Matt’s claims to have invented the Juicy Lucy and refuses to spell it any other way. The burger comes out molten in the middle and you will burn your mouth on the first bite. That is the experience. Cash only.',
-      address: 'Cedar Avenue, Minneapolis',
+      neighborhood: 'Standish, Minneapolis',
+      style: 'The Jucy Lucy origin claim (since 1954)',
+      description: 'Matt’s opened on Cedar Avenue in 1954 and claims to have invented the Jucy Lucy (their spelling, no "i"). The burger comes out molten in the middle and you will burn your mouth on the first bite. That is the experience. Cash only, no reservations, expect a wait.',
+      address: '3500 Cedar Ave S, Minneapolis',
+      website: 'https://mattsbar.com',
       price: '$'
     },
     {
       name: '5-8 Club',
-      neighborhood: 'South Minneapolis',
-      style: 'The Jucy Lucy origin claim',
-      description: 'The other origin claimant, a few blocks north of Matt’s on Cedar. Spells it "Jucy Lucy" without the i. Loyal customers say theirs is bigger and better. The argument has been running since the 1970s and shows no signs of resolving. Pick a side.',
-      address: 'Cedar Avenue, Minneapolis',
+      neighborhood: 'Multiple Twin Cities locations',
+      style: 'The other Juicy Lucy origin claim (since 1928)',
+      description: 'The other Juicy Lucy origin claimant. Open since 1928 with multiple metro locations. Their Juicy Lucy comes with your choice of four cheeses (American, blue, pepper jack, Swiss) and Time Magazine has named it one of the most influential burgers of all time. Pick a side in the Matt’s vs 5-8 debate.',
+      address: '5800 Cedar Ave S, Minneapolis (and others)',
+      website: 'https://www.5-8club.com',
       price: '$'
     },
     {
       name: 'The Nook',
-      neighborhood: 'Randolph, St. Paul',
+      neighborhood: 'Macalester-Groveland, St. Paul',
       style: 'St. Paul’s answer',
-      description: 'The Nook’s "Nookie Burger" is St. Paul’s contribution to the Juicy Lucy lineage and arguably the best of all of them. Bonus: the Nook also has a basement bowling alley. Order the burger, get a beer, roll a few games. A perfect Twin Cities night out.',
-      address: 'Randolph, St. Paul',
+      description: 'The Nook opened in 2000 and the "Nookie Burger" is now frequently in the top of every Juicy Lucy ranking written about the metro. Bonus: there is a basement bowling alley with paper-and-pencil scoring. Order the burger, get a beer, roll a few games. A perfect Twin Cities night.',
+      address: '492 Hamline Ave S, St. Paul',
+      website: 'https://www.crnook.com',
       price: '$'
+    },
+    {
+      name: 'Buster’s on 28th',
+      neighborhood: 'Longfellow, Minneapolis',
+      style: 'Beer-bar gastropub, neighborhood favorite',
+      description: 'A South Minneapolis gastropub with one of the deepest craft-beer lists in the metro and a burger that locals defend with serious energy. The yardstick onion rings are famous in their own right. The neighborhood rallied to fund the rebuild after a 2013 fire, which tells you what kind of place it is.',
+      address: '4204 28th Ave S, Minneapolis',
+      website: 'https://www.busterson28th.com',
+      price: '$$'
     },
     {
       name: 'Blue Door Pub',
