@@ -1,31 +1,31 @@
 module.exports = {
   slug: 'best-pizza',
-  title: 'Best Pizza in the Twin Cities',
-  subtitle: 'Wood-fired, coal-fired, Detroit-style, Neapolitan. Twelve places worth crossing town for.',
-  intro: 'Pizza in the Twin Cities used to be an afterthought, a thing you defaulted to when nothing else was open. Not anymore. Two James Beard winners, a coal oven imported from Italy, and at least one Detroit-style square that would make Buddy’s nervous — we’ve got an embarrassment of pies.',
-  hero_color: 'crimson',
+  title: 'Pizza',
+  subtitle: 'Twelve places worth crossing town for.',
+  intro: 'The Twin Cities went from pizza-as-an-afterthought to a real pizza town in about a decade. Wood-fired, coal-fired, Detroit-style, Neapolitan, and a couple of by-the-slice operations that actually fold the way they should. Here is where we go.',
+  hero_color: 'clay',
   entries: [
     {
       name: 'Pizzeria Lola',
       neighborhood: 'Armatage, Minneapolis',
-      style: 'Wood-fired, James Beard-honored',
-      description: 'Ann Kim’s original pizzeria and still the gold standard. The Lady ZaZa with its kimchi and serrano-spiked tomato sauce is the dish that put Twin Cities pizza on the national map. The wood-fired crust hits that exact spot between crisp and chew. Reservations are a mythology unto themselves.',
+      style: 'Wood-fired',
+      description: 'Ann Kim opened Lola in 2010 and it still feels like the place that changed what people expected from pizza here. The Lady ZaZa, with kimchi and serrano-spiked tomato sauce, is the one to order. Reservations open a month ahead and tend to vanish by the weekend.',
       address: '5557 Xerxes Ave S, Minneapolis',
       price: '$$'
     },
     {
       name: 'Young Joni',
       neighborhood: 'Northeast Minneapolis',
-      style: 'Wood-fired, Korean-Italian crossover',
-      description: 'Ann Kim’s Beard-winning followup and arguably the most exciting room in the metro. The pizza is half the story — the rotating menu of Korean-American dishes is the other half. Ask about the back bar.',
+      style: 'Wood-fired, Korean-Italian',
+      description: 'Ann Kim’s second restaurant is half pizzeria, half rotating Korean-American kitchen. Both halves are good. Ask the host about the back bar and try not to make a face when they tell you about the password.',
       address: '165 13th Ave NE, Minneapolis',
       price: '$$$'
     },
     {
       name: 'Black Sheep Coal-Fired Pizza',
       neighborhood: 'Three locations',
-      style: 'Coal-fired, New Haven-leaning',
-      description: 'The crust gets that distinctive coal-oven char that no wood fire can replicate. The Italian sausage and roasted peppers is the move. North Loop is the original; Eat Street and St. Paul are equally on point.',
+      style: 'Coal-fired',
+      description: 'The coal oven gets a char on the crust that wood ovens cannot quite reach. The Italian sausage with roasted red peppers is the move. The North Loop room is the original. Eat Street and St. Paul are equally good.',
       address: '600 Washington Ave N, Minneapolis (and others)',
       price: '$$'
     },
@@ -33,7 +33,7 @@ module.exports = {
       name: 'Punch Pizza',
       neighborhood: 'Multiple locations',
       style: 'Neapolitan, VPN-certified',
-      description: 'The chain we’d defend in court. Imported flour, San Marzano tomatoes, a wood oven that hits 800°F, and a pie that’s out of the oven in ninety seconds. The Toto on a slow Tuesday is one of the city’s great cheap dinners.',
+      description: 'A local chain that takes the rules seriously. Imported flour, San Marzano tomatoes, an oven that hits 800°F, ninety seconds from peel to plate. The Toto on a quiet weeknight is one of the best cheap dinners in the city.',
       address: 'Various Twin Cities locations',
       price: '$$'
     },
@@ -41,7 +41,7 @@ module.exports = {
       name: 'Wrecktangle Pizza',
       neighborhood: 'Northrup King Building, Northeast',
       style: 'Detroit-style square',
-      description: 'The Detroit revival came late to the Cities and Wrecktangle was worth the wait. Crispy-fried cheese edges, airy interior, sauce on top. The Hot Honey is a top-three slice in the metro.',
+      description: 'A tucked-away spot in the Northrup King Building doing genuine Detroit-style squares. Crispy fried-cheese edges, airy interior, sauce ladled on after. The Hot Honey is worth the trip.',
       address: '1500 Jackson St NE, Minneapolis',
       price: '$$'
     },
@@ -49,7 +49,7 @@ module.exports = {
       name: 'Cossetta’s',
       neighborhood: 'West Seventh, St. Paul',
       style: 'Old-school Italian-American',
-      description: 'A St. Paul institution since 1911. The cafeteria-style slices are massive, the sauce is unapologetically sweet, and the whole place smells like a thousand Sunday dinners. A nostalgia trip even if you’ve never been.',
+      description: 'A St. Paul institution that has been on West Seventh since 1911. The cafeteria-style slices are big and a little sweet and exactly the right thing on a winter Saturday. The market upstairs is a separate small joy.',
       address: '211 W 7th St, St. Paul',
       price: '$'
     },
@@ -57,47 +57,47 @@ module.exports = {
       name: 'Boludo',
       neighborhood: 'Macalester-Groveland, St. Paul',
       style: 'Argentinian',
-      description: 'The closest thing the Twin Cities has to Buenos Aires pizza — chewy crust, generous cheese, and empanadas you should absolutely order alongside. The fugazzeta with its mountain of onions is unlike anything else in town.',
+      description: 'Argentinian-style pizza, which means a thicker, chewier crust and a generous hand with the cheese. Order the fugazzeta if you have not had one. Add empanadas to round it out.',
       address: '345 Snelling Ave S, St. Paul',
       price: '$$'
     },
     {
       name: 'Pig Ate My Pizza',
       neighborhood: 'Robbinsdale',
-      style: 'Wood-fired, gleefully unhinged',
-      description: 'The brewery-attached pizzeria where the pies have names like the Smoking Goat and the menu changes on a whim. The crust crackles, the toppings are heaped on, and the beer pairings are dialed.',
+      style: 'Wood-fired, brewery-attached',
+      description: 'A pizzeria attached to a brewery, with a menu that changes when the kitchen feels like changing it. Names like the Smoking Goat. Beer pairings that actually fit. A short drive from Minneapolis-proper that always feels worth it.',
       address: '4154 W Broadway Ave, Robbinsdale',
       price: '$$'
     },
     {
       name: 'Red Wagon Pizza Company',
       neighborhood: 'Linden Hills, Minneapolis',
-      style: 'Neighborhood classic',
-      description: 'A Linden Hills cornerstone that nails the family-restaurant-and-actually-good-pizza combo. The Bacon Cheeseburger pie sounds like a gimmick and tastes like the platonic ideal of bad-decision pizza.',
+      style: 'Neighborhood',
+      description: 'A small Linden Hills room that nails the family-restaurant register without ever feeling phoned in. The Bacon Cheeseburger pie reads like a gimmick and tastes like the kind of thing you order on the way home from a long week.',
       address: '5416 Penn Ave S, Minneapolis',
       price: '$$'
     },
     {
       name: 'Element Pizza',
       neighborhood: 'Lowertown, St. Paul',
-      style: 'By the slice, late-night',
-      description: 'The slice spot St. Paul didn’t know it needed. Open until you’re in trouble, with a roster of square-cut slices that rotate constantly. The closest thing the metro has to a real New York-style slice operation.',
+      style: 'By the slice',
+      description: 'The closest the Twin Cities gets to a real New York-style slice operation. A rotating roster of square cuts, open late, ten minutes from a Saints game.',
       address: '180 E 5th St, St. Paul',
       price: '$'
     },
     {
       name: 'Andrea Pizza',
       neighborhood: 'Skyway, downtown St. Paul',
-      style: 'Skyway slice institution',
-      description: 'Tucked in the St. Paul skyway, Andrea’s has been quietly serving some of the city’s best slices for decades. The pepperoni curls into little grease cups exactly like it’s supposed to. A lunch ritual for half the downtown workforce.',
+      style: 'Skyway slice',
+      description: 'In the St. Paul skyway, quietly serving slices to half the downtown workforce for decades. The pepperoni curls into little grease cups exactly like it should. A ritual for the people who eat there every week.',
       address: '345 St Peter St, St. Paul',
       price: '$'
     },
     {
       name: 'Hello Pizza',
       neighborhood: 'Edina',
-      style: 'New York-style, Ann Kim',
-      description: 'Ann Kim’s third concept and a love letter to the New York slice. The crust pulls and folds like it’s supposed to, the cheese pulls forever, and the corner slices are worth fighting over.',
+      style: 'New York-style',
+      description: 'Ann Kim’s third concept, this time built around the New York slice. The crust folds, the cheese pulls, the corner pieces are worth fighting your friends for.',
       address: '3904 Sunnyside Rd, Edina',
       price: '$'
     }

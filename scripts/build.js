@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * bestofmpls — static site generator
+ * bestofmpls static site generator
  *
  * Reads src/data/*.js and src/styles.css.
  * Writes dist/index.html, dist/{slug}/index.html for each category,
@@ -21,12 +21,87 @@ const TODAY = new Date().toLocaleDateString('en-US', {
 });
 
 // ---------- Load all category data ----------
+const museums      = require(path.join(SRC, 'data/museums.js'));
+const liveMusic    = require(path.join(SRC, 'data/live-music.js'));
+const theaters     = require(path.join(SRC, 'data/theaters.js'));
+const coffee       = require(path.join(SRC, 'data/coffee.js'));
+const sandwiches   = require(path.join(SRC, 'data/sandwiches.js'));
+const pizza        = require(path.join(SRC, 'data/pizza.js'));
+const brunch       = require(path.join(SRC, 'data/brunch.js'));
+const diveBars     = require(path.join(SRC, 'data/dive-bars.js'));
+const patios       = require(path.join(SRC, 'data/patios.js'));
+const happyHours   = require(path.join(SRC, 'data/happy-hours.js'));
+const mexican      = require(path.join(SRC, 'data/mexican.js'));
+const bakeries     = require(path.join(SRC, 'data/bakeries.js'));
+const hmong        = require(path.join(SRC, 'data/hmong.js'));
+const ethiopian    = require(path.join(SRC, 'data/ethiopian.js'));
+const indian       = require(path.join(SRC, 'data/indian.js'));
+const burgers      = require(path.join(SRC, 'data/burgers.js'));
+const cocktailBars = require(path.join(SRC, 'data/cocktail-bars.js'));
+const breweries    = require(path.join(SRC, 'data/breweries.js'));
+const cinemas      = require(path.join(SRC, 'data/cinemas.js'));
+const lgbtq        = require(path.join(SRC, 'data/lgbtq.js'));
+const wellness     = require(path.join(SRC, 'data/wellness.js'));
+const dispensaries = require(path.join(SRC, 'data/dispensaries.js'));
+const restaurants  = require(path.join(SRC, 'data/restaurants.js'));
+const foodHalls    = require(path.join(SRC, 'data/food-halls.js'));
+const shops        = require(path.join(SRC, 'data/shops.js'));
+const mensClothing = require(path.join(SRC, 'data/mens-clothing.js'));
+const womensClothing = require(path.join(SRC, 'data/womens-clothing.js'));
+const hotels       = require(path.join(SRC, 'data/hotels.js'));
+const outdoors     = require(path.join(SRC, 'data/outdoors.js'));
+const hiddenGems   = require(path.join(SRC, 'data/hidden-gems.js'));
+const festivals    = require(path.join(SRC, 'data/festivals.js'));
+
+// Editorial clusters drive the homepage layout. With 28 categories, the
+// homepage now reads like a real city magazine: Culture, Eat, Drink, Shop,
+// Stay & Do, plus the dark calendar feature for Festivals.
+const clusters = [
+  {
+    eyebrow: 'See & Experience',
+    title: 'Culture',
+    deck: 'The institutions, stages, screens, and rooms that make this a city worth living in.',
+    categories: [museums, liveMusic, theaters, cinemas, lgbtq]
+  },
+  {
+    eyebrow: 'Eat',
+    title: 'Where to eat',
+    deck: 'A real food town in ten directions at once. Restaurants worth a reservation, sandwiches, tacos, biryani, sourdough, doro wat, brunch on a slow Sunday, and the burger Minneapolis invented.',
+    categories: [restaurants, foodHalls, coffee, bakeries, sandwiches, burgers, pizza, brunch, mexican, hmong, ethiopian, indian]
+  },
+  {
+    eyebrow: 'Drink',
+    title: 'Where to drink',
+    deck: 'Cocktail bars, breweries, neighborhood bars, summer patios, and the happy hours we plan around.',
+    categories: [cocktailBars, breweries, diveBars, patios, happyHours]
+  },
+  {
+    eyebrow: 'Shop',
+    title: 'Where to spend money',
+    deck: 'The independent shops where the buying has a point of view and the people who run them are usually behind the counter.',
+    categories: [shops, mensClothing, womensClothing, dispensaries]
+  },
+  {
+    eyebrow: 'Stay & Do',
+    title: 'For visitors',
+    deck: 'Where to sleep, what to do with a day, and the places people who live here take guests when they arrive.',
+    categories: [hotels, outdoors, wellness, hiddenGems]
+  }
+];
+
 const categories = [
-  require(path.join(SRC, 'data/pizza.js')),
-  require(path.join(SRC, 'data/dive-bars.js')),
-  require(path.join(SRC, 'data/brunch.js')),
-  require(path.join(SRC, 'data/patios.js')),
-  require(path.join(SRC, 'data/happy-hours.js'))
+  // Culture
+  museums, liveMusic, theaters, cinemas, lgbtq,
+  // Eat
+  restaurants, foodHalls, coffee, bakeries, sandwiches, burgers, pizza, brunch, mexican, hmong, ethiopian, indian,
+  // Drink
+  cocktailBars, breweries, diveBars, patios, happyHours,
+  // Shop
+  shops, mensClothing, womensClothing, dispensaries,
+  // Stay & Do
+  hotels, outdoors, wellness, hiddenGems,
+  // Calendar
+  festivals
 ];
 
 // ---------- Helpers ----------
@@ -50,50 +125,71 @@ function head({ title, description, slug, theme }) {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>${esc(title)} — bestofmpls</title>
+<title>${esc(title)} · bestofmpls</title>
 <meta name="description" content="${esc(description)}">
 <link rel="canonical" href="${url}">
 
-<!-- Open Graph -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="${url}">
-<meta property="og:title" content="${esc(title)} — bestofmpls">
+<meta property="og:title" content="${esc(title)} · bestofmpls">
 <meta property="og:description" content="${esc(description)}">
 <meta property="og:site_name" content="bestofmpls">
 
-<!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="${esc(title)} — bestofmpls">
+<meta name="twitter:title" content="${esc(title)} · bestofmpls">
 <meta name="twitter:description" content="${esc(description)}">
 
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="stylesheet" href="/styles.css">
+<script>
+// Set color mode before paint to avoid flash. Reads localStorage first,
+// falls back to system preference. mode-ready class added after first
+// frame so the smooth transition only kicks in for user toggles.
+(function(){
+  var stored = localStorage.getItem('bom-mode');
+  var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  var mode = stored || (prefersDark ? 'dark' : 'light');
+  document.documentElement.setAttribute('data-mode', mode);
+  requestAnimationFrame(function(){
+    document.documentElement.classList.add('mode-ready');
+  });
+})();
+</script>
 </head>
 <body${theme ? ` data-theme="${theme}"` : ''}>`;
 }
 
 function header({ activeSlug } = {}) {
+  // Top nav uses cluster names, not all 12 categories. Cleaner look,
+  // and the cluster names anchor to the homepage section.
   const navItems = [
     { href: '/', label: 'Cover', slug: '' },
-    ...categories.map(c => ({
-      href: `/${c.slug}/`,
-      label: c.title.replace(/^Best /, '').replace(/ in.*/, '').replace(/ for.*/, ''),
-      slug: c.slug
-    })),
-    { href: '/about/', label: 'About', slug: 'about' }
+    { href: '/#culture', label: 'Culture' },
+    { href: '/#eat', label: 'Eat' },
+    { href: '/#drink', label: 'Drink' },
+    { href: '/#shop', label: 'Shop' },
+    { href: '/#visit', label: 'For Visitors' },
+    { href: '/festivals/', label: 'Festivals', slug: 'festivals' },
+    { href: '/contribute/', label: 'Send a Tip', slug: 'contribute' }
   ];
   return `<header class="site-header">
   <div class="wrap">
     <div class="masthead">
-      <div class="masthead-date">${esc(TODAY)} · Twin Cities Edition</div>
-      <div class="masthead-tagline">The Twin Cities, curated.</div>
+      <div class="masthead-date">${esc(TODAY)}</div>
+      <div class="masthead-controls">
+        <span class="masthead-tagline">Made for the metro.</span>
+        <button class="mode-toggle" type="button" aria-label="Toggle light or dark mode" data-mode-toggle>
+          <span class="mode-toggle-dot"></span>
+          <span class="mode-toggle-label">Dark</span>
+        </button>
+      </div>
     </div>
     <a href="/" class="logo">bestofmpls<span class="dot">.</span></a>
   </div>
   <nav class="primary-nav">
     <div class="wrap">
       <div class="primary-nav-inner">
-        ${navItems.map(n => `<a href="${n.href}"${activeSlug === n.slug ? ' class="active"' : ''}>${esc(n.label)}</a>`).join('')}
+        ${navItems.map(n => `<a href="${n.href}"${activeSlug && n.slug === activeSlug ? ' class="active"' : ''}>${esc(n.label)}</a>`).join('')}
       </div>
     </div>
   </nav>
@@ -106,86 +202,181 @@ function footer() {
     <div class="footer-grid">
       <div>
         <div class="footer-brand">bestofmpls<span class="dot">.</span></div>
-        <p class="footer-tag">An independent guide to the best of Minneapolis, St. Paul, and the metro that surrounds them. Written by people who actually live here.</p>
+        <p class="footer-tag">A guide to the museums, music, food, and small good things of Minneapolis and Saint Paul. Made for the metro by the people who live here.</p>
+        <div class="footer-newsletter">
+          <p class="footer-list-title">Get the weekly</p>
+          <form class="footer-newsletter-form" action="https://formspree.io/f/REPLACE_WITH_FORM_ID" method="POST">
+            <input type="email" name="email" placeholder="you@example.com" required aria-label="Email address">
+            <button type="submit">Subscribe</button>
+          </form>
+        </div>
       </div>
       <div>
         <p class="footer-list-title">Categories</p>
         <ul class="footer-list">
-          ${categories.map(c => `<li><a href="/${c.slug}/">${esc(c.title.replace(/^Best /, ''))}</a></li>`).join('')}
+          ${categories.map(c => `<li><a href="/${c.slug}/">${esc(c.title)}</a></li>`).join('')}
         </ul>
       </div>
       <div>
         <p class="footer-list-title">More</p>
         <ul class="footer-list">
           <li><a href="/about/">About</a></li>
+          <li><a href="/contribute/">Send us a tip</a></li>
           <li><a href="mailto:hello@bestofmpls.com">Contact</a></li>
         </ul>
       </div>
     </div>
     <div class="colophon">
-      <span>© ${new Date().getFullYear()} bestofmpls — All rights reserved</span>
+      <span>© ${new Date().getFullYear()} bestofmpls. All rights reserved.</span>
       <span>Made in Minneapolis</span>
     </div>
   </div>
 </footer>
+<script>
+// Mode toggle: flip data-mode on <html>, persist to localStorage, update label.
+(function(){
+  var btn = document.querySelector('[data-mode-toggle]');
+  if (!btn) return;
+  var label = btn.querySelector('.mode-toggle-label');
+  function syncLabel(){
+    var mode = document.documentElement.getAttribute('data-mode');
+    if (label) label.textContent = mode === 'dark' ? 'Light' : 'Dark';
+  }
+  syncLabel();
+  btn.addEventListener('click', function(){
+    var current = document.documentElement.getAttribute('data-mode');
+    var next = current === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-mode', next);
+    localStorage.setItem('bom-mode', next);
+    syncLabel();
+  });
+})();
+
+// Scroll-fade for cards and entries via IntersectionObserver. Lightweight.
+(function(){
+  if (!('IntersectionObserver' in window)) return;
+  var targets = document.querySelectorAll('.cat-card, .entry, .festival-entry, .calendar-feature-item');
+  targets.forEach(function(el){ el.classList.add('fade-in'); });
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-in-view');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { rootMargin: '0px 0px -10% 0px', threshold: 0.05 });
+  targets.forEach(function(el){ io.observe(el); });
+})();
+</script>
 </body>
 </html>`;
 }
 
 // ---------- Pages ----------
 function renderHome() {
-  const title = 'bestofmpls — The Twin Cities, curated';
-  const description = 'An independent guide to the best restaurants, bars, patios, and brunch in Minneapolis & St. Paul.';
-  return head({ title, description, slug: '', theme: 'crimson' }) +
+  const title = 'bestofmpls. Minneapolis & Saint Paul.';
+  const description = 'A locally written guide to the museums, music, theaters, coffee shops, sandwiches, restaurants, bars, hotels, and festivals of Minneapolis and Saint Paul.';
+
+  // Cluster sections: each cluster gets its own editorial header + grid of cards
+  const clusterAnchors = ['culture', 'eat', 'drink', 'shop', 'visit'];
+  const clusterSections = clusters.map((cluster, idx) => {
+    // 1-2 categories use 2-column layout. 3+ use 3-column.
+    const gridClass = cluster.categories.length <= 2 ? 'cluster-grid cluster-grid--2' : 'cluster-grid';
+    return `
+    <section class="cluster" id="${clusterAnchors[idx]}">
+      <div class="wrap cluster-head">
+        <div class="cluster-eyebrow">${esc(cluster.eyebrow)}</div>
+        <h2 class="cluster-title">${esc(cluster.title)}</h2>
+        <p class="cluster-deck">${esc(cluster.deck)}</p>
+      </div>
+      <div class="${gridClass}">
+        ${cluster.categories.map(c => `
+          <a class="cat-card" href="/${c.slug}/">
+            <div class="cat-card-eyebrow">${c.entries.length} picks</div>
+            <h3 class="cat-card-title">${esc(c.title)}</h3>
+            <p class="cat-card-deck">${esc(c.subtitle)}</p>
+            <span class="cat-card-arrow">Read the list →</span>
+          </a>
+        `).join('')}
+      </div>
+    </section>`;
+  }).join('');
+
+  // Featured calendar strip — show next 4 upcoming festivals
+  const calendarPicks = festivals.entries.slice(0, 4);
+
+  return head({ title, description, slug: '', theme: 'default' }) +
     header({ activeSlug: '' }) +
     `<section class="cover">
       <div class="wrap">
-        <div class="cover-issue">Volume 1 · Spring 2026</div>
-        <h1 class="cover-headline">The best of <em>Mpls.</em></h1>
-        <p class="cover-deck">An honest, opinionated, locally-written guide to the restaurants, bars, patios, and Sunday brunches worth your time across Minneapolis, St. Paul, and the rest of the metro.</p>
+        <div class="cover-issue">Vol. 01 · Spring 2026</div>
+        <h1 class="cover-headline">Minneapolis<br><em>&amp;</em> Saint Paul.</h1>
+        <p class="cover-deck">Where to eat, drink, see, hear, sleep, and spend a Saturday in two of the best small cities in America. Made for the metro by the people who live here.</p>
         <div class="cover-meta">
           <span>${categories.length} categories</span>
           <span>${categories.reduce((sum, c) => sum + c.entries.length, 0)} places</span>
-          <span>0 sponsored picks</span>
+          <span>Updated weekly</span>
         </div>
       </div>
     </section>
-    <section class="cat-grid">
-      ${categories.map(c => `
-        <a class="cat-card" href="/${c.slug}/">
-          <div class="cat-card-eyebrow">${esc(c.title.replace(/^Best /, '').split(' ')[0])} · ${c.entries.length} picks</div>
-          <h2 class="cat-card-title">${esc(c.title)}</h2>
-          <p class="cat-card-deck">${esc(c.subtitle)}</p>
-          <span class="cat-card-arrow">→</span>
-        </a>
-      `).join('')}
+    ${clusterSections}
+    <section class="calendar-feature" id="calendar">
+      <div class="wrap calendar-feature-inner">
+        <div class="calendar-feature-text">
+          <div class="cluster-eyebrow">On the Calendar</div>
+          <h2 class="cluster-title">${esc(festivals.title)}</h2>
+          <p class="cluster-deck">${esc(festivals.subtitle)}</p>
+          <a class="cat-card-arrow" href="/festivals/">See the year ahead →</a>
+        </div>
+        <div class="calendar-feature-list">
+          ${calendarPicks.map(e => `
+            <div class="calendar-feature-item">
+              <div class="calendar-feature-month">${esc(e.month)}</div>
+              <div class="calendar-feature-name">${esc(e.name)}</div>
+              <div class="calendar-feature-style">${esc(e.style)}</div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
     </section>` +
     footer();
 }
 
 function renderCategory(c) {
+  // Festivals page gets a special seasonal render
+  if (c.layout === 'seasonal') return renderSeasonalCategory(c);
+
   const description = c.subtitle;
   const entries = c.entries.map((e, i) => {
     const rank = String(i + 1).padStart(2, '0');
+    // First entry on each list gets a featured treatment ("Editor's pick")
+    const featured = i === 0 ? ' entry--featured' : '';
     const meta = [];
     if (e.neighborhood) meta.push(`<span>${esc(e.neighborhood)}</span>`);
     if (e.style) meta.push(`<span class="entry-meta-style">${esc(e.style)}</span>`);
-    const footer = [];
-    if (e.address) footer.push(`<span>${esc(e.address)}</span>`);
-    if (e.price) footer.push(`<span class="entry-footer-price">${esc(e.price)}</span>`);
-    if (e.hours) footer.push(`<span>${esc(e.hours)}</span>`);
-    return `<article class="entry" id="${esc(e.name.toLowerCase().replace(/[^a-z0-9]+/g, '-'))}">
-      <div class="entry-rank">${rank}</div>
+    const footerBits = [];
+    if (e.address) footerBits.push(`<span>${esc(e.address)}</span>`);
+    if (e.price) footerBits.push(`<span class="entry-footer-price">${esc(e.price)}</span>`);
+    if (e.hours) footerBits.push(`<span>${esc(e.hours)}</span>`);
+    if (e.capacity) footerBits.push(`<span>Capacity ${esc(e.capacity)}</span>`);
+    if (e.website) {
+      const cleanUrl = e.website.replace(/^https?:\/\//, '').replace(/\/$/, '');
+      footerBits.push(`<a class="entry-website" href="${esc(e.website)}" target="_blank" rel="noopener">${esc(cleanUrl)} →</a>`);
+    }
+    return `<article class="entry${featured}" id="${esc(e.name.toLowerCase().replace(/[^a-z0-9]+/g, '-'))}">
+      <div class="entry-rank">${i === 0 ? '★' : rank}</div>
       <div class="entry-body">
-        <div class="entry-meta">${meta.join('')}</div>
+        <div class="entry-meta">${meta.join('')}${i === 0 ? '<span class="entry-meta-pick">Editor’s pick</span>' : ''}</div>
         <h2 class="entry-name">${esc(e.name)}</h2>
         <p class="entry-description">${esc(e.description)}</p>
-        <div class="entry-footer">${footer.join('')}</div>
+        <div class="entry-footer">${footerBits.join('')}</div>
       </div>
     </article>`;
   }).join('');
 
-  // ItemList schema for SEO
+  // ItemList schema for SEO. Use Place as fallback for non-restaurant categories.
+  const itemType = (c.slug.includes('pizza') || c.slug.includes('brunch') || c.slug.includes('happy') || c.slug.includes('bars'))
+    ? 'Restaurant' : 'Place';
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
@@ -195,24 +386,39 @@ function renderCategory(c) {
     itemListElement: c.entries.map((e, i) => ({
       '@type': 'ListItem',
       position: i + 1,
-      item: {
-        '@type': 'Restaurant',
-        name: e.name,
-        address: e.address,
-        priceRange: e.price
-      }
+      item: { '@type': itemType, name: e.name, address: e.address }
     }))
   };
 
-  return head({ title: c.title, description, slug: c.slug, theme: c.hero_color }) +
+  // External link callout (e.g. Dispensaries → twincitycannabis.com)
+  const externalCallout = c.external_link ? `
+    <section class="external-callout">
+      <div class="external-callout-inner">
+        <p class="external-callout-text">For the comprehensive list with live pricing and daily deals, visit our sister site.</p>
+        <a class="external-callout-link" href="${esc(c.external_link.href)}" target="_blank" rel="noopener">${esc(c.external_link.label)} →</a>
+      </div>
+    </section>` : '';
+
+  // Verification banner for newer categories where we want community fact-checks
+  const verifyBanner = c.needs_verification ? `
+    <div class="verify-banner">
+      <div class="verify-banner-inner">
+        <span><strong>Help us get this list right.</strong> This is a newer category. If we missed a place, got an address wrong, or named a chef who has moved on, please tell us.</span>
+        <a href="/contribute/">Send us a tip →</a>
+      </div>
+    </div>` : '';
+
+  return head({ title: `${c.title} in the Twin Cities`, description, slug: c.slug, theme: c.hero_color }) +
     header({ activeSlug: c.slug }) +
     `<section class="section-head">
       <div class="wrap">
-        <div class="section-eyebrow">The list · ${c.entries.length} picks</div>
-        <h1 class="section-title">${esc(c.title)}</h1>
+        <div class="section-eyebrow">${c.entries.length} picks</div>
+        <h1 class="section-title">${esc(c.title)} <em>in the Twin Cities</em></h1>
         <p class="section-deck">${esc(c.intro)}</p>
       </div>
     </section>
+    ${verifyBanner}
+    ${externalCallout}
     <section class="entry-list">
       ${entries}
     </section>
@@ -220,35 +426,158 @@ function renderCategory(c) {
     footer();
 }
 
+function renderSeasonalCategory(c) {
+  // Festivals page: group entries by season. Order seasons starting from
+  // the current one so the next thing happening is always at the top.
+  // Today's month (1-12) maps to a season; we rotate the season list to
+  // start from there.
+  const allSeasons = ['Winter', 'Spring', 'Summer', 'Late Summer', 'Fall'];
+  // Month → season rough mapping
+  const m = new Date().getMonth() + 1; // 1-12
+  let currentSeason;
+  if (m === 12 || m <= 2) currentSeason = 'Winter';
+  else if (m <= 5) currentSeason = 'Spring';
+  else if (m <= 7) currentSeason = 'Summer';
+  else if (m === 8) currentSeason = 'Late Summer';
+  else currentSeason = 'Fall';
+  const startIdx = allSeasons.indexOf(currentSeason);
+  const seasonOrder = [...allSeasons.slice(startIdx), ...allSeasons.slice(0, startIdx)];
+
+  const grouped = {};
+  for (const e of c.entries) {
+    const key = e.season || 'Year-round';
+    grouped[key] = grouped[key] || [];
+    grouped[key].push(e);
+  }
+  const orderedKeys = [...seasonOrder.filter(k => grouped[k]), ...Object.keys(grouped).filter(k => !seasonOrder.includes(k))];
+
+  // Coming Up: pull the first 3 events from the current/next season block
+  const upcoming = [];
+  for (const k of orderedKeys) {
+    if (upcoming.length >= 3) break;
+    for (const e of grouped[k]) {
+      upcoming.push(e);
+      if (upcoming.length >= 3) break;
+    }
+  }
+
+  const upcomingStrip = upcoming.length ? `
+    <section class="upcoming-strip">
+      <div class="wrap upcoming-strip-inner">
+        <div class="upcoming-strip-label">Coming up next</div>
+        <div class="upcoming-strip-grid">
+          ${upcoming.map(e => `
+            <div class="upcoming-strip-item">
+              <div class="upcoming-strip-month">${esc(e.month)}</div>
+              <div class="upcoming-strip-name">${esc(e.name)}</div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    </section>` : '';
+
+  const seasons = orderedKeys.map(season => {
+    const items = grouped[season].map((e, i) => `
+      <article class="festival-entry">
+        <div class="festival-when">
+          <div class="festival-month">${esc(e.month)}</div>
+          <div class="festival-style">${esc(e.style)}</div>
+        </div>
+        <div class="festival-body">
+          <h3 class="festival-name">${esc(e.name)}</h3>
+          <p class="festival-description">${esc(e.description)}</p>
+          ${e.address ? `<div class="festival-where">${esc(e.address)}</div>` : ''}
+          ${e.website ? `<div class="festival-where"><a href="${esc(e.website)}" target="_blank" rel="noopener">${esc(e.website.replace(/^https?:\/\//, '').replace(/\/$/, ''))} →</a></div>` : ''}
+        </div>
+      </article>`).join('');
+    return `<div class="festival-season">
+      <div class="wrap"><h2 class="festival-season-title">${esc(season)}</h2></div>
+      <div class="festival-list">${items}</div>
+    </div>`;
+  }).join('');
+
+  return head({ title: `${c.title} in the Twin Cities`, description: c.subtitle, slug: c.slug, theme: c.hero_color }) +
+    header({ activeSlug: c.slug }) +
+    `<section class="section-head">
+      <div class="wrap">
+        <div class="section-eyebrow">${c.entries.length} on the calendar</div>
+        <h1 class="section-title">${esc(c.title)} <em>in the Twin Cities</em></h1>
+        <p class="section-deck">${esc(c.intro)}</p>
+      </div>
+    </section>
+    ${upcomingStrip}
+    ${seasons}` +
+    footer();
+}
+
 function renderAbout() {
   const title = 'About bestofmpls';
-  const description = 'An independent, locally-written guide to the best of Minneapolis & St. Paul.';
-  return head({ title, description, slug: 'about', theme: 'crimson' }) +
+  const description = 'A locally written guide to Minneapolis and Saint Paul.';
+  return head({ title, description, slug: 'about', theme: 'default' }) +
     header({ activeSlug: 'about' }) +
     `<section class="section-head">
       <div class="wrap">
         <div class="section-eyebrow">About</div>
-        <h1 class="section-title">An independent guide<br>to the Twin Cities.</h1>
+        <h1 class="section-title">Made for the metro <em>by the people who live here</em></h1>
       </div>
     </section>
     <section class="wrap">
       <div class="about-body">
-        <p>bestofmpls is a locally-written, opinionated guide to the restaurants, bars, patios, and weekend rituals that make Minneapolis and St. Paul worth living in. We are not a magazine and we are not an algorithm. We are people who actually live here, eat here, drink here, and have strong opinions about all of it.</p>
-        <p>City Pages — the alt-weekly that did the original "Best of" issue every year for thirty years — closed in 2020 and never came back. The Twin Cities deserves a successor: something honest, free to read, written by locals, and not paywalled behind a magazine subscription. That is what this is.</p>
-        <p>Our lists are not sponsored. Our picks are not paid placements. We do not run a "voted best by readers" pay-to-play scheme. The list is the list because we think the list is the list. If a restaurant pays to advertise on this site (and many will, eventually), it will be marked clearly and will not appear in the editorial rankings.</p>
-        <p>If you have a place you think we missed, a strong correction, or a tip you want to share, write to <a href="mailto:hello@bestofmpls.com">hello@bestofmpls.com</a>. We read every note.</p>
+        <p>bestofmpls is a guide to the museums, music, theaters, coffee shops, sandwiches, restaurants, bars, hotels, festivals, and small good things that make Minneapolis and Saint Paul worth living in. Two of the best small cities in America, written by the people who actually live here.</p>
+        <p>The Twin Cities is a real cultural place. Two great encyclopedic museums. The most theater seats per capita in America after Manhattan. A music scene that has shaped American popular music for half a century. An indie press scene, a food scene that has earned its national attention, and dozens of small neighborhoods that each have their own bar, bookstore, and morning bakery. We do not feel the need to argue any of that anymore.</p>
+        <p>The lists are not sponsored. Picks are not paid placements. There is no pay-to-play readers-poll voting. If a place pays to advertise on this site, it will be marked clearly and will not appear in the editorial rankings.</p>
+        <p>If you know a place we missed, a correction we need, or a tip we should chase, write to <a href="mailto:hello@bestofmpls.com">hello@bestofmpls.com</a>. We read every note.</p>
+      </div>
+    </section>` +
+    footer();
+}
+
+function renderContribute() {
+  const title = 'Send us a tip';
+  const description = 'Submit a place, a correction, or a tip for bestofmpls.';
+  return head({ title, description, slug: 'contribute', theme: 'default' }) +
+    header({ activeSlug: 'contribute' }) +
+    `<section class="section-head">
+      <div class="wrap">
+        <div class="section-eyebrow">Community</div>
+        <h1 class="section-title">Send us a tip <em>or correct us</em></h1>
+        <p class="section-deck">We rely on readers to flag what is missing, what changed, and what is genuinely good that we have not gotten to yet. Please be specific. We read every note.</p>
+      </div>
+    </section>
+    <section class="wrap">
+      <form class="contribute-form" action="https://formspree.io/f/REPLACE_WITH_FORM_ID" method="POST">
+        <div>
+          <label for="name">Your name</label>
+          <input id="name" name="name" type="text" placeholder="So we can credit you if we use it">
+        </div>
+        <div>
+          <label for="email">Your email</label>
+          <input id="email" name="email" type="email" placeholder="In case we need to follow up">
+        </div>
+        <div>
+          <label for="place">The place or topic</label>
+          <input id="place" name="place" type="text" placeholder="e.g. Best ramen in St. Paul, or a correction to the pizza list" required>
+        </div>
+        <div>
+          <label for="message">Tell us about it</label>
+          <textarea id="message" name="message" placeholder="Why is this worth listing? What do they do well? Address if you have it." required></textarea>
+        </div>
+        <button type="submit">Send the tip</button>
+      </form>
+      <div class="about-body" style="padding-top: 0;">
+        <p style="font-style: italic; color: var(--ink-soft);">Prefer email? Write to <a href="mailto:hello@bestofmpls.com">hello@bestofmpls.com</a> directly.</p>
       </div>
     </section>` +
     footer();
 }
 
 function render404() {
-  return head({ title: 'Page not found', description: 'That page is not here.', slug: '404', theme: 'crimson' }) +
+  return head({ title: 'Page not found', description: 'That page is not here.', slug: '404', theme: 'default' }) +
     header({}) +
     `<section class="wrap notfound">
       <p class="notfound-num">404</p>
       <h1 class="notfound-msg">That page is not here.</h1>
-      <p><a href="/">Back to the cover →</a></p>
+      <p><a href="/">Back to the cover</a></p>
     </section>` +
     footer();
 }
@@ -273,10 +602,10 @@ Sitemap: ${SITE}/sitemap.xml`;
 }
 
 function renderFavicon() {
-  // Simple SVG favicon — bold "B" mark in crimson on cream
+  // Bold "B" in clay on cream
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" fill="#F2EBDD"/>
-  <text x="32" y="50" font-family="Archivo Black, system-ui, sans-serif" font-size="52" font-weight="900" text-anchor="middle" fill="#A8243F">B</text>
+  <rect width="64" height="64" fill="#F4EEDF"/>
+  <text x="32" y="48" font-family="Archivo, system-ui, sans-serif" font-size="48" font-weight="800" text-anchor="middle" fill="#B0673A">b</text>
 </svg>`;
 }
 
@@ -285,18 +614,16 @@ function build() {
   console.log('\n→ bestofmpls build');
   console.log(`  ${categories.length} categories, ${categories.reduce((s, c) => s + c.entries.length, 0)} entries\n`);
 
-  // Wipe and recreate dist
   if (fs.existsSync(DIST)) fs.rmSync(DIST, { recursive: true });
   ensureDir(DIST);
 
-  // Copy CSS
   fs.copyFileSync(path.join(SRC, 'styles.css'), path.join(DIST, 'styles.css'));
   console.log(`  → styles.css`);
 
-  // Pages
   writeFile('index.html', renderHome());
   for (const c of categories) writeFile(`${c.slug}/index.html`, renderCategory(c));
   writeFile('about/index.html', renderAbout());
+  writeFile('contribute/index.html', renderContribute());
   writeFile('404.html', render404());
   writeFile('sitemap.xml', renderSitemap());
   writeFile('robots.txt', renderRobots());
