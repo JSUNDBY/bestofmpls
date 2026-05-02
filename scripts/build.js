@@ -199,7 +199,7 @@ function head({ title, description, slug, theme }) {
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bowlby+One&family=Archivo:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;450;500;600&display=swap">
-<link rel="stylesheet" href="/styles.css?v=11">
+<link rel="stylesheet" href="/styles.css?v=12">
 <script>
 // Set color mode before paint to avoid flash. Reads localStorage first,
 // falls back to system preference. mode-ready class added after first
@@ -403,8 +403,7 @@ function renderHome() {
         </div>
         <h1 class="cover-headline">
           <span class="cover-line">Minneapolis</span>
-          <span class="cover-amp">&amp;</span>
-          <span class="cover-line cover-line-shift">Saint Paul.</span>
+          <span class="cover-line"><span class="cover-amp">&amp;</span> Saint Paul.</span>
         </h1>
         <div class="cover-bottom">
           <p class="cover-deck">Where to eat, drink, see, hear, sleep, and spend a Saturday in two of the best small cities in America. Made for the metro by the people who live here.</p>

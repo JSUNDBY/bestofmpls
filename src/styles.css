@@ -39,7 +39,10 @@ html[data-mode="dark"] {
   --sky:      #95A8B9;
   --rule-soft: rgba(240, 233, 216, 0.16);
 
-  --font-display: 'Bowlby One', 'Archivo Black', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  /* Use Impact as the system fallback for display — always available on Mac
+     and Windows, naturally bold and condensed, looks intentional even when
+     Bowlby One fails to load (ad-blocker, network issue, etc.). */
+  --font-display: 'Bowlby One', Impact, 'Arial Black', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   --font-label:   'Archivo', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   --font-body:    'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 
@@ -76,6 +79,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
   position: relative;
+  /* Defensive: prevent any oversized child from forcing horizontal scroll */
+  overflow-x: hidden;
 }
 
 /* Paper grain. Subtle SVG noise overlay. Gives the cream a "printed" feel.
@@ -285,12 +290,18 @@ p { margin: 0 0 1em; }
 .cover-headline {
   font-family: var(--font-display);
   font-weight: 400;
-  font-size: clamp(56px, 13vw, 184px);
-  line-height: 0.86;
-  letter-spacing: -0.04em;
+  /* Capped at 128px so even with serif fallbacks the text fits in the wrap */
+  font-size: clamp(48px, 11vw, 128px);
+  line-height: 0.88;
+  letter-spacing: -0.035em;
   margin: 0 0 56px;
   color: var(--ink);
   display: block;
+  word-break: break-word;
+  hyphens: none;
+  /* Hard limit so headline never blows past container, even with wider fallbacks */
+  max-width: 100%;
+  overflow-wrap: break-word;
 }
 .cover-line {
   display: block;
@@ -300,11 +311,10 @@ p { margin: 0 0 1em; }
 }
 .cover-amp {
   display: inline-block;
-  font-size: 1.45em;
-  line-height: 0.7;
+  font-size: 1.15em;
+  line-height: 0.85;
   color: var(--clay);
-  margin: 0.05em 0.05em 0 -0.05em;
-  vertical-align: -0.18em;
+  margin: 0;
   font-style: normal;
 }
 
