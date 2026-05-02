@@ -11,6 +11,7 @@
 
 const fs   = require('fs');
 const path = require('path');
+const { execSync } = require('child_process');
 
 const ROOT  = path.resolve(__dirname, '..');
 const SRC   = path.join(ROOT, 'src');
@@ -190,10 +191,15 @@ function head({ title, description, slug, theme }) {
 <meta property="og:title" content="${esc(title)} · bestofmpls">
 <meta property="og:description" content="${esc(description)}">
 <meta property="og:site_name" content="bestofmpls">
+<meta property="og:image" content="${SITE}/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="bestofmpls. An independent guide to Minneapolis & Saint Paul.">
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="${esc(title)} · bestofmpls">
 <meta name="twitter:description" content="${esc(description)}">
+<meta name="twitter:image" content="${SITE}/og-image.png">
 
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -997,6 +1003,13 @@ function build() {
   // GitHub Pages custom-domain marker. Tells GH Pages to serve at bestofmpls.com.
   fs.writeFileSync(path.join(DIST, 'CNAME'), 'bestofmpls.com\n');
   console.log(`  → CNAME (bestofmpls.com)`);
+
+  // Generate OG image (runs build-og.js as a subprocess; needs rsvg-convert)
+  try {
+    execSync(`node "${path.join(__dirname, 'build-og.js')}"`, { stdio: 'inherit' });
+  } catch (e) {
+    console.warn('  ! OG image generation skipped (rsvg-convert missing?)');
+  }
 
   console.log(`\n✓ Built to dist/\n`);
 }
