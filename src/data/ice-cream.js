@@ -7,6 +7,15 @@ module.exports = {
   needs_verification: true,
   entries: [
     {
+      name: 'Dream Creamery',
+      neighborhood: 'Holland, Northeast Minneapolis',
+      style: 'Handmade ice cream + smash burgers',
+      description: 'A Northeast scoop shop from the Travail chef-owners, with 22 rotating flavors made from scratch alongside a small kitchen turning out smash burgers and crispy fries. The Dream Burger and a single scoop is the move. Pints to go are stocked at Pizza Lucé and Nouvelle Brewing.',
+      address: '816 NE Lowry Ave, Minneapolis',
+      website: 'https://www.dreamcreamerymn.com',
+      price: '$'
+    },
+    {
       name: 'Sebastian Joe’s Ice Cream',
       neighborhood: 'Linden Hills, Minneapolis',
       style: 'Family ice cream shop since 1984',

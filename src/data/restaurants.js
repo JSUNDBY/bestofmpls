@@ -61,6 +61,15 @@ module.exports = {
       price: '$$$'
     },
     {
+      name: 'Gus Gus',
+      neighborhood: 'Union Park, St. Paul',
+      style: 'Neighborhood bistro and bar',
+      description: 'Anna Morgan and Kevin Manley met at 112 Eatery (he was executive chef, she was general manager). Their tiny twenty-table St. Paul bistro is named after their son. Small plates, elevated bar food, a serious cocktail program. The Aperol Jell-O shots have become a thing.',
+      address: '128 Cleveland Ave N, St. Paul',
+      website: 'https://www.gusgusmn.com',
+      price: '$$$'
+    },
+    {
       name: 'Petite León',
       neighborhood: 'Kingfield, Minneapolis',
       style: 'Modern Latin, Daniel del Prado',
