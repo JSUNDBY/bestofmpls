@@ -196,11 +196,10 @@ function head({ title, description, slug, theme }) {
 <meta name="twitter:description" content="${esc(description)}">
 
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-<link rel="preload" href="/fonts/bowlby-one.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;450;500;600&display=swap">
-<link rel="stylesheet" href="/main.css">
+<link rel="stylesheet" href="/style.css">
 <script>
 // Set color mode before paint to avoid flash. Reads localStorage first,
 // falls back to system preference. mode-ready class added after first
@@ -958,8 +957,8 @@ function build() {
   if (fs.existsSync(DIST)) fs.rmSync(DIST, { recursive: true });
   ensureDir(DIST);
 
-  fs.copyFileSync(path.join(SRC, 'main.css'), path.join(DIST, 'main.css'));
-  console.log(`  → main.css`);
+  fs.copyFileSync(path.join(SRC, 'style.css'), path.join(DIST, 'style.css'));
+  console.log(`  → style.css`);
 
   // Copy self-hosted fonts so we don't depend on Google Fonts being reachable.
   const publicFontsDir = path.join(ROOT, 'public/fonts');
