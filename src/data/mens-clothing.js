@@ -46,14 +46,6 @@ module.exports = {
       price: '$$$$'
     },
     {
-      name: 'Requisite',
-      neighborhood: 'Minneapolis',
-      style: 'Independent menswear',
-      description: 'A small Minneapolis men’s shop with one of the most thoughtful buys in the Midwest. Heritage workwear, quality basics, accessories. The owners are usually on the floor and will actually have an opinion about whether the shirt fits.',
-      address: 'Minneapolis',
-      price: '$$$'
-    },
-    {
       name: 'Forage Modern Workshop',
       neighborhood: 'Northeast Minneapolis',
       style: 'Design-forward home and lifestyle',

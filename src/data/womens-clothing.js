@@ -6,6 +6,14 @@ module.exports = {
   hero_color: 'clay',
   entries: [
     {
+      name: 'Requisite',
+      neighborhood: 'Minneapolis',
+      style: 'Independent women’s boutique',
+      description: 'A small Minneapolis women’s shop with a thoughtfully edited buy. The owners are usually on the floor and care more about whether the piece works for you than whether it sells. Worth a slow afternoon of trying things on.',
+      address: 'Minneapolis',
+      price: '$$$'
+    },
+    {
       name: 'Idun',
       neighborhood: 'Cathedral Hill, St. Paul',
       style: 'Independent women’s boutique',
