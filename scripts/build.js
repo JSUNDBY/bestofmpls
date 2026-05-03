@@ -205,7 +205,7 @@ function head({ title, description, slug, theme }) {
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=Archivo:wght@500;600;700&display=swap">
-<link rel="stylesheet" href="/style.css?v=4">
+<link rel="stylesheet" href="/style.css?v=5">
 <script>
 // Set color mode before paint to avoid flash. Reads localStorage first,
 // falls back to light mode (the new editorial default). mode-ready class
@@ -388,6 +388,9 @@ function renderHome() {
   return head({ title, description, slug: '', theme: 'default' }) +
     header({ activeSlug: '' }) +
     `<section class="cover">
+      <figure class="cover-photo">
+        <img src="/img/skyline-cover.jpg" alt="Minneapolis skyline at twilight, with the Stone Arch Bridge area in the foreground" loading="eager" fetchpriority="high">
+      </figure>
       <div class="wrap cover-wrap">
         <div class="cover-issue">Volume 01 · Spring 2026</div>
         <h1 class="cover-headline">Minneapolis<br><em>&amp;</em> Saint Paul.</h1>
@@ -1085,21 +1088,25 @@ function build() {
   fs.writeFileSync(path.join(DIST, 'CNAME'), 'bestofmpls.com\n');
   console.log(`  → CNAME (bestofmpls.com)`);
 
-  // Copy any pre-generated OG image (and other static assets) from public/.
-  // The OG image is generated separately via `node scripts/build-og.js`
-  // (requires rsvg-convert) and committed to public/ so it ships in CI builds
-  // where rsvg-convert isn't available.
-  const publicDir = path.join(ROOT, 'public');
-  if (fs.existsSync(publicDir)) {
-    for (const f of fs.readdirSync(publicDir)) {
-      const srcPath = path.join(publicDir, f);
+  // Copy public/ recursively into dist/. Includes the OG image (generated
+  // by build-og.js) and any other static assets like /img/, /fonts/, etc.
+  function copyPublic(src, destRel) {
+    for (const f of fs.readdirSync(src)) {
+      const srcPath = path.join(src, f);
       const stat = fs.statSync(srcPath);
-      if (stat.isFile()) {
-        fs.copyFileSync(srcPath, path.join(DIST, f));
-        console.log(`  → ${f} (from public/)`);
+      const relPath = destRel ? `${destRel}/${f}` : f;
+      const destPath = path.join(DIST, relPath);
+      if (stat.isDirectory()) {
+        ensureDir(destPath);
+        copyPublic(srcPath, relPath);
+      } else {
+        fs.copyFileSync(srcPath, destPath);
+        console.log(`  → ${relPath} (from public/)`);
       }
     }
   }
+  const publicDir = path.join(ROOT, 'public');
+  if (fs.existsSync(publicDir)) copyPublic(publicDir, '');
 
   console.log(`\n✓ Built to dist/\n`);
 }

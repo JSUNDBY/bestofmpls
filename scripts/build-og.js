@@ -22,40 +22,47 @@ const INK = '#0A0A0A';
 const CLAY = '#E11900';
 
 function generateSVG() {
+  // Embed the skyline photo as base64 so rsvg-convert can render it without
+  // any file-system path issues. JPEG keeps it manageable.
+  const skylinePath = path.join(ROOT, 'public/img/skyline-og.jpg');
+  const skylineB64 = fs.readFileSync(skylinePath).toString('base64');
+  const skylineDataUri = `data:image/jpeg;base64,${skylineB64}`;
+
   return `<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1200" height="630" viewBox="0 0 1200 630">
   <defs>
-    <filter id="grain">
-      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"/>
-      <feColorMatrix values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.05 0"/>
-      <feComposite in2="SourceGraphic" operator="in"/>
-    </filter>
+    <linearGradient id="bottomFade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="${INK}" stop-opacity="0"/>
+      <stop offset="50%" stop-color="${INK}" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="${INK}" stop-opacity="0.92"/>
+    </linearGradient>
+    <linearGradient id="topFade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="${INK}" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="${INK}" stop-opacity="0"/>
+    </linearGradient>
   </defs>
 
-  <!-- Background: white paper -->
-  <rect width="1200" height="630" fill="${PAPER}"/>
+  <!-- Hero photo: Minneapolis skyline at twilight -->
+  <image xlink:href="${skylineDataUri}" x="0" y="0" width="1200" height="630" preserveAspectRatio="xMidYMid slice"/>
 
-  <!-- Subtle paper grain overlay -->
-  <rect width="1200" height="630" filter="url(#grain)"/>
+  <!-- Top fade for eyebrow legibility -->
+  <rect x="0" y="0" width="1200" height="140" fill="url(#topFade)"/>
 
-  <!-- Top eyebrow -->
-  <text x="80" y="90" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="700" font-size="15" letter-spacing="3.5" fill="${CLAY}">VOL. 01 · SPRING 2026</text>
+  <!-- Bottom fade for brand mark + headline + URL legibility -->
+  <rect x="0" y="280" width="1200" height="350" fill="url(#bottomFade)"/>
 
-  <!-- Top hairline -->
-  <line x1="80" y1="120" x2="1120" y2="120" stroke="${INK}" stroke-opacity="0.18" stroke-width="1"/>
+  <!-- Top eyebrow (over photo) -->
+  <text x="80" y="68" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="700" font-size="14" letter-spacing="3.5" fill="${CLAY}">VOL. 01 · SPRING 2026</text>
 
-  <!-- Hero brand mark. The whole point of the image. Italic Playfair, red dot. -->
-  <text x="80" y="335" font-family="Playfair Display, Georgia, serif" font-style="italic" font-weight="900" font-size="168" letter-spacing="-4" fill="${INK}">bestofmpls<tspan fill="${CLAY}">.</tspan></text>
+  <!-- Hero brand mark, lower-left over photo -->
+  <text x="80" y="490" font-family="Playfair Display, Georgia, serif" font-style="italic" font-weight="900" font-size="124" letter-spacing="-3" fill="${PAPER}">bestofmpls<tspan fill="${CLAY}">.</tspan></text>
 
-  <!-- Sub-headline: the cities, in regular serif -->
-  <text x="80" y="430" font-family="Playfair Display, Georgia, serif" font-weight="400" font-size="58" letter-spacing="-1" fill="${INK}">Minneapolis <tspan font-style="italic" font-weight="700" fill="${CLAY}">&amp;</tspan> Saint Paul.</text>
+  <!-- Sub-headline: the cities -->
+  <text x="80" y="552" font-family="Playfair Display, Georgia, serif" font-weight="400" font-size="36" letter-spacing="-0.5" fill="${PAPER}">Minneapolis <tspan font-style="italic" font-weight="700" fill="${CLAY}">&amp;</tspan> Saint Paul.</text>
 
-  <!-- Bottom hairline -->
-  <line x1="80" y1="520" x2="1120" y2="520" stroke="${INK}" stroke-opacity="0.18" stroke-width="1"/>
-
-  <!-- Bottom row: italic tagline left, URL right -->
-  <text x="80" y="575" font-family="Playfair Display, Georgia, serif" font-style="italic" font-weight="400" font-size="22" fill="${INK}">An independent guide to a city of long winters and bright light.</text>
-  <text x="1120" y="575" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="700" font-size="14" letter-spacing="3" fill="${CLAY}" text-anchor="end">BESTOFMPLS.COM</text>
+  <!-- Bottom row: tagline + URL -->
+  <text x="80" y="600" font-family="Playfair Display, Georgia, serif" font-style="italic" font-weight="400" font-size="20" fill="${PAPER}" fill-opacity="0.85">An independent guide to a city of long winters and bright light.</text>
+  <text x="1120" y="600" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="700" font-size="14" letter-spacing="3" fill="${CLAY}" text-anchor="end">BESTOFMPLS.COM</text>
 </svg>`;
 }
 
