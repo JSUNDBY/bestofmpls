@@ -21,6 +21,15 @@
   --sage:     #4A4A4A;
   --sky:      #4A4A4A;
   --rule-soft: rgba(10, 10, 10, 0.16);
+
+  /* Fonts */
+  --font-display: 'Playfair Display', 'Times New Roman', Georgia, serif;
+  --font-label:   'Archivo', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-body:    'Source Sans 3', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+  /* Layout */
+  --max-w: 1180px;
+  --gutter: clamp(28px, 5vw, 56px);
 }
 
 /* Dark mode: warm dark, not cold black. Same accent ratios, inverted base. */
@@ -787,11 +796,17 @@ html[data-mode="dark"] .upcoming-strip { color: #1A1714; }
 }
 
 /* ===== Color theme variants per category ===== */
-body[data-theme="forest"]   { --clay: #2F4734; }
-body[data-theme="clay"]     { --clay: #B0673A; }
-body[data-theme="sage"]     { --clay: #6F7C5F; }
-body[data-theme="sky"]      { --clay: #5E7488; }
-body[data-theme="default"]  { --clay: #B0673A; }
+/* Per-category accent themes intentionally do NOT override --clay anymore.
+   Stark Editorial is monochrome with one consistent red accent across the
+   whole site for brand cohesion. Old theme classes kept as no-ops in case
+   we want them back later. */
+body[data-theme="forest"],
+body[data-theme="clay"],
+body[data-theme="sage"],
+body[data-theme="sky"],
+body[data-theme="default"] {
+  /* keep --clay = the new red from :root */
+}
 
 /* ===== About page ===== */
 .about-body {
