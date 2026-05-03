@@ -52,6 +52,7 @@ const japanese     = require(path.join(SRC, 'data/japanese.js'));
 const iceCream     = require(path.join(SRC, 'data/ice-cream.js'));
 const lateNight    = require(path.join(SRC, 'data/late-night.js'));
 const itineraries  = require(path.join(SRC, 'data/itineraries.js'));
+const exhibitions  = require(path.join(SRC, 'data/exhibitions.js'));
 const shops        = require(path.join(SRC, 'data/shops.js'));
 const mensClothing = require(path.join(SRC, 'data/mens-clothing.js'));
 const womensClothing = require(path.join(SRC, 'data/womens-clothing.js'));
@@ -230,6 +231,7 @@ function header({ activeSlug } = {}) {
     { href: '/', label: 'Cover', slug: '' },
     { href: '/visit/', label: 'First Time?', slug: 'visit' },
     { href: '/#culture', label: 'Culture' },
+    { href: '/now-showing/', label: 'Now Showing', slug: 'now-showing' },
     { href: '/#eat', label: 'Eat' },
     { href: '/#drink', label: 'Drink' },
     { href: '/#shop', label: 'Shop' },
@@ -820,6 +822,80 @@ function renderItineraries() {
 }
 
 // ---------- Loon's Nest slang glossary ----------
+// ---------- Now Showing / Exhibitions page ----------
+function renderExhibitions() {
+  const ex = exhibitions;
+  const description = 'Current and upcoming art exhibitions at Twin Cities museums and galleries.';
+
+  if (!ex.exhibitions || ex.exhibitions.length === 0) {
+    // Empty state. Page exists but lists nothing yet; reads as "monthly refresh in progress."
+    return head({ title: ex.title, description, slug: 'now-showing', theme: ex.hero_color }) +
+      header({ activeSlug: 'now-showing' }) +
+      `<section class="section-head">
+        <div class="wrap">
+          <div class="section-eyebrow">Currently being researched</div>
+          <h1 class="section-title">${esc(ex.title)} <em>across the Twin Cities</em></h1>
+          <p class="section-deck">${esc(ex.intro)}</p>
+        </div>
+      </section>
+      <section class="wrap" style="padding: 64px var(--gutter);">
+        <p style="font-family: var(--font-body); font-size: 18px; line-height: 1.6; max-width: 640px; color: var(--ink-soft);">This calendar is being compiled right now. Check back in a few hours, or follow individual museums directly: <a href="/museums-and-galleries/" style="color: var(--clay); border-bottom: 1px solid var(--clay);">browse museums and galleries</a>.</p>
+      </section>` +
+      footer();
+  }
+
+  // Group by current vs upcoming
+  const current = ex.exhibitions.filter(e => e.type === 'current');
+  const upcoming = ex.exhibitions.filter(e => e.type === 'upcoming');
+
+  const renderShow = (e) => `
+    <article class="exhibition">
+      <div class="exhibition-when">
+        <div class="exhibition-dates">${esc(e.dates)}</div>
+        <div class="exhibition-venue">${esc(e.venue)}</div>
+      </div>
+      <div class="exhibition-body">
+        <h3 class="exhibition-title">${e.url ? `<a href="${esc(e.url)}" target="_blank" rel="noopener">${esc(e.title)} <span class="entry-meta-link-icon">↗</span></a>` : esc(e.title)}</h3>
+        ${e.artist ? `<div class="exhibition-artist">${esc(e.artist)}</div>` : ''}
+        ${e.subtitle ? `<div class="exhibition-subtitle">${esc(e.subtitle)}</div>` : ''}
+        <p class="exhibition-description">${esc(e.description)}</p>
+      </div>
+    </article>`;
+
+  const sections = [];
+  if (current.length) {
+    sections.push(`
+      <div class="exhibition-section">
+        <div class="wrap"><h2 class="exhibition-section-title">Now on view</h2></div>
+        <div class="exhibition-list">${current.map(renderShow).join('')}</div>
+      </div>`);
+  }
+  if (upcoming.length) {
+    sections.push(`
+      <div class="exhibition-section">
+        <div class="wrap"><h2 class="exhibition-section-title">Opening soon</h2></div>
+        <div class="exhibition-list">${upcoming.map(renderShow).join('')}</div>
+      </div>`);
+  }
+
+  const lastUpdated = ex.last_updated
+    ? `<p style="font-family: var(--font-label); font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-faint); margin-top: 16px;">Last updated ${esc(ex.last_updated)}</p>`
+    : '';
+
+  return head({ title: ex.title, description, slug: 'now-showing', theme: ex.hero_color }) +
+    header({ activeSlug: 'now-showing' }) +
+    `<section class="section-head">
+      <div class="wrap">
+        <div class="section-eyebrow">${ex.exhibitions.length} on view</div>
+        <h1 class="section-title">${esc(ex.title)} <em>across the Twin Cities</em></h1>
+        <p class="section-deck">${esc(ex.intro)}</p>
+        ${lastUpdated}
+      </div>
+    </section>
+    ${sections.join('')}` +
+    footer();
+}
+
 function renderSlang() {
   const title = "The Loon's Nest";
   const description = 'A short Twin Cities glossary for visitors and recent transplants.';
@@ -1056,6 +1132,9 @@ function build() {
 
   // First-time / itineraries page
   writeFile('visit/index.html', renderItineraries());
+
+  // Now Showing — current art exhibitions
+  writeFile('now-showing/index.html', renderExhibitions());
 
   // Loon's Nest slang glossary
   writeFile('glossary/index.html', renderSlang());
