@@ -436,8 +436,13 @@ p { margin: 0 0 1em; }
   grid-template-columns: 80px 1fr;
   gap: 28px;
   padding: 36px var(--gutter);
-  border-bottom: 1px solid var(--ink);
+  border-bottom: 1px solid var(--rule-soft);
   transition: background 0.18s ease;
+}
+/* Unranked entries (everything except the Editor's Pick) skip the rank column */
+.entry--unranked {
+  display: block;
+  padding: 32px var(--gutter);
 }
 .entry:hover { background: var(--paper-2); }
 .entry-rank {

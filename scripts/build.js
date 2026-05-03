@@ -418,9 +418,10 @@ function renderCategory(c) {
 
   const description = c.subtitle;
   const entries = c.entries.map((e, i) => {
-    const rank = String(i + 1).padStart(2, '0');
-    // First entry on each list gets a featured treatment ("Editor's pick")
-    const featured = i === 0 ? ' entry--featured' : '';
+    // Only the first entry gets the Editor's Pick featured treatment.
+    // The rest are unranked list entries (no number, no star).
+    const isFeatured = i === 0;
+    const featured = isFeatured ? ' entry--featured' : ' entry--unranked';
     const meta = [];
     if (e.neighborhood) meta.push(`<span>${esc(e.neighborhood)}</span>`);
     if (e.style) meta.push(`<span class="entry-meta-style">${esc(e.style)}</span>`);
@@ -433,10 +434,12 @@ function renderCategory(c) {
       const cleanUrl = e.website.replace(/^https?:\/\//, '').replace(/\/$/, '');
       footerBits.push(`<a class="entry-website" href="${esc(e.website)}" target="_blank" rel="noopener">${esc(cleanUrl)} →</a>`);
     }
+    const rankBlock = isFeatured ? `<div class="entry-rank">★</div>` : '';
+    const pickBadge = isFeatured ? '<span class="entry-meta-pick">Editor’s pick</span>' : '';
     return `<article class="entry${featured}" id="${esc(e.name.toLowerCase().replace(/[^a-z0-9]+/g, '-'))}">
-      <div class="entry-rank">${i === 0 ? '★' : rank}</div>
+      ${rankBlock}
       <div class="entry-body">
-        <div class="entry-meta">${meta.join('')}${i === 0 ? '<span class="entry-meta-pick">Editor’s pick</span>' : ''}</div>
+        <div class="entry-meta">${meta.join('')}${pickBadge}</div>
         <h2 class="entry-name">${esc(e.name)}</h2>
         <p class="entry-description">${esc(e.description)}</p>
         <div class="entry-footer">${footerBits.join('')}</div>
