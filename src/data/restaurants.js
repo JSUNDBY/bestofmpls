@@ -34,6 +34,15 @@ module.exports = {
       price: '$$$$'
     },
     {
+      name: 'Owamni',
+      neighborhood: 'Mill District, Minneapolis',
+      style: 'Indigenous, James Beard Best New Restaurant 2022',
+      description: 'A pre-colonial Indigenous restaurant on the Mississippi at Owámniyomni (Saint Anthony Falls). Menu built without wheat, dairy, sugar, beef, or pork, which is a category of restaurant that essentially did not exist in the United States before this room. Won James Beard Best New Restaurant in 2022.',
+      address: '420 S 1st St, Minneapolis',
+      website: 'https://owamni.com',
+      price: '$$$$'
+    },
+    {
       name: 'Demi',
       neighborhood: 'North Loop, Minneapolis',
       style: 'Tasting menu, Gavin Kaysen',
@@ -79,30 +88,12 @@ module.exports = {
       price: '$$$$'
     },
     {
-      name: 'Burch Steak',
-      neighborhood: 'Lyn-Lake, Minneapolis',
-      style: 'Modern steakhouse, downstairs pizza',
-      description: 'Isaac Becker’s steakhouse in a converted Lyn-Lake mortuary, with a downstairs pizza-and-pasta room called Pizza Bar. Two restaurants in one building, both genuinely worth the visit. The downstairs is more casual; the upstairs is the steakhouse.',
-      address: '1933 Colfax Ave S, Minneapolis',
-      website: 'https://burchrestaurant.com',
-      price: '$$$$'
-    },
-    {
       name: 'Martina',
       neighborhood: 'Linden Hills, Minneapolis',
       style: 'Italian-Argentinian, Daniel del Prado',
       description: 'Daniel del Prado’s Linden Hills restaurant blending Italian pasta technique with Argentinian wood-fire cooking. The pastas are the headline but the wood-grilled meats are equally serious. The room is small and the bar is the move for walk-ins.',
       address: '4312 Upton Ave S, Minneapolis',
       website: 'https://www.martinarestaurant.com',
-      price: '$$$$'
-    },
-    {
-      name: 'Owamni',
-      neighborhood: 'Mill District, Minneapolis',
-      style: 'Indigenous, riverfront',
-      description: 'A pre-colonial Indigenous restaurant on the Mississippi at Owámniyomni (Saint Anthony Falls). Menu built without wheat, dairy, sugar, beef, or pork, which is a category of restaurant that essentially did not exist in the United States before this room.',
-      address: '420 S 1st St, Minneapolis',
-      website: 'https://owamni.com',
       price: '$$$$'
     }
   ]
