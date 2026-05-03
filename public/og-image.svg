@@ -3,7 +3,7 @@
   <defs>
     <filter id="grain">
       <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"/>
-      <feColorMatrix values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.06 0"/>
+      <feColorMatrix values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.05 0"/>
       <feComposite in2="SourceGraphic" operator="in"/>
     </filter>
   </defs>
@@ -12,28 +12,22 @@
   <rect width="1200" height="630" fill="#FFFFFF"/>
 
   <!-- Subtle paper grain overlay -->
-  <rect width="1200" height="630" filter="url(#grain)" opacity="0.5"/>
+  <rect width="1200" height="630" filter="url(#grain)"/>
 
-  <!-- Top hairline -->
-  <line x1="80" y1="80" x2="1120" y2="80" stroke="#0A0A0A" stroke-opacity="0.2" stroke-width="1"/>
+  <!-- Top eyebrow row -->
+  <text x="80" y="86" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="700" font-size="15" letter-spacing="3.5" fill="#E11900">BESTOFMPLS · VOL. 01 · SPRING 2026</text>
 
-  <!-- Top-left issue badge -->
-  <text x="80" y="56" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="600" font-size="14" letter-spacing="3" fill="#E11900">VOLUME 01 · SPRING 2026</text>
+  <!-- Top hairline below eyebrow -->
+  <line x1="80" y1="116" x2="1120" y2="116" stroke="#0A0A0A" stroke-opacity="0.18" stroke-width="1"/>
 
-  <!-- Top-right tagline -->
-  <text x="1120" y="56" font-family="Georgia, serif" font-style="italic" font-size="18" fill="#7A7A7A" text-anchor="end">Made for the metro.</text>
-
-  <!-- Brand mark, large. Playfair italic 900. -->
-  <text x="80" y="200" font-family="Playfair Display, Georgia, serif" font-style="italic" font-weight="900" font-size="100" letter-spacing="-2" fill="#0A0A0A">bestofmpls<tspan fill="#E11900">.</tspan></text>
-
-  <!-- Headline (the city pair). Playfair regular + italic accent. -->
-  <text x="80" y="370" font-family="Playfair Display, Georgia, serif" font-weight="400" font-size="100" letter-spacing="-2" fill="#0A0A0A">Minneapolis</text>
-  <text x="80" y="488" font-family="Playfair Display, Georgia, serif" font-weight="400" font-size="100" letter-spacing="-2" fill="#0A0A0A"><tspan font-style="italic" font-weight="700" fill="#E11900">&amp;</tspan> Saint Paul.</text>
+  <!-- Massive headline. Two lines. Italic red ampersand. -->
+  <text x="80" y="290" font-family="Playfair Display, Georgia, serif" font-weight="400" font-size="140" letter-spacing="-3" fill="#0A0A0A">Minneapolis</text>
+  <text x="80" y="430" font-family="Playfair Display, Georgia, serif" font-weight="400" font-size="140" letter-spacing="-3" fill="#0A0A0A"><tspan font-style="italic" font-weight="700" fill="#E11900">&amp;</tspan> Saint Paul.</text>
 
   <!-- Bottom hairline -->
-  <line x1="80" y1="540" x2="1120" y2="540" stroke="#0A0A0A" stroke-opacity="0.2" stroke-width="1"/>
+  <line x1="80" y1="510" x2="1120" y2="510" stroke="#0A0A0A" stroke-opacity="0.18" stroke-width="1"/>
 
-  <!-- Bottom row: deck + URL -->
-  <text x="80" y="580" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="20" fill="#7A7A7A">An independent guide to the museums, music, food, and small good things.</text>
-  <text x="1120" y="580" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="600" font-size="20" fill="#E11900" text-anchor="end">bestofmpls.com</text>
+  <!-- Bottom row: tagline left, URL right (italic serif tagline, all-caps URL) -->
+  <text x="80" y="570" font-family="Playfair Display, Georgia, serif" font-style="italic" font-weight="400" font-size="26" fill="#0A0A0A">An independent guide to Minneapolis &amp; Saint Paul.</text>
+  <text x="1120" y="570" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="700" font-size="14" letter-spacing="3" fill="#E11900" text-anchor="end">BESTOFMPLS.COM</text>
 </svg>
