@@ -7,15 +7,6 @@ module.exports = {
   needs_verification: true,
   entries: [
     {
-      name: 'Owamni by The Sioux Chef',
-      neighborhood: 'Mill District, Minneapolis',
-      style: 'Indigenous, James Beard Best New Restaurant 2022',
-      description: 'Sean Sherman’s pre-colonial-Indigenous restaurant on the Mississippi at Owámniyomni (Saint Anthony Falls). A menu built without colonial ingredients (no wheat, dairy, sugar, beef, or pork) that has earned national attention and the 2022 James Beard Best New Restaurant award. One of the most important restaurant openings in recent American history happened here.',
-      address: '420 S 1st St, Minneapolis',
-      website: 'https://owamni.com',
-      price: '$$$$'
-    },
-    {
       name: '112 Eatery',
       neighborhood: 'North Loop, Minneapolis',
       style: 'New American, James Beard',
@@ -103,6 +94,15 @@ module.exports = {
       description: 'Daniel del Prado’s Linden Hills restaurant blending Italian pasta technique with Argentinian wood-fire cooking. The pastas are the headline but the wood-grilled meats are equally serious. The room is small and the bar is the move for walk-ins.',
       address: '4312 Upton Ave S, Minneapolis',
       website: 'https://www.martinarestaurant.com',
+      price: '$$$$'
+    },
+    {
+      name: 'Owamni',
+      neighborhood: 'Mill District, Minneapolis',
+      style: 'Indigenous, riverfront',
+      description: 'A pre-colonial Indigenous restaurant on the Mississippi at Owámniyomni (Saint Anthony Falls). Menu built without wheat, dairy, sugar, beef, or pork, which is a category of restaurant that essentially did not exist in the United States before this room.',
+      address: '420 S 1st St, Minneapolis',
+      website: 'https://owamni.com',
       price: '$$$$'
     }
   ]
