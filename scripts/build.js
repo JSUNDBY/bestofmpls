@@ -205,7 +205,7 @@ function head({ title, description, slug, theme }) {
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=Archivo:wght@500;600;700&display=swap">
-<link rel="stylesheet" href="/style.css?v=3">
+<link rel="stylesheet" href="/style.css?v=4">
 <script>
 // Set color mode before paint to avoid flash. Reads localStorage first,
 // falls back to light mode (the new editorial default). mode-ready class
@@ -438,15 +438,27 @@ function renderCategory(c) {
     const meta = [];
     if (e.neighborhood) meta.push(`<span>${esc(e.neighborhood)}</span>`);
     if (e.style) meta.push(`<span class="entry-meta-style">${esc(e.style)}</span>`);
+    // Build the entry-footer utility row.
+    // Each item is its own block: address (clickable to maps), website,
+    // price, hours, capacity. Address gets a "directions" suffix.
     const footerBits = [];
-    if (e.address) footerBits.push(`<span>${esc(e.address)}</span>`);
+    if (e.address) {
+      // Skip linking generic city-only addresses; link real street addresses to Google Maps
+      const isStreetAddress = /\d/.test(e.address);
+      if (isStreetAddress) {
+        const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(e.address)}`;
+        footerBits.push(`<a class="entry-meta-link" href="${esc(mapsUrl)}" target="_blank" rel="noopener" title="Open in Google Maps">${esc(e.address)} <span class="entry-meta-link-icon">↗</span></a>`);
+      } else {
+        footerBits.push(`<span>${esc(e.address)}</span>`);
+      }
+    }
+    if (e.website) {
+      const cleanUrl = e.website.replace(/^https?:\/\//, '').replace(/\/$/, '');
+      footerBits.push(`<a class="entry-meta-link entry-meta-link--website" href="${esc(e.website)}" target="_blank" rel="noopener">${esc(cleanUrl)} <span class="entry-meta-link-icon">↗</span></a>`);
+    }
     if (e.price) footerBits.push(`<span class="entry-footer-price">${esc(e.price)}</span>`);
     if (e.hours) footerBits.push(`<span>${esc(e.hours)}</span>`);
     if (e.capacity) footerBits.push(`<span>Capacity ${esc(e.capacity)}</span>`);
-    if (e.website) {
-      const cleanUrl = e.website.replace(/^https?:\/\//, '').replace(/\/$/, '');
-      footerBits.push(`<a class="entry-website" href="${esc(e.website)}" target="_blank" rel="noopener">${esc(cleanUrl)} →</a>`);
-    }
     const rankBlock = isFeatured ? `<div class="entry-rank">★</div>` : '';
     const pickBadge = isFeatured ? '<span class="entry-meta-pick">Editor’s pick</span>' : '';
     return `<article class="entry${featured}" id="${esc(e.name.toLowerCase().replace(/[^a-z0-9]+/g, '-'))}">
@@ -460,20 +472,73 @@ function renderCategory(c) {
     </article>`;
   }).join('');
 
-  // ItemList schema for SEO. Use Place as fallback for non-restaurant categories.
-  const itemType = (c.slug.includes('pizza') || c.slug.includes('brunch') || c.slug.includes('happy') || c.slug.includes('bars'))
-    ? 'Restaurant' : 'Place';
+  // Pick the most-specific schema.org type for the category
+  const SCHEMA_TYPE_BY_SLUG = {
+    'restaurants':            'Restaurant',
+    'best-pizza':             'Restaurant',
+    'best-brunch':            'Restaurant',
+    'best-happy-hours':       'Restaurant',
+    'sandwiches':             'Restaurant',
+    'burgers':                'Restaurant',
+    'mexican-and-tacos':      'Restaurant',
+    'vietnamese':             'Restaurant',
+    'korean':                 'Restaurant',
+    'japanese':               'Restaurant',
+    'hmong-food':             'Restaurant',
+    'ethiopian':              'Restaurant',
+    'indian-restaurants':     'Restaurant',
+    'late-night':             'Restaurant',
+    'food-halls':             'Restaurant',
+    'best-dive-bars':         'BarOrPub',
+    'cocktail-bars':          'BarOrPub',
+    'best-patios':            'BarOrPub',
+    'breweries':              'Brewery',
+    'coffee-shops':           'CafeOrCoffeeShop',
+    'pastries-and-bakeries':  'Bakery',
+    'ice-cream':              'IceCreamShop',
+    'live-music':             'MusicVenue',
+    'theaters':               'TheaterEvent',
+    'arthouse-cinemas':       'MovieTheater',
+    'museums-and-galleries':  'Museum',
+    'lgbtq-nightlife':        'BarOrPub',
+    'wellness-and-spas':      'HealthAndBeautyBusiness',
+    'cannabis-dispensaries':  'Store',
+    'independent-shops':      'Store',
+    'mens-clothing':          'ClothingStore',
+    'womens-clothing':        'ClothingStore',
+    'boutique-hotels':        'Hotel',
+    'outdoors':               'TouristAttraction',
+    'hidden-gems':            'TouristAttraction'
+  };
+  const itemType = SCHEMA_TYPE_BY_SLUG[c.slug] || 'LocalBusiness';
+
+  // ItemList wraps individual LocalBusiness entries.
+  // Each entry gets its own schema with name, address, website, price.
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
     name: c.title,
     description: c.subtitle,
     numberOfItems: c.entries.length,
-    itemListElement: c.entries.map((e, i) => ({
-      '@type': 'ListItem',
-      position: i + 1,
-      item: { '@type': itemType, name: e.name, address: e.address }
-    }))
+    itemListElement: c.entries.map((e, i) => {
+      const item = {
+        '@type': itemType,
+        name: e.name,
+        url: e.website || `${SITE}/${c.slug}/#${e.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`
+      };
+      if (e.address) {
+        item.address = {
+          '@type': 'PostalAddress',
+          streetAddress: e.address,
+          addressLocality: /st\.? paul/i.test(e.address) ? 'Saint Paul' : 'Minneapolis',
+          addressRegion: 'MN',
+          addressCountry: 'US'
+        };
+      }
+      if (e.price) item.priceRange = e.price;
+      if (e.description) item.description = e.description;
+      return { '@type': 'ListItem', position: i + 1, item };
+    })
   };
 
   // External link callout (e.g. Dispensaries → twincitycannabis.com)

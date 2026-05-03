@@ -491,6 +491,44 @@ p { margin: 0 0 1em; }
   color: var(--ink-soft);
 }
 .entry-footer-price { color: var(--clay); font-weight: 600; }
+
+/* Clickable entry-footer items: address (opens Google Maps) and website */
+.entry-meta-link {
+  color: var(--ink);
+  font-weight: 500;
+  border-bottom: 1px dotted var(--ink-faint);
+  padding-bottom: 2px;
+  transition: color 0.18s ease, border-color 0.18s ease, border-bottom-style 0s;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
+}
+.entry-meta-link:hover {
+  color: var(--clay);
+  border-color: var(--clay);
+  border-bottom-style: solid;
+}
+.entry-meta-link--website {
+  color: var(--clay);
+  font-weight: 600;
+  border-color: var(--clay);
+  border-bottom-style: solid;
+}
+.entry-meta-link--website:hover {
+  color: var(--ink);
+  border-color: var(--ink);
+}
+.entry-meta-link-icon {
+  font-size: 0.8em;
+  opacity: 0.55;
+  transition: opacity 0.18s ease, transform 0.18s ease;
+}
+.entry-meta-link:hover .entry-meta-link-icon {
+  opacity: 1;
+  transform: translate(1px, -1px);
+}
+
+/* Legacy .entry-website alias (used in renderNeighborhoodPage) */
 .entry-website {
   color: var(--clay) !important;
   font-weight: 600;
