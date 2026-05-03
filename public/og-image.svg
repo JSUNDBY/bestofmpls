@@ -14,20 +14,22 @@
   <!-- Subtle paper grain overlay -->
   <rect width="1200" height="630" filter="url(#grain)"/>
 
-  <!-- Top eyebrow row -->
-  <text x="80" y="86" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="700" font-size="15" letter-spacing="3.5" fill="#E11900">BESTOFMPLS · VOL. 01 · SPRING 2026</text>
+  <!-- Top eyebrow -->
+  <text x="80" y="90" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="700" font-size="15" letter-spacing="3.5" fill="#E11900">VOL. 01 · SPRING 2026</text>
 
-  <!-- Top hairline below eyebrow -->
-  <line x1="80" y1="116" x2="1120" y2="116" stroke="#0A0A0A" stroke-opacity="0.18" stroke-width="1"/>
+  <!-- Top hairline -->
+  <line x1="80" y1="120" x2="1120" y2="120" stroke="#0A0A0A" stroke-opacity="0.18" stroke-width="1"/>
 
-  <!-- Massive headline. Two lines. Italic red ampersand. -->
-  <text x="80" y="290" font-family="Playfair Display, Georgia, serif" font-weight="400" font-size="140" letter-spacing="-3" fill="#0A0A0A">Minneapolis</text>
-  <text x="80" y="430" font-family="Playfair Display, Georgia, serif" font-weight="400" font-size="140" letter-spacing="-3" fill="#0A0A0A"><tspan font-style="italic" font-weight="700" fill="#E11900">&amp;</tspan> Saint Paul.</text>
+  <!-- Hero brand mark. The whole point of the image. Italic Playfair, red dot. -->
+  <text x="80" y="335" font-family="Playfair Display, Georgia, serif" font-style="italic" font-weight="900" font-size="168" letter-spacing="-4" fill="#0A0A0A">bestofmpls<tspan fill="#E11900">.</tspan></text>
+
+  <!-- Sub-headline: the cities, in regular serif -->
+  <text x="80" y="430" font-family="Playfair Display, Georgia, serif" font-weight="400" font-size="58" letter-spacing="-1" fill="#0A0A0A">Minneapolis <tspan font-style="italic" font-weight="700" fill="#E11900">&amp;</tspan> Saint Paul.</text>
 
   <!-- Bottom hairline -->
-  <line x1="80" y1="510" x2="1120" y2="510" stroke="#0A0A0A" stroke-opacity="0.18" stroke-width="1"/>
+  <line x1="80" y1="520" x2="1120" y2="520" stroke="#0A0A0A" stroke-opacity="0.18" stroke-width="1"/>
 
-  <!-- Bottom row: tagline left, URL right (italic serif tagline, all-caps URL) -->
-  <text x="80" y="570" font-family="Playfair Display, Georgia, serif" font-style="italic" font-weight="400" font-size="26" fill="#0A0A0A">An independent guide to Minneapolis &amp; Saint Paul.</text>
-  <text x="1120" y="570" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="700" font-size="14" letter-spacing="3" fill="#E11900" text-anchor="end">BESTOFMPLS.COM</text>
+  <!-- Bottom row: italic tagline left, URL right -->
+  <text x="80" y="575" font-family="Playfair Display, Georgia, serif" font-style="italic" font-weight="400" font-size="22" fill="#0A0A0A">An independent guide to a city of long winters and bright light.</text>
+  <text x="1120" y="575" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="700" font-size="14" letter-spacing="3" fill="#E11900" text-anchor="end">BESTOFMPLS.COM</text>
 </svg>
