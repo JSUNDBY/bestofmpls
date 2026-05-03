@@ -28,41 +28,43 @@ function generateSVG() {
   const skylineB64 = fs.readFileSync(skylinePath).toString('base64');
   const skylineDataUri = `data:image/jpeg;base64,${skylineB64}`;
 
+  // Layout: text panel on left (480w), photo on right (720w).
+  // Photo at 720x630 is ~1.14:1; original photo is 1.5:1, so we crop sides
+  // (much less aggressive than the previous 1.9:1 top/bottom crop).
   return `<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1200" height="630" viewBox="0 0 1200 630">
-  <defs>
-    <linearGradient id="bottomFade" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="${INK}" stop-opacity="0"/>
-      <stop offset="50%" stop-color="${INK}" stop-opacity="0.35"/>
-      <stop offset="100%" stop-color="${INK}" stop-opacity="0.92"/>
-    </linearGradient>
-    <linearGradient id="topFade" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="${INK}" stop-opacity="0.55"/>
-      <stop offset="100%" stop-color="${INK}" stop-opacity="0"/>
-    </linearGradient>
-  </defs>
+  <!-- Background: white paper for the text panel -->
+  <rect width="1200" height="630" fill="${PAPER}"/>
 
-  <!-- Hero photo: Minneapolis skyline at twilight -->
-  <image xlink:href="${skylineDataUri}" x="0" y="0" width="1200" height="630" preserveAspectRatio="xMidYMid slice"/>
+  <!-- Photo on right side, shows full vertical composition -->
+  <image xlink:href="${skylineDataUri}" x="480" y="0" width="720" height="630" preserveAspectRatio="xMidYMid slice"/>
 
-  <!-- Top fade for eyebrow legibility -->
-  <rect x="0" y="0" width="1200" height="140" fill="url(#topFade)"/>
+  <!-- Vertical hairline between text panel and photo -->
+  <line x1="480" y1="0" x2="480" y2="630" stroke="${INK}" stroke-opacity="0.18" stroke-width="1"/>
 
-  <!-- Bottom fade for brand mark + headline + URL legibility -->
-  <rect x="0" y="280" width="1200" height="350" fill="url(#bottomFade)"/>
+  <!-- Top eyebrow on text panel -->
+  <text x="64" y="80" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="700" font-size="13" letter-spacing="3.5" fill="${CLAY}">VOL. 01 · SPRING 2026</text>
 
-  <!-- Top eyebrow (over photo) -->
-  <text x="80" y="68" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="700" font-size="14" letter-spacing="3.5" fill="${CLAY}">VOL. 01 · SPRING 2026</text>
+  <!-- Top hairline below eyebrow -->
+  <line x1="64" y1="108" x2="416" y2="108" stroke="${INK}" stroke-opacity="0.18" stroke-width="1"/>
 
-  <!-- Hero brand mark, lower-left over photo -->
-  <text x="80" y="490" font-family="Playfair Display, Georgia, serif" font-style="italic" font-weight="900" font-size="124" letter-spacing="-3" fill="${PAPER}">bestofmpls<tspan fill="${CLAY}">.</tspan></text>
+  <!-- Hero brand mark, italic Playfair, fits within text panel width -->
+  <text x="64" y="240" font-family="Playfair Display, Georgia, serif" font-style="italic" font-weight="900" font-size="78" letter-spacing="-2" fill="${INK}">bestofmpls<tspan fill="${CLAY}">.</tspan></text>
 
-  <!-- Sub-headline: the cities -->
-  <text x="80" y="552" font-family="Playfair Display, Georgia, serif" font-weight="400" font-size="36" letter-spacing="-0.5" fill="${PAPER}">Minneapolis <tspan font-style="italic" font-weight="700" fill="${CLAY}">&amp;</tspan> Saint Paul.</text>
+  <!-- Sub-headline split across two lines so it fits the panel -->
+  <text x="64" y="310" font-family="Playfair Display, Georgia, serif" font-weight="400" font-size="34" letter-spacing="-0.5" fill="${INK}">Minneapolis</text>
+  <text x="64" y="352" font-family="Playfair Display, Georgia, serif" font-weight="400" font-size="34" letter-spacing="-0.5" fill="${INK}"><tspan font-style="italic" font-weight="700" fill="${CLAY}">&amp;</tspan> Saint Paul.</text>
 
-  <!-- Bottom row: tagline + URL -->
-  <text x="80" y="600" font-family="Playfair Display, Georgia, serif" font-style="italic" font-weight="400" font-size="20" fill="${PAPER}" fill-opacity="0.85">An independent guide to a city of long winters and bright light.</text>
-  <text x="1120" y="600" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="700" font-size="14" letter-spacing="3" fill="${CLAY}" text-anchor="end">BESTOFMPLS.COM</text>
+  <!-- Italic tagline lower in the panel -->
+  <text x="64" y="445" font-family="Playfair Display, Georgia, serif" font-style="italic" font-weight="400" font-size="19" fill="${INK}">An independent guide to a</text>
+  <text x="64" y="471" font-family="Playfair Display, Georgia, serif" font-style="italic" font-weight="400" font-size="19" fill="${INK}">city of long winters and</text>
+  <text x="64" y="497" font-family="Playfair Display, Georgia, serif" font-style="italic" font-weight="400" font-size="19" fill="${INK}">bright light.</text>
+
+  <!-- Bottom hairline -->
+  <line x1="64" y1="540" x2="416" y2="540" stroke="${INK}" stroke-opacity="0.18" stroke-width="1"/>
+
+  <!-- Bottom URL -->
+  <text x="64" y="588" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="700" font-size="14" letter-spacing="3" fill="${CLAY}">BESTOFMPLS.COM</text>
 </svg>`;
 }
 
