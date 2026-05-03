@@ -36,8 +36,8 @@ module.exports = {
     {
       name: 'Owamni',
       neighborhood: 'Mill District, Minneapolis',
-      style: 'Indigenous, James Beard Best New Restaurant 2022',
-      description: 'A pre-colonial Indigenous restaurant on the Mississippi at Owámniyomni (Saint Anthony Falls). Menu built without wheat, dairy, sugar, beef, or pork, which is a category of restaurant that essentially did not exist in the United States before this room. Won James Beard Best New Restaurant in 2022.',
+      style: 'Sean Sherman, Indigenous, James Beard 2022',
+      description: 'Sean Sherman’s pre-colonial Indigenous restaurant on the Mississippi at Owámniyomni (Saint Anthony Falls). Menu built without wheat, dairy, sugar, beef, or pork, which is a category of restaurant that essentially did not exist in the United States before this room. Won James Beard Best New Restaurant in 2022.',
       address: '420 S 1st St, Minneapolis',
       website: 'https://owamni.com',
       price: '$$$$'

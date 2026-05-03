@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>bestofmpls — design exploration</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bowlby+One&family=Anton&family=Newsreader:ital,wght@0,400;0,600;1,400&family=Big+Shoulders+Display:wght@600;800&family=IBM+Plex+Sans:wght@400;600&family=Playfair+Display:wght@400;700;900&family=Source+Sans+3:wght@400;600&family=Space+Grotesk:wght@400;500;700&family=DM+Sans:wght@400;500;700&family=Bagel+Fat+One&family=Manrope:wght@400;500;700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;1,9..144,400&family=Inter:wght@400;500;600&family=Archivo+Black&family=Plus+Jakarta+Sans:wght@400;500;700&display=swap">
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: #1A1714;
+  color: #F0E9D8;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+/* Page header */
+.page-head {
+  padding: 56px 48px 24px;
+  border-bottom: 1px solid rgba(240, 233, 216, 0.2);
+}
+.page-head h1 {
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 32px;
+  letter-spacing: -0.02em;
+  margin-bottom: 12px;
+}
+.page-head p { font-size: 16px; opacity: 0.7; max-width: 640px; }
+
+/* Sample-section nav */
+.sample-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: #1A1714;
+  border-bottom: 1px solid rgba(240, 233, 216, 0.2);
+  padding: 16px 48px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+.sample-nav a {
+  color: #F0E9D8;
+  opacity: 0.7;
+  text-decoration: none;
+  padding: 4px 0;
+  border-bottom: 1px solid transparent;
+  transition: all 0.15s ease;
+}
+.sample-nav a:hover { opacity: 1; border-color: currentColor; }
+
+/* Each sample section */
+.sample {
+  padding: 80px 64px;
+  min-height: 90vh;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 48px;
+  position: relative;
+}
+@media (max-width: 720px) {
+  .sample { padding: 56px 32px; }
+}
+
+/* Pin sample meta to the right edge */
+.sample-meta {
+  position: absolute;
+  top: 80px;
+  right: 64px;
+  font-family: 'Inter', sans-serif;
+  font-size: 10.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-align: right;
+  opacity: 0.55;
+  max-width: 240px;
+}
+.sample-meta .label { display: block; font-weight: 600; opacity: 0.6; margin-bottom: 4px; }
+.sample-meta .value { display: block; font-weight: 400; margin-bottom: 14px; }
+.sample-meta .swatches { display: flex; gap: 6px; margin-top: 8px; justify-content: flex-end; }
+.sample-meta .swatch {
+  width: 22px; height: 22px;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+}
+
+/* Sample inner content */
+.sample-content {
+  max-width: 900px;
+}
+.sample-eyebrow {
+  font-size: 11.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 18px;
+}
+.sample-brand {
+  font-size: 56px;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  margin-bottom: 36px;
+}
+.sample-headline {
+  font-size: 88px;
+  line-height: 0.95;
+  letter-spacing: -0.025em;
+  margin-bottom: 24px;
+}
+.sample-deck {
+  font-size: 19px;
+  line-height: 1.55;
+  max-width: 640px;
+  margin-bottom: 28px;
+  opacity: 0.85;
+}
+.sample-cta {
+  display: inline-block;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 600;
+  padding: 4px 0 6px;
+  border-bottom: 1.5px solid currentColor;
+}
+
+/* ========== SAMPLE 1: CURRENT (Cream + Clay + Forest) ========== */
+#s1 {
+  background: #F4EEDF;
+  color: #1F1B17;
+}
+#s1 .sample-eyebrow { color: #B0673A; }
+#s1 .sample-brand,
+#s1 .sample-headline { font-family: 'Bowlby One', Impact, sans-serif; font-weight: 400; }
+#s1 .sample-headline em { color: #B0673A; font-style: normal; }
+#s1 .sample-deck { font-family: 'Inter', sans-serif; }
+#s1 .sample-cta { color: #1F1B17; }
+
+/* ========== SAMPLE 2: STARK EDITORIAL (White + Black + Bright Red) ========== */
+#s2 {
+  background: #FFFFFF;
+  color: #0A0A0A;
+}
+#s2 .sample-eyebrow { color: #E11900; font-weight: 700; }
+#s2 .sample-brand { font-family: 'Playfair Display', serif; font-weight: 900; font-style: italic; }
+#s2 .sample-headline {
+  font-family: 'Playfair Display', serif;
+  font-weight: 400;
+  font-size: 96px;
+  letter-spacing: -0.03em;
+}
+#s2 .sample-headline em { color: #E11900; font-style: italic; font-weight: 700; }
+#s2 .sample-deck { font-family: 'Source Sans 3', sans-serif; font-size: 20px; }
+#s2 .sample-cta { color: #E11900; border-color: #E11900; }
+
+/* ========== SAMPLE 3: COOL MODERN (Off-white + Deep Navy + Electric Coral) ========== */
+#s3 {
+  background: #F5F2EC;
+  color: #0E1F3D;
+}
+#s3 .sample-eyebrow { color: #FF5A5F; font-weight: 700; }
+#s3 .sample-brand,
+#s3 .sample-headline { font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
+#s3 .sample-headline em { color: #FF5A5F; font-style: normal; font-weight: 700; }
+#s3 .sample-deck { font-family: 'DM Sans', sans-serif; }
+#s3 .sample-cta { color: #0E1F3D; }
+
+/* ========== SAMPLE 4: BRUTALIST (Black + White + Neon Yellow) ========== */
+#s4 {
+  background: #0A0A0A;
+  color: #FFFFFF;
+}
+#s4 .sample-eyebrow { color: #E5FF00; }
+#s4 .sample-brand,
+#s4 .sample-headline { font-family: 'Archivo Black', Impact, sans-serif; font-weight: 900; text-transform: uppercase; letter-spacing: -0.02em; }
+#s4 .sample-headline em { color: #E5FF00; font-style: normal; }
+#s4 .sample-deck { font-family: 'Plus Jakarta Sans', sans-serif; }
+#s4 .sample-cta { color: #E5FF00; border-color: #E5FF00; }
+#s4 .sample-meta { color: #FFFFFF; }
+
+/* ========== SAMPLE 5: SOFT CONTEMPORARY (Off-white + Sage + Terracotta) ========== */
+#s5 {
+  background: #F2EFEA;
+  color: #2C3328;
+}
+#s5 .sample-eyebrow { color: #C8704C; font-weight: 600; }
+#s5 .sample-brand,
+#s5 .sample-headline { font-family: 'Fraunces', serif; font-weight: 400; font-variation-settings: 'opsz' 144, 'SOFT' 100; }
+#s5 .sample-headline em { color: #C8704C; font-style: italic; font-weight: 400; }
+#s5 .sample-deck { font-family: 'Inter', sans-serif; }
+#s5 .sample-cta { color: #2C3328; }
+
+/* ========== SAMPLE 6: MAGAZINE LUXE (Paper + Plum + Pistachio) ========== */
+#s6 {
+  background: #F8F4ED;
+  color: #1B1428;
+}
+#s6 .sample-eyebrow { color: #5B2A4D; font-weight: 700; }
+#s6 .sample-brand { font-family: 'Newsreader', serif; font-weight: 600; font-style: italic; }
+#s6 .sample-headline {
+  font-family: 'Newsreader', serif;
+  font-weight: 400;
+  font-size: 104px;
+  letter-spacing: -0.02em;
+  line-height: 0.95;
+}
+#s6 .sample-headline em { color: #5B2A4D; font-style: italic; font-weight: 600; }
+#s6 .sample-deck { font-family: 'Newsreader', serif; font-size: 21px; line-height: 1.5; }
+#s6 .sample-cta { color: #5B2A4D; border-color: #5B2A4D; }
+
+/* ========== SAMPLE 7: PUNCHY TECH (Pure White + Cobalt + Warm Orange) ========== */
+#s7 {
+  background: #FFFFFF;
+  color: #0F172A;
+}
+#s7 .sample-eyebrow { color: #F97316; font-weight: 700; }
+#s7 .sample-brand,
+#s7 .sample-headline { font-family: 'Big Shoulders Display', Impact, sans-serif; font-weight: 800; letter-spacing: -0.01em; }
+#s7 .sample-headline em { color: #2563EB; font-style: normal; font-weight: 800; }
+#s7 .sample-deck { font-family: 'IBM Plex Sans', sans-serif; }
+#s7 .sample-cta { color: #2563EB; border-color: #2563EB; }
+
+/* ========== SAMPLE 8: DARK EDITORIAL (Warm Charcoal + Cream + Amber) ========== */
+#s8 {
+  background: #1F1B17;
+  color: #F0E9D8;
+}
+#s8 .sample-eyebrow { color: #F5B82E; font-weight: 600; }
+#s8 .sample-brand,
+#s8 .sample-headline { font-family: 'Anton', Impact, sans-serif; font-weight: 400; letter-spacing: -0.01em; }
+#s8 .sample-headline em { color: #F5B82E; font-style: normal; }
+#s8 .sample-deck { font-family: 'Manrope', sans-serif; }
+#s8 .sample-cta { color: #F5B82E; border-color: #F5B82E; }
+
+/* ========== SAMPLE 9: PLAYFUL POSTER (Bagel + Cream + Hot Pink) ========== */
+#s9 {
+  background: #FFF8E7;
+  color: #1A0F0A;
+}
+#s9 .sample-eyebrow { color: #E91E63; font-weight: 700; }
+#s9 .sample-brand,
+#s9 .sample-headline { font-family: 'Bagel Fat One', Impact, sans-serif; font-weight: 400; letter-spacing: -0.02em; }
+#s9 .sample-headline em { color: #E91E63; font-style: normal; }
+#s9 .sample-deck { font-family: 'Manrope', sans-serif; }
+#s9 .sample-cta { color: #E91E63; border-color: #E91E63; }
+
+/* ========== SAMPLE 10: NORDIC MINIMAL (Pale Slate + Black + Single Accent) ========== */
+#s10 {
+  background: #E8EAEB;
+  color: #0A0A0A;
+}
+#s10 .sample-eyebrow { color: #8B5CF6; font-weight: 600; }
+#s10 .sample-brand,
+#s10 .sample-headline { font-family: 'Inter', sans-serif; font-weight: 700; letter-spacing: -0.04em; }
+#s10 .sample-headline em { color: #8B5CF6; font-style: normal; font-weight: 700; }
+#s10 .sample-deck { font-family: 'Inter', sans-serif; font-weight: 400; }
+#s10 .sample-cta { color: #0A0A0A; }
+
+/* Mobile sizing */
+@media (max-width: 720px) {
+  .sample-meta { position: static; max-width: none; text-align: left; margin-bottom: 24px; }
+  .sample-meta .swatches { justify-content: flex-start; }
+  .sample-brand { font-size: 40px; }
+  .sample-headline { font-size: 56px; }
+  #s2 .sample-headline { font-size: 56px; }
+  #s6 .sample-headline { font-size: 56px; }
+}
+</style>
+</head>
+<body>
+
+<header class="page-head">
+  <h1>bestofmpls — design exploration</h1>
+  <p>Ten different vibes to consider. Same content, different palette + font pairing each. Scroll through and pick directions you like (you can mix — e.g. "the colors of #5 with the fonts of #2").</p>
+</header>
+
+<nav class="sample-nav">
+  <a href="#s1">01. Current</a>
+  <a href="#s2">02. Stark Editorial</a>
+  <a href="#s3">03. Cool Modern</a>
+  <a href="#s4">04. Brutalist</a>
+  <a href="#s5">05. Soft Contemporary</a>
+  <a href="#s6">06. Magazine Luxe</a>
+  <a href="#s7">07. Punchy Tech</a>
+  <a href="#s8">08. Dark Editorial</a>
+  <a href="#s9">09. Playful Poster</a>
+  <a href="#s10">10. Nordic Minimal</a>
+</nav>
+
+<!-- ============== 01 CURRENT ============== -->
+<section class="sample" id="s1">
+  <div class="sample-meta">
+    <span class="label">01. Current site</span>
+    <span class="value">Bowlby One + Inter</span>
+    <span class="value">Cream / Clay / Forest</span>
+    <div class="swatches">
+      <span class="swatch" style="background:#F4EEDF"></span>
+      <span class="swatch" style="background:#B0673A"></span>
+      <span class="swatch" style="background:#2F4734"></span>
+    </div>
+  </div>
+  <div class="sample-content">
+    <div class="sample-eyebrow">Vol. 01 · Spring 2026</div>
+    <div class="sample-brand">bestofmpls.</div>
+    <h2 class="sample-headline">Minneapolis<br><em>&amp;</em> Saint Paul.</h2>
+    <p class="sample-deck">Where to eat, drink, see, hear, sleep, and spend a Saturday in two of the best small cities in America.</p>
+    <a class="sample-cta" href="#">First time visiting? Start here</a>
+  </div>
+</section>
+
+<!-- ============== 02 STARK EDITORIAL ============== -->
+<section class="sample" id="s2">
+  <div class="sample-meta">
+    <span class="label">02. Stark Editorial</span>
+    <span class="value">Playfair + Source Sans</span>
+    <span class="value">White / Black / Red</span>
+    <div class="swatches">
+      <span class="swatch" style="background:#FFFFFF"></span>
+      <span class="swatch" style="background:#0A0A0A"></span>
+      <span class="swatch" style="background:#E11900"></span>
+    </div>
+  </div>
+  <div class="sample-content">
+    <div class="sample-eyebrow">Vol. 01 · Spring 2026</div>
+    <div class="sample-brand">bestofmpls.</div>
+    <h2 class="sample-headline">Minneapolis<br><em>&amp;</em> Saint Paul.</h2>
+    <p class="sample-deck">Where to eat, drink, see, hear, sleep, and spend a Saturday in two of the best small cities in America.</p>
+    <a class="sample-cta" href="#">First time visiting? Start here →</a>
+  </div>
+</section>
+
+<!-- ============== 03 COOL MODERN ============== -->
+<section class="sample" id="s3">
+  <div class="sample-meta">
+    <span class="label">03. Cool Modern</span>
+    <span class="value">Space Grotesk + DM Sans</span>
+    <span class="value">Off-white / Navy / Coral</span>
+    <div class="swatches">
+      <span class="swatch" style="background:#F5F2EC"></span>
+      <span class="swatch" style="background:#0E1F3D"></span>
+      <span class="swatch" style="background:#FF5A5F"></span>
+    </div>
+  </div>
+  <div class="sample-content">
+    <div class="sample-eyebrow">Vol. 01 · Spring 2026</div>
+    <div class="sample-brand">bestofmpls.</div>
+    <h2 class="sample-headline">Minneapolis<br><em>&amp;</em> Saint Paul.</h2>
+    <p class="sample-deck">Where to eat, drink, see, hear, sleep, and spend a Saturday in two of the best small cities in America.</p>
+    <a class="sample-cta" href="#">First time visiting? Start here</a>
+  </div>
+</section>
+
+<!-- ============== 04 BRUTALIST ============== -->
+<section class="sample" id="s4">
+  <div class="sample-meta">
+    <span class="label">04. Brutalist</span>
+    <span class="value">Archivo Black + Plus Jakarta</span>
+    <span class="value">Black / White / Neon Yellow</span>
+    <div class="swatches">
+      <span class="swatch" style="background:#0A0A0A"></span>
+      <span class="swatch" style="background:#FFFFFF"></span>
+      <span class="swatch" style="background:#E5FF00"></span>
+    </div>
+  </div>
+  <div class="sample-content">
+    <div class="sample-eyebrow">Vol. 01 · Spring 2026</div>
+    <div class="sample-brand">bestofmpls.</div>
+    <h2 class="sample-headline">MINNEAPOLIS<br><em>&amp;</em> SAINT PAUL.</h2>
+    <p class="sample-deck">Where to eat, drink, see, hear, sleep, and spend a Saturday in two of the best small cities in America.</p>
+    <a class="sample-cta" href="#">First time visiting? Start here</a>
+  </div>
+</section>
+
+<!-- ============== 05 SOFT CONTEMPORARY ============== -->
+<section class="sample" id="s5">
+  <div class="sample-meta">
+    <span class="label">05. Soft Contemporary</span>
+    <span class="value">Fraunces + Inter</span>
+    <span class="value">Off-white / Sage / Terracotta</span>
+    <div class="swatches">
+      <span class="swatch" style="background:#F2EFEA"></span>
+      <span class="swatch" style="background:#2C3328"></span>
+      <span class="swatch" style="background:#C8704C"></span>
+    </div>
+  </div>
+  <div class="sample-content">
+    <div class="sample-eyebrow">Vol. 01 · Spring 2026</div>
+    <div class="sample-brand">bestofmpls.</div>
+    <h2 class="sample-headline">Minneapolis<br><em>&amp;</em> Saint Paul.</h2>
+    <p class="sample-deck">Where to eat, drink, see, hear, sleep, and spend a Saturday in two of the best small cities in America.</p>
+    <a class="sample-cta" href="#">First time visiting? Start here</a>
+  </div>
+</section>
+
+<!-- ============== 06 MAGAZINE LUXE ============== -->
+<section class="sample" id="s6">
+  <div class="sample-meta">
+    <span class="label">06. Magazine Luxe</span>
+    <span class="value">Newsreader (display + body)</span>
+    <span class="value">Paper / Plum / Ink</span>
+    <div class="swatches">
+      <span class="swatch" style="background:#F8F4ED"></span>
+      <span class="swatch" style="background:#5B2A4D"></span>
+      <span class="swatch" style="background:#1B1428"></span>
+    </div>
+  </div>
+  <div class="sample-content">
+    <div class="sample-eyebrow">Vol. 01 · Spring 2026</div>
+    <div class="sample-brand"><em>bestofmpls.</em></div>
+    <h2 class="sample-headline">Minneapolis<br><em>&amp;</em> Saint Paul.</h2>
+    <p class="sample-deck">Where to eat, drink, see, hear, sleep, and spend a Saturday in two of the best small cities in America.</p>
+    <a class="sample-cta" href="#">First time visiting? Start here</a>
+  </div>
+</section>
+
+<!-- ============== 07 PUNCHY TECH ============== -->
+<section class="sample" id="s7">
+  <div class="sample-meta">
+    <span class="label">07. Punchy Tech</span>
+    <span class="value">Big Shoulders + IBM Plex Sans</span>
+    <span class="value">White / Cobalt / Orange</span>
+    <div class="swatches">
+      <span class="swatch" style="background:#FFFFFF"></span>
+      <span class="swatch" style="background:#2563EB"></span>
+      <span class="swatch" style="background:#F97316"></span>
+    </div>
+  </div>
+  <div class="sample-content">
+    <div class="sample-eyebrow">Vol. 01 · Spring 2026</div>
+    <div class="sample-brand">bestofmpls.</div>
+    <h2 class="sample-headline">Minneapolis<br><em>&amp;</em> Saint Paul.</h2>
+    <p class="sample-deck">Where to eat, drink, see, hear, sleep, and spend a Saturday in two of the best small cities in America.</p>
+    <a class="sample-cta" href="#">First time visiting? Start here</a>
+  </div>
+</section>
+
+<!-- ============== 08 DARK EDITORIAL ============== -->
+<section class="sample" id="s8">
+  <div class="sample-meta">
+    <span class="label">08. Dark Editorial</span>
+    <span class="value">Anton + Manrope</span>
+    <span class="value">Charcoal / Cream / Amber</span>
+    <div class="swatches">
+      <span class="swatch" style="background:#1F1B17"></span>
+      <span class="swatch" style="background:#F0E9D8"></span>
+      <span class="swatch" style="background:#F5B82E"></span>
+    </div>
+  </div>
+  <div class="sample-content">
+    <div class="sample-eyebrow">Vol. 01 · Spring 2026</div>
+    <div class="sample-brand">bestofmpls.</div>
+    <h2 class="sample-headline">Minneapolis<br><em>&amp;</em> Saint Paul.</h2>
+    <p class="sample-deck">Where to eat, drink, see, hear, sleep, and spend a Saturday in two of the best small cities in America.</p>
+    <a class="sample-cta" href="#">First time visiting? Start here</a>
+  </div>
+</section>
+
+<!-- ============== 09 PLAYFUL POSTER ============== -->
+<section class="sample" id="s9">
+  <div class="sample-meta">
+    <span class="label">09. Playful Poster</span>
+    <span class="value">Bagel Fat One + Manrope</span>
+    <span class="value">Cream / Black / Hot Pink</span>
+    <div class="swatches">
+      <span class="swatch" style="background:#FFF8E7"></span>
+      <span class="swatch" style="background:#1A0F0A"></span>
+      <span class="swatch" style="background:#E91E63"></span>
+    </div>
+  </div>
+  <div class="sample-content">
+    <div class="sample-eyebrow">Vol. 01 · Spring 2026</div>
+    <div class="sample-brand">bestofmpls.</div>
+    <h2 class="sample-headline">Minneapolis<br><em>&amp;</em> Saint Paul.</h2>
+    <p class="sample-deck">Where to eat, drink, see, hear, sleep, and spend a Saturday in two of the best small cities in America.</p>
+    <a class="sample-cta" href="#">First time visiting? Start here</a>
+  </div>
+</section>
+
+<!-- ============== 10 NORDIC MINIMAL ============== -->
+<section class="sample" id="s10">
+  <div class="sample-meta">
+    <span class="label">10. Nordic Minimal</span>
+    <span class="value">Inter (everything)</span>
+    <span class="value">Pale Slate / Black / Violet</span>
+    <div class="swatches">
+      <span class="swatch" style="background:#E8EAEB"></span>
+      <span class="swatch" style="background:#0A0A0A"></span>
+      <span class="swatch" style="background:#8B5CF6"></span>
+    </div>
+  </div>
+  <div class="sample-content">
+    <div class="sample-eyebrow">Vol. 01 · Spring 2026</div>
+    <div class="sample-brand">bestofmpls.</div>
+    <h2 class="sample-headline">Minneapolis<br><em>&amp;</em> Saint Paul.</h2>
+    <p class="sample-deck">Where to eat, drink, see, hear, sleep, and spend a Saturday in two of the best small cities in America.</p>
+    <a class="sample-cta" href="#">First time visiting? Start here</a>
+  </div>
+</section>
+
+</body>
+</html>
