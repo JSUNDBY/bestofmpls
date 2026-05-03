@@ -15,11 +15,11 @@ const { execSync } = require('child_process');
 const ROOT = path.resolve(__dirname, '..');
 const DIST = path.join(ROOT, 'dist');
 
-// Brand palette (matches dark mode of the site)
-const PAPER = '#F0E9D8';
-const PAPER_FAINT = '#B5AC9C';
-const INK = '#1A1714';
-const CLAY = '#D88A55';
+// Brand palette: Stark Editorial. White paper, black ink, bright red accent.
+const PAPER = '#FFFFFF';
+const PAPER_FAINT = '#7A7A7A';
+const INK = '#0A0A0A';
+const CLAY = '#E11900';
 
 function generateSVG() {
   return `<?xml version="1.0" encoding="UTF-8"?>
@@ -32,14 +32,14 @@ function generateSVG() {
     </filter>
   </defs>
 
-  <!-- Background -->
-  <rect width="1200" height="630" fill="${INK}"/>
+  <!-- Background: white paper -->
+  <rect width="1200" height="630" fill="${PAPER}"/>
 
   <!-- Subtle paper grain overlay -->
   <rect width="1200" height="630" filter="url(#grain)" opacity="0.5"/>
 
   <!-- Top hairline -->
-  <line x1="80" y1="80" x2="1120" y2="80" stroke="${PAPER}" stroke-opacity="0.18" stroke-width="1"/>
+  <line x1="80" y1="80" x2="1120" y2="80" stroke="${INK}" stroke-opacity="0.2" stroke-width="1"/>
 
   <!-- Top-left issue badge -->
   <text x="80" y="56" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="600" font-size="14" letter-spacing="3" fill="${CLAY}">VOLUME 01 · SPRING 2026</text>
@@ -47,15 +47,15 @@ function generateSVG() {
   <!-- Top-right tagline -->
   <text x="1120" y="56" font-family="Georgia, serif" font-style="italic" font-size="18" fill="${PAPER_FAINT}" text-anchor="end">Made for the metro.</text>
 
-  <!-- Brand mark, large -->
-  <text x="80" y="200" font-family="Impact, 'Arial Black', sans-serif" font-size="120" letter-spacing="-3" fill="${PAPER}">bestofmpls<tspan fill="${CLAY}">.</tspan></text>
+  <!-- Brand mark, large. Playfair italic 900. -->
+  <text x="80" y="200" font-family="Playfair Display, Georgia, serif" font-style="italic" font-weight="900" font-size="100" letter-spacing="-2" fill="${INK}">bestofmpls<tspan fill="${CLAY}">.</tspan></text>
 
-  <!-- Headline (the city pair) -->
-  <text x="80" y="370" font-family="Impact, 'Arial Black', sans-serif" font-size="96" letter-spacing="-2" fill="${PAPER}">Minneapolis</text>
-  <text x="80" y="478" font-family="Impact, 'Arial Black', sans-serif" font-size="96" letter-spacing="-2" fill="${PAPER}"><tspan fill="${CLAY}">&amp;</tspan> Saint Paul.</text>
+  <!-- Headline (the city pair). Playfair regular + italic accent. -->
+  <text x="80" y="370" font-family="Playfair Display, Georgia, serif" font-weight="400" font-size="100" letter-spacing="-2" fill="${INK}">Minneapolis</text>
+  <text x="80" y="488" font-family="Playfair Display, Georgia, serif" font-weight="400" font-size="100" letter-spacing="-2" fill="${INK}"><tspan font-style="italic" font-weight="700" fill="${CLAY}">&amp;</tspan> Saint Paul.</text>
 
   <!-- Bottom hairline -->
-  <line x1="80" y1="540" x2="1120" y2="540" stroke="${PAPER}" stroke-opacity="0.18" stroke-width="1"/>
+  <line x1="80" y1="540" x2="1120" y2="540" stroke="${INK}" stroke-opacity="0.2" stroke-width="1"/>
 
   <!-- Bottom row: deck + URL -->
   <text x="80" y="580" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="20" fill="${PAPER_FAINT}">An independent guide to the museums, music, food, and small good things.</text>

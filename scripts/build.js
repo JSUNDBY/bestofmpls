@@ -204,11 +204,20 @@ function head({ title, description, slug, theme }) {
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;450;500;600&display=swap">
-<link rel="stylesheet" href="/style.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=Archivo:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="/style.css?v=2">
 <script>
-// Dark mode only for now (light mode disabled until font issue is resolved).
-document.documentElement.setAttribute('data-mode', 'dark');
+// Set color mode before paint to avoid flash. Reads localStorage first,
+// falls back to light mode (the new editorial default). mode-ready class
+// added after first frame so smooth transition only kicks in for user toggles.
+(function(){
+  var stored = localStorage.getItem('bom-mode');
+  var mode = stored || 'light';
+  document.documentElement.setAttribute('data-mode', mode);
+  requestAnimationFrame(function(){
+    document.documentElement.classList.add('mode-ready');
+  });
+})();
 </script>
 </head>
 <body${theme ? ` data-theme="${theme}"` : ''}>`;
@@ -236,6 +245,10 @@ function header({ activeSlug } = {}) {
       <div class="masthead-date">${esc(TODAY)}</div>
       <div class="masthead-controls">
         <span class="masthead-tagline">Made for the metro.</span>
+        <button class="mode-toggle" type="button" aria-label="Toggle light or dark mode" data-mode-toggle>
+          <span class="mode-toggle-dot"></span>
+          <span class="mode-toggle-label">Dark</span>
+        </button>
         <button class="nav-toggle" type="button" aria-label="Open menu" data-nav-toggle>
           <span class="nav-toggle-icon">☰</span>
           <span>Menu</span>
@@ -377,7 +390,7 @@ function renderHome() {
     `<section class="cover">
       <div class="wrap cover-wrap">
         <div class="cover-issue">Volume 01 · Spring 2026</div>
-        <h1 class="cover-headline">Minneapolis<br>&amp; Saint Paul.</h1>
+        <h1 class="cover-headline">Minneapolis<br><em>&amp;</em> Saint Paul.</h1>
         <p class="cover-deck">Where to eat, drink, see, hear, sleep, and spend a Saturday in two of the best small cities in America. Made for the metro by the people who live here.</p>
         <div class="cover-actions">
           <a class="cover-cta" href="/visit/">First time visiting? Start here</a>
