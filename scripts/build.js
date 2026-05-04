@@ -65,6 +65,8 @@ const eventsData    = loadJsonOptional(path.join(SRC, 'data/events.json')) || { 
 const horoscopeData = loadJsonOptional(path.join(SRC, 'data/horoscope.json')) || { date: null, intro: '', horoscopes: [] };
 const todayData     = loadJsonOptional(path.join(SRC, 'data/today.json')) || null;
 const coordsData    = loadJsonOptional(path.join(SRC, 'data/coords.json')) || {};
+const rightnowData  = loadJsonOptional(path.join(SRC, 'data/rightnow.json')) || null;
+const hoursData     = loadJsonOptional(path.join(SRC, 'data/hours.json')) || {};
 const shops        = require(path.join(SRC, 'data/shops.js'));
 const mensClothing = require(path.join(SRC, 'data/mens-clothing.js'));
 const womensClothing = require(path.join(SRC, 'data/womens-clothing.js'));
@@ -220,7 +222,7 @@ function head({ title, description, slug, theme }) {
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=Archivo:wght@500;600;700&display=swap">
-<link rel="stylesheet" href="/style.css?v=8">
+<link rel="stylesheet" href="/style.css?v=9">
 <script>
 // Set color mode before paint to avoid flash. Reads localStorage first,
 // falls back to light mode (the new editorial default). mode-ready class
@@ -244,6 +246,7 @@ function header({ activeSlug } = {}) {
   const navItems = [
     { href: '/', label: 'Cover', slug: '' },
     { href: '/today/', label: 'Today', slug: 'today' },
+    { href: '/tonight/', label: 'Tonight', slug: 'tonight' },
     { href: '/calendar/', label: 'Calendar', slug: 'calendar' },
     { href: '/map/', label: 'Map', slug: 'map' },
     { href: '/take-them-to/', label: 'Take Them To', slug: 'take-them-to' },
@@ -289,6 +292,7 @@ function footer() {
   // below can stay focused on the static category lists.
   const dailyLinks = [
     { href: '/today/', label: 'Today' },
+    { href: '/tonight/', label: 'Tonight' },
     { href: '/calendar/', label: 'Calendar' },
     { href: '/map/', label: 'Map' },
     { href: '/take-them-to/', label: 'Take Them To' },
@@ -380,6 +384,105 @@ function footer() {
   });
 })();
 
+// Open Now: read [data-hours] on every entry article, compute open/closed in
+// the user's local time, badge each one, and let an "Open right now" filter
+// hide the closed entries on category pages.
+(function(){
+  var now = new Date();
+  // The hours data uses days where 0 = Sunday (Google convention).
+  var dow = now.getDay();
+  var nowMin = now.getHours() * 60 + now.getMinutes();
+
+  function isOpen(periods) {
+    for (var i = 0; i < periods.length; i++) {
+      var p = periods[i];
+      if (p.day !== dow) continue;
+      var openMin = parseTime(p.open);
+      var closeMin = p.close ? parseTime(p.close) : 1440;
+      // Handle close-after-midnight (closeMin will appear < openMin)
+      if (closeMin <= openMin) closeMin += 1440;
+      if (nowMin >= openMin && nowMin < closeMin) return true;
+      // If we are between midnight and close from yesterday's late hours
+      if (i === 0 && p.day === ((dow + 6) % 7)) {} // not used; kept for clarity
+    }
+    // Also check yesterday for places open past midnight
+    var yest = (dow + 6) % 7;
+    for (var j = 0; j < periods.length; j++) {
+      var q = periods[j];
+      if (q.day !== yest || !q.close) continue;
+      var oM = parseTime(q.open);
+      var cM = parseTime(q.close);
+      if (cM <= oM) {
+        // closes after midnight; the rolled-over period extends into today
+        if (nowMin < cM) return true;
+      }
+    }
+    return false;
+  }
+  function parseTime(s) {
+    var p = s.split(':');
+    return parseInt(p[0], 10) * 60 + parseInt(p[1], 10);
+  }
+  function nextOpen(periods) {
+    // Find the soonest upcoming open time within the next 7 days.
+    for (var d = 0; d < 8; d++) {
+      var checkDow = (dow + d) % 7;
+      var earliest = null;
+      for (var i = 0; i < periods.length; i++) {
+        var p = periods[i];
+        if (p.day !== checkDow) continue;
+        var openMin = parseTime(p.open);
+        if (d === 0 && openMin <= nowMin) continue;
+        if (earliest === null || openMin < earliest) earliest = openMin;
+      }
+      if (earliest !== null) {
+        var labels = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+        var hr = Math.floor(earliest / 60);
+        var min = earliest % 60;
+        var ampm = hr >= 12 ? 'PM' : 'AM';
+        var hr12 = hr % 12 === 0 ? 12 : hr % 12;
+        var when = d === 0 ? 'today' : (d === 1 ? 'tomorrow' : labels[checkDow]);
+        return when + ' ' + hr12 + (min ? ':' + (min < 10 ? '0' : '') + min : '') + ' ' + ampm;
+      }
+    }
+    return null;
+  }
+
+  document.querySelectorAll('[data-hours]').forEach(function(el){
+    try {
+      var periods = JSON.parse(el.getAttribute('data-hours'));
+      var open = isOpen(periods);
+      el.classList.toggle('is-open-now', open);
+      el.classList.toggle('is-closed-now', !open);
+      var slot = el.querySelector('[data-entry-status]');
+      if (slot) {
+        if (open) {
+          slot.innerHTML = '<span class="status-pip is-open"></span>Open now';
+        } else {
+          var nx = nextOpen(periods);
+          slot.innerHTML = '<span class="status-pip is-closed"></span>Closed' + (nx ? ' · opens ' + nx : '');
+        }
+      }
+    } catch (e) {}
+  });
+
+  // Open Now filter on category pages
+  document.querySelectorAll('.opennow-bar [data-opennow]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var mode = btn.dataset.opennow;
+      document.querySelectorAll('.opennow-bar [data-opennow]').forEach(function(b){
+        b.classList.toggle('is-on', b.dataset.opennow === mode);
+      });
+      document.querySelectorAll('.entry').forEach(function(en){
+        if (mode === 'all') { en.style.display = ''; return; }
+        // mode === 'open': hide entries that don't have hours OR are closed
+        if (en.classList.contains('is-open-now')) en.style.display = '';
+        else en.style.display = 'none';
+      });
+    });
+  });
+})();
+
 // Scroll-fade for cards and entries via IntersectionObserver. Lightweight.
 (function(){
   if (!('IntersectionObserver' in window)) return;
@@ -449,26 +552,75 @@ function renderHome() {
     .slice(0, 3)
     .map(x => x.h);
 
+  // Smart cover: when the weather pushes a clear mood (patio day, brutal cold,
+  // big snow), swap the deck + CTA so the front page reflects the day. Default
+  // copy returns whenever the day is just an ordinary day in the metro.
+  const r = rightnowData;
+  let coverDeck = 'Where to eat, drink, see, hear, sleep, and spend a Saturday in two of the best small cities in America. Made for the metro by the people who live here.';
+  let coverCta  = { href: '/visit/', label: 'First time visiting? Start here' };
+  let coverIssue = 'Volume 01 · Spring 2026';
+
+  if (r && r.weather) {
+    if (r.weather.mood === 'patio') {
+      coverDeck = `${r.weather.temp_max}°F today. The patios are open and the city is outside. Here is where the metro spends a day like this.`;
+      coverCta = { href: '/take-them-to/#patio-day', label: 'Take it to a patio →' };
+      coverIssue = `Today · ${r.weather.summary}`;
+    } else if (r.weather.mood === 'brutal') {
+      coverDeck = `${r.weather.temp_now}°F outside. A short list of the warm, slow rooms the metro relies on for a day like this.`;
+      coverCta = { href: '/take-them-to/#snow-day', label: 'Take it indoors →' };
+      coverIssue = `Today · ${r.weather.summary}`;
+    } else if (r.weather.mood === 'snow') {
+      coverDeck = `Snow on the ground. A short list of the warm rooms, hot dishes, and slow drinks for a day like this.`;
+      coverCta = { href: '/take-them-to/#snow-day', label: 'Take it slow →' };
+      coverIssue = `Today · ${r.weather.summary}`;
+    } else if (r.weather.mood === 'rain') {
+      coverDeck = `Steady rain in the forecast. A short list of the candle-lit tables, basement bars, and second-run cinemas for a day like this.`;
+      coverCta = { href: '/take-them-to/#rainy-night', label: 'Take it inside →' };
+      coverIssue = `Today · ${r.weather.summary}`;
+    }
+  }
+
   return head({ title, description, slug: '', theme: 'default' }) +
     header({ activeSlug: '' }) +
-    `<section class="cover">
+    `<section class="cover" data-mood="${r ? r.weather.mood : 'normal'}">
       <figure class="cover-photo">
         <img src="/img/skyline-cover.jpg" alt="Minneapolis skyline at twilight, with the Stone Arch Bridge area in the foreground" loading="eager" fetchpriority="high">
       </figure>
       <div class="wrap cover-wrap">
-        <div class="cover-issue">Volume 01 · Spring 2026</div>
+        <div class="cover-issue">${esc(coverIssue)}</div>
         <h1 class="cover-headline">Minneapolis<br><em>&amp;</em> Saint Paul.</h1>
-        <p class="cover-deck">Where to eat, drink, see, hear, sleep, and spend a Saturday in two of the best small cities in America. Made for the metro by the people who live here.</p>
+        <p class="cover-deck">${esc(coverDeck)}</p>
         <div class="cover-actions">
-          <a class="cover-cta" href="/visit/">First time visiting? Start here</a>
+          <a class="cover-cta" href="${coverCta.href}">${esc(coverCta.label)}</a>
           <div class="cover-meta">
             <span>${categories.length} categories</span>
             <span>${categories.reduce((sum, c) => sum + c.entries.length, 0)} places</span>
-            <span>Updated weekly</span>
+            ${r ? `<span>Sunset ${esc(r.sun.set)}</span>` : `<span>Updated weekly</span>`}
           </div>
         </div>
       </div>
     </section>
+    ${r ? `
+    <section class="rightnow-strip">
+      <div class="wrap rightnow-inner">
+        <div class="rightnow-item">
+          <div class="rightnow-label">Sunset</div>
+          <div class="rightnow-value">${esc(r.sun.set)}</div>
+          <a class="rightnow-link" href="/tonight/">Where to watch →</a>
+        </div>
+        <div class="rightnow-item">
+          <div class="rightnow-label">Right now</div>
+          <div class="rightnow-value">${r.weather.temp_now}°F</div>
+          <span class="rightnow-link">${esc(r.weather.condition)}</span>
+        </div>
+        ${r.countdowns.slice(0, 3).map(c => `
+        <div class="rightnow-item">
+          <div class="rightnow-label">In ${c.days} day${c.days === 1 ? '' : 's'}</div>
+          <div class="rightnow-value rightnow-value-event">${esc(c.name)}</div>
+          <a class="rightnow-link" href="/tonight/">More countdowns →</a>
+        </div>`).join('')}
+      </div>
+    </section>` : ''}
     ${todayData ? `
     <section class="today-feature" id="today">
       <div class="wrap today-feature-inner">
@@ -486,6 +638,7 @@ function renderHome() {
       <div class="wrap tools-strip-inner">
         <a class="tool-card" href="/map/"><span class="tool-icon" aria-hidden="true">◉</span><span class="tool-label">The Map</span><span class="tool-deck">Every place, plotted</span></a>
         <a class="tool-card" href="/calendar/"><span class="tool-icon" aria-hidden="true">▭</span><span class="tool-label">Calendar</span><span class="tool-deck">${(eventsData.events || []).length} upcoming</span></a>
+        <a class="tool-card" href="/tonight/"><span class="tool-icon" aria-hidden="true">☾</span><span class="tool-label">Tonight</span><span class="tool-deck">${rightnowData ? `Sunset ${rightnowData.sun.set}` : 'Sunset + countdowns'}</span></a>
         <a class="tool-card" href="/take-them-to/"><span class="tool-icon" aria-hidden="true">⌖</span><span class="tool-label">Take Them To</span><span class="tool-deck">${situations.situations.length} situations</span></a>
         <a class="tool-card" href="/now-showing/"><span class="tool-icon" aria-hidden="true">▣</span><span class="tool-label">Now Showing</span><span class="tool-deck">${exhibitions.exhibitions.length} exhibitions</span></a>
         <a class="tool-card" href="/horoscope/"><span class="tool-icon" aria-hidden="true">✦</span><span class="tool-label">Horoscope</span><span class="tool-deck">For the metro, today</span></a>
@@ -594,10 +747,17 @@ function renderCategory(c) {
     if (e.capacity) footerBits.push(`<span>Capacity ${esc(e.capacity)}</span>`);
     const rankBlock = isFeatured ? `<div class="entry-rank">★</div>` : '';
     const pickBadge = isFeatured ? '<span class="entry-meta-pick">Editor’s pick</span>' : '';
-    return `<article class="entry${featured}" id="${esc(e.name.toLowerCase().replace(/[^a-z0-9]+/g, '-'))}">
+    // Look up hours for this entry. If we have them, embed as a data attribute
+    // so the inline script at footer can compute open/closed in the user's
+    // timezone on page load.
+    const hoursLookup = hoursData[`${c.slug}:${e.name}`];
+    const hoursAttr = hoursLookup && hoursLookup.hours && hoursLookup.hours.length > 0
+      ? ` data-hours='${JSON.stringify(hoursLookup.hours).replace(/'/g, '&#39;')}'`
+      : '';
+    return `<article class="entry${featured}" id="${esc(e.name.toLowerCase().replace(/[^a-z0-9]+/g, '-'))}"${hoursAttr}>
       ${rankBlock}
       <div class="entry-body">
-        <div class="entry-meta">${meta.join('')}${pickBadge}</div>
+        <div class="entry-meta">${meta.join('')}${pickBadge}<span class="entry-status" data-entry-status></span></div>
         <h2 class="entry-name">${esc(e.name)}</h2>
         <p class="entry-description">${esc(e.description)}</p>
         <div class="entry-footer">${footerBits.join('')}</div>
@@ -692,6 +852,22 @@ function renderCategory(c) {
       </div>
     </div>` : '';
 
+  // Show the "Open Now" toggle only when at least 3 entries on this page
+  // have hours data. Otherwise the toggle would be misleading.
+  const entriesWithHours = c.entries.filter(e => {
+    const h = hoursData[`${c.slug}:${e.name}`];
+    return h && h.hours && h.hours.length > 0;
+  }).length;
+  const openNowToggle = entriesWithHours >= 3 ? `
+    <div class="opennow-bar">
+      <div class="wrap opennow-bar-inner">
+        <span class="cal-filter-label">Filter:</span>
+        <button class="cal-chip cal-chip-all is-on" data-opennow="all" type="button">All ${c.entries.length}</button>
+        <button class="cal-chip" data-opennow="open" type="button"><span class="opennow-dot"></span> Open right now</button>
+        <span class="opennow-note">Hours from Google for ${entriesWithHours} of ${c.entries.length}.</span>
+      </div>
+    </div>` : '';
+
   return head({ title: `${c.title} in the Twin Cities`, description, slug: c.slug, theme: c.hero_color }) +
     header({ activeSlug: c.slug }) +
     `<section class="section-head">
@@ -703,6 +879,7 @@ function renderCategory(c) {
     </section>
     ${verifyBanner}
     ${externalCallout}
+    ${openNowToggle}
     <section class="entry-list">
       ${entries}
     </section>
@@ -1185,6 +1362,8 @@ function renderMap() {
   const description = 'Every place in the directory, every event venue, plotted across the metro. Filter by category, click for details.';
 
   // Build a flat list of points: every entry that has a geocoded address.
+  // Hours are inlined when known so the map can offer an Open Now filter
+  // computed entirely client-side.
   const points = [];
   for (const c of categories) {
     if (c.layout === 'seasonal') continue;
@@ -1192,6 +1371,7 @@ function renderMap() {
       if (!e.address) continue;
       const coords = coordsData[e.address.trim()];
       if (!coords || !coords.lat) continue;
+      const hLook = hoursData[`${c.slug}:${e.name}`];
       points.push({
         lat: coords.lat,
         lng: coords.lng,
@@ -1202,10 +1382,12 @@ function renderMap() {
         anchor: e.name.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
         neighborhood: e.neighborhood || '',
         address: e.address,
-        url: e.website || null
+        url: e.website || null,
+        hours: (hLook && hLook.hours && hLook.hours.length > 0) ? hLook.hours : null
       });
     }
   }
+  const pointsWithHours = points.filter(p => p.hours).length;
 
   // Cluster colors map to homepage IA so the map reads like the rest of the site.
   const CLUSTER_COLORS = {
@@ -1238,6 +1420,7 @@ function renderMap() {
          <span class="cal-filter-label">Show:</span>
          <button class="cal-chip cal-chip-all is-on" data-cluster="all" type="button">All ${points.length}</button>
          ${clustersList.map(cl => `<button class="cal-chip" data-cluster="${esc(cl)}" type="button" style="--chip-color:${CLUSTER_COLORS[cl]}">${esc(cl)}</button>`).join('')}
+         ${pointsWithHours >= 5 ? `<button class="cal-chip cal-chip-opennow" data-opennow="1" type="button"><span class="opennow-dot"></span> Open right now (${pointsWithHours} have hours)</button>` : ''}
        </div>
      </div>
      <div id="bom-map" class="bom-map"></div>
@@ -1270,17 +1453,49 @@ function renderMap() {
            return m;
          });
 
-         var chips = document.querySelectorAll('.cal-chip[data-cluster]');
-         chips.forEach(function(c){
-           c.addEventListener('click', function(){
-             var cluster = c.dataset.cluster;
-             chips.forEach(function(x){ x.classList.toggle('is-on', x.dataset.cluster === cluster); });
-             markers.forEach(function(m){
-               var visible = (cluster === 'all' || m.cluster === cluster);
-               if (visible) m.addTo(map);
-               else map.removeLayer(m);
-             });
+         var state = { cluster: 'all', openOnly: false };
+         function applyFilters() {
+           markers.forEach(function(m, i){
+             var p = POINTS[i];
+             var clusterOk = (state.cluster === 'all' || p.cluster === state.cluster);
+             var openOk = !state.openOnly || (p.hours && isOpenNow(p.hours));
+             if (clusterOk && openOk) m.addTo(map);
+             else map.removeLayer(m);
            });
+         }
+         function isOpenNow(periods) {
+           var now = new Date();
+           var dow = now.getDay();
+           var nm = now.getHours() * 60 + now.getMinutes();
+           function pt(s){ var p = s.split(':'); return parseInt(p[0],10)*60 + parseInt(p[1],10); }
+           for (var i = 0; i < periods.length; i++){
+             var p = periods[i];
+             if (p.day !== dow) continue;
+             var o = pt(p.open), c = p.close ? pt(p.close) : 1440;
+             if (c <= o) c += 1440;
+             if (nm >= o && nm < c) return true;
+           }
+           var yest = (dow + 6) % 7;
+           for (var j = 0; j < periods.length; j++){
+             var q = periods[j]; if (q.day !== yest || !q.close) continue;
+             var oo = pt(q.open), cc = pt(q.close);
+             if (cc <= oo && nm < cc) return true;
+           }
+           return false;
+         }
+         var clusterChips = document.querySelectorAll('.cal-chip[data-cluster]');
+         clusterChips.forEach(function(c){
+           c.addEventListener('click', function(){
+             state.cluster = c.dataset.cluster;
+             clusterChips.forEach(function(x){ x.classList.toggle('is-on', x.dataset.cluster === state.cluster); });
+             applyFilters();
+           });
+         });
+         var openChip = document.querySelector('.cal-chip[data-opennow]');
+         if (openChip) openChip.addEventListener('click', function(){
+           state.openOnly = !state.openOnly;
+           openChip.classList.toggle('is-on', state.openOnly);
+           applyFilters();
          });
        })();
      </script>` +
@@ -1427,6 +1642,73 @@ function renderSurprise() {
        pick();
        document.getElementById('surprise-again').addEventListener('click', pick);
      </script>` +
+    footer();
+}
+
+// ---------- /tonight/ — sunset clock + best places to watch + civic countdowns ----------
+function renderTonight() {
+  const r = rightnowData;
+  const title = 'Tonight';
+  const description = 'Sunset, weather, and what is coming up next on the metro calendar.';
+
+  if (!r) {
+    return head({ title, description, slug: 'tonight', theme: 'midnight' }) +
+      header({ activeSlug: 'tonight' }) +
+      `<section class="section-head"><div class="wrap"><h1 class="section-title">${esc(title)}</h1><p class="section-deck">Live data unavailable right now. Check back in an hour.</p></div></section>` +
+      footer();
+  }
+
+  const date = (function(){ const [y,m,d] = r.today.split('-').map(Number); return new Date(y, m-1, d).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' }); })();
+
+  const pickCard = `
+    <article class="tonight-pick">
+      <div class="tonight-pick-eyebrow">Tonight's sunset pick</div>
+      <h2 class="tonight-pick-name">${esc(r.sunset_pick.name)}</h2>
+      <div class="tonight-pick-where">${esc(r.sunset_pick.neighborhood)}</div>
+      <p class="tonight-pick-why">${esc(r.sunset_pick.why)}</p>
+    </article>`;
+
+  const otherPicks = r.sunset_picks.filter(p => p.name !== r.sunset_pick.name).map(p => `
+    <li class="tonight-other">
+      <div class="tonight-other-name">${esc(p.name)}</div>
+      <div class="tonight-other-where">${esc(p.neighborhood)}</div>
+      <p class="tonight-other-why">${esc(p.why)}</p>
+    </li>`).join('');
+
+  const countdowns = r.countdowns.map(c => `
+    <li class="countdown">
+      <div class="countdown-days">${c.days}</div>
+      <div class="countdown-unit">days</div>
+      <div class="countdown-body">
+        <div class="countdown-name">${esc(c.name)}</div>
+        <div class="countdown-blurb">${esc(c.blurb)}</div>
+      </div>
+    </li>`).join('');
+
+  return head({ title, description, slug: 'tonight', theme: 'midnight' }) +
+    header({ activeSlug: 'tonight' }) +
+    `<section class="tonight-hero">
+       <div class="wrap tonight-hero-inner">
+         <div class="tonight-hero-eyebrow">${esc(date)}</div>
+         <h1 class="tonight-hero-headline">
+           Sunset at <em>${esc(r.sun.set)}</em>.
+         </h1>
+         <div class="tonight-hero-meta">
+           <div class="tonight-meta-item"><span class="tonight-meta-label">Sunrise</span><span class="tonight-meta-val">${esc(r.sun.rise)}</span></div>
+           <div class="tonight-meta-item"><span class="tonight-meta-label">Daylight</span><span class="tonight-meta-val">${Math.floor(r.sun.daylight_min/60)}h ${r.sun.daylight_min%60}m</span></div>
+           <div class="tonight-meta-item"><span class="tonight-meta-label">Conditions</span><span class="tonight-meta-val">${esc(r.weather.summary)}</span></div>
+         </div>
+       </div>
+     </section>
+     <section class="tonight-pick-section wrap">${pickCard}</section>
+     <section class="tonight-others wrap">
+       <h2 class="tonight-section-title">Other places to watch tonight</h2>
+       <ul class="tonight-others-list">${otherPicks}</ul>
+     </section>
+     <section class="tonight-countdowns wrap">
+       <h2 class="tonight-section-title">Coming up on the calendar</h2>
+       <ul class="countdowns-list">${countdowns}</ul>
+     </section>` +
     footer();
 }
 
@@ -1607,6 +1889,7 @@ function renderSitemap(neighborhoods) {
     { loc: SITE + '/', priority: '1.0' },
     { loc: SITE + '/visit/', priority: '0.9' },
     { loc: SITE + '/today/', priority: '0.9' },
+    { loc: SITE + '/tonight/', priority: '0.9' },
     { loc: SITE + '/calendar/', priority: '0.9' },
     { loc: SITE + '/map/', priority: '0.9' },
     { loc: SITE + '/take-them-to/', priority: '0.8' },
@@ -1695,6 +1978,9 @@ function build() {
 
   // Today — daily small good thing
   writeFile('today/index.html', renderToday());
+
+  // Tonight — sunset clock, weather, civic countdowns
+  writeFile('tonight/index.html', renderTonight());
 
   // Surprise — random place
   writeFile('surprise/index.html', renderSurprise());

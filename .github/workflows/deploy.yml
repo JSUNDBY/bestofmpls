@@ -44,6 +44,10 @@ jobs:
       - name: Generate today's essay
         run: node scripts/build-today.js
 
+      - name: Generate right-now (sun + weather + countdowns)
+        run: node scripts/build-rightnow.js
+        continue-on-error: true
+
       - name: Build
         run: npm run build
 

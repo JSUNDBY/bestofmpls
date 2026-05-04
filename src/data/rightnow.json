@@ -1,0 +1,103 @@
+{
+  "generated_at": "2026-05-04T02:59:20.611Z",
+  "today": "2026-05-04",
+  "sun": {
+    "rise": "5:35 AM",
+    "set": "7:54 PM",
+    "rise_24": "05:35",
+    "set_24": "19:54",
+    "daylight_min": 859
+  },
+  "weather": {
+    "temp_now": 60,
+    "temp_max": 72,
+    "feels_like": 54,
+    "condition": "Clear",
+    "is_patio": true,
+    "is_brutal": false,
+    "is_snowing": false,
+    "is_rainy": false,
+    "mood": "patio",
+    "summary": "72°F high · patio weather"
+  },
+  "countdowns": [
+    {
+      "name": "Art-A-Whirl",
+      "date": "2026-05-08",
+      "days": 5,
+      "blurb": "Northeast Minneapolis opens nearly every artist studio at once."
+    },
+    {
+      "name": "Twin Cities Pride",
+      "date": "2026-06-27",
+      "days": 55,
+      "blurb": "One of the largest Pride festivals in the country."
+    },
+    {
+      "name": "Aquatennial",
+      "date": "2026-07-16",
+      "days": 74,
+      "blurb": "Minneapolis's eleven-day midsummer festival."
+    },
+    {
+      "name": "Minnesota State Fair",
+      "date": "2026-08-27",
+      "days": 116,
+      "blurb": "Twelve days ending Labor Day. The largest state fair by daily attendance."
+    },
+    {
+      "name": "Twin Cities Marathon",
+      "date": "2026-10-04",
+      "days": 154,
+      "blurb": "Twenty-six miles from downtown Minneapolis to the State Capitol."
+    },
+    {
+      "name": "First frost (typical)",
+      "date": "2026-10-05",
+      "days": 155,
+      "blurb": "When the metro typically sees its first overnight frost."
+    }
+  ],
+  "sunset_pick": {
+    "name": "Sea Salt patio at Minnehaha Falls",
+    "neighborhood": "South Minneapolis",
+    "why": "Falls behind, sun setting through the trees over the river gorge. Summer only."
+  },
+  "sunset_picks": [
+    {
+      "name": "Stone Arch Bridge",
+      "neighborhood": "Mill District, Minneapolis",
+      "why": "Skyline behind, falls below, the canonical Minneapolis sunset."
+    },
+    {
+      "name": "Bde Maka Ska east shore",
+      "neighborhood": "Southwest Minneapolis",
+      "why": "Long views west across the lake, no obstructions."
+    },
+    {
+      "name": "The Saint Paul Cathedral steps",
+      "neighborhood": "Cathedral Hill, St. Paul",
+      "why": "The downtown Mpls skyline is twenty miles west and the light walks across the river valley."
+    },
+    {
+      "name": "Indian Mounds Park",
+      "neighborhood": "Dayton's Bluff, St. Paul",
+      "why": "Bluff overlook above the Mississippi. Quiet. Historical. The light is long."
+    },
+    {
+      "name": "Sea Salt patio at Minnehaha Falls",
+      "neighborhood": "South Minneapolis",
+      "why": "Falls behind, sun setting through the trees over the river gorge. Summer only."
+    },
+    {
+      "name": "Hidden Falls boat launch",
+      "neighborhood": "Highland, St. Paul",
+      "why": "River-level. The whole sky reflects."
+    },
+    {
+      "name": "Foshay Tower observation deck",
+      "neighborhood": "Downtown Minneapolis",
+      "why": "Thirty-second floor, open air, the entire grid lit up below."
+    }
+  ]
+}
