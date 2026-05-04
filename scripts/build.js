@@ -277,7 +277,6 @@ function header({ activeSlug } = {}) {
     { href: '/quiz/', label: 'Quiz', slug: 'quiz' },
     { href: '/skyway/', label: 'Skyway', slug: 'skyway' },
     { href: '/mystery/', label: 'Mystery Itinerary', slug: 'mystery' },
-    { href: '/history/', label: 'On This Day', slug: 'history' },
     { href: '/take-them-to/', label: 'Take Them To', slug: 'take-them-to' },
     { href: '/now-showing/', label: 'Now Showing', slug: 'now-showing' },
     { href: '/horoscope/', label: 'Horoscope', slug: 'horoscope' },
@@ -328,7 +327,6 @@ function footer() {
     { href: '/quiz/', label: 'Quiz' },
     { href: '/skyway/', label: 'Skyway' },
     { href: '/mystery/', label: 'Mystery Itinerary' },
-    { href: '/history/', label: 'On This Day' },
     { href: '/take-them-to/', label: 'Take Them To' },
     { href: '/now-showing/', label: 'Now Showing' },
     { href: '/horoscope/', label: 'Horoscope' },
@@ -682,7 +680,6 @@ function renderHome() {
         <a class="tool-card" href="/surprise/"><span class="tool-icon" aria-hidden="true">⚂</span><span class="tool-label">Surprise me</span><span class="tool-deck">A random pick</span></a>
         <a class="tool-card" href="/today/"><span class="tool-icon" aria-hidden="true">★</span><span class="tool-label">Today</span><span class="tool-deck">A small good thing</span></a>
         <a class="tool-card" href="/mystery/"><span class="tool-icon" aria-hidden="true">✉</span><span class="tool-label">Mystery</span><span class="tool-deck">Sealed-envelope nights</span></a>
-        <a class="tool-card" href="/history/"><span class="tool-icon" aria-hidden="true">⌛</span><span class="tool-label">On This Day</span><span class="tool-deck">${history.entries.length} anniversaries</span></a>
         <a class="tool-card" href="/departed/"><span class="tool-icon" aria-hidden="true">†</span><span class="tool-label">Departed</span><span class="tool-deck">Places we lost</span></a>
       </div>
     </section>
@@ -2530,7 +2527,6 @@ function renderSitemap(neighborhoods) {
     { loc: SITE + '/quiz/', priority: '0.8' },
     { loc: SITE + '/skyway/', priority: '0.8' },
     { loc: SITE + '/mystery/', priority: '0.8' },
-    { loc: SITE + '/history/', priority: '0.8' },
     { loc: SITE + '/take-them-to/', priority: '0.8' },
     { loc: SITE + '/now-showing/', priority: '0.8' },
     { loc: SITE + '/horoscope/', priority: '0.7' },
@@ -2629,9 +2625,6 @@ function build() {
 
   // Skyway — downtown indoor pedestrian network navigator
   writeFile('skyway/index.html', renderSkyway());
-
-  // History — On This Day in the metro
-  writeFile('history/index.html', renderHistory());
 
   // Mystery — sealed-envelope itineraries
   writeFile('mystery/index.html', renderMystery());
