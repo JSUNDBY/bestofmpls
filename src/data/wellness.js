@@ -71,6 +71,33 @@ module.exports = {
       address: '3153 Hennepin Ave S, Minneapolis',
       website: 'https://www.pilates-underground.com',
       price: '$$$'
+    },
+    {
+      name: 'Devanadi School of Yoga & Wellness',
+      neighborhood: 'Linden Hills, Minneapolis',
+      style: 'Long-running yoga school',
+      description: 'A serious yoga school in the Lake Harriet Spiritual Community Building on the corner of 44th and Upton in Linden Hills. Yoga teacher training, Thai bodywork, and the kind of multi-decade depth you get from a school rather than a studio. Classes for beginners and longtime practitioners both.',
+      address: '4401 Upton Ave S, Minneapolis',
+      website: 'https://devanadiyoga.com',
+      price: '$$'
+    },
+    {
+      name: 'Common Ground Meditation Center',
+      neighborhood: 'Seward, Minneapolis',
+      style: 'Insight meditation, sliding scale',
+      description: 'A community-supported insight-meditation center in Seward, sliding-scale and donation-based, with regular sits, retreats, and Buddhist study. Unflashy in the best way. The closest thing the metro has to a real practicing community for people who want to sit without joining anything.',
+      address: '2700 E 26th St, Minneapolis',
+      website: 'https://commongroundmeditation.org',
+      price: '$'
+    },
+    {
+      name: 'Soul Body Finesse',
+      neighborhood: 'North Minneapolis',
+      style: 'Sound healing and reiki, by appointment',
+      description: 'A North Minneapolis wellness studio offering group and private sound healing, reiki, and bodywork. Reopened in 2022. Sessions are by appointment, which is part of the appeal for people who do not want to be in a room of strangers for a healing.',
+      address: '2400 N 2nd St #212, Minneapolis',
+      website: 'https://soulbodyfinesse.com',
+      price: '$$'
     }
   ]
 };

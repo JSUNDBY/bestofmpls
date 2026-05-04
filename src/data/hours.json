@@ -13342,5 +13342,157 @@
       }
     ],
     "fetched_at": "2026-05-04T04:27:51.920Z"
+  },
+  "hidden-gems:Saint Paul Curling Club": {
+    "place_id": "ChIJb_yrp5cq9ocR4O9MJEqk4ig",
+    "matched_name": "St Paul Curling Club",
+    "matched_address": "470 Selby Ave, St Paul, MN 55102, USA",
+    "location": {
+      "latitude": 44.9465096,
+      "longitude": -93.1200526
+    },
+    "hours": [
+      {
+        "day": 0,
+        "open": "21:00",
+        "close": "00:00"
+      },
+      {
+        "day": 1,
+        "open": "09:00",
+        "close": "23:00"
+      },
+      {
+        "day": 2,
+        "open": "09:00",
+        "close": "23:00"
+      },
+      {
+        "day": 3,
+        "open": "09:00",
+        "close": "23:00"
+      },
+      {
+        "day": 4,
+        "open": "09:00",
+        "close": "23:00"
+      },
+      {
+        "day": 5,
+        "open": "09:00",
+        "close": "23:00"
+      },
+      {
+        "day": 6,
+        "open": "09:00",
+        "close": "23:00"
+      }
+    ],
+    "fetched_at": "2026-05-04T05:14:53.434Z"
+  },
+  "wellness-and-spas:Devanadi School of Yoga & Wellness": {
+    "place_id": "ChIJq6ra6xkn9ocRGfeorkS9HAo",
+    "matched_name": "Devanadi Yoga",
+    "matched_address": "4401 Upton Ave S, Minneapolis, MN 55410, USA",
+    "location": {
+      "latitude": 44.923138900000005,
+      "longitude": -93.3147829
+    },
+    "hours": [
+      {
+        "day": 0,
+        "open": "08:00",
+        "close": "18:00"
+      },
+      {
+        "day": 1,
+        "open": "09:00",
+        "close": "17:00"
+      },
+      {
+        "day": 2,
+        "open": "09:00",
+        "close": "17:00"
+      },
+      {
+        "day": 3,
+        "open": "09:00",
+        "close": "17:00"
+      },
+      {
+        "day": 4,
+        "open": "09:00",
+        "close": "17:00"
+      },
+      {
+        "day": 5,
+        "open": "09:00",
+        "close": "17:00"
+      },
+      {
+        "day": 6,
+        "open": "08:00",
+        "close": "18:00"
+      }
+    ],
+    "fetched_at": "2026-05-04T05:14:53.928Z"
+  },
+  "wellness-and-spas:Common Ground Meditation Center": {
+    "place_id": "ChIJ1eOrZzMts1IRTv6EVtCXwno",
+    "matched_name": "Common Ground Meditation Center",
+    "matched_address": "2700 E 26th St, Minneapolis, MN 55406, USA",
+    "location": {
+      "latitude": 44.9558174,
+      "longitude": -93.2328314
+    },
+    "hours": [],
+    "fetched_at": "2026-05-04T05:14:54.407Z"
+  },
+  "wellness-and-spas:Soul Body Finesse": {
+    "place_id": "ChIJNbgtbqQzs1IRRglBFzZd_wU",
+    "matched_name": "Soul Body Finesse",
+    "matched_address": "2400 N 2nd St #212, Minneapolis, MN 55411, USA",
+    "location": {
+      "latitude": 45.00393,
+      "longitude": -93.2794156
+    },
+    "hours": [
+      {
+        "day": 0,
+        "open": "09:00",
+        "close": "21:00"
+      },
+      {
+        "day": 1,
+        "open": "09:00",
+        "close": "21:00"
+      },
+      {
+        "day": 2,
+        "open": "09:00",
+        "close": "21:00"
+      },
+      {
+        "day": 3,
+        "open": "09:00",
+        "close": "21:00"
+      },
+      {
+        "day": 4,
+        "open": "09:00",
+        "close": "21:00"
+      },
+      {
+        "day": 5,
+        "open": "09:00",
+        "close": "21:00"
+      },
+      {
+        "day": 6,
+        "open": "09:00",
+        "close": "21:00"
+      }
+    ],
+    "fetched_at": "2026-05-04T05:14:54.877Z"
   }
 }

@@ -116,6 +116,15 @@ module.exports = {
       description: 'A working historic electric streetcar that runs between Lake Harriet and Lake Calhoun on a stretch of restored 1920s-era track. Two dollars, a fifteen-minute ride, and a piece of the Twin Cities’ pre-automobile history that almost nobody under 60 thinks to look for.',
       address: 'Lake Harriet station, Minneapolis',
       price: '$'
+    },
+    {
+      name: 'Saint Paul Curling Club',
+      neighborhood: 'Cathedral Hill, St. Paul',
+      style: 'Member-only curling, public viewing',
+      description: 'The largest curling club in the country, founded in 1912, on Selby Avenue under the cathedral. Six sheets of ice, a leagues calendar that takes the winter seriously, and a glass-fronted upstairs lounge where you can sit with a drink and watch a sport that almost nobody outside this metro and a few Canadian provinces actually plays. Visitors welcome to watch.',
+      address: '470 Selby Ave, St. Paul',
+      website: 'https://stpaulcurlingclub.org',
+      price: '$$ to play, free to watch'
     }
   ]
 };

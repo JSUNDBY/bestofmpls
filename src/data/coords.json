@@ -980,5 +980,9 @@
   "681 17th Ave NE, Minneapolis": {
     "lat": 45.0052678,
     "lng": -93.2543938
+  },
+  "470 Selby Ave, St. Paul": {
+    "lat": 44.9462009,
+    "lng": -93.1198608
   }
 }
