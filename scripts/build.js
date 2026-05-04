@@ -1716,8 +1716,10 @@ function renderTonight() {
 
   const countdowns = r.countdowns.map(c => `
     <li class="countdown">
-      <div class="countdown-days">${c.days}</div>
-      <div class="countdown-unit">days</div>
+      <div class="countdown-days">
+        <span class="countdown-num">${c.days}</span>
+        <span class="countdown-unit">${c.days === 1 ? 'day' : 'days'} until</span>
+      </div>
       <div class="countdown-body">
         <div class="countdown-name">${esc(c.name)}</div>
         <div class="countdown-blurb">${esc(c.blurb)}</div>
@@ -1797,6 +1799,7 @@ function renderNear() {
            <button class="cal-chip is-on" data-radius="1.0" type="button">10 min walk</button>
            <button class="cal-chip" data-radius="1.5" type="button">15 min walk</button>
            <button class="cal-chip" data-radius="3.0" type="button">Drive</button>
+           <button class="cal-chip cal-chip-opennow" id="near-opennow" type="button"><span class="opennow-dot"></span> Open right now</button>
            <span class="opennow-note" id="near-status"></span>
          </div>
        </div>
@@ -1805,7 +1808,7 @@ function renderNear() {
      <script>
        (function(){
          var POINTS = ${JSON.stringify(points)};
-         var state = { lat: null, lng: null, radius: 1.0 };
+         var state = { lat: null, lng: null, radius: 1.0, openOnly: false };
 
          function haversineMi(lat1, lng1, lat2, lng2) {
            var R = 3958.8;
@@ -1829,11 +1832,14 @@ function renderNear() {
            if (state.lat === null) return;
            var nearby = POINTS.map(function(p){
              return { p: p, d: haversineMi(state.lat, state.lng, p.lat, p.lng) };
-           }).filter(function(x){ return x.d <= state.radius; })
-             .sort(function(a, b){ return a.d - b.d; });
+           }).filter(function(x){
+             if (x.d > state.radius) return false;
+             if (state.openOnly && !(x.p.hours && isOpenNow(x.p.hours))) return false;
+             return true;
+           }).sort(function(a, b){ return a.d - b.d; });
 
            var status = document.getElementById('near-status');
-           status.textContent = nearby.length + ' places within ' + state.radius + ' mile' + (state.radius === 1 ? '' : 's');
+           status.textContent = nearby.length + ' places within ' + state.radius + ' mile' + (state.radius === 1 ? '' : 's') + (state.openOnly ? ', open now' : '');
 
            var html = '';
            if (nearby.length === 0) {
@@ -1881,6 +1887,11 @@ function renderNear() {
              document.querySelectorAll('[data-radius]').forEach(function(b){ b.classList.toggle('is-on', b === btn); });
              render();
            });
+         });
+         document.getElementById('near-opennow').addEventListener('click', function(){
+           state.openOnly = !state.openOnly;
+           document.getElementById('near-opennow').classList.toggle('is-on', state.openOnly);
+           render();
          });
        })();
      </script>` +

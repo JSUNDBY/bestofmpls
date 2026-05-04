@@ -2575,16 +2575,30 @@ a.rightnow-link:hover { color: var(--clay); border-bottom-color: var(--clay); }
   border-top: 1px solid var(--rule-soft);
 }
 .countdown:first-child { border-top: none; }
+.countdown {
+  grid-template-columns: 130px 1fr;
+}
 .countdown-days {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+  text-align: right;
+}
+.countdown-num {
   font-family: var(--font-display);
   font-weight: 900;
   font-size: 44px;
   line-height: 1;
   color: var(--clay);
-  text-align: right;
 }
 .countdown-unit {
-  display: none;
+  font-family: var(--font-label);
+  font-weight: 700;
+  font-size: 10.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
 }
 .countdown-name {
   font-family: var(--font-display);
@@ -3350,6 +3364,32 @@ a.rightnow-link:hover { color: var(--clay); border-bottom-color: var(--clay); }
   from { opacity: 0; transform: translateY(-4px); }
   to   { opacity: 1; transform: translateY(0); }
 }
+
+/* ===== Force-light overrides for hardcoded-dark sections =====
+ * These sections always have a dark background, regardless of the user's
+ * light/dark mode preference. In dark mode --paper flips to black, which
+ * would render text invisibly. Override the CSS variables locally so any
+ * nested var(--paper) / var(--ink) renders white-on-dark, not black-on-dark.
+ */
+.tonight-hero,
+.today-feature,
+.today-page,
+.live-feature,
+.skyway-controls,
+.rightnow-strip {
+  --paper: #FFFFFF;
+  --ink: #FFFFFF;
+  --ink-soft: rgba(255, 255, 255, 0.78);
+  --ink-faint: rgba(255, 255, 255, 0.55);
+  --rule: rgba(255, 255, 255, 0.18);
+  --rule-soft: rgba(255, 255, 255, 0.12);
+  color: #FFFFFF;
+}
+/* The /tonight/ countdowns are not in a hardcoded-dark wrapper but inherit
+ * from the page theme, so they need light-on-dark in dark mode. Use the
+ * default variables, which already do the right thing — but ensure the
+ * day numbers stay clay regardless. */
+html[data-mode="dark"] .countdown-name { color: #FFFFFF; }
 
 /* ===== Print ===== */
 @media print {
