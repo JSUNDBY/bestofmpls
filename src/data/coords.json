@@ -984,5 +984,17 @@
   "470 Selby Ave, St. Paul": {
     "lat": 44.9462009,
     "lng": -93.1198608
+  },
+  "4401 Upton Ave S, Minneapolis": {
+    "lat": 44.923202,
+    "lng": -93.314978
+  },
+  "2700 E 26th St, Minneapolis": {
+    "lat": 44.9558045,
+    "lng": -93.2328667
+  },
+  "2400 N 2nd St #212, Minneapolis": {
+    "lat": 45.0039843,
+    "lng": -93.2796636
   }
 }
