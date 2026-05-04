@@ -2661,6 +2661,397 @@ a.rightnow-link:hover { color: var(--clay); border-bottom-color: var(--clay); }
 .cal-chip-opennow.is-on { background: #2E9E4A; border-color: #2E9E4A; color: var(--paper); }
 .cal-chip-opennow.is-on .opennow-dot { background: var(--paper); box-shadow: none; }
 
+/* ===== Tools strip: scale better for many cards ===== */
+.tools-strip-inner { grid-template-columns: repeat(6, 1fr); }
+@media (max-width: 1300px) { .tools-strip-inner { grid-template-columns: repeat(4, 1fr); } }
+@media (max-width: 900px)  { .tools-strip-inner { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 600px)  { .tools-strip-inner { grid-template-columns: repeat(2, 1fr); } }
+
+/* ===== /near/ — geolocation walking radius ===== */
+.near-controls {
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  padding: 24px 0;
+  background: var(--paper);
+}
+.near-controls-inner {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+.near-radius-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.near-results {
+  padding: 32px var(--gutter) 96px;
+}
+.near-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 16px;
+}
+.near-item {
+  display: grid;
+  grid-template-columns: 70px 1fr;
+  gap: 16px;
+  padding: 16px;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  align-items: start;
+}
+.near-dist {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 18px;
+  color: var(--clay);
+  line-height: 1;
+  padding-top: 4px;
+}
+.near-cat {
+  font-family: var(--font-label);
+  font-weight: 600;
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-bottom: 4px;
+}
+.near-name {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 17px;
+  line-height: 1.2;
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  margin-bottom: 4px;
+}
+.near-name:hover { color: var(--clay); border-bottom-color: var(--clay); }
+.near-neigh {
+  font-family: var(--font-label);
+  font-size: 10.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-bottom: 6px;
+}
+.near-status {
+  font-family: var(--font-label);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.near-empty {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 18px;
+  color: var(--ink-soft);
+  padding: 32px 0;
+}
+
+/* ===== /quiz/ ===== */
+.quiz-page {
+  padding: 32px var(--gutter) 96px;
+  max-width: 720px;
+}
+.quiz-form { display: grid; gap: 36px; }
+.quiz-q {
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+.quiz-q-label {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(20px, 2.4vw, 26px);
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+}
+.quiz-q-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--clay);
+  color: var(--paper);
+  font-family: var(--font-label);
+  font-weight: 700;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+.quiz-opt {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: all 0.12s ease;
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: var(--ink);
+}
+.quiz-opt:hover { border-color: var(--ink); }
+.quiz-opt input { margin: 0; }
+.quiz-opt:has(input:checked) {
+  border-color: var(--clay);
+  background: rgba(225, 25, 0, 0.04);
+}
+.quiz-submit {
+  margin-top: 16px;
+  display: inline-block;
+  text-align: center;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-label);
+}
+.quiz-result {
+  margin-top: 64px;
+}
+.quiz-result:empty { display: none; }
+.quiz-winner {
+  border-top: 4px solid var(--clay);
+  padding: 32px 0;
+}
+.quiz-winner-eyebrow {
+  font-family: var(--font-label);
+  font-weight: 700;
+  font-size: 11.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--clay);
+  margin-bottom: 8px;
+}
+.quiz-winner-name {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 900;
+  font-size: clamp(36px, 5vw, 56px);
+  letter-spacing: -0.02em;
+  margin: 0 0 16px;
+  line-height: 1.05;
+}
+.quiz-winner-deck {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-style: italic;
+  font-size: 19px;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  margin: 0 0 16px;
+}
+.quiz-winner-picks {
+  margin-top: 24px;
+  padding: 20px;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+}
+.quiz-picks-label {
+  font-family: var(--font-label);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-bottom: 12px;
+}
+.quiz-winner-picks ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.quiz-winner-picks li {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 17px;
+  padding: 8px 0;
+  border-top: 1px solid var(--rule-soft);
+  color: var(--ink);
+}
+.quiz-winner-picks li:first-child { border-top: none; }
+.quiz-runnerup {
+  margin-top: 24px;
+  padding: 18px;
+  border: 1px dashed var(--rule);
+  border-radius: 4px;
+}
+.quiz-runnerup-label {
+  font-family: var(--font-label);
+  font-weight: 600;
+  font-size: 10.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-bottom: 4px;
+}
+.quiz-runnerup a {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1px solid var(--clay);
+}
+
+/* ===== /skyway/ ===== */
+.skyway-controls {
+  background: #0F1115;
+  color: var(--paper);
+  padding: 24px 0;
+  border-top: 1px solid var(--rule);
+}
+.skyway-controls-inner {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 32px;
+  align-items: start;
+}
+.skyway-route {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.skyway-route label {
+  font-family: var(--font-label);
+  font-weight: 600;
+  font-size: 10.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.62);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.skyway-route select {
+  appearance: none;
+  background: rgba(255,255,255,0.06);
+  color: var(--paper);
+  border: 1px solid rgba(255,255,255,0.2);
+  padding: 10px 14px;
+  border-radius: 4px;
+  font-family: var(--font-body);
+  font-size: 15px;
+}
+.skyway-route .cover-cta {
+  margin-top: 8px;
+  background: var(--clay);
+  color: var(--paper);
+  border: none;
+  cursor: pointer;
+}
+.skyway-result {
+  font-family: var(--font-body);
+  color: rgba(255,255,255,0.92);
+}
+.skyway-result:empty::before {
+  content: 'Pick a starting building and a destination, then "Show route." We will draw it on the map and walk you through it stop by stop.';
+  font-style: italic;
+  color: rgba(255,255,255,0.55);
+  font-size: 15px;
+  display: block;
+}
+.sk-route-summary {
+  font-family: var(--font-label);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--clay);
+  margin-bottom: 16px;
+}
+.sk-route-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  counter-reset: skstep;
+}
+.sk-route-list li {
+  counter-increment: skstep;
+  padding: 14px 0 14px 44px;
+  border-top: 1px solid rgba(255,255,255,0.18);
+  position: relative;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 17px;
+  color: var(--paper);
+}
+.sk-route-list li:first-child { border-top: none; }
+.sk-route-list li::before {
+  content: counter(skstep);
+  position: absolute;
+  left: 0;
+  top: 14px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--clay);
+  color: var(--paper);
+  font-family: var(--font-label);
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.sk-step-note {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 13.5px;
+  line-height: 1.45;
+  color: rgba(255,255,255,0.7);
+  margin-top: 4px;
+}
+.sk-marker span {
+  display: block;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #E11900;
+  border: 3px solid #0F1115;
+  box-shadow: 0 0 0 2px rgba(225,25,0,0.4);
+}
+.skyway-tips {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+}
+.skyway-tips li {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--ink);
+  padding: 18px 22px;
+  border-left: 4px solid var(--clay);
+  background: var(--paper);
+}
+@media (max-width: 700px) {
+  .skyway-controls-inner { grid-template-columns: 1fr; }
+}
+
 /* ===== Print ===== */
 @media print {
   .site-header, .primary-nav, .site-footer { display: none; }

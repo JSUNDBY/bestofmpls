@@ -76,6 +76,7 @@ const hiddenGems   = require(path.join(SRC, 'data/hidden-gems.js'));
 const festivals    = require(path.join(SRC, 'data/festivals.js'));
 const closures     = require(path.join(SRC, 'data/closures.js'));
 const situations   = require(path.join(SRC, 'data/situations.js'));
+const skyway       = require(path.join(SRC, 'data/skyway.js'));
 
 // Editorial clusters drive the homepage layout. With 28 categories, the
 // homepage now reads like a real city magazine: Culture, Eat, Drink, Shop,
@@ -222,7 +223,7 @@ function head({ title, description, slug, theme }) {
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=Archivo:wght@500;600;700&display=swap">
-<link rel="stylesheet" href="/style.css?v=9">
+<link rel="stylesheet" href="/style.css?v=10">
 <script>
 // Set color mode before paint to avoid flash. Reads localStorage first,
 // falls back to light mode (the new editorial default). mode-ready class
@@ -249,6 +250,9 @@ function header({ activeSlug } = {}) {
     { href: '/tonight/', label: 'Tonight', slug: 'tonight' },
     { href: '/calendar/', label: 'Calendar', slug: 'calendar' },
     { href: '/map/', label: 'Map', slug: 'map' },
+    { href: '/near/', label: 'Near You', slug: 'near' },
+    { href: '/quiz/', label: 'Quiz', slug: 'quiz' },
+    { href: '/skyway/', label: 'Skyway', slug: 'skyway' },
     { href: '/take-them-to/', label: 'Take Them To', slug: 'take-them-to' },
     { href: '/now-showing/', label: 'Now Showing', slug: 'now-showing' },
     { href: '/horoscope/', label: 'Horoscope', slug: 'horoscope' },
@@ -295,6 +299,9 @@ function footer() {
     { href: '/tonight/', label: 'Tonight' },
     { href: '/calendar/', label: 'Calendar' },
     { href: '/map/', label: 'Map' },
+    { href: '/near/', label: 'Near You' },
+    { href: '/quiz/', label: 'Quiz' },
+    { href: '/skyway/', label: 'Skyway' },
     { href: '/take-them-to/', label: 'Take Them To' },
     { href: '/now-showing/', label: 'Now Showing' },
     { href: '/horoscope/', label: 'Horoscope' },
@@ -637,12 +644,16 @@ function renderHome() {
     <section class="tools-strip">
       <div class="wrap tools-strip-inner">
         <a class="tool-card" href="/map/"><span class="tool-icon" aria-hidden="true">◉</span><span class="tool-label">The Map</span><span class="tool-deck">Every place, plotted</span></a>
+        <a class="tool-card" href="/near/"><span class="tool-icon" aria-hidden="true">◎</span><span class="tool-label">Near You</span><span class="tool-deck">10 minute walk</span></a>
         <a class="tool-card" href="/calendar/"><span class="tool-icon" aria-hidden="true">▭</span><span class="tool-label">Calendar</span><span class="tool-deck">${(eventsData.events || []).length} upcoming</span></a>
         <a class="tool-card" href="/tonight/"><span class="tool-icon" aria-hidden="true">☾</span><span class="tool-label">Tonight</span><span class="tool-deck">${rightnowData ? `Sunset ${rightnowData.sun.set}` : 'Sunset + countdowns'}</span></a>
+        <a class="tool-card" href="/quiz/"><span class="tool-icon" aria-hidden="true">?</span><span class="tool-label">Quiz</span><span class="tool-deck">Where to be tonight</span></a>
+        <a class="tool-card" href="/skyway/"><span class="tool-icon" aria-hidden="true">⇄</span><span class="tool-label">Skyway</span><span class="tool-deck">${skyway.nodes.length} downtown nodes</span></a>
         <a class="tool-card" href="/take-them-to/"><span class="tool-icon" aria-hidden="true">⌖</span><span class="tool-label">Take Them To</span><span class="tool-deck">${situations.situations.length} situations</span></a>
         <a class="tool-card" href="/now-showing/"><span class="tool-icon" aria-hidden="true">▣</span><span class="tool-label">Now Showing</span><span class="tool-deck">${exhibitions.exhibitions.length} exhibitions</span></a>
         <a class="tool-card" href="/horoscope/"><span class="tool-icon" aria-hidden="true">✦</span><span class="tool-label">Horoscope</span><span class="tool-deck">For the metro, today</span></a>
         <a class="tool-card" href="/surprise/"><span class="tool-icon" aria-hidden="true">⚂</span><span class="tool-label">Surprise me</span><span class="tool-deck">A random pick</span></a>
+        <a class="tool-card" href="/today/"><span class="tool-icon" aria-hidden="true">★</span><span class="tool-label">Today</span><span class="tool-deck">A small good thing</span></a>
         <a class="tool-card" href="/departed/"><span class="tool-icon" aria-hidden="true">†</span><span class="tool-label">Departed</span><span class="tool-deck">Places we lost</span></a>
       </div>
     </section>
@@ -1712,6 +1723,412 @@ function renderTonight() {
     footer();
 }
 
+// ---------- /near/ — what's within walking distance of you ----------
+function renderNear() {
+  const title = 'Near you';
+  const description = 'Tap the button to share your location. We will list every place in the directory within walking distance.';
+
+  // Inline every entry that has coords. Client-side sorts by haversine
+  // distance from the user's geolocation. No network needed.
+  const points = [];
+  for (const c of categories) {
+    if (c.layout === 'seasonal') continue;
+    for (const e of c.entries) {
+      if (!e.address) continue;
+      const coords = coordsData[e.address.trim()];
+      if (!coords || !coords.lat) continue;
+      const hLook = hoursData[`${c.slug}:${e.name}`];
+      points.push({
+        lat: coords.lat,
+        lng: coords.lng,
+        name: e.name,
+        category: c.title,
+        cluster: clusters.find(cl => cl.categories.includes(c))?.eyebrow || 'Other',
+        slug: c.slug,
+        anchor: e.name.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+        neighborhood: e.neighborhood || '',
+        hours: (hLook && hLook.hours && hLook.hours.length > 0) ? hLook.hours : null
+      });
+    }
+  }
+
+  return head({ title, description, slug: 'near', theme: 'forest' }) +
+    header({ activeSlug: 'near' }) +
+    `<section class="section-head">
+       <div class="wrap">
+         <div class="section-eyebrow">${points.length} places mapped</div>
+         <h1 class="section-title">${esc(title)}</h1>
+         <p class="section-deck">${esc(description)} Nothing leaves your browser, no app to install, no sign-in.</p>
+       </div>
+     </section>
+     <section class="near-controls">
+       <div class="wrap near-controls-inner">
+         <button id="near-locate" class="cover-cta" type="button">Find places near me</button>
+         <div id="near-radius-group" class="near-radius-group" style="display:none;">
+           <span class="cal-filter-label">Radius:</span>
+           <button class="cal-chip" data-radius="0.5" type="button">5 min walk</button>
+           <button class="cal-chip is-on" data-radius="1.0" type="button">10 min walk</button>
+           <button class="cal-chip" data-radius="1.5" type="button">15 min walk</button>
+           <button class="cal-chip" data-radius="3.0" type="button">Drive</button>
+           <span class="opennow-note" id="near-status"></span>
+         </div>
+       </div>
+     </section>
+     <section id="near-results" class="near-results wrap"></section>
+     <script>
+       (function(){
+         var POINTS = ${JSON.stringify(points)};
+         var state = { lat: null, lng: null, radius: 1.0 };
+
+         function haversineMi(lat1, lng1, lat2, lng2) {
+           var R = 3958.8;
+           var toR = function(d){ return d * Math.PI / 180; };
+           var dLat = toR(lat2 - lat1), dLng = toR(lng2 - lng1);
+           var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+                   Math.cos(toR(lat1)) * Math.cos(toR(lat2)) *
+                   Math.sin(dLng/2) * Math.sin(dLng/2);
+           return 2 * R * Math.asin(Math.sqrt(a));
+         }
+         function isOpenNow(periods){
+           if (!periods) return null;
+           var now = new Date(), dow = now.getDay(), nm = now.getHours()*60 + now.getMinutes();
+           function pt(s){ var p = s.split(':'); return parseInt(p[0],10)*60 + parseInt(p[1],10); }
+           for (var i=0;i<periods.length;i++){ var p=periods[i]; if (p.day!==dow) continue; var o=pt(p.open), c=p.close?pt(p.close):1440; if (c<=o) c+=1440; if (nm>=o && nm<c) return true; }
+           var y = (dow+6)%7;
+           for (var j=0;j<periods.length;j++){ var q=periods[j]; if (q.day!==y || !q.close) continue; var oo=pt(q.open), cc=pt(q.close); if (cc<=oo && nm<cc) return true; }
+           return false;
+         }
+         function render(){
+           if (state.lat === null) return;
+           var nearby = POINTS.map(function(p){
+             return { p: p, d: haversineMi(state.lat, state.lng, p.lat, p.lng) };
+           }).filter(function(x){ return x.d <= state.radius; })
+             .sort(function(a, b){ return a.d - b.d; });
+
+           var status = document.getElementById('near-status');
+           status.textContent = nearby.length + ' places within ' + state.radius + ' mile' + (state.radius === 1 ? '' : 's');
+
+           var html = '';
+           if (nearby.length === 0) {
+             html = '<p class="near-empty">No places in the directory within that radius. Try a wider one, or you may be outside the central metro.</p>';
+           } else {
+             html = '<ul class="near-list">' + nearby.map(function(x){
+               var open = isOpenNow(x.p.hours);
+               var statusBadge = open === true ? '<span class="status-pip is-open"></span> Open' :
+                                 open === false ? '<span class="status-pip is-closed"></span> Closed' : '';
+               var dist = x.d < 0.1 ? (Math.round(x.d*5280)) + ' ft' : x.d.toFixed(1) + ' mi';
+               return '<li class="near-item">' +
+                 '<div class="near-dist">' + dist + '</div>' +
+                 '<div class="near-body">' +
+                 '<div class="near-cat">' + x.p.category + '</div>' +
+                 '<a class="near-name" href="/' + x.p.slug + '/#' + x.p.anchor + '">' + x.p.name + '</a>' +
+                 (x.p.neighborhood ? '<div class="near-neigh">' + x.p.neighborhood + '</div>' : '') +
+                 (statusBadge ? '<div class="near-status">' + statusBadge + '</div>' : '') +
+                 '</div></li>';
+             }).join('') + '</ul>';
+           }
+           document.getElementById('near-results').innerHTML = html;
+         }
+
+         document.getElementById('near-locate').addEventListener('click', function(){
+           if (!navigator.geolocation) {
+             alert('Your browser does not support geolocation.');
+             return;
+           }
+           document.getElementById('near-locate').textContent = 'Locating...';
+           navigator.geolocation.getCurrentPosition(function(pos){
+             state.lat = pos.coords.latitude;
+             state.lng = pos.coords.longitude;
+             document.getElementById('near-locate').style.display = 'none';
+             document.getElementById('near-radius-group').style.display = 'flex';
+             render();
+           }, function(err){
+             document.getElementById('near-locate').textContent = 'Find places near me';
+             alert('Could not get your location: ' + err.message);
+           }, { enableHighAccuracy: true, timeout: 10000 });
+         });
+
+         document.querySelectorAll('[data-radius]').forEach(function(btn){
+           btn.addEventListener('click', function(){
+             state.radius = parseFloat(btn.dataset.radius);
+             document.querySelectorAll('[data-radius]').forEach(function(b){ b.classList.toggle('is-on', b === btn); });
+             render();
+           });
+         });
+       })();
+     </script>` +
+    footer();
+}
+
+// ---------- /quiz/ — five-question neighborhood matcher ----------
+function renderQuiz() {
+  const title = 'Where should I be tonight?';
+  const description = 'Answer five quick questions. We will tell you which Twin Cities neighborhood your evening lives in, and three places to start.';
+
+  // Map quiz answers to neighborhood scores. Each question contributes
+  // points to one or more neighborhoods.
+  const neighborhoods = [
+    { slug: 'northeast-minneapolis', label: 'Northeast Minneapolis', short: 'Northeast', deck: 'Old breweries, working artist studios, the densest run of independent restaurants in the metro.', picks: ['Young Joni replacement (try Brunson\'s Pub)', 'Indeed Brewing patio', 'Northrup King artist studios'] },
+    { slug: 'north-loop', label: 'North Loop, Minneapolis', short: 'North Loop', deck: 'Warehouse-conversion restaurants, designer-menswear shops, riverfront walks.', picks: ['Spoon and Stable', 'Marvel Bar (basement)', 'A walk to the Stone Arch Bridge'] },
+    { slug: 'uptown-lyn-lake', label: 'Uptown / Lyn-Lake', short: 'Lyn-Lake', deck: 'Where Minneapolis nightlife still lives, less polished than it was, more interesting in some ways.', picks: ['The CC Club', 'Khâluna', "Mortimer's"] },
+    { slug: 'cathedral-hill', label: 'Cathedral Hill, St. Paul', short: 'Cathedral Hill', deck: 'A walking St. Paul neighborhood under the cathedral. Feels like a small vacation.', picks: ['Hyacinth', "Nina's Coffee Cafe", 'A walk past the Cathedral at golden hour'] },
+    { slug: 'linden-hills', label: 'Linden Hills, Minneapolis', short: 'Linden Hills', deck: 'Tight Main-Street feel: bookstores, ice cream, real restaurants, walk the whole thing in 20 minutes.', picks: ['Tilia patio', 'Sebastian Joe\'s', 'Wild Rumpus or Birchbark Books'] },
+    { slug: 'downtown-st-paul', label: 'Downtown St. Paul', short: 'Downtown St. Paul', deck: 'Lowertown warehouse district, the Saint Paul Hotel, a downtown that still feels lived-in.', picks: ['Meritage', 'The Saint Paul Hotel lobby bar', "Mickey's Diner"] },
+    { slug: 'south-minneapolis', label: 'South Minneapolis', short: 'South Mpls', deck: 'Lake Street, Powderhorn, the Mississippi gorge. The heart of working Minneapolis.', picks: ['Quang for pho', 'Matt\'s Bar for the original Juicy Lucy', 'A walk to Minnehaha Falls'] }
+  ];
+
+  const questions = [
+    {
+      key: 'vibe',
+      q: 'How loud is the room?',
+      options: [
+        { label: 'A booth, talking quietly', score: { 'cathedral-hill': 3, 'linden-hills': 2, 'downtown-st-paul': 2, 'north-loop': 1 } },
+        { label: 'Background music, easy conversation', score: { 'north-loop': 3, 'linden-hills': 2, 'cathedral-hill': 1, 'south-minneapolis': 1 } },
+        { label: 'A real night out', score: { 'uptown-lyn-lake': 3, 'northeast-minneapolis': 3, 'south-minneapolis': 1 } }
+      ]
+    },
+    {
+      key: 'who',
+      q: 'Who is the evening for?',
+      options: [
+        { label: 'Out-of-town friend you want to impress', score: { 'north-loop': 3, 'cathedral-hill': 2, 'downtown-st-paul': 2, 'northeast-minneapolis': 1 } },
+        { label: 'A first or second date', score: { 'cathedral-hill': 3, 'north-loop': 2, 'linden-hills': 2, 'uptown-lyn-lake': 1 } },
+        { label: 'Two friends and a long catch-up', score: { 'linden-hills': 3, 'south-minneapolis': 2, 'northeast-minneapolis': 2, 'cathedral-hill': 1 } },
+        { label: 'A group of six who want to drink', score: { 'uptown-lyn-lake': 3, 'northeast-minneapolis': 3, 'downtown-st-paul': 1 } }
+      ]
+    },
+    {
+      key: 'mode',
+      q: 'How do you want to get there?',
+      options: [
+        { label: 'Walk from one place to the next', score: { 'linden-hills': 3, 'cathedral-hill': 3, 'north-loop': 2, 'downtown-st-paul': 2, 'uptown-lyn-lake': 1 } },
+        { label: 'Park once and stay put', score: { 'south-minneapolis': 3, 'northeast-minneapolis': 2, 'uptown-lyn-lake': 1 } },
+        { label: 'Light rail or rideshare', score: { 'downtown-st-paul': 3, 'north-loop': 2, 'cathedral-hill': 1 } }
+      ]
+    },
+    {
+      key: 'food',
+      q: 'What kind of meal?',
+      options: [
+        { label: 'A restaurant with a tasting menu', score: { 'north-loop': 3, 'linden-hills': 2, 'cathedral-hill': 2 } },
+        { label: 'A long, casual neighborhood dinner', score: { 'linden-hills': 3, 'cathedral-hill': 2, 'south-minneapolis': 2, 'northeast-minneapolis': 2 } },
+        { label: 'Something specific (pho, taco, Juicy Lucy)', score: { 'south-minneapolis': 3, 'uptown-lyn-lake': 1, 'northeast-minneapolis': 1 } },
+        { label: 'Just a good drink, food optional', score: { 'uptown-lyn-lake': 3, 'cathedral-hill': 2, 'northeast-minneapolis': 2 } }
+      ]
+    },
+    {
+      key: 'after',
+      q: 'After dinner?',
+      options: [
+        { label: 'A second drink in walking distance', score: { 'uptown-lyn-lake': 3, 'cathedral-hill': 2, 'north-loop': 2, 'northeast-minneapolis': 2 } },
+        { label: 'Live music', score: { 'northeast-minneapolis': 3, 'uptown-lyn-lake': 2, 'downtown-st-paul': 2, 'south-minneapolis': 1 } },
+        { label: 'A long walk by water', score: { 'linden-hills': 3, 'south-minneapolis': 2, 'north-loop': 2, 'cathedral-hill': 1 } },
+        { label: 'Home by ten', score: { 'linden-hills': 3, 'cathedral-hill': 2, 'south-minneapolis': 1 } }
+      ]
+    }
+  ];
+
+  return head({ title, description, slug: 'quiz', theme: 'forest' }) +
+    header({ activeSlug: 'quiz' }) +
+    `<section class="section-head">
+       <div class="wrap">
+         <div class="section-eyebrow">Five quick questions</div>
+         <h1 class="section-title">${esc(title)}</h1>
+         <p class="section-deck">${esc(description)}</p>
+       </div>
+     </section>
+     <section class="quiz-page wrap">
+       <form id="quiz-form" class="quiz-form">
+         ${questions.map((q, qi) => `
+           <fieldset class="quiz-q" data-qi="${qi}">
+             <legend class="quiz-q-label"><span class="quiz-q-num">${qi + 1}</span> ${esc(q.q)}</legend>
+             ${q.options.map((o, oi) => `
+               <label class="quiz-opt">
+                 <input type="radio" name="q${qi}" value="${oi}">
+                 <span>${esc(o.label)}</span>
+               </label>
+             `).join('')}
+           </fieldset>
+         `).join('')}
+         <button type="submit" class="cover-cta quiz-submit">See my neighborhood →</button>
+       </form>
+       <section id="quiz-result" class="quiz-result"></section>
+     </section>
+     <script>
+       (function(){
+         var QUESTIONS = ${JSON.stringify(questions)};
+         var NEIGHBORHOODS = ${JSON.stringify(neighborhoods)};
+         var byslug = {};
+         NEIGHBORHOODS.forEach(function(n){ byslug[n.slug] = n; });
+
+         document.getElementById('quiz-form').addEventListener('submit', function(e){
+           e.preventDefault();
+           var scores = {};
+           NEIGHBORHOODS.forEach(function(n){ scores[n.slug] = 0; });
+           QUESTIONS.forEach(function(q, qi){
+             var sel = document.querySelector('input[name="q' + qi + '"]:checked');
+             if (!sel) return;
+             var opt = q.options[parseInt(sel.value, 10)];
+             Object.keys(opt.score).forEach(function(k){ scores[k] = (scores[k]||0) + opt.score[k]; });
+           });
+           var ranked = NEIGHBORHOODS.map(function(n){ return { n: n, score: scores[n.slug] }; })
+             .sort(function(a, b){ return b.score - a.score; });
+           var winner = ranked[0].n;
+           var runnerUp = ranked[1].n;
+
+           var html = '<article class="quiz-winner">' +
+             '<div class="quiz-winner-eyebrow">Tonight you are in</div>' +
+             '<h2 class="quiz-winner-name">' + winner.label + '</h2>' +
+             '<p class="quiz-winner-deck">' + winner.deck + '</p>' +
+             '<a class="cat-card-arrow" href="/neighborhoods/' + winner.slug + '/">See the full neighborhood guide →</a>' +
+             '<div class="quiz-winner-picks"><div class="quiz-picks-label">Three places to start</div><ul>' +
+             winner.picks.map(function(p){ return '<li>' + p + '</li>'; }).join('') +
+             '</ul></div>' +
+             '</article>' +
+             '<aside class="quiz-runnerup">' +
+             '<div class="quiz-runnerup-label">Or, runner-up</div>' +
+             '<a href="/neighborhoods/' + runnerUp.slug + '/">' + runnerUp.label + ' →</a>' +
+             '</aside>';
+           var result = document.getElementById('quiz-result');
+           result.innerHTML = html;
+           result.scrollIntoView({ behavior: 'smooth', block: 'start' });
+         });
+       })();
+     </script>` +
+    footer();
+}
+
+// ---------- /skyway/ — downtown Minneapolis indoor pedestrian network ----------
+function renderSkyway() {
+  const s = skyway;
+  const description = 'A short navigator for the largest indoor pedestrian network in the country. Hand-picked nodes, plain English routing, no app.';
+
+  // Build adjacency JSON for client-side BFS routing
+  const adj = {};
+  s.nodes.forEach(n => { adj[n.id] = []; });
+  s.edges.forEach(([a, b, w]) => {
+    if (adj[a]) adj[a].push({ to: b, w });
+    if (adj[b]) adj[b].push({ to: a, w });
+  });
+  const nodeMap = {};
+  s.nodes.forEach(n => { nodeMap[n.id] = n; });
+
+  const nodeOptions = s.nodes.map(n => `<option value="${esc(n.id)}">${esc(n.name)}</option>`).join('');
+  const tipsList = s.tips.map(t => `<li>${esc(t)}</li>`).join('');
+
+  return head({ title: s.title, description, slug: 'skyway', theme: 'midnight' }) +
+    header({ activeSlug: 'skyway' }) +
+    `<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+     <section class="section-head">
+       <div class="wrap">
+         <div class="section-eyebrow">${s.nodes.length} nodes · ${s.edges.length} segments</div>
+         <h1 class="section-title">${esc(s.title)}</h1>
+         <p class="section-deck">${esc(s.intro)}</p>
+         <p style="font-family: var(--font-label); font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-faint); margin-top: 16px;">General hours · ${esc(s.hours_general)}</p>
+       </div>
+     </section>
+     <div class="skyway-controls">
+       <div class="wrap skyway-controls-inner">
+         <div class="skyway-route">
+           <label>From <select id="sk-from">${nodeOptions}</select></label>
+           <label>To <select id="sk-to">${nodeOptions}</select></label>
+           <button id="sk-go" type="button" class="cover-cta">Show route</button>
+         </div>
+         <div id="sk-result" class="skyway-result"></div>
+       </div>
+     </div>
+     <div id="skyway-map" class="bom-map"></div>
+     <section class="wrap" style="padding: 56px var(--gutter);">
+       <h2 class="tonight-section-title">Tips that will save you time</h2>
+       <ul class="skyway-tips">${tipsList}</ul>
+     </section>
+     <script>
+       (function(){
+         var NODES = ${JSON.stringify(s.nodes)};
+         var ADJ   = ${JSON.stringify(adj)};
+         var NODEMAP = {};
+         NODES.forEach(function(n){ NODEMAP[n.id] = n; });
+
+         // Map setup centered on IDS Crystal Court
+         var map = L.map('skyway-map', { scrollWheelZoom: true }).setView([44.9762, -93.2705], 14);
+         L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+           attribution: '© OpenStreetMap contributors © CARTO', subdomains: 'abcd', maxZoom: 19
+         }).addTo(map);
+
+         // Plot every node
+         var markers = {};
+         NODES.forEach(function(n){
+           var icon = L.divIcon({
+             className: 'sk-marker',
+             html: '<span></span>',
+             iconSize: [16, 16], iconAnchor: [8, 8]
+           });
+           var m = L.marker([n.lat, n.lng], { icon: icon }).addTo(map);
+           m.bindPopup('<b>' + n.name + '</b><br><span style="font-family: sans-serif; font-size: 12px;">' + n.note + '</span>');
+           markers[n.id] = m;
+         });
+
+         // Faint baseline edges
+         var baseLines = [];
+         Object.keys(ADJ).forEach(function(from){
+           ADJ[from].forEach(function(e){
+             if (from < e.to) {
+               var a = NODEMAP[from], b = NODEMAP[e.to];
+               var line = L.polyline([[a.lat, a.lng], [b.lat, b.lng]], { color: '#666', weight: 2, opacity: 0.4 }).addTo(map);
+               baseLines.push(line);
+             }
+           });
+         });
+         var routeLine = null;
+
+         function bfs(from, to) {
+           var queue = [[from]];
+           var seen = {};
+           seen[from] = true;
+           while (queue.length) {
+             var path = queue.shift();
+             var last = path[path.length - 1];
+             if (last === to) return path;
+             (ADJ[last] || []).forEach(function(e){
+               if (!seen[e.to]) { seen[e.to] = true; queue.push(path.concat([e.to])); }
+             });
+           }
+           return null;
+         }
+
+         document.getElementById('sk-go').addEventListener('click', function(){
+           var from = document.getElementById('sk-from').value;
+           var to   = document.getElementById('sk-to').value;
+           if (from === to) {
+             document.getElementById('sk-result').innerHTML = '<p>You are already there.</p>';
+             return;
+           }
+           var path = bfs(from, to);
+           if (!path) {
+             document.getElementById('sk-result').innerHTML = '<p>No skyway route found between those two. Walk outside.</p>';
+             return;
+           }
+           var totalMin = 0;
+           for (var i = 0; i < path.length - 1; i++) {
+             var es = ADJ[path[i]];
+             for (var j = 0; j < es.length; j++) if (es[j].to === path[i+1]) totalMin += es[j].w;
+           }
+           var html = '<div class="sk-route-summary">' + path.length + ' stops · about ' + totalMin + ' min indoors</div>' +
+             '<ol class="sk-route-list">' + path.map(function(id){ return '<li><b>' + NODEMAP[id].name + '</b><div class="sk-step-note">' + NODEMAP[id].note + '</div></li>'; }).join('') + '</ol>';
+           document.getElementById('sk-result').innerHTML = html;
+
+           // Draw route on map
+           if (routeLine) map.removeLayer(routeLine);
+           var coords = path.map(function(id){ return [NODEMAP[id].lat, NODEMAP[id].lng]; });
+           routeLine = L.polyline(coords, { color: '#E11900', weight: 5, opacity: 0.85 }).addTo(map);
+           map.fitBounds(routeLine.getBounds(), { padding: [40, 40] });
+         });
+       })();
+     </script>` +
+    footer();
+}
+
 function renderSlang() {
   const title = "The Loon's Nest";
   const description = 'A short Twin Cities glossary for visitors and recent transplants.';
@@ -1892,6 +2309,9 @@ function renderSitemap(neighborhoods) {
     { loc: SITE + '/tonight/', priority: '0.9' },
     { loc: SITE + '/calendar/', priority: '0.9' },
     { loc: SITE + '/map/', priority: '0.9' },
+    { loc: SITE + '/near/', priority: '0.8' },
+    { loc: SITE + '/quiz/', priority: '0.8' },
+    { loc: SITE + '/skyway/', priority: '0.8' },
     { loc: SITE + '/take-them-to/', priority: '0.8' },
     { loc: SITE + '/now-showing/', priority: '0.8' },
     { loc: SITE + '/horoscope/', priority: '0.7' },
@@ -1981,6 +2401,15 @@ function build() {
 
   // Tonight — sunset clock, weather, civic countdowns
   writeFile('tonight/index.html', renderTonight());
+
+  // Near You — geolocation walking-radius
+  writeFile('near/index.html', renderNear());
+
+  // Quiz — neighborhood matcher
+  writeFile('quiz/index.html', renderQuiz());
+
+  // Skyway — downtown indoor pedestrian network navigator
+  writeFile('skyway/index.html', renderSkyway());
 
   // Surprise — random place
   writeFile('surprise/index.html', renderSurprise());
