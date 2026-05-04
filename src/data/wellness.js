@@ -53,6 +53,24 @@ module.exports = {
       description: 'A mobile Finnish-sauna operation that pops up at lakes and parks across the metro through the winter. Reservation-based, communal, and the simplest way to experience a real lakeside sauna without owning a cabin.',
       address: 'Various Twin Cities pop-up locations',
       price: '$$'
+    },
+    {
+      name: 'enterSTELLAR',
+      neighborhood: 'Northeast Minneapolis',
+      style: 'Sound bath collective',
+      description: 'A Northeast sound-and-light collective running immersive sound baths in Studio 121 of the Casket Arts Building. Doors at 7, sound bath 7:30 to 8:30, with light projection and live healing frequencies. Twenty-five dollars and the closest thing the metro has to a regular communal nervous-system reset.',
+      address: '681 17th Ave NE, Minneapolis',
+      website: 'https://www.iamenterstellar.com',
+      price: '$$'
+    },
+    {
+      name: 'Pilates Underground',
+      neighborhood: 'South Uptown, Minneapolis',
+      style: 'Reformer Pilates studio',
+      description: 'A small Reformer-Pilates studio above Black Walnut Bakery in South Uptown. Megan Cairns founded it in 2015 and runs it tight: small classes on Peak PPS Reformers, a Cadillac, a Wunda Chair, and the kind of personal instruction the chains do not deliver. Private sessions and group classes both available.',
+      address: '3153 Hennepin Ave S, Minneapolis',
+      website: 'https://www.pilates-underground.com',
+      price: '$$$'
     }
   ]
 };

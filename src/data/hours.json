@@ -13291,5 +13291,56 @@
     },
     "hours": [],
     "fetched_at": "2026-05-04T03:08:30.653Z"
+  },
+  "wellness-and-spas:enterSTELLAR": {
+    "not_found": true,
+    "fetched_at": "2026-05-04T04:27:51.459Z"
+  },
+  "wellness-and-spas:Pilates Underground": {
+    "place_id": "ChIJrdNCNdQys1IRSUMIUjjcVOE",
+    "matched_name": "Pilates Underground",
+    "matched_address": "3153 Hennepin Ave S UNIT 210, Minneapolis, MN 55408, USA",
+    "location": {
+      "latitude": 44.9449067,
+      "longitude": -93.29805309999999
+    },
+    "hours": [
+      {
+        "day": 0,
+        "open": "09:00",
+        "close": "14:00"
+      },
+      {
+        "day": 1,
+        "open": "08:00",
+        "close": "19:30"
+      },
+      {
+        "day": 2,
+        "open": "07:00",
+        "close": "19:30"
+      },
+      {
+        "day": 3,
+        "open": "09:00",
+        "close": "19:30"
+      },
+      {
+        "day": 4,
+        "open": "07:00",
+        "close": "19:30"
+      },
+      {
+        "day": 5,
+        "open": "08:00",
+        "close": "17:00"
+      },
+      {
+        "day": 6,
+        "open": "09:00",
+        "close": "14:00"
+      }
+    ],
+    "fetched_at": "2026-05-04T04:27:51.920Z"
   }
 }

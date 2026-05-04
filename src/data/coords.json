@@ -971,5 +971,14 @@
   "23 26th Ave NE, Minneapolis": {
     "lat": 45.015047,
     "lng": -93.2714866
+  },
+  "681 17th Ave NE, Studio 121, Minneapolis": null,
+  "3153 Hennepin Ave S, Minneapolis": {
+    "lat": 44.9449438,
+    "lng": -93.2981737
+  },
+  "681 17th Ave NE, Minneapolis": {
+    "lat": 45.0052678,
+    "lng": -93.2543938
   }
 }
