@@ -216,7 +216,7 @@ function head({ title, description, slug, theme }) {
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=Archivo:wght@500;600;700&display=swap">
-<link rel="stylesheet" href="/style.css?v=6">
+<link rel="stylesheet" href="/style.css?v=7">
 <script>
 // Set color mode before paint to avoid flash. Reads localStorage first,
 // falls back to light mode (the new editorial default). mode-ready class
@@ -282,38 +282,63 @@ function header({ activeSlug } = {}) {
 }
 
 function footer() {
+  // Daily-refresh stuff lives in its own short row up top so the cluster grid
+  // below can stay focused on the static category lists.
+  const dailyLinks = [
+    { href: '/calendar/', label: 'Calendar' },
+    { href: '/now-showing/', label: 'Now Showing' },
+    { href: '/horoscope/', label: 'Horoscope' },
+    { href: '/festivals/', label: 'Festivals' },
+    { href: '/visit/', label: 'First Time?' },
+    { href: '/neighborhoods/', label: 'Neighborhoods' },
+    { href: '/glossary/', label: "Loon's Nest" }
+  ];
+
   return `<footer class="site-footer">
   <div class="wrap">
-    <div class="footer-grid">
-      <div>
+    <div class="footer-top">
+      <div class="footer-brand-block">
         <div class="footer-brand">bestofmpls<span class="dot">.</span></div>
         <p class="footer-tag">A guide to the museums, music, food, and small good things of Minneapolis and Saint Paul. Made for the metro by the people who live here.</p>
-        <div class="footer-newsletter">
-          <p class="footer-list-title">Get the weekly</p>
-          <form class="footer-newsletter-form" action="https://formspree.io/f/REPLACE_WITH_FORM_ID" method="POST">
-            <input type="email" name="email" placeholder="you@example.com" required aria-label="Email address">
-            <button type="submit">Subscribe</button>
-          </form>
-        </div>
       </div>
-      <div>
-        <p class="footer-list-title">Categories</p>
-        <ul class="footer-list">
-          ${categories.map(c => `<li><a href="/${c.slug}/">${esc(c.title)}</a></li>`).join('')}
-        </ul>
-      </div>
-      <div>
-        <p class="footer-list-title">More</p>
-        <ul class="footer-list">
-          <li><a href="/about/">About</a></li>
-          <li><a href="/contribute/">Send us a tip</a></li>
-          <li><a href="mailto:hello@bestofmpls.com">Contact</a></li>
-        </ul>
+      <div class="footer-newsletter">
+        <p class="footer-list-title">Get the weekly</p>
+        <form class="footer-newsletter-form" action="https://formspree.io/f/REPLACE_WITH_FORM_ID" method="POST">
+          <input type="email" name="email" placeholder="you@example.com" required aria-label="Email address">
+          <button type="submit">Subscribe</button>
+        </form>
       </div>
     </div>
+
+    <div class="footer-daily">
+      <span class="footer-daily-label">Daily ·</span>
+      <nav class="footer-daily-nav">
+        ${dailyLinks.map(l => `<a href="${l.href}">${esc(l.label)}</a>`).join('')}
+      </nav>
+    </div>
+
+    <div class="footer-clusters">
+      ${clusters.map(cluster => `
+        <div class="footer-cluster">
+          <p class="footer-list-title">${esc(cluster.eyebrow)}</p>
+          <ul class="footer-list">
+            ${cluster.categories.map(c => `<li><a href="/${c.slug}/">${esc(c.title)}</a></li>`).join('')}
+          </ul>
+        </div>
+      `).join('')}
+    </div>
+
     <div class="colophon">
-      <span>© ${new Date().getFullYear()} bestofmpls. All rights reserved.</span>
-      <span>Made in Minneapolis</span>
+      <div class="colophon-links">
+        <a href="/about/">About</a>
+        <a href="/contribute/">Send a tip</a>
+        <a href="mailto:hello@bestofmpls.com">Contact</a>
+        <a href="/search/">Search</a>
+      </div>
+      <div class="colophon-meta">
+        <span>© ${new Date().getFullYear()} bestofmpls.</span>
+        <span>Made in Minneapolis.</span>
+      </div>
     </div>
   </div>
 </footer>
