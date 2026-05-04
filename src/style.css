@@ -266,13 +266,20 @@ p { margin: 0 0 1em; }
   flex-wrap: wrap;
 }
 .cover-cta {
+  /* Reset browser-default button chrome so this class works on either an
+   * <a> or a <button> without a gray background pill showing up. */
+  appearance: none;
+  background: transparent;
+  border: 0;
+  border-bottom: 1.5px solid var(--ink);
+  border-radius: 0;
+  cursor: pointer;
   font-family: var(--font-label);
   font-weight: 600;
   font-size: 12px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--ink);
-  border-bottom: 1.5px solid var(--ink);
   padding: 4px 0 6px;
   transition: color 0.18s ease, border-color 0.18s ease, padding 0.18s ease;
 }
