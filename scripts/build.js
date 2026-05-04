@@ -246,7 +246,7 @@ function head({ title, description, slug, theme }) {
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=Archivo:wght@500;600;700&display=swap">
-<link rel="stylesheet" href="/style.css?v=13">
+<link rel="stylesheet" href="/style.css?v=14">
 <script>
 // Set color mode before paint to avoid flash. Reads localStorage first,
 // falls back to light mode (the new editorial default). mode-ready class
@@ -2249,12 +2249,15 @@ function renderMystery() {
   const tiers = ['$30', '$60', '$100'];
   const seasons = ['warm', 'cold'];
 
-  const cards = m.itineraries.map(it => `
+  const cards = m.itineraries.map(it => {
+    const variantCount = (it.variants || []).length;
+    return `
     <a class="mystery-card" href="/mystery/#${esc(it.slug)}" data-mystery="${esc(it.slug)}">
-      <div class="mystery-card-tier">${esc(it.tier)} · ${esc(it.season === 'warm' ? 'Warm season' : 'Cold season')}</div>
+      <div class="mystery-card-tier">${esc(it.tier)} · ${esc(it.season === 'warm' ? 'Warm season' : 'Cold season')}${variantCount > 1 ? ` · ${variantCount} versions` : ''}</div>
       <h3 class="mystery-card-label">${esc(it.label)}</h3>
       <div class="mystery-card-cta">Reveal the night →</div>
-    </a>`).join('');
+    </a>`;
+  }).join('');
 
   // Inline the itineraries as JSON for client-side reveal
   const itinJson = JSON.stringify(m.itineraries);
@@ -2276,21 +2279,44 @@ function renderMystery() {
          var byslug = {};
          ITINS.forEach(function(it){ byslug[it.slug] = it; });
 
-         function renderItin(slug) {
+         // Pick a variant index that is different from the previous one when
+         // possible. Used both for first reveal and re-roll.
+         function pickDifferent(variants, prevIndex) {
+           if (!variants || variants.length === 0) return 0;
+           if (variants.length === 1) return 0;
+           var i = Math.floor(Math.random() * variants.length);
+           if (i === prevIndex) i = (i + 1) % variants.length;
+           return i;
+         }
+
+         function renderItin(slug, variantIndex) {
            var it = byslug[slug];
            if (!it) return;
+           var variants = it.variants || (it.stops ? [{ stops: it.stops }] : []);
+           if (variants.length === 0) return;
+           if (typeof variantIndex !== 'number') {
+             variantIndex = pickDifferent(variants, -1);
+           }
+           var stops = variants[variantIndex].stops;
            document.getElementById('mystery-grid').style.display = 'none';
            var rev = document.getElementById('mystery-reveal');
            rev.style.display = '';
+
+           var versionsLine = variants.length > 1
+             ? '<span class="mystery-versions">Version ' + (variantIndex + 1) + ' of ' + variants.length + '</span>'
+             : '';
+           var rerollBtn = variants.length > 1
+             ? '<button class="mystery-reroll" type="button" id="mystery-reroll">Re-roll for a different night →</button>'
+             : '';
 
            var html = '<div class="mystery-back"><a href="#" id="mystery-close">← Back to all envelopes</a></div>' +
              '<div class="mystery-titleblock">' +
              '<div class="mystery-tier">' + it.tier + ' · ' + (it.season === "warm" ? "Warm season" : "Cold season") + '</div>' +
              '<h2 class="mystery-title">' + it.label + '</h2>' +
-             '<p class="mystery-instructions">Tap each envelope to reveal the next stop.</p>' +
+             '<p class="mystery-instructions">Tap each envelope to reveal the next stop. ' + versionsLine + '</p>' +
              '</div>' +
              '<ol class="mystery-stops">' +
-             it.stops.map(function(s, i){
+             stops.map(function(s, i){
                return '<li class="mystery-stop" data-i="' + i + '">' +
                  '<button class="mystery-stop-btn" type="button">' +
                    '<span class="mystery-stop-num">' + (i + 1) + '</span>' +
@@ -2303,7 +2329,8 @@ function renderMystery() {
                  '</div>' +
                '</li>';
              }).join('') +
-             '</ol>';
+             '</ol>' +
+             rerollBtn;
            rev.innerHTML = html;
            rev.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
@@ -2314,6 +2341,14 @@ function renderMystery() {
              rev.style.display = 'none';
              rev.innerHTML = '';
            });
+
+           var rerollEl = document.getElementById('mystery-reroll');
+           if (rerollEl) {
+             rerollEl.addEventListener('click', function(){
+               var next = pickDifferent(variants, variantIndex);
+               renderItin(slug, next);
+             });
+           }
 
            rev.querySelectorAll('.mystery-stop-btn').forEach(function(btn){
              btn.addEventListener('click', function(){
