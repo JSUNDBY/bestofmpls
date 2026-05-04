@@ -77,6 +77,8 @@ const festivals    = require(path.join(SRC, 'data/festivals.js'));
 const closures     = require(path.join(SRC, 'data/closures.js'));
 const situations   = require(path.join(SRC, 'data/situations.js'));
 const skyway       = require(path.join(SRC, 'data/skyway.js'));
+const history      = require(path.join(SRC, 'data/history.js'));
+const mystery      = require(path.join(SRC, 'data/mystery.js'));
 
 // Editorial clusters drive the homepage layout. With 28 categories, the
 // homepage now reads like a real city magazine: Culture, Eat, Drink, Shop,
@@ -223,7 +225,7 @@ function head({ title, description, slug, theme }) {
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=Archivo:wght@500;600;700&display=swap">
-<link rel="stylesheet" href="/style.css?v=10">
+<link rel="stylesheet" href="/style.css?v=11">
 <script>
 // Set color mode before paint to avoid flash. Reads localStorage first,
 // falls back to light mode (the new editorial default). mode-ready class
@@ -253,6 +255,8 @@ function header({ activeSlug } = {}) {
     { href: '/near/', label: 'Near You', slug: 'near' },
     { href: '/quiz/', label: 'Quiz', slug: 'quiz' },
     { href: '/skyway/', label: 'Skyway', slug: 'skyway' },
+    { href: '/mystery/', label: 'Mystery Itinerary', slug: 'mystery' },
+    { href: '/history/', label: 'On This Day', slug: 'history' },
     { href: '/take-them-to/', label: 'Take Them To', slug: 'take-them-to' },
     { href: '/now-showing/', label: 'Now Showing', slug: 'now-showing' },
     { href: '/horoscope/', label: 'Horoscope', slug: 'horoscope' },
@@ -302,6 +306,8 @@ function footer() {
     { href: '/near/', label: 'Near You' },
     { href: '/quiz/', label: 'Quiz' },
     { href: '/skyway/', label: 'Skyway' },
+    { href: '/mystery/', label: 'Mystery Itinerary' },
+    { href: '/history/', label: 'On This Day' },
     { href: '/take-them-to/', label: 'Take Them To' },
     { href: '/now-showing/', label: 'Now Showing' },
     { href: '/horoscope/', label: 'Horoscope' },
@@ -654,6 +660,8 @@ function renderHome() {
         <a class="tool-card" href="/horoscope/"><span class="tool-icon" aria-hidden="true">✦</span><span class="tool-label">Horoscope</span><span class="tool-deck">For the metro, today</span></a>
         <a class="tool-card" href="/surprise/"><span class="tool-icon" aria-hidden="true">⚂</span><span class="tool-label">Surprise me</span><span class="tool-deck">A random pick</span></a>
         <a class="tool-card" href="/today/"><span class="tool-icon" aria-hidden="true">★</span><span class="tool-label">Today</span><span class="tool-deck">A small good thing</span></a>
+        <a class="tool-card" href="/mystery/"><span class="tool-icon" aria-hidden="true">✉</span><span class="tool-label">Mystery</span><span class="tool-deck">Sealed-envelope nights</span></a>
+        <a class="tool-card" href="/history/"><span class="tool-icon" aria-hidden="true">⌛</span><span class="tool-label">On This Day</span><span class="tool-deck">${history.entries.length} anniversaries</span></a>
         <a class="tool-card" href="/departed/"><span class="tool-icon" aria-hidden="true">†</span><span class="tool-label">Departed</span><span class="tool-deck">Places we lost</span></a>
       </div>
     </section>
@@ -2129,6 +2137,185 @@ function renderSkyway() {
     footer();
 }
 
+// ---------- /history/ — On This Day in the metro ----------
+function renderHistory() {
+  const h = history;
+  const description = h.subtitle;
+
+  // Find today's matches; show them first.
+  const now = new Date();
+  const todayM = now.getMonth() + 1;
+  const todayD = now.getDate();
+  const todays = h.entries.filter(e => e.month === todayM && e.day === todayD);
+
+  // For everything else, group by month and sort within month.
+  const byMonth = {};
+  for (const e of h.entries) {
+    if (e.month === todayM && e.day === todayD) continue;
+    if (!byMonth[e.month]) byMonth[e.month] = [];
+    byMonth[e.month].push(e);
+  }
+  const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+  function fmtYear(year) {
+    const ago = now.getFullYear() - year;
+    return `${year} <span class="hist-ago">· ${ago} year${ago === 1 ? '' : 's'} ago</span>`;
+  }
+  function entryRow(e) {
+    return `
+      <li class="hist-entry">
+        <div class="hist-entry-date">${monthNames[e.month-1]} ${e.day}</div>
+        <div class="hist-entry-body">
+          <div class="hist-entry-year">${fmtYear(e.year)}</div>
+          <h3 class="hist-entry-title"><span class="hist-kind hist-kind-${esc(e.kind)}">${esc(e.kind)}</span> ${esc(e.title)}</h3>
+          <p class="hist-entry-blurb">${esc(e.blurb)}</p>
+        </div>
+      </li>`;
+  }
+
+  const todaySection = todays.length > 0 ? `
+    <section class="hist-today wrap">
+      <div class="hist-today-eyebrow">${monthNames[todayM-1]} ${todayD} in Twin Cities history</div>
+      <ul class="hist-list hist-list-today">${todays.map(entryRow).join('')}</ul>
+    </section>` : `
+    <section class="hist-today wrap">
+      <div class="hist-today-eyebrow">${monthNames[todayM-1]} ${todayD} in Twin Cities history</div>
+      <p class="hist-empty">Nothing on file for today yet. If you know an anniversary that should be here, send a tip.</p>
+    </section>`;
+
+  const monthSections = monthNames.map((mn, i) => {
+    const m = i + 1;
+    const list = (byMonth[m] || []).sort((a, b) => a.day - b.day);
+    if (list.length === 0) return '';
+    return `
+      <section class="hist-month wrap" id="month-${m}">
+        <h2 class="hist-month-title">${mn}</h2>
+        <ul class="hist-list">${list.map(entryRow).join('')}</ul>
+      </section>`;
+  }).join('');
+
+  return head({ title: h.title, description, slug: 'history', theme: 'midnight' }) +
+    header({ activeSlug: 'history' }) +
+    `<section class="section-head">
+       <div class="wrap">
+         <div class="section-eyebrow">${h.entries.length} entries · ${todays.length} today</div>
+         <h1 class="section-title">${esc(h.title)}</h1>
+         <p class="section-deck">${esc(h.intro)}</p>
+       </div>
+     </section>
+     ${todaySection}
+     <section class="hist-rest">
+       <div class="wrap">
+         <h2 class="hist-rest-title">The full year, by month</h2>
+       </div>
+       ${monthSections}
+     </section>` +
+    footer();
+}
+
+// ---------- /mystery/ — sealed-envelope itineraries ----------
+function renderMystery() {
+  const m = mystery;
+  const description = m.subtitle;
+
+  // Group by tier
+  const tiers = ['$30', '$60', '$100'];
+  const seasons = ['warm', 'cold'];
+
+  const cards = m.itineraries.map(it => `
+    <a class="mystery-card" href="/mystery/#${esc(it.slug)}" data-mystery="${esc(it.slug)}">
+      <div class="mystery-card-tier">${esc(it.tier)} · ${esc(it.season === 'warm' ? 'Warm season' : 'Cold season')}</div>
+      <h3 class="mystery-card-label">${esc(it.label)}</h3>
+      <div class="mystery-card-cta">Reveal the night →</div>
+    </a>`).join('');
+
+  // Inline the itineraries as JSON for client-side reveal
+  const itinJson = JSON.stringify(m.itineraries);
+
+  return head({ title: m.title, description, slug: 'mystery', theme: 'midnight' }) +
+    header({ activeSlug: 'mystery' }) +
+    `<section class="section-head">
+       <div class="wrap">
+         <div class="section-eyebrow">${m.itineraries.length} sealed envelopes</div>
+         <h1 class="section-title">${esc(m.title)}</h1>
+         <p class="section-deck">${esc(m.intro)}</p>
+       </div>
+     </section>
+     <section class="mystery-grid wrap" id="mystery-grid">${cards}</section>
+     <section class="mystery-reveal wrap" id="mystery-reveal" style="display:none;"></section>
+     <script>
+       (function(){
+         var ITINS = ${itinJson};
+         var byslug = {};
+         ITINS.forEach(function(it){ byslug[it.slug] = it; });
+
+         function renderItin(slug) {
+           var it = byslug[slug];
+           if (!it) return;
+           document.getElementById('mystery-grid').style.display = 'none';
+           var rev = document.getElementById('mystery-reveal');
+           rev.style.display = '';
+
+           var html = '<div class="mystery-back"><a href="#" id="mystery-close">← Back to all envelopes</a></div>' +
+             '<div class="mystery-titleblock">' +
+             '<div class="mystery-tier">' + it.tier + ' · ' + (it.season === "warm" ? "Warm season" : "Cold season") + '</div>' +
+             '<h2 class="mystery-title">' + it.label + '</h2>' +
+             '<p class="mystery-instructions">Tap each envelope to reveal the next stop.</p>' +
+             '</div>' +
+             '<ol class="mystery-stops">' +
+             it.stops.map(function(s, i){
+               return '<li class="mystery-stop" data-i="' + i + '">' +
+                 '<button class="mystery-stop-btn" type="button">' +
+                   '<span class="mystery-stop-num">' + (i + 1) + '</span>' +
+                   '<span class="mystery-stop-kind">' + s.kind + '</span>' +
+                   '<span class="mystery-stop-cta">Reveal →</span>' +
+                 '</button>' +
+                 '<div class="mystery-stop-content" hidden>' +
+                   '<div class="mystery-stop-kind-revealed">' + s.kind + '</div>' +
+                   '<p class="mystery-stop-text">' + s.text + '</p>' +
+                 '</div>' +
+               '</li>';
+             }).join('') +
+             '</ol>';
+           rev.innerHTML = html;
+           rev.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+           document.getElementById('mystery-close').addEventListener('click', function(e){
+             e.preventDefault();
+             window.location.hash = '';
+             document.getElementById('mystery-grid').style.display = '';
+             rev.style.display = 'none';
+             rev.innerHTML = '';
+           });
+
+           rev.querySelectorAll('.mystery-stop-btn').forEach(function(btn){
+             btn.addEventListener('click', function(){
+               var stop = btn.closest('.mystery-stop');
+               stop.classList.add('is-revealed');
+               stop.querySelector('.mystery-stop-content').hidden = false;
+               btn.style.display = 'none';
+             });
+           });
+         }
+
+         document.querySelectorAll('[data-mystery]').forEach(function(el){
+           el.addEventListener('click', function(e){
+             e.preventDefault();
+             window.location.hash = el.dataset.mystery;
+             renderItin(el.dataset.mystery);
+           });
+         });
+
+         // Honor deep link hash on load
+         if (window.location.hash) {
+           var slug = window.location.hash.slice(1);
+           if (byslug[slug]) renderItin(slug);
+         }
+       })();
+     </script>` +
+    footer();
+}
+
 function renderSlang() {
   const title = "The Loon's Nest";
   const description = 'A short Twin Cities glossary for visitors and recent transplants.';
@@ -2312,6 +2499,8 @@ function renderSitemap(neighborhoods) {
     { loc: SITE + '/near/', priority: '0.8' },
     { loc: SITE + '/quiz/', priority: '0.8' },
     { loc: SITE + '/skyway/', priority: '0.8' },
+    { loc: SITE + '/mystery/', priority: '0.8' },
+    { loc: SITE + '/history/', priority: '0.8' },
     { loc: SITE + '/take-them-to/', priority: '0.8' },
     { loc: SITE + '/now-showing/', priority: '0.8' },
     { loc: SITE + '/horoscope/', priority: '0.7' },
@@ -2410,6 +2599,12 @@ function build() {
 
   // Skyway — downtown indoor pedestrian network navigator
   writeFile('skyway/index.html', renderSkyway());
+
+  // History — On This Day in the metro
+  writeFile('history/index.html', renderHistory());
+
+  // Mystery — sealed-envelope itineraries
+  writeFile('mystery/index.html', renderMystery());
 
   // Surprise — random place
   writeFile('surprise/index.html', renderSurprise());
