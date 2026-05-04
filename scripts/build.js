@@ -67,6 +67,27 @@ const todayData     = loadJsonOptional(path.join(SRC, 'data/today.json')) || nul
 const coordsData    = loadJsonOptional(path.join(SRC, 'data/coords.json')) || {};
 const rightnowData  = loadJsonOptional(path.join(SRC, 'data/rightnow.json')) || null;
 const hoursData     = loadJsonOptional(path.join(SRC, 'data/hours.json')) || {};
+
+// Resolve the best lat/lng for an entry. Preference order:
+//   1. Google Places location from hours.json (precise — pinned to the
+//      actual storefront)
+//   2. Nominatim geocode in coords.json, but only if the entry has a real
+//      street address (digit somewhere). Neighborhood-only addresses like
+//      "Northeast Minneapolis" geocode to a centroid that ends up shared
+//      with every other entry that lazy-addressed the same neighborhood,
+//      so we refuse to plot those.
+//   3. null — entry will not appear on the map. Better than a wrong pin.
+function lookupCoords(slug, entry) {
+  const hLook = hoursData[`${slug}:${entry.name}`];
+  if (hLook && hLook.location && typeof hLook.location.latitude === 'number') {
+    return { lat: hLook.location.latitude, lng: hLook.location.longitude, source: 'places' };
+  }
+  if (entry.address && /\d/.test(entry.address)) {
+    const c = coordsData[entry.address.trim()];
+    if (c && typeof c.lat === 'number') return { lat: c.lat, lng: c.lng, source: 'nominatim' };
+  }
+  return null;
+}
 const shops        = require(path.join(SRC, 'data/shops.js'));
 const mensClothing = require(path.join(SRC, 'data/mens-clothing.js'));
 const womensClothing = require(path.join(SRC, 'data/womens-clothing.js'));
@@ -1387,9 +1408,8 @@ function renderMap() {
   for (const c of categories) {
     if (c.layout === 'seasonal') continue;
     for (const e of c.entries) {
-      if (!e.address) continue;
-      const coords = coordsData[e.address.trim()];
-      if (!coords || !coords.lat) continue;
+      const coords = lookupCoords(c.slug, e);
+      if (!coords) continue;
       const hLook = hoursData[`${c.slug}:${e.name}`];
       points.push({
         lat: coords.lat,
@@ -1400,7 +1420,7 @@ function renderMap() {
         slug: c.slug,
         anchor: e.name.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
         neighborhood: e.neighborhood || '',
-        address: e.address,
+        address: (hLook && hLook.matched_address) || e.address || '',
         url: e.website || null,
         hours: (hLook && hLook.hours && hLook.hours.length > 0) ? hLook.hours : null
       });
@@ -1742,9 +1762,8 @@ function renderNear() {
   for (const c of categories) {
     if (c.layout === 'seasonal') continue;
     for (const e of c.entries) {
-      if (!e.address) continue;
-      const coords = coordsData[e.address.trim()];
-      if (!coords || !coords.lat) continue;
+      const coords = lookupCoords(c.slug, e);
+      if (!coords) continue;
       const hLook = hoursData[`${c.slug}:${e.name}`];
       points.push({
         lat: coords.lat,
