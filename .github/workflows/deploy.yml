@@ -4,6 +4,10 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  # Refresh scraped events + horoscope every morning at 6am Central (11 UTC)
+  # so the calendar and horoscope pages stay fresh without a code push.
+  schedule:
+    - cron: '0 11 * * *'
 
 permissions:
   contents: read
@@ -27,8 +31,24 @@ jobs:
         with:
           node-version: 20
 
+      - name: Install deps
+        run: npm ci
+
+      - name: Scrape events
+        run: node scripts/scrape-events.js
+        continue-on-error: true
+
+      - name: Generate horoscope
+        run: node scripts/build-horoscope.js
+
       - name: Build
         run: npm run build
+
+      - name: Build OG image
+        run: |
+          sudo apt-get install -y librsvg2-bin
+          node scripts/build-og.js
+        continue-on-error: true
 
       - name: Configure Pages
         uses: actions/configure-pages@v5

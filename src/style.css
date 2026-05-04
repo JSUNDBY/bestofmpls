@@ -1530,6 +1530,320 @@ body[data-theme="default"] {
   }
 }
 
+/* ===== Live calendar (scraped events) ===== */
+.cal-controls {
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  background: var(--paper);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  padding: 16px 0;
+}
+.cal-controls-inner {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.cal-filter-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.cal-filter-label {
+  font-family: var(--font-label);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-right: 4px;
+}
+.cal-chip {
+  appearance: none;
+  background: transparent;
+  border: 1px solid var(--rule);
+  color: var(--ink);
+  font-family: var(--font-label);
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 7px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.12s ease;
+}
+.cal-chip:hover { border-color: var(--ink); }
+.cal-chip.is-on {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+}
+.cal-chip-all.is-on {
+  background: var(--clay);
+  border-color: var(--clay);
+}
+.cal-stream { padding: 32px 0 80px; }
+.cal-day { margin-bottom: 32px; }
+.cal-day-header {
+  border-bottom: 2px solid var(--ink);
+  padding-bottom: 8px;
+  margin-bottom: 0;
+}
+.cal-day-date {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(22px, 3vw, 32px);
+  letter-spacing: -0.01em;
+  margin: 0;
+  padding: 16px 0 4px;
+}
+.cal-day-list { border-top: 1px solid var(--rule); }
+.cal-event {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: 24px;
+  padding: 20px var(--gutter);
+  border-bottom: 1px solid var(--rule-soft);
+  max-width: var(--max-w);
+  margin: 0 auto;
+}
+.cal-event-time {
+  font-family: var(--font-label);
+  font-weight: 700;
+  font-size: 12.5px;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+  padding-top: 4px;
+}
+.cal-event-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: baseline;
+  font-family: var(--font-label);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-bottom: 6px;
+}
+.cal-event-cat {
+  background: var(--clay);
+  color: var(--paper);
+  padding: 3px 8px;
+  border-radius: 3px;
+  font-weight: 700;
+}
+.cal-event-venue { color: var(--ink); font-weight: 600; }
+.cal-event-neigh::before { content: "· "; color: var(--ink-faint); }
+.cal-event-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(17px, 2vw, 22px);
+  line-height: 1.25;
+  margin: 0 0 6px;
+}
+.cal-event-title a {
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+.cal-event-title a:hover {
+  border-bottom-color: var(--clay);
+  color: var(--clay);
+}
+.cal-event-sub {
+  font-family: var(--font-body);
+  font-size: 14.5px;
+  line-height: 1.5;
+  color: var(--ink-soft);
+  margin: 0;
+}
+@media (max-width: 600px) {
+  .cal-event {
+    grid-template-columns: 1fr;
+    gap: 6px;
+    padding: 18px var(--gutter);
+  }
+  .cal-event-time { padding-top: 0; }
+}
+
+/* ===== Live events feature on homepage ===== */
+.live-feature {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 80px 0;
+}
+.live-feature-inner {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 64px;
+  align-items: start;
+}
+.live-feature-text .cluster-eyebrow { color: var(--clay); }
+.live-feature-text .cluster-title { color: var(--paper); }
+.live-feature-text .cluster-deck { color: rgba(255,255,255,0.78); }
+.live-feature-text .cat-card-arrow { color: var(--clay); }
+.live-feature-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid rgba(255,255,255,0.18);
+}
+.live-feature-item {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  gap: 20px;
+  padding: 16px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.18);
+}
+.live-feature-day {
+  font-family: var(--font-label);
+  font-weight: 700;
+  font-size: 11.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--clay);
+  padding-top: 4px;
+}
+.live-feature-name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 19px;
+  line-height: 1.25;
+  color: var(--paper);
+  margin-bottom: 4px;
+}
+.live-feature-name a {
+  color: var(--paper);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+.live-feature-name a:hover { border-bottom-color: var(--clay); color: var(--clay); }
+.live-feature-meta {
+  font-family: var(--font-body);
+  font-size: 13.5px;
+  color: rgba(255,255,255,0.72);
+  line-height: 1.4;
+}
+@media (max-width: 720px) {
+  .live-feature-inner { grid-template-columns: 1fr; gap: 32px; }
+  .live-feature-item { grid-template-columns: 90px 1fr; gap: 14px; }
+}
+
+/* ===== Horoscope page ===== */
+.horoscope-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 28px;
+  padding: 48px var(--gutter) 96px;
+}
+.horoscope-card {
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  padding: 28px;
+  border-radius: 4px;
+  transition: border-color 0.12s ease;
+}
+.horoscope-card:hover { border-color: var(--ink); }
+.horoscope-card-head {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 14px;
+  margin-bottom: 18px;
+}
+.horoscope-symbol {
+  font-size: 28px;
+  color: var(--clay);
+  line-height: 1;
+}
+.horoscope-sign {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 24px;
+  letter-spacing: -0.01em;
+  margin: 0;
+  flex: 1;
+}
+.horoscope-dates {
+  font-family: var(--font-label);
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.horoscope-text {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-style: italic;
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--ink);
+  margin: 0;
+}
+
+/* ===== Horoscope feature on homepage ===== */
+.horoscope-feature {
+  padding: 80px 0;
+  background: var(--paper);
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+}
+.horoscope-feature-inner {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 64px;
+  align-items: start;
+}
+.horoscope-feature-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+.horoscope-feature-card {
+  display: block;
+  padding: 22px;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.12s ease, transform 0.12s ease;
+}
+.horoscope-feature-card:hover {
+  border-color: var(--ink);
+  transform: translateY(-2px);
+}
+.horoscope-feature-symbol {
+  display: inline-block;
+  font-size: 22px;
+  color: var(--clay);
+  margin-right: 10px;
+}
+.horoscope-feature-sign {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 18px;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.horoscope-feature-snippet {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 14.5px;
+  line-height: 1.5;
+  color: var(--ink-soft);
+  margin: 12px 0 0;
+}
+@media (max-width: 720px) {
+  .horoscope-feature-inner { grid-template-columns: 1fr; gap: 32px; }
+}
+
 /* ===== Print ===== */
 @media print {
   .site-header, .primary-nav, .site-footer { display: none; }
