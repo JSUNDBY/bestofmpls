@@ -63,6 +63,8 @@ function loadJsonOptional(p) {
 }
 const eventsData    = loadJsonOptional(path.join(SRC, 'data/events.json')) || { generated_at: null, sources: [], events: [] };
 const horoscopeData = loadJsonOptional(path.join(SRC, 'data/horoscope.json')) || { date: null, intro: '', horoscopes: [] };
+const todayData     = loadJsonOptional(path.join(SRC, 'data/today.json')) || null;
+const coordsData    = loadJsonOptional(path.join(SRC, 'data/coords.json')) || {};
 const shops        = require(path.join(SRC, 'data/shops.js'));
 const mensClothing = require(path.join(SRC, 'data/mens-clothing.js'));
 const womensClothing = require(path.join(SRC, 'data/womens-clothing.js'));
@@ -70,6 +72,8 @@ const hotels       = require(path.join(SRC, 'data/hotels.js'));
 const outdoors     = require(path.join(SRC, 'data/outdoors.js'));
 const hiddenGems   = require(path.join(SRC, 'data/hidden-gems.js'));
 const festivals    = require(path.join(SRC, 'data/festivals.js'));
+const closures     = require(path.join(SRC, 'data/closures.js'));
+const situations   = require(path.join(SRC, 'data/situations.js'));
 
 // Editorial clusters drive the homepage layout. With 28 categories, the
 // homepage now reads like a real city magazine: Culture, Eat, Drink, Shop,
@@ -216,7 +220,7 @@ function head({ title, description, slug, theme }) {
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=Archivo:wght@500;600;700&display=swap">
-<link rel="stylesheet" href="/style.css?v=7">
+<link rel="stylesheet" href="/style.css?v=8">
 <script>
 // Set color mode before paint to avoid flash. Reads localStorage first,
 // falls back to light mode (the new editorial default). mode-ready class
@@ -239,19 +243,18 @@ function header({ activeSlug } = {}) {
   // and the cluster names anchor to the homepage section.
   const navItems = [
     { href: '/', label: 'Cover', slug: '' },
-    { href: '/visit/', label: 'First Time?', slug: 'visit' },
-    { href: '/#culture', label: 'Culture' },
+    { href: '/today/', label: 'Today', slug: 'today' },
     { href: '/calendar/', label: 'Calendar', slug: 'calendar' },
+    { href: '/map/', label: 'Map', slug: 'map' },
+    { href: '/take-them-to/', label: 'Take Them To', slug: 'take-them-to' },
     { href: '/now-showing/', label: 'Now Showing', slug: 'now-showing' },
     { href: '/horoscope/', label: 'Horoscope', slug: 'horoscope' },
-    { href: '/#eat', label: 'Eat' },
-    { href: '/#drink', label: 'Drink' },
-    { href: '/#shop', label: 'Shop' },
+    { href: '/visit/', label: 'First Time?', slug: 'visit' },
     { href: '/neighborhoods/', label: 'Neighborhoods', slug: 'neighborhoods' },
     { href: '/festivals/', label: 'Festivals', slug: 'festivals' },
-    { href: '/glossary/', label: "Loon's Nest", slug: 'glossary' },
-    { href: '/search/', label: 'Search', slug: 'search' },
-    { href: '/contribute/', label: 'Send a Tip', slug: 'contribute' }
+    { href: '/departed/', label: 'Departed', slug: 'departed' },
+    { href: '/surprise/', label: 'Surprise me', slug: 'surprise' },
+    { href: '/search/', label: 'Search', slug: 'search' }
   ];
   return `<header class="site-header">
   <div class="wrap">
@@ -285,9 +288,14 @@ function footer() {
   // Daily-refresh stuff lives in its own short row up top so the cluster grid
   // below can stay focused on the static category lists.
   const dailyLinks = [
+    { href: '/today/', label: 'Today' },
     { href: '/calendar/', label: 'Calendar' },
+    { href: '/map/', label: 'Map' },
+    { href: '/take-them-to/', label: 'Take Them To' },
     { href: '/now-showing/', label: 'Now Showing' },
     { href: '/horoscope/', label: 'Horoscope' },
+    { href: '/surprise/', label: 'Surprise me' },
+    { href: '/departed/', label: 'Departed' },
     { href: '/festivals/', label: 'Festivals' },
     { href: '/visit/', label: 'First Time?' },
     { href: '/neighborhoods/', label: 'Neighborhoods' },
@@ -459,6 +467,30 @@ function renderHome() {
             <span>Updated weekly</span>
           </div>
         </div>
+      </div>
+    </section>
+    ${todayData ? `
+    <section class="today-feature" id="today">
+      <div class="wrap today-feature-inner">
+        <div class="today-feature-meta">
+          <div class="cluster-eyebrow">Today · A small good thing</div>
+          <h2 class="today-feature-title">${esc(todayData.title)}</h2>
+        </div>
+        <div class="today-feature-body">
+          <p class="today-feature-body-text">${esc(todayData.body)}</p>
+          <a class="cat-card-arrow" href="/today/">Read at /today/ →</a>
+        </div>
+      </div>
+    </section>` : ''}
+    <section class="tools-strip">
+      <div class="wrap tools-strip-inner">
+        <a class="tool-card" href="/map/"><span class="tool-icon" aria-hidden="true">◉</span><span class="tool-label">The Map</span><span class="tool-deck">Every place, plotted</span></a>
+        <a class="tool-card" href="/calendar/"><span class="tool-icon" aria-hidden="true">▭</span><span class="tool-label">Calendar</span><span class="tool-deck">${(eventsData.events || []).length} upcoming</span></a>
+        <a class="tool-card" href="/take-them-to/"><span class="tool-icon" aria-hidden="true">⌖</span><span class="tool-label">Take Them To</span><span class="tool-deck">${situations.situations.length} situations</span></a>
+        <a class="tool-card" href="/now-showing/"><span class="tool-icon" aria-hidden="true">▣</span><span class="tool-label">Now Showing</span><span class="tool-deck">${exhibitions.exhibitions.length} exhibitions</span></a>
+        <a class="tool-card" href="/horoscope/"><span class="tool-icon" aria-hidden="true">✦</span><span class="tool-label">Horoscope</span><span class="tool-deck">For the metro, today</span></a>
+        <a class="tool-card" href="/surprise/"><span class="tool-icon" aria-hidden="true">⚂</span><span class="tool-label">Surprise me</span><span class="tool-deck">A random pick</span></a>
+        <a class="tool-card" href="/departed/"><span class="tool-icon" aria-hidden="true">†</span><span class="tool-label">Departed</span><span class="tool-deck">Places we lost</span></a>
       </div>
     </section>
     ${clusterSections}
@@ -1147,6 +1179,257 @@ function renderHoroscope() {
     footer();
 }
 
+// ---------- The Map — every place geocoded ----------
+function renderMap() {
+  const title = 'The Map';
+  const description = 'Every place in the directory, every event venue, plotted across the metro. Filter by category, click for details.';
+
+  // Build a flat list of points: every entry that has a geocoded address.
+  const points = [];
+  for (const c of categories) {
+    if (c.layout === 'seasonal') continue;
+    for (const e of c.entries) {
+      if (!e.address) continue;
+      const coords = coordsData[e.address.trim()];
+      if (!coords || !coords.lat) continue;
+      points.push({
+        lat: coords.lat,
+        lng: coords.lng,
+        name: e.name,
+        category: c.title,
+        cluster: clusters.find(cl => cl.categories.includes(c))?.eyebrow || 'Other',
+        slug: c.slug,
+        anchor: e.name.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+        neighborhood: e.neighborhood || '',
+        address: e.address,
+        url: e.website || null
+      });
+    }
+  }
+
+  // Cluster colors map to homepage IA so the map reads like the rest of the site.
+  const CLUSTER_COLORS = {
+    'See & Experience': '#7B2CBF',
+    'Eat': '#E11900',
+    'Drink': '#0E5C2F',
+    'Shop': '#1E5AAA',
+    'Stay & Do': '#B8860B',
+    'Other': '#666'
+  };
+
+  // Inject all points as a JSON blob. Leaflet on the page reads it client-side.
+  const pointsJson = JSON.stringify(points);
+  const colorsJson = JSON.stringify(CLUSTER_COLORS);
+  const clustersList = ['See & Experience', 'Eat', 'Drink', 'Shop', 'Stay & Do'];
+
+  return head({ title, description, slug: 'map', theme: 'forest' }) +
+    header({ activeSlug: 'map' }) +
+    `<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+     <section class="section-head">
+       <div class="wrap">
+         <div class="section-eyebrow">${points.length} places mapped</div>
+         <h1 class="section-title">${esc(title)}</h1>
+         <p class="section-deck">${esc(description)}</p>
+       </div>
+     </section>
+     <div class="map-controls">
+       <div class="wrap map-controls-inner">
+         <span class="cal-filter-label">Show:</span>
+         <button class="cal-chip cal-chip-all is-on" data-cluster="all" type="button">All ${points.length}</button>
+         ${clustersList.map(cl => `<button class="cal-chip" data-cluster="${esc(cl)}" type="button" style="--chip-color:${CLUSTER_COLORS[cl]}">${esc(cl)}</button>`).join('')}
+       </div>
+     </div>
+     <div id="bom-map" class="bom-map"></div>
+     <script>
+       (function(){
+         var POINTS = ${pointsJson};
+         var COLORS = ${colorsJson};
+         var map = L.map('bom-map', { scrollWheelZoom: true }).setView([44.96, -93.18], 11);
+         L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+           attribution: '© OpenStreetMap contributors © CARTO',
+           subdomains: 'abcd', maxZoom: 19
+         }).addTo(map);
+
+         var markers = POINTS.map(function(p){
+           var color = COLORS[p.cluster] || '#666';
+           var icon = L.divIcon({
+             className: 'bom-marker',
+             html: '<span style="background:'+color+'"></span>',
+             iconSize: [14, 14], iconAnchor: [7, 7]
+           });
+           var m = L.marker([p.lat, p.lng], { icon: icon });
+           m.cluster = p.cluster;
+           var html = '<div class="bom-popup">' +
+             '<div class="bom-popup-cat" style="color:'+color+'">'+p.category+'</div>' +
+             '<div class="bom-popup-name"><a href="/'+p.slug+'/#'+p.anchor+'">'+p.name+'</a></div>' +
+             (p.neighborhood ? '<div class="bom-popup-neigh">'+p.neighborhood+'</div>' : '') +
+             '</div>';
+           m.bindPopup(html);
+           m.addTo(map);
+           return m;
+         });
+
+         var chips = document.querySelectorAll('.cal-chip[data-cluster]');
+         chips.forEach(function(c){
+           c.addEventListener('click', function(){
+             var cluster = c.dataset.cluster;
+             chips.forEach(function(x){ x.classList.toggle('is-on', x.dataset.cluster === cluster); });
+             markers.forEach(function(m){
+               var visible = (cluster === 'all' || m.cluster === cluster);
+               if (visible) m.addTo(map);
+               else map.removeLayer(m);
+             });
+           });
+         });
+       })();
+     </script>` +
+    footer();
+}
+
+// ---------- Departed — closure tracker ----------
+function renderDeparted() {
+  const c = closures;
+  const description = 'Twin Cities places that have closed. A running record.';
+  const items = c.entries.map(e => `
+    <article class="departed-entry">
+      <div class="departed-when">
+        <div class="departed-closed">${esc(e.closed)}</div>
+        <div class="departed-opened">opened ${esc(e.opened)}</div>
+      </div>
+      <div class="departed-body">
+        <h3 class="departed-name">${esc(e.name)}</h3>
+        <div class="departed-meta">${esc(e.kind)} · ${esc(e.neighborhood)}</div>
+        <p class="departed-epitaph">${esc(e.epitaph)}</p>
+      </div>
+    </article>`).join('');
+  return head({ title: c.title, description, slug: 'departed', theme: 'midnight' }) +
+    header({ activeSlug: 'departed' }) +
+    `<section class="section-head">
+       <div class="wrap">
+         <div class="section-eyebrow">${c.entries.length} entries · running list</div>
+         <h1 class="section-title">${esc(c.title)}</h1>
+         <p class="section-deck">${esc(c.intro)}</p>
+       </div>
+     </section>
+     <section class="departed-list wrap">${items}</section>` +
+    footer();
+}
+
+// ---------- Take Them To — situational picks ----------
+function renderSituations() {
+  const s = situations;
+  const description = 'Curated mini-itineraries for specific people and specific kinds of evenings.';
+  const cards = s.situations.map(sit => `
+    <article class="situation" id="${esc(sit.slug)}">
+      <header class="situation-head">
+        <h2 class="situation-title">${esc(sit.title)}</h2>
+        <p class="situation-deck">${esc(sit.deck)}</p>
+      </header>
+      <ol class="situation-picks">
+        ${sit.picks.map(p => `
+          <li class="situation-pick">
+            <div class="situation-pick-kind">${esc(p.kind)}</div>
+            <div class="situation-pick-name">${esc(p.name)}</div>
+            <div class="situation-pick-where">${esc(p.neighborhood)}</div>
+            <p class="situation-pick-why">${esc(p.why)}</p>
+          </li>
+        `).join('')}
+      </ol>
+    </article>`).join('');
+  return head({ title: s.title, description, slug: 'take-them-to', theme: 'forest' }) +
+    header({ activeSlug: 'take-them-to' }) +
+    `<section class="section-head">
+       <div class="wrap">
+         <div class="section-eyebrow">${s.situations.length} situations</div>
+         <h1 class="section-title">${esc(s.title)}</h1>
+         <p class="section-deck">${esc(s.intro)}</p>
+       </div>
+     </section>
+     <section class="situations-list wrap">${cards}</section>` +
+    footer();
+}
+
+// ---------- Today — the daily small good thing ----------
+function renderToday() {
+  const t = todayData;
+  const title = 'Today';
+  const description = 'A daily small good thing. One short essay about a moment, a place, a texture of life in the metro.';
+  if (!t) {
+    return head({ title, description, slug: 'today', theme: 'midnight' }) +
+      header({ activeSlug: 'today' }) +
+      `<section class="section-head"><div class="wrap"><h1 class="section-title">${esc(title)}</h1><p class="section-deck">Coming back tomorrow morning.</p></div></section>` +
+      footer();
+  }
+  const date = (function(){ const [y,m,d] = t.date.split('-').map(Number); return new Date(y, m-1, d).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' }); })();
+
+  return head({ title: `${title}: ${t.title}`, description, slug: 'today', theme: 'midnight' }) +
+    header({ activeSlug: 'today' }) +
+    `<section class="today-page">
+       <article class="today-essay wrap">
+         <div class="today-eyebrow">${esc(date)} · A small good thing</div>
+         <h1 class="today-title">${esc(t.title)}</h1>
+         <p class="today-body">${esc(t.body)}</p>
+         <div class="today-foot">
+           <span>${t.word_count} words</span>
+           <span>·</span>
+           <a href="/horoscope/">Today's horoscope →</a>
+           <span>·</span>
+           <a href="/calendar/">Tonight's events →</a>
+         </div>
+       </article>
+     </section>` +
+    footer();
+}
+
+// ---------- Surprise — random place ----------
+function renderSurprise() {
+  const title = 'Surprise me';
+  const description = 'A random place from the directory, picked fresh on every visit. A small antidote to overthinking your Saturday.';
+
+  // Build a flat list of all entries with metadata, JSON-ified for client.
+  const allEntries = [];
+  for (const c of categories) {
+    if (c.layout === 'seasonal') continue;
+    for (const e of c.entries) {
+      allEntries.push({
+        name: e.name,
+        category: c.title,
+        slug: c.slug,
+        anchor: e.name.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+        neighborhood: e.neighborhood || '',
+        description: e.description || '',
+        address: e.address || ''
+      });
+    }
+  }
+
+  return head({ title, description, slug: 'surprise', theme: 'forest' }) +
+    header({ activeSlug: 'surprise' }) +
+    `<section class="surprise-page">
+       <div class="wrap surprise-inner">
+         <div class="section-eyebrow">${allEntries.length} places · one at random</div>
+         <div id="surprise-card" class="surprise-card"><p style="font-family: var(--font-body); color: var(--ink-soft);">Loading a place...</p></div>
+         <button id="surprise-again" class="cover-cta surprise-button" type="button">Pick another</button>
+       </div>
+     </section>
+     <script>
+       var ALL = ${JSON.stringify(allEntries)};
+       function pick() {
+         var e = ALL[Math.floor(Math.random() * ALL.length)];
+         var html = '<div class="surprise-cat">' + e.category + '</div>' +
+           '<h1 class="surprise-name"><a href="/' + e.slug + '/#' + e.anchor + '">' + e.name + '</a></h1>' +
+           (e.neighborhood ? '<div class="surprise-where">' + e.neighborhood + '</div>' : '') +
+           (e.description ? '<p class="surprise-desc">' + e.description + '</p>' : '') +
+           (e.address ? '<div class="surprise-addr"><a href="https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(e.address) + '" target="_blank" rel="noopener">' + e.address + ' ↗</a></div>' : '');
+         document.getElementById('surprise-card').innerHTML = html;
+       }
+       pick();
+       document.getElementById('surprise-again').addEventListener('click', pick);
+     </script>` +
+    footer();
+}
+
 function renderSlang() {
   const title = "The Loon's Nest";
   const description = 'A short Twin Cities glossary for visitors and recent transplants.';
@@ -1323,9 +1606,14 @@ function renderSitemap(neighborhoods) {
   const urls = [
     { loc: SITE + '/', priority: '1.0' },
     { loc: SITE + '/visit/', priority: '0.9' },
+    { loc: SITE + '/today/', priority: '0.9' },
     { loc: SITE + '/calendar/', priority: '0.9' },
+    { loc: SITE + '/map/', priority: '0.9' },
+    { loc: SITE + '/take-them-to/', priority: '0.8' },
     { loc: SITE + '/now-showing/', priority: '0.8' },
     { loc: SITE + '/horoscope/', priority: '0.7' },
+    { loc: SITE + '/departed/', priority: '0.7' },
+    { loc: SITE + '/surprise/', priority: '0.7' },
     { loc: SITE + '/neighborhoods/', priority: '0.8' },
     { loc: SITE + '/glossary/', priority: '0.6' },
     { loc: SITE + '/search/', priority: '0.5' },
@@ -1395,6 +1683,21 @@ function build() {
 
   // Daily horoscope
   writeFile('horoscope/index.html', renderHoroscope());
+
+  // The Map — every place plotted
+  writeFile('map/index.html', renderMap());
+
+  // Departed — closure tracker
+  writeFile('departed/index.html', renderDeparted());
+
+  // Take Them To — situational picks
+  writeFile('take-them-to/index.html', renderSituations());
+
+  // Today — daily small good thing
+  writeFile('today/index.html', renderToday());
+
+  // Surprise — random place
+  writeFile('surprise/index.html', renderSurprise());
 
   // Loon's Nest slang glossary
   writeFile('glossary/index.html', renderSlang());

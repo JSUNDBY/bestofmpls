@@ -41,6 +41,9 @@ jobs:
       - name: Generate horoscope
         run: node scripts/build-horoscope.js
 
+      - name: Generate today's essay
+        run: node scripts/build-today.js
+
       - name: Build
         run: npm run build
 
