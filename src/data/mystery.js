@@ -96,7 +96,7 @@ module.exports = {
         {
           stops: [
             { kind: 'Leave the house at', text: '6:30 PM. Heavy coat. The walking is short but the air is sharp.' },
-            { kind: 'First stop', text: 'A glass of wine at Constantine, the basement bar under the Hotel Ivy in downtown Minneapolis. Read the menu slowly. ($18)' },
+            { kind: 'First stop', text: "A glass of wine at the Bar at Spoon and Stable in the North Loop. Walk-in, ten seats, the seasonal cocktail menu is the order. ($20)" },
             { kind: 'Walk to', text: 'A bowl of khao soi at Khâluna in Lyn-Lake. Sit at the bar if it is full. Order the curry, one cocktail. ($38)' },
             { kind: 'End the night at', text: 'A drive past Lake Harriet bandshell or Lake of the Isles, lights on, one slow loop in the heated car. Free. ($0)' },
             { kind: 'Total', text: 'About $60 plus tip. Two and a half hours. The car between stops is part of the night.' }
@@ -105,10 +105,10 @@ module.exports = {
         {
           stops: [
             { kind: 'Leave the house at', text: '6:00 PM. Park once in the North Loop and walk between stops.' },
-            { kind: 'First stop', text: "Marvel Bar, the basement room under the Bachelor Farmer's old space. Order one cocktail, off-menu if you can describe what you want. ($22)" },
-            { kind: 'Walk one block to', text: 'A long dinner at Bar La Grassa. Sit at the bar so you can leave when ready. The pasta tastings are usually two pastas plus a salad. ($34)' },
+            { kind: 'First stop', text: "A drink at Volstead's Emporium in Uptown. Through the unmarked door on Lake Street, into a leather booth, with live jazz on weekends. ($18)" },
+            { kind: 'Walk or short drive to', text: 'A long dinner at Bar La Grassa in the North Loop. Sit at the bar so you can leave when ready. The pasta tastings are usually two pastas plus a salad. ($34)' },
             { kind: 'End the night at', text: 'A short walk through the warehouse-conversion blocks of the North Loop on the way back to the car. Free. ($0)' },
-            { kind: 'Total', text: 'About $56 plus tip. Two and a half hours. Eight square blocks of the city.' }
+            { kind: 'Total', text: 'About $52 plus tip. Two and a half hours. The speakeasy-and-pasta version of a cold night.' }
           ]
         },
         {
@@ -166,8 +166,8 @@ module.exports = {
         {
           stops: [
             { kind: 'Leave the house at', text: '6:00 PM. Park once and stay put. Coat, hat, the works.' },
-            { kind: 'First stop', text: "An aperitif at Marvel Bar, the basement room under Bachelor Farmer's old space in the North Loop. Order one cocktail, off-menu if you can describe what you want. ($22)" },
-            { kind: 'Walk one block to', text: "A long dinner at Spoon and Stable. Sit at the bar so you can leave when ready. Order the chef's tasting if it's on. ($72)" },
+            { kind: 'First stop', text: "An aperitif at the Bar at Spoon and Stable in the North Loop. Walk-in only, ten seats, the cocktail program is the best in the metro. ($24)" },
+            { kind: 'Stay for', text: "Dinner at Spoon and Stable itself. Move from the bar to the dining room or stay put if both seats hold. The chef's tasting is the order. ($70)" },
             { kind: 'End the night at', text: 'Drive home through the snow with the heat on high. Free. ($0)' },
             { kind: 'Total', text: 'About $100 plus tip. Three hours. The point is the warm rooms strung together against the cold.' }
           ]

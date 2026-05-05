@@ -15,14 +15,6 @@ module.exports = {
       price: '$$$'
     },
     {
-      name: 'Tattersall Distilling',
-      neighborhood: 'Northeast Minneapolis',
-      style: 'Distillery cocktail room',
-      description: 'A Northeast distillery whose cocktail room is one of the most-loved bars in the metro. The drinks are built around their own spirits, the patio fills the moment the temperature breaks, and the bottle shop next door means you can take the favorite home.',
-      address: 'Northeast Minneapolis',
-      price: '$$'
-    },
-    {
       name: 'Norseman Distillery',
       neighborhood: 'Northeast Minneapolis',
       style: 'Small-batch distillery + bar',
@@ -37,14 +29,6 @@ module.exports = {
       description: 'A small Northeast distillery and tasting room with a focused cocktail menu and live music programming. The atmosphere is more workshop than lounge, which is exactly right for the kind of drinks coming off the bar.',
       address: 'Northeast Minneapolis',
       price: '$$'
-    },
-    {
-      name: 'Constantine',
-      neighborhood: 'Downtown Minneapolis',
-      style: 'Hotel bar, downtown destination',
-      description: 'A downtown Minneapolis hotel bar with a serious cocktail program and a bar menu that takes itself as seriously as the drinks. The kind of place that is the move when you want to feel like the city is bigger than it is. Reservations recommended on weekends.',
-      address: 'Downtown Minneapolis',
-      price: '$$$'
     },
     {
       name: 'Bar at Spoon and Stable',

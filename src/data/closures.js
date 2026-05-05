@@ -18,6 +18,46 @@ module.exports = {
 
   entries: [
     {
+      name: 'The Lowry',
+      kind: 'Restaurant',
+      neighborhood: 'Uptown, Minneapolis',
+      opened: '2011',
+      closed: 'April 2026',
+      epitaph: 'Fifteen years on Hennepin in Uptown. The all-day kitchen, the long brunch line, the patio that caught the morning sun. Closed citing eighteen months of Hennepin Avenue construction.'
+    },
+    {
+      name: 'Bar Brigade',
+      kind: 'Restaurant + Bar',
+      neighborhood: 'Macalester-Groveland, St. Paul',
+      opened: '2017',
+      closed: '2025',
+      epitaph: "J.D. Fratzke's small French-leaning bistro on Cleveland Avenue. Forty seats, the kind of room that flattered everybody in it."
+    },
+    {
+      name: 'Tattersall Distilling',
+      kind: 'Distillery + Cocktail Room',
+      neighborhood: 'Northeast Minneapolis',
+      opened: '2015',
+      closed: '2024',
+      epitaph: 'The Central Avenue cocktail room that defined Northeast distillery culture for nine years. The company moved its operation to a new River Falls campus in Wisconsin.'
+    },
+    {
+      name: 'Constantine',
+      kind: 'Cocktail Bar',
+      neighborhood: 'Downtown Minneapolis',
+      opened: '2014',
+      closed: 'May 2023',
+      epitaph: "The basement bar under the Hotel Ivy. Horseshoe bar, a private whiskey room, and one of the more atmospheric downtown rooms while it lasted. The Ivy's new owners replaced it with new concepts."
+    },
+    {
+      name: 'Marvel Bar',
+      kind: 'Cocktail Bar',
+      neighborhood: 'North Loop, Minneapolis',
+      opened: '2011',
+      closed: 'March 2020',
+      epitaph: "Closed at the start of the pandemic alongside The Bachelor Farmer upstairs and never reopened. Pip Hanson's downstairs bar made the modern Twin Cities cocktail scene possible. Half the bartenders working today learned the craft there."
+    },
+    {
       name: 'Saint Dinette',
       kind: 'Restaurant',
       neighborhood: 'Lowertown, St. Paul',
