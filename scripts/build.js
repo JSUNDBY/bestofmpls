@@ -27,6 +27,11 @@ const TODAY_ISO = (function(){
   const fmt = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Chicago', year: 'numeric', month: '2-digit', day: '2-digit' });
   return fmt.format(new Date()); // YYYY-MM-DD in Central time
 })();
+// Warm season runs April through September. Cold-flavored content (snow-day,
+// big-cold-night mystery, etc.) is hidden during these months and quietly
+// returns each October.
+const CURRENT_MONTH = parseInt(TODAY_ISO.slice(5, 7), 10);
+const IS_WARM_SEASON = CURRENT_MONTH >= 4 && CURRENT_MONTH <= 9;
 
 // ---------- Load all category data ----------
 const museums      = require(path.join(SRC, 'data/museums.js'));
@@ -681,7 +686,7 @@ function renderHome() {
         <a class="tool-card" href="/tonight/"><span class="tool-icon" aria-hidden="true">☾</span><span class="tool-label">Tonight</span><span class="tool-deck">${rightnowData ? `Sunset ${rightnowData.sun.set}` : 'Sunset + countdowns'}</span></a>
         <a class="tool-card" href="/quiz/"><span class="tool-icon" aria-hidden="true">?</span><span class="tool-label">Quiz</span><span class="tool-deck">Where to be tonight</span></a>
         <a class="tool-card" href="/skyway/"><span class="tool-icon" aria-hidden="true">⇄</span><span class="tool-label">Skyway</span><span class="tool-deck">${skyway.nodes.length} downtown nodes</span></a>
-        <a class="tool-card" href="/take-them-to/"><span class="tool-icon" aria-hidden="true">⌖</span><span class="tool-label">Take Them To</span><span class="tool-deck">${situations.situations.length} situations</span></a>
+        <a class="tool-card" href="/take-them-to/"><span class="tool-icon" aria-hidden="true">⌖</span><span class="tool-label">Take Them To</span><span class="tool-deck">${(IS_WARM_SEASON ? situations.situations.filter(s => s.slug !== 'snow-day') : situations.situations).length} situations</span></a>
         <a class="tool-card" href="/now-showing/"><span class="tool-icon" aria-hidden="true">▣</span><span class="tool-label">Now Showing</span><span class="tool-deck">${exhibitions.exhibitions.length} exhibitions</span></a>
         <a class="tool-card" href="/horoscope/"><span class="tool-icon" aria-hidden="true">✦</span><span class="tool-label">Horoscope</span><span class="tool-deck">For the metro, today</span></a>
         <a class="tool-card" href="/surprise/"><span class="tool-icon" aria-hidden="true">⚂</span><span class="tool-label">Surprise me</span><span class="tool-deck">A random pick</span></a>
@@ -1581,7 +1586,12 @@ function renderDeparted() {
 function renderSituations() {
   const s = situations;
   const description = 'Curated mini-itineraries for specific people and specific kinds of evenings.';
-  const cards = s.situations.map(sit => `
+  // Hide snow-day during the warm half of the year. Returns in October.
+  const COLD_SLUGS = new Set(['snow-day']);
+  const visibleSituations = IS_WARM_SEASON
+    ? s.situations.filter(sit => !COLD_SLUGS.has(sit.slug))
+    : s.situations;
+  const cards = visibleSituations.map(sit => `
     <article class="situation" id="${esc(sit.slug)}">
       <header class="situation-head">
         <h2 class="situation-title">${esc(sit.title)}</h2>
@@ -1602,7 +1612,7 @@ function renderSituations() {
     header({ activeSlug: 'take-them-to' }) +
     `<section class="section-head">
        <div class="wrap">
-         <div class="section-eyebrow">${s.situations.length} situations</div>
+         <div class="section-eyebrow">${visibleSituations.length} situations</div>
          <h1 class="section-title">${esc(s.title)}</h1>
          <p class="section-deck">${esc(s.intro)}</p>
        </div>
@@ -2261,11 +2271,13 @@ function renderMystery() {
   const m = mystery;
   const description = m.subtitle;
 
-  // Group by tier
-  const tiers = ['$30', '$60', '$100'];
-  const seasons = ['warm', 'cold'];
+  // Hide cold-season envelopes during the warm half of the year. They
+  // return naturally in October.
+  const visible = IS_WARM_SEASON
+    ? m.itineraries.filter(it => it.season !== 'cold')
+    : m.itineraries;
 
-  const cards = m.itineraries.map(it => {
+  const cards = visible.map(it => {
     const variantCount = (it.variants || []).length;
     return `
     <a class="mystery-card" href="/mystery/#${esc(it.slug)}" data-mystery="${esc(it.slug)}">
@@ -2275,14 +2287,15 @@ function renderMystery() {
     </a>`;
   }).join('');
 
-  // Inline the itineraries as JSON for client-side reveal
-  const itinJson = JSON.stringify(m.itineraries);
+  // Inline only the visible itineraries so the deep-link router can't land
+  // on a hidden cold-season envelope.
+  const itinJson = JSON.stringify(visible);
 
   return head({ title: m.title, description, slug: 'mystery', theme: 'midnight' }) +
     header({ activeSlug: 'mystery' }) +
     `<section class="section-head">
        <div class="wrap">
-         <div class="section-eyebrow">${m.itineraries.length} sealed envelopes</div>
+         <div class="section-eyebrow">${visible.length} sealed envelopes</div>
          <h1 class="section-title">${esc(m.title)}</h1>
          <p class="section-deck">${esc(m.intro)}</p>
        </div>
