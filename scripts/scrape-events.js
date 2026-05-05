@@ -27,7 +27,9 @@ const OUT  = path.join(ROOT, 'src/data/events.json');
 const SCRAPERS = [
   require('./scrapers/first-avenue.js'),
   require('./scrapers/cedar.js'),
-  require('./scrapers/walker.js')
+  require('./scrapers/walker.js'),
+  require('./scrapers/riverview.js'),
+  require('./scrapers/parkway.js')
 ];
 
 function parseArgs() {
