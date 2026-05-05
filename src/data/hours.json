@@ -13773,5 +13773,47 @@
       }
     ],
     "fetched_at": "2026-05-05T03:43:44.652Z"
+  },
+  "thai:Khao Hom Thai": {
+    "place_id": "ChIJl2C4U-ots1IRMscIl04OoOE",
+    "matched_name": "Khao Hom Thai Restaurant | Minneapolis",
+    "matched_address": "2411 Central Ave NE, Minneapolis, MN 55418, USA",
+    "location": {
+      "latitude": 45.012578999999995,
+      "longitude": -93.24710909999999
+    },
+    "hours": [
+      {
+        "day": 0,
+        "open": "12:00",
+        "close": "21:00"
+      },
+      {
+        "day": 1,
+        "open": "12:00",
+        "close": "21:00"
+      },
+      {
+        "day": 3,
+        "open": "12:00",
+        "close": "21:00"
+      },
+      {
+        "day": 4,
+        "open": "12:00",
+        "close": "21:00"
+      },
+      {
+        "day": 5,
+        "open": "12:00",
+        "close": "21:00"
+      },
+      {
+        "day": 6,
+        "open": "12:00",
+        "close": "21:00"
+      }
+    ],
+    "fetched_at": "2026-05-05T03:46:44.997Z"
   }
 }

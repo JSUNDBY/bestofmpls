@@ -259,7 +259,7 @@ function head({ title, description, slug, theme }) {
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=Archivo:wght@500;600;700&display=swap">
-<link rel="stylesheet" href="/style.css?v=15">
+<link rel="stylesheet" href="/style.css?v=16">
 <script>
 // Set color mode before paint to avoid flash. Reads localStorage first,
 // falls back to light mode (the new editorial default). mode-ready class
@@ -365,35 +365,39 @@ function header({ activeSlug } = {}) {
       </div>
     </div>
   </nav>
-  <div class="nav-overlay" data-menu-overlay aria-hidden="true">
-    <div class="nav-overlay-inner">
-      <div class="nav-overlay-head">
-        <a href="/" class="nav-overlay-logo">bestofmpls<span class="dot">.</span></a>
-        <button class="nav-overlay-close" type="button" data-menu-close aria-label="Close menu">Close <span aria-hidden="true">×</span></button>
-      </div>
-      <div class="nav-overlay-grid">
-        ${menuGroups.map(g => `
-          <section class="nav-group">
-            <h3 class="nav-group-label">${esc(g.label)}</h3>
-            <ul class="nav-group-list">
-              ${g.items.map(it => `
-                <li>
-                  <a href="${it.href}">
-                    <span class="nav-item-label">${esc(it.label)}</span>
-                    ${it.deck ? `<span class="nav-item-deck">${esc(it.deck)}</span>` : ''}
-                  </a>
-                </li>`).join('')}
-            </ul>
-          </section>`).join('')}
-      </div>
-      <div class="nav-overlay-foot">
-        <a href="/contribute/">Send us a tip →</a>
-        <a href="/about/">About</a>
-        <a href="mailto:hello@bestofmpls.com">hello@bestofmpls.com</a>
-      </div>
+</header>
+<!-- Overlay rendered as sibling of <header> so its z-index escapes the
+     header's stacking context. When nested inside <header>, the overlay's
+     position:fixed was scoped to the header's stack and page content under
+     it bled through. -->
+<div class="nav-overlay" data-menu-overlay aria-hidden="true">
+  <div class="nav-overlay-inner">
+    <div class="nav-overlay-head">
+      <a href="/" class="nav-overlay-logo">bestofmpls<span class="dot">.</span></a>
+      <button class="nav-overlay-close" type="button" data-menu-close aria-label="Close menu">Close <span aria-hidden="true">×</span></button>
+    </div>
+    <div class="nav-overlay-grid">
+      ${menuGroups.map(g => `
+        <section class="nav-group">
+          <h3 class="nav-group-label">${esc(g.label)}</h3>
+          <ul class="nav-group-list">
+            ${g.items.map(it => `
+              <li>
+                <a href="${it.href}">
+                  <span class="nav-item-label">${esc(it.label)}</span>
+                  ${it.deck ? `<span class="nav-item-deck">${esc(it.deck)}</span>` : ''}
+                </a>
+              </li>`).join('')}
+          </ul>
+        </section>`).join('')}
+    </div>
+    <div class="nav-overlay-foot">
+      <a href="/contribute/">Send us a tip →</a>
+      <a href="/about/">About</a>
+      <a href="mailto:hello@bestofmpls.com">hello@bestofmpls.com</a>
     </div>
   </div>
-</header>`;
+</div>`;
 }
 
 function footer() {

@@ -1596,18 +1596,30 @@ body[data-theme="default"] {
 }
 .nav-menu-trigger:hover { background: var(--clay); }
 
-/* ===== Menu overlay (full-screen table of contents) ===== */
+/* ===== Menu overlay (full-screen table of contents) =====
+ * Hardcoded bg + very high z-index. Earlier version used var(--paper)
+ * which made the overlay match the page bg in dark mode but could be
+ * thwarted if a parent established its own stacking context. The overlay
+ * now lives as a sibling of <header>, which prevents the prior bleed.
+ */
 .nav-overlay {
   position: fixed;
-  inset: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
   background: var(--paper);
-  z-index: 1000;
+  z-index: 9999;
   opacity: 0;
   pointer-events: none;
   transform: translateY(-8px);
   transition: opacity 0.18s ease, transform 0.18s ease;
   overflow-y: auto;
 }
+html[data-mode="dark"] .nav-overlay { background: #0A0A0A; }
+html:not([data-mode="dark"]) .nav-overlay { background: #FFFFFF; }
 .nav-overlay.is-open {
   opacity: 1;
   pointer-events: auto;

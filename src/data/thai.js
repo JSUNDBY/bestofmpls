@@ -55,6 +55,15 @@ module.exports = {
       price: '$'
     },
     {
+      name: 'Khao Hom Thai',
+      neighborhood: 'Holland, Northeast Minneapolis',
+      style: 'Casual neighborhood Thai',
+      description: 'A Central Avenue room a block from where Sen Yai Sen Lek used to live, running pad Thai, Thai fried rice, and Thai chicken wings out of a small kitchen. Closed Tuesdays. Vegetarian, vegan, and gluten-free options on the menu without the usual fuss.',
+      address: '2411 Central Ave NE, Minneapolis',
+      website: 'https://www.khaohomthaiminneapolis.com',
+      price: '$$'
+    },
+    {
       name: 'Amazing Thailand',
       neighborhood: 'Uptown, Minneapolis',
       style: 'Classic Thai, longtime operator',
