@@ -1428,7 +1428,8 @@ ${header({ activeSlug: 'admin-picks' })}
     return new Date(ts).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
   }
   function categoryLabel(slug) {
-    return slug.replace(/-/g, ' ').replace(/\\b\\w/g, c => c.toUpperCase());
+    if (!slug) return '';
+    return String(slug).replace(/-/g, ' ').replace(/\\b\\w/g, c => c.toUpperCase());
   }
   function escapeHtml(s) {
     return String(s == null ? '' : s)
@@ -1472,7 +1473,10 @@ ${header({ activeSlug: 'admin-picks' })}
 
   function renderStats() {
     var byCat = {};
-    SUBMISSIONS.forEach(s => { byCat[s.category] = (byCat[s.category]||0)+1; });
+    SUBMISSIONS.forEach(s => {
+      if (!s.category) return; // tips and newsletter signups have no category
+      byCat[s.category] = (byCat[s.category]||0)+1;
+    });
     var topCats = Object.entries(byCat).sort((a,b) => b[1]-a[1]).slice(0, 4);
     var html = '<div class="admin-stat"><div class="admin-stat-label">Total</div><div class="admin-stat-value">' + SUBMISSIONS.length + '</div></div>';
     var handled = handledSet().size;
@@ -1486,7 +1490,7 @@ ${header({ activeSlug: 'admin-picks' })}
   }
 
   function renderTallies() {
-    var slugs = [...new Set(SUBMISSIONS.map(s => s.category))];
+    var slugs = [...new Set(SUBMISSIONS.map(s => s.category).filter(Boolean))];
     if (slugs.length === 0) {
       document.getElementById('tallies-block').style.display = 'none';
       return;
@@ -1515,7 +1519,8 @@ ${header({ activeSlug: 'admin-picks' })}
 
   function populateCategoryFilter() {
     var sel = document.getElementById('filter-cat');
-    var slugs = [...new Set(SUBMISSIONS.map(s => s.category))].sort();
+    // Tips + newsletter signups have no category, so drop falsy values.
+    var slugs = [...new Set(SUBMISSIONS.map(s => s.category).filter(Boolean))].sort();
     sel.innerHTML = '<option value="">All categories</option>' +
       slugs.map(s => '<option value="' + escapeHtml(s) + '">' + escapeHtml(categoryLabel(s)) + '</option>').join('');
   }
