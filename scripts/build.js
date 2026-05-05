@@ -1044,7 +1044,7 @@ function renderPollForm(c) {
       <div class="wrap poll-inner">
         <div class="poll-eyebrow">Help us build this list</div>
         <h2 class="poll-headline">What is your favorite ${esc(pollNoun(c))} in the Twin Cities?</h2>
-        <p class="poll-deck">If we missed your spot, tell us. Your pick joins a running tally of reader recommendations. We work the strongest ones into the list.</p>
+        <p class="poll-deck">If we missed your spot, tell us. Your pick joins a running tally of reader recommendations. We read every submission and work the strongest ones into the list. We do not publish your name or email.</p>
         ${enabled ? `
         <form class="poll-form" data-poll-form>
           <div class="poll-row poll-row-place">
@@ -1263,6 +1263,335 @@ function renderSeasonalCategory(c) {
     ${upcomingStrip}
     ${seasons}` +
     footer();
+}
+
+// ---------- /admin/picks/ — private dashboard for reader poll submissions ----------
+// Static HTML page that talks to the Worker's /admin/recent endpoint.
+// Auth enforced server-side by the worker; this page just stores the key in
+// localStorage and sends it as a header on each fetch. Not linked from the
+// site, not in sitemap, has noindex. Anyone can hit the URL but without the
+// admin key the worker returns 401.
+function renderAdminPicks() {
+  const title = 'Reader Picks · Admin';
+  return `<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>${esc(title)}</title>
+<link rel="stylesheet" href="/style.css?v=18">
+<style>
+  body { background: var(--paper); }
+  .admin-wrap { max-width: 960px; margin: 0 auto; padding: 32px var(--gutter) 96px; }
+  .admin-mast { display: flex; align-items: baseline; justify-content: space-between; padding-bottom: 24px; border-bottom: 2px solid var(--ink); margin-bottom: 28px; flex-wrap: wrap; gap: 12px; }
+  .admin-mast h1 { font-family: var(--font-display); font-style: italic; font-weight: 900; font-size: clamp(28px, 4vw, 40px); margin: 0; letter-spacing: -0.02em; }
+  .admin-mast .private-mark { font-family: var(--font-label); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--clay); padding: 4px 10px; border: 1px solid var(--clay); border-radius: 999px; }
+  .admin-auth { padding: 32px; border: 1px solid var(--rule); border-radius: 4px; max-width: 480px; }
+  .admin-auth label { display: block; font-family: var(--font-label); font-weight: 600; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 8px; }
+  .admin-auth input { width: 100%; padding: 12px 14px; border: 1px solid var(--rule); border-radius: 4px; font-family: var(--font-body); font-size: 16px; background: transparent; color: var(--ink); }
+  .admin-auth button { margin-top: 14px; }
+  .admin-error { color: #C44; font-family: var(--font-body); font-size: 14px; margin-top: 12px; }
+  .admin-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 14px; margin-bottom: 28px; }
+  .admin-stat { padding: 16px 18px; border: 1px solid var(--rule); border-radius: 4px; }
+  .admin-stat-label { font-family: var(--font-label); font-weight: 700; font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 4px; }
+  .admin-stat-value { font-family: var(--font-display); font-weight: 900; font-size: 28px; color: var(--clay); line-height: 1; }
+  .admin-controls { display: flex; gap: 10px; align-items: center; margin-bottom: 24px; flex-wrap: wrap; }
+  .admin-controls select { padding: 8px 12px; border: 1px solid var(--rule); border-radius: 4px; font-family: var(--font-body); font-size: 14px; background: transparent; color: var(--ink); }
+  .admin-controls button { appearance: none; background: transparent; border: 1px solid var(--rule); border-radius: 999px; padding: 8px 14px; font-family: var(--font-label); font-weight: 600; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink); cursor: pointer; }
+  .admin-controls button:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .admin-controls button.is-danger:hover { background: #C44; color: white; border-color: #C44; }
+  .admin-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 14px; }
+  .admin-card { padding: 18px 20px; border: 1px solid var(--rule); border-radius: 4px; background: var(--paper); }
+  .admin-card.is-handled { opacity: 0.45; border-style: dashed; }
+  .admin-card-head { display: flex; align-items: baseline; gap: 12px; margin-bottom: 8px; flex-wrap: wrap; }
+  .admin-card-cat { font-family: var(--font-label); font-weight: 700; font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--clay); padding: 3px 8px; background: rgba(225,25,0,0.06); border-radius: 3px; }
+  .admin-card-when { font-family: var(--font-label); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-faint); margin-left: auto; }
+  .admin-card-place { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-height: 1.15; margin: 0 0 8px; color: var(--ink); }
+  .admin-card-why { font-family: var(--font-display); font-style: italic; font-size: 16px; line-height: 1.5; color: var(--ink-soft); margin: 0 0 10px; padding-left: 12px; border-left: 3px solid var(--rule); }
+  .admin-card-meta { display: flex; gap: 16px; flex-wrap: wrap; font-family: var(--font-label); font-size: 11px; letter-spacing: 0.1em; color: var(--ink-faint); margin-bottom: 12px; }
+  .admin-card-meta a { color: var(--ink); border-bottom: 1px solid var(--ink); text-decoration: none; }
+  .admin-card-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+  .admin-card-actions button { appearance: none; background: transparent; border: 1px solid var(--rule); border-radius: 4px; padding: 6px 12px; font-family: var(--font-label); font-weight: 600; font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink); cursor: pointer; }
+  .admin-card-actions button:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .admin-empty { padding: 40px 0; text-align: center; font-family: var(--font-display); font-style: italic; font-size: 18px; color: var(--ink-soft); }
+  .admin-tallies { padding: 20px 24px; border: 1px solid var(--rule); border-radius: 4px; margin-bottom: 32px; }
+  .admin-tallies h2 { font-family: var(--font-display); font-weight: 900; font-size: 18px; margin: 0 0 12px; letter-spacing: -0.01em; }
+  .admin-tallies-list { font-family: var(--font-body); font-size: 14px; color: var(--ink-soft); margin: 0; padding: 0; list-style: none; display: grid; gap: 4px; }
+  .admin-tallies-list li { display: flex; gap: 12px; }
+  .admin-tallies-list li b { color: var(--ink); font-family: var(--font-display); font-weight: 700; min-width: 2em; text-align: right; }
+  .admin-tallies-cat { font-family: var(--font-label); font-weight: 700; font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--clay); margin-top: 14px; margin-bottom: 6px; }
+  .admin-tallies-cat:first-of-type { margin-top: 0; }
+</style>
+</head>
+<body>
+${header({ activeSlug: 'admin-picks' })}
+<main class="admin-wrap">
+  <div class="admin-mast">
+    <h1>Reader Picks</h1>
+    <span class="private-mark">Private</span>
+  </div>
+
+  <div id="auth-gate" class="admin-auth" style="display:none;">
+    <label for="admin-key">Admin key</label>
+    <input type="password" id="admin-key" placeholder="paste your admin key" autocomplete="off">
+    <button class="cover-cta" id="auth-go" type="button">Unlock →</button>
+    <div class="admin-error" id="auth-error"></div>
+  </div>
+
+  <div id="dashboard" style="display:none;">
+    <div class="admin-stats" id="stats"></div>
+    <div class="admin-tallies" id="tallies-block" style="display:none;">
+      <h2>Running tallies (top picks per category)</h2>
+      <div id="tallies-body"></div>
+    </div>
+    <div class="admin-controls">
+      <select id="filter-cat"><option value="">All categories</option></select>
+      <button id="show-handled" type="button">Show handled</button>
+      <button id="refresh" type="button">Refresh</button>
+      <button id="logout" type="button" class="is-danger">Sign out</button>
+    </div>
+    <ul class="admin-list" id="list"></ul>
+    <div class="admin-empty" id="empty" style="display:none;">No submissions yet.</div>
+  </div>
+</main>
+
+<script>
+  var WORKER_URL = ${JSON.stringify(POLL_WORKER_URL)};
+  var KEY_STORAGE = 'bom-admin-key';
+  var HANDLED_STORAGE = 'bom-handled-ids';
+  var SHOW_HANDLED = false;
+  var SUBMISSIONS = [];
+  var TALLIES = {};
+
+  function getKey()  { return localStorage.getItem(KEY_STORAGE) || ''; }
+  function setKey(k) { localStorage.setItem(KEY_STORAGE, k); }
+  function clearKey(){ localStorage.removeItem(KEY_STORAGE); }
+  function handledSet() {
+    try { return new Set(JSON.parse(localStorage.getItem(HANDLED_STORAGE) || '[]')); }
+    catch (_) { return new Set(); }
+  }
+  function markHandled(id) {
+    var s = handledSet(); s.add(id);
+    localStorage.setItem(HANDLED_STORAGE, JSON.stringify([...s]));
+  }
+  function unmarkHandled(id) {
+    var s = handledSet(); s.delete(id);
+    localStorage.setItem(HANDLED_STORAGE, JSON.stringify([...s]));
+  }
+  function relativeTime(ts) {
+    var diff = Date.now() - ts;
+    var mins = Math.round(diff / 60000);
+    if (mins < 1)   return 'just now';
+    if (mins < 60)  return mins + 'm ago';
+    var hrs = Math.round(mins / 60);
+    if (hrs < 24)   return hrs + 'h ago';
+    var days = Math.round(hrs / 24);
+    if (days < 30)  return days + 'd ago';
+    return new Date(ts).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+  }
+  function categoryLabel(slug) {
+    return slug.replace(/-/g, ' ').replace(/\\b\\w/g, c => c.toUpperCase());
+  }
+  function escapeHtml(s) {
+    return String(s == null ? '' : s)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+  }
+
+  async function fetchSubmissions() {
+    var res = await fetch(WORKER_URL + '/admin/recent', {
+      headers: { 'X-Admin-Key': getKey() }
+    });
+    if (res.status === 401) { clearKey(); showAuth('Wrong key. Try again.'); return; }
+    if (!res.ok) throw new Error('Worker returned ' + res.status);
+    var data = await res.json();
+    SUBMISSIONS = data.submissions || [];
+    SUBMISSIONS.sort((a,b) => b.ts - a.ts);
+    return SUBMISSIONS;
+  }
+
+  async function fetchTalliesForCategories(slugs) {
+    var out = {};
+    await Promise.all(slugs.map(async function(slug){
+      try {
+        var res = await fetch(WORKER_URL + '/tallies/' + encodeURIComponent(slug));
+        if (!res.ok) return;
+        out[slug] = await res.json();
+      } catch (_) {}
+    }));
+    return out;
+  }
+
+  function showAuth(err) {
+    document.getElementById('auth-gate').style.display = '';
+    document.getElementById('dashboard').style.display = 'none';
+    document.getElementById('auth-error').textContent = err || '';
+  }
+  function showDashboard() {
+    document.getElementById('auth-gate').style.display = 'none';
+    document.getElementById('dashboard').style.display = '';
+  }
+
+  function renderStats() {
+    var byCat = {};
+    SUBMISSIONS.forEach(s => { byCat[s.category] = (byCat[s.category]||0)+1; });
+    var topCats = Object.entries(byCat).sort((a,b) => b[1]-a[1]).slice(0, 4);
+    var html = '<div class="admin-stat"><div class="admin-stat-label">Total</div><div class="admin-stat-value">' + SUBMISSIONS.length + '</div></div>';
+    var handled = handledSet().size;
+    html += '<div class="admin-stat"><div class="admin-stat-label">Handled</div><div class="admin-stat-value">' + handled + '</div></div>';
+    var open = SUBMISSIONS.filter(s => !handledSet().has(s.ts + '-' + (s.ip_hash||''))).length;
+    html += '<div class="admin-stat"><div class="admin-stat-label">Open</div><div class="admin-stat-value">' + open + '</div></div>';
+    if (topCats[0]) {
+      html += '<div class="admin-stat"><div class="admin-stat-label">Top category</div><div class="admin-stat-value" style="font-size:18px;">' + categoryLabel(topCats[0][0]) + '</div></div>';
+    }
+    document.getElementById('stats').innerHTML = html;
+  }
+
+  function renderTallies() {
+    var slugs = [...new Set(SUBMISSIONS.map(s => s.category))];
+    if (slugs.length === 0) {
+      document.getElementById('tallies-block').style.display = 'none';
+      return;
+    }
+    fetchTalliesForCategories(slugs).then(function(tallies){
+      TALLIES = tallies;
+      var block = document.getElementById('tallies-block');
+      var body = document.getElementById('tallies-body');
+      var html = '';
+      slugs.forEach(function(slug){
+        var t = tallies[slug];
+        if (!t || !t.items || t.items.length === 0) return;
+        html += '<div class="admin-tallies-cat">' + categoryLabel(slug) + '</div>';
+        html += '<ul class="admin-tallies-list">';
+        t.items.slice(0, 5).forEach(function(it){
+          html += '<li><b>' + it.count + '</b> <span>' + escapeHtml(it.name) + '</span></li>';
+        });
+        html += '</ul>';
+      });
+      if (html) {
+        body.innerHTML = html;
+        block.style.display = '';
+      }
+    });
+  }
+
+  function populateCategoryFilter() {
+    var sel = document.getElementById('filter-cat');
+    var slugs = [...new Set(SUBMISSIONS.map(s => s.category))].sort();
+    sel.innerHTML = '<option value="">All categories</option>' +
+      slugs.map(s => '<option value="' + escapeHtml(s) + '">' + escapeHtml(categoryLabel(s)) + '</option>').join('');
+  }
+
+  function renderList() {
+    var filterCat = document.getElementById('filter-cat').value;
+    var handled = handledSet();
+    var visible = SUBMISSIONS.filter(s => {
+      if (filterCat && s.category !== filterCat) return false;
+      var id = s.ts + '-' + (s.ip_hash||'');
+      var isHandled = handled.has(id);
+      return SHOW_HANDLED ? isHandled : !isHandled;
+    });
+    var ul = document.getElementById('list');
+    var emp = document.getElementById('empty');
+    if (visible.length === 0) {
+      ul.innerHTML = '';
+      emp.style.display = '';
+      emp.textContent = SHOW_HANDLED ? 'No handled submissions yet.' : 'Inbox zero. Check back later.';
+      return;
+    }
+    emp.style.display = 'none';
+    ul.innerHTML = visible.map(function(s){
+      var id = s.ts + '-' + (s.ip_hash||'');
+      var isHandled = handled.has(id);
+      return '<li class="admin-card' + (isHandled ? ' is-handled' : '') + '" data-id="' + escapeHtml(id) + '">' +
+        '<div class="admin-card-head">' +
+          '<span class="admin-card-cat">' + escapeHtml(categoryLabel(s.category)) + '</span>' +
+          '<span class="admin-card-when">' + relativeTime(s.ts) + '</span>' +
+        '</div>' +
+        '<h3 class="admin-card-place">' + escapeHtml(s.place) + '</h3>' +
+        (s.why ? '<p class="admin-card-why">' + escapeHtml(s.why) + '</p>' : '') +
+        '<div class="admin-card-meta">' +
+          (s.email ? '<span>Email: <a href="mailto:' + escapeHtml(s.email) + '">' + escapeHtml(s.email) + '</a></span>' : '<span>No email</span>') +
+          '<span>IP hash: ' + escapeHtml((s.ip_hash||'').slice(0,8)) + '</span>' +
+        '</div>' +
+        '<div class="admin-card-actions">' +
+          '<button data-act="copy" data-id="' + escapeHtml(id) + '">Copy as JS entry</button>' +
+          (isHandled
+            ? '<button data-act="unhandle" data-id="' + escapeHtml(id) + '">Move back to open</button>'
+            : '<button data-act="handle" data-id="' + escapeHtml(id) + '">Mark handled</button>') +
+        '</div>' +
+      '</li>';
+    }).join('');
+  }
+
+  document.addEventListener('click', function(e){
+    if (e.target.dataset && e.target.dataset.act) {
+      var act = e.target.dataset.act;
+      var id = e.target.dataset.id;
+      var sub = SUBMISSIONS.find(s => (s.ts + '-' + (s.ip_hash||'')) === id);
+      if (!sub) return;
+      if (act === 'copy') {
+        var snippet = JSON.stringify({
+          name: sub.place,
+          neighborhood: '',
+          style: '',
+          description: '',
+          address: ''
+        }, null, 2);
+        if (sub.why) snippet = '// reader said: ' + sub.why.replace(/\\n/g, ' ') + '\\n' + snippet;
+        navigator.clipboard.writeText(snippet);
+        e.target.textContent = 'Copied!';
+        setTimeout(() => e.target.textContent = 'Copy as JS entry', 1200);
+      } else if (act === 'handle') {
+        markHandled(id);
+        renderList(); renderStats();
+      } else if (act === 'unhandle') {
+        unmarkHandled(id);
+        renderList(); renderStats();
+      }
+    }
+  });
+
+  document.getElementById('filter-cat').addEventListener('change', renderList);
+  document.getElementById('refresh').addEventListener('click', () => loadAll());
+  document.getElementById('show-handled').addEventListener('click', function(){
+    SHOW_HANDLED = !SHOW_HANDLED;
+    this.textContent = SHOW_HANDLED ? 'Show open' : 'Show handled';
+    renderList();
+  });
+  document.getElementById('logout').addEventListener('click', function(){
+    if (!confirm('Sign out and clear the admin key from this browser?')) return;
+    clearKey();
+    location.reload();
+  });
+  document.getElementById('auth-go').addEventListener('click', function(){
+    var v = document.getElementById('admin-key').value.trim();
+    if (!v) return;
+    setKey(v);
+    loadAll();
+  });
+  document.getElementById('admin-key').addEventListener('keydown', function(e){
+    if (e.key === 'Enter') document.getElementById('auth-go').click();
+  });
+
+  async function loadAll() {
+    if (!getKey()) { showAuth(); return; }
+    try {
+      await fetchSubmissions();
+      if (!SUBMISSIONS) return;
+      showDashboard();
+      populateCategoryFilter();
+      renderStats();
+      renderTallies();
+      renderList();
+    } catch (e) {
+      showAuth(e.message);
+    }
+  }
+
+  loadAll();
+</script>
+</body></html>`;
 }
 
 function renderAbout() {
@@ -2962,6 +3291,10 @@ function build() {
   writeFile('search/index.html', renderSearch(searchIndex));
 
   writeFile('about/index.html', renderAbout());
+
+  // Private admin dashboard for reader poll submissions. Not in sitemap,
+  // marked noindex. Anyone can hit the URL but the worker enforces auth.
+  writeFile('admin/picks/index.html', renderAdminPicks());
   writeFile('contribute/index.html', renderContribute());
   writeFile('404.html', render404());
   writeFile('sitemap.xml', renderSitemap(neighborhoods));
