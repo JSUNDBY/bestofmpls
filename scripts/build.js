@@ -28,6 +28,26 @@ const TODAY_ISO = (function(){
   return fmt.format(new Date()); // YYYY-MM-DD in Central time
 })();
 
+// Custom SVG icons for the twelve zodiac signs. Replaces the Unicode
+// astrological glyphs (♈♉♊...) which render as colored emojis on most
+// systems. These are simple line-art glyphs that inherit currentColor
+// from CSS so they pick up the page's clay accent.
+const ZODIAC_SVG = {
+  Aries:       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v12"/><path d="M5 11C4 7 7 5 9.5 5c1 0 2 .5 2.5 2 .5-1.5 1.5-2 2.5-2 2.5 0 5.5 2 4.5 6"/></svg>',
+  Taurus:      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="15" r="5"/><path d="M5 7c1.5 3 4 4.5 7 3 3 1.5 5.5 0 7-3"/></svg>',
+  Gemini:      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 5h10M7 19h10M9.5 5v14M14.5 5v14"/></svg>',
+  Cancer:      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="9" r="2" fill="currentColor"/><path d="M10 9c4-1 8 0 9 4"/><circle cx="16" cy="15" r="2" fill="currentColor"/><path d="M14 15c-4 1-8 0-9-4"/></svg>',
+  Leo:         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="14" r="4"/><path d="M9 10c0-3 2-5 5-5 4 0 6 4 4 8 0 0-1 2-3 1"/></svg>',
+  Virgo:       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19V8c0-2 1-2 2-2s2 0 2 2v11"/><path d="M9 19V8c0-2 1-2 2-2s2 0 2 2v11"/><path d="M13 8c0-2 1-2 2-2s2 0 2 2v8c0 4 4 4 4 0"/></svg>',
+  Libra:       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18h16"/><path d="M4 14h6c0-3 1-5 2-5s2 2 2 5h6"/></svg>',
+  Scorpio:     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 19V8c0-2 1-2 2-2s2 0 2 2v11"/><path d="M7 19V8c0-2 1-2 2-2s2 0 2 2v11"/><path d="M11 8c0-2 1-2 2-2s2 0 2 2v6c0 3 2 4 4 4l-2-2m2 2l-2 2"/></svg>',
+  Sagittarius: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19L19 5"/><path d="M19 11V5h-6"/><path d="M9 13l4 4M11 11h4v4"/></svg>',
+  Capricorn:   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8l5 11 4-12 3 12c0 0 1-3 3-3s4 1 4 4-3 4-5 2"/></svg>',
+  Aquarius:    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10l3-2 3 2 3-2 3 2 3-2 3 2"/><path d="M3 16l3-2 3 2 3-2 3 2 3-2 3 2"/></svg>',
+  Pisces:      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 5C3 8 3 16 6 19"/><path d="M18 5c3 3 3 11 0 14"/><path d="M5 12h14"/></svg>'
+};
+function zodiacSvg(name) { return ZODIAC_SVG[name] || ''; }
+
 // Cloudflare Worker that accepts reader poll submissions. Set this once the
 // worker is deployed (see worker/README.md). When empty, the form renders
 // in a safe "coming soon" state instead of trying to submit.
@@ -264,7 +284,7 @@ function head({ title, description, slug, theme }) {
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=Archivo:wght@500;600;700&display=swap">
-<link rel="stylesheet" href="/style.css?v=17">
+<link rel="stylesheet" href="/style.css?v=18">
 <script>
 // Set color mode before paint to avoid flash. Reads localStorage first,
 // falls back to light mode (the new editorial default). mode-ready class
@@ -841,7 +861,7 @@ function renderHome() {
         <div class="horoscope-feature-cards">
           ${horoscopePicks.map(h => `
             <a class="horoscope-feature-card" href="/horoscope/#${esc(h.slug)}">
-              <span class="horoscope-feature-symbol">${esc(h.symbol)}</span>
+              <span class="horoscope-feature-symbol">${zodiacSvg(h.sign)}</span>
               <span class="horoscope-feature-sign">${esc(h.sign)}</span>
               <p class="horoscope-feature-snippet">${esc(h.text.split('. ').slice(0,2).join('. ') + (h.text.split('. ').length > 2 ? '.' : ''))}</p>
             </a>
@@ -2016,7 +2036,7 @@ function renderHoroscope() {
   const cards = data.horoscopes.map(h => `
     <article class="horoscope-card" id="${esc(h.slug)}">
       <header class="horoscope-card-head">
-        <span class="horoscope-symbol" aria-hidden="true">${esc(h.symbol)}</span>
+        <span class="horoscope-symbol" aria-hidden="true">${zodiacSvg(h.sign)}</span>
         <h2 class="horoscope-sign">${esc(h.sign)}</h2>
         <span class="horoscope-dates">${esc(h.dates)}</span>
       </header>

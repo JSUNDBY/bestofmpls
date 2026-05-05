@@ -1983,9 +1983,17 @@ html:not([data-mode="dark"]) .nav-overlay { background: #FFFFFF; }
   margin-bottom: 18px;
 }
 .horoscope-symbol {
-  font-size: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   color: var(--clay);
-  line-height: 1;
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+}
+.horoscope-symbol svg {
+  width: 100%;
+  height: 100%;
 }
 .horoscope-sign {
   font-family: var(--font-display);
@@ -2044,11 +2052,16 @@ html:not([data-mode="dark"]) .nav-overlay { background: #FFFFFF; }
   transform: translateY(-2px);
 }
 .horoscope-feature-symbol {
-  display: inline-block;
-  font-size: 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   color: var(--clay);
+  width: 24px;
+  height: 24px;
   margin-right: 10px;
+  vertical-align: middle;
 }
+.horoscope-feature-symbol svg { width: 100%; height: 100%; }
 .horoscope-feature-sign {
   font-family: var(--font-display);
   font-weight: 900;
