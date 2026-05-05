@@ -29,7 +29,8 @@ const SCRAPERS = [
   require('./scrapers/cedar.js'),
   require('./scrapers/walker.js'),
   require('./scrapers/riverview.js'),
-  require('./scrapers/parkway.js')
+  require('./scrapers/parkway.js'),
+  require('./scrapers/trylon.js')
 ];
 
 function parseArgs() {
