@@ -31,7 +31,7 @@ const TODAY_ISO = (function(){
 // Cloudflare Worker that accepts reader poll submissions. Set this once the
 // worker is deployed (see worker/README.md). When empty, the form renders
 // in a safe "coming soon" state instead of trying to submit.
-const POLL_WORKER_URL = 'https://bestofmpls-poll.bestofmpls.workers.dev';
+const POLL_WORKER_URL = 'https://bestofmpls-poll.j-sundby.workers.dev';
 // Warm season runs April through September. Cold-flavored content (snow-day,
 // big-cold-night mystery, etc.) is hidden during these months and quietly
 // returns each October.
