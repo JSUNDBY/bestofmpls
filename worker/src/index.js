@@ -119,6 +119,7 @@ export default {
       // Persist the full submission for board review.
       const submissionKey = `submission:${ts}-${nonce}`;
       const submission = {
+        kind: 'vote',
         category,
         place,
         place_norm: placeNorm,
@@ -157,6 +158,67 @@ export default {
       await env.POLLS.put(tallyKey, JSON.stringify(tally));
 
       return json({ ok: true, place, category, total_for_place: (entry ? entry.count : 1) }, 200, origin);
+    }
+
+    // ===== POST /tip =====
+    // Free-form tip / correction / general feedback. No tally, just stored
+    // for review in the admin dashboard.
+    if (request.method === 'POST' && url.pathname === '/tip') {
+      let body;
+      try { body = await request.json(); }
+      catch (_) { return json({ error: 'invalid json' }, 400, origin); }
+      if (body.hp) return json({ ok: true }, 200, origin);
+
+      const name    = clean(body.name, 120);
+      const email   = clean(body.email, 200);
+      const place   = clean(body.place, 200);
+      const message = clean(body.message, 2000);
+
+      if (!message) return json({ error: 'tell us something' }, 400, origin);
+      if (message.length < 10) return json({ error: 'a little more, please' }, 400, origin);
+
+      const ip = request.headers.get('CF-Connecting-IP') || '0.0.0.0';
+      const ipHash = (await sha256Hex(ip)).slice(0, 16);
+      const rlKey = `rl:${ipHash}`;
+      if (await env.POLLS.get(rlKey)) {
+        return json({ error: 'too fast — try again in a moment' }, 429, origin);
+      }
+      ctx.waitUntil(env.POLLS.put(rlKey, '1', { expirationTtl: 30 }));
+
+      const ts = Date.now();
+      const nonce = crypto.randomUUID().slice(0, 8);
+      const submission = { kind: 'tip', name, email, place, message, ip_hash: ipHash, ts };
+      await env.POLLS.put(`submission:${ts}-${nonce}`, JSON.stringify(submission), {
+        expirationTtl: 60 * 60 * 24 * 365 * 2
+      });
+      return json({ ok: true }, 200, origin);
+    }
+
+    // ===== POST /newsletter =====
+    if (request.method === 'POST' && url.pathname === '/newsletter') {
+      let body;
+      try { body = await request.json(); }
+      catch (_) { return json({ error: 'invalid json' }, 400, origin); }
+      if (body.hp) return json({ ok: true }, 200, origin);
+
+      const email = clean(body.email, 200);
+      if (!email || !email.includes('@')) return json({ error: 'need a real email' }, 400, origin);
+
+      const ip = request.headers.get('CF-Connecting-IP') || '0.0.0.0';
+      const ipHash = (await sha256Hex(ip)).slice(0, 16);
+      const rlKey = `rl:${ipHash}`;
+      if (await env.POLLS.get(rlKey)) {
+        return json({ error: 'too fast — try again in a moment' }, 429, origin);
+      }
+      ctx.waitUntil(env.POLLS.put(rlKey, '1', { expirationTtl: 30 }));
+
+      const ts = Date.now();
+      const nonce = crypto.randomUUID().slice(0, 8);
+      const submission = { kind: 'newsletter', email, ip_hash: ipHash, ts };
+      await env.POLLS.put(`submission:${ts}-${nonce}`, JSON.stringify(submission), {
+        expirationTtl: 60 * 60 * 24 * 365 * 2
+      });
+      return json({ ok: true }, 200, origin);
     }
 
     // ===== GET /tallies/:category =====

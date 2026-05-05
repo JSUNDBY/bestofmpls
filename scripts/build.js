@@ -437,10 +437,12 @@ function footer() {
       </div>
       <div class="footer-newsletter">
         <p class="footer-list-title">Get the weekly</p>
-        <form class="footer-newsletter-form" action="https://formspree.io/f/REPLACE_WITH_FORM_ID" method="POST">
-          <input type="email" name="email" placeholder="you@example.com" required aria-label="Email address">
+        <form class="footer-newsletter-form" data-newsletter-form>
+          <input type="email" name="email" placeholder="you@example.com" required aria-label="Email address" maxlength="200">
+          <input type="text" name="hp" tabindex="-1" autocomplete="off" class="poll-hp" aria-hidden="true">
           <button type="submit">Subscribe</button>
         </form>
+        <div class="footer-newsletter-status" data-newsletter-status></div>
       </div>
     </div>
 
@@ -477,6 +479,36 @@ function footer() {
   </div>
 </footer>
 <script>
+// Footer newsletter signup: fetch-POST to the poll worker's /newsletter
+// endpoint. Shows inline confirmation in place of the form on success.
+(function(){
+  var form = document.querySelector('[data-newsletter-form]');
+  var status = document.querySelector('[data-newsletter-status]');
+  if (!form || !status) return;
+  var endpoint = ${JSON.stringify(POLL_WORKER_URL ? POLL_WORKER_URL + '/newsletter' : '')};
+  if (!endpoint) return;
+  form.addEventListener('submit', async function(e){
+    e.preventDefault();
+    var fd = new FormData(form);
+    status.textContent = 'Sending...';
+    form.querySelector('button[type="submit"]').disabled = true;
+    try {
+      var res = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: fd.get('email'), hp: fd.get('hp') })
+      });
+      var data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'try again later');
+      form.style.display = 'none';
+      status.textContent = "Subscribed. We'll be in touch.";
+    } catch (err) {
+      status.textContent = err.message || 'Try again in a moment.';
+      form.querySelector('button[type="submit"]').disabled = false;
+    }
+  });
+})();
+
 // Mode toggle: flip data-mode on <html>, persist to localStorage, update label.
 (function(){
   var btn = document.querySelector('[data-mode-toggle]');
@@ -1345,6 +1377,12 @@ ${header({ activeSlug: 'admin-picks' })}
       <div id="tallies-body"></div>
     </div>
     <div class="admin-controls">
+      <select id="filter-kind">
+        <option value="">All types</option>
+        <option value="vote">Votes only</option>
+        <option value="tip">Tips only</option>
+        <option value="newsletter">Newsletter signups</option>
+      </select>
       <select id="filter-cat"><option value="">All categories</option></select>
       <button id="show-handled" type="button">Show handled</button>
       <button id="refresh" type="button">Refresh</button>
@@ -1484,8 +1522,10 @@ ${header({ activeSlug: 'admin-picks' })}
 
   function renderList() {
     var filterCat = document.getElementById('filter-cat').value;
+    var filterKind = document.getElementById('filter-kind').value;
     var handled = handledSet();
     var visible = SUBMISSIONS.filter(s => {
+      if (filterKind && (s.kind || 'vote') !== filterKind) return false;
       if (filterCat && s.category !== filterCat) return false;
       var id = s.ts + '-' + (s.ip_hash||'');
       var isHandled = handled.has(id);
@@ -1503,19 +1543,48 @@ ${header({ activeSlug: 'admin-picks' })}
     ul.innerHTML = visible.map(function(s){
       var id = s.ts + '-' + (s.ip_hash||'');
       var isHandled = handled.has(id);
+      var kind = s.kind || 'vote';
+      var kindLabels = { vote: 'Vote', tip: 'Tip', newsletter: 'Newsletter' };
+      var kindColors = { vote: '#E11900', tip: '#1E5AAA', newsletter: '#2E9E4A' };
+      var kindLabel = kindLabels[kind] || kind;
+      var kindColor = kindColors[kind] || '#666';
+
+      var headline = '';
+      var subtext = '';
+      if (kind === 'vote') {
+        headline = s.place;
+        subtext = s.why ? '<p class="admin-card-why">' + escapeHtml(s.why) + '</p>' : '';
+      } else if (kind === 'tip') {
+        headline = s.place || (s.name ? s.name + "'s tip" : 'Tip');
+        subtext = s.message ? '<p class="admin-card-why">' + escapeHtml(s.message) + '</p>' : '';
+      } else if (kind === 'newsletter') {
+        headline = 'Newsletter signup';
+        subtext = '';
+      }
+
+      var catLine = (kind === 'vote' && s.category)
+        ? '<span class="admin-card-cat">' + escapeHtml(categoryLabel(s.category)) + '</span>'
+        : '';
+      var kindBadge = '<span class="admin-card-cat" style="background:' + kindColor + ';color:#fff;border:0;">' + kindLabel + '</span>';
+
+      var copyBtn = (kind === 'vote')
+        ? '<button data-act="copy" data-id="' + escapeHtml(id) + '">Copy as JS entry</button>'
+        : '';
+
       return '<li class="admin-card' + (isHandled ? ' is-handled' : '') + '" data-id="' + escapeHtml(id) + '">' +
         '<div class="admin-card-head">' +
-          '<span class="admin-card-cat">' + escapeHtml(categoryLabel(s.category)) + '</span>' +
+          kindBadge + catLine +
           '<span class="admin-card-when">' + relativeTime(s.ts) + '</span>' +
         '</div>' +
-        '<h3 class="admin-card-place">' + escapeHtml(s.place) + '</h3>' +
-        (s.why ? '<p class="admin-card-why">' + escapeHtml(s.why) + '</p>' : '') +
+        '<h3 class="admin-card-place">' + escapeHtml(headline) + '</h3>' +
+        subtext +
         '<div class="admin-card-meta">' +
+          (s.name ? '<span>From: ' + escapeHtml(s.name) + '</span>' : '') +
           (s.email ? '<span>Email: <a href="mailto:' + escapeHtml(s.email) + '">' + escapeHtml(s.email) + '</a></span>' : '<span>No email</span>') +
           '<span>IP hash: ' + escapeHtml((s.ip_hash||'').slice(0,8)) + '</span>' +
         '</div>' +
         '<div class="admin-card-actions">' +
-          '<button data-act="copy" data-id="' + escapeHtml(id) + '">Copy as JS entry</button>' +
+          copyBtn +
           (isHandled
             ? '<button data-act="unhandle" data-id="' + escapeHtml(id) + '">Move back to open</button>'
             : '<button data-act="handle" data-id="' + escapeHtml(id) + '">Mark handled</button>') +
@@ -1553,6 +1622,7 @@ ${header({ activeSlug: 'admin-picks' })}
   });
 
   document.getElementById('filter-cat').addEventListener('change', renderList);
+  document.getElementById('filter-kind').addEventListener('change', renderList);
   document.getElementById('refresh').addEventListener('click', () => loadAll());
   document.getElementById('show-handled').addEventListener('click', function(){
     SHOW_HANDLED = !SHOW_HANDLED;
@@ -3106,6 +3176,7 @@ function renderSearch(searchIndex) {
 function renderContribute() {
   const title = 'Send us a tip';
   const description = 'Submit a place, a correction, or a tip for bestofmpls.';
+  const enabled = !!POLL_WORKER_URL;
   return head({ title, description, slug: 'contribute', theme: 'default' }) +
     header({ activeSlug: 'contribute' }) +
     `<section class="section-head">
@@ -3116,29 +3187,81 @@ function renderContribute() {
       </div>
     </section>
     <section class="wrap">
-      <form class="contribute-form" action="https://formspree.io/f/REPLACE_WITH_FORM_ID" method="POST">
+      <form class="contribute-form" data-tip-form>
         <div>
           <label for="name">Your name</label>
-          <input id="name" name="name" type="text" placeholder="So we can credit you if we use it">
+          <input id="name" name="name" type="text" placeholder="So we can credit you if we use it" maxlength="120">
         </div>
         <div>
           <label for="email">Your email</label>
-          <input id="email" name="email" type="email" placeholder="In case we need to follow up">
+          <input id="email" name="email" type="email" placeholder="In case we need to follow up" maxlength="200">
         </div>
         <div>
           <label for="place">The place or topic</label>
-          <input id="place" name="place" type="text" placeholder="e.g. Best ramen in St. Paul, or a correction to the pizza list" required>
+          <input id="place" name="place" type="text" placeholder="e.g. Best ramen in St. Paul, or a correction to the pizza list" required maxlength="200">
         </div>
         <div>
           <label for="message">Tell us about it</label>
-          <textarea id="message" name="message" placeholder="Why is this worth listing? What do they do well? Address if you have it." required></textarea>
+          <textarea id="message" name="message" placeholder="Why is this worth listing? What do they do well? Address if you have it." required maxlength="2000"></textarea>
         </div>
-        <button type="submit">Send the tip</button>
+        <input type="text" name="hp" tabindex="-1" autocomplete="off" class="poll-hp" aria-hidden="true">
+        <div class="poll-actions">
+          <button class="cover-cta" type="submit">Send the tip →</button>
+          <span class="poll-status" data-tip-status></span>
+        </div>
       </form>
-      <div class="about-body" style="padding-top: 0;">
+      <div class="poll-thanks" data-tip-thanks hidden>
+        <h3 class="poll-thanks-title">Thanks. Got it.</h3>
+        <p class="poll-thanks-body">Your note is in the queue. We read every one.</p>
+        <button class="poll-thanks-again" type="button" data-tip-again>Send another →</button>
+      </div>
+      <div class="about-body" style="padding-top: 24px;">
         <p style="font-style: italic; color: var(--ink-soft);">Prefer email? Write to <a href="mailto:hello@bestofmpls.com">hello@bestofmpls.com</a> directly.</p>
       </div>
-    </section>` +
+    </section>
+    ${enabled ? `<script>
+      (function(){
+        var form = document.querySelector('[data-tip-form]');
+        var status = document.querySelector('[data-tip-status]');
+        var thanks = document.querySelector('[data-tip-thanks]');
+        var again = document.querySelector('[data-tip-again]');
+        var endpoint = ${JSON.stringify(POLL_WORKER_URL + '/tip')};
+        if (!form) return;
+        form.addEventListener('submit', async function(e){
+          e.preventDefault();
+          var fd = new FormData(form);
+          status.textContent = 'Sending...';
+          form.querySelector('button[type="submit"]').disabled = true;
+          try {
+            var res = await fetch(endpoint, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                name: fd.get('name'),
+                email: fd.get('email'),
+                place: fd.get('place'),
+                message: fd.get('message'),
+                hp: fd.get('hp')
+              })
+            });
+            var data = await res.json();
+            if (!res.ok) throw new Error(data.error || 'something broke');
+            form.style.display = 'none';
+            thanks.hidden = false;
+          } catch (err) {
+            status.textContent = err.message || 'Something went wrong, try again.';
+            form.querySelector('button[type="submit"]').disabled = false;
+          }
+        });
+        if (again) again.addEventListener('click', function(){
+          form.reset();
+          form.style.display = '';
+          thanks.hidden = true;
+          status.textContent = '';
+          form.querySelector('button[type="submit"]').disabled = false;
+        });
+      })();
+    </script>` : ''}` +
     footer();
 }
 
