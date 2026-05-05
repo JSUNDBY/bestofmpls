@@ -996,5 +996,33 @@
   "2400 N 2nd St #212, Minneapolis": {
     "lat": 45.0039843,
     "lng": -93.2796636
+  },
+  "333 University Ave W, St. Paul": {
+    "lat": 44.9560238,
+    "lng": -93.1139493
+  },
+  "1613 University Ave W, St. Paul": {
+    "lat": 44.9610403,
+    "lng": -93.1906143
+  },
+  "367 Wabasha St N, St. Paul": {
+    "lat": 44.945746,
+    "lng": -93.094648
+  },
+  "2812 W 43rd St, Minneapolis": {
+    "lat": 44.9247604,
+    "lng": -93.315208
+  },
+  "2523 Nicollet Ave, Minneapolis": {
+    "lat": 44.9568508,
+    "lng": -93.2777501
+  },
+  "371 University Ave W, St. Paul": {
+    "lat": 44.9558441,
+    "lng": -93.1157073
+  },
+  "3024 Hennepin Ave S, Minneapolis": {
+    "lat": 44.9474023,
+    "lng": -93.2986542
   }
 }
