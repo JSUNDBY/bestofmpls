@@ -4092,49 +4092,14 @@
   "hidden-gems:The Clown Lounge at the Turf Club": {
     "place_id": "ChIJZ2l1lM8ys1IRMso9KH_MSz8",
     "matched_name": "Clown Glass",
-    "matched_address": "2114 Lyndale Ave S, Minneapolis, MN 55405, USA",
+    "matched_address": "1601 University Ave W, St Paul, MN 55104, USA (basement)",
     "location": {
-      "latitude": 44.96137040000001,
-      "longitude": -93.28824209999999
+      "latitude": 44.9559821,
+      "longitude": -93.1679952
     },
-    "hours": [
-      {
-        "day": 0,
-        "open": "12:00",
-        "close": "18:00"
-      },
-      {
-        "day": 1,
-        "open": "12:00",
-        "close": "20:00"
-      },
-      {
-        "day": 2,
-        "open": "12:00",
-        "close": "20:00"
-      },
-      {
-        "day": 3,
-        "open": "12:00",
-        "close": "20:00"
-      },
-      {
-        "day": 4,
-        "open": "12:00",
-        "close": "20:00"
-      },
-      {
-        "day": 5,
-        "open": "12:00",
-        "close": "20:00"
-      },
-      {
-        "day": 6,
-        "open": "12:00",
-        "close": "20:00"
-      }
-    ],
-    "fetched_at": "2026-05-04T03:06:03.706Z"
+    "hours": [],
+    "fetched_at": "2026-05-04T03:06:03.706Z",
+    "note": "Manually patched: Places matched a different venue"
   },
   "hidden-gems:Hidden Falls Regional Park": {
     "place_id": "ChIJx3QbkF4p9ocRTtNOav-9YZ0",

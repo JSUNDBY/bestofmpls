@@ -1402,11 +1402,14 @@ function renderMap() {
   // Hours are inlined when known so the map can offer an Open Now filter
   // computed entirely client-side.
   const points = [];
+  const mapSeen = new Set();
   for (const c of categories) {
     if (c.layout === 'seasonal') continue;
     for (const e of c.entries) {
+      if (mapSeen.has(e.name)) continue;
       const coords = lookupCoords(c.slug, e);
       if (!coords) continue;
+      mapSeen.add(e.name);
       const hLook = hoursData[`${c.slug}:${e.name}`];
       points.push({
         lat: coords.lat,
@@ -1757,12 +1760,18 @@ function renderNear() {
 
   // Inline every entry that has coords. Client-side sorts by haversine
   // distance from the user's geolocation. No network needed.
+  // Dedup: many entries appear in multiple categories (Quang in restaurants
+  // and vietnamese, Bauhaus in breweries and patios). Keep the first
+  // occurrence so the same place doesn't appear twice in the results.
   const points = [];
+  const seenNames = new Set();
   for (const c of categories) {
     if (c.layout === 'seasonal') continue;
     for (const e of c.entries) {
+      if (seenNames.has(e.name)) continue;
       const coords = lookupCoords(c.slug, e);
       if (!coords) continue;
+      seenNames.add(e.name);
       const hLook = hoursData[`${c.slug}:${e.name}`];
       points.push({
         lat: coords.lat,
