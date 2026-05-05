@@ -13459,5 +13459,319 @@
       }
     ],
     "fetched_at": "2026-05-04T05:14:54.877Z"
+  },
+  "thai:Bangkok Thai Deli": {
+    "place_id": "ChIJYyf0zaAq9ocRRxKHb-002Qg",
+    "matched_name": "Bangkok Thai Deli",
+    "matched_address": "333 University Ave W, St Paul, MN 55103, USA",
+    "location": {
+      "latitude": 44.956036399999995,
+      "longitude": -93.11394250000001
+    },
+    "hours": [
+      {
+        "day": 0,
+        "open": "10:00",
+        "close": "20:00"
+      },
+      {
+        "day": 1,
+        "open": "10:00",
+        "close": "20:00"
+      },
+      {
+        "day": 2,
+        "open": "10:00",
+        "close": "15:00"
+      },
+      {
+        "day": 3,
+        "open": "10:00",
+        "close": "20:00"
+      },
+      {
+        "day": 4,
+        "open": "10:00",
+        "close": "20:00"
+      },
+      {
+        "day": 5,
+        "open": "10:00",
+        "close": "20:00"
+      },
+      {
+        "day": 6,
+        "open": "10:00",
+        "close": "20:00"
+      }
+    ],
+    "fetched_at": "2026-05-05T03:43:41.532Z"
+  },
+  "thai:On's Thai Kitchen": {
+    "place_id": "ChIJrWoF-gcq9ocRn_iKJz775Mg",
+    "matched_name": "On's Kitchen",
+    "matched_address": "1613 University Ave W, St Paul, MN 55104, USA",
+    "location": {
+      "latitude": 44.9559,
+      "longitude": -93.1684528
+    },
+    "hours": [
+      {
+        "day": 0,
+        "open": "10:00",
+        "close": "20:00"
+      },
+      {
+        "day": 1,
+        "open": "10:00",
+        "close": "20:00"
+      },
+      {
+        "day": 2,
+        "open": "10:00",
+        "close": "20:00"
+      },
+      {
+        "day": 3,
+        "open": "10:00",
+        "close": "20:00"
+      },
+      {
+        "day": 4,
+        "open": "10:00",
+        "close": "20:00"
+      },
+      {
+        "day": 5,
+        "open": "10:00",
+        "close": "21:00"
+      },
+      {
+        "day": 6,
+        "open": "10:00",
+        "close": "21:00"
+      }
+    ],
+    "fetched_at": "2026-05-05T03:43:42.062Z"
+  },
+  "thai:Ruam Mit Thai": {
+    "place_id": "ChIJ7XyIubIq9ocR0cjZGgyYn78",
+    "matched_name": "Ruam Mit",
+    "matched_address": "367 Wabasha St N, St Paul, MN 55102, USA",
+    "location": {
+      "latitude": 44.945721,
+      "longitude": -93.09472269999999
+    },
+    "hours": [
+      {
+        "day": 0,
+        "open": "15:00",
+        "close": "21:00"
+      },
+      {
+        "day": 1,
+        "open": "11:00",
+        "close": "21:00"
+      },
+      {
+        "day": 2,
+        "open": "11:00",
+        "close": "21:00"
+      },
+      {
+        "day": 3,
+        "open": "11:00",
+        "close": "21:00"
+      },
+      {
+        "day": 4,
+        "open": "11:00",
+        "close": "21:00"
+      },
+      {
+        "day": 5,
+        "open": "11:00",
+        "close": "22:00"
+      },
+      {
+        "day": 6,
+        "open": "11:00",
+        "close": "22:00"
+      }
+    ],
+    "fetched_at": "2026-05-05T03:43:42.555Z"
+  },
+  "thai:Naviya's Thai Brasserie": {
+    "place_id": "ChIJvcLLQhcn9ocRGqNH7Y2g32A",
+    "matched_name": "Naviya's Thai Kitchen",
+    "matched_address": "2812 W 43rd St, Minneapolis, MN 55410, USA",
+    "location": {
+      "latitude": 44.924791899999995,
+      "longitude": -93.3151656
+    },
+    "hours": [
+      {
+        "day": 0,
+        "open": "12:00",
+        "close": "20:00"
+      },
+      {
+        "day": 2,
+        "open": "12:00",
+        "close": "20:00"
+      },
+      {
+        "day": 3,
+        "open": "12:00",
+        "close": "20:00"
+      },
+      {
+        "day": 4,
+        "open": "12:00",
+        "close": "20:00"
+      },
+      {
+        "day": 5,
+        "open": "12:00",
+        "close": "21:00"
+      },
+      {
+        "day": 6,
+        "open": "12:00",
+        "close": "21:00"
+      }
+    ],
+    "fetched_at": "2026-05-05T03:43:43.046Z"
+  },
+  "thai:Khun Nai Thai Cuisine": {
+    "place_id": "ChIJb7-olbUys1IRS_0_x_s2S8A",
+    "matched_name": "KhunNai Thai Cuisine",
+    "matched_address": "2523 Nicollet Ave, Minneapolis, MN 55404, USA",
+    "location": {
+      "latitude": 44.9565118,
+      "longitude": -93.2777211
+    },
+    "hours": [
+      {
+        "day": 0,
+        "open": "11:30",
+        "close": "20:00"
+      },
+      {
+        "day": 2,
+        "open": "11:30",
+        "close": "20:00"
+      },
+      {
+        "day": 3,
+        "open": "11:30",
+        "close": "20:00"
+      },
+      {
+        "day": 4,
+        "open": "11:30",
+        "close": "20:00"
+      },
+      {
+        "day": 5,
+        "open": "11:30",
+        "close": "20:30"
+      },
+      {
+        "day": 6,
+        "open": "11:30",
+        "close": "20:30"
+      }
+    ],
+    "fetched_at": "2026-05-05T03:43:43.515Z"
+  },
+  "thai:Thai Cafe": {
+    "place_id": "ChIJfepqWqAq9ocRaLWY-2wFdW8",
+    "matched_name": "Thai Café",
+    "matched_address": "371 University Ave W, St Paul, MN 55103, USA",
+    "location": {
+      "latitude": 44.9559632,
+      "longitude": -93.1156494
+    },
+    "hours": [
+      {
+        "day": 0,
+        "open": "11:00",
+        "close": "19:00"
+      },
+      {
+        "day": 2,
+        "open": "11:00",
+        "close": "19:00"
+      },
+      {
+        "day": 3,
+        "open": "11:00",
+        "close": "19:00"
+      },
+      {
+        "day": 4,
+        "open": "11:00",
+        "close": "19:00"
+      },
+      {
+        "day": 5,
+        "open": "11:00",
+        "close": "19:00"
+      },
+      {
+        "day": 6,
+        "open": "11:00",
+        "close": "19:00"
+      }
+    ],
+    "fetched_at": "2026-05-05T03:43:44.090Z"
+  },
+  "thai:Amazing Thailand": {
+    "place_id": "ChIJzwHFqXgn9ocRNKJKuLayNlo",
+    "matched_name": "Amazing Thailand",
+    "matched_address": "3024 Hennepin Ave, Minneapolis, MN 55408, USA",
+    "location": {
+      "latitude": 44.947434,
+      "longitude": -93.298712
+    },
+    "hours": [
+      {
+        "day": 0,
+        "open": "11:00",
+        "close": "20:00"
+      },
+      {
+        "day": 1,
+        "open": "11:00",
+        "close": "20:00"
+      },
+      {
+        "day": 2,
+        "open": "11:00",
+        "close": "20:00"
+      },
+      {
+        "day": 3,
+        "open": "11:00",
+        "close": "20:00"
+      },
+      {
+        "day": 4,
+        "open": "11:00",
+        "close": "20:00"
+      },
+      {
+        "day": 5,
+        "open": "11:00",
+        "close": "21:00"
+      },
+      {
+        "day": 6,
+        "open": "11:00",
+        "close": "21:00"
+      }
+    ],
+    "fetched_at": "2026-05-05T03:43:44.652Z"
   }
 }

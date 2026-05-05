@@ -18,6 +18,22 @@ module.exports = {
 
   entries: [
     {
+      name: 'Sen Yai Sen Lek',
+      kind: 'Restaurant',
+      neighborhood: 'Holland, Northeast Minneapolis',
+      opened: '2008',
+      closed: '2022',
+      epitaph: "Joe and Holly Hatch-Surisook's Bangkok-style noodle and rice room on Central Avenue. Fourteen years of boat noodle and a kitchen that taught a generation of Twin Cities cooks what regional Thai actually meant."
+    },
+    {
+      name: 'True Thai',
+      kind: 'Restaurant',
+      neighborhood: 'Seward, Minneapolis',
+      opened: '1988',
+      closed: '2024',
+      epitaph: 'Anna Prasomphol Fieser ran her Franklin Avenue restaurant for 36 years. One of the longest-running Thai restaurants in the metro, the Seward fixture that took the standards seriously.'
+    },
+    {
       name: 'The Lowry',
       kind: 'Restaurant',
       neighborhood: 'Uptown, Minneapolis',

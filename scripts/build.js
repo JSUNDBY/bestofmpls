@@ -49,6 +49,7 @@ const bakeries     = require(path.join(SRC, 'data/bakeries.js'));
 const hmong        = require(path.join(SRC, 'data/hmong.js'));
 const ethiopian    = require(path.join(SRC, 'data/ethiopian.js'));
 const indian       = require(path.join(SRC, 'data/indian.js'));
+const thai         = require(path.join(SRC, 'data/thai.js'));
 const burgers      = require(path.join(SRC, 'data/burgers.js'));
 const cocktailBars = require(path.join(SRC, 'data/cocktail-bars.js'));
 const breweries    = require(path.join(SRC, 'data/breweries.js'));
@@ -127,7 +128,7 @@ const clusters = [
     eyebrow: 'Eat',
     title: 'Where to eat',
     deck: 'A real food town in fifteen directions at once. Restaurants worth a reservation, sushi, banh mi, tacos, sandwiches, late-night slices, ice cream by the lake, and the burger Minneapolis invented.',
-    categories: [restaurants, foodHalls, coffee, bakeries, sandwiches, burgers, pizza, brunch, mexican, vietnamese, korean, japanese, hmong, ethiopian, indian, iceCream, lateNight]
+    categories: [restaurants, foodHalls, coffee, bakeries, sandwiches, burgers, pizza, brunch, mexican, vietnamese, korean, japanese, hmong, ethiopian, indian, thai, iceCream, lateNight]
   },
   {
     eyebrow: 'Drink',
@@ -154,7 +155,7 @@ const categories = [
   museums, liveMusic, theaters, cinemas, lgbtq,
   // Eat
   restaurants, foodHalls, coffee, bakeries, sandwiches, burgers, pizza, brunch,
-  mexican, vietnamese, korean, japanese, hmong, ethiopian, indian, iceCream, lateNight,
+  mexican, vietnamese, korean, japanese, hmong, ethiopian, indian, thai, iceCream, lateNight,
   // Drink
   cocktailBars, breweries, diveBars, patios, happyHours,
   // Shop
@@ -258,7 +259,7 @@ function head({ title, description, slug, theme }) {
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=Archivo:wght@500;600;700&display=swap">
-<link rel="stylesheet" href="/style.css?v=14">
+<link rel="stylesheet" href="/style.css?v=15">
 <script>
 // Set color mode before paint to avoid flash. Reads localStorage first,
 // falls back to light mode (the new editorial default). mode-ready class
@@ -277,28 +278,71 @@ function head({ title, description, slug, theme }) {
 }
 
 function header({ activeSlug } = {}) {
-  // Top nav uses cluster names, not all 12 categories. Cleaner look,
-  // and the cluster names anchor to the homepage section.
-  const navItems = [
+  // Primary nav is now five items only. Everything else lives in the Menu
+  // overlay (data-menu-open), grouped editorially. Same overlay is reused
+  // for the mobile hamburger.
+  const primaryNav = [
     { href: '/', label: 'Cover', slug: '' },
     { href: '/today/', label: 'Today', slug: 'today' },
-    { href: '/tonight/', label: 'Tonight', slug: 'tonight' },
     { href: '/calendar/', label: 'Calendar', slug: 'calendar' },
     { href: '/map/', label: 'Map', slug: 'map' },
-    { href: '/near/', label: 'Near You', slug: 'near' },
-    { href: '/quiz/', label: 'Quiz', slug: 'quiz' },
-    { href: '/skyway/', label: 'Skyway', slug: 'skyway' },
-    { href: '/mystery/', label: 'Mystery Itinerary', slug: 'mystery' },
-    { href: '/take-them-to/', label: 'Take Them To', slug: 'take-them-to' },
-    { href: '/now-showing/', label: 'Now Showing', slug: 'now-showing' },
-    { href: '/horoscope/', label: 'Horoscope', slug: 'horoscope' },
-    { href: '/visit/', label: 'First Time?', slug: 'visit' },
-    { href: '/neighborhoods/', label: 'Neighborhoods', slug: 'neighborhoods' },
-    { href: '/festivals/', label: 'Festivals', slug: 'festivals' },
-    { href: '/departed/', label: 'Departed', slug: 'departed' },
-    { href: '/surprise/', label: 'Surprise me', slug: 'surprise' },
     { href: '/search/', label: 'Search', slug: 'search' }
   ];
+
+  // Menu overlay groups. Cluster names mirror the homepage IA so the
+  // overlay reads as a real table of contents.
+  const menuGroups = [
+    {
+      label: 'Right Now',
+      items: [
+        { href: '/today/',     label: 'Today',          deck: 'A small good thing' },
+        { href: '/tonight/',   label: 'Tonight',        deck: 'Sunset, weather, what is coming up' },
+        { href: '/calendar/',  label: 'Calendar',       deck: 'Live shows, openings, screenings' },
+        { href: '/now-showing/', label: 'Now Showing',  deck: 'Current art exhibitions' },
+        { href: '/horoscope/', label: 'Horoscope',      deck: 'Twelve signs, daily' },
+        { href: '/mystery/',   label: 'Mystery Itinerary', deck: 'Sealed-envelope nights' }
+      ]
+    },
+    {
+      label: 'Find',
+      items: [
+        { href: '/map/',       label: 'The Map',        deck: 'Every place, plotted' },
+        { href: '/near/',      label: 'Near You',       deck: 'Walking radius search' },
+        { href: '/quiz/',      label: 'Quiz',           deck: 'Where to be tonight' },
+        { href: '/skyway/',    label: 'Skyway',         deck: 'Downtown indoor router' },
+        { href: '/surprise/',  label: 'Surprise me',    deck: 'A random pick' },
+        { href: '/search/',    label: 'Search',         deck: 'Across every entry' }
+      ]
+    },
+    {
+      label: 'Plan',
+      items: [
+        { href: '/take-them-to/', label: 'Take Them To', deck: 'For specific people, specific nights' },
+        { href: '/visit/',     label: 'First Time?',    deck: 'A weekend in the metro' },
+        { href: '/neighborhoods/', label: 'Neighborhoods', deck: 'Sixteen guides, by area' },
+        { href: '/festivals/', label: 'Festivals',      deck: 'The annual calendar' }
+      ]
+    },
+    {
+      label: 'Eat & Drink',
+      items: [
+        { href: '/restaurants/', label: 'Restaurants', deck: 'The flagship list' },
+        { href: '/coffee-shops/', label: 'Coffee', deck: 'Where the metro caffeinates' },
+        { href: '/best-pizza/', label: 'Pizza', deck: 'Lola, Black Sheep, and the wood-fired wave' },
+        { href: '/cocktail-bars/', label: 'Cocktail Bars', deck: 'Where the bartender has an opinion' },
+        { href: '/breweries/', label: 'Breweries', deck: 'Patios, taprooms, sour rooms' },
+        { href: '/best-dive-bars/', label: 'Dive Bars', deck: 'Booth, beer, no fuss' }
+      ]
+    },
+    {
+      label: 'Memory',
+      items: [
+        { href: '/departed/',  label: 'Departed',       deck: 'Places we lost' },
+        { href: '/glossary/',  label: "Loon's Nest",    deck: 'A small Twin Cities glossary' }
+      ]
+    }
+  ];
+
   return `<header class="site-header">
   <div class="wrap">
     <div class="masthead">
@@ -309,10 +353,6 @@ function header({ activeSlug } = {}) {
           <span class="mode-toggle-dot"></span>
           <span class="mode-toggle-label">Dark</span>
         </button>
-        <button class="nav-toggle" type="button" aria-label="Open menu" data-nav-toggle>
-          <span class="nav-toggle-icon">☰</span>
-          <span>Menu</span>
-        </button>
       </div>
     </div>
     <a href="/" class="logo">bestofmpls<span class="dot">.</span></a>
@@ -320,10 +360,39 @@ function header({ activeSlug } = {}) {
   <nav class="primary-nav">
     <div class="wrap">
       <div class="primary-nav-inner">
-        ${navItems.map(n => `<a href="${n.href}"${activeSlug && n.slug === activeSlug ? ' class="active"' : ''}>${esc(n.label)}</a>`).join('')}
+        ${primaryNav.map(n => `<a href="${n.href}"${activeSlug && n.slug === activeSlug ? ' class="active"' : ''}>${esc(n.label)}</a>`).join('')}
+        <button class="nav-menu-trigger" type="button" data-menu-open aria-label="Open menu">Menu <span aria-hidden="true">→</span></button>
       </div>
     </div>
   </nav>
+  <div class="nav-overlay" data-menu-overlay aria-hidden="true">
+    <div class="nav-overlay-inner">
+      <div class="nav-overlay-head">
+        <a href="/" class="nav-overlay-logo">bestofmpls<span class="dot">.</span></a>
+        <button class="nav-overlay-close" type="button" data-menu-close aria-label="Close menu">Close <span aria-hidden="true">×</span></button>
+      </div>
+      <div class="nav-overlay-grid">
+        ${menuGroups.map(g => `
+          <section class="nav-group">
+            <h3 class="nav-group-label">${esc(g.label)}</h3>
+            <ul class="nav-group-list">
+              ${g.items.map(it => `
+                <li>
+                  <a href="${it.href}">
+                    <span class="nav-item-label">${esc(it.label)}</span>
+                    ${it.deck ? `<span class="nav-item-deck">${esc(it.deck)}</span>` : ''}
+                  </a>
+                </li>`).join('')}
+            </ul>
+          </section>`).join('')}
+      </div>
+      <div class="nav-overlay-foot">
+        <a href="/contribute/">Send us a tip →</a>
+        <a href="/about/">About</a>
+        <a href="mailto:hello@bestofmpls.com">hello@bestofmpls.com</a>
+      </div>
+    </div>
+  </div>
 </header>`;
 }
 
@@ -418,13 +487,30 @@ function footer() {
   });
 })();
 
-// Mobile nav: toggle .is-open on .primary-nav when hamburger is clicked.
+// Menu overlay: click "Menu →" in the primary bar to open a full-screen
+// table-of-contents overlay. Same overlay handles the mobile small-screen
+// case (the primary bar collapses below 720px).
 (function(){
-  var btn = document.querySelector('[data-nav-toggle]');
-  var nav = document.querySelector('.primary-nav');
-  if (!btn || !nav) return;
-  btn.addEventListener('click', function(){
-    nav.classList.toggle('is-open');
+  var openers = document.querySelectorAll('[data-menu-open]');
+  var closers = document.querySelectorAll('[data-menu-close]');
+  var overlay = document.querySelector('[data-menu-overlay]');
+  if (!overlay) return;
+  function open(){
+    overlay.classList.add('is-open');
+    overlay.setAttribute('aria-hidden', 'false');
+    document.documentElement.style.overflow = 'hidden';
+  }
+  function close(){
+    overlay.classList.remove('is-open');
+    overlay.setAttribute('aria-hidden', 'true');
+    document.documentElement.style.overflow = '';
+  }
+  openers.forEach(function(b){ b.addEventListener('click', open); });
+  closers.forEach(function(b){ b.addEventListener('click', close); });
+  // Close on Escape, or when an overlay link is clicked (so mid-nav clicks don't trap).
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') close(); });
+  overlay.addEventListener('click', function(e){
+    if (e.target.tagName === 'A') close();
   });
 })();
 
