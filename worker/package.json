@@ -1,0 +1,12 @@
+{
+  "name": "bestofmpls-poll",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Cloudflare Worker for bestofmpls reader polls.",
+  "scripts": {
+    "dev": "npx wrangler dev",
+    "deploy": "npx wrangler deploy",
+    "tail": "npx wrangler tail",
+    "kv:create": "npx wrangler kv namespace create POLLS"
+  }
+}

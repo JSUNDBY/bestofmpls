@@ -3576,9 +3576,177 @@ a.rightnow-link:hover { color: var(--clay); border-bottom-color: var(--clay); }
  * day numbers stay clay regardless. */
 html[data-mode="dark"] .countdown-name { color: #FFFFFF; }
 
+/* ===== Reader poll form (per category page) ===== */
+.poll-section {
+  background: var(--paper);
+  border-top: 1px solid var(--rule);
+  padding: 64px 0;
+}
+.poll-inner {
+  max-width: 720px;
+  padding: 0 var(--gutter);
+}
+.poll-eyebrow {
+  font-family: var(--font-label);
+  font-weight: 700;
+  font-size: 11.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--clay);
+  margin-bottom: 12px;
+}
+.poll-headline {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 900;
+  font-size: clamp(26px, 3.6vw, 36px);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin: 0 0 14px;
+  color: var(--ink);
+}
+.poll-deck {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  margin: 0 0 28px;
+  max-width: 560px;
+}
+.poll-form {
+  display: grid;
+  gap: 18px;
+}
+.poll-row {
+  display: grid;
+  gap: 6px;
+}
+.poll-row label {
+  font-family: var(--font-label);
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.poll-optional {
+  font-weight: 500;
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 12px;
+  color: var(--ink-faint);
+  font-style: italic;
+}
+.poll-row input,
+.poll-row textarea {
+  appearance: none;
+  background: transparent;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 12px 14px;
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: var(--ink);
+  width: 100%;
+  font-style: normal;
+}
+.poll-row input:focus,
+.poll-row textarea:focus {
+  outline: none;
+  border-color: var(--clay);
+  box-shadow: 0 0 0 3px rgba(225, 25, 0, 0.12);
+}
+.poll-row textarea {
+  resize: vertical;
+  min-height: 80px;
+  line-height: 1.5;
+}
+/* Honeypot — visually hidden but technically present so bots fill it. */
+.poll-hp {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+.poll-actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+.poll-submit {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.poll-status {
+  font-family: var(--font-label);
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.poll-thanks {
+  border: 1px solid var(--clay);
+  border-left-width: 5px;
+  padding: 24px 28px;
+  border-radius: 4px;
+  background: rgba(225, 25, 0, 0.03);
+}
+.poll-thanks-title {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 900;
+  font-size: clamp(22px, 2.8vw, 28px);
+  letter-spacing: -0.01em;
+  margin: 0 0 8px;
+  color: var(--ink);
+}
+.poll-thanks-body {
+  font-family: var(--font-body);
+  font-size: 15.5px;
+  line-height: 1.5;
+  color: var(--ink-soft);
+  margin: 0 0 14px;
+}
+.poll-thanks-again {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  font-family: var(--font-label);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--clay);
+  border-bottom: 1px solid var(--clay);
+  cursor: pointer;
+}
+.poll-thanks-again:hover { color: var(--ink); border-bottom-color: var(--ink); }
+.poll-disabled {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: 15px;
+  color: var(--ink-soft);
+  padding: 18px 22px;
+  border: 1px dashed var(--rule);
+  border-radius: 4px;
+}
+.poll-disabled a {
+  color: var(--clay);
+  border-bottom: 1px solid var(--clay);
+  text-decoration: none;
+}
+
 /* ===== Print ===== */
 @media print {
   .site-header, .primary-nav, .site-footer { display: none; }
   body { background: white; color: black; font-size: 11pt; }
   .entry { page-break-inside: avoid; }
+  .poll-section { display: none; }
 }

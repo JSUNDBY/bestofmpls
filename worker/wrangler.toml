@@ -1,0 +1,21 @@
+name = "bestofmpls-poll"
+main = "src/index.js"
+compatibility_date = "2026-05-04"
+
+# Workers KV namespace for vote storage. Create it once with:
+#   cd worker && npx wrangler kv namespace create POLLS
+# Wrangler will print an `id = "..."`. Paste that into the value below
+# and re-run `npx wrangler deploy`.
+[[kv_namespaces]]
+binding = "POLLS"
+id = "REPLACE_WITH_KV_ID"
+
+# Allow bestofmpls.com to call the worker. Keep localhost in for dev.
+[vars]
+ALLOWED_ORIGIN_PROD = "https://bestofmpls.com"
+ALLOWED_ORIGIN_DEV  = "http://localhost:47823"
+
+# Once the worker is deployed, the URL will be:
+#   https://bestofmpls-poll.<account-subdomain>.workers.dev
+# Optional: add a custom route on bestofmpls.com so it's branded:
+#   [routes] zone_name = "bestofmpls.com" pattern = "bestofmpls.com/api/poll/*"

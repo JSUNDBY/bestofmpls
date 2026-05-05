@@ -27,6 +27,11 @@ const TODAY_ISO = (function(){
   const fmt = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Chicago', year: 'numeric', month: '2-digit', day: '2-digit' });
   return fmt.format(new Date()); // YYYY-MM-DD in Central time
 })();
+
+// Cloudflare Worker that accepts reader poll submissions. Set this once the
+// worker is deployed (see worker/README.md). When empty, the form renders
+// in a safe "coming soon" state instead of trying to submit.
+const POLL_WORKER_URL = 'https://bestofmpls-poll.bestofmpls.workers.dev';
 // Warm season runs April through September. Cold-flavored content (snow-day,
 // big-cold-night mystery, etc.) is hidden during these months and quietly
 // returns each October.
@@ -259,7 +264,7 @@ function head({ title, description, slug, theme }) {
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=Archivo:wght@500;600;700&display=swap">
-<link rel="stylesheet" href="/style.css?v=16">
+<link rel="stylesheet" href="/style.css?v=17">
 <script>
 // Set color mode before paint to avoid flash. Reads localStorage first,
 // falls back to light mode (the new editorial default). mode-ready class
@@ -1022,8 +1027,158 @@ function renderCategory(c) {
     <section class="entry-list">
       ${entries}
     </section>
+    ${renderPollForm(c)}
     <script type="application/ld+json">${JSON.stringify(schema)}</script>` +
     footer();
+}
+
+// Reader poll form: shown at the bottom of every category page. Submits to
+// the Cloudflare Worker if POLL_WORKER_URL is set, otherwise renders in a
+// "coming soon" state so the page never breaks.
+function renderPollForm(c) {
+  const enabled = !!POLL_WORKER_URL;
+  const workerUrl = POLL_WORKER_URL || '';
+
+  return `
+    <section class="poll-section" data-poll-category="${esc(c.slug)}">
+      <div class="wrap poll-inner">
+        <div class="poll-eyebrow">Help us build this list</div>
+        <h2 class="poll-headline">What is your favorite ${esc(pollNoun(c))} in the Twin Cities?</h2>
+        <p class="poll-deck">If we missed your spot, tell us. Your pick joins a running tally of reader recommendations. We work the strongest ones into the list.</p>
+        ${enabled ? `
+        <form class="poll-form" data-poll-form>
+          <div class="poll-row poll-row-place">
+            <label for="poll-place">Place</label>
+            <input type="text" id="poll-place" name="place" placeholder="The exact name of the spot" required maxlength="120" autocomplete="off">
+          </div>
+          <div class="poll-row poll-row-why">
+            <label for="poll-why">Why <span class="poll-optional">(optional)</span></label>
+            <textarea id="poll-why" name="why" placeholder="One sentence is plenty. The thing about it that makes you keep going back." maxlength="600" rows="3"></textarea>
+          </div>
+          <div class="poll-row poll-row-email">
+            <label for="poll-email">Email <span class="poll-optional">(optional, only used if we have a follow-up)</span></label>
+            <input type="email" id="poll-email" name="email" placeholder="you@example.com" maxlength="200" autocomplete="email">
+          </div>
+          <input type="text" name="hp" tabindex="-1" autocomplete="off" class="poll-hp" aria-hidden="true">
+          <div class="poll-actions">
+            <button class="cover-cta poll-submit" type="submit">Send my pick →</button>
+            <span class="poll-status" data-poll-status></span>
+          </div>
+        </form>
+        <div class="poll-thanks" data-poll-thanks hidden>
+          <h3 class="poll-thanks-title">Thanks. Your pick is in.</h3>
+          <p class="poll-thanks-body" data-poll-thanks-body></p>
+          <button class="poll-thanks-again" type="button" data-poll-again>Send another →</button>
+        </div>
+        ` : `
+        <div class="poll-disabled">
+          <p>The reader poll is being wired up this week. Until then, send your picks to <a href="mailto:hello@bestofmpls.com">hello@bestofmpls.com</a> or <a href="/contribute/">use the tip form</a>.</p>
+        </div>
+        `}
+      </div>
+    </section>
+    ${enabled ? `
+    <script>
+      (function(){
+        var section = document.querySelector('[data-poll-category="${esc(c.slug)}"]');
+        if (!section) return;
+        var form = section.querySelector('[data-poll-form]');
+        var status = section.querySelector('[data-poll-status]');
+        var thanks = section.querySelector('[data-poll-thanks]');
+        var thanksBody = section.querySelector('[data-poll-thanks-body]');
+        var againBtn = section.querySelector('[data-poll-again]');
+        var endpoint = ${JSON.stringify(workerUrl + '/vote')};
+
+        if (!form) return;
+
+        form.addEventListener('submit', async function(e){
+          e.preventDefault();
+          var fd = new FormData(form);
+          var body = {
+            category: ${JSON.stringify(c.slug)},
+            place: fd.get('place'),
+            why: fd.get('why'),
+            email: fd.get('email'),
+            hp: fd.get('hp')
+          };
+          status.textContent = 'Sending...';
+          form.querySelector('button[type="submit"]').disabled = true;
+          try {
+            var res = await fetch(endpoint, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(body)
+            });
+            var data = await res.json();
+            if (!res.ok) throw new Error(data.error || 'something broke');
+            // Success
+            form.style.display = 'none';
+            thanksBody.textContent = data.total_for_place > 1
+              ? data.place + ' has been recommended ' + data.total_for_place + ' times. We are listening.'
+              : data.place + ' has been added to the running tally for this category.';
+            thanks.hidden = false;
+          } catch (err) {
+            status.textContent = err.message || 'Something went wrong, try again in a moment.';
+            form.querySelector('button[type="submit"]').disabled = false;
+          }
+        });
+
+        if (againBtn) againBtn.addEventListener('click', function(){
+          form.reset();
+          form.style.display = '';
+          thanks.hidden = true;
+          status.textContent = '';
+          form.querySelector('button[type="submit"]').disabled = false;
+          form.querySelector('input[name="place"]').focus();
+        });
+      })();
+    </script>` : ''}`;
+}
+
+// Map a category title to the noun phrase used in the poll headline.
+// Hand-tuned to keep the copy reading like English.
+const POLL_NOUNS = {
+  'museums-and-galleries':  'museum or gallery',
+  'live-music':             'live music venue',
+  'theaters':               'theater',
+  'arthouse-cinemas':       'arthouse cinema',
+  'lgbtq-nightlife':        'LGBTQ+ bar',
+  'restaurants':            'restaurant',
+  'food-halls':             'food hall',
+  'coffee-shops':           'coffee shop',
+  'pastries-and-bakeries':  'bakery',
+  'sandwiches':             'sandwich shop',
+  'burgers':                'burger',
+  'best-pizza':             'pizza',
+  'best-brunch':            'brunch spot',
+  'mexican-and-tacos':      'Mexican or taco spot',
+  'vietnamese':             'Vietnamese spot',
+  'korean':                 'Korean spot',
+  'japanese':               'Japanese spot',
+  'hmong-food':             'Hmong spot',
+  'ethiopian':              'Ethiopian spot',
+  'indian-restaurants':     'Indian restaurant',
+  'thai':                   'Thai spot',
+  'ice-cream':              'ice cream',
+  'late-night':             'late-night spot',
+  'cocktail-bars':          'cocktail bar',
+  'breweries':              'brewery',
+  'best-dive-bars':         'dive bar',
+  'best-patios':            'patio',
+  'best-happy-hours':       'happy hour',
+  'independent-shops':      'shop',
+  'mens-clothing':          "men's shop",
+  'womens-clothing':        "women's shop",
+  'cannabis-dispensaries':  'dispensary',
+  'boutique-hotels':        'hotel',
+  'outdoors':               'outdoor spot',
+  'wellness-and-spas':      'wellness spot',
+  'hidden-gems':            'hidden gem'
+};
+function pollNoun(c) {
+  if (POLL_NOUNS[c.slug]) return POLL_NOUNS[c.slug];
+  // Fallback: lowercase + crude singularization
+  return String(c.title || 'spot').toLowerCase().replace(/^best\s+/, '').replace(/s\b/, '');
 }
 
 function renderSeasonalCategory(c) {
