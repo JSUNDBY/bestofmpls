@@ -45,9 +45,6 @@ jobs:
         run: node scripts/build-rightnow.js
         continue-on-error: true
 
-      - name: Generate today's dispatch
-        run: node scripts/build-today.js
-
       - name: Build
         run: npm run build
 

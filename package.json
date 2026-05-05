@@ -6,12 +6,11 @@
   "scripts": {
     "scrape": "node scripts/scrape-events.js",
     "horoscope": "node scripts/build-horoscope.js",
-    "today": "node scripts/build-today.js",
     "rightnow": "node scripts/build-rightnow.js",
     "geocode": "node scripts/geocode.js",
     "fetch-hours": "node scripts/fetch-hours.js",
     "build": "node scripts/build.js",
-    "build:full": "node scripts/scrape-events.js && node scripts/build-horoscope.js && node scripts/build-rightnow.js && node scripts/build-today.js && node scripts/build.js",
+    "build:full": "node scripts/scrape-events.js && node scripts/build-horoscope.js && node scripts/build-rightnow.js && node scripts/build.js",
     "serve": "npx serve dist -p 47823",
     "dev": "node scripts/build.js && npx serve dist -p 47823"
   },

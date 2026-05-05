@@ -288,7 +288,7 @@ function header({ activeSlug } = {}) {
   // for the mobile hamburger.
   const primaryNav = [
     { href: '/', label: 'Cover', slug: '' },
-    { href: '/today/', label: 'Today', slug: 'today' },
+    { href: '/tonight/', label: 'Tonight', slug: 'tonight' },
     { href: '/calendar/', label: 'Calendar', slug: 'calendar' },
     { href: '/map/', label: 'Map', slug: 'map' },
     { href: '/search/', label: 'Search', slug: 'search' }
@@ -300,7 +300,6 @@ function header({ activeSlug } = {}) {
     {
       label: 'Right Now',
       items: [
-        { href: '/today/',     label: 'Today',          deck: 'A small good thing' },
         { href: '/tonight/',   label: 'Tonight',        deck: 'Sunset, weather, what is coming up' },
         { href: '/calendar/',  label: 'Calendar',       deck: 'Live shows, openings, screenings' },
         { href: '/now-showing/', label: 'Now Showing',  deck: 'Current art exhibitions' },
@@ -409,7 +408,6 @@ function footer() {
   // Daily-refresh stuff lives in its own short row up top so the cluster grid
   // below can stay focused on the static category lists.
   const dailyLinks = [
-    { href: '/today/', label: 'Today' },
     { href: '/tonight/', label: 'Tonight' },
     { href: '/calendar/', label: 'Calendar' },
     { href: '/map/', label: 'Map' },
@@ -792,19 +790,6 @@ function renderHome() {
         </div>`).join('')}
       </div>
     </section>` : ''}
-    ${todayData ? `
-    <section class="today-feature" id="today">
-      <div class="wrap today-feature-inner">
-        <div class="today-feature-meta">
-          <div class="cluster-eyebrow">Today · A small good thing</div>
-          <h2 class="today-feature-title">${esc(todayData.title)}</h2>
-        </div>
-        <div class="today-feature-body">
-          <p class="today-feature-body-text">${esc(todayData.body)}</p>
-          <a class="cat-card-arrow" href="/today/">Read at /today/ →</a>
-        </div>
-      </div>
-    </section>` : ''}
     <section class="tools-strip">
       <div class="wrap tools-strip-inner">
         <a class="tool-card" href="/map/"><span class="tool-icon" aria-hidden="true">◉</span><span class="tool-label">The Map</span><span class="tool-deck">Every place, plotted</span></a>
@@ -817,7 +802,6 @@ function renderHome() {
         <a class="tool-card" href="/now-showing/"><span class="tool-icon" aria-hidden="true">▣</span><span class="tool-label">Now Showing</span><span class="tool-deck">${exhibitions.exhibitions.length} exhibitions</span></a>
         <a class="tool-card" href="/horoscope/"><span class="tool-icon" aria-hidden="true">✦</span><span class="tool-label">Horoscope</span><span class="tool-deck">For the metro, today</span></a>
         <a class="tool-card" href="/surprise/"><span class="tool-icon" aria-hidden="true">⚂</span><span class="tool-label">Surprise me</span><span class="tool-deck">A random pick</span></a>
-        <a class="tool-card" href="/today/"><span class="tool-icon" aria-hidden="true">★</span><span class="tool-label">Today</span><span class="tool-deck">A small good thing</span></a>
         <a class="tool-card" href="/mystery/"><span class="tool-icon" aria-hidden="true">✉</span><span class="tool-label">Mystery</span><span class="tool-deck">Sealed-envelope nights</span></a>
         <a class="tool-card" href="/departed/"><span class="tool-icon" aria-hidden="true">†</span><span class="tool-label">Departed</span><span class="tool-deck">Places we lost</span></a>
       </div>
@@ -3285,7 +3269,6 @@ function renderSitemap(neighborhoods) {
   const urls = [
     { loc: SITE + '/', priority: '1.0' },
     { loc: SITE + '/visit/', priority: '0.9' },
-    { loc: SITE + '/today/', priority: '0.9' },
     { loc: SITE + '/tonight/', priority: '0.9' },
     { loc: SITE + '/calendar/', priority: '0.9' },
     { loc: SITE + '/map/', priority: '0.9' },
@@ -3376,9 +3359,6 @@ function build() {
 
   // Take Them To — situational picks
   writeFile('take-them-to/index.html', renderSituations());
-
-  // Today — daily small good thing
-  writeFile('today/index.html', renderToday());
 
   // Tonight — sunset clock, weather, civic countdowns
   writeFile('tonight/index.html', renderTonight());
