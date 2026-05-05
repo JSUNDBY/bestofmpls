@@ -1,67 +1,67 @@
 {
-  "generated_at": "2026-05-04T02:59:20.611Z",
+  "generated_at": "2026-05-05T01:58:51.487Z",
   "today": "2026-05-04",
   "sun": {
-    "rise": "5:35 AM",
-    "set": "7:54 PM",
-    "rise_24": "05:35",
-    "set_24": "19:54",
-    "daylight_min": 859
+    "rise": "5:33 AM",
+    "set": "7:56 PM",
+    "rise_24": "05:33",
+    "set_24": "19:56",
+    "daylight_min": 862
   },
   "weather": {
-    "temp_now": 60,
-    "temp_max": 72,
-    "feels_like": 54,
+    "temp_now": 47,
+    "temp_max": 62,
+    "feels_like": 38,
     "condition": "Clear",
-    "is_patio": true,
+    "is_patio": false,
     "is_brutal": false,
     "is_snowing": false,
     "is_rainy": false,
-    "mood": "patio",
-    "summary": "72°F high · patio weather"
+    "mood": "normal",
+    "summary": "47°F · Clear"
   },
   "countdowns": [
     {
       "name": "Art-A-Whirl",
-      "date": "2026-05-08",
-      "days": 5,
-      "blurb": "Northeast Minneapolis opens nearly every artist studio at once."
+      "date": "2026-05-15",
+      "days": 11,
+      "blurb": "Northeast Minneapolis opens nearly every artist studio at once, on the third weekend in May."
     },
     {
       "name": "Twin Cities Pride",
       "date": "2026-06-27",
-      "days": 55,
-      "blurb": "One of the largest Pride festivals in the country."
+      "days": 54,
+      "blurb": "One of the largest Pride festivals in the country, last full weekend of June."
     },
     {
       "name": "Aquatennial",
       "date": "2026-07-16",
-      "days": 74,
+      "days": 73,
       "blurb": "Minneapolis's eleven-day midsummer festival."
     },
     {
       "name": "Minnesota State Fair",
       "date": "2026-08-27",
-      "days": 116,
+      "days": 115,
       "blurb": "Twelve days ending Labor Day. The largest state fair by daily attendance."
     },
     {
       "name": "Twin Cities Marathon",
       "date": "2026-10-04",
-      "days": 154,
+      "days": 153,
       "blurb": "Twenty-six miles from downtown Minneapolis to the State Capitol."
     },
     {
       "name": "First frost (typical)",
       "date": "2026-10-05",
-      "days": 155,
+      "days": 154,
       "blurb": "When the metro typically sees its first overnight frost."
     }
   ],
   "sunset_pick": {
-    "name": "Sea Salt patio at Minnehaha Falls",
-    "neighborhood": "South Minneapolis",
-    "why": "Falls behind, sun setting through the trees over the river gorge. Summer only."
+    "name": "Hidden Falls boat launch",
+    "neighborhood": "Highland, St. Paul",
+    "why": "River-level. The whole sky reflects."
   },
   "sunset_picks": [
     {

@@ -26,6 +26,18 @@ const LAT = 44.9778;
 const LNG = -93.2650;
 const TZ  = 'America/Chicago';
 
+// "Now" anchored to Central time. The build server is in UTC, which means
+// after 7 PM Central each evening the calendar would otherwise tick forward
+// to the next day. We want all "today" math to match what the metro thinks
+// today is, not what the build server thinks.
+function centralNow() {
+  // Construct a Date whose y/m/d/h fields represent Central wall clock.
+  return new Date(new Date().toLocaleString('en-US', { timeZone: TZ }));
+}
+function centralDateString(d = centralNow()) {
+  return `${d.getFullYear()}-${pad2(d.getMonth() + 1)}-${pad2(d.getDate())}`;
+}
+
 // ===== Sunrise / sunset (NOAA algorithm, simplified) =====
 function pad2(n) { return String(n).padStart(2, '0'); }
 function toRad(d) { return d * Math.PI / 180; }
@@ -137,33 +149,58 @@ function classifyWeather(weather) {
 }
 
 // ===== Civic countdowns =====
-// Anchor dates for the next 12 months. Each year auto-rolls so adding the
-// first-Sunday-in-May May Day correctly handles the year boundary.
-function buildCountdowns(now = new Date()) {
+// Anchor dates for the next 12 months. Each rule is evaluated for the
+// reference year; if the resulting date is in the past relative to today
+// (Central time), we roll forward by one year.
+function buildCountdowns(now = centralNow()) {
   const Y = now.getFullYear();
+
+  // Helper: Nth occurrence of a day-of-week in a given month (1-indexed n).
+  // dow: 0 = Sunday, 1 = Monday, ..., 5 = Friday, 6 = Saturday
+  function nthDowOf(year, monthIdx, dow, n) {
+    const d = new Date(year, monthIdx, 1);
+    while (d.getDay() !== dow) d.setDate(d.getDate() + 1);
+    d.setDate(d.getDate() + (n - 1) * 7);
+    return d;
+  }
+  // Last occurrence of a day-of-week in a given month.
+  function lastDowOf(year, monthIdx, dow) {
+    const d = new Date(year, monthIdx + 1, 0);
+    while (d.getDay() !== dow) d.setDate(d.getDate() - 1);
+    return d;
+  }
+  // MN State Fair: 12 days ending Labor Day → start is 11 days before Labor.
+  function stateFairStart(year) {
+    const labor = nthDowOf(year, 8, 1, 1); // 1st Monday of September
+    const start = new Date(labor);
+    start.setDate(start.getDate() - 11);
+    return start;
+  }
+
+  // forYear lets us evaluate a rule against either this year or next, so
+  // the year-boundary roll is exact (e.g. The Great Northern in January).
   const events = [
-    // Annual fixed-date anchors
-    { name: 'Saint Paul Winter Carnival', dateRule: () => new Date(Y, 0, 25), blurb: 'The oldest winter festival in the country opens.' },
-    { name: 'Loppet Festival', dateRule: () => new Date(Y, 1, 7), blurb: 'Cross-country ski weekend at Theodore Wirth Park.' },
-    { name: 'May Day Parade in Powderhorn', dateRule: () => new Date(Y, 4, 1), blurb: "In the Heart of the Beast's annual procession through Powderhorn." },
-    { name: 'Art-A-Whirl', dateRule: () => firstFullWeekendIn(Y, 4, 'fri'), blurb: 'Northeast Minneapolis opens nearly every artist studio at once.' },
-    { name: 'Twin Cities Pride', dateRule: () => lastFullWeekendIn(Y, 5, 'sat'), blurb: 'One of the largest Pride festivals in the country.' },
-    { name: 'Aquatennial', dateRule: () => new Date(Y, 6, 16), blurb: "Minneapolis's eleven-day midsummer festival." },
-    { name: 'Minnesota State Fair', dateRule: () => stateFairStart(Y), blurb: 'Twelve days ending Labor Day. The largest state fair by daily attendance.' },
-    { name: 'Twin Cities Marathon', dateRule: () => firstSundayInOctober(Y), blurb: 'Twenty-six miles from downtown Minneapolis to the State Capitol.' },
-    { name: 'Twin Cities Book Festival', dateRule: () => new Date(Y, 9, 18), blurb: "The metro's largest free book festival, at the State Fairgrounds." },
-    { name: 'The Great Northern', dateRule: () => new Date(Y + (now.getMonth() < 1 ? 0 : 1), 0, 22), blurb: 'A ten-day cultural festival celebrating winter and climate.' },
-    { name: 'First frost (typical)', dateRule: () => new Date(Y, 9, 5), blurb: 'When the metro typically sees its first overnight frost.' },
-    { name: 'First snow (typical)', dateRule: () => new Date(Y, 10, 1), blurb: 'When the metro typically sees its first measurable snowfall.' }
+    { name: 'Saint Paul Winter Carnival',  dateRule: y => new Date(y, 0, 22),         blurb: 'The oldest winter festival in the country opens.' },
+    { name: 'The Great Northern',          dateRule: y => new Date(y, 0, 22),         blurb: 'A ten-day cultural festival celebrating winter and climate.' },
+    { name: 'Loppet Festival',             dateRule: y => new Date(y, 1, 7),          blurb: 'Cross-country ski weekend at Theodore Wirth Park.' },
+    { name: 'May Day Parade in Powderhorn',dateRule: y => nthDowOf(y, 4, 0, 1),       blurb: "In the Heart of the Beast's annual procession through Powderhorn, on the first Sunday in May." },
+    { name: 'Art-A-Whirl',                 dateRule: y => nthDowOf(y, 4, 5, 3),       blurb: 'Northeast Minneapolis opens nearly every artist studio at once, on the third weekend in May.' },
+    { name: 'Twin Cities Pride',           dateRule: y => lastDowOf(y, 5, 6),         blurb: 'One of the largest Pride festivals in the country, last full weekend of June.' },
+    { name: 'Aquatennial',                 dateRule: y => new Date(y, 6, 16),         blurb: "Minneapolis's eleven-day midsummer festival." },
+    { name: 'Minnesota State Fair',        dateRule: y => stateFairStart(y),          blurb: 'Twelve days ending Labor Day. The largest state fair by daily attendance.' },
+    { name: 'Twin Cities Marathon',        dateRule: y => nthDowOf(y, 9, 0, 1),       blurb: 'Twenty-six miles from downtown Minneapolis to the State Capitol.' },
+    { name: 'Twin Cities Book Festival',   dateRule: y => nthDowOf(y, 9, 6, 3),       blurb: "The metro's largest free book festival, at the State Fairgrounds." },
+    { name: 'First frost (typical)',       dateRule: y => new Date(y, 9, 5),          blurb: 'When the metro typically sees its first overnight frost.' },
+    { name: 'First snow (typical)',        dateRule: y => new Date(y, 10, 1),         blurb: 'When the metro typically sees its first measurable snowfall.' }
   ];
 
+  // Cutoff = midnight Central this morning, so any event happening today
+  // (with hours math truncated) shows as "0 days" and gets filtered out.
+  const cutoff = new Date(Y, now.getMonth(), now.getDate());
+
   const upcoming = events.map(ev => {
-    let d = ev.dateRule();
-    // If past, roll one year forward
-    const cutoff = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-    if (d < cutoff) d = ev.dateRule.length === 0
-      ? new Date(d.getFullYear() + 1, d.getMonth(), d.getDate())
-      : ev.dateRule();
+    let d = ev.dateRule(Y);
+    if (d < cutoff) d = ev.dateRule(Y + 1);
     const days = Math.round((d - cutoff) / 86400000);
     return { name: ev.name, date: `${d.getFullYear()}-${pad2(d.getMonth()+1)}-${pad2(d.getDate())}`, days, blurb: ev.blurb };
   })
@@ -172,37 +209,6 @@ function buildCountdowns(now = new Date()) {
   .slice(0, 6);
 
   return upcoming;
-}
-
-// Helper: first full weekend (Friday) in month
-function firstFullWeekendIn(year, monthIdx, dayName) {
-  const d = new Date(year, monthIdx, 1);
-  const targetDow = dayName === 'fri' ? 5 : 6;
-  while (d.getDay() !== targetDow) d.setDate(d.getDate() + 1);
-  // Use second Friday for May to land on the canonical Art-A-Whirl weekend
-  if (monthIdx === 4) d.setDate(d.getDate() + 7);
-  return d;
-}
-function lastFullWeekendIn(year, monthIdx, dayName) {
-  const last = new Date(year, monthIdx + 1, 0);
-  const targetDow = dayName === 'fri' ? 5 : 6;
-  while (last.getDay() !== targetDow) last.setDate(last.getDate() - 1);
-  return last;
-}
-function firstSundayInOctober(year) {
-  const d = new Date(year, 9, 1);
-  while (d.getDay() !== 0) d.setDate(d.getDate() + 1);
-  return d;
-}
-// MN State Fair starts Thursday, twelve days before Labor Day.
-function stateFairStart(year) {
-  // Labor Day = first Monday of September
-  const labor = new Date(year, 8, 1);
-  while (labor.getDay() !== 1) labor.setDate(labor.getDate() + 1);
-  // Twelve-day fair ends Labor Day; start is 11 days earlier (Thursday)
-  const start = new Date(labor);
-  start.setDate(start.getDate() - 11);
-  return start;
 }
 
 // ===== Sunset companion picks =====
@@ -218,18 +224,20 @@ const SUNSET_PICKS = [
 
 async function main() {
   const now = new Date();
+  const central = centralNow();
   const sun = sunTimes(now, LAT, LNG);
   const weather = await fetchWeather();
   const climate = classifyWeather(weather);
-  const countdowns = buildCountdowns(now);
+  const countdowns = buildCountdowns(central);
 
-  // Pick a sunset companion deterministically by date, so the page changes daily.
-  const doy = Math.floor((now - new Date(now.getFullYear(), 0, 0)) / 86400000);
+  // Pick a sunset companion deterministically by Central date, so the page
+  // changes at midnight Central, not at midnight UTC.
+  const doy = Math.floor((central - new Date(central.getFullYear(), 0, 0)) / 86400000);
   const sunset_pick = SUNSET_PICKS[doy % SUNSET_PICKS.length];
 
   const out = {
     generated_at: new Date().toISOString(),
-    today: now.toISOString().slice(0, 10),
+    today: centralDateString(central),
     sun: {
       rise: fmtTime(sun.rise),
       set: fmtTime(sun.set),

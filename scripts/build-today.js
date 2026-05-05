@@ -225,7 +225,11 @@ const ESSAYS = [
 ];
 
 function generateForDate(date) {
-  const isoDate = date.toISOString().slice(0, 10);
+  // Build the iso date from local fields rather than toISOString, since
+  // toISOString converts to UTC and would drift when the input represents
+  // Central time.
+  const pad = n => String(n).padStart(2, '0');
+  const isoDate = `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
   const season = currentSeason(date);
   // Pool: in-season + always-applicable. If the seasonal pool is empty (which
   // it never should be), fall back to all essays.
@@ -242,7 +246,10 @@ function generateForDate(date) {
 }
 
 function main() {
-  const data = generateForDate(new Date());
+  // Anchor to Central time so the daily essay rolls at midnight Central,
+  // not at midnight UTC (which is 7 PM Central — a day early).
+  const central = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Chicago' }));
+  const data = generateForDate(central);
   fs.writeFileSync(OUT, JSON.stringify(data, null, 2));
   console.log(`  → wrote today.json: "${data.title}" (${data.word_count} words, ${data.season})`);
 }

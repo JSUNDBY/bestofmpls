@@ -618,7 +618,8 @@ function dayOfYear(d) {
 }
 
 function generateForDate(date) {
-  const isoDate = date.toISOString().slice(0, 10);
+  const pad = n => String(n).padStart(2, '0');
+  const isoDate = `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
   const doy = dayOfYear(date);
   const horoscopes = SIGNS.map((sign, idx) => {
     const seed = hash(`${isoDate}:${sign.name}`);
@@ -652,7 +653,10 @@ function generateForDate(date) {
 }
 
 function main() {
-  const data = generateForDate(new Date());
+  // Anchor to Central time so the daily horoscope rolls at midnight Central,
+  // not at midnight UTC.
+  const central = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Chicago' }));
+  const data = generateForDate(central);
   fs.writeFileSync(OUT, JSON.stringify(data, null, 2));
   console.log(`  → wrote horoscope.json for ${data.date} (${(fs.statSync(OUT).size / 1024).toFixed(1)} KB)`);
 }

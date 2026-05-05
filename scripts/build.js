@@ -17,9 +17,16 @@ const ROOT  = path.resolve(__dirname, '..');
 const SRC   = path.join(ROOT, 'src');
 const DIST  = path.join(ROOT, 'dist');
 const SITE  = 'https://bestofmpls.com';
+// Anchor "today" to Central time so the masthead and date-seeded picks
+// don't tick forward at 7 PM Central when UTC rolls past midnight.
 const TODAY = new Date().toLocaleDateString('en-US', {
-  month: 'long', day: 'numeric', year: 'numeric'
+  month: 'long', day: 'numeric', year: 'numeric',
+  timeZone: 'America/Chicago'
 });
+const TODAY_ISO = (function(){
+  const fmt = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Chicago', year: 'numeric', month: '2-digit', day: '2-digit' });
+  return fmt.format(new Date()); // YYYY-MM-DD in Central time
+})();
 
 // ---------- Load all category data ----------
 const museums      = require(path.join(SRC, 'data/museums.js'));
@@ -577,7 +584,7 @@ function renderHome() {
 
   // Today's horoscope teaser — pick 3 signs deterministically by date so the
   // teaser changes daily without showing the same sign on the cover twice.
-  const todayKey = (horoscopeData.date || new Date().toISOString().slice(0,10)).split('-').reduce((a,c) => a + parseInt(c,10), 0);
+  const todayKey = (horoscopeData.date || TODAY_ISO).split('-').reduce((a,c) => a + parseInt(c,10), 0);
   const horoscopePicks = (horoscopeData.horoscopes || [])
     .map((h, i) => ({ h, i }))
     .filter(({ i }) => (i + todayKey) % 4 === 0)
