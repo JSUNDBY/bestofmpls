@@ -143,10 +143,10 @@ module.exports = {
     },
     {
       name: 'St. Croix River paddling',
-      neighborhood: 'Stillwater and Taylors Falls',
+      neighborhood: 'Taylors Falls',
       style: 'River paddling and swimming',
-      description: 'A 30-minute drive east of the metro, the St. Croix is one of the most paddleable rivers in the upper Midwest, with multiple outfitters running canoe, kayak, and tubing rentals. Swimming holes downstream of Taylors Falls are summer Minnesota at its best.',
-      address: 'Stillwater and Taylors Falls',
+      description: 'A 45-minute drive northeast of the metro to where the St. Croix narrows between basalt cliffs at Interstate State Park. Multiple outfitters run canoe, kayak, and tubing rentals between Taylors Falls and William O\'Brien State Park. Swimming holes downstream are summer Minnesota at its best.',
+      address: '307 Milltown Rd, Taylors Falls, MN',
       price: '$$'
     }
   ]

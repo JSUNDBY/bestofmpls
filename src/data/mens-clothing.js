@@ -45,15 +45,7 @@ module.exports = {
       address: '400 St Peter St, St. Paul',
       price: '$$$$'
     },
-    {
-      name: 'Forage Modern Workshop',
-      neighborhood: 'Northeast Minneapolis',
-      style: 'Design-forward home and lifestyle',
-      description: 'Not strictly menswear, but the small Northeast home and lifestyle store consistently carries the kind of accessories, fragrance, books, and small goods that people building a personal style end up returning to. A shop with a strong point of view about how things should look.',
-      address: '4023 E Lake St, Minneapolis',
-      price: '$$$'
-    },
-    {
+        {
       name: 'Filson Minneapolis',
       neighborhood: 'North Loop, Minneapolis',
       style: 'American heritage outdoor',

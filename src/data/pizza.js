@@ -16,10 +16,10 @@ module.exports = {
     },
     {
       name: 'Black Sheep Coal-Fired Pizza',
-      neighborhood: 'Three locations',
+      neighborhood: 'North Loop, Minneapolis',
       style: 'Coal-fired',
-      description: 'The coal oven gets a char on the crust that wood ovens cannot quite reach. The Italian sausage with roasted red peppers is the move. The North Loop room is the original. Eat Street and St. Paul are equally good.',
-      address: '600 Washington Ave N, Minneapolis (and others)',
+      description: 'The coal oven gets a char on the crust that wood ovens cannot quite reach. The Italian sausage with roasted red peppers is the move. The North Loop room is the original; the Eat Street location closed in 2024 and the St. Paul one earlier.',
+      address: '600 Washington Ave N, Minneapolis',
       website: 'https://www.blacksheeppizza.com',
       price: '$$'
     },

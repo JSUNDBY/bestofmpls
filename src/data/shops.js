@@ -93,13 +93,5 @@ module.exports = {
       address: '501 1st Ave NE, Minneapolis',
       price: '$$'
     },
-    {
-      name: 'Hymie’s Vintage Records',
-      neighborhood: 'Longfellow, Minneapolis',
-      style: 'Vinyl, books, oddities',
-      description: 'A Longfellow record store that also handles books, magazines, vintage gear, and miscellany. Friendly, well-priced, and the kind of place where you walk in for one record and leave with three. The opposite of a curated boutique.',
-      address: '3820 E Lake St, Minneapolis',
-      price: '$$'
-    }
-  ]
+      ]
 };

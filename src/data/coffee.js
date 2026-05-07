@@ -37,15 +37,7 @@ module.exports = {
       address: '2531 E Hennepin Ave, Minneapolis (and Linden Hills)',
       price: '$$'
     },
-    {
-      name: 'Bull Run Coffee',
-      neighborhood: 'Multiple locations',
-      style: 'Quiet morning cafe',
-      description: 'A local roaster running a few quiet cafes that lean toward the morning crowd. The Bryn Mawr location is among the most pleasant rooms in the city to read in for two hours. The South Lyndale spot is the choice if you want to work.',
-      address: 'Various Twin Cities locations',
-      price: '$'
-    },
-    {
+        {
       name: 'Black: Coffee + Waffle Bar',
       neighborhood: 'Dinkytown and Northeast',
       style: 'Coffee + Belgian waffles',
@@ -77,23 +69,7 @@ module.exports = {
       address: '165 Western Ave N, St. Paul',
       price: '$'
     },
-    {
-      name: 'Groundswell',
-      neighborhood: 'Hamline-Midway, St. Paul',
-      style: 'Family-friendly daytime cafe',
-      description: 'A St. Paul cafe with a kids’ play area that does not feel like a play area, a beer-and-wine list at night, and a kitchen that turns out a real lunch. One of the better neighborhood third places in the metro.',
-      address: '1320 W 7th St, St. Paul',
-      price: '$$'
-    },
-    {
-      name: 'Anelace Coffee',
-      neighborhood: 'Northeast Minneapolis',
-      style: 'Specialty espresso',
-      description: 'A small Northeast cafe focused tightly on espresso quality. The room is minimal, the bar is the focus, and the rotating roasters they pull through are some of the best in the country. For people who care.',
-      address: '2010 E Hennepin Ave #100, Minneapolis',
-      price: '$'
-    },
-    {
+            {
       name: 'Penny’s Coffee',
       neighborhood: 'North Loop and downtown',
       style: 'Quick downtown stop',

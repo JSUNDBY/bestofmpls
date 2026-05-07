@@ -14,15 +14,7 @@ module.exports = {
       address: 'Northeast Minneapolis',
       price: '$$$$'
     },
-    {
-      name: 'Union Hmong Kitchen',
-      neighborhood: 'Graze food hall, North Loop',
-      style: 'Casual Hmong, chef Yia Vang',
-      description: 'Yia Vang’s casual concept inside the Graze food hall in the North Loop. Hmong sausage, larb, sticky rice, and grilled meats served quickly without sacrificing the quality that made the chef a Beard nominee. The introduction to Hmong food for most metro newcomers.',
-      address: 'Graze food hall, North Loop, Minneapolis',
-      price: '$$'
-    },
-    {
+        {
       name: 'Hmong Village',
       neighborhood: 'East Side, St. Paul',
       style: 'Marketplace + food court',

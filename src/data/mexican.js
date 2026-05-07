@@ -70,15 +70,7 @@ module.exports = {
       address: 'Northeast Minneapolis',
       price: '$$'
     },
-    {
-      name: 'Pajarito',
-      neighborhood: 'West End, St. Paul',
-      style: 'Modern Mexican',
-      description: 'A modern Mexican restaurant from the team at Tongue in Cheek. Heritage corn for tortillas, a sharp tequila and mezcal program, and a brunch program that puts most brunch programs on notice. Worth a Saturday in St. Paul.',
-      address: 'West End, St. Paul',
-      price: '$$$'
-    },
-    {
+        {
       name: 'Pepito’s Mexican Restaurant',
       neighborhood: 'Mpls',
       style: 'Neighborhood Mexican-American',

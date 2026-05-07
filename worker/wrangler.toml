@@ -8,7 +8,7 @@ compatibility_date = "2026-05-04"
 # and re-run `npx wrangler deploy`.
 [[kv_namespaces]]
 binding = "POLLS"
-id = "REPLACE_WITH_KV_ID"
+id = "9ca11b9cee2d4c56992fabb3f951bc63"
 
 # Allow bestofmpls.com to call the worker. Keep localhost in for dev.
 [vars]

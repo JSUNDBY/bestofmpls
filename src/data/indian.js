@@ -30,15 +30,7 @@ module.exports = {
       address: 'Eden Prairie',
       price: '$$'
     },
-    {
-      name: 'Bawarchi Biryanis',
-      neighborhood: 'Eden Prairie',
-      style: 'South Indian and Hyderabadi',
-      description: 'A casual South Indian and biryani spot that draws a serious crowd at lunch and dinner. The dosas are excellent, the chicken 65 is the right starter, and the biryani is competitive with anything in the metro.',
-      address: 'Eden Prairie',
-      price: '$$'
-    },
-    {
+        {
       name: 'Darbar India Grill',
       neighborhood: 'Brooklyn Park',
       style: 'North Indian, tandoor-forward',
@@ -70,13 +62,5 @@ module.exports = {
       address: 'Snelling Avenue, St. Paul',
       price: '$$'
     },
-    {
-      name: 'Bombay Bistro',
-      neighborhood: 'Eden Prairie',
-      style: 'Pan-Indian, lunch buffet',
-      description: 'A west-metro favorite for the lunch buffet, which rotates broadly across regions and is consistently fresh. The dinner menu is quieter but the appetizer plates and the chettinad chicken are worth ordering.',
-      address: 'Eden Prairie',
-      price: '$$'
-    }
-  ]
+      ]
 };

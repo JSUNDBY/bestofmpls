@@ -23,14 +23,6 @@ module.exports = {
       price: '$$'
     },
     {
-      name: 'Lawless Distilling',
-      neighborhood: 'Northeast Minneapolis',
-      style: 'Distillery taproom',
-      description: 'A small Northeast distillery and tasting room with a focused cocktail menu and live music programming. The atmosphere is more workshop than lounge, which is exactly right for the kind of drinks coming off the bar.',
-      address: 'Northeast Minneapolis',
-      price: '$$'
-    },
-    {
       name: 'Bar at Spoon and Stable',
       neighborhood: 'North Loop, Minneapolis',
       style: 'Fine-dining bar',

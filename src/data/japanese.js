@@ -33,16 +33,7 @@ module.exports = {
       website: 'https://moto-i.com',
       price: '$$'
     },
-    {
-      name: 'Masu Sushi & Robata',
-      neighborhood: 'Mall of America, Bloomington',
-      style: 'Sushi and robata grill',
-      description: 'After the Northeast location closed, the Mall of America room carries the brand. Sushi, robata skewers, and a sake list with real depth. A reliable group dinner with a wide menu.',
-      address: '372 South Ave, Bloomington',
-      website: 'https://www.masusushiandrobata.com',
-      price: '$$$'
-    },
-    {
+        {
       name: 'Tori Ramen',
       neighborhood: 'West Seventh, St. Paul',
       style: 'Pork-free chicken ramen',

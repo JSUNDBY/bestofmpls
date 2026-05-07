@@ -104,14 +104,5 @@ module.exports = {
       price: '$$$',
       hours: 'Tue–Sat 4–5:30pm cafe side'
     },
-    {
-      name: 'The Bachelor Farmer Cafe',
-      neighborhood: 'North Loop, Minneapolis',
-      style: 'Honorable mention',
-      description: 'Not a traditional happy hour, but a 3pm aperitivo at the Cafe with a sherry and a slice of cardamom cake is a small and serious pleasure. Treat it as the un-happy hour for days you need decompression instead of a party.',
-      address: '50 N 2nd Ave, Minneapolis',
-      price: '$$',
-      hours: 'Daily 3–5pm'
-    }
-  ]
+      ]
 };

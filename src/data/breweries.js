@@ -54,15 +54,7 @@ module.exports = {
       address: 'Northeast Minneapolis',
       price: '$$'
     },
-    {
-      name: 'Eastlake Craft Brewery',
-      neighborhood: 'Midtown Global Market',
-      style: 'Brewery inside a marketplace',
-      description: 'A small brewery operating inside the Midtown Global Market, with a flight-friendly tap list and the food court of the rest of the building right outside. The beer is solid, but the situation is what makes it: a brewery surrounded by twenty different cuisines.',
-      address: 'Midtown Global Market, Minneapolis',
-      price: '$$'
-    },
-    {
+        {
       name: 'Pryes Brewing',
       neighborhood: 'North Loop, Minneapolis',
       style: 'Brewery on the river',

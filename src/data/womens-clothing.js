@@ -37,15 +37,7 @@ module.exports = {
       address: '748 Lake St E, Wayzata',
       price: '$$$$'
     },
-    {
-      name: 'Cliché',
-      neighborhood: 'Lyn-Lake, Minneapolis',
-      style: 'Eclectic Minneapolis',
-      description: 'A Lyn-Lake institution that has been one of South Minneapolis’s anchor boutiques for over a decade. Eclectic mix of contemporary brands, a strong jewelry case, and a buyer who is not afraid of a clear point of view.',
-      address: '2403 Lyndale Ave S, Minneapolis',
-      price: '$$$'
-    },
-    {
+        {
       name: 'PINK + GREY',
       neighborhood: 'Edina',
       style: 'Contemporary boutique',
@@ -69,13 +61,5 @@ module.exports = {
       address: 'North Loop, Minneapolis',
       price: '$$$'
     },
-    {
-      name: 'Local Motion',
-      neighborhood: 'Multiple locations',
-      style: 'Casual contemporary',
-      description: 'A small chain born in the Twin Cities and still locally owned, with a buy that lands somewhere between practical and contemporary. The casual everyday end of the women’s retail spectrum, done well.',
-      address: 'Various Twin Cities locations',
-      price: '$$'
-    }
-  ]
+      ]
 };

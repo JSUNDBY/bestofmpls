@@ -73,11 +73,16 @@ function collectEntries() {
 }
 
 async function fetchOne(entry) {
-  // Build a search query that helps Google find the right entity.
-  // Add the city name explicitly so chain-name matches don't end up in
-  // California.
+  // Build a search query that helps Google find the right entity. If we
+  // have a real street address (a number in it), include it so Places can
+  // match on geography rather than guessing from the name alone. This
+  // prevents matches like "St. Croix River paddling" → a Mississippi River
+  // address in Minneapolis.
+  const isStreetAddress = /\d/.test(entry.address);
   const cityHint = /st\.?\s*paul/i.test(entry.address) ? 'Saint Paul' : 'Minneapolis';
-  const query = `${entry.name} ${cityHint} MN`;
+  const query = isStreetAddress
+    ? `${entry.name}, ${entry.address}`
+    : `${entry.name} ${cityHint} MN`;
 
   const body = {
     textQuery: query,
@@ -90,7 +95,7 @@ async function fetchOne(entry) {
     headers: {
       'Content-Type': 'application/json',
       'X-Goog-Api-Key': KEY,
-      'X-Goog-FieldMask': 'places.id,places.displayName,places.formattedAddress,places.regularOpeningHours,places.location'
+      'X-Goog-FieldMask': 'places.id,places.displayName,places.formattedAddress,places.regularOpeningHours,places.location,places.businessStatus,places.types'
     },
     body: JSON.stringify(body)
   });
@@ -108,6 +113,8 @@ async function fetchOne(entry) {
     matched_name: p.displayName?.text || null,
     matched_address: p.formattedAddress || null,
     location: p.location || null,
+    business_status: p.businessStatus || null,
+    types: p.types || [],
     hours: (p.regularOpeningHours?.periods || []).map(prd => ({
       day: prd.open?.day,
       open: pad(prd.open?.hour) + ':' + pad(prd.open?.minute),

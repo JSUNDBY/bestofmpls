@@ -117,13 +117,36 @@ const hoursData     = loadJsonOptional(path.join(SRC, 'data/hours.json')) || {};
 //   3. null — entry will not appear on the map. Better than a wrong pin.
 function lookupCoords(slug, entry) {
   const hLook = hoursData[`${slug}:${entry.name}`];
-  if (hLook && hLook.location && typeof hLook.location.latitude === 'number') {
-    return { lat: hLook.location.latitude, lng: hLook.location.longitude, source: 'places' };
-  }
+  const placesCoord = (hLook && hLook.location && typeof hLook.location.latitude === 'number')
+    ? { lat: hLook.location.latitude, lng: hLook.location.longitude }
+    : null;
+
+  // Nominatim coord for the entry's address (only if it has a digit, so
+  // we are not geocoding a neighborhood centroid).
+  let nominatimCoord = null;
   if (entry.address && /\d/.test(entry.address)) {
     const c = coordsData[entry.address.trim()];
-    if (c && typeof c.lat === 'number') return { lat: c.lat, lng: c.lng, source: 'nominatim' };
+    if (c && typeof c.lat === 'number') nominatimCoord = { lat: c.lat, lng: c.lng };
   }
+
+  // When both exist and they disagree by more than 1.5mi, trust the
+  // address-based Nominatim coord. We wrote the address; Places sometimes
+  // matches a chain's other location or a same-named storefront elsewhere.
+  if (placesCoord && nominatimCoord) {
+    const R = 3958.8, toR = d => d * Math.PI / 180;
+    const dLat = toR(nominatimCoord.lat - placesCoord.lat);
+    const dLng = toR(nominatimCoord.lng - placesCoord.lng);
+    const a = Math.sin(dLat/2)**2 +
+              Math.cos(toR(placesCoord.lat)) * Math.cos(toR(nominatimCoord.lat)) *
+              Math.sin(dLng/2)**2;
+    const dist = 2 * R * Math.asin(Math.sqrt(a));
+    if (dist > 1.5) {
+      return { ...nominatimCoord, source: 'nominatim-override' };
+    }
+  }
+
+  if (placesCoord) return { ...placesCoord, source: 'places' };
+  if (nominatimCoord) return { ...nominatimCoord, source: 'nominatim' };
   return null;
 }
 const shops        = require(path.join(SRC, 'data/shops.js'));

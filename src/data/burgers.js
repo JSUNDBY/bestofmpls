@@ -60,10 +60,10 @@ module.exports = {
     },
     {
       name: 'Brunson’s Pub',
-      neighborhood: 'Northeast Minneapolis',
+      neighborhood: 'Payne-Phalen, St. Paul',
       style: 'Neighborhood pub burger',
-      description: 'A Northeast pub doing one of the best straightforward bar burgers in the metro. Smashed-style on a soft bun, no overengineering, draft list that goes deep on local. The kind of room where you arrive at six and leave at ten.',
-      address: 'Northeast Minneapolis',
+      description: 'A Payne Avenue pub on the East Side of St. Paul doing one of the best straightforward bar burgers in the metro. Smashed-style on a soft bun, no overengineering, draft list that goes deep on local. The kind of room where you arrive at six and leave at ten.',
+      address: '956 Payne Ave, St. Paul',
       price: '$$'
     },
     {

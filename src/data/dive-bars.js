@@ -5,15 +5,7 @@ module.exports = {
   intro: 'A real neighborhood bar is not a brand. It is a room that someone has been keeping the lights on in for a long time. The good ones in this city happen to be a little dim, a little loud on the right night, and a lot more interesting than the cocktail menus would have you believe.',
   hero_color: 'forest',
   entries: [
-    {
-      name: 'Palmer’s Bar',
-      neighborhood: 'West Bank, Minneapolis',
-      style: 'A neighborhood unto itself',
-      description: 'Open since 1906. The patio is one of the most public-feeling spaces in the city. The stage hosts blues and country acts that would charge fifty bucks a head anywhere else. If you are only going to one neighborhood bar in your life, this is the one.',
-      address: '500 Cedar Ave S, Minneapolis',
-      price: '$'
-    },
-    {
+        {
       name: 'CC Club',
       neighborhood: 'Lyn-Lake, Minneapolis',
       style: 'Vinyl jukebox, Replacements memorabilia',
@@ -37,15 +29,7 @@ module.exports = {
       address: '492 Hamline Ave S, St. Paul',
       price: '$'
     },
-    {
-      name: 'Lee’s Liquor Lounge',
-      neighborhood: 'Loring Park, Minneapolis',
-      style: 'Country and rockabilly',
-      description: 'A small Western shrine sitting just off downtown. Live country and rockabilly most nights, line dancing on the right night, and a bar staff with no interest in your drink theory.',
-      address: '101 Glenwood Ave, Minneapolis',
-      price: '$'
-    },
-    {
+        {
       name: 'The Turf Club',
       neighborhood: 'Midway, St. Paul',
       style: 'Live music + the Clown Lounge',

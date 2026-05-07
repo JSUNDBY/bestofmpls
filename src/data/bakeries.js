@@ -23,22 +23,6 @@ module.exports = {
       price: '$$'
     },
     {
-      name: 'Sun Street Breads',
-      neighborhood: 'Lyn-Lake, Minneapolis',
-      style: 'Bakery and breakfast cafe',
-      description: 'A small Lyn-Lake bakery doing serious breads, breakfast biscuits, and one of the best chocolate chip cookies in the metro. The breakfast sandwiches on house-baked English muffins are the order most regulars never deviate from.',
-      address: 'Lyn-Lake, Minneapolis',
-      price: '$$'
-    },
-    {
-      name: 'Salty Tart',
-      neighborhood: 'Northeast Minneapolis',
-      style: 'Pastry, weddings, the meringue',
-      description: 'Michelle Gayer’s pastry program now living in Northeast after years at Midtown Global Market. The signature meringues with passion fruit are the thing. The wedding cakes have a national following. Come in hungry, leave with three things you did not order.',
-      address: 'Northeast Minneapolis',
-      price: '$$'
-    },
-    {
       name: 'Honey & Rye Bakehouse',
       neighborhood: 'St. Louis Park',
       style: 'Sourdough and pastries',
@@ -48,10 +32,10 @@ module.exports = {
     },
     {
       name: 'Black Walnut Bakery',
-      neighborhood: 'St. Paul',
+      neighborhood: 'Uptown, Minneapolis',
       style: 'European-style pastries',
-      description: 'A small St. Paul bakery with a careful European pastry program. The kouign-amann is in the conversation for the metro’s best, and the rotating cake menu is always a temptation. Walk-in and take a number.',
-      address: 'St. Paul',
+      description: 'A small Hennepin Avenue bakery in Uptown with a careful European pastry program. The kouign-amann is in the conversation for the metro’s best, and the rotating cake menu is always a temptation. Walk-in and take a number.',
+      address: '3157 Hennepin Ave S, Minneapolis',
       price: '$$'
     },
     {
@@ -70,15 +54,7 @@ module.exports = {
       address: 'Multiple Twin Cities locations',
       price: '$$'
     },
-    {
-      name: 'Cocoa & Fig',
-      neighborhood: 'Minnetonka',
-      style: 'Specialty cakes and macarons',
-      description: 'A specialty bakery west of the metro with a strong custom-cake program and one of the better macaron cases around. Worth the drive for a special occasion, or for a dozen macarons to bring home.',
-      address: 'Minnetonka',
-      price: '$$$'
-    },
-    {
+        {
       name: 'A Baker’s Wife’s Pastry Shop',
       neighborhood: 'Longfellow, Minneapolis',
       style: 'Old-school neighborhood bakery',

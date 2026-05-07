@@ -45,23 +45,7 @@ module.exports = {
       address: '520 Malcolm Ave SE, Minneapolis',
       price: '$$'
     },
-    {
-      name: 'Psycho Suzi’s Motor Lounge',
-      neighborhood: 'Northeast Minneapolis',
-      style: 'Tiki on the river',
-      description: 'A tiki bar perched on the Mississippi with frozen drinks the size of fishbowls and pizza built for sharing. The patio is unreasonably large, the river view does most of the work.',
-      address: '1900 Marshall St NE, Minneapolis',
-      price: '$$'
-    },
-    {
-      name: 'Tin Fish',
-      neighborhood: 'Bde Maka Ska, Minneapolis',
-      style: 'Lakeside fish shack',
-      description: 'Walk-up window, fish tacos, picnic tables on the north shore of Bde Maka Ska. Pure summer Minneapolis, the kind of place you bike to, eat at, and bike home from feeling accomplished. May through September.',
-      address: '3000 E Calhoun Pkwy, Minneapolis',
-      price: '$'
-    },
-    {
+        {
       name: 'Sandcastle',
       neighborhood: 'Lake Nokomis',
       style: 'Lakeside burgers and beer',

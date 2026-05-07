@@ -85,15 +85,7 @@ module.exports = {
       address: '904 W 36th St, Minneapolis',
       price: '$'
     },
-    {
-      name: 'The Soap Factory ruins',
-      neighborhood: 'St. Anthony Main, Minneapolis',
-      style: 'Industrial relic',
-      description: 'The former Soap Factory, a beloved nonprofit art space that closed in 2018, sits as a historic shell on the river. The neighborhood around it, St. Anthony Main, retains a quiet riverside walkability that most visitors miss entirely.',
-      address: '514 SE 2nd St, Minneapolis',
-      price: 'Free'
-    },
-    {
+        {
       name: 'Mickey’s Diner at 4am',
       neighborhood: 'Downtown St. Paul',
       style: '24-hour diner',

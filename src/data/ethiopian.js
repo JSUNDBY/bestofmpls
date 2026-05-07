@@ -6,15 +6,7 @@ module.exports = {
   hero_color: 'clay',
   needs_verification: true,
   entries: [
-    {
-      name: 'Fasika Ethiopian Restaurant',
-      neighborhood: 'Snelling Avenue, St. Paul',
-      style: 'James Beard America’s Classic',
-      description: 'A James Beard America’s Classic and one of the most-loved restaurants in St. Paul. Family-run, generous, and the kind of place where the doro wat alone has built a thirty-year following. Order a meat-and-vegetable combination platter, share with the table.',
-      address: 'Snelling Avenue, St. Paul',
-      price: '$$'
-    },
-    {
+        {
       name: 'Demera Ethiopian Restaurant',
       neighborhood: 'St. Paul',
       style: 'Family-run, broad menu',

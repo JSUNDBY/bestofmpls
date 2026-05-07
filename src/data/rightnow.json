@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-05T01:58:51.487Z",
+  "generated_at": "2026-05-05T04:32:06.058Z",
   "today": "2026-05-04",
   "sun": {
     "rise": "5:33 AM",
@@ -9,16 +9,16 @@
     "daylight_min": 862
   },
   "weather": {
-    "temp_now": 47,
+    "temp_now": 43,
     "temp_max": 62,
-    "feels_like": 38,
+    "feels_like": 36,
     "condition": "Clear",
     "is_patio": false,
     "is_brutal": false,
     "is_snowing": false,
     "is_rainy": false,
     "mood": "normal",
-    "summary": "47°F · Clear"
+    "summary": "43°F · Clear"
   },
   "countdowns": [
     {

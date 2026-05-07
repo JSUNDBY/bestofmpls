@@ -69,16 +69,7 @@ module.exports = {
       website: 'https://www.gusgusmn.com',
       price: '$$$'
     },
-    {
-      name: 'Petite León',
-      neighborhood: 'Kingfield, Minneapolis',
-      style: 'Modern Latin, Daniel del Prado',
-      description: 'Daniel del Prado’s Kingfield restaurant doing modern Latin with serious technique. The brunch program is widely regarded as one of the best in the city. The dinner menu reaches across the Americas with a coherent point of view.',
-      address: '3800 Nicollet Ave, Minneapolis',
-      website: 'https://petiteleon.com',
-      price: '$$$'
-    },
-    {
+        {
       name: 'Hyacinth',
       neighborhood: 'Cathedral Hill, St. Paul',
       style: 'Italian-leaning New American',
