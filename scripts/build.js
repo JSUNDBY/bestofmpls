@@ -324,6 +324,15 @@ function head({ title, description, slug, theme }) {
   });
 })();
 </script>
+
+<!-- Google Analytics 4 (GA4) — bestofmpls.com property G-V0FC8HTQ55 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-V0FC8HTQ55"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-V0FC8HTQ55');
+</script>
 </head>
 <body${theme ? ` data-theme="${theme}"` : ''}>`;
 }
