@@ -325,13 +325,13 @@ function head({ title, description, slug, theme }) {
 })();
 </script>
 
-<!-- Google Analytics 4 (GA4) — bestofmpls.com property G-V0FC8HTQ55 -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-V0FC8HTQ55"></script>
+<!-- Google Analytics 4 (GA4) — bestofmpls.com property G-K6JECLPV8W -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-K6JECLPV8W"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-  gtag('config', 'G-V0FC8HTQ55');
+  gtag('config', 'G-K6JECLPV8W');
 </script>
 </head>
 <body${theme ? ` data-theme="${theme}"` : ''}>`;
