@@ -17623,5 +17623,281 @@
       }
     ],
     "fetched_at": "2026-05-11T14:35:46.381Z"
+  },
+  "sports:Target Field": {
+    "place_id": "ChIJJYc87o0ys1IRVcUvE2JZ4uQ",
+    "matched_name": "Target Field",
+    "matched_address": "1 Twins Way, Minneapolis, MN 55403, USA",
+    "location": {
+      "latitude": 44.981742999999994,
+      "longitude": -93.27762919999999
+    },
+    "business_status": "OPERATIONAL",
+    "types": [
+      "stadium",
+      "event_venue",
+      "athletic_field",
+      "sports_complex",
+      "sports_activity_location",
+      "point_of_interest",
+      "establishment"
+    ],
+    "hours": [],
+    "fetched_at": "2026-05-11T14:42:11.141Z"
+  },
+  "sports:U.S. Bank Stadium": {
+    "place_id": "ChIJ88m282Ats1IR07-KSSWdNeU",
+    "matched_name": "U.S. Bank Stadium",
+    "matched_address": "401 Chicago Ave, Minneapolis, MN 55415, USA",
+    "location": {
+      "latitude": 44.973646099999996,
+      "longitude": -93.25749449999999
+    },
+    "business_status": "OPERATIONAL",
+    "types": [
+      "stadium",
+      "tourist_attraction",
+      "wedding_venue",
+      "live_music_venue",
+      "event_venue",
+      "athletic_field",
+      "sports_complex",
+      "sports_activity_location",
+      "service",
+      "point_of_interest",
+      "establishment"
+    ],
+    "hours": [],
+    "fetched_at": "2026-05-11T14:42:11.650Z"
+  },
+  "sports:Target Center": {
+    "place_id": "ChIJe1j2u5Eys1IR7I-ZF9E9Xdg",
+    "matched_name": "Target Center",
+    "matched_address": "600 N 1st Ave, Minneapolis, MN 55403, USA",
+    "location": {
+      "latitude": 44.9794633,
+      "longitude": -93.2760947
+    },
+    "business_status": "OPERATIONAL",
+    "types": [
+      "arena",
+      "concert_hall",
+      "auditorium",
+      "stadium",
+      "live_music_venue",
+      "sports_complex",
+      "service",
+      "event_venue",
+      "store",
+      "sports_activity_location",
+      "point_of_interest",
+      "establishment"
+    ],
+    "hours": [
+      {
+        "day": 1,
+        "open": "10:00",
+        "close": "18:00"
+      },
+      {
+        "day": 2,
+        "open": "10:00",
+        "close": "18:00"
+      },
+      {
+        "day": 3,
+        "open": "10:00",
+        "close": "18:00"
+      },
+      {
+        "day": 4,
+        "open": "10:00",
+        "close": "18:00"
+      },
+      {
+        "day": 5,
+        "open": "10:00",
+        "close": "18:00"
+      }
+    ],
+    "fetched_at": "2026-05-11T14:42:12.156Z"
+  },
+  "sports:Xcel Energy Center": {
+    "place_id": "ChIJKWoZQy0rs1IRtRUkSWY5e18",
+    "matched_name": "Grand Casino Arena",
+    "matched_address": "199 W Kellogg Blvd, St Paul, MN 55102, USA",
+    "location": {
+      "latitude": 44.9448133,
+      "longitude": -93.10111739999999
+    },
+    "business_status": "OPERATIONAL",
+    "types": [
+      "arena",
+      "sports_club",
+      "event_venue",
+      "association_or_organization",
+      "point_of_interest",
+      "establishment"
+    ],
+    "hours": [],
+    "fetched_at": "2026-05-11T14:42:12.743Z"
+  },
+  "sports:Allianz Field": {
+    "place_id": "ChIJS-HKPQkq9ocR5OCe6eSJgXY",
+    "matched_name": "Allianz Field",
+    "matched_address": "400 Snelling Ave N, St Paul, MN 55104, USA",
+    "location": {
+      "latitude": 44.953161300000005,
+      "longitude": -93.1647186
+    },
+    "business_status": "OPERATIONAL",
+    "types": [
+      "stadium",
+      "event_venue",
+      "sports_complex",
+      "sports_activity_location",
+      "point_of_interest",
+      "establishment"
+    ],
+    "hours": [],
+    "fetched_at": "2026-05-11T14:42:13.241Z"
+  },
+  "sports:CHS Field": {
+    "place_id": "ChIJ9b3qBFvV94cRxqQIT1TxuuE",
+    "matched_name": "CHS Field",
+    "matched_address": "360 N Broadway St, St Paul, MN 55101, USA",
+    "location": {
+      "latitude": 44.950469899999995,
+      "longitude": -93.0851569
+    },
+    "business_status": "OPERATIONAL",
+    "types": [
+      "stadium",
+      "athletic_field",
+      "event_venue",
+      "sports_complex",
+      "sports_activity_location",
+      "point_of_interest",
+      "establishment"
+    ],
+    "hours": [
+      {
+        "day": 0,
+        "open": "07:00",
+        "close": "21:00"
+      },
+      {
+        "day": 1,
+        "open": "07:00",
+        "close": "21:00"
+      },
+      {
+        "day": 2,
+        "open": "07:00",
+        "close": "21:00"
+      },
+      {
+        "day": 3,
+        "open": "07:00",
+        "close": "21:00"
+      },
+      {
+        "day": 4,
+        "open": "07:00",
+        "close": "21:00"
+      },
+      {
+        "day": 5,
+        "open": "07:00",
+        "close": "21:00"
+      },
+      {
+        "day": 6,
+        "open": "07:00",
+        "close": "21:00"
+      }
+    ],
+    "fetched_at": "2026-05-11T14:42:13.771Z"
+  },
+  "sports:Huntington Bank Stadium": {
+    "place_id": "ChIJbyL77h4ts1IRa79fA9QpoTM",
+    "matched_name": "Huntington Bank Stadium",
+    "matched_address": "420 23rd Ave SE, Minneapolis, MN 55455, USA",
+    "location": {
+      "latitude": 44.976524999999995,
+      "longitude": -93.22454619999999
+    },
+    "business_status": "OPERATIONAL",
+    "types": [
+      "stadium",
+      "event_venue",
+      "athletic_field",
+      "sports_complex",
+      "sports_activity_location",
+      "point_of_interest",
+      "establishment"
+    ],
+    "hours": [],
+    "fetched_at": "2026-05-11T14:42:14.275Z"
+  },
+  "sports:Williams Arena": {
+    "place_id": "ChIJP7rCnhkts1IR4BLUQGfDsng",
+    "matched_name": "Williams Arena",
+    "matched_address": "1925 University Ave SE, Minneapolis, MN 55455, USA",
+    "location": {
+      "latitude": 44.9770513,
+      "longitude": -93.2282913
+    },
+    "business_status": "OPERATIONAL",
+    "types": [
+      "arena",
+      "university",
+      "event_venue",
+      "educational_institution",
+      "point_of_interest",
+      "establishment"
+    ],
+    "hours": [],
+    "fetched_at": "2026-05-11T14:42:14.788Z"
+  },
+  "sports:3M Arena at Mariucci": {
+    "place_id": "ChIJlxYc1Bsts1IRWDKAmJXi3QQ",
+    "matched_name": "3M Arena at Mariucci",
+    "matched_address": "1901 4th St SE, Minneapolis, MN 55455, USA",
+    "location": {
+      "latitude": 44.978017,
+      "longitude": -93.2280612
+    },
+    "business_status": "OPERATIONAL",
+    "types": [
+      "arena",
+      "athletic_field",
+      "sports_activity_location",
+      "event_venue",
+      "point_of_interest",
+      "establishment"
+    ],
+    "hours": [],
+    "fetched_at": "2026-05-11T14:42:15.369Z"
+  },
+  "sports:TCO Stadium": {
+    "place_id": "ChIJYwwbsMIt9ocR1c6HP4Pp9ao",
+    "matched_name": "TCO Stadium",
+    "matched_address": "2685 Vikings Cir Ste 050, Eagan, MN 55121, USA",
+    "location": {
+      "latitude": 44.858451699999996,
+      "longitude": -93.11785069999999
+    },
+    "business_status": "OPERATIONAL",
+    "types": [
+      "stadium",
+      "event_venue",
+      "sports_complex",
+      "sports_activity_location",
+      "point_of_interest",
+      "establishment"
+    ],
+    "hours": [],
+    "fetched_at": "2026-05-11T14:42:15.874Z"
   }
 }

@@ -76,6 +76,7 @@ const ethiopian    = require(path.join(SRC, 'data/ethiopian.js'));
 const indian       = require(path.join(SRC, 'data/indian.js'));
 const thai         = require(path.join(SRC, 'data/thai.js'));
 const chinese      = require(path.join(SRC, 'data/chinese.js'));
+const sports       = require(path.join(SRC, 'data/sports.js'));
 const burgers      = require(path.join(SRC, 'data/burgers.js'));
 const cocktailBars = require(path.join(SRC, 'data/cocktail-bars.js'));
 const breweries    = require(path.join(SRC, 'data/breweries.js'));
@@ -171,7 +172,7 @@ const clusters = [
     eyebrow: 'See & Experience',
     title: 'Culture',
     deck: 'The institutions, stages, screens, and rooms that make this a city worth living in.',
-    categories: [museums, liveMusic, theaters, cinemas, lgbtq]
+    categories: [museums, liveMusic, theaters, cinemas, lgbtq, sports]
   },
   {
     eyebrow: 'Eat',
@@ -201,7 +202,7 @@ const clusters = [
 
 const categories = [
   // Culture
-  museums, liveMusic, theaters, cinemas, lgbtq,
+  museums, liveMusic, theaters, cinemas, lgbtq, sports,
   // Eat
   restaurants, foodHalls, coffee, bakeries, sandwiches, burgers, pizza, brunch,
   mexican, vietnamese, korean, japanese, hmong, ethiopian, indian, thai, chinese, iceCream, lateNight,
@@ -1203,6 +1204,7 @@ const POLL_NOUNS = {
   'theaters':               'theater',
   'arthouse-cinemas':       'arthouse cinema',
   'lgbtq-nightlife':        'LGBTQ+ bar',
+  'sports':                 'sports venue or team',
   'restaurants':            'restaurant',
   'food-halls':             'food hall',
   'coffee-shops':           'coffee shop',
