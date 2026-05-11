@@ -516,6 +516,26 @@ p { margin: 0 0 1em; }
   color: var(--ink-soft);
 }
 .entry-footer-price { color: var(--clay); font-weight: 600; }
+.entry-footer-access {
+  display: block;
+  flex-basis: 100%;
+  margin-top: 6px;
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: 13.5px;
+  line-height: 1.45;
+  color: var(--ink-soft);
+}
+.entry-footer-access strong {
+  font-style: normal;
+  font-family: var(--font-label);
+  font-weight: 700;
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin-right: 6px;
+}
 
 /* Clickable entry-footer items: address (opens Google Maps) and website */
 .entry-meta-link {

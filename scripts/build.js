@@ -77,6 +77,7 @@ const indian       = require(path.join(SRC, 'data/indian.js'));
 const thai         = require(path.join(SRC, 'data/thai.js'));
 const chinese      = require(path.join(SRC, 'data/chinese.js'));
 const sports       = require(path.join(SRC, 'data/sports.js'));
+const curiosities  = require(path.join(SRC, 'data/curiosities.js'));
 const burgers      = require(path.join(SRC, 'data/burgers.js'));
 const cocktailBars = require(path.join(SRC, 'data/cocktail-bars.js'));
 const breweries    = require(path.join(SRC, 'data/breweries.js'));
@@ -196,7 +197,7 @@ const clusters = [
     eyebrow: 'Stay & Do',
     title: 'For visitors',
     deck: 'Where to sleep, what to do with a day, and the places people who live here take guests when they arrive.',
-    categories: [hotels, outdoors, wellness, hiddenGems]
+    categories: [hotels, outdoors, wellness, hiddenGems, curiosities]
   }
 ];
 
@@ -211,7 +212,7 @@ const categories = [
   // Shop
   shops, mensClothing, womensClothing, dispensaries,
   // Stay & Do
-  hotels, outdoors, wellness, hiddenGems,
+  hotels, outdoors, wellness, hiddenGems, curiosities,
   // Calendar
   festivals
 ];
@@ -309,7 +310,7 @@ function head({ title, description, slug, theme }) {
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=Archivo:wght@500;600;700&display=swap">
-<link rel="stylesheet" href="/style.css?v=18">
+<link rel="stylesheet" href="/style.css?v=19">
 <script>
 // Set color mode before paint to avoid flash. Reads localStorage first,
 // falls back to light mode (the new editorial default). mode-ready class
@@ -950,6 +951,9 @@ function renderCategory(c) {
     if (e.price) footerBits.push(`<span class="entry-footer-price">${esc(e.price)}</span>`);
     if (e.hours) footerBits.push(`<span>${esc(e.hours)}</span>`);
     if (e.capacity) footerBits.push(`<span>Capacity ${esc(e.capacity)}</span>`);
+    // Curiosities and other reservation-required entries can declare an
+    // `access` field with how to actually get in (tour, ticket, etc).
+    if (e.access) footerBits.push(`<span class="entry-footer-access"><strong>How to visit:</strong> ${esc(e.access)}</span>`);
     const rankBlock = isFeatured ? `<div class="entry-rank">★</div>` : '';
     const pickBadge = isFeatured ? '<span class="entry-meta-pick">Editor’s pick</span>' : '';
     // Look up hours for this entry. If we have them, embed as a data attribute
@@ -1236,7 +1240,8 @@ const POLL_NOUNS = {
   'boutique-hotels':        'hotel',
   'outdoors':               'outdoor spot',
   'wellness-and-spas':      'wellness spot',
-  'hidden-gems':            'hidden gem'
+  'hidden-gems':            'hidden gem',
+  'curiosities':            'strange or secret place'
 };
 function pollNoun(c) {
   if (POLL_NOUNS[c.slug]) return POLL_NOUNS[c.slug];
@@ -1342,7 +1347,7 @@ function renderAdminPicks() {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>${esc(title)}</title>
-<link rel="stylesheet" href="/style.css?v=18">
+<link rel="stylesheet" href="/style.css?v=19">
 <style>
   body { background: var(--paper); }
   .admin-wrap { max-width: 960px; margin: 0 auto; padding: 32px var(--gutter) 96px; }

@@ -17899,5 +17899,700 @@
     ],
     "hours": [],
     "fetched_at": "2026-05-11T14:42:15.874Z"
+  },
+  "curiosities:Orfield Laboratories Anechoic Chamber": {
+    "place_id": "ChIJr29Vu-kts1IRDN9qGVt3Z9s",
+    "matched_name": "Orfield Laboratories Inc",
+    "matched_address": "2709 E 25th St, Minneapolis, MN 55406, USA",
+    "location": {
+      "latitude": 44.957040400000004,
+      "longitude": -93.2327035
+    },
+    "business_status": "OPERATIONAL",
+    "types": [
+      "service",
+      "point_of_interest",
+      "establishment"
+    ],
+    "hours": [
+      {
+        "day": 1,
+        "open": "08:00",
+        "close": "17:00"
+      },
+      {
+        "day": 2,
+        "open": "08:00",
+        "close": "17:00"
+      },
+      {
+        "day": 3,
+        "open": "08:00",
+        "close": "17:00"
+      },
+      {
+        "day": 4,
+        "open": "08:00",
+        "close": "17:00"
+      },
+      {
+        "day": 5,
+        "open": "08:00",
+        "close": "17:00"
+      }
+    ],
+    "fetched_at": "2026-05-11T14:59:06.333Z"
+  },
+  "curiosities:Wabasha Street Caves": {
+    "place_id": "ChIJNUNM7znV94cR0RH7voiGWnY",
+    "matched_name": "Wabasha Street Caves",
+    "matched_address": "215 Wabasha St S, St Paul, MN 55107, USA",
+    "location": {
+      "latitude": 44.9357781,
+      "longitude": -93.086942
+    },
+    "business_status": "OPERATIONAL",
+    "types": [
+      "tourist_attraction",
+      "event_venue",
+      "point_of_interest",
+      "establishment"
+    ],
+    "hours": [],
+    "fetched_at": "2026-05-11T14:59:06.929Z"
+  },
+  "curiosities:Cathedral of Saint Paul Lower Levels": {
+    "place_id": "ChIJSX3w7Loq9ocRhZr90Y4epH8",
+    "matched_name": "Cathedral of Saint Paul",
+    "matched_address": "239 Selby Ave, St Paul, MN 55102, USA",
+    "location": {
+      "latitude": 44.94695,
+      "longitude": -93.10914299999999
+    },
+    "business_status": "OPERATIONAL",
+    "types": [
+      "tourist_attraction",
+      "church",
+      "place_of_worship",
+      "association_or_organization",
+      "point_of_interest",
+      "establishment"
+    ],
+    "hours": [
+      {
+        "day": 0,
+        "open": "07:00",
+        "close": "19:00"
+      },
+      {
+        "day": 1,
+        "open": "07:00",
+        "close": "19:00"
+      },
+      {
+        "day": 2,
+        "open": "07:00",
+        "close": "19:00"
+      },
+      {
+        "day": 3,
+        "open": "07:00",
+        "close": "19:00"
+      },
+      {
+        "day": 4,
+        "open": "07:00",
+        "close": "19:00"
+      },
+      {
+        "day": 5,
+        "open": "07:00",
+        "close": "19:00"
+      },
+      {
+        "day": 6,
+        "open": "07:00",
+        "close": "19:00"
+      }
+    ],
+    "fetched_at": "2026-05-11T14:59:07.545Z"
+  },
+  "curiosities:James J. Hill House": {
+    "place_id": "ChIJ655ZEroq9ocRevygpl-juvY",
+    "matched_name": "James J. Hill House",
+    "matched_address": "240 Summit Ave, St Paul, MN 55102, USA",
+    "location": {
+      "latitude": 44.9450818,
+      "longitude": -93.10891989999999
+    },
+    "business_status": "OPERATIONAL",
+    "types": [
+      "history_museum",
+      "museum",
+      "point_of_interest",
+      "establishment"
+    ],
+    "hours": [
+      {
+        "day": 0,
+        "open": "10:00",
+        "close": "17:00"
+      },
+      {
+        "day": 4,
+        "open": "10:00",
+        "close": "17:00"
+      },
+      {
+        "day": 5,
+        "open": "10:00",
+        "close": "17:00"
+      },
+      {
+        "day": 6,
+        "open": "10:00",
+        "close": "17:00"
+      }
+    ],
+    "fetched_at": "2026-05-11T14:59:08.088Z"
+  },
+  "curiosities:Foshay Tower Observation Deck": {
+    "place_id": "ChIJXy9FdZcys1IRGizyhVICW_k",
+    "matched_name": "Foshay Museum and Observation Deck",
+    "matched_address": "821 S Marquette Ave 30th floor, Minneapolis, MN 55402, USA",
+    "location": {
+      "latitude": 44.9747902,
+      "longitude": -93.2719858
+    },
+    "business_status": "OPERATIONAL",
+    "types": [
+      "museum",
+      "tourist_attraction",
+      "point_of_interest",
+      "establishment"
+    ],
+    "hours": [
+      {
+        "day": 0,
+        "open": "09:00",
+        "close": "21:00"
+      },
+      {
+        "day": 1,
+        "open": "09:00",
+        "close": "21:00"
+      },
+      {
+        "day": 2,
+        "open": "09:00",
+        "close": "21:00"
+      },
+      {
+        "day": 3,
+        "open": "09:00",
+        "close": "21:00"
+      },
+      {
+        "day": 4,
+        "open": "09:00",
+        "close": "21:00"
+      },
+      {
+        "day": 5,
+        "open": "09:00",
+        "close": "21:00"
+      },
+      {
+        "day": 6,
+        "open": "09:00",
+        "close": "21:00"
+      }
+    ],
+    "fetched_at": "2026-05-11T14:59:08.773Z"
+  },
+  "curiosities:Bohemian Flats": {
+    "place_id": "ChIJD-AqhNUss1IRnnzqLJY_lYc",
+    "matched_name": "2200 W River Pkwy",
+    "matched_address": "2200 W River Pkwy, Minneapolis, MN 55454, USA",
+    "location": {
+      "latitude": 44.9741353,
+      "longitude": -93.2414356
+    },
+    "business_status": null,
+    "types": [
+      "street_address"
+    ],
+    "hours": [],
+    "fetched_at": "2026-05-11T14:59:09.268Z"
+  },
+  "curiosities:Mill Ruins Park": {
+    "place_id": "ChIJxVSAem8ts1IR_-4YTVVSdSw",
+    "matched_name": "Mill Ruins Park",
+    "matched_address": "102 Portland Ave S, Minneapolis, MN 55401, USA",
+    "location": {
+      "latitude": 44.979804099999996,
+      "longitude": -93.2563898
+    },
+    "business_status": "OPERATIONAL",
+    "types": [
+      "park",
+      "tourist_attraction",
+      "sports_activity_location",
+      "point_of_interest",
+      "establishment"
+    ],
+    "hours": [
+      {
+        "day": 0,
+        "open": "06:00",
+        "close": "22:00"
+      },
+      {
+        "day": 1,
+        "open": "06:00",
+        "close": "22:00"
+      },
+      {
+        "day": 2,
+        "open": "06:00",
+        "close": "22:00"
+      },
+      {
+        "day": 3,
+        "open": "06:00",
+        "close": "22:00"
+      },
+      {
+        "day": 4,
+        "open": "06:00",
+        "close": "22:00"
+      },
+      {
+        "day": 5,
+        "open": "06:00",
+        "close": "22:00"
+      },
+      {
+        "day": 6,
+        "open": "06:00",
+        "close": "22:00"
+      }
+    ],
+    "fetched_at": "2026-05-11T14:59:09.793Z"
+  },
+  "curiosities:Martin Olav Sabo Bridge": {
+    "place_id": "ChIJKc5CNksts1IRsDcmcJnTSog",
+    "matched_name": "Martin Olav Sabo Bridge",
+    "matched_address": "Martin Olav Sabo Bridge, Minneapolis, MN 55407, USA",
+    "location": {
+      "latitude": 44.9544352,
+      "longitude": -93.2420886
+    },
+    "business_status": "OPERATIONAL",
+    "types": [
+      "bridge",
+      "transportation_service",
+      "point_of_interest",
+      "establishment"
+    ],
+    "hours": [
+      {
+        "day": 0,
+        "open": "00:00",
+        "close": null
+      }
+    ],
+    "fetched_at": "2026-05-11T14:59:10.336Z"
+  },
+  "curiosities:Como Conservatory Bonsai Collection": {
+    "place_id": "ChIJY7-MmhArs1IR8sLhbyqZYPY",
+    "matched_name": "Marjorie McNeely Conservatory",
+    "matched_address": "1225 Estabrook Dr, St Paul, MN 55103, USA",
+    "location": {
+      "latitude": 44.981707899999996,
+      "longitude": -93.1512774
+    },
+    "business_status": "OPERATIONAL",
+    "types": [
+      "botanical_garden",
+      "point_of_interest",
+      "establishment"
+    ],
+    "hours": [
+      {
+        "day": 0,
+        "open": "10:00",
+        "close": "16:00"
+      },
+      {
+        "day": 1,
+        "open": "10:00",
+        "close": "16:00"
+      },
+      {
+        "day": 2,
+        "open": "10:00",
+        "close": "16:00"
+      },
+      {
+        "day": 3,
+        "open": "10:00",
+        "close": "16:00"
+      },
+      {
+        "day": 4,
+        "open": "10:00",
+        "close": "16:00"
+      },
+      {
+        "day": 5,
+        "open": "10:00",
+        "close": "16:00"
+      },
+      {
+        "day": 6,
+        "open": "10:00",
+        "close": "16:00"
+      }
+    ],
+    "fetched_at": "2026-05-11T14:59:11.026Z"
+  },
+  "curiosities:Mary Tyler Moore Statue": {
+    "place_id": "ChIJnSUWRwAzs1IRIzZe3YlrqPY",
+    "matched_name": "Mary Tyler Moore (Mary Richards) Statue",
+    "matched_address": "Minneapolis, MN 55402, USA",
+    "location": {
+      "latitude": 44.9768214,
+      "longitude": -93.2724403
+    },
+    "business_status": "OPERATIONAL",
+    "types": [
+      "cultural_landmark",
+      "point_of_interest",
+      "establishment"
+    ],
+    "hours": [
+      {
+        "day": 0,
+        "open": "00:00",
+        "close": null
+      }
+    ],
+    "fetched_at": "2026-05-11T14:59:11.641Z"
+  },
+  "curiosities:Pioneers and Soldiers Memorial Cemetery": {
+    "place_id": "ChIJCwQdchwo9ocRU1PZkyOnVAM",
+    "matched_name": "Pioneers & Soldiers Memorial Cemetery",
+    "matched_address": "2945 Cedar Ave, Minneapolis, MN 55407, USA",
+    "location": {
+      "latitude": 44.9494751,
+      "longitude": -93.2452046
+    },
+    "business_status": "OPERATIONAL",
+    "types": [
+      "cemetery",
+      "service",
+      "point_of_interest",
+      "establishment"
+    ],
+    "hours": [
+      {
+        "day": 0,
+        "open": "08:00",
+        "close": "16:00"
+      },
+      {
+        "day": 3,
+        "open": "08:00",
+        "close": "16:00"
+      },
+      {
+        "day": 4,
+        "open": "08:00",
+        "close": "16:00"
+      },
+      {
+        "day": 5,
+        "open": "08:00",
+        "close": "16:00"
+      },
+      {
+        "day": 6,
+        "open": "08:00",
+        "close": "16:00"
+      }
+    ],
+    "fetched_at": "2026-05-11T14:59:12.137Z"
+  },
+  "curiosities:Lakewood Cemetery Memorial Chapel": {
+    "place_id": "ChIJ67hjKgsn9ocRU8F3tjleJzs",
+    "matched_name": "Lakewood Cemetery",
+    "matched_address": "3600 Hennepin Ave, Minneapolis, MN 55408, USA",
+    "location": {
+      "latitude": 44.937699599999995,
+      "longitude": -93.2984015
+    },
+    "business_status": "OPERATIONAL",
+    "types": [
+      "cemetery",
+      "tourist_attraction",
+      "service",
+      "point_of_interest",
+      "establishment"
+    ],
+    "hours": [
+      {
+        "day": 0,
+        "open": "08:00",
+        "close": "20:00"
+      },
+      {
+        "day": 1,
+        "open": "08:00",
+        "close": "20:00"
+      },
+      {
+        "day": 2,
+        "open": "08:00",
+        "close": "20:00"
+      },
+      {
+        "day": 3,
+        "open": "08:00",
+        "close": "20:00"
+      },
+      {
+        "day": 4,
+        "open": "08:00",
+        "close": "20:00"
+      },
+      {
+        "day": 5,
+        "open": "08:00",
+        "close": "20:00"
+      },
+      {
+        "day": 6,
+        "open": "08:00",
+        "close": "20:00"
+      }
+    ],
+    "fetched_at": "2026-05-11T14:59:12.689Z"
+  },
+  "curiosities:Mill City Museum Flour Tower": {
+    "place_id": "ChIJ9eTEmWMts1IRMm_h172NYZk",
+    "matched_name": "Mill City Museum",
+    "matched_address": "704 S 2nd St, Minneapolis, MN 55401, USA",
+    "location": {
+      "latitude": 44.9787748,
+      "longitude": -93.25726
+    },
+    "business_status": "OPERATIONAL",
+    "types": [
+      "history_museum",
+      "museum",
+      "point_of_interest",
+      "establishment"
+    ],
+    "hours": [
+      {
+        "day": 0,
+        "open": "10:00",
+        "close": "17:00"
+      },
+      {
+        "day": 4,
+        "open": "10:00",
+        "close": "16:00"
+      },
+      {
+        "day": 5,
+        "open": "10:00",
+        "close": "16:00"
+      },
+      {
+        "day": 6,
+        "open": "10:00",
+        "close": "17:00"
+      }
+    ],
+    "fetched_at": "2026-05-11T14:59:13.192Z"
+  },
+  "curiosities:Questionable Medical Devices (Science Museum of MN)": {
+    "place_id": "ChIJASkitrQq9ocRHP15PiT4PPY",
+    "matched_name": "Science Museum of Minnesota",
+    "matched_address": "120 W Kellogg Blvd, St Paul, MN 55102, USA",
+    "location": {
+      "latitude": 44.942487,
+      "longitude": -93.098798
+    },
+    "business_status": "OPERATIONAL",
+    "types": [
+      "tourist_attraction",
+      "non_profit_organization",
+      "museum",
+      "association_or_organization",
+      "educational_institution",
+      "point_of_interest",
+      "establishment"
+    ],
+    "hours": [
+      {
+        "day": 0,
+        "open": "10:00",
+        "close": "17:00"
+      },
+      {
+        "day": 1,
+        "open": "10:00",
+        "close": "17:00"
+      },
+      {
+        "day": 2,
+        "open": "10:00",
+        "close": "17:00"
+      },
+      {
+        "day": 3,
+        "open": "10:00",
+        "close": "17:00"
+      },
+      {
+        "day": 4,
+        "open": "10:00",
+        "close": "17:00"
+      },
+      {
+        "day": 5,
+        "open": "10:00",
+        "close": "20:00"
+      },
+      {
+        "day": 6,
+        "open": "10:00",
+        "close": "20:00"
+      }
+    ],
+    "fetched_at": "2026-05-11T14:59:13.794Z"
+  },
+  "curiosities:Capitol Rathskeller": {
+    "place_id": "ChIJ2Qha5qsq9ocRk0Jv3NQ8Msc",
+    "matched_name": "Minnesota State Capitol",
+    "matched_address": "75 Rev Dr Martin Luther King Jr Boulevard., St Paul, MN 55155, USA",
+    "location": {
+      "latitude": 44.9552301,
+      "longitude": -93.1022211
+    },
+    "business_status": "OPERATIONAL",
+    "types": [
+      "history_museum",
+      "museum",
+      "point_of_interest",
+      "establishment"
+    ],
+    "hours": [
+      {
+        "day": 1,
+        "open": "08:00",
+        "close": "16:30"
+      },
+      {
+        "day": 2,
+        "open": "08:00",
+        "close": "16:30"
+      },
+      {
+        "day": 3,
+        "open": "08:00",
+        "close": "16:30"
+      },
+      {
+        "day": 4,
+        "open": "08:00",
+        "close": "16:30"
+      },
+      {
+        "day": 5,
+        "open": "08:00",
+        "close": "16:30"
+      },
+      {
+        "day": 6,
+        "open": "10:00",
+        "close": "15:00"
+      }
+    ],
+    "fetched_at": "2026-05-11T14:59:14.409Z"
+  },
+  "curiosities:Forever Saint Paul (the Lite-Brite mural)": {
+    "place_id": "ChIJiUWEGrcss1IRuDIIGjunRpU",
+    "matched_name": "Forecast Public Art",
+    "matched_address": "2380 Wycliff St #200, St Paul, MN 55114, USA",
+    "location": {
+      "latitude": 44.969954699999995,
+      "longitude": -93.19649509999999
+    },
+    "business_status": "OPERATIONAL",
+    "types": [
+      "non_profit_organization",
+      "association_or_organization",
+      "point_of_interest",
+      "establishment"
+    ],
+    "hours": [
+      {
+        "day": 1,
+        "open": "09:00",
+        "close": "17:00"
+      },
+      {
+        "day": 2,
+        "open": "09:00",
+        "close": "17:00"
+      },
+      {
+        "day": 3,
+        "open": "09:00",
+        "close": "17:00"
+      },
+      {
+        "day": 4,
+        "open": "09:00",
+        "close": "17:00"
+      },
+      {
+        "day": 5,
+        "open": "09:00",
+        "close": "17:00"
+      }
+    ],
+    "fetched_at": "2026-05-11T14:59:15.024Z"
+  },
+  "curiosities:Wicahapi (Indian Mounds Regional Park)": {
+    "place_id": "ChIJSYdWS5zV94cR46mTnTL1bnw",
+    "matched_name": "Wicaḣapi Regional Park",
+    "matched_address": "10 Mounds Blvd, St Paul, MN 55106, USA",
+    "location": {
+      "latitude": 44.9467837,
+      "longitude": -93.0568405
+    },
+    "business_status": "OPERATIONAL",
+    "types": [
+      "cemetery",
+      "tourist_attraction",
+      "city_park",
+      "park",
+      "point_of_interest",
+      "service",
+      "establishment"
+    ],
+    "hours": [
+      {
+        "day": 0,
+        "open": "00:00",
+        "close": null
+      }
+    ],
+    "fetched_at": "2026-05-11T14:59:15.574Z"
   }
 }
