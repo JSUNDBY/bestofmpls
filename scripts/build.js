@@ -222,6 +222,18 @@ const esc = (s) => String(s == null ? '' : s)
   .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
   .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 
+// Convert an entry name into a URL-safe slug. Handles accents (Khâluna),
+// apostrophes (Cossetta's), ampersands (Hen & Hatchet), etc.
+function entrySlug(name) {
+  return String(name || '')
+    .normalize('NFKD').replace(/[̀-ͯ]/g, '')   // strip accents
+    .toLowerCase()
+    .replace(/&/g, ' and ')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+    .slice(0, 80);
+}
+
 // ---------- Neighborhood normalization ----------
 // Free-text neighborhood strings on entries get normalized to a canonical slug.
 // Each canonical neighborhood becomes a /neighborhoods/{slug}/ aggregator page
@@ -310,7 +322,7 @@ function head({ title, description, slug, theme }) {
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=Archivo:wght@500;600;700&display=swap">
-<link rel="stylesheet" href="/style.css?v=19">
+<link rel="stylesheet" href="/style.css?v=20">
 <script>
 // Set color mode before paint to avoid flash. Reads localStorage first,
 // falls back to light mode (the new editorial default). mode-ready class
@@ -972,13 +984,16 @@ function renderCategory(c) {
     const hoursAttr = hoursLookup && hoursLookup.hours && hoursLookup.hours.length > 0
       ? ` data-hours='${JSON.stringify(hoursLookup.hours).replace(/'/g, '&#39;')}'`
       : '';
-    return `<article class="entry${featured}" id="${esc(e.name.toLowerCase().replace(/[^a-z0-9]+/g, '-'))}"${hoursAttr}>
+    const detailSlug = entrySlug(e.name);
+    const detailUrl = `/${c.slug}/${detailSlug}/`;
+    return `<article class="entry${featured}" id="${esc(detailSlug)}"${hoursAttr}>
       ${rankBlock}
       <div class="entry-body">
         <div class="entry-meta">${meta.join('')}${pickBadge}<span class="entry-status" data-entry-status></span></div>
-        <h2 class="entry-name">${esc(e.name)}</h2>
+        <h2 class="entry-name"><a href="${detailUrl}">${esc(e.name)}</a></h2>
         <p class="entry-description">${esc(e.description)}</p>
         <div class="entry-footer">${footerBits.join('')}</div>
+        <a class="entry-readmore" href="${detailUrl}">Read full entry →</a>
       </div>
     </article>`;
   }).join('');
@@ -1258,6 +1273,182 @@ function pollNoun(c) {
   return String(c.title || 'spot').toLowerCase().replace(/^best\s+/, '').replace(/s\b/, '');
 }
 
+// ---------- Per-entry detail pages ----------
+// Each directory entry gets its own page at /{category-slug}/{entry-slug}/.
+// This expands the indexable surface area from ~70 category pages to ~350
+// detail pages, each one targeting a specific long-tail search ("owamni
+// minneapolis", "spoon and stable hours", etc.). Full schema.org markup,
+// breadcrumb, related entries, single-pin map.
+function renderEntry(c, e, allCategories) {
+  const slug = entrySlug(e.name);
+  const url  = `${SITE}/${c.slug}/${slug}/`;
+  const hoursLookup = hoursData[`${c.slug}:${e.name}`];
+  const coords = lookupCoords(c.slug, e);
+
+  // Schema type per category
+  const SCHEMA_TYPE = {
+    'restaurants': 'Restaurant', 'best-pizza': 'Restaurant', 'best-brunch': 'Restaurant',
+    'best-happy-hours': 'BarOrPub', 'sandwiches': 'Restaurant', 'burgers': 'Restaurant',
+    'mexican-and-tacos': 'Restaurant', 'vietnamese': 'Restaurant', 'korean': 'Restaurant',
+    'japanese': 'Restaurant', 'hmong-food': 'Restaurant', 'ethiopian': 'Restaurant',
+    'indian-restaurants': 'Restaurant', 'thai': 'Restaurant', 'chinese': 'Restaurant',
+    'late-night': 'Restaurant', 'food-halls': 'Restaurant',
+    'best-dive-bars': 'BarOrPub', 'cocktail-bars': 'BarOrPub', 'best-patios': 'BarOrPub',
+    'breweries': 'Brewery',
+    'coffee-shops': 'CafeOrCoffeeShop', 'pastries-and-bakeries': 'Bakery',
+    'ice-cream': 'IceCreamShop', 'live-music': 'MusicVenue', 'theaters': 'PerformingArtsTheater',
+    'arthouse-cinemas': 'MovieTheater', 'museums-and-galleries': 'Museum',
+    'cannabis-dispensaries': 'Store', 'boutique-hotels': 'Hotel',
+    'wellness-and-spas': 'HealthAndBeautyBusiness',
+    'mens-clothing': 'ClothingStore', 'womens-clothing': 'ClothingStore',
+    'independent-shops': 'Store',
+    'lgbtq-nightlife': 'NightClub',
+    'sports': 'StadiumOrArena',
+    'outdoors': 'TouristAttraction', 'hidden-gems': 'TouristAttraction',
+    'curiosities': 'TouristAttraction'
+  };
+  const schemaType = SCHEMA_TYPE[c.slug] || 'LocalBusiness';
+
+  // Build the schema object
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': schemaType,
+    name: e.name,
+    description: e.description,
+    url
+  };
+  if (e.website) schema.sameAs = e.website;
+  if (e.address) {
+    const isStreet = /\d/.test(e.address);
+    schema.address = isStreet
+      ? { '@type': 'PostalAddress', streetAddress: e.address.split(',')[0], addressLocality: /St\.?\s*Paul/i.test(e.address) ? 'Saint Paul' : 'Minneapolis', addressRegion: 'MN', addressCountry: 'US' }
+      : { '@type': 'PostalAddress', addressLocality: e.address, addressRegion: 'MN', addressCountry: 'US' };
+  }
+  if (coords) schema.geo = { '@type': 'GeoCoordinates', latitude: coords.lat, longitude: coords.lng };
+  if (e.price) schema.priceRange = e.price;
+  if (hoursLookup && hoursLookup.hours && hoursLookup.hours.length) {
+    const DAY_NAMES = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    schema.openingHoursSpecification = hoursLookup.hours.map(p => ({
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: DAY_NAMES[p.day],
+      opens: p.open,
+      closes: p.close || '23:59'
+    }));
+  }
+
+  // Breadcrumb schema for the trail
+  const breadcrumb = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'bestofmpls', item: SITE },
+      { '@type': 'ListItem', position: 2, name: c.title, item: `${SITE}/${c.slug}/` },
+      { '@type': 'ListItem', position: 3, name: e.name, item: url }
+    ]
+  };
+
+  // Related entries: same category, same neighborhood (or first 4 from category)
+  const neighborhoodNormSelf = normalizeNeighborhood(e.neighborhood);
+  const sameCat = c.entries.filter(other => other.name !== e.name);
+  const sameNeighborhood = neighborhoodNormSelf
+    ? sameCat.filter(o => normalizeNeighborhood(o.neighborhood) === neighborhoodNormSelf)
+    : [];
+  const related = (sameNeighborhood.length >= 2 ? sameNeighborhood : sameCat).slice(0, 4);
+
+  // Open Now: re-use the existing client-side logic by emitting a data attr.
+  const hoursAttr = (hoursLookup && hoursLookup.hours && hoursLookup.hours.length > 0)
+    ? ` data-hours='${JSON.stringify(hoursLookup.hours).replace(/'/g, '&#39;')}'`
+    : '';
+
+  // Address presentation: link to Google Maps when it has a street number.
+  const addressBlock = (() => {
+    if (!e.address) return '';
+    const isStreet = /\d/.test(e.address);
+    if (isStreet) {
+      const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(e.address)}`;
+      return `<a class="entry-detail-address" href="${esc(mapsUrl)}" target="_blank" rel="noopener">${esc(e.address)} <span class="entry-meta-link-icon">↗</span></a>`;
+    }
+    return `<span class="entry-detail-address">${esc(e.address)}</span>`;
+  })();
+
+  // Website link
+  const websiteBlock = e.website
+    ? `<a class="entry-detail-website" href="${esc(e.website)}" target="_blank" rel="noopener">${esc(e.website.replace(/^https?:\/\//, '').replace(/\/$/, ''))} <span class="entry-meta-link-icon">↗</span></a>`
+    : '';
+
+  // Mini-map (Leaflet) if we have coords
+  const miniMap = coords ? `
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <div id="entry-mini-map" class="entry-detail-map"></div>
+    <script>
+      (function(){
+        var map = L.map('entry-mini-map', { scrollWheelZoom: false, zoomControl: false, dragging: false }).setView([${coords.lat}, ${coords.lng}], 15);
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+          attribution: '© OpenStreetMap contributors © CARTO', subdomains: 'abcd', maxZoom: 19
+        }).addTo(map);
+        L.marker([${coords.lat}, ${coords.lng}], {
+          icon: L.divIcon({ className: 'bom-marker', html: '<span style="background:#E11900"></span>', iconSize: [16, 16], iconAnchor: [8, 8] })
+        }).addTo(map);
+      })();
+    </script>` : '';
+
+  const description = `${e.name} — ${e.style || c.title.toLowerCase()} in ${e.neighborhood || 'the Twin Cities'}. ${e.description ? e.description.slice(0, 110) : ''}`.trim();
+
+  return head({ title: `${e.name} · ${c.title}`, description, slug: `${c.slug}/${slug}`, theme: c.hero_color }) +
+    header({ activeSlug: c.slug }) +
+    `<nav class="breadcrumb wrap">
+       <a href="/">bestofmpls</a>
+       <span aria-hidden="true">›</span>
+       <a href="/${c.slug}/">${esc(c.title)}</a>
+       <span aria-hidden="true">›</span>
+       <span aria-current="page">${esc(e.name)}</span>
+     </nav>
+
+     <article class="entry-detail wrap"${hoursAttr} id="${esc(slug)}">
+       <header class="entry-detail-head">
+         <div class="entry-detail-eyebrow">
+           ${e.neighborhood ? `<span>${esc(e.neighborhood)}</span>` : ''}
+           ${e.style ? `<span class="entry-detail-style">${esc(e.style)}</span>` : ''}
+           <span class="entry-status" data-entry-status></span>
+         </div>
+         <h1 class="entry-detail-name">${esc(e.name)}</h1>
+       </header>
+
+       <section class="entry-detail-body">
+         <p class="entry-detail-description">${esc(e.description)}</p>
+       </section>
+
+       <section class="entry-detail-meta">
+         ${addressBlock}
+         ${websiteBlock}
+         ${e.price ? `<span class="entry-detail-price">${esc(e.price)}</span>` : ''}
+         ${e.access ? `<div class="entry-detail-access"><strong>How to visit:</strong> ${esc(e.access)}</div>` : ''}
+       </section>
+
+       ${miniMap}
+
+       ${related.length ? `
+       <section class="entry-detail-related">
+         <h2 class="entry-detail-related-title">${sameNeighborhood.length >= 2 ? `More in ${esc(e.neighborhood)}` : `More ${esc(c.title.toLowerCase())}`}</h2>
+         <ul class="entry-detail-related-list">
+           ${related.map(r => `
+             <li>
+               <a href="/${c.slug}/${entrySlug(r.name)}/">
+                 <span class="entry-detail-related-name">${esc(r.name)}</span>
+                 ${r.neighborhood ? `<span class="entry-detail-related-neigh">${esc(r.neighborhood)}</span>` : ''}
+               </a>
+             </li>`).join('')}
+         </ul>
+         <a href="/${c.slug}/" class="entry-detail-back">See the full ${esc(c.title.toLowerCase())} list →</a>
+       </section>` : ''}
+     </article>
+
+     <script type="application/ld+json">${JSON.stringify(schema)}</script>
+     <script type="application/ld+json">${JSON.stringify(breadcrumb)}</script>` +
+    footer();
+}
+
 function renderSeasonalCategory(c) {
   // Festivals page: group entries by season. Order seasons starting from
   // the current one so the next thing happening is always at the top.
@@ -1356,7 +1547,7 @@ function renderAdminPicks() {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>${esc(title)}</title>
-<link rel="stylesheet" href="/style.css?v=19">
+<link rel="stylesheet" href="/style.css?v=20">
 <style>
   body { background: var(--paper); }
   .admin-wrap { max-width: 960px; margin: 0 auto; padding: 32px var(--gutter) 96px; }
@@ -3348,7 +3539,15 @@ function renderSitemap(neighborhoods) {
     { loc: SITE + '/about/', priority: '0.6' },
     { loc: SITE + '/contribute/', priority: '0.5' },
     ...categories.map(c => ({ loc: `${SITE}/${c.slug}/`, priority: '0.9' })),
-    ...(neighborhoods || []).map(nb => ({ loc: `${SITE}/neighborhoods/${nb.slug}/`, priority: '0.8' }))
+    ...(neighborhoods || []).map(nb => ({ loc: `${SITE}/neighborhoods/${nb.slug}/`, priority: '0.8' })),
+    // Per-entry detail pages. The biggest SEO surface on the site.
+    ...categories.flatMap(c => {
+      if (c.layout === 'seasonal') return [];
+      return c.entries.map(e => ({
+        loc: `${SITE}/${c.slug}/${entrySlug(e.name)}/`,
+        priority: '0.7'
+      }));
+    })
   ];
   return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -3395,6 +3594,22 @@ function build() {
 
   writeFile('index.html', renderHome());
   for (const c of categories) writeFile(`${c.slug}/index.html`, renderCategory(c));
+
+  // Per-entry detail pages. ~350 of them, each at /{c.slug}/{entry-slug}/.
+  // Build the indexable surface area Google can crawl for long-tail searches
+  // (e.g., "owamni minneapolis hours", "spoon and stable bar walk-in").
+  let entryPagesWritten = 0;
+  for (const c of categories) {
+    if (c.layout === 'seasonal') continue; // festivals etc. stay on one page
+    for (const e of c.entries) {
+      const slug = entrySlug(e.name);
+      if (!slug) continue;
+      writeFile(`${c.slug}/${slug}/index.html`, renderEntry(c, e, categories));
+      entryPagesWritten++;
+    }
+  }
+  console.log(`  → ${entryPagesWritten} entry detail pages`);
+
   // Neighborhood pages
   const neighborhoods = buildNeighborhoodIndex();
   writeFile('neighborhoods/index.html', renderNeighborhoodIndex(neighborhoods));
