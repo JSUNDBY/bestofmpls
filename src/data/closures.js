@@ -18,6 +18,22 @@ module.exports = {
 
   entries: [
     {
+      name: 'Kowloon Restaurant',
+      kind: 'Cantonese Restaurant',
+      neighborhood: 'Stadium Village, Minneapolis',
+      opened: '1980s',
+      closed: '2025',
+      epitaph: 'A Cantonese mainstay on Washington Avenue near the U of M, gone after a long run. Yelp marked it closed in 2026.'
+    },
+    {
+      name: "David Fong's",
+      kind: 'Chinese-American Restaurant',
+      neighborhood: 'Bloomington',
+      opened: '1958',
+      closed: 'August 2022',
+      epitaph: 'Sixty-four years on Lyndale Avenue South. The family menu carries forward at D. Fong\'s in Savage, where David Jr. has cooked since 1996.'
+    },
+    {
       name: "Palmer's Bar",
       kind: 'Dive Bar + Music Venue',
       neighborhood: 'Cedar-Riverside, Minneapolis',

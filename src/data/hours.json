@@ -17047,5 +17047,581 @@
       }
     ],
     "fetched_at": "2026-05-07T17:01:24.759Z"
+  },
+  "chinese:Rainbow Chinese": {
+    "place_id": "ChIJ5Qk5Q7Uys1IRjeqXCm3QTdo",
+    "matched_name": "Rainbow Chinese Restaurant & Bar",
+    "matched_address": "2739 Nicollet Ave, Minneapolis, MN 55408, USA",
+    "location": {
+      "latitude": 44.952527499999995,
+      "longitude": -93.2775111
+    },
+    "business_status": "OPERATIONAL",
+    "types": [
+      "chinese_restaurant",
+      "asian_restaurant",
+      "bar",
+      "restaurant",
+      "food",
+      "point_of_interest",
+      "establishment"
+    ],
+    "hours": [
+      {
+        "day": 0,
+        "open": "16:00",
+        "close": "21:00"
+      },
+      {
+        "day": 3,
+        "open": "16:00",
+        "close": "21:00"
+      },
+      {
+        "day": 4,
+        "open": "16:00",
+        "close": "21:00"
+      },
+      {
+        "day": 5,
+        "open": "16:00",
+        "close": "21:00"
+      },
+      {
+        "day": 6,
+        "open": "16:00",
+        "close": "21:00"
+      }
+    ],
+    "fetched_at": "2026-05-11T14:35:41.476Z"
+  },
+  "chinese:JUN Szechuan Kitchen & Bar": {
+    "place_id": "ChIJ6WZ_Jooys1IRfU0NvP21Fb8",
+    "matched_name": "JUN Szechuan Kitchen & Bar",
+    "matched_address": "730 N Washington Ave, Minneapolis, MN 55401, USA",
+    "location": {
+      "latitude": 44.9885058,
+      "longitude": -93.2777581
+    },
+    "business_status": "OPERATIONAL",
+    "types": [
+      "asian_restaurant",
+      "chinese_restaurant",
+      "restaurant",
+      "food",
+      "point_of_interest",
+      "establishment"
+    ],
+    "hours": [
+      {
+        "day": 0,
+        "open": "11:30",
+        "close": "21:30"
+      },
+      {
+        "day": 1,
+        "open": "11:00",
+        "close": "14:00"
+      },
+      {
+        "day": 1,
+        "open": "16:30",
+        "close": "21:30"
+      },
+      {
+        "day": 3,
+        "open": "11:00",
+        "close": "14:00"
+      },
+      {
+        "day": 3,
+        "open": "16:30",
+        "close": "21:30"
+      },
+      {
+        "day": 4,
+        "open": "11:00",
+        "close": "14:00"
+      },
+      {
+        "day": 4,
+        "open": "16:30",
+        "close": "21:30"
+      },
+      {
+        "day": 5,
+        "open": "11:00",
+        "close": "14:00"
+      },
+      {
+        "day": 5,
+        "open": "16:00",
+        "close": "22:30"
+      },
+      {
+        "day": 6,
+        "open": "11:30",
+        "close": "22:30"
+      }
+    ],
+    "fetched_at": "2026-05-11T14:35:42.020Z"
+  },
+  "chinese:Master Noodle": {
+    "place_id": "ChIJaePvA6Er9ocRGyaJLfZ4UmM",
+    "matched_name": "Master Noodle (Saint Paul)",
+    "matched_address": "1337 University Ave W, St Paul, MN 55104, USA",
+    "location": {
+      "latitude": 44.9559284,
+      "longitude": -93.15659140000001
+    },
+    "business_status": "OPERATIONAL",
+    "types": [
+      "chinese_noodle_restaurant",
+      "asian_restaurant",
+      "chinese_restaurant",
+      "restaurant",
+      "food",
+      "point_of_interest",
+      "establishment"
+    ],
+    "hours": [
+      {
+        "day": 0,
+        "open": "11:00",
+        "close": "21:30"
+      },
+      {
+        "day": 1,
+        "open": "11:00",
+        "close": "21:30"
+      },
+      {
+        "day": 2,
+        "open": "11:00",
+        "close": "21:30"
+      },
+      {
+        "day": 3,
+        "open": "11:00",
+        "close": "21:30"
+      },
+      {
+        "day": 4,
+        "open": "11:00",
+        "close": "21:30"
+      },
+      {
+        "day": 5,
+        "open": "11:00",
+        "close": "21:30"
+      },
+      {
+        "day": 6,
+        "open": "11:00",
+        "close": "21:30"
+      }
+    ],
+    "fetched_at": "2026-05-11T14:35:42.596Z"
+  },
+  "chinese:Peking Garden": {
+    "place_id": "ChIJ6Ruabx8ts1IREK3J7fc5FRg",
+    "matched_name": "Peking Garden",
+    "matched_address": "394 University Ave W, St Paul, MN 55103, USA",
+    "location": {
+      "latitude": 44.955484999999996,
+      "longitude": -93.1165803
+    },
+    "business_status": "OPERATIONAL",
+    "types": [
+      "chinese_restaurant",
+      "seafood_restaurant",
+      "restaurant",
+      "food",
+      "point_of_interest",
+      "establishment"
+    ],
+    "hours": [
+      {
+        "day": 0,
+        "open": "11:00",
+        "close": "22:00"
+      },
+      {
+        "day": 1,
+        "open": "11:00",
+        "close": "22:00"
+      },
+      {
+        "day": 3,
+        "open": "11:00",
+        "close": "22:00"
+      },
+      {
+        "day": 4,
+        "open": "11:00",
+        "close": "22:00"
+      },
+      {
+        "day": 5,
+        "open": "11:00",
+        "close": "00:00"
+      },
+      {
+        "day": 6,
+        "open": "11:00",
+        "close": "00:00"
+      }
+    ],
+    "fetched_at": "2026-05-11T14:35:43.209Z"
+  },
+  "chinese:Tea House": {
+    "place_id": "ChIJjQ0fiHE1s1IRmXcsqOMM2g0",
+    "matched_name": "Teahouse",
+    "matched_address": "88 Nathan Ln N, Plymouth, MN 55441, USA",
+    "location": {
+      "latitude": 44.978817799999995,
+      "longitude": -93.4070082
+    },
+    "business_status": "OPERATIONAL",
+    "types": [
+      "chinese_restaurant",
+      "restaurant",
+      "food",
+      "point_of_interest",
+      "establishment"
+    ],
+    "hours": [
+      {
+        "day": 0,
+        "open": "11:00",
+        "close": "21:00"
+      },
+      {
+        "day": 1,
+        "open": "11:00",
+        "close": "21:00"
+      },
+      {
+        "day": 2,
+        "open": "11:00",
+        "close": "21:00"
+      },
+      {
+        "day": 3,
+        "open": "11:00",
+        "close": "21:00"
+      },
+      {
+        "day": 4,
+        "open": "11:00",
+        "close": "21:00"
+      },
+      {
+        "day": 5,
+        "open": "11:00",
+        "close": "21:30"
+      },
+      {
+        "day": 6,
+        "open": "11:00",
+        "close": "21:30"
+      }
+    ],
+    "fetched_at": "2026-05-11T14:35:43.749Z"
+  },
+  "chinese:Little Szechuan Hot Pot": {
+    "place_id": "ChIJIRmAgJ8q9ocROcMnZ6-D-qI",
+    "matched_name": "Little Szechuan Hot Pot",
+    "matched_address": "422 University Ave W, St Paul, MN 55103, USA",
+    "location": {
+      "latitude": 44.955478199999995,
+      "longitude": -93.1173518
+    },
+    "business_status": "OPERATIONAL",
+    "types": [
+      "hot_pot_restaurant",
+      "chinese_restaurant",
+      "restaurant",
+      "food",
+      "point_of_interest",
+      "establishment"
+    ],
+    "hours": [
+      {
+        "day": 0,
+        "open": "12:00",
+        "close": "21:00"
+      },
+      {
+        "day": 1,
+        "open": "12:00",
+        "close": "21:00"
+      },
+      {
+        "day": 2,
+        "open": "12:00",
+        "close": "21:00"
+      },
+      {
+        "day": 3,
+        "open": "12:00",
+        "close": "21:00"
+      },
+      {
+        "day": 4,
+        "open": "12:00",
+        "close": "21:00"
+      },
+      {
+        "day": 5,
+        "open": "12:00",
+        "close": "21:30"
+      },
+      {
+        "day": 6,
+        "open": "12:00",
+        "close": "21:30"
+      }
+    ],
+    "fetched_at": "2026-05-11T14:35:44.244Z"
+  },
+  "chinese:Shuang Cheng": {
+    "place_id": "ChIJJWL3JRIts1IRO3_X_4mrE2Q",
+    "matched_name": "Shuang Cheng",
+    "matched_address": "1320 4th St SE, Minneapolis, MN 55414, USA",
+    "location": {
+      "latitude": 44.980570799999995,
+      "longitude": -93.2363797
+    },
+    "business_status": "OPERATIONAL",
+    "types": [
+      "chinese_restaurant",
+      "restaurant",
+      "food",
+      "point_of_interest",
+      "establishment"
+    ],
+    "hours": [
+      {
+        "day": 0,
+        "open": "12:00",
+        "close": "20:30"
+      },
+      {
+        "day": 1,
+        "open": "11:00",
+        "close": "20:30"
+      },
+      {
+        "day": 2,
+        "open": "11:00",
+        "close": "20:30"
+      },
+      {
+        "day": 3,
+        "open": "11:00",
+        "close": "20:30"
+      },
+      {
+        "day": 4,
+        "open": "11:00",
+        "close": "20:30"
+      },
+      {
+        "day": 5,
+        "open": "11:00",
+        "close": "21:30"
+      },
+      {
+        "day": 6,
+        "open": "11:00",
+        "close": "21:30"
+      }
+    ],
+    "fetched_at": "2026-05-11T14:35:44.852Z"
+  },
+  "chinese:Yangtze": {
+    "place_id": "ChIJ80ToqqI0s1IRgm0WBFgTDdA",
+    "matched_name": "Yangtze Restaurant",
+    "matched_address": "5625 Wayzata Blvd, St Louis Park, MN 55416, USA",
+    "location": {
+      "latitude": 44.9695587,
+      "longitude": -93.3514786
+    },
+    "business_status": "OPERATIONAL",
+    "types": [
+      "chinese_restaurant",
+      "restaurant",
+      "food",
+      "point_of_interest",
+      "establishment"
+    ],
+    "hours": [
+      {
+        "day": 0,
+        "open": "10:00",
+        "close": "21:00"
+      },
+      {
+        "day": 1,
+        "open": "11:00",
+        "close": "21:00"
+      },
+      {
+        "day": 3,
+        "open": "11:00",
+        "close": "21:00"
+      },
+      {
+        "day": 4,
+        "open": "11:00",
+        "close": "21:00"
+      },
+      {
+        "day": 5,
+        "open": "11:00",
+        "close": "22:00"
+      },
+      {
+        "day": 6,
+        "open": "10:00",
+        "close": "22:00"
+      }
+    ],
+    "fetched_at": "2026-05-11T14:35:45.362Z"
+  },
+  "chinese:Grand Szechuan": {
+    "place_id": "ChIJAXRGOqUk9ocRtcHhsN60Xew",
+    "matched_name": "Grand Szechuan",
+    "matched_address": "10602 France Ave S, Bloomington, MN 55431, USA",
+    "location": {
+      "latitude": 44.810834,
+      "longitude": -93.332566
+    },
+    "business_status": "OPERATIONAL",
+    "types": [
+      "american_restaurant",
+      "chinese_restaurant",
+      "restaurant",
+      "food",
+      "point_of_interest",
+      "establishment"
+    ],
+    "hours": [
+      {
+        "day": 0,
+        "open": "11:30",
+        "close": "21:00"
+      },
+      {
+        "day": 1,
+        "open": "11:00",
+        "close": "15:00"
+      },
+      {
+        "day": 1,
+        "open": "16:30",
+        "close": "21:00"
+      },
+      {
+        "day": 2,
+        "open": "11:00",
+        "close": "15:00"
+      },
+      {
+        "day": 2,
+        "open": "16:30",
+        "close": "21:00"
+      },
+      {
+        "day": 3,
+        "open": "11:00",
+        "close": "15:00"
+      },
+      {
+        "day": 3,
+        "open": "16:30",
+        "close": "21:00"
+      },
+      {
+        "day": 4,
+        "open": "11:00",
+        "close": "15:00"
+      },
+      {
+        "day": 4,
+        "open": "16:30",
+        "close": "21:00"
+      },
+      {
+        "day": 5,
+        "open": "11:00",
+        "close": "22:00"
+      },
+      {
+        "day": 6,
+        "open": "11:30",
+        "close": "22:00"
+      }
+    ],
+    "fetched_at": "2026-05-11T14:35:45.865Z"
+  },
+  "chinese:D. Fong's Chinese Cuisine": {
+    "place_id": "ChIJZ7_hV4s79ocRFsoA90qcwrU",
+    "matched_name": "D. Fong's Chinese Cuisine",
+    "matched_address": "4321 Egan Dr, Savage, MN 55378, USA",
+    "location": {
+      "latitude": 44.7458281,
+      "longitude": -93.3344532
+    },
+    "business_status": "OPERATIONAL",
+    "types": [
+      "chinese_restaurant",
+      "family_restaurant",
+      "chinese_noodle_restaurant",
+      "catering_service",
+      "meal_delivery",
+      "food_delivery",
+      "asian_restaurant",
+      "meal_takeaway",
+      "restaurant",
+      "food",
+      "service",
+      "point_of_interest",
+      "establishment"
+    ],
+    "hours": [
+      {
+        "day": 1,
+        "open": "11:00",
+        "close": "20:00"
+      },
+      {
+        "day": 2,
+        "open": "11:00",
+        "close": "20:00"
+      },
+      {
+        "day": 3,
+        "open": "11:00",
+        "close": "20:00"
+      },
+      {
+        "day": 4,
+        "open": "11:00",
+        "close": "20:00"
+      },
+      {
+        "day": 5,
+        "open": "11:00",
+        "close": "20:00"
+      },
+      {
+        "day": 6,
+        "open": "11:00",
+        "close": "20:00"
+      }
+    ],
+    "fetched_at": "2026-05-11T14:35:46.381Z"
   }
 }

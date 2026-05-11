@@ -75,6 +75,7 @@ const hmong        = require(path.join(SRC, 'data/hmong.js'));
 const ethiopian    = require(path.join(SRC, 'data/ethiopian.js'));
 const indian       = require(path.join(SRC, 'data/indian.js'));
 const thai         = require(path.join(SRC, 'data/thai.js'));
+const chinese      = require(path.join(SRC, 'data/chinese.js'));
 const burgers      = require(path.join(SRC, 'data/burgers.js'));
 const cocktailBars = require(path.join(SRC, 'data/cocktail-bars.js'));
 const breweries    = require(path.join(SRC, 'data/breweries.js'));
@@ -176,7 +177,7 @@ const clusters = [
     eyebrow: 'Eat',
     title: 'Where to eat',
     deck: 'A real food town in fifteen directions at once. Restaurants worth a reservation, sushi, banh mi, tacos, sandwiches, late-night slices, ice cream by the lake, and the burger Minneapolis invented.',
-    categories: [restaurants, foodHalls, coffee, bakeries, sandwiches, burgers, pizza, brunch, mexican, vietnamese, korean, japanese, hmong, ethiopian, indian, thai, iceCream, lateNight]
+    categories: [restaurants, foodHalls, coffee, bakeries, sandwiches, burgers, pizza, brunch, mexican, vietnamese, korean, japanese, hmong, ethiopian, indian, thai, chinese, iceCream, lateNight]
   },
   {
     eyebrow: 'Drink',
@@ -203,7 +204,7 @@ const categories = [
   museums, liveMusic, theaters, cinemas, lgbtq,
   // Eat
   restaurants, foodHalls, coffee, bakeries, sandwiches, burgers, pizza, brunch,
-  mexican, vietnamese, korean, japanese, hmong, ethiopian, indian, thai, iceCream, lateNight,
+  mexican, vietnamese, korean, japanese, hmong, ethiopian, indian, thai, chinese, iceCream, lateNight,
   // Drink
   cocktailBars, breweries, diveBars, patios, happyHours,
   // Shop
@@ -1218,6 +1219,7 @@ const POLL_NOUNS = {
   'ethiopian':              'Ethiopian spot',
   'indian-restaurants':     'Indian restaurant',
   'thai':                   'Thai spot',
+  'chinese':                'Chinese spot',
   'ice-cream':              'ice cream',
   'late-night':             'late-night spot',
   'cocktail-bars':          'cocktail bar',
