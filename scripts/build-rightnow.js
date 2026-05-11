@@ -79,72 +79,112 @@ function hm24(d) {
   return d.toLocaleTimeString('en-US', opts);
 }
 
-// ===== Weather (Open-Meteo, free, no key) =====
+// ===== Weather (National Weather Service, api.weather.gov) =====
+// Twin Cities sit on NWS gridpoint MPX/108,72 (downtown Mpls lat/lng).
+// KMSP is the canonical observation station for current conditions.
+// NWS forecast periods come in Fahrenheit, observations in Celsius.
+// NWS requires an identifying User-Agent on every request.
+const NWS_UA = 'bestofmpls.com (hello@bestofmpls.com)';
+const NWS_FORECAST = 'https://api.weather.gov/gridpoints/MPX/108,72/forecast';
+const NWS_OBS = 'https://api.weather.gov/stations/KMSP/observations/latest';
+
+function cToF(c) { return c == null ? null : (c * 9 / 5) + 32; }
+
+async function fetchJson(url) {
+  const r = await fetch(url, { headers: { 'User-Agent': NWS_UA, 'Accept': 'application/geo+json' } });
+  if (!r.ok) throw new Error(`${url} → ${r.status}`);
+  return r.json();
+}
+
 async function fetchWeather() {
-  // Current + today's max + precipitation + cloud cover
-  const url = `https://api.open-meteo.com/v1/forecast?latitude=${LAT}&longitude=${LNG}` +
-    `&current=temperature_2m,apparent_temperature,precipitation,cloud_cover,weather_code,wind_speed_10m` +
-    `&daily=temperature_2m_max,temperature_2m_min,precipitation_sum,weather_code` +
-    `&temperature_unit=fahrenheit&wind_speed_unit=mph&precipitation_unit=inch&timezone=America/Chicago`;
   try {
-    const r = await fetch(url);
-    if (!r.ok) throw new Error(`${r.status}`);
-    const d = await r.json();
-    return d;
+    const [forecast, obs] = await Promise.all([
+      fetchJson(NWS_FORECAST),
+      fetchJson(NWS_OBS).catch(e => { console.warn(`  obs fetch failed: ${e.message}`); return null; })
+    ]);
+    return { forecast, obs };
   } catch (e) {
     console.warn(`  weather fetch failed: ${e.message}`);
     return null;
   }
 }
 
-// WMO weather codes → short labels we can display
-function describeWmo(code) {
-  if (code === 0) return 'Clear';
-  if (code === 1 || code === 2) return 'Mostly clear';
-  if (code === 3) return 'Cloudy';
-  if (code >= 45 && code <= 48) return 'Foggy';
-  if (code >= 51 && code <= 57) return 'Drizzling';
-  if (code >= 61 && code <= 67) return 'Raining';
-  if (code >= 71 && code <= 77) return 'Snowing';
-  if (code >= 80 && code <= 82) return 'Rain showers';
-  if (code >= 85 && code <= 86) return 'Snow showers';
-  if (code >= 95) return 'Thunderstorms';
-  return 'Mixed';
+// Map NWS shortForecast text → short display label + mood signals.
+// shortForecast strings are stable and human-readable, so substring matching
+// is reliable.
+function moodFromText(text) {
+  const t = String(text || '').toLowerCase();
+  const snow   = /snow|flurr|blizzard|sleet|wintry/.test(t);
+  const rain   = /rain|shower|drizzl|thunder/.test(t);
+  const fog    = /\bfog\b|haze|mist/.test(t);
+  const sunny  = /sunny|clear/.test(t) && !/mostly cloudy|partly cloudy/.test(t);
+  const cloudy = /cloud|overcast/.test(t);
+  return { snow, rain, fog, sunny, cloudy };
+}
+
+function describeNws(text) {
+  // NWS shortForecast is already presentable ("Mostly Sunny", "Light Snow",
+  // "Chance Showers And Thunderstorms"). Title-case if needed.
+  if (!text) return 'Clear';
+  return text.replace(/\b\w/g, ch => ch.toUpperCase());
 }
 
 function classifyWeather(weather) {
-  if (!weather || !weather.current) return { is_patio: false, is_brutal: false, summary: 'Twin Cities, today' };
-  const c = weather.current;
-  const d = weather.daily;
-  const tempMax = d?.temperature_2m_max?.[0] ?? c.temperature_2m;
-  const tempNow = c.temperature_2m;
-  const precip  = d?.precipitation_sum?.[0] ?? 0;
-  const clouds  = c.cloud_cover ?? 100;
-  const code    = c.weather_code ?? 0;
+  if (!weather || !weather.forecast) {
+    return { is_patio: false, is_brutal: false, summary: 'Twin Cities, today' };
+  }
+  const periods = weather.forecast.properties?.periods || [];
+  if (!periods.length) return { is_patio: false, is_brutal: false, summary: 'Twin Cities, today' };
 
-  // Patio day: today's high >= 65, low precip, sun out
-  const is_patio = tempMax >= 65 && precip < 0.05 && clouds < 70;
-  // Brutal cold: feels-like under -5
-  const is_brutal = (c.apparent_temperature ?? tempNow) <= -5;
-  // Snow day: any snow code
-  const is_snowing = code >= 71 && code <= 77;
-  // Real rain
-  const is_rainy = (code >= 61 && code <= 67) || (code >= 80 && code <= 82) || (code >= 95);
+  // Today's daytime period (the first daytime entry in the list) gives us
+  // the high and the dominant condition. If the first period is night (we're
+  // running after sunset), the period's temperature is tonight's low and the
+  // next daytime period is tomorrow's day, so we still use [0] as "today".
+  const dayPeriod = periods.find(p => p.isDaytime) || periods[0];
+  const nightPeriod = periods.find(p => !p.isDaytime) || periods[0];
 
-  let summary = `${Math.round(tempNow)}°F · ${describeWmo(code)}`;
-  let mood = 'normal';
-  if (is_patio) { mood = 'patio'; summary = `${Math.round(tempMax)}°F high · patio weather`; }
-  else if (is_brutal) { mood = 'brutal'; summary = `${Math.round(tempNow)}°F · stay close to home`; }
-  else if (is_snowing) { mood = 'snow'; summary = `${Math.round(tempNow)}°F · snowing`; }
-  else if (is_rainy) { mood = 'rain'; summary = `${Math.round(tempNow)}°F · rain in the forecast`; }
+  // Daytime period.temperature is the high (in F). Night period is the low.
+  const tempMax = dayPeriod.isDaytime ? dayPeriod.temperature : null;
+  const condition = describeNws(dayPeriod.shortForecast);
+  const popDay  = dayPeriod.probabilityOfPrecipitation?.value ?? 0;
+
+  // Current temp + feels-like from KMSP observation.
+  const obsProps = weather.obs?.properties || null;
+  const obsTempF = cToF(obsProps?.temperature?.value);
+  const windChillF = cToF(obsProps?.windChill?.value);
+  const heatIdxF = cToF(obsProps?.heatIndex?.value);
+  const obsText = obsProps?.textDescription || null;
+
+  const tempNow = obsTempF ?? periods[0].temperature;
+  const feelsLike = windChillF ?? heatIdxF ?? tempNow;
+
+  // Combine forecast text + current observation text for mood detection.
+  const mood1 = moodFromText(dayPeriod.shortForecast);
+  const mood2 = moodFromText(obsText);
+  const is_snowing = mood1.snow || mood2.snow;
+  const is_rainy   = !is_snowing && (mood1.rain || mood2.rain);
+  const dryAndSunny = (mood1.sunny || (!mood1.cloudy && !mood1.fog)) && popDay < 30;
+
+  // Patio day: high ≥ 65, low precip chance, generally clear.
+  const is_patio = (tempMax ?? tempNow) >= 65 && dryAndSunny && !is_rainy && !is_snowing;
+  // Brutal cold: feels-like ≤ -5°F.
+  const is_brutal = feelsLike <= -5;
+
+  let summary = `${Math.round(tempNow)}°F · ${condition}`;
+  let mode = 'normal';
+  if (is_patio)        { mode = 'patio';  summary = `${Math.round(tempMax)}°F high · patio weather`; }
+  else if (is_brutal)  { mode = 'brutal'; summary = `${Math.round(tempNow)}°F · stay close to home`; }
+  else if (is_snowing) { mode = 'snow';   summary = `${Math.round(tempNow)}°F · snowing`; }
+  else if (is_rainy)   { mode = 'rain';   summary = `${Math.round(tempNow)}°F · rain in the forecast`; }
 
   return {
     temp_now: Math.round(tempNow),
-    temp_max: Math.round(tempMax),
-    feels_like: Math.round(c.apparent_temperature ?? tempNow),
-    condition: describeWmo(code),
+    temp_max: tempMax != null ? Math.round(tempMax) : null,
+    feels_like: Math.round(feelsLike),
+    condition,
     is_patio, is_brutal, is_snowing, is_rainy,
-    mood, summary
+    mood: mode, summary,
+    source: 'nws'
   };
 }
 
