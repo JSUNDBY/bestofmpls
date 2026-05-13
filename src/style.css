@@ -4353,6 +4353,78 @@ html[data-mode="dark"] .countdown-name { color: #FFFFFF; }
   font-style: italic;
 }
 
+/* ===== Calendar — Now Playing rail (films) ===== */
+.cal-films {
+  border-bottom: 1px solid var(--rule);
+  padding: 40px 0 32px;
+}
+.cal-films-title {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-style: italic;
+  font-size: clamp(28px, 3.6vw, 38px);
+  line-height: 1.0;
+  letter-spacing: -0.01em;
+  margin: 0 0 6px;
+  color: var(--ink);
+}
+.cal-films-deck {
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--ink-soft);
+  margin: 0 0 22px;
+  max-width: 640px;
+}
+.cal-films-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0;
+}
+.cal-film {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  gap: 18px;
+  align-items: baseline;
+  padding: 16px 0;
+  border-top: 1px solid var(--rule);
+}
+.cal-film:first-child { border-top: 2px solid var(--ink); }
+@media (max-width: 600px) {
+  .cal-film { grid-template-columns: 1fr; gap: 4px; }
+}
+.cal-film-when {
+  font-family: var(--font-label);
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--clay);
+}
+.cal-film-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(19px, 2.2vw, 24px);
+  line-height: 1.15;
+  margin: 0 0 4px;
+}
+.cal-film-title a { color: inherit; text-decoration: none; border-bottom: 1px solid var(--rule); }
+.cal-film-title a:hover { color: var(--clay); border-color: var(--clay); }
+.cal-film-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  font-family: var(--font-body);
+  font-size: 13.5px;
+  color: var(--ink-soft);
+}
+.cal-film-venue { color: var(--ink); font-weight: 600; }
+.cal-film-neigh::before { content: '·'; margin-right: 8px; color: var(--ink-faint); }
+.cal-film-runs::before { content: '·'; margin-right: 8px; color: var(--ink-faint); }
+.cal-film-runs { color: var(--ink-faint); }
+
 /* ===== Print ===== */
 @media print {
   .site-header, .primary-nav, .site-footer { display: none; }

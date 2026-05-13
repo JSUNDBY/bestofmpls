@@ -61,6 +61,60 @@ const IS_WARM_SEASON = CURRENT_MONTH >= 4 && CURRENT_MONTH <= 9;
 // Featured events — single-event homepage takeover + dedicated landing page.
 const featuredEvts = require(path.join(SRC, 'data/featured-events.js'));
 
+// Calendar dedup helpers.
+//
+// The scraped events list contains one entry per showtime, so a film with
+// four daily showtimes that runs for ten days shows up forty times. That
+// floods the calendar and makes it look like nothing is playing except one
+// movie. The dedup splits films into a "Now Playing" rail (one row per
+// film+venue with a date range) and leaves the date-by-date stream for the
+// time-bound stuff (concerts, talks, openings).
+function isFilmEvent(e) { return e.category === 'film'; }
+
+function collapseFilms(events) {
+  // Returns { films: [{title, venue, venue_neighborhood, url, image, first_date,
+  // last_date, day_count}], nonFilms: [...] }.
+  const films = events.filter(isFilmEvent);
+  const nonFilms = events.filter(e => !isFilmEvent(e));
+  const byFilm = new Map();
+  for (const f of films) {
+    const key = `${f.title}::${f.venue}`;
+    if (!byFilm.has(key)) {
+      byFilm.set(key, {
+        title: f.title, venue: f.venue,
+        venue_neighborhood: f.venue_neighborhood,
+        url: f.url, image: f.image, source: f.source,
+        first_date: f.date, last_date: f.date,
+        dates: new Set([f.date])
+      });
+    } else {
+      const g = byFilm.get(key);
+      if (f.date < g.first_date) g.first_date = f.date;
+      if (f.date > g.last_date) g.last_date = f.date;
+      g.dates.add(f.date);
+    }
+  }
+  const filmRows = [...byFilm.values()].map(g => ({
+    ...g, day_count: g.dates.size, dates: undefined
+  })).sort((a, b) => a.first_date.localeCompare(b.first_date));
+  return { films: filmRows, nonFilms };
+}
+
+// Dedup non-film events too: a concert occasionally has two showtimes
+// listed the same night, and we don't need to render both. Keys on
+// (title, venue, date) and keeps the earliest time.
+function dedupeNonFilms(events) {
+  const seen = new Map();
+  for (const e of events) {
+    const key = `${e.title}::${e.venue}::${e.date}`;
+    const existing = seen.get(key);
+    if (!existing || (e.time && (!existing.time || e.time < existing.time))) {
+      seen.set(key, e);
+    }
+  }
+  return [...seen.values()];
+}
+
 // Currently active featured event — the first one whose run-up window starts
 // before today and whose `ends` is on or after today. Null when nothing is
 // inside its window, which means the homepage banner just doesn't render.
@@ -366,7 +420,7 @@ function head({ title, description, slug, theme }) {
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=Archivo:wght@500;600;700&display=swap">
-<link rel="stylesheet" href="/style.css?v=21">
+<link rel="stylesheet" href="/style.css?v=22">
 <script>
 // Set color mode before paint to avoid flash. Reads localStorage first,
 // falls back to light mode (the new editorial default). mode-ready class
@@ -852,8 +906,9 @@ function renderHome() {
   // Featured calendar strip — show next 4 upcoming festivals
   const calendarPicks = festivals.entries.slice(0, 4);
 
-  // Live events strip — show next 6 from scraped events
-  const liveEventPicks = (eventsData.events || []).slice(0, 6);
+  // Live events strip — show next 6, but skip films (they belong in the
+  // dedicated /now-showing/ rail) and dedupe same-night double bookings.
+  const liveEventPicks = dedupeNonFilms((eventsData.events || []).filter(e => !isFilmEvent(e))).slice(0, 6);
   function fmtShortDay(iso) {
     if (!iso) return '';
     const [y,m,d] = iso.split('-').map(Number);
@@ -957,7 +1012,7 @@ function renderHome() {
       <div class="wrap tools-strip-inner">
         <a class="tool-card" href="/map/"><span class="tool-icon" aria-hidden="true">◉</span><span class="tool-label">The Map</span><span class="tool-deck">Every place, plotted</span></a>
         <a class="tool-card" href="/near/"><span class="tool-icon" aria-hidden="true">◎</span><span class="tool-label">Near You</span><span class="tool-deck">10 minute walk</span></a>
-        <a class="tool-card" href="/calendar/"><span class="tool-icon" aria-hidden="true">▭</span><span class="tool-label">Calendar</span><span class="tool-deck">${(eventsData.events || []).length} upcoming</span></a>
+        <a class="tool-card" href="/calendar/"><span class="tool-icon" aria-hidden="true">▭</span><span class="tool-label">Calendar</span><span class="tool-deck">${dedupeNonFilms((eventsData.events || []).filter(e => !isFilmEvent(e))).length} events · ${collapseFilms(eventsData.events || []).films.length} films</span></a>
         <a class="tool-card" href="/tonight/"><span class="tool-icon" aria-hidden="true">☾</span><span class="tool-label">Tonight</span><span class="tool-deck">${rightnowData ? `Sunset ${rightnowData.sun.set}` : 'Sunset + countdowns'}</span></a>
         <a class="tool-card" href="/quiz/"><span class="tool-icon" aria-hidden="true">?</span><span class="tool-label">Quiz</span><span class="tool-deck">Where to be tonight</span></a>
         <a class="tool-card" href="/skyway/"><span class="tool-icon" aria-hidden="true">⇄</span><span class="tool-label">Skyway</span><span class="tool-deck">${skyway.nodes.length} downtown nodes</span></a>
@@ -1645,7 +1700,7 @@ function renderAdminPicks() {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>${esc(title)}</title>
-<link rel="stylesheet" href="/style.css?v=21">
+<link rel="stylesheet" href="/style.css?v=22">
 <style>
   body { background: var(--paper); }
   .admin-wrap { max-width: 960px; margin: 0 auto; padding: 32px var(--gutter) 96px; }
@@ -2237,7 +2292,13 @@ function renderExhibitions() {
 function renderCalendar() {
   const title = 'The Calendar';
   const description = 'Live music, art openings, lectures, and screenings across Minneapolis and Saint Paul. Updated daily.';
-  const events = eventsData.events || [];
+  const allEvents = eventsData.events || [];
+
+  // Films get a "Now Playing" rail at the top, one row per film + venue
+  // showing the run-of-engagement. The time-bound stream below is concerts,
+  // talks, openings, and performances — no showtime-by-showtime film noise.
+  const { films, nonFilms: nonFilmRaw } = collapseFilms(allEvents);
+  const events = dedupeNonFilms(nonFilmRaw);
 
   // Group events by ISO date.
   const byDate = new Map();
@@ -2265,10 +2326,42 @@ function renderCalendar() {
   }
 
   // Build a category filter list out of what is actually present today.
+  // Films are excluded — they live in the Now Playing rail above.
   const cats = [...new Set(events.map(e => e.category))].sort();
   const venues = [...new Set(events.map(e => e.venue))].sort();
 
   const filterChips = cats.map(c => `<button class="cal-chip" data-cat="${esc(c)}" type="button">${esc(categoryLabel(c))}</button>`).join('');
+
+  function fmtRange(iso1, iso2) {
+    const fmt = (iso) => {
+      const [y, m, d] = iso.split('-').map(Number);
+      return new Date(y, m - 1, d).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    };
+    if (iso1 === iso2) return `Through ${fmt(iso2)}`;
+    return `${fmt(iso1)} – ${fmt(iso2)}`;
+  }
+
+  const nowPlayingRail = films.length ? `
+    <section class="cal-films">
+      <div class="wrap">
+        <h2 class="cal-films-title">Now playing</h2>
+        <p class="cal-films-deck">First-run, repertory, and weekly screenings at the Twin Cities' independent theaters. ${films.length} film${films.length === 1 ? '' : 's'} on screens this week.</p>
+        <ul class="cal-films-list">
+          ${films.map(f => `
+            <li class="cal-film">
+              <div class="cal-film-when">${esc(fmtRange(f.first_date, f.last_date))}</div>
+              <div class="cal-film-body">
+                <h3 class="cal-film-title">${f.url ? `<a href="${esc(f.url)}" target="_blank" rel="noopener">${esc(f.title)} <span class="entry-meta-link-icon">↗</span></a>` : esc(f.title)}</h3>
+                <div class="cal-film-meta">
+                  <span class="cal-film-venue">${esc(f.venue)}</span>
+                  ${f.venue_neighborhood ? `<span class="cal-film-neigh">${esc(f.venue_neighborhood)}</span>` : ''}
+                  <span class="cal-film-runs">${f.day_count} day${f.day_count === 1 ? '' : 's'}</span>
+                </div>
+              </div>
+            </li>`).join('')}
+        </ul>
+      </div>
+    </section>` : '';
 
   const dayBlocks = dateKeys.map(iso => {
     const items = byDate.get(iso).map(e => `
@@ -2300,11 +2393,12 @@ function renderCalendar() {
     .map(s => `${s.label} (${s.count})`)
     .join(' · ');
 
-  const empty = events.length === 0
+  const empty = (events.length === 0 && films.length === 0)
     ? `<section class="wrap" style="padding: 64px var(--gutter);">
          <p style="font-family: var(--font-body); font-size: 18px; color: var(--ink-soft);">The calendar is being assembled. Refresh in a few hours, or check the venues directly: <a href="/live-music/" style="color: var(--clay); border-bottom: 1px solid var(--clay);">live music venues</a> and <a href="/museums-and-galleries/" style="color: var(--clay); border-bottom: 1px solid var(--clay);">museums and galleries</a>.</p>
        </section>`
-    : `<div class="cal-controls">
+    : `${nowPlayingRail}
+       ${events.length ? `<div class="cal-controls">
          <div class="wrap cal-controls-inner">
            <div class="cal-filter-group">
              <span class="cal-filter-label">Show:</span>
@@ -2313,13 +2407,13 @@ function renderCalendar() {
            </div>
          </div>
        </div>
-       <div class="cal-stream">${dayBlocks}</div>`;
+       <div class="cal-stream">${dayBlocks}</div>` : ''}`;
 
   return head({ title, description, slug: 'calendar', theme: 'forest' }) +
     header({ activeSlug: 'calendar' }) +
     `<section class="section-head">
        <div class="wrap">
-         <div class="section-eyebrow">${events.length} upcoming · ${dateKeys.length} days</div>
+         <div class="section-eyebrow">${events.length} upcoming · ${dateKeys.length} days · ${films.length} film${films.length === 1 ? '' : 's'} on screens</div>
          <h1 class="section-title">${esc(title)} <em>for the metro</em></h1>
          <p class="section-deck">${esc(description)}</p>
          ${updated ? `<p style="font-family: var(--font-label); font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-faint); margin-top: 16px;">Last refreshed ${esc(updated)} · sources: ${esc(sourcesLine)}</p>` : ''}
