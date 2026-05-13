@@ -58,6 +58,50 @@ const POLL_WORKER_URL = 'https://bestofmpls-poll.j-sundby.workers.dev';
 const CURRENT_MONTH = parseInt(TODAY_ISO.slice(5, 7), 10);
 const IS_WARM_SEASON = CURRENT_MONTH >= 4 && CURRENT_MONTH <= 9;
 
+// Featured events — single-event homepage takeover + dedicated landing page.
+const featuredEvts = require(path.join(SRC, 'data/featured-events.js'));
+
+// Currently active featured event — the first one whose run-up window starts
+// before today and whose `ends` is on or after today. Null when nothing is
+// inside its window, which means the homepage banner just doesn't render.
+function resolveActiveFeaturedEvent() {
+  const list = (featuredEvts && featuredEvts.events) || [];
+  const today = TODAY_ISO;
+  // Subtract window_before_days from `starts` to get the window-open date.
+  function shiftIso(iso, days) {
+    const [y, m, d] = iso.split('-').map(Number);
+    const dt = new Date(Date.UTC(y, m - 1, d));
+    dt.setUTCDate(dt.getUTCDate() + days);
+    return `${dt.getUTCFullYear()}-${String(dt.getUTCMonth()+1).padStart(2,'0')}-${String(dt.getUTCDate()).padStart(2,'0')}`;
+  }
+  for (const ev of list) {
+    const openAt = shiftIso(ev.starts, -(ev.window_before_days || 7));
+    if (today >= openAt && today <= ev.ends) return ev;
+  }
+  return null;
+}
+const ACTIVE_FEATURE = resolveActiveFeaturedEvent();
+
+// Days-until label for the active feature ("Tomorrow", "In 2 days", "Today",
+// "Happening now", "Final day"). Returns a plain string.
+function featureDaysLabel(ev) {
+  if (!ev) return '';
+  const today = TODAY_ISO;
+  if (today >= ev.starts && today <= ev.ends) {
+    if (today === ev.ends) return 'Final day';
+    if (today === ev.starts) return 'Opens today';
+    return 'Happening now';
+  }
+  // Days until starts.
+  const [sy, sm, sd] = ev.starts.split('-').map(Number);
+  const [ty, tm, td] = today.split('-').map(Number);
+  const a = Date.UTC(sy, sm - 1, sd);
+  const b = Date.UTC(ty, tm - 1, td);
+  const days = Math.round((a - b) / 86400000);
+  if (days === 1) return 'Tomorrow';
+  return `In ${days} days`;
+}
+
 // ---------- Load all category data ----------
 const museums      = require(path.join(SRC, 'data/museums.js'));
 const liveMusic    = require(path.join(SRC, 'data/live-music.js'));
@@ -322,7 +366,7 @@ function head({ title, description, slug, theme }) {
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=Archivo:wght@500;600;700&display=swap">
-<link rel="stylesheet" href="/style.css?v=20">
+<link rel="stylesheet" href="/style.css?v=21">
 <script>
 // Set color mode before paint to avoid flash. Reads localStorage first,
 // falls back to light mode (the new editorial default). mode-ready class
@@ -471,6 +515,37 @@ function header({ activeSlug } = {}) {
 </div>`;
 }
 
+// Prominent inline newsletter capture. Used on the homepage above the
+// site footer and at the bottom of every category page. Honest about
+// launch state — we're collecting a list, the first dispatch lands when
+// it lands.
+function newsletterCapture({ context = 'home' } = {}) {
+  const decks = {
+    home:     'A monthly note from the metro. New places, what to do this weekend, what just closed. The list is starting; the first dispatch goes out this summer.',
+    category: 'Want the short list a month before everyone else? Drop your email. First dispatch lands this summer.',
+    event:    'More guides like this one. Drop your email and you will hear when the next dispatch lands.'
+  };
+  return `
+    <section class="newsletter-capture" aria-label="Newsletter signup">
+      <div class="wrap newsletter-inner">
+        <div class="newsletter-copy">
+          <p class="newsletter-eyebrow">The list · launching this summer</p>
+          <h2 class="newsletter-title">Field notes from the metro.</h2>
+          <p class="newsletter-deck">${esc(decks[context] || decks.home)}</p>
+        </div>
+        <div class="newsletter-form-block">
+          <form class="newsletter-form" data-newsletter-form>
+            <input type="email" name="email" placeholder="you@example.com" required aria-label="Email address" maxlength="200">
+            <input type="text" name="hp" tabindex="-1" autocomplete="off" class="newsletter-hp" aria-hidden="true">
+            <button type="submit">Join the list</button>
+          </form>
+          <div class="newsletter-status" data-newsletter-status></div>
+          <p class="newsletter-fine">No spam. Unsubscribe in one click. One email a month at most.</p>
+        </div>
+      </div>
+    </section>`;
+}
+
 function footer() {
   // Daily-refresh stuff lives in its own short row up top so the cluster grid
   // below can stay focused on the static category lists.
@@ -501,11 +576,11 @@ function footer() {
         <p class="footer-tag">A guide to the museums, music, food, and small good things of Minneapolis and Saint Paul. Made for the metro by the people who live here.</p>
       </div>
       <div class="footer-newsletter">
-        <p class="footer-list-title">Get the weekly</p>
+        <p class="footer-list-title">The list (coming soon)</p>
         <form class="footer-newsletter-form" data-newsletter-form>
           <input type="email" name="email" placeholder="you@example.com" required aria-label="Email address" maxlength="200">
           <input type="text" name="hp" tabindex="-1" autocomplete="off" class="poll-hp" aria-hidden="true">
-          <button type="submit">Subscribe</button>
+          <button type="submit">Join</button>
         </form>
         <div class="footer-newsletter-status" data-newsletter-status></div>
       </div>
@@ -544,33 +619,39 @@ function footer() {
   </div>
 </footer>
 <script>
-// Footer newsletter signup: fetch-POST to the poll worker's /newsletter
-// endpoint. Shows inline confirmation in place of the form on success.
+// Newsletter signup: every [data-newsletter-form] on the page POSTs to the
+// worker's /newsletter endpoint. Multiple blocks (footer mini + inline
+// prominent) share this handler. Status node is the form's own data-status
+// attribute or the sibling [data-newsletter-status] below it.
 (function(){
-  var form = document.querySelector('[data-newsletter-form]');
-  var status = document.querySelector('[data-newsletter-status]');
-  if (!form || !status) return;
   var endpoint = ${JSON.stringify(POLL_WORKER_URL ? POLL_WORKER_URL + '/newsletter' : '')};
   if (!endpoint) return;
-  form.addEventListener('submit', async function(e){
-    e.preventDefault();
-    var fd = new FormData(form);
-    status.textContent = 'Sending...';
-    form.querySelector('button[type="submit"]').disabled = true;
-    try {
-      var res = await fetch(endpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: fd.get('email'), hp: fd.get('hp') })
-      });
-      var data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'try again later');
-      form.style.display = 'none';
-      status.textContent = "Subscribed. We'll be in touch.";
-    } catch (err) {
-      status.textContent = err.message || 'Try again in a moment.';
-      form.querySelector('button[type="submit"]').disabled = false;
-    }
+  var forms = document.querySelectorAll('[data-newsletter-form]');
+  forms.forEach(function(form){
+    var status = form.parentElement.querySelector('[data-newsletter-status]')
+              || form.nextElementSibling
+              || null;
+    form.addEventListener('submit', async function(e){
+      e.preventDefault();
+      var fd = new FormData(form);
+      var btn = form.querySelector('button[type="submit"]');
+      if (status) { status.textContent = 'Sending...'; status.removeAttribute('data-state'); }
+      if (btn) btn.disabled = true;
+      try {
+        var res = await fetch(endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: fd.get('email'), hp: fd.get('hp') })
+        });
+        var data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'try again later');
+        form.style.display = 'none';
+        if (status) { status.textContent = "You're on the list. The first dispatch lands this summer."; status.setAttribute('data-state', 'ok'); }
+      } catch (err) {
+        if (status) { status.textContent = err.message || 'Try again in a moment.'; status.setAttribute('data-state', 'err'); }
+        if (btn) btn.disabled = false;
+      }
+    });
   });
 })();
 
@@ -836,6 +917,21 @@ function renderHome() {
         </div>
       </div>
     </section>
+    ${ACTIVE_FEATURE ? `
+    <section class="feature-banner" data-feature="${esc(ACTIVE_FEATURE.slug)}">
+      <a class="feature-banner-inner wrap" href="/${esc(ACTIVE_FEATURE.slug)}/">
+        <div class="feature-banner-eyebrow">
+          <span class="feature-banner-pulse" aria-hidden="true"></span>
+          <span>${esc(featureDaysLabel(ACTIVE_FEATURE))} · ${esc(ACTIVE_FEATURE.eyebrow)}</span>
+        </div>
+        <h2 class="feature-banner-title">${esc(ACTIVE_FEATURE.name)}</h2>
+        <p class="feature-banner-deck">${esc(ACTIVE_FEATURE.teaser)}</p>
+        <div class="feature-banner-meta">
+          <span>${esc(ACTIVE_FEATURE.dates_display)}</span>
+          <span class="feature-banner-cta">${esc(ACTIVE_FEATURE.cta_label)}</span>
+        </div>
+      </a>
+    </section>` : ''}
     ${r ? `
     <section class="rightnow-strip">
       <div class="wrap rightnow-inner">
@@ -935,6 +1031,7 @@ function renderHome() {
         </div>
       </div>
     </section>` +
+    newsletterCapture({ context: 'home' }) +
     footer();
 }
 
@@ -1118,6 +1215,7 @@ function renderCategory(c) {
     </section>
     ${renderPollForm(c)}
     <script type="application/ld+json">${JSON.stringify(schema)}</script>` +
+    newsletterCapture({ context: 'category' }) +
     footer();
 }
 
@@ -1547,7 +1645,7 @@ function renderAdminPicks() {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>${esc(title)}</title>
-<link rel="stylesheet" href="/style.css?v=20">
+<link rel="stylesheet" href="/style.css?v=21">
 <style>
   body { background: var(--paper); }
   .admin-wrap { max-width: 960px; margin: 0 auto; padding: 32px var(--gutter) 96px; }
@@ -2586,6 +2684,107 @@ function renderSurprise() {
     footer();
 }
 
+// ---------- Featured event landing pages ----------
+// One page per entry in featured-events.js. Routes always exist (so the URL
+// is shareable year-round) but the homepage banner only surfaces while the
+// event is inside its window.
+function renderFeaturedEvent(ev) {
+  const title = `${ev.name} ${ev.year}`;
+  const description = ev.teaser;
+  const isActive = TODAY_ISO >= ev.starts && TODAY_ISO <= ev.ends;
+  const isUpcoming = TODAY_ISO < ev.starts;
+
+  // Schema.org Event JSON-LD — gets the page into Google's event rich results.
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'Festival',
+    name: `${ev.name} ${ev.year}`,
+    description: ev.intro,
+    startDate: ev.starts,
+    endDate: ev.ends,
+    eventStatus: 'https://schema.org/EventScheduled',
+    eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+    location: {
+      '@type': 'Place',
+      name: ev.location,
+      address: { '@type': 'PostalAddress', addressLocality: 'Minneapolis', addressRegion: 'MN' },
+      geo: ev.coords ? { '@type': 'GeoCoordinates', latitude: ev.coords.lat, longitude: ev.coords.lng } : undefined
+    },
+    organizer: { '@type': 'Organization', name: 'Northeast Minneapolis Arts Association (NEMAA)', url: 'https://nemaa.org' },
+    url: `${SITE}/${ev.slug}/`,
+    isAccessibleForFree: true,
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD', availability: 'https://schema.org/InStock', url: ev.official_url || `${SITE}/${ev.slug}/` }
+  };
+
+  const statusLabel = isActive ? featureDaysLabel(ev) : (isUpcoming ? featureDaysLabel(ev) : 'Wrapped');
+
+  return head({ title, description, slug: ev.slug, theme: 'forest' }) +
+    header({ activeSlug: ev.slug }) +
+    `<script type="application/ld+json">${JSON.stringify(schema)}</script>
+     <section class="event-hero">
+       <div class="wrap event-hero-inner">
+         <div class="event-hero-status">
+           ${(isActive || isUpcoming) ? '<span class="feature-banner-pulse" aria-hidden="true"></span>' : ''}
+           <span>${esc(statusLabel)}</span>
+         </div>
+         <h1 class="event-hero-headline">${esc(ev.name)}</h1>
+         <p class="event-hero-tagline">${esc(ev.tagline)}</p>
+         <div class="event-hero-meta">
+           <div class="event-meta-item"><span class="event-meta-label">Dates</span><span class="event-meta-val">${esc(ev.dates_display)}</span></div>
+           <div class="event-meta-item"><span class="event-meta-label">Hours</span><span class="event-meta-val">${esc(ev.hours_display)}</span></div>
+           <div class="event-meta-item"><span class="event-meta-label">Where</span><span class="event-meta-val">${esc(ev.location)}</span></div>
+           <div class="event-meta-item"><span class="event-meta-label">Price</span><span class="event-meta-val">Free</span></div>
+         </div>
+         ${ev.official_url ? `<a class="event-hero-link" href="${esc(ev.official_url)}" target="_blank" rel="noopener">Official site →</a>` : ''}
+       </div>
+     </section>
+
+     <section class="event-body wrap">
+       <div class="event-intro">${esc(ev.intro)}</div>
+     </section>
+
+     <section class="event-anchors wrap">
+       <h2 class="event-section-title">Anchor buildings</h2>
+       <p class="event-section-deck">Six places to start. You will not see them all, and that is fine. Pick two, walk slow, talk to the people behind the work.</p>
+       <ul class="event-anchors-list">
+         ${ev.anchors.map(a => `
+           <li class="event-anchor">
+             <div class="event-anchor-head">
+               <h3 class="event-anchor-name">${a.url ? `<a href="${esc(a.url)}" target="_blank" rel="noopener">${esc(a.name)}</a>` : esc(a.name)}</h3>
+               <div class="event-anchor-address">${esc(a.address)}</div>
+             </div>
+             <p class="event-anchor-why">${esc(a.why)}</p>
+           </li>
+         `).join('')}
+       </ul>
+     </section>
+
+     <section class="event-tips wrap">
+       <h2 class="event-section-title">Plan</h2>
+       <ul class="event-tips-list">
+         ${ev.tips.map(t => `<li>${esc(t)}</li>`).join('')}
+       </ul>
+     </section>
+
+     ${ev.pairings && ev.pairings.length ? `
+     <section class="event-pairings wrap">
+       <h2 class="event-section-title">Eat and drink while you're up there</h2>
+       <ul class="event-pairings-list">
+         ${ev.pairings.map(p => `
+           <li class="event-pairing">
+             <div class="event-pairing-name">${esc(p.name)}</div>
+             <p class="event-pairing-why">${esc(p.why)}</p>
+           </li>`).join('')}
+       </ul>
+     </section>` : ''}
+
+     <section class="event-footer wrap">
+       <p>The directory has more on what to do in Northeast: <a href="/breweries/">breweries</a>, <a href="/coffee/">coffee</a>, <a href="/pizza/">pizza</a>, <a href="/museums/">galleries and arts buildings</a>.</p>
+     </section>` +
+    newsletterCapture({ context: 'event' }) +
+    footer();
+}
+
 // ---------- /tonight/ — sunset clock + best places to watch + civic countdowns ----------
 function renderTonight() {
   const r = rightnowData;
@@ -3538,6 +3737,7 @@ function renderSitemap(neighborhoods) {
     { loc: SITE + '/search/', priority: '0.5' },
     { loc: SITE + '/about/', priority: '0.6' },
     { loc: SITE + '/contribute/', priority: '0.5' },
+    ...(featuredEvts.events || []).map(ev => ({ loc: `${SITE}/${ev.slug}/`, priority: '0.95' })),
     ...categories.map(c => ({ loc: `${SITE}/${c.slug}/`, priority: '0.9' })),
     ...(neighborhoods || []).map(nb => ({ loc: `${SITE}/neighborhoods/${nb.slug}/`, priority: '0.8' })),
     // Per-entry detail pages. The biggest SEO surface on the site.
@@ -3638,6 +3838,11 @@ function build() {
 
   // Tonight — sunset clock, weather, civic countdowns
   writeFile('tonight/index.html', renderTonight());
+
+  // Featured events — dedicated landing pages, one per entry
+  for (const ev of (featuredEvts.events || [])) {
+    writeFile(`${ev.slug}/index.html`, renderFeaturedEvent(ev));
+  }
 
   // Near You — geolocation walking-radius
   writeFile('near/index.html', renderNear());
