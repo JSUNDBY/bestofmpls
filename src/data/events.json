@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-14T03:52:19.399Z",
+  "generated_at": "2026-05-14T04:02:03.737Z",
   "sources": [
     {
       "source": "first-avenue",
@@ -54,6 +54,12 @@
       "label": "Berlin",
       "count": 51,
       "ok": true
+    },
+    {
+      "source": "331",
+      "label": "The 331 Club",
+      "count": 77,
+      "ok": true
     }
   ],
   "events": [
@@ -90,6 +96,23 @@
       "price": null,
       "age": "All ages",
       "source": "dakota"
+    },
+    {
+      "id": "331:2026-05-13:bee-and-the-knees",
+      "date": "2026-05-13",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Bee and the Knees",
+      "venue": "The 331 Club",
+      "venue_neighborhood": "Northeast Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "With Harold’s House Party on KFAI, Rachel Kurtz · 9:30pm, 7:00pm",
+      "url": "https://www.331club.com/",
+      "image": null,
+      "price": null,
+      "age": "21+",
+      "source": "331"
     },
     {
       "id": "trylon:2026-05-13:19:00:dianno-iron-maidens-lost-singer",
@@ -398,6 +421,23 @@
       "source": "cedar"
     },
     {
+      "id": "331:2026-05-14:hiahli",
+      "date": "2026-05-14",
+      "time": "21:30",
+      "end_date": null,
+      "title": "Hiahli",
+      "venue": "The 331 Club",
+      "venue_neighborhood": "Northeast Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "With Izzy Cruz, Toussaint Morrison · 9:30pm",
+      "url": "https://www.331club.com/",
+      "image": null,
+      "price": null,
+      "age": "21+",
+      "source": "331"
+    },
+    {
       "id": "first-avenue:2026-05-14:first-avenue:built-to-spill",
       "date": "2026-05-14",
       "time": null,
@@ -532,6 +572,23 @@
       "price": null,
       "age": null,
       "source": "riverview"
+    },
+    {
+      "id": "331:2026-05-15:fistful-of-datas",
+      "date": "2026-05-15",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Fistful of Datas",
+      "venue": "The 331 Club",
+      "venue_neighborhood": "Northeast Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "With Venus Yevu, Zak Sally · 10pm, 8pm, 7pm",
+      "url": "https://www.331club.com/",
+      "image": null,
+      "price": null,
+      "age": "21+",
+      "source": "331"
     },
     {
       "id": "hook:2026-05-15:fret-rattles-record-release-and-8211-and-8216-rock-n-and-8217-roll-circus-and-82",
@@ -821,6 +878,23 @@
       "price": null,
       "age": null,
       "source": "riverview"
+    },
+    {
+      "id": "331:2026-05-16:socktopus",
+      "date": "2026-05-16",
+      "time": "16:00",
+      "end_date": null,
+      "title": "Socktopus",
+      "venue": "The 331 Club",
+      "venue_neighborhood": "Northeast Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "With The Japhies, Hastings 3000, Butter Boys, Unattractive Giant Monster · 8pm, 10pm, 8pm",
+      "url": "https://www.331club.com/",
+      "image": null,
+      "price": null,
+      "age": "21+",
+      "source": "331"
     },
     {
       "id": "trylon:2026-05-16:16:00:sonne-und-beton-sun-and-concrete",
@@ -1129,6 +1203,23 @@
       "source": "cedar"
     },
     {
+      "id": "331:2026-05-17:switchyard",
+      "date": "2026-05-17",
+      "time": "17:00",
+      "end_date": null,
+      "title": "Switchyard",
+      "venue": "The 331 Club",
+      "venue_neighborhood": "Northeast Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "With Diane, ditch pigeon, Jim Walsh, Mikkel Bee · 6pm, 9:30pm, 7:30pm",
+      "url": "https://www.331club.com/",
+      "image": null,
+      "price": null,
+      "age": "21+",
+      "source": "331"
+    },
+    {
       "id": "trylon:2026-05-17:17:30:sansho-the-bailiff-in-35mm",
       "date": "2026-05-17",
       "time": "17:30",
@@ -1282,6 +1373,23 @@
       "source": "first-avenue"
     },
     {
+      "id": "331:2026-05-18:roe-family-singers",
+      "date": "2026-05-18",
+      "time": "18:00",
+      "end_date": null,
+      "title": "Roe Family Singers",
+      "venue": "The 331 Club",
+      "venue_neighborhood": "Northeast Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "With Nikki Mat-teson & Rich Rue · 8pm, 6pm",
+      "url": "https://www.331club.com/",
+      "image": null,
+      "price": null,
+      "age": "21+",
+      "source": "331"
+    },
+    {
       "id": "trylon:2026-05-18:19:00:the-man-between",
       "date": "2026-05-18",
       "time": "19:00",
@@ -1418,6 +1526,23 @@
       "source": "trylon"
     },
     {
+      "id": "331:2026-05-19:willow-waters-and-the-earthtones",
+      "date": "2026-05-19",
+      "time": "20:00",
+      "end_date": null,
+      "title": "Willow Waters and the Earthtones",
+      "venue": "The 331 Club",
+      "venue_neighborhood": "Northeast Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "With Robyn Jamner, Tom Feldmann · 9:30pm, 8pm",
+      "url": "https://www.331club.com/",
+      "image": null,
+      "price": null,
+      "age": "21+",
+      "source": "331"
+    },
+    {
       "id": "trylon:2026-05-19:21:00:the-man-between",
       "date": "2026-05-19",
       "time": "21:00",
@@ -1552,6 +1677,23 @@
       "price": null,
       "age": "21+",
       "source": "berlin"
+    },
+    {
+      "id": "331:2026-05-20:the-matt-arthur-contraption",
+      "date": "2026-05-20",
+      "time": "19:00",
+      "end_date": null,
+      "title": "The Matt Arthur Contraption",
+      "venue": "The 331 Club",
+      "venue_neighborhood": "Northeast Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "With Harold’s House Party on KFAI, Dean Magraw & Bruce Henry · 9:30pm, 7:00pm",
+      "url": "https://www.331club.com/",
+      "image": null,
+      "price": null,
+      "age": "21+",
+      "source": "331"
     },
     {
       "id": "trylon:2026-05-20:19:00:the-warped-forest",
@@ -1707,6 +1849,23 @@
       "source": "berlin"
     },
     {
+      "id": "331:2026-05-21:knife-emoji",
+      "date": "2026-05-21",
+      "time": "21:30",
+      "end_date": null,
+      "title": "Knife Emoji",
+      "venue": "The 331 Club",
+      "venue_neighborhood": "Northeast Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "With Clung Tight, Maya McDonald · 9:30pm",
+      "url": "https://www.331club.com/",
+      "image": null,
+      "price": null,
+      "age": "21+",
+      "source": "331"
+    },
+    {
       "id": "parkway:2026-05-21:an-evening-with-the-joy-formidable",
       "date": "2026-05-21",
       "time": null,
@@ -1841,6 +2000,23 @@
       "price": null,
       "age": null,
       "source": "riverview"
+    },
+    {
+      "id": "331:2026-05-22:boots-and-needles",
+      "date": "2026-05-22",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Boots & Needles",
+      "venue": "The 331 Club",
+      "venue_neighborhood": "Northeast Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "With The Gated Community, Woolley Mack · 10:00pm, 7pm",
+      "url": "https://www.331club.com/",
+      "image": null,
+      "price": null,
+      "age": "21+",
+      "source": "331"
     },
     {
       "id": "dakota:2026-05-22:jamecia-bennett-presents-tribute-to-toni-braxton-and-038-adele",
@@ -2166,6 +2342,23 @@
       "source": "riverview"
     },
     {
+      "id": "331:2026-05-23:120-minutes-band",
+      "date": "2026-05-23",
+      "time": "19:00",
+      "end_date": null,
+      "title": "120 Minutes Band",
+      "venue": "The 331 Club",
+      "venue_neighborhood": "Northeast Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Sets at 10:00pm, 7pm",
+      "url": "https://www.331club.com/",
+      "image": null,
+      "price": null,
+      "age": "21+",
+      "source": "331"
+    },
+    {
       "id": "dakota:2026-05-23:steve-cole-record-release",
       "date": "2026-05-23",
       "time": "19:00",
@@ -2421,6 +2614,23 @@
       "source": "riverview"
     },
     {
+      "id": "331:2026-05-24:doyle-turner",
+      "date": "2026-05-24",
+      "time": "17:00",
+      "end_date": null,
+      "title": "Doyle Turner",
+      "venue": "The 331 Club",
+      "venue_neighborhood": "Northeast Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Sets at 7:00pm, 5pm",
+      "url": "https://www.331club.com/",
+      "image": null,
+      "price": null,
+      "age": "21+",
+      "source": "331"
+    },
+    {
       "id": "trylon:2026-05-24:17:00:the-ballad-of-narayama",
       "date": "2026-05-24",
       "time": "17:00",
@@ -2591,6 +2801,23 @@
       "source": "riverview"
     },
     {
+      "id": "331:2026-05-25:roe-family-singers",
+      "date": "2026-05-25",
+      "time": "18:00",
+      "end_date": null,
+      "title": "Roe Family Singers",
+      "venue": "The 331 Club",
+      "venue_neighborhood": "Northeast Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "With HonkyTonk Ranch · 8pm, 6pm",
+      "url": "https://www.331club.com/",
+      "image": null,
+      "price": null,
+      "age": "21+",
+      "source": "331"
+    },
+    {
       "id": "riverview:2026-05-25:18:30:the-mandalorian-and-grogu",
       "date": "2026-05-25",
       "time": "18:30",
@@ -2693,6 +2920,23 @@
       "source": "trylon"
     },
     {
+      "id": "331:2026-05-26:willow-waters-and-the-earthtones",
+      "date": "2026-05-26",
+      "time": "20:00",
+      "end_date": null,
+      "title": "Willow Waters and the Earthtones",
+      "venue": "The 331 Club",
+      "venue_neighborhood": "Northeast Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "With Obsidian James, Jeff Ray · 9:30pm, 8pm",
+      "url": "https://www.331club.com/",
+      "image": null,
+      "price": null,
+      "age": "21+",
+      "source": "331"
+    },
+    {
       "id": "trylon:2026-05-26:21:15:stray-dog-in-35mm",
       "date": "2026-05-26",
       "time": "21:15",
@@ -2725,6 +2969,23 @@
       "price": null,
       "age": null,
       "source": "first-avenue"
+    },
+    {
+      "id": "331:2026-05-27:lenz-and-frenz",
+      "date": "2026-05-27",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Lenz and Frenz",
+      "venue": "The 331 Club",
+      "venue_neighborhood": "Northeast Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "With Harold’s House Party on KFAI, Red Hot Django Peppers · 9:30pm, 7:00pm",
+      "url": "https://www.331club.com/",
+      "image": null,
+      "price": null,
+      "age": "21+",
+      "source": "331"
     },
     {
       "id": "berlin:2026-05-27:one-man-shows-and-immaculate-flows-w-l-a-buckner-and-midwest-james",
@@ -2863,6 +3124,23 @@
       "source": "berlin"
     },
     {
+      "id": "331:2026-05-28:pinched",
+      "date": "2026-05-28",
+      "time": "21:30",
+      "end_date": null,
+      "title": "Pinched.",
+      "venue": "The 331 Club",
+      "venue_neighborhood": "Northeast Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Sets at 9:30pm",
+      "url": "https://www.331club.com/",
+      "image": null,
+      "price": null,
+      "age": "21+",
+      "source": "331"
+    },
+    {
       "id": "first-avenue:2026-05-28:fine-line:claire-rosinkranz",
       "date": "2026-05-28",
       "time": null,
@@ -2980,6 +3258,23 @@
       "price": null,
       "age": "All ages",
       "source": "cedar"
+    },
+    {
+      "id": "331:2026-05-29:wish-wash",
+      "date": "2026-05-29",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Wish Wash",
+      "venue": "The 331 Club",
+      "venue_neighborhood": "Northeast Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "With Ray Gun Youth, Steady Range · 10:00pm, 7pm",
+      "url": "https://www.331club.com/",
+      "image": null,
+      "price": null,
+      "age": "21+",
+      "source": "331"
     },
     {
       "id": "berlin:2026-05-29:laeton-olaleye-omar-abdulkarim",
@@ -3152,6 +3447,23 @@
       "source": "berlin"
     },
     {
+      "id": "331:2026-05-30:the-del-viles",
+      "date": "2026-05-30",
+      "time": "19:00",
+      "end_date": null,
+      "title": "The Del-Viles",
+      "venue": "The 331 Club",
+      "venue_neighborhood": "Northeast Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "With ditch pigeon, J-Mo & The J-Lighters · 10:00pm, 7pm",
+      "url": "https://www.331club.com/",
+      "image": null,
+      "price": null,
+      "age": "21+",
+      "source": "331"
+    },
+    {
       "id": "berlin:2026-05-30:jt-bates-quartet",
       "date": "2026-05-30",
       "time": "19:30",
@@ -3305,6 +3617,23 @@
       "source": "cedar"
     },
     {
+      "id": "331:2026-05-31:becky-kapell-and-the-fat",
+      "date": "2026-05-31",
+      "time": "17:00",
+      "end_date": null,
+      "title": "Becky Kapell and The Fat",
+      "venue": "The 331 Club",
+      "venue_neighborhood": "Northeast Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "With Jack klatt · 7:00pm, 5pm",
+      "url": "https://www.331club.com/",
+      "image": null,
+      "price": null,
+      "age": "21+",
+      "source": "331"
+    },
+    {
       "id": "dakota:2026-05-31:jon-cleary",
       "date": "2026-05-31",
       "time": "19:00",
@@ -3390,6 +3719,23 @@
       "source": "first-avenue"
     },
     {
+      "id": "331:2026-06-01:roe-family-singers",
+      "date": "2026-06-01",
+      "time": "18:00",
+      "end_date": null,
+      "title": "Roe Family Singers",
+      "venue": "The 331 Club",
+      "venue_neighborhood": "Northeast Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "With Soul Trouvère · 8pm, 6pm",
+      "url": "https://www.331club.com/",
+      "image": null,
+      "price": null,
+      "age": "21+",
+      "source": "331"
+    },
+    {
       "id": "trylon:2026-06-01:19:00:zodiac",
       "date": "2026-06-01",
       "time": "19:00",
@@ -3405,6 +3751,23 @@
       "price": null,
       "age": null,
       "source": "trylon"
+    },
+    {
+      "id": "331:2026-06-02:sawtooth-witch",
+      "date": "2026-06-02",
+      "time": "00:00",
+      "end_date": null,
+      "title": "Sawtooth Witch",
+      "venue": "The 331 Club",
+      "venue_neighborhood": "Northeast Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Sets at 12am, 9:30pm, 8pm",
+      "url": "https://www.331club.com/",
+      "image": null,
+      "price": null,
+      "age": "21+",
+      "source": "331"
     },
     {
       "id": "trylon:2026-06-02:19:00:the-tribe",
@@ -3439,6 +3802,23 @@
       "price": null,
       "age": null,
       "source": "trylon"
+    },
+    {
+      "id": "331:2026-06-03:bosso-poetry-company",
+      "date": "2026-06-03",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Bosso Poetry Company",
+      "venue": "The 331 Club",
+      "venue_neighborhood": "Northeast Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "With Harold’s House Party on KFAI · 9:30pm, 7:00pm",
+      "url": "https://www.331club.com/",
+      "image": null,
+      "price": null,
+      "age": "21+",
+      "source": "331"
     },
     {
       "id": "dakota:2026-06-03:livingston-taylor",
@@ -3662,6 +4042,23 @@
       "source": "trylon"
     },
     {
+      "id": "331:2026-06-05:the-crimson-boys",
+      "date": "2026-06-05",
+      "time": "19:00",
+      "end_date": null,
+      "title": "The Crimson Boys",
+      "venue": "The 331 Club",
+      "venue_neighborhood": "Northeast Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "With Dangerbad · 10:00pm, 7pm",
+      "url": "https://www.331club.com/",
+      "image": null,
+      "price": null,
+      "age": "21+",
+      "source": "331"
+    },
+    {
       "id": "berlin:2026-06-05:mathis-picard-trio",
       "date": "2026-06-05",
       "time": "19:30",
@@ -3866,6 +4263,23 @@
       "source": "hook"
     },
     {
+      "id": "331:2026-06-06:plumstar",
+      "date": "2026-06-06",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Plumstar",
+      "venue": "The 331 Club",
+      "venue_neighborhood": "Northeast Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Sets at 10:00pm, 7pm",
+      "url": "https://www.331club.com/",
+      "image": null,
+      "price": null,
+      "age": "21+",
+      "source": "331"
+    },
+    {
       "id": "berlin:2026-06-06:mathis-picard-trio",
       "date": "2026-06-06",
       "time": "19:30",
@@ -3985,6 +4399,23 @@
       "source": "trylon"
     },
     {
+      "id": "331:2026-06-07:brass-messengers",
+      "date": "2026-06-07",
+      "time": "17:00",
+      "end_date": null,
+      "title": "Brass Messengers",
+      "venue": "The 331 Club",
+      "venue_neighborhood": "Northeast Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Sets at 7pm, 5pm",
+      "url": "https://www.331club.com/",
+      "image": null,
+      "price": null,
+      "age": "21+",
+      "source": "331"
+    },
+    {
       "id": "cedar:2026-06-07:noise-party-14",
       "date": "2026-06-07",
       "time": "19:00",
@@ -4036,6 +4467,23 @@
       "source": "parkway"
     },
     {
+      "id": "331:2026-06-08:roe-family-singers",
+      "date": "2026-06-08",
+      "time": "18:00",
+      "end_date": null,
+      "title": "Roe Family Singers",
+      "venue": "The 331 Club",
+      "venue_neighborhood": "Northeast Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "With Sidewalk Diamonds · 8pm, 6pm",
+      "url": "https://www.331club.com/",
+      "image": null,
+      "price": null,
+      "age": "21+",
+      "source": "331"
+    },
+    {
       "id": "trylon:2026-06-08:19:00:shaun-of-the-dead-in-35mm",
       "date": "2026-06-08",
       "time": "19:00",
@@ -4068,6 +4516,23 @@
       "price": null,
       "age": null,
       "source": "trylon"
+    },
+    {
+      "id": "331:2026-06-09:sawtooth-witch",
+      "date": "2026-06-09",
+      "time": "00:00",
+      "end_date": null,
+      "title": "Sawtooth Witch",
+      "venue": "The 331 Club",
+      "venue_neighborhood": "Northeast Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "With mike munson · 12am, 9:30pm, 8pm",
+      "url": "https://www.331club.com/",
+      "image": null,
+      "price": null,
+      "age": "21+",
+      "source": "331"
     },
     {
       "id": "trylon:2026-06-09:19:00:shaun-of-the-dead-in-35mm",
@@ -4138,6 +4603,23 @@
       "source": "berlin"
     },
     {
+      "id": "331:2026-06-10:david-robinson-and-the-dedicated-friends",
+      "date": "2026-06-10",
+      "time": "19:00",
+      "end_date": null,
+      "title": "David Robinson & the Dedicated Friends",
+      "venue": "The 331 Club",
+      "venue_neighborhood": "Northeast Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "With Harold’s House Party on KFAI · 9:30pm, 7:00pm",
+      "url": "https://www.331club.com/",
+      "image": null,
+      "price": null,
+      "age": "21+",
+      "source": "331"
+    },
+    {
       "id": "trylon:2026-06-10:19:00:summer-tour",
       "date": "2026-06-10",
       "time": "19:00",
@@ -4187,6 +4669,23 @@
       "price": null,
       "age": "21+",
       "source": "berlin"
+    },
+    {
+      "id": "331:2026-06-11:hebbajebba",
+      "date": "2026-06-11",
+      "time": "21:30",
+      "end_date": null,
+      "title": "HebbaJebba",
+      "venue": "The 331 Club",
+      "venue_neighborhood": "Northeast Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Sets at 9:30pm",
+      "url": "https://www.331club.com/",
+      "image": null,
+      "price": null,
+      "age": "21+",
+      "source": "331"
     },
     {
       "id": "hook:2026-06-12:blues-brothers-tribute-mark-joseph-and-038-american-soul-feat-tom-and-8216-bones",
@@ -4325,6 +4824,23 @@
       "source": "riverview"
     },
     {
+      "id": "331:2026-06-13:chris-cashin",
+      "date": "2026-06-13",
+      "time": "15:00",
+      "end_date": null,
+      "title": "Chris Cashin",
+      "venue": "The 331 Club",
+      "venue_neighborhood": "Northeast Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Sets at 10:00pm, 7pm, 3pm",
+      "url": "https://www.331club.com/",
+      "image": null,
+      "price": null,
+      "age": "21+",
+      "source": "331"
+    },
+    {
       "id": "cedar:2026-06-13:dinkytown-a-tale-of-a-legendary-village-film-screening",
       "date": "2026-06-13",
       "time": "16:00",
@@ -4444,6 +4960,23 @@
       "source": "cedar"
     },
     {
+      "id": "331:2026-06-14:emmy-woods-and-friends",
+      "date": "2026-06-14",
+      "time": "16:00",
+      "end_date": null,
+      "title": "Emmy Woods and friends",
+      "venue": "The 331 Club",
+      "venue_neighborhood": "Northeast Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Sets at 7:00pm, 4pm",
+      "url": "https://www.331club.com/",
+      "image": null,
+      "price": null,
+      "age": "21+",
+      "source": "331"
+    },
+    {
       "id": "trylon:2026-06-14:17:00:cisco-pike-in-35mm",
       "date": "2026-06-14",
       "time": "17:00",
@@ -4495,6 +5028,23 @@
       "source": "parkway"
     },
     {
+      "id": "331:2026-06-15:roe-family-singers",
+      "date": "2026-06-15",
+      "time": "18:00",
+      "end_date": null,
+      "title": "Roe Family Singers",
+      "venue": "The 331 Club",
+      "venue_neighborhood": "Northeast Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Sets at 8pm, 6pm",
+      "url": "https://www.331club.com/",
+      "image": null,
+      "price": null,
+      "age": "21+",
+      "source": "331"
+    },
+    {
       "id": "trylon:2026-06-15:19:00:hot-fuzz-in-35mm",
       "date": "2026-06-15",
       "time": "19:00",
@@ -4527,6 +5077,23 @@
       "price": null,
       "age": null,
       "source": "trylon"
+    },
+    {
+      "id": "331:2026-06-16:sawtooth-witch",
+      "date": "2026-06-16",
+      "time": "00:00",
+      "end_date": null,
+      "title": "Sawtooth Witch",
+      "venue": "The 331 Club",
+      "venue_neighborhood": "Northeast Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Sets at 12am, 9:30pm, 8pm",
+      "url": "https://www.331club.com/",
+      "image": null,
+      "price": null,
+      "age": "21+",
+      "source": "331"
     },
     {
       "id": "trylon:2026-06-16:19:00:hot-fuzz-in-35mm",
@@ -4597,6 +5164,23 @@
       "source": "trylon"
     },
     {
+      "id": "331:2026-06-17:wren-and-wilde",
+      "date": "2026-06-17",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Wren and Wilde",
+      "venue": "The 331 Club",
+      "venue_neighborhood": "Northeast Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "With Boots & Needles, Harold’s House Party on KFAI · 9:30pm, 7:00pm",
+      "url": "https://www.331club.com/",
+      "image": null,
+      "price": null,
+      "age": "21+",
+      "source": "331"
+    },
+    {
       "id": "hook:2026-06-18:dirty-p-s-thirsty-3rd-thursdays-club",
       "date": "2026-06-18",
       "time": "17:00",
@@ -4631,6 +5215,23 @@
       "source": "cedar"
     },
     {
+      "id": "331:2026-06-18:knife-emoji",
+      "date": "2026-06-18",
+      "time": "21:30",
+      "end_date": null,
+      "title": "Knife Emoji",
+      "venue": "The 331 Club",
+      "venue_neighborhood": "Northeast Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Sets at 9:30pm",
+      "url": "https://www.331club.com/",
+      "image": null,
+      "price": null,
+      "age": "21+",
+      "source": "331"
+    },
+    {
       "id": "parkway:2026-06-18:permanent-record-and-private-oates-play-beck-odelay-front-to-back-for-its-30th-b",
       "date": "2026-06-18",
       "time": null,
@@ -4646,6 +5247,23 @@
       "price": null,
       "age": null,
       "source": "parkway"
+    },
+    {
+      "id": "331:2026-06-19:brotherhood-of-birds",
+      "date": "2026-06-19",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Brotherhood Of Birds",
+      "venue": "The 331 Club",
+      "venue_neighborhood": "Northeast Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Sets at 10:00pm, 7pm",
+      "url": "https://www.331club.com/",
+      "image": null,
+      "price": null,
+      "age": "21+",
+      "source": "331"
     },
     {
       "id": "trylon:2026-06-19:19:00:linda-linda-linda",
@@ -4782,6 +5400,23 @@
       "price": null,
       "age": null,
       "source": "hook"
+    },
+    {
+      "id": "331:2026-06-20:bobby-rethwish",
+      "date": "2026-06-20",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Bobby Rethwish",
+      "venue": "The 331 Club",
+      "venue_neighborhood": "Northeast Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Sets at 10:00pm, 7pm",
+      "url": "https://www.331club.com/",
+      "image": null,
+      "price": null,
+      "age": "21+",
+      "source": "331"
     },
     {
       "id": "trylon:2026-06-20:19:00:ladies-and-gentlemen-the-fabulous-stains",
@@ -4937,6 +5572,23 @@
       "source": "cedar"
     },
     {
+      "id": "331:2026-06-21:switchyard",
+      "date": "2026-06-21",
+      "time": "17:00",
+      "end_date": null,
+      "title": "Switchyard",
+      "venue": "The 331 Club",
+      "venue_neighborhood": "Northeast Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Sets at 10:30pm, 7:00pm, 5pm",
+      "url": "https://www.331club.com/",
+      "image": null,
+      "price": null,
+      "age": "21+",
+      "source": "331"
+    },
+    {
       "id": "trylon:2026-06-21:17:15:ladies-and-gentlemen-the-fabulous-stains",
       "date": "2026-06-21",
       "time": "17:15",
@@ -5005,6 +5657,23 @@
       "source": "parkway"
     },
     {
+      "id": "331:2026-06-22:roe-family-singers",
+      "date": "2026-06-22",
+      "time": "18:00",
+      "end_date": null,
+      "title": "Roe Family Singers",
+      "venue": "The 331 Club",
+      "venue_neighborhood": "Northeast Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "With HonkyTonk Ranch · 8pm, 6pm",
+      "url": "https://www.331club.com/",
+      "image": null,
+      "price": null,
+      "age": "21+",
+      "source": "331"
+    },
+    {
       "id": "trylon:2026-06-22:19:00:the-worlds-end-in-35mm",
       "date": "2026-06-22",
       "time": "19:00",
@@ -5037,6 +5706,23 @@
       "price": null,
       "age": null,
       "source": "trylon"
+    },
+    {
+      "id": "331:2026-06-23:sawtooth-witch",
+      "date": "2026-06-23",
+      "time": "00:00",
+      "end_date": null,
+      "title": "Sawtooth Witch",
+      "venue": "The 331 Club",
+      "venue_neighborhood": "Northeast Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "With Los Pinches Gueys · 12am, 9:30pm, 8pm",
+      "url": "https://www.331club.com/",
+      "image": null,
+      "price": null,
+      "age": "21+",
+      "source": "331"
     },
     {
       "id": "trylon:2026-06-23:19:00:the-worlds-end-in-35mm",
@@ -5107,6 +5793,23 @@
       "source": "hook"
     },
     {
+      "id": "331:2026-06-24:harold-s-house-party-on-kfai",
+      "date": "2026-06-24",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Harold’s House Party on KFAI",
+      "venue": "The 331 Club",
+      "venue_neighborhood": "Northeast Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "With The Beavers · 9:30pm, 7:00pm",
+      "url": "https://www.331club.com/",
+      "image": null,
+      "price": null,
+      "age": "21+",
+      "source": "331"
+    },
+    {
       "id": "cedar:2026-06-24:amir-elsaffar-and-lorenzo-bianchi-hoesch-present-inner-spaces-with-robert-lehman",
       "date": "2026-06-24",
       "time": "19:30",
@@ -5175,6 +5878,40 @@
       "source": "hook"
     },
     {
+      "id": "331:2026-06-25:stephanie-was",
+      "date": "2026-06-25",
+      "time": "21:30",
+      "end_date": null,
+      "title": "Stephanie Was",
+      "venue": "The 331 Club",
+      "venue_neighborhood": "Northeast Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "With Rich Mattson and the Northstars · 9:30pm",
+      "url": "https://www.331club.com/",
+      "image": null,
+      "price": null,
+      "age": "21+",
+      "source": "331"
+    },
+    {
+      "id": "331:2026-06-26:charlie-doesn-t-surf",
+      "date": "2026-06-26",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Charlie Doesn’t Surf",
+      "venue": "The 331 Club",
+      "venue_neighborhood": "Northeast Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "With Templs · 10:00pm, 7pm",
+      "url": "https://www.331club.com/",
+      "image": null,
+      "price": null,
+      "age": "21+",
+      "source": "331"
+    },
+    {
       "id": "berlin:2026-06-26:bokani-dyer-trio",
       "date": "2026-06-26",
       "time": "19:30",
@@ -5226,6 +5963,23 @@
       "source": "parkway"
     },
     {
+      "id": "331:2026-06-27:slaphazard",
+      "date": "2026-06-27",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Slaphazard",
+      "venue": "The 331 Club",
+      "venue_neighborhood": "Northeast Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Sets at 10:00pm, 7pm",
+      "url": "https://www.331club.com/",
+      "image": null,
+      "price": null,
+      "age": "21+",
+      "source": "331"
+    },
+    {
       "id": "hook:2026-06-27:slippery-people-elno",
       "date": "2026-06-27",
       "time": "19:00",
@@ -5258,6 +6012,23 @@
       "price": null,
       "age": null,
       "source": "parkway"
+    },
+    {
+      "id": "331:2026-06-28:colonel-mustard-and-8217-s-mechanical-orchestra",
+      "date": "2026-06-28",
+      "time": "17:00",
+      "end_date": null,
+      "title": "Colonel Mustard&#8217;s Mechanical Orchestra",
+      "venue": "The 331 Club",
+      "venue_neighborhood": "Northeast Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Sets at 7:00pm, 5pm",
+      "url": "https://www.331club.com/",
+      "image": null,
+      "price": null,
+      "age": "21+",
+      "source": "331"
     },
     {
       "id": "parkway:2026-06-28:jules-mini-summer-tour",
@@ -5294,6 +6065,40 @@
       "source": "parkway"
     },
     {
+      "id": "331:2026-06-29:roe-family-singers",
+      "date": "2026-06-29",
+      "time": "18:00",
+      "end_date": null,
+      "title": "Roe Family Singers",
+      "venue": "The 331 Club",
+      "venue_neighborhood": "Northeast Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Sets at 8pm, 6pm",
+      "url": "https://www.331club.com/",
+      "image": null,
+      "price": null,
+      "age": "21+",
+      "source": "331"
+    },
+    {
+      "id": "331:2026-06-30:sawtooth-witch",
+      "date": "2026-06-30",
+      "time": "00:00",
+      "end_date": null,
+      "title": "Sawtooth Witch",
+      "venue": "The 331 Club",
+      "venue_neighborhood": "Northeast Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Sets at 12am, 9:30pm, 8pm",
+      "url": "https://www.331club.com/",
+      "image": null,
+      "price": null,
+      "age": "21+",
+      "source": "331"
+    },
+    {
       "id": "parkway:2026-06-30:river-shook-with-special-guest-andrew-sa",
       "date": "2026-06-30",
       "time": null,
@@ -5309,6 +6114,23 @@
       "price": null,
       "age": null,
       "source": "parkway"
+    },
+    {
+      "id": "331:2026-07-01:bosso-poetry-company",
+      "date": "2026-07-01",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Bosso Poetry Company",
+      "venue": "The 331 Club",
+      "venue_neighborhood": "Northeast Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "With Harold’s House Party on KFAI · 9:30pm, 7:00pm",
+      "url": "https://www.331club.com/",
+      "image": null,
+      "price": null,
+      "age": "21+",
+      "source": "331"
     },
     {
       "id": "cedar:2026-07-01:puppeteers-for-fears-presents-robopocalypse-the-musical",
@@ -5345,6 +6167,91 @@
       "source": "cedar"
     },
     {
+      "id": "331:2026-07-03:phantom-fields",
+      "date": "2026-07-03",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Phantom fields",
+      "venue": "The 331 Club",
+      "venue_neighborhood": "Northeast Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Sets at 10:00pm, 7pm",
+      "url": "https://www.331club.com/",
+      "image": null,
+      "price": null,
+      "age": "21+",
+      "source": "331"
+    },
+    {
+      "id": "331:2026-07-04:tramps-like-us",
+      "date": "2026-07-04",
+      "time": "19:00",
+      "end_date": null,
+      "title": "TRAMPS LIKE US",
+      "venue": "The 331 Club",
+      "venue_neighborhood": "Northeast Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Sets at 10:00pm, 7pm",
+      "url": "https://www.331club.com/",
+      "image": null,
+      "price": null,
+      "age": "21+",
+      "source": "331"
+    },
+    {
+      "id": "331:2026-07-05:brass-messengers",
+      "date": "2026-07-05",
+      "time": "17:00",
+      "end_date": null,
+      "title": "Brass Messengers",
+      "venue": "The 331 Club",
+      "venue_neighborhood": "Northeast Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Sets at 7pm, 5pm",
+      "url": "https://www.331club.com/",
+      "image": null,
+      "price": null,
+      "age": "21+",
+      "source": "331"
+    },
+    {
+      "id": "331:2026-07-06:roe-family-singers",
+      "date": "2026-07-06",
+      "time": "18:00",
+      "end_date": null,
+      "title": "Roe Family Singers",
+      "venue": "The 331 Club",
+      "venue_neighborhood": "Northeast Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "With Soul Trouvère · 8pm, 6pm",
+      "url": "https://www.331club.com/",
+      "image": null,
+      "price": null,
+      "age": "21+",
+      "source": "331"
+    },
+    {
+      "id": "331:2026-07-07:paul-lawrence",
+      "date": "2026-07-07",
+      "time": "20:00",
+      "end_date": null,
+      "title": "Paul Lawrence",
+      "venue": "The 331 Club",
+      "venue_neighborhood": "Northeast Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Sets at 9:30pm, 8pm",
+      "url": "https://www.331club.com/",
+      "image": null,
+      "price": null,
+      "age": "21+",
+      "source": "331"
+    },
+    {
       "id": "cedar:2026-07-08:summer-at-the-cedar-wic-whitney",
       "date": "2026-07-08",
       "time": "18:00",
@@ -5360,6 +6267,23 @@
       "price": null,
       "age": "All ages",
       "source": "cedar"
+    },
+    {
+      "id": "331:2026-07-08:bosso-poetry-company",
+      "date": "2026-07-08",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Bosso Poetry Company",
+      "venue": "The 331 Club",
+      "venue_neighborhood": "Northeast Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "With Harold&#8217;s House Party on KFAI · 9:30pm, 7:00pm",
+      "url": "https://www.331club.com/",
+      "image": null,
+      "price": null,
+      "age": "21+",
+      "source": "331"
     },
     {
       "id": "berlin:2026-07-08:corto-alto-w-cool-nel-d",
@@ -5394,6 +6318,23 @@
       "price": null,
       "age": null,
       "source": "trylon"
+    },
+    {
+      "id": "331:2026-07-08:the-flying-t",
+      "date": "2026-07-08",
+      "time": "19:00",
+      "end_date": null,
+      "title": "The Flying T",
+      "venue": "The 331 Club",
+      "venue_neighborhood": "Northeast Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "With Harold&#8217;s House Party on KFAI · 9:30pm, 7:00pm",
+      "url": "https://www.331club.com/",
+      "image": null,
+      "price": null,
+      "age": "21+",
+      "source": "331"
     },
     {
       "id": "parkway:2026-07-08:chuck-tingle-presents-fabulous-bodies",
@@ -5447,6 +6388,23 @@
       "source": "berlin"
     },
     {
+      "id": "331:2026-07-10:jon-elconin",
+      "date": "2026-07-10",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Jon Elconin",
+      "venue": "The 331 Club",
+      "venue_neighborhood": "Northeast Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Sets at 10:00pm, 7pm",
+      "url": "https://www.331club.com/",
+      "image": null,
+      "price": null,
+      "age": "21+",
+      "source": "331"
+    },
+    {
       "id": "cedar:2026-07-10:clap-your-hands-say-yeah-piano-and-voice",
       "date": "2026-07-10",
       "time": "20:00",
@@ -5479,6 +6437,23 @@
       "price": null,
       "age": null,
       "source": "parkway"
+    },
+    {
+      "id": "331:2026-07-11:gabe-barnett-and-them-rounders",
+      "date": "2026-07-11",
+      "time": "15:00",
+      "end_date": null,
+      "title": "Gabe Barnett & them Rounders",
+      "venue": "The 331 Club",
+      "venue_neighborhood": "Northeast Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Sets at 10:00pm, 7pm, 3pm",
+      "url": "https://www.331club.com/",
+      "image": null,
+      "price": null,
+      "age": "21+",
+      "source": "331"
     },
     {
       "id": "hook:2026-07-11:w-t-f-fest-2-and-8211-women-trans-femmes-and-allies-to-the-front-and-8211-a-bene",
@@ -5532,6 +6507,23 @@
       "source": "parkway"
     },
     {
+      "id": "331:2026-07-12:emmy-woods-and-friends",
+      "date": "2026-07-12",
+      "time": "16:00",
+      "end_date": null,
+      "title": "Emmy Woods and friends",
+      "venue": "The 331 Club",
+      "venue_neighborhood": "Northeast Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Sets at 7:00pm, 4pm",
+      "url": "https://www.331club.com/",
+      "image": null,
+      "price": null,
+      "age": "21+",
+      "source": "331"
+    },
+    {
       "id": "hook:2026-07-12:nyalla-live-and-8211-catrice-jackson-annual-concert",
       "date": "2026-07-12",
       "time": "19:00",
@@ -5549,6 +6541,40 @@
       "source": "hook"
     },
     {
+      "id": "331:2026-07-13:roe-family-singers",
+      "date": "2026-07-13",
+      "time": "18:00",
+      "end_date": null,
+      "title": "Roe Family Singers",
+      "venue": "The 331 Club",
+      "venue_neighborhood": "Northeast Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Sets at 8pm, 6pm",
+      "url": "https://www.331club.com/",
+      "image": null,
+      "price": null,
+      "age": "21+",
+      "source": "331"
+    },
+    {
+      "id": "331:2026-07-14:paul-lawrence",
+      "date": "2026-07-14",
+      "time": "20:00",
+      "end_date": null,
+      "title": "Paul Lawrence",
+      "venue": "The 331 Club",
+      "venue_neighborhood": "Northeast Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Sets at 9:30pm, 8pm",
+      "url": "https://www.331club.com/",
+      "image": null,
+      "price": null,
+      "age": "21+",
+      "source": "331"
+    },
+    {
       "id": "cedar:2026-07-15:summer-at-the-cedar-summer-deep-listening",
       "date": "2026-07-15",
       "time": "18:00",
@@ -5564,6 +6590,57 @@
       "price": null,
       "age": "All ages",
       "source": "cedar"
+    },
+    {
+      "id": "331:2026-07-15:the-cottonwood-shivers",
+      "date": "2026-07-15",
+      "time": "19:00",
+      "end_date": null,
+      "title": "The Cottonwood Shivers",
+      "venue": "The 331 Club",
+      "venue_neighborhood": "Northeast Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "With QUAERY, Harold&#8217;s House Party on KFAI · 9:30pm, 7:00pm",
+      "url": "https://www.331club.com/",
+      "image": null,
+      "price": null,
+      "age": "21+",
+      "source": "331"
+    },
+    {
+      "id": "331:2026-07-16:knife-emoji",
+      "date": "2026-07-16",
+      "time": "21:30",
+      "end_date": null,
+      "title": "Knife Emoji",
+      "venue": "The 331 Club",
+      "venue_neighborhood": "Northeast Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Sets at 9:30pm",
+      "url": "https://www.331club.com/",
+      "image": null,
+      "price": null,
+      "age": "21+",
+      "source": "331"
+    },
+    {
+      "id": "331:2026-07-17:yes-we-are",
+      "date": "2026-07-17",
+      "time": "19:00",
+      "end_date": null,
+      "title": "YES WE ARE",
+      "venue": "The 331 Club",
+      "venue_neighborhood": "Northeast Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Sets at 10:00pm, 7pm",
+      "url": "https://www.331club.com/",
+      "image": null,
+      "price": null,
+      "age": "21+",
+      "source": "331"
     },
     {
       "id": "cedar:2026-07-17:an-evening-with-fanoos-ensemble",
@@ -5600,6 +6677,23 @@
       "source": "parkway"
     },
     {
+      "id": "331:2026-07-18:speed-riders",
+      "date": "2026-07-18",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Speed Riders",
+      "venue": "The 331 Club",
+      "venue_neighborhood": "Northeast Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Sets at 10:00pm, 7pm",
+      "url": "https://www.331club.com/",
+      "image": null,
+      "price": null,
+      "age": "21+",
+      "source": "331"
+    },
+    {
       "id": "parkway:2026-07-18:kevin-james-thornton-big-baby",
       "date": "2026-07-18",
       "time": null,
@@ -5634,6 +6728,23 @@
       "source": "cedar"
     },
     {
+      "id": "331:2026-07-19:switchyard",
+      "date": "2026-07-19",
+      "time": "17:00",
+      "end_date": null,
+      "title": "Switchyard",
+      "venue": "The 331 Club",
+      "venue_neighborhood": "Northeast Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Sets at 10:30pm, 7:00pm, 5pm",
+      "url": "https://www.331club.com/",
+      "image": null,
+      "price": null,
+      "age": "21+",
+      "source": "331"
+    },
+    {
       "id": "parkway:2026-07-19:take-me-to-the-river-all-stars-memphis-soul-revue-featuring-carla-thomas",
       "date": "2026-07-19",
       "time": null,
@@ -5651,6 +6762,40 @@
       "source": "parkway"
     },
     {
+      "id": "331:2026-07-20:roe-family-singers",
+      "date": "2026-07-20",
+      "time": "18:00",
+      "end_date": null,
+      "title": "Roe Family Singers",
+      "venue": "The 331 Club",
+      "venue_neighborhood": "Northeast Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Sets at 8pm, 6pm",
+      "url": "https://www.331club.com/",
+      "image": null,
+      "price": null,
+      "age": "21+",
+      "source": "331"
+    },
+    {
+      "id": "331:2026-07-21:paul-lawrence",
+      "date": "2026-07-21",
+      "time": "20:00",
+      "end_date": null,
+      "title": "Paul Lawrence",
+      "venue": "The 331 Club",
+      "venue_neighborhood": "Northeast Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Sets at 9:30pm, 8pm",
+      "url": "https://www.331club.com/",
+      "image": null,
+      "price": null,
+      "age": "21+",
+      "source": "331"
+    },
+    {
       "id": "cedar:2026-07-22:summer-at-the-cedar-the-foxgloves",
       "date": "2026-07-22",
       "time": "18:00",
@@ -5666,6 +6811,23 @@
       "price": null,
       "age": "All ages",
       "source": "cedar"
+    },
+    {
+      "id": "331:2026-07-22:maybe-nebraska",
+      "date": "2026-07-22",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Maybe Nebraska",
+      "venue": "The 331 Club",
+      "venue_neighborhood": "Northeast Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "With Harold&#8217;s House Party on KFAI · 9:30pm, 7:00pm",
+      "url": "https://www.331club.com/",
+      "image": null,
+      "price": null,
+      "age": "21+",
+      "source": "331"
     },
     {
       "id": "parkway:2026-07-22:jennifer-lyn-and-the-groove-revival-electric-eden",
@@ -5702,6 +6864,40 @@
       "source": "cedar"
     },
     {
+      "id": "331:2026-07-23:nick-elstad-trio",
+      "date": "2026-07-23",
+      "time": "21:30",
+      "end_date": null,
+      "title": "Nick Elstad Trio",
+      "venue": "The 331 Club",
+      "venue_neighborhood": "Northeast Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Sets at 9:30pm",
+      "url": "https://www.331club.com/",
+      "image": null,
+      "price": null,
+      "age": "21+",
+      "source": "331"
+    },
+    {
+      "id": "331:2026-07-24:noslo",
+      "date": "2026-07-24",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Noslo",
+      "venue": "The 331 Club",
+      "venue_neighborhood": "Northeast Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Sets at 10:00pm, 7pm",
+      "url": "https://www.331club.com/",
+      "image": null,
+      "price": null,
+      "age": "21+",
+      "source": "331"
+    },
+    {
       "id": "cedar:2026-07-24:magic-tuber-stringband",
       "date": "2026-07-24",
       "time": "20:00",
@@ -5734,6 +6930,23 @@
       "price": null,
       "age": null,
       "source": "parkway"
+    },
+    {
+      "id": "331:2026-07-25:the-old-smugglers",
+      "date": "2026-07-25",
+      "time": "19:00",
+      "end_date": null,
+      "title": "The Old Smugglers",
+      "venue": "The 331 Club",
+      "venue_neighborhood": "Northeast Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Sets at 10:00pm, 7pm",
+      "url": "https://www.331club.com/",
+      "image": null,
+      "price": null,
+      "age": "21+",
+      "source": "331"
     },
     {
       "id": "cedar:2026-07-25:sleepytime-gorilla-museum-with-wendy-eisenberg",
@@ -5770,6 +6983,23 @@
       "source": "parkway"
     },
     {
+      "id": "331:2026-07-26:the-real-chuck-norad",
+      "date": "2026-07-26",
+      "time": "17:00",
+      "end_date": null,
+      "title": "The Real Chuck NORAD",
+      "venue": "The 331 Club",
+      "venue_neighborhood": "Northeast Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Sets at 7:00pm, 5pm",
+      "url": "https://www.331club.com/",
+      "image": null,
+      "price": null,
+      "age": "21+",
+      "source": "331"
+    },
+    {
       "id": "parkway:2026-07-26:legacy-of-lilith-fair-a-celebration-of-women-in-music",
       "date": "2026-07-26",
       "time": null,
@@ -5785,6 +7015,40 @@
       "price": null,
       "age": null,
       "source": "parkway"
+    },
+    {
+      "id": "331:2026-07-27:roe-family-singers",
+      "date": "2026-07-27",
+      "time": "18:00",
+      "end_date": null,
+      "title": "Roe Family Singers",
+      "venue": "The 331 Club",
+      "venue_neighborhood": "Northeast Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "With HonkyTonk Ranch · 8pm, 6pm",
+      "url": "https://www.331club.com/",
+      "image": null,
+      "price": null,
+      "age": "21+",
+      "source": "331"
+    },
+    {
+      "id": "331:2026-07-28:paul-lawrence",
+      "date": "2026-07-28",
+      "time": "20:00",
+      "end_date": null,
+      "title": "Paul Lawrence",
+      "venue": "The 331 Club",
+      "venue_neighborhood": "Northeast Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Sets at 9:30pm, 8pm",
+      "url": "https://www.331club.com/",
+      "image": null,
+      "price": null,
+      "age": "21+",
+      "source": "331"
     },
     {
       "id": "parkway:2026-07-28:sold-out-stewart-copeland-have-i-said-too-much-the-police-hollywood-and-other-ad",
@@ -5821,6 +7085,40 @@
       "source": "cedar"
     },
     {
+      "id": "331:2026-07-29:lenz-and-frenz",
+      "date": "2026-07-29",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Lenz and Frenz",
+      "venue": "The 331 Club",
+      "venue_neighborhood": "Northeast Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "With Harold’s House Party on KFAI · 9:30pm, 7:00pm",
+      "url": "https://www.331club.com/",
+      "image": null,
+      "price": null,
+      "age": "21+",
+      "source": "331"
+    },
+    {
+      "id": "331:2026-07-30:rabbit-by-owl-light",
+      "date": "2026-07-30",
+      "time": "21:30",
+      "end_date": null,
+      "title": "Rabbit By Owl Light",
+      "venue": "The 331 Club",
+      "venue_neighborhood": "Northeast Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Sets at 9:30pm",
+      "url": "https://www.331club.com/",
+      "image": null,
+      "price": null,
+      "age": "21+",
+      "source": "331"
+    },
+    {
       "id": "parkway:2026-07-30:joanne-shaw-taylor-live",
       "date": "2026-07-30",
       "time": null,
@@ -5836,6 +7134,23 @@
       "price": null,
       "age": null,
       "source": "parkway"
+    },
+    {
+      "id": "331:2026-07-31:courtney-yasmineh",
+      "date": "2026-07-31",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Courtney Yasmineh",
+      "venue": "The 331 Club",
+      "venue_neighborhood": "Northeast Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "With Ira Haze and the Strays · 10:00pm, 7pm",
+      "url": "https://www.331club.com/",
+      "image": null,
+      "price": null,
+      "age": "21+",
+      "source": "331"
     },
     {
       "id": "cedar:2026-08-05:summer-at-the-cedar-daniel-villarreal",

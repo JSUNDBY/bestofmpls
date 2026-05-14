@@ -420,7 +420,7 @@ function head({ title, description, slug, theme }) {
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=Archivo:wght@500;600;700&display=swap">
-<link rel="stylesheet" href="/style.css?v=24">
+<link rel="stylesheet" href="/style.css?v=25">
 <script>
 // Set color mode before paint to avoid flash. Reads localStorage first,
 // falls back to light mode (the new editorial default). mode-ready class
@@ -1012,8 +1012,9 @@ function renderHome() {
       <div class="wrap tools-strip-inner">
         <a class="tool-card" href="/map/"><span class="tool-icon" aria-hidden="true">◉</span><span class="tool-label">The Map</span><span class="tool-deck">Every place, plotted</span></a>
         <a class="tool-card" href="/near/"><span class="tool-icon" aria-hidden="true">◎</span><span class="tool-label">Near You</span><span class="tool-deck">10 minute walk</span></a>
-        <a class="tool-card" href="/calendar/"><span class="tool-icon" aria-hidden="true">▭</span><span class="tool-label">Calendar</span><span class="tool-deck">${dedupeNonFilms((eventsData.events || []).filter(e => !isFilmEvent(e))).length} events · ${collapseFilms(eventsData.events || []).films.length} films</span></a>
+        <a class="tool-card" href="/calendar/"><span class="tool-icon" aria-hidden="true">▭</span><span class="tool-label">Calendar</span><span class="tool-deck">${dedupeNonFilms((eventsData.events || []).filter(e => !isFilmEvent(e))).length} events</span></a>
         <a class="tool-card" href="/tonight/"><span class="tool-icon" aria-hidden="true">☾</span><span class="tool-label">Tonight</span><span class="tool-deck">${rightnowData ? `Sunset ${rightnowData.sun.set}` : 'Sunset + countdowns'}</span></a>
+        <a class="tool-card" href="/this-weekend/"><span class="tool-icon" aria-hidden="true">◷</span><span class="tool-label">This Weekend</span><span class="tool-deck">Fri · Sat · Sun</span></a>
         <a class="tool-card" href="/quiz/"><span class="tool-icon" aria-hidden="true">?</span><span class="tool-label">Quiz</span><span class="tool-deck">Where to be tonight</span></a>
         <a class="tool-card" href="/skyway/"><span class="tool-icon" aria-hidden="true">⇄</span><span class="tool-label">Skyway</span><span class="tool-deck">${skyway.nodes.length} downtown nodes</span></a>
         <a class="tool-card" href="/take-them-to/"><span class="tool-icon" aria-hidden="true">⌖</span><span class="tool-label">Take Them To</span><span class="tool-deck">${(IS_WARM_SEASON ? situations.situations.filter(s => s.slug !== 'snow-day') : situations.situations).length} situations</span></a>
@@ -1700,7 +1701,7 @@ function renderAdminPicks() {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>${esc(title)}</title>
-<link rel="stylesheet" href="/style.css?v=24">
+<link rel="stylesheet" href="/style.css?v=25">
 <style>
   body { background: var(--paper); }
   .admin-wrap { max-width: 960px; margin: 0 auto; padding: 32px var(--gutter) 96px; }
@@ -2385,7 +2386,7 @@ function renderCalendar() {
             <div class="cal-row-when">${e.time ? esc(fmtTime(e.time)) : 'TBA'}</div>
             <div class="cal-row-body">
               <h3 class="cal-row-title">${e.url ? `<a href="${esc(e.url)}" target="_blank" rel="noopener">${esc(e.title)} <span class="entry-meta-link-icon">↗</span></a>` : esc(e.title)}</h3>
-              <div class="cal-row-venue"><a href="#venue-${esc(venueAnchor(e.venue))}" class="cal-row-venue-link">${esc(e.venue)}</a>${e.venue_neighborhood ? ` <span class="cal-row-neigh">· ${esc(e.venue_neighborhood)}</span>` : ''}</div>
+              <div class="cal-row-venue"><a href="/calendar/venue/${esc(entrySlug(e.venue))}/" class="cal-row-venue-link">${esc(e.venue)}</a>${e.venue_neighborhood ? ` <span class="cal-row-neigh">· ${esc(e.venue_neighborhood)}</span>` : ''}</div>
               ${e.subtitle ? `<p class="cal-row-sub">${esc(e.subtitle.slice(0, 140))}${e.subtitle.length > 140 ? '…' : ''}</p>` : ''}
             </div>
           </li>`).join('')}
@@ -2439,6 +2440,239 @@ function renderCalendar() {
          chips.forEach(function(c){ c.addEventListener('click', function(){ apply(c.dataset.venue); }); });
        })();
      </script>` +
+    footer();
+}
+
+// ---------- Per-venue detail pages ----------
+//
+// Each scraped venue gets a page at /calendar/venue/<slug>/ listing all of
+// its upcoming shows (not capped at the 21-day window — this is the
+// dedicated venue page, so we show the full booking calendar). We also
+// attempt to match the venue back to its directory entry under /live-music/
+// so the page can link to the entry's neighborhood/address/description.
+function resolveVenues() {
+  // Manual map from scraped venue name → matching live-music directory entry
+  // name. Anything not in the map falls back to a name-only entry.
+  const directoryAlias = {
+    'First Avenue': 'First Avenue & 7th St Entry',
+    '7th St Entry': 'First Avenue & 7th St Entry',
+    'Turf Club': 'First Avenue & 7th St Entry',
+    'Fine Line': 'The Fine Line Music Cafe',
+    'The Cedar Cultural Center': 'Cedar Cultural Center',
+    'Palace Theatre': 'Palace Theatre',
+    'The Fitzgerald Theater': 'Fitzgerald Theater',
+    'Dakota Jazz Club': 'Dakota Jazz Club & Restaurant',
+    'The Hook and Ladder': 'The Hook and Ladder Theater',
+    'Berlin': 'Berlin'
+  };
+  // Build a quick lookup of live-music entries.
+  const liveMusicByName = new Map();
+  for (const e of (liveMusic.entries || [])) liveMusicByName.set(e.name, e);
+
+  const events = (eventsData.events || []).filter(e => !isFilmEvent(e));
+  const events_dedup = dedupeNonFilms(events);
+
+  const venues = new Map();
+  for (const e of events_dedup) {
+    const slug = entrySlug(e.venue);
+    if (!venues.has(slug)) {
+      const aliasName = directoryAlias[e.venue];
+      const dirEntry = aliasName ? liveMusicByName.get(aliasName) : null;
+      venues.set(slug, {
+        slug,
+        name: e.venue,
+        neighborhood: e.venue_neighborhood || (dirEntry && dirEntry.neighborhood) || null,
+        directory: dirEntry || null,
+        events: []
+      });
+    }
+    venues.get(slug).events.push(e);
+  }
+  for (const v of venues.values()) {
+    v.events.sort((a, b) => (a.date + (a.time || '')).localeCompare(b.date + (b.time || '')));
+  }
+  return [...venues.values()].sort((a, b) => b.events.length - a.events.length);
+}
+
+function renderVenuePage(v) {
+  const title = v.name;
+  const description = `Upcoming live music and events at ${v.name}${v.neighborhood ? ', ' + v.neighborhood : ''}. ${v.events.length} show${v.events.length === 1 ? '' : 's'} on the schedule.`;
+  const slug = `calendar/venue/${v.slug}`;
+
+  function fmtTime12(t) {
+    if (!t) return 'Time TBA';
+    const [h, m] = t.split(':').map(Number);
+    const ampm = h >= 12 ? 'PM' : 'AM';
+    const hr = h % 12 === 0 ? 12 : h % 12;
+    return `${hr}:${String(m).padStart(2, '0')} ${ampm}`;
+  }
+  function fmtLong(iso) {
+    const [y, m, d] = iso.split('-').map(Number);
+    return new Date(y, m - 1, d).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+  }
+
+  // Group by year-month so a heavy booking calendar doesn't look like a wall.
+  const byMonth = new Map();
+  for (const e of v.events) {
+    const key = e.date.slice(0, 7); // YYYY-MM
+    if (!byMonth.has(key)) byMonth.set(key, []);
+    byMonth.get(key).push(e);
+  }
+  const monthLabel = (key) => {
+    const [y, m] = key.split('-').map(Number);
+    return new Date(y, m - 1, 1).toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+  };
+
+  const monthBlocks = [...byMonth.keys()].sort().map(key => `
+    <section class="venue-month">
+      <h2 class="venue-month-label">${esc(monthLabel(key))}</h2>
+      <ul class="venue-show-list">
+        ${byMonth.get(key).map(e => `
+          <li class="venue-show">
+            <div class="venue-show-when">
+              <div class="venue-show-date">${esc(fmtLong(e.date))}</div>
+              <div class="venue-show-time">${esc(fmtTime12(e.time))}</div>
+            </div>
+            <div class="venue-show-body">
+              <h3 class="venue-show-title">${e.url ? `<a href="${esc(e.url)}" target="_blank" rel="noopener">${esc(e.title)} <span class="entry-meta-link-icon">↗</span></a>` : esc(e.title)}</h3>
+              ${e.subtitle ? `<p class="venue-show-sub">${esc(e.subtitle.slice(0, 200))}${e.subtitle.length > 200 ? '…' : ''}</p>` : ''}
+            </div>
+          </li>`).join('')}
+      </ul>
+    </section>`).join('');
+
+  const dirInfo = v.directory ? `
+    <div class="venue-dir-info">
+      ${v.directory.address ? `<div class="venue-dir-row"><span class="venue-dir-label">Address</span><a class="venue-dir-val" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(v.directory.address)}">${esc(v.directory.address)}</a></div>` : ''}
+      ${v.directory.website ? `<div class="venue-dir-row"><span class="venue-dir-label">Official site</span><a class="venue-dir-val" target="_blank" rel="noopener" href="${esc(v.directory.website)}">${esc(v.directory.website.replace(/^https?:\/\//, ''))}</a></div>` : ''}
+      ${v.directory.description ? `<p class="venue-dir-desc">${esc(v.directory.description)}</p>` : ''}
+    </div>` : '';
+
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'MusicVenue',
+    name: v.name,
+    address: v.directory?.address ? { '@type': 'PostalAddress', streetAddress: v.directory.address, addressLocality: 'Minneapolis', addressRegion: 'MN' } : undefined,
+    url: `${SITE}/calendar/venue/${v.slug}/`,
+    event: v.events.slice(0, 30).map(e => ({
+      '@type': 'Event',
+      name: e.title,
+      startDate: e.date + (e.time ? `T${e.time}:00` : ''),
+      url: e.url || undefined,
+      location: { '@type': 'Place', name: v.name }
+    }))
+  };
+
+  return head({ title, description, slug, theme: 'forest' }) +
+    header({ activeSlug: 'calendar' }) +
+    `<script type="application/ld+json">${JSON.stringify(schema)}</script>
+     <section class="venue-hero">
+       <div class="wrap venue-hero-inner">
+         <div class="venue-hero-breadcrumb"><a href="/calendar/">The Calendar</a> · <span>Venue</span></div>
+         <h1 class="venue-hero-name">${esc(v.name)}</h1>
+         ${v.neighborhood ? `<div class="venue-hero-neigh">${esc(v.neighborhood)}</div>` : ''}
+         <div class="venue-hero-count">${v.events.length} upcoming show${v.events.length === 1 ? '' : 's'} on the books</div>
+         ${dirInfo}
+       </div>
+     </section>
+     <section class="venue-shows">
+       <div class="wrap">
+         ${monthBlocks}
+       </div>
+     </section>
+     <section class="venue-footer wrap">
+       <p><a href="/calendar/">← Back to the full calendar</a>${v.directory ? ` · <a href="/live-music/${entrySlug(v.directory.name)}/">More on ${esc(v.directory.name)} →</a>` : ''}</p>
+     </section>` +
+    footer();
+}
+
+// ---------- /this-weekend/ — Fri/Sat/Sun bundle ----------
+function renderWeekend() {
+  const allEvents = eventsData.events || [];
+  const events = dedupeNonFilms(allEvents.filter(e => !isFilmEvent(e)));
+
+  // Find the next Friday/Saturday/Sunday triplet. If today is Thu, Fri, Sat,
+  // or Sun, that means "this" weekend (the one already happening or about to
+  // happen). If today is Mon, Tue, Wed, it means the coming Fri.
+  const [ty, tm, td] = TODAY_ISO.split('-').map(Number);
+  const todayDate = new Date(Date.UTC(ty, tm - 1, td));
+  const todayDow = todayDate.getUTCDay(); // 0=Sun, 5=Fri, 6=Sat
+
+  // Days from today to this Friday. If today is Fri/Sat/Sun, "Friday" = the
+  // most recent Friday (today or up to 2 days ago).
+  let daysToFri;
+  if (todayDow === 5) daysToFri = 0;
+  else if (todayDow === 6) daysToFri = -1;
+  else if (todayDow === 0) daysToFri = -2;
+  else daysToFri = 5 - todayDow;
+
+  const friDate = new Date(Date.UTC(ty, tm - 1, td + daysToFri));
+  const isoFromDate = (d) => `${d.getUTCFullYear()}-${String(d.getUTCMonth()+1).padStart(2,'0')}-${String(d.getUTCDate()).padStart(2,'0')}`;
+  const friIso = isoFromDate(friDate);
+  const satIso = isoFromDate(new Date(Date.UTC(ty, tm - 1, td + daysToFri + 1)));
+  const sunIso = isoFromDate(new Date(Date.UTC(ty, tm - 1, td + daysToFri + 2)));
+
+  const weekendDays = [
+    { label: 'Friday',   iso: friIso },
+    { label: 'Saturday', iso: satIso },
+    { label: 'Sunday',   iso: sunIso }
+  ];
+  for (const d of weekendDays) {
+    d.events = events
+      .filter(e => e.date === d.iso)
+      .sort((a, b) => (a.time || '99:99').localeCompare(b.time || '99:99'));
+  }
+
+  const totalShows = weekendDays.reduce((sum, d) => sum + d.events.length, 0);
+  const headlineDate = (function(){
+    const [y, m, dd] = friIso.split('-').map(Number);
+    return new Date(y, m - 1, dd).toLocaleDateString('en-US', { month: 'long', day: 'numeric' });
+  })();
+  const endDate = (function(){
+    const [y, m, dd] = sunIso.split('-').map(Number);
+    return new Date(y, m - 1, dd).toLocaleDateString('en-US', { month: 'long', day: 'numeric' });
+  })();
+
+  function fmtTime12(t) {
+    if (!t) return 'TBA';
+    const [h, m] = t.split(':').map(Number);
+    const ampm = h >= 12 ? 'PM' : 'AM';
+    const hr = h % 12 === 0 ? 12 : h % 12;
+    return `${hr}:${String(m).padStart(2, '0')} ${ampm}`;
+  }
+
+  const dayBlocks = weekendDays.map(d => `
+    <section class="weekend-day">
+      <header class="weekend-day-head">
+        <h2 class="weekend-day-label">${esc(d.label)}</h2>
+        <span class="weekend-day-date">${esc((function(){ const [y,m,dd]=d.iso.split('-').map(Number); return new Date(y,m-1,dd).toLocaleDateString('en-US',{month:'short',day:'numeric'}); })())}</span>
+        <span class="weekend-day-count">${d.events.length} ${d.events.length === 1 ? 'show' : 'shows'}</span>
+      </header>
+      ${d.events.length === 0 ? `<p class="weekend-empty">Quiet on the scraped calendar for ${esc(d.label.toLowerCase())}.</p>` : `
+        <ul class="weekend-show-list">
+          ${d.events.map(e => `
+            <li class="weekend-show">
+              <div class="weekend-show-when">${esc(fmtTime12(e.time))}</div>
+              <div class="weekend-show-body">
+                <h3 class="weekend-show-title">${e.url ? `<a href="${esc(e.url)}" target="_blank" rel="noopener">${esc(e.title)} <span class="entry-meta-link-icon">↗</span></a>` : esc(e.title)}</h3>
+                <div class="weekend-show-venue"><a href="/calendar/venue/${esc(entrySlug(e.venue))}/">${esc(e.venue)}</a>${e.venue_neighborhood ? ` <span class="weekend-show-neigh">· ${esc(e.venue_neighborhood)}</span>` : ''}</div>
+              </div>
+            </li>`).join('')}
+        </ul>`}
+    </section>`).join('');
+
+  return head({ title: 'This Weekend', description: `Friday through Sunday across Minneapolis and Saint Paul. ${totalShows} shows on the calendar between ${headlineDate} and ${endDate}.`, slug: 'this-weekend', theme: 'forest' }) +
+    header({ activeSlug: 'this-weekend' }) +
+    `<section class="section-head">
+       <div class="wrap">
+         <div class="section-eyebrow">${totalShows} shows · ${headlineDate} to ${endDate}</div>
+         <h1 class="section-title">This Weekend</h1>
+         <p class="section-deck">Friday through Sunday. Every concert, opening, talk, and performance the scraper found, by day.</p>
+       </div>
+     </section>
+     <section class="weekend-grid">
+       <div class="wrap weekend-grid-inner">${dayBlocks}</div>
+     </section>` +
     footer();
 }
 
@@ -3875,6 +4109,7 @@ function renderSitemap(neighborhoods) {
     { loc: SITE + '/visit/', priority: '0.9' },
     { loc: SITE + '/tonight/', priority: '0.9' },
     { loc: SITE + '/calendar/', priority: '0.9' },
+    { loc: SITE + '/this-weekend/', priority: '0.9' },
     { loc: SITE + '/map/', priority: '0.9' },
     { loc: SITE + '/near/', priority: '0.8' },
     { loc: SITE + '/quiz/', priority: '0.8' },
@@ -3892,6 +4127,7 @@ function renderSitemap(neighborhoods) {
     { loc: SITE + '/contribute/', priority: '0.5' },
     ...(featuredEvts.events || []).map(ev => ({ loc: `${SITE}/${ev.slug}/`, priority: '0.95' })),
     ...categories.map(c => ({ loc: `${SITE}/${c.slug}/`, priority: '0.9' })),
+    ...resolveVenues().map(v => ({ loc: `${SITE}/calendar/venue/${v.slug}/`, priority: '0.8' })),
     ...(neighborhoods || []).map(nb => ({ loc: `${SITE}/neighborhoods/${nb.slug}/`, priority: '0.8' })),
     // Per-entry detail pages. The biggest SEO surface on the site.
     ...categories.flatMap(c => {
@@ -3976,6 +4212,14 @@ function build() {
 
   // Calendar — scraped live events
   writeFile('calendar/index.html', renderCalendar());
+
+  // Per-venue calendar pages
+  for (const v of resolveVenues()) {
+    writeFile(`calendar/venue/${v.slug}/index.html`, renderVenuePage(v));
+  }
+
+  // This Weekend — Fri/Sat/Sun bundle
+  writeFile('this-weekend/index.html', renderWeekend());
 
   // Daily horoscope
   writeFile('horoscope/index.html', renderHoroscope());

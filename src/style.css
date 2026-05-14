@@ -4726,6 +4726,248 @@ html[data-mode="dark"] .newsletter-capture {
 }
 .tonight-more:hover { color: var(--paper); }
 
+/* ===== Per-venue calendar page ===== */
+.venue-hero {
+  padding: 48px 0 32px;
+  border-bottom: 1px solid var(--rule);
+}
+.venue-hero-inner { max-width: 880px; margin: 0 auto; padding: 0 var(--gutter); }
+.venue-hero-breadcrumb {
+  font-family: var(--font-label);
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin: 0 0 12px;
+}
+.venue-hero-breadcrumb a { color: var(--ink-soft); text-decoration: none; border-bottom: 1px dotted var(--rule); }
+.venue-hero-breadcrumb a:hover { color: var(--clay); border-color: var(--clay); }
+.venue-hero-name {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-style: italic;
+  font-size: clamp(40px, 6vw, 72px);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  margin: 0 0 8px;
+  color: var(--ink);
+}
+.venue-hero-neigh {
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: var(--ink-soft);
+  margin-bottom: 8px;
+}
+.venue-hero-count {
+  font-family: var(--font-label);
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--clay);
+  margin-bottom: 20px;
+}
+.venue-dir-info {
+  display: grid;
+  gap: 8px;
+  padding: 18px 22px;
+  background: var(--paper-deep, rgba(0,0,0,0.03));
+  border-left: 3px solid var(--clay);
+  margin-top: 16px;
+}
+html[data-mode="dark"] .venue-dir-info { background: var(--paper-2); }
+.venue-dir-row {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  gap: 12px;
+  font-family: var(--font-body);
+  font-size: 14px;
+}
+.venue-dir-label {
+  font-family: var(--font-label);
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.venue-dir-val { color: var(--ink); text-decoration: none; border-bottom: 1px dotted var(--rule); }
+.venue-dir-val:hover { color: var(--clay); border-color: var(--clay); }
+.venue-dir-desc {
+  font-family: var(--font-body);
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  margin: 6px 0 0;
+  grid-column: 1 / -1;
+}
+
+.venue-shows { padding: 36px 0 24px; }
+.venue-shows .wrap { max-width: 880px; }
+.venue-month + .venue-month { margin-top: 36px; padding-top: 28px; border-top: 1px solid var(--rule); }
+.venue-month-label {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-style: italic;
+  font-size: clamp(24px, 2.8vw, 30px);
+  line-height: 1.0;
+  letter-spacing: -0.01em;
+  margin: 0 0 16px;
+  color: var(--ink);
+}
+.venue-show-list { list-style: none; margin: 0; padding: 0; }
+.venue-show {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 18px;
+  padding: 16px 0;
+  border-top: 1px solid var(--rule);
+}
+.venue-show:first-child { border-top: 2px solid var(--ink); }
+@media (max-width: 600px) {
+  .venue-show { grid-template-columns: 1fr; gap: 4px; }
+}
+.venue-show-when {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  font-family: var(--font-label);
+}
+.venue-show-date {
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--clay);
+}
+.venue-show-time {
+  font-weight: 500;
+  font-size: 12px;
+  color: var(--ink-faint);
+  letter-spacing: 0.04em;
+}
+.venue-show-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(19px, 2.2vw, 23px);
+  line-height: 1.2;
+  margin: 0 0 4px;
+}
+.venue-show-title a { color: inherit; text-decoration: none; border-bottom: 1px solid var(--rule); }
+.venue-show-title a:hover { color: var(--clay); border-color: var(--clay); }
+.venue-show-sub {
+  font-family: var(--font-body);
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--ink-soft);
+  margin: 0;
+}
+.venue-footer {
+  padding: 24px var(--gutter) 48px;
+  max-width: 880px;
+  margin: 0 auto;
+  border-top: 1px solid var(--rule);
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: var(--ink-soft);
+}
+.venue-footer a { color: var(--clay); }
+
+/* ===== /this-weekend/ Fri-Sat-Sun grid ===== */
+.weekend-grid { padding: 36px 0 48px; }
+.weekend-grid-inner {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+@media (max-width: 880px) {
+  .weekend-grid-inner { grid-template-columns: 1fr; gap: 24px; }
+}
+.weekend-day {
+  border-top: 2px solid var(--ink);
+  padding-top: 14px;
+}
+.weekend-day-head {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 0 0 12px;
+}
+.weekend-day-label {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-style: italic;
+  font-size: clamp(24px, 2.8vw, 30px);
+  line-height: 1.0;
+  letter-spacing: -0.01em;
+  margin: 0;
+  color: var(--ink);
+}
+.weekend-day-date {
+  font-family: var(--font-label);
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.weekend-day-count {
+  margin-left: auto;
+  font-family: var(--font-label);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--clay);
+}
+.weekend-empty {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: 14px;
+  color: var(--ink-faint);
+  margin: 8px 0 0;
+}
+.weekend-show-list { list-style: none; margin: 0; padding: 0; }
+.weekend-show {
+  display: grid;
+  grid-template-columns: 70px 1fr;
+  gap: 10px;
+  padding: 11px 0;
+  border-top: 1px solid var(--rule);
+}
+.weekend-show-when {
+  font-family: var(--font-label);
+  font-weight: 700;
+  font-size: 11.5px;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: var(--clay);
+}
+.weekend-show-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.25;
+  margin: 0 0 3px;
+}
+.weekend-show-title a { color: inherit; text-decoration: none; border-bottom: 1px solid var(--rule); }
+.weekend-show-title a:hover { color: var(--clay); border-color: var(--clay); }
+.weekend-show-venue {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+.weekend-show-venue a {
+  color: var(--ink);
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1px dotted var(--rule);
+}
+.weekend-show-venue a:hover { color: var(--clay); border-color: var(--clay); }
+.weekend-show-neigh { color: var(--ink-faint); }
+
 /* ===== Print ===== */
 @media print {
   .site-header, .primary-nav, .site-footer { display: none; }

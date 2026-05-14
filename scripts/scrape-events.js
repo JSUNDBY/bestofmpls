@@ -33,7 +33,8 @@ const SCRAPERS = [
   require('./scrapers/trylon.js'),
   require('./scrapers/dakota.js'),
   require('./scrapers/hook.js'),
-  require('./scrapers/berlin.js')
+  require('./scrapers/berlin.js'),
+  require('./scrapers/club331.js')
 ];
 
 function parseArgs() {
