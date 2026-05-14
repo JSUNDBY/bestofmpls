@@ -100,4 +100,68 @@ function clean(s) {
     .trim();
 }
 
-module.exports = { fetchHtml, slugify, inferIsoDate, parseDateString, clean, pad2, MONTHS };
+// Extract schema.org Event entries from a page's JSON-LD script blocks.
+// Returns an array of raw event objects with at least name, startDate, url.
+// Many WordPress and small-venue sites emit clean JSON-LD per event — this
+// is the cheapest reliable parsing path for them.
+function extractJsonLdEvents(html) {
+  const out = [];
+  const scripts = html.matchAll(/<script[^>]*type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi);
+  for (const m of scripts) {
+    let raw = m[1].trim();
+    // Some pages wrap multiple objects in array; some emit one per script.
+    let parsed = null;
+    try { parsed = JSON.parse(raw); } catch (_) {
+      // Some sites add stray HTML-entity escapes or trailing commas. Try a
+      // best-effort fix and re-parse.
+      raw = raw.replace(/,\s*([}\]])/g, '$1');
+      try { parsed = JSON.parse(raw); } catch (_) { continue; }
+    }
+    const list = Array.isArray(parsed) ? parsed : [parsed];
+    for (const item of list) {
+      if (!item || typeof item !== 'object') continue;
+      const type = item['@type'];
+      const types = Array.isArray(type) ? type : [type];
+      if (!types.some(t => /Event/i.test(String(t || '')))) continue;
+      out.push(item);
+    }
+  }
+  return out;
+}
+
+// Pull "2026-05-15" off a startDate string regardless of timezone suffix.
+function isoFromStartDate(s) {
+  if (!s) return null;
+  const m = String(s).match(/^(\d{4}-\d{2}-\d{2})/);
+  return m ? m[1] : null;
+}
+// Pull "20:00" off an ISO datetime like "2026-05-15T19:30:00-05:00".
+function hmFromStartDate(s) {
+  if (!s) return null;
+  const m = String(s).match(/T(\d{2}):(\d{2})/);
+  return m ? `${m[1]}:${m[2]}` : null;
+}
+
+// Decode the HTML entities that JSON-LD sometimes leaves in description /
+// name strings (&quot;, &amp;, &lt; …). Strip leftover HTML tags too. Cheap
+// regex-only decoder — fine for venue blurbs.
+function decodeEntities(s) {
+  if (!s) return s;
+  return String(s)
+    .replace(/&lt;[^&]*?&gt;/g, ' ')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&quot;/g, '"')
+    .replace(/&#039;|&#39;|&apos;/g, "'")
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/\\n/g, ' ')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+module.exports = {
+  fetchHtml, slugify, inferIsoDate, parseDateString, clean, pad2, MONTHS,
+  extractJsonLdEvents, isoFromStartDate, hmFromStartDate, decodeEntities
+};
