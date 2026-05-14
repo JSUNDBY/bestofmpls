@@ -420,7 +420,7 @@ function head({ title, description, slug, theme }) {
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=Archivo:wght@500;600;700&display=swap">
-<link rel="stylesheet" href="/style.css?v=22">
+<link rel="stylesheet" href="/style.css?v=23">
 <script>
 // Set color mode before paint to avoid flash. Reads localStorage first,
 // falls back to light mode (the new editorial default). mode-ready class
@@ -1700,7 +1700,7 @@ function renderAdminPicks() {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>${esc(title)}</title>
-<link rel="stylesheet" href="/style.css?v=22">
+<link rel="stylesheet" href="/style.css?v=23">
 <style>
   body { background: var(--paper); }
   .admin-wrap { max-width: 960px; margin: 0 auto; padding: 32px var(--gutter) 96px; }
@@ -2291,16 +2291,31 @@ function renderExhibitions() {
 // ---------- Calendar — scraped live events ----------
 function renderCalendar() {
   const title = 'The Calendar';
-  const description = 'Live music, art openings, lectures, and screenings across Minneapolis and Saint Paul. Updated daily.';
+  const description = 'Concerts, openings, talks, and performances at every Twin Cities venue. Updated daily.';
   const allEvents = eventsData.events || [];
 
-  // Films get a "Now Playing" rail at the top, one row per film + venue
-  // showing the run-of-engagement. The time-bound stream below is concerts,
-  // talks, openings, and performances — no showtime-by-showtime film noise.
-  const { films, nonFilms: nonFilmRaw } = collapseFilms(allEvents);
-  const events = dedupeNonFilms(nonFilmRaw);
+  // Films are out of the calendar entirely — they were the main source of
+  // visual noise and they're not what the calendar is for. Concerts, talks,
+  // openings, performances only. Run dedupe on the rest to drop occasional
+  // same-night duplicates.
+  const events = dedupeNonFilms(allEvents.filter(e => !isFilmEvent(e)));
 
-  // Group events by ISO date.
+  // Primary view: group by venue. Each venue gets a column of upcoming shows
+  // in date order. This is the answer to "what is coming up at First Ave."
+  const byVenue = new Map();
+  for (const e of events) {
+    if (!byVenue.has(e.venue)) byVenue.set(e.venue, {
+      name: e.venue,
+      neighborhood: e.venue_neighborhood,
+      events: []
+    });
+    byVenue.get(e.venue).events.push(e);
+  }
+  const venueList = [...byVenue.values()]
+    .map(v => ({ ...v, events: v.events.sort((a, b) => (a.date + (a.time || '')).localeCompare(b.date + (b.time || ''))) }))
+    .sort((a, b) => b.events.length - a.events.length);
+
+  // Secondary view: same events, grouped by date.
   const byDate = new Map();
   for (const e of events) {
     if (!byDate.has(e.date)) byDate.set(e.date, []);
@@ -2325,64 +2340,10 @@ function renderCalendar() {
     return map[c] || (c ? c[0].toUpperCase() + c.slice(1) : 'Event');
   }
 
-  // Build a category filter list out of what is actually present today.
-  // Films are excluded — they live in the Now Playing rail above.
-  const cats = [...new Set(events.map(e => e.category))].sort();
-  const venues = [...new Set(events.map(e => e.venue))].sort();
-
-  const filterChips = cats.map(c => `<button class="cal-chip" data-cat="${esc(c)}" type="button">${esc(categoryLabel(c))}</button>`).join('');
-
-  function fmtRange(iso1, iso2) {
-    const fmt = (iso) => {
-      const [y, m, d] = iso.split('-').map(Number);
-      return new Date(y, m - 1, d).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-    };
-    if (iso1 === iso2) return `Through ${fmt(iso2)}`;
-    return `${fmt(iso1)} – ${fmt(iso2)}`;
+  function fmtShortDate(iso) {
+    const [y, m, d] = iso.split('-').map(Number);
+    return new Date(y, m - 1, d).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
   }
-
-  const nowPlayingRail = films.length ? `
-    <section class="cal-films">
-      <div class="wrap">
-        <h2 class="cal-films-title">Now playing</h2>
-        <p class="cal-films-deck">First-run, repertory, and weekly screenings at the Twin Cities' independent theaters. ${films.length} film${films.length === 1 ? '' : 's'} on screens this week.</p>
-        <ul class="cal-films-list">
-          ${films.map(f => `
-            <li class="cal-film">
-              <div class="cal-film-when">${esc(fmtRange(f.first_date, f.last_date))}</div>
-              <div class="cal-film-body">
-                <h3 class="cal-film-title">${f.url ? `<a href="${esc(f.url)}" target="_blank" rel="noopener">${esc(f.title)} <span class="entry-meta-link-icon">↗</span></a>` : esc(f.title)}</h3>
-                <div class="cal-film-meta">
-                  <span class="cal-film-venue">${esc(f.venue)}</span>
-                  ${f.venue_neighborhood ? `<span class="cal-film-neigh">${esc(f.venue_neighborhood)}</span>` : ''}
-                  <span class="cal-film-runs">${f.day_count} day${f.day_count === 1 ? '' : 's'}</span>
-                </div>
-              </div>
-            </li>`).join('')}
-        </ul>
-      </div>
-    </section>` : '';
-
-  const dayBlocks = dateKeys.map(iso => {
-    const items = byDate.get(iso).map(e => `
-      <article class="cal-event" data-cat="${esc(e.category)}" data-venue="${esc(e.venue)}">
-        ${e.time ? `<div class="cal-event-time">${esc(fmtTime(e.time))}</div>` : '<div class="cal-event-time">&nbsp;</div>'}
-        <div class="cal-event-body">
-          <div class="cal-event-meta">
-            <span class="cal-event-cat">${esc(categoryLabel(e.category))}</span>
-            <span class="cal-event-venue">${esc(e.venue)}</span>
-            ${e.venue_neighborhood ? `<span class="cal-event-neigh">${esc(e.venue_neighborhood)}</span>` : ''}
-          </div>
-          <h3 class="cal-event-title">${e.url ? `<a href="${esc(e.url)}" target="_blank" rel="noopener">${esc(e.title)} <span class="entry-meta-link-icon">↗</span></a>` : esc(e.title)}</h3>
-          ${e.subtitle ? `<p class="cal-event-sub">${esc(e.subtitle)}</p>` : ''}
-        </div>
-      </article>`).join('');
-    return `
-      <div class="cal-day" data-date="${iso}">
-        <div class="cal-day-header"><div class="wrap"><h2 class="cal-day-date">${esc(fmtDay(iso))}</h2></div></div>
-        <div class="cal-day-list">${items}</div>
-      </div>`;
-  }).join('');
 
   const updated = eventsData.generated_at
     ? new Date(eventsData.generated_at).toLocaleString('en-US', { month: 'long', day: 'numeric', hour: 'numeric', minute: '2-digit' })
@@ -2393,51 +2354,54 @@ function renderCalendar() {
     .map(s => `${s.label} (${s.count})`)
     .join(' · ');
 
-  const empty = (events.length === 0 && films.length === 0)
+  // Venue nav — anchor links to each venue block.
+  const venueNav = venueList.map(v => `<a href="#${esc(v.name.toLowerCase().replace(/[^a-z0-9]+/g, '-'))}" class="cal-venue-nav-link">${esc(v.name)} <span class="cal-venue-nav-count">${v.events.length}</span></a>`).join('');
+
+  // Pre-id each venue block for the anchor links.
+  const venueBlocksWithIds = venueList.map(v => `
+    <section class="cal-venue" id="${esc(v.name.toLowerCase().replace(/[^a-z0-9]+/g, '-'))}">
+      <header class="cal-venue-head">
+        <h2 class="cal-venue-name">${esc(v.name)}</h2>
+        <div class="cal-venue-meta">
+          ${v.neighborhood ? `<span class="cal-venue-neigh">${esc(v.neighborhood)}</span>` : ''}
+          <span class="cal-venue-count">${v.events.length} show${v.events.length === 1 ? '' : 's'}</span>
+        </div>
+      </header>
+      <ul class="cal-venue-list">
+        ${v.events.map(e => `
+          <li class="cal-venue-event">
+            <div class="cal-venue-when">
+              <span class="cal-venue-date">${esc(fmtShortDate(e.date))}</span>
+              ${e.time ? `<span class="cal-venue-time">${esc(fmtTime(e.time))}</span>` : ''}
+            </div>
+            <div class="cal-venue-body">
+              <h3 class="cal-venue-event-title">${e.url ? `<a href="${esc(e.url)}" target="_blank" rel="noopener">${esc(e.title)} <span class="entry-meta-link-icon">↗</span></a>` : esc(e.title)}</h3>
+              ${e.subtitle ? `<p class="cal-venue-sub">${esc(e.subtitle.slice(0, 160))}${e.subtitle.length > 160 ? '…' : ''}</p>` : ''}
+            </div>
+          </li>`).join('')}
+      </ul>
+    </section>`).join('');
+
+  const empty = events.length === 0
     ? `<section class="wrap" style="padding: 64px var(--gutter);">
-         <p style="font-family: var(--font-body); font-size: 18px; color: var(--ink-soft);">The calendar is being assembled. Refresh in a few hours, or check the venues directly: <a href="/live-music/" style="color: var(--clay); border-bottom: 1px solid var(--clay);">live music venues</a> and <a href="/museums-and-galleries/" style="color: var(--clay); border-bottom: 1px solid var(--clay);">museums and galleries</a>.</p>
+         <p style="font-family: var(--font-body); font-size: 18px; color: var(--ink-soft);">The calendar is being assembled. Refresh in a few hours, or check the venues directly: <a href="/live-music/" style="color: var(--clay); border-bottom: 1px solid var(--clay);">live music venues</a>.</p>
        </section>`
-    : `${nowPlayingRail}
-       ${events.length ? `<div class="cal-controls">
-         <div class="wrap cal-controls-inner">
-           <div class="cal-filter-group">
-             <span class="cal-filter-label">Show:</span>
-             <button class="cal-chip cal-chip-all is-on" data-cat="all" type="button">All ${events.length}</button>
-             ${filterChips}
-           </div>
-         </div>
-       </div>
-       <div class="cal-stream">${dayBlocks}</div>` : ''}`;
+    : `<nav class="cal-venue-nav">
+         <div class="wrap cal-venue-nav-inner">${venueNav}</div>
+       </nav>
+       <div class="cal-venue-stream">${venueBlocksWithIds}</div>`;
 
   return head({ title, description, slug: 'calendar', theme: 'forest' }) +
     header({ activeSlug: 'calendar' }) +
     `<section class="section-head">
        <div class="wrap">
-         <div class="section-eyebrow">${events.length} upcoming · ${dateKeys.length} days · ${films.length} film${films.length === 1 ? '' : 's'} on screens</div>
-         <h1 class="section-title">${esc(title)} <em>for the metro</em></h1>
+         <div class="section-eyebrow">${events.length} shows · ${venueList.length} venues · ${dateKeys.length} dates</div>
+         <h1 class="section-title">${esc(title)} <em>by venue</em></h1>
          <p class="section-deck">${esc(description)}</p>
          ${updated ? `<p style="font-family: var(--font-label); font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-faint); margin-top: 16px;">Last refreshed ${esc(updated)} · sources: ${esc(sourcesLine)}</p>` : ''}
        </div>
      </section>
-     ${empty}
-     <script>
-       (function(){
-         var chips = document.querySelectorAll('.cal-chip');
-         var events = document.querySelectorAll('.cal-event');
-         var days = document.querySelectorAll('.cal-day');
-         function apply(cat){
-           chips.forEach(function(c){ c.classList.toggle('is-on', c.dataset.cat === cat); });
-           events.forEach(function(e){
-             e.style.display = (cat === 'all' || e.dataset.cat === cat) ? '' : 'none';
-           });
-           days.forEach(function(d){
-             var visible = d.querySelectorAll('.cal-event:not([style*="display: none"])').length;
-             d.style.display = visible === 0 ? 'none' : '';
-           });
-         }
-         chips.forEach(function(c){ c.addEventListener('click', function(){ apply(c.dataset.cat); }); });
-       })();
-     </script>` +
+     ${empty}` +
     footer();
 }
 
@@ -2879,11 +2843,11 @@ function renderFeaturedEvent(ev) {
     footer();
 }
 
-// ---------- /tonight/ — sunset clock + best places to watch + civic countdowns ----------
+// ---------- /tonight/ — what is happening tonight, plus sunset + countdowns ----------
 function renderTonight() {
   const r = rightnowData;
   const title = 'Tonight';
-  const description = 'Sunset, weather, and what is coming up next on the metro calendar.';
+  const description = 'Concerts, openings, talks, and screenings happening tonight in Minneapolis and Saint Paul. Plus sunset, weather, and what is coming up next.';
 
   if (!r) {
     return head({ title, description, slug: 'tonight', theme: 'midnight' }) +
@@ -2894,6 +2858,73 @@ function renderTonight() {
 
   const date = (function(){ const [y,m,d] = r.today.split('-').map(Number); return new Date(y, m-1, d).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' }); })();
 
+  // Tonight's events: same-day scraped events, films excluded (films aren't
+  // "tonight" the way a concert or a talk is — they're a run, and they
+  // belong elsewhere). Sorted by time, untimed last.
+  const tonightEvents = dedupeNonFilms(
+    (eventsData.events || []).filter(e => e.date === r.today && !isFilmEvent(e))
+  ).sort((a, b) => {
+    if (a.time && b.time) return a.time.localeCompare(b.time);
+    if (a.time) return -1;
+    if (b.time) return 1;
+    return 0;
+  });
+  // Tomorrow night, for the "if you missed tonight" rail.
+  const tomorrowIso = (function(){
+    const [y, m, d] = r.today.split('-').map(Number);
+    const dt = new Date(Date.UTC(y, m - 1, d)); dt.setUTCDate(dt.getUTCDate() + 1);
+    return `${dt.getUTCFullYear()}-${String(dt.getUTCMonth()+1).padStart(2,'0')}-${String(dt.getUTCDate()).padStart(2,'0')}`;
+  })();
+  const tomorrowEvents = dedupeNonFilms(
+    (eventsData.events || []).filter(e => e.date === tomorrowIso && !isFilmEvent(e))
+  ).sort((a, b) => (a.time || '').localeCompare(b.time || ''));
+
+  function fmtTime12(t) {
+    if (!t) return 'Time TBA';
+    const [h, m] = t.split(':').map(Number);
+    const ampm = h >= 12 ? 'PM' : 'AM';
+    const hr = h % 12 === 0 ? 12 : h % 12;
+    return `${hr}:${String(m).padStart(2, '0')} ${ampm}`;
+  }
+
+  const eventRow = (e) => `
+    <li class="tonight-event">
+      <div class="tonight-event-time">${esc(fmtTime12(e.time))}</div>
+      <div class="tonight-event-body">
+        <h3 class="tonight-event-title">${e.url ? `<a href="${esc(e.url)}" target="_blank" rel="noopener">${esc(e.title)} <span class="entry-meta-link-icon">↗</span></a>` : esc(e.title)}</h3>
+        <div class="tonight-event-meta">
+          <span class="tonight-event-venue">${esc(e.venue)}</span>
+          ${e.venue_neighborhood ? `<span class="tonight-event-neigh">${esc(e.venue_neighborhood)}</span>` : ''}
+        </div>
+        ${e.subtitle ? `<p class="tonight-event-sub">${esc(e.subtitle.slice(0, 200))}${e.subtitle.length > 200 ? '…' : ''}</p>` : ''}
+      </div>
+    </li>`;
+
+  const tonightBlock = tonightEvents.length ? `
+    <section class="tonight-events-section">
+      <div class="wrap">
+        <div class="tonight-section-eyebrow">${tonightEvents.length} ${tonightEvents.length === 1 ? 'show' : 'shows'} tonight</div>
+        <h2 class="tonight-section-title">Happening tonight</h2>
+        <ul class="tonight-events-list">${tonightEvents.map(eventRow).join('')}</ul>
+      </div>
+    </section>` : `
+    <section class="tonight-events-section">
+      <div class="wrap">
+        <h2 class="tonight-section-title">Happening tonight</h2>
+        <p class="tonight-empty">Quiet night on the scraped calendar. <a href="/calendar/">See what is coming up later this week →</a></p>
+      </div>
+    </section>`;
+
+  const tomorrowBlock = tomorrowEvents.length ? `
+    <section class="tonight-events-section tonight-events-tomorrow">
+      <div class="wrap">
+        <div class="tonight-section-eyebrow">Tomorrow night</div>
+        <h2 class="tonight-section-title">${tomorrowEvents.length} ${tomorrowEvents.length === 1 ? 'show' : 'shows'} tomorrow</h2>
+        <ul class="tonight-events-list">${tomorrowEvents.slice(0, 6).map(eventRow).join('')}</ul>
+        ${tomorrowEvents.length > 6 ? `<a class="tonight-more" href="/calendar/">See all ${tomorrowEvents.length} →</a>` : ''}
+      </div>
+    </section>` : '';
+
   const pickCard = `
     <article class="tonight-pick">
       <div class="tonight-pick-eyebrow">Tonight's sunset pick</div>
@@ -2901,13 +2932,6 @@ function renderTonight() {
       <div class="tonight-pick-where">${esc(r.sunset_pick.neighborhood)}</div>
       <p class="tonight-pick-why">${esc(r.sunset_pick.why)}</p>
     </article>`;
-
-  const otherPicks = r.sunset_picks.filter(p => p.name !== r.sunset_pick.name).map(p => `
-    <li class="tonight-other">
-      <div class="tonight-other-name">${esc(p.name)}</div>
-      <div class="tonight-other-where">${esc(p.neighborhood)}</div>
-      <p class="tonight-other-why">${esc(p.why)}</p>
-    </li>`).join('');
 
   const countdowns = r.countdowns.map(c => `
     <li class="countdown">
@@ -2925,22 +2949,20 @@ function renderTonight() {
     header({ activeSlug: 'tonight' }) +
     `<section class="tonight-hero">
        <div class="wrap tonight-hero-inner">
-         <div class="tonight-hero-eyebrow">${esc(date)}</div>
+         <div class="tonight-hero-eyebrow">${esc(date)} · Tonight in the metro</div>
          <h1 class="tonight-hero-headline">
-           Sunset at <em>${esc(r.sun.set)}</em>.
+           ${tonightEvents.length} ${tonightEvents.length === 1 ? 'show' : 'shows'} tonight. <em>Sunset at ${esc(r.sun.set)}.</em>
          </h1>
          <div class="tonight-hero-meta">
-           <div class="tonight-meta-item"><span class="tonight-meta-label">Sunrise</span><span class="tonight-meta-val">${esc(r.sun.rise)}</span></div>
+           <div class="tonight-meta-item"><span class="tonight-meta-label">Right now</span><span class="tonight-meta-val">${r.weather.temp_now}°F · ${esc(r.weather.condition)}</span></div>
+           <div class="tonight-meta-item"><span class="tonight-meta-label">Sunset</span><span class="tonight-meta-val">${esc(r.sun.set)}</span></div>
            <div class="tonight-meta-item"><span class="tonight-meta-label">Daylight</span><span class="tonight-meta-val">${Math.floor(r.sun.daylight_min/60)}h ${r.sun.daylight_min%60}m</span></div>
-           <div class="tonight-meta-item"><span class="tonight-meta-label">Conditions</span><span class="tonight-meta-val">${esc(r.weather.summary)}</span></div>
          </div>
        </div>
      </section>
+     ${tonightBlock}
+     ${tomorrowBlock}
      <section class="tonight-pick-section wrap">${pickCard}</section>
-     <section class="tonight-others wrap">
-       <h2 class="tonight-section-title">Other places to watch tonight</h2>
-       <ul class="tonight-others-list">${otherPicks}</ul>
-     </section>
      <section class="tonight-countdowns wrap">
        <h2 class="tonight-section-title">Coming up on the calendar</h2>
        <ul class="countdowns-list">${countdowns}</ul>

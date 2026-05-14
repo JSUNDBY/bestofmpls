@@ -4353,77 +4353,214 @@ html[data-mode="dark"] .countdown-name { color: #FFFFFF; }
   font-style: italic;
 }
 
-/* ===== Calendar — Now Playing rail (films) ===== */
-.cal-films {
+/* ===== Calendar — Venue-grouped layout ===== */
+.cal-venue-nav {
+  position: sticky;
+  top: 0;
+  z-index: 4;
+  background: var(--paper);
   border-bottom: 1px solid var(--rule);
-  padding: 40px 0 32px;
+  padding: 10px 0;
 }
-.cal-films-title {
+.cal-venue-nav-inner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 10px;
+}
+.cal-venue-nav-link {
+  font-family: var(--font-label);
+  font-weight: 600;
+  font-size: 11.5px;
+  letter-spacing: 0.06em;
+  color: var(--ink);
+  text-decoration: none;
+  padding: 6px 12px;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  transition: background 0.12s, color 0.12s, border-color 0.12s;
+}
+.cal-venue-nav-link:hover {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+}
+.cal-venue-nav-count {
+  display: inline-block;
+  margin-left: 4px;
+  color: var(--ink-faint);
+  font-weight: 500;
+}
+.cal-venue-nav-link:hover .cal-venue-nav-count { color: rgba(248, 244, 235, 0.7); }
+
+.cal-venue-stream { padding: 12px 0 48px; }
+.cal-venue {
+  padding: 36px var(--gutter) 28px;
+  max-width: 960px;
+  margin: 0 auto;
+  border-top: 1px solid var(--rule);
+  scroll-margin-top: 70px;
+}
+.cal-venue:first-child { border-top: none; }
+.cal-venue-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 18px;
+  flex-wrap: wrap;
+  margin: 0 0 16px;
+}
+.cal-venue-name {
   font-family: var(--font-display);
   font-weight: 900;
   font-style: italic;
-  font-size: clamp(28px, 3.6vw, 38px);
+  font-size: clamp(28px, 3.6vw, 40px);
   line-height: 1.0;
   letter-spacing: -0.01em;
-  margin: 0 0 6px;
+  margin: 0;
   color: var(--ink);
 }
-.cal-films-deck {
-  font-family: var(--font-body);
-  font-size: 15px;
-  line-height: 1.5;
-  color: var(--ink-soft);
-  margin: 0 0 22px;
-  max-width: 640px;
-}
-.cal-films-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  gap: 0;
-}
-.cal-film {
-  display: grid;
-  grid-template-columns: 160px 1fr;
-  gap: 18px;
-  align-items: baseline;
-  padding: 16px 0;
-  border-top: 1px solid var(--rule);
-}
-.cal-film:first-child { border-top: 2px solid var(--ink); }
-@media (max-width: 600px) {
-  .cal-film { grid-template-columns: 1fr; gap: 4px; }
-}
-.cal-film-when {
+.cal-venue-meta {
+  display: flex;
+  gap: 12px;
   font-family: var(--font-label);
   font-weight: 600;
   font-size: 11px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
+}
+.cal-venue-neigh { color: var(--ink-soft); }
+.cal-venue-count { color: var(--clay); }
+.cal-venue-list { list-style: none; margin: 0; padding: 0; }
+.cal-venue-event {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  gap: 18px;
+  align-items: baseline;
+  padding: 14px 0;
+  border-top: 1px solid var(--rule);
+}
+.cal-venue-event:first-child { border-top: 2px solid var(--ink); }
+@media (max-width: 600px) {
+  .cal-venue-event { grid-template-columns: 1fr; gap: 4px; }
+}
+.cal-venue-when {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-family: var(--font-label);
+}
+.cal-venue-date {
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
   color: var(--clay);
 }
-.cal-film-title {
+.cal-venue-time {
+  font-weight: 500;
+  font-size: 12px;
+  color: var(--ink-faint);
+  letter-spacing: 0.04em;
+}
+.cal-venue-event-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(18px, 2vw, 22px);
+  line-height: 1.2;
+  margin: 0 0 4px;
+}
+.cal-venue-event-title a { color: inherit; text-decoration: none; border-bottom: 1px solid var(--rule); }
+.cal-venue-event-title a:hover { color: var(--clay); border-color: var(--clay); }
+.cal-venue-sub {
+  font-family: var(--font-body);
+  font-size: 13.5px;
+  line-height: 1.45;
+  color: var(--ink-soft);
+  margin: 0;
+}
+
+/* ===== /tonight/ — Happening tonight events block ===== */
+.tonight-events-section {
+  padding: 36px 0 16px;
+  border-bottom: 1px solid rgba(248, 244, 235, 0.12);
+}
+.tonight-events-tomorrow { border-bottom: none; }
+.tonight-section-eyebrow {
+  font-family: var(--font-label);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--clay);
+  margin: 0 0 6px;
+}
+.tonight-events-list { list-style: none; margin: 0; padding: 0; }
+.tonight-event {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 18px;
+  align-items: baseline;
+  padding: 16px 0;
+  border-top: 1px solid rgba(248, 244, 235, 0.12);
+}
+.tonight-event:first-child { border-top: 2px solid rgba(248, 244, 235, 0.4); }
+@media (max-width: 600px) {
+  .tonight-event { grid-template-columns: 1fr; gap: 4px; }
+}
+.tonight-event-time {
+  font-family: var(--font-label);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--clay);
+}
+.tonight-event-title {
   font-family: var(--font-display);
   font-weight: 700;
   font-size: clamp(19px, 2.2vw, 24px);
-  line-height: 1.15;
+  line-height: 1.2;
   margin: 0 0 4px;
 }
-.cal-film-title a { color: inherit; text-decoration: none; border-bottom: 1px solid var(--rule); }
-.cal-film-title a:hover { color: var(--clay); border-color: var(--clay); }
-.cal-film-meta {
+.tonight-event-title a { color: inherit; text-decoration: none; border-bottom: 1px solid rgba(248, 244, 235, 0.2); }
+.tonight-event-title a:hover { color: var(--clay); border-color: var(--clay); }
+.tonight-event-meta {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
   font-family: var(--font-body);
   font-size: 13.5px;
-  color: var(--ink-soft);
+  color: rgba(248, 244, 235, 0.75);
+  margin-bottom: 4px;
 }
-.cal-film-venue { color: var(--ink); font-weight: 600; }
-.cal-film-neigh::before { content: '·'; margin-right: 8px; color: var(--ink-faint); }
-.cal-film-runs::before { content: '·'; margin-right: 8px; color: var(--ink-faint); }
-.cal-film-runs { color: var(--ink-faint); }
+.tonight-event-venue { font-weight: 600; }
+.tonight-event-neigh::before { content: '·'; margin-right: 8px; color: rgba(248, 244, 235, 0.4); }
+.tonight-event-sub {
+  font-family: var(--font-body);
+  font-size: 13.5px;
+  line-height: 1.45;
+  color: rgba(248, 244, 235, 0.7);
+  margin: 4px 0 0;
+}
+.tonight-empty {
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: rgba(248, 244, 235, 0.7);
+  margin: 12px 0 0;
+}
+.tonight-empty a { color: var(--clay); }
+.tonight-more {
+  display: inline-block;
+  margin-top: 14px;
+  font-family: var(--font-label);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--clay);
+  text-decoration: none;
+}
+.tonight-more:hover { color: var(--paper); }
 
 /* ===== Print ===== */
 @media print {
