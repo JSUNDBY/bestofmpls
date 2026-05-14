@@ -4,10 +4,12 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
-  # Refresh scraped events + horoscope every morning at 6am Central (11 UTC)
-  # so the calendar and horoscope pages stay fresh without a code push.
+  # Refresh scraped events, weather, and horoscope four times a day so the
+  # "Tonight" page and the calendar never sit on stale data for more than
+  # six hours. 11 UTC (6 AM CT), 17 UTC (noon CT), 23 UTC (6 PM CT),
+  # 5 UTC (midnight CT — catches the day rollover for /tonight/).
   schedule:
-    - cron: '0 11 * * *'
+    - cron: '5 5,11,17,23 * * *'
 
 permissions:
   contents: read

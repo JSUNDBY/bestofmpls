@@ -420,7 +420,7 @@ function head({ title, description, slug, theme }) {
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=Archivo:wght@500;600;700&display=swap">
-<link rel="stylesheet" href="/style.css?v=26">
+<link rel="stylesheet" href="/style.css?v=27">
 <script>
 // Set color mode before paint to avoid flash. Reads localStorage first,
 // falls back to light mode (the new editorial default). mode-ready class
@@ -1701,7 +1701,7 @@ function renderAdminPicks() {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>${esc(title)}</title>
-<link rel="stylesheet" href="/style.css?v=26">
+<link rel="stylesheet" href="/style.css?v=27">
 <style>
   body { background: var(--paper); }
   .admin-wrap { max-width: 960px; margin: 0 auto; padding: 32px var(--gutter) 96px; }
@@ -3115,6 +3115,14 @@ function renderFeaturedEvent(ev) {
 }
 
 // ---------- /tonight/ — what is happening tonight, plus sunset + countdowns ----------
+//
+// Static-site freshness trap: the page is rebuilt on cron, so between
+// midnight and the next build run, the server-baked "today" is yesterday.
+// At 12:50 AM Thursday, the static page would still call Wednesday's events
+// "Happening tonight." The fix is client-side: bundle a week's worth of
+// events into the page as JSON, let the browser compute the real current
+// Central date on load, and pick the right "tonight" and "tomorrow" sets
+// from that bundle. Server-side render is the JS-disabled fallback.
 function renderTonight() {
   const r = rightnowData;
   const title = 'Tonight';
@@ -3127,28 +3135,41 @@ function renderTonight() {
       footer();
   }
 
-  const date = (function(){ const [y,m,d] = r.today.split('-').map(Number); return new Date(y, m-1, d).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' }); })();
+  // Bundle a week's worth of upcoming events, films excluded.
+  const allUpcoming = dedupeNonFilms(
+    (eventsData.events || []).filter(e => !isFilmEvent(e) && e.date >= r.today)
+  );
+  // Slim event records so the inline JSON stays small.
+  const bundle = allUpcoming.map(e => ({
+    d: e.date,
+    t: e.time || null,
+    n: e.title,
+    v: e.venue,
+    vs: entrySlug(e.venue),
+    nh: e.venue_neighborhood || null,
+    s: e.subtitle ? (e.subtitle.length > 200 ? e.subtitle.slice(0, 200) + '…' : e.subtitle) : null,
+    u: e.url || null
+  }));
 
-  // Tonight's events: same-day scraped events, films excluded (films aren't
-  // "tonight" the way a concert or a talk is — they're a run, and they
-  // belong elsewhere). Sorted by time, untimed last.
-  const tonightEvents = dedupeNonFilms(
-    (eventsData.events || []).filter(e => e.date === r.today && !isFilmEvent(e))
-  ).sort((a, b) => {
-    if (a.time && b.time) return a.time.localeCompare(b.time);
-    if (a.time) return -1;
-    if (b.time) return 1;
-    return 0;
-  });
-  // Tomorrow night, for the "if you missed tonight" rail.
+  // Server-rendered fallback for no-JS readers — uses the build's TODAY_ISO,
+  // same as before. JS replaces this on load using the user's clock.
+  function eventsOnDate(iso) {
+    return allUpcoming
+      .filter(e => e.date === iso)
+      .sort((a, b) => {
+        if (a.time && b.time) return a.time.localeCompare(b.time);
+        if (a.time) return -1;
+        if (b.time) return 1;
+        return 0;
+      });
+  }
+  const tonightEventsServer = eventsOnDate(r.today);
   const tomorrowIso = (function(){
     const [y, m, d] = r.today.split('-').map(Number);
     const dt = new Date(Date.UTC(y, m - 1, d)); dt.setUTCDate(dt.getUTCDate() + 1);
     return `${dt.getUTCFullYear()}-${String(dt.getUTCMonth()+1).padStart(2,'0')}-${String(dt.getUTCDate()).padStart(2,'0')}`;
   })();
-  const tomorrowEvents = dedupeNonFilms(
-    (eventsData.events || []).filter(e => e.date === tomorrowIso && !isFilmEvent(e))
-  ).sort((a, b) => (a.time || '').localeCompare(b.time || ''));
+  const tomorrowEventsServer = eventsOnDate(tomorrowIso);
 
   function fmtTime12(t) {
     if (!t) return 'Time TBA';
@@ -3171,30 +3192,24 @@ function renderTonight() {
       </div>
     </li>`;
 
-  const tonightBlock = tonightEvents.length ? `
-    <section class="tonight-events-section">
+  const renderTonightBlock = (events) => events.length ? `
       <div class="wrap">
-        <div class="tonight-section-eyebrow">${tonightEvents.length} ${tonightEvents.length === 1 ? 'show' : 'shows'} tonight</div>
+        <div class="tonight-section-eyebrow" data-tonight-count>${events.length} ${events.length === 1 ? 'show' : 'shows'} tonight</div>
         <h2 class="tonight-section-title">Happening tonight</h2>
-        <ul class="tonight-events-list">${tonightEvents.map(eventRow).join('')}</ul>
-      </div>
-    </section>` : `
-    <section class="tonight-events-section">
+        <ul class="tonight-events-list">${events.map(eventRow).join('')}</ul>
+      </div>` : `
       <div class="wrap">
         <h2 class="tonight-section-title">Happening tonight</h2>
         <p class="tonight-empty">Quiet night on the scraped calendar. <a href="/calendar/">See what is coming up later this week →</a></p>
-      </div>
-    </section>`;
+      </div>`;
 
-  const tomorrowBlock = tomorrowEvents.length ? `
-    <section class="tonight-events-section tonight-events-tomorrow">
+  const renderTomorrowBlock = (events) => events.length ? `
       <div class="wrap">
         <div class="tonight-section-eyebrow">Tomorrow night</div>
-        <h2 class="tonight-section-title">${tomorrowEvents.length} ${tomorrowEvents.length === 1 ? 'show' : 'shows'} tomorrow</h2>
-        <ul class="tonight-events-list">${tomorrowEvents.slice(0, 6).map(eventRow).join('')}</ul>
-        ${tomorrowEvents.length > 6 ? `<a class="tonight-more" href="/calendar/">See all ${tomorrowEvents.length} →</a>` : ''}
-      </div>
-    </section>` : '';
+        <h2 class="tonight-section-title">${events.length} ${events.length === 1 ? 'show' : 'shows'} tomorrow</h2>
+        <ul class="tonight-events-list">${events.slice(0, 6).map(eventRow).join('')}</ul>
+        ${events.length > 6 ? `<a class="tonight-more" href="/calendar/">See all ${events.length} →</a>` : ''}
+      </div>` : '';
 
   const pickCard = `
     <article class="tonight-pick">
@@ -3216,13 +3231,19 @@ function renderTonight() {
       </div>
     </li>`).join('');
 
+  // Build-time fallback for the headline (count + day name).
+  const builtDayLabel = (function(){
+    const [y,m,d] = r.today.split('-').map(Number);
+    return new Date(y, m-1, d).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+  })();
+
   return head({ title, description, slug: 'tonight', theme: 'midnight' }) +
     header({ activeSlug: 'tonight' }) +
     `<section class="tonight-hero">
        <div class="wrap tonight-hero-inner">
-         <div class="tonight-hero-eyebrow">${esc(date)} · Tonight in the metro</div>
-         <h1 class="tonight-hero-headline">
-           ${tonightEvents.length} ${tonightEvents.length === 1 ? 'show' : 'shows'} tonight. <em>Sunset at ${esc(r.sun.set)}.</em>
+         <div class="tonight-hero-eyebrow" data-tonight-hero-eyebrow>${esc(builtDayLabel)} · Tonight in the metro</div>
+         <h1 class="tonight-hero-headline" data-tonight-hero-headline>
+           <span data-tonight-hero-count>${tonightEventsServer.length}</span> <span data-tonight-hero-noun>${tonightEventsServer.length === 1 ? 'show' : 'shows'}</span> tonight. <em>Sunset at ${esc(r.sun.set)}.</em>
          </h1>
          <div class="tonight-hero-meta">
            <div class="tonight-meta-item"><span class="tonight-meta-label">Right now</span><span class="tonight-meta-val">${r.weather.temp_now}°F · ${esc(r.weather.condition)}</span></div>
@@ -3231,13 +3252,120 @@ function renderTonight() {
          </div>
        </div>
      </section>
-     ${tonightBlock}
-     ${tomorrowBlock}
+     <section class="tonight-events-section" data-tonight-today-block>${renderTonightBlock(tonightEventsServer)}</section>
+     <section class="tonight-events-section tonight-events-tomorrow" data-tonight-tomorrow-block>${renderTomorrowBlock(tomorrowEventsServer)}</section>
      <section class="tonight-pick-section wrap">${pickCard}</section>
      <section class="tonight-countdowns wrap">
        <h2 class="tonight-section-title">Coming up on the calendar</h2>
        <ul class="countdowns-list">${countdowns}</ul>
-     </section>` +
+     </section>
+     <script id="tonight-events-data" type="application/json">${JSON.stringify(bundle)}</script>
+     <script>
+     (function(){
+       // Find today's Central date even when the server-baked TODAY_ISO is
+       // a build or two stale.
+       function centralIso(d){
+         var f = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Chicago', year:'numeric', month:'2-digit', day:'2-digit' });
+         return f.format(d);
+       }
+       function isoPlus(iso, days){
+         var p = iso.split('-').map(Number);
+         var d = new Date(Date.UTC(p[0], p[1]-1, p[2]));
+         d.setUTCDate(d.getUTCDate() + days);
+         return d.getUTCFullYear() + '-' + String(d.getUTCMonth()+1).padStart(2,'0') + '-' + String(d.getUTCDate()).padStart(2,'0');
+       }
+       function fmtTime(t){
+         if (!t) return 'Time TBA';
+         var p = t.split(':').map(Number);
+         var h = p[0], m = p[1], ampm = h >= 12 ? 'PM' : 'AM';
+         var hr = h % 12 === 0 ? 12 : h % 12;
+         return hr + ':' + String(m).padStart(2,'0') + ' ' + ampm;
+       }
+       function esc(s){
+         return String(s == null ? '' : s)
+           .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+           .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+       }
+       function rowHtml(e){
+         var venueLink = '<a class="tonight-event-venue" href="/calendar/venue/' + esc(e.vs) + '/">' + esc(e.v) + '</a>';
+         var neigh = e.nh ? '<span class="tonight-event-neigh">' + esc(e.nh) + '</span>' : '';
+         var titleHtml = e.u
+           ? '<a href="' + esc(e.u) + '" target="_blank" rel="noopener">' + esc(e.n) + ' <span class="entry-meta-link-icon">↗</span></a>'
+           : esc(e.n);
+         var sub = e.s ? '<p class="tonight-event-sub">' + esc(e.s) + '</p>' : '';
+         return '<li class="tonight-event">' +
+           '<div class="tonight-event-time">' + esc(fmtTime(e.t)) + '</div>' +
+           '<div class="tonight-event-body">' +
+             '<h3 class="tonight-event-title">' + titleHtml + '</h3>' +
+             '<div class="tonight-event-meta">' + venueLink + ' ' + neigh + '</div>' +
+             sub +
+           '</div>' +
+         '</li>';
+       }
+       function dayLabel(iso){
+         var p = iso.split('-').map(Number);
+         var d = new Date(p[0], p[1]-1, p[2]);
+         return d.toLocaleDateString('en-US', { weekday:'long', month:'long', day:'numeric' });
+       }
+
+       var dataEl = document.getElementById('tonight-events-data');
+       if (!dataEl) return;
+       var events;
+       try { events = JSON.parse(dataEl.textContent); } catch (_) { return; }
+
+       var today = centralIso(new Date());
+       var tomorrow = isoPlus(today, 1);
+
+       function byDate(iso){
+         return events.filter(function(e){ return e.d === iso; }).sort(function(a,b){
+           if (a.t && b.t) return a.t < b.t ? -1 : (a.t > b.t ? 1 : 0);
+           if (a.t) return -1;
+           if (b.t) return 1;
+           return 0;
+         });
+       }
+       var todayEvents = byDate(today);
+       var tomorrowEvents = byDate(tomorrow);
+
+       // Hero: count + day label.
+       var eyebrow = document.querySelector('[data-tonight-hero-eyebrow]');
+       if (eyebrow) eyebrow.textContent = dayLabel(today) + ' · Tonight in the metro';
+       var countEl = document.querySelector('[data-tonight-hero-count]');
+       var nounEl  = document.querySelector('[data-tonight-hero-noun]');
+       if (countEl) countEl.textContent = todayEvents.length;
+       if (nounEl)  nounEl.textContent  = todayEvents.length === 1 ? 'show' : 'shows';
+
+       // Today block.
+       var todayBlock = document.querySelector('[data-tonight-today-block]');
+       if (todayBlock) {
+         if (todayEvents.length === 0) {
+           todayBlock.innerHTML = '<div class="wrap"><h2 class="tonight-section-title">Happening tonight</h2><p class="tonight-empty">Quiet night on the scraped calendar. <a href="/calendar/">See what is coming up later this week →</a></p></div>';
+         } else {
+           todayBlock.innerHTML = '<div class="wrap">' +
+             '<div class="tonight-section-eyebrow">' + todayEvents.length + ' ' + (todayEvents.length === 1 ? 'show' : 'shows') + ' tonight</div>' +
+             '<h2 class="tonight-section-title">Happening tonight</h2>' +
+             '<ul class="tonight-events-list">' + todayEvents.map(rowHtml).join('') + '</ul>' +
+           '</div>';
+         }
+       }
+
+       // Tomorrow block.
+       var tomorrowBlock = document.querySelector('[data-tonight-tomorrow-block]');
+       if (tomorrowBlock) {
+         if (tomorrowEvents.length === 0) {
+           tomorrowBlock.innerHTML = '';
+         } else {
+           var moreLink = tomorrowEvents.length > 6 ? '<a class="tonight-more" href="/calendar/">See all ' + tomorrowEvents.length + ' →</a>' : '';
+           tomorrowBlock.innerHTML = '<div class="wrap">' +
+             '<div class="tonight-section-eyebrow">Tomorrow night</div>' +
+             '<h2 class="tonight-section-title">' + tomorrowEvents.length + ' ' + (tomorrowEvents.length === 1 ? 'show' : 'shows') + ' tomorrow</h2>' +
+             '<ul class="tonight-events-list">' + tomorrowEvents.slice(0, 6).map(rowHtml).join('') + '</ul>' +
+             moreLink +
+           '</div>';
+         }
+       }
+     })();
+     </script>` +
     footer();
 }
 
