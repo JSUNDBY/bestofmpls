@@ -634,14 +634,20 @@ p { margin: 0 0 1em; }
   body { font-size: 16px; }
 }
 
-/* ===== Footer ===== */
+/* ===== Footer =====
+   Always dark — uses fixed colors so it doesn't flip white in dark mode,
+   which was eye-burningly bright after a long scroll. */
 .site-footer {
-  background: var(--ink);
-  color: var(--paper);
+  background: #0A0A0A;
+  color: #F4EEDF;
   padding: 56px 0 32px;
 }
-.site-footer a { color: var(--paper); border-bottom: 1px dotted rgba(244, 238, 223, 0.4); }
+.site-footer a { color: #F4EEDF; border-bottom: 1px dotted rgba(244, 238, 223, 0.4); }
 .site-footer a:hover { color: var(--clay); border-color: var(--clay); }
+html[data-mode="dark"] .site-footer {
+  background: #050505;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
 /* Footer layout — three stacked rows: brand+newsletter, daily nav, cluster grid */
 .footer-top {
   display: grid;
@@ -3998,10 +4004,14 @@ html[data-mode="dark"] .countdown-name { color: #FFFFFF; }
 
 /* ===== Featured-event banner (homepage) ===== */
 .feature-banner {
-  background: var(--ink);
-  color: var(--paper);
+  background: #0A0A0A;
+  color: #F4EEDF;
   padding: 0;
-  border-bottom: 1px solid var(--ink);
+  border-bottom: 1px solid #0A0A0A;
+}
+html[data-mode="dark"] .feature-banner {
+  background: #141414;
+  border-bottom-color: rgba(255, 255, 255, 0.08);
 }
 .feature-banner-inner {
   display: block;
@@ -4074,10 +4084,14 @@ html[data-mode="dark"] .countdown-name { color: #FFFFFF; }
 
 /* ===== Featured-event landing page ===== */
 .event-hero {
-  background: var(--ink);
-  color: var(--paper);
+  background: #0A0A0A;
+  color: #F4EEDF;
   padding: 56px 0 48px;
-  border-bottom: 1px solid var(--ink);
+  border-bottom: 1px solid #0A0A0A;
+}
+html[data-mode="dark"] .event-hero {
+  background: #141414;
+  border-bottom-color: rgba(255, 255, 255, 0.08);
 }
 .event-hero-inner { max-width: 920px; margin: 0 auto; padding: 0 var(--gutter); }
 .event-hero-status {
@@ -4250,13 +4264,19 @@ html[data-mode="dark"] .countdown-name { color: #FFFFFF; }
 .event-footer { font-family: var(--font-body); font-size: 15px; color: var(--ink-soft); border-top: 1px solid var(--rule); margin-top: 32px; }
 .event-footer a { color: var(--clay); }
 
-/* ===== Newsletter capture ===== */
+/* ===== Newsletter capture =====
+   Light mode: cream "paper-deep" panel against the body paper.
+   Dark mode: subtle elevated card (paper-2) instead of flipping to white. */
 .newsletter-capture {
   background: var(--paper-deep, #f1ece1);
   border-top: 1px solid var(--rule);
   border-bottom: 1px solid var(--rule);
   padding: 40px 0;
   margin: 48px 0 0;
+}
+html[data-mode="dark"] .newsletter-capture {
+  background: var(--paper-2);
+  border-color: var(--rule-soft);
 }
 .newsletter-inner {
   display: grid;
@@ -4353,8 +4373,152 @@ html[data-mode="dark"] .countdown-name { color: #FFFFFF; }
   font-style: italic;
 }
 
-/* ===== Calendar — Venue-grouped layout ===== */
-.cal-venue-nav {
+/* ===== Calendar — Date stream + venue filter ===== */
+.cal-controls {
+  position: sticky;
+  top: 0;
+  z-index: 4;
+  background: var(--paper);
+  border-bottom: 1px solid var(--rule);
+  padding: 14px 0;
+}
+.cal-controls-inner {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.cal-filter-label {
+  font-family: var(--font-label);
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  white-space: nowrap;
+}
+.cal-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 8px;
+  flex: 1 1 auto;
+}
+.cal-chip {
+  font-family: var(--font-label);
+  font-weight: 600;
+  font-size: 11.5px;
+  letter-spacing: 0.04em;
+  color: var(--ink);
+  background: transparent;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: background 0.12s, color 0.12s, border-color 0.12s;
+}
+.cal-chip:hover { border-color: var(--ink); }
+.cal-chip.is-on {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+}
+.cal-stream { padding: 24px 0 32px; }
+.cal-day {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 28px var(--gutter) 8px;
+}
+.cal-day + .cal-day { border-top: 1px solid var(--rule); }
+.cal-day-head {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin: 0 0 16px;
+}
+.cal-day-label {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-style: italic;
+  font-size: clamp(26px, 3.2vw, 34px);
+  line-height: 1.0;
+  letter-spacing: -0.01em;
+  margin: 0;
+  color: var(--ink);
+}
+.cal-day-date {
+  font-family: var(--font-label);
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.cal-day-list { list-style: none; margin: 0; padding: 0; }
+.cal-row {
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  gap: 16px;
+  align-items: baseline;
+  padding: 14px 0;
+  border-top: 1px solid var(--rule);
+}
+.cal-row:first-child { border-top: none; padding-top: 4px; }
+@media (max-width: 600px) {
+  .cal-row { grid-template-columns: 1fr; gap: 4px; }
+}
+.cal-row-when {
+  font-family: var(--font-label);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--clay);
+}
+.cal-row-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(18px, 2vw, 22px);
+  line-height: 1.2;
+  margin: 0 0 4px;
+}
+.cal-row-title a { color: inherit; text-decoration: none; border-bottom: 1px solid var(--rule); }
+.cal-row-title a:hover { color: var(--clay); border-color: var(--clay); }
+.cal-row-venue {
+  font-family: var(--font-body);
+  font-size: 13.5px;
+  color: var(--ink-soft);
+  margin-bottom: 3px;
+}
+.cal-row-venue-link {
+  color: var(--ink);
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1px dotted var(--rule);
+}
+.cal-row-venue-link:hover { color: var(--clay); border-color: var(--clay); }
+.cal-row-neigh { color: var(--ink-faint); }
+.cal-row-sub {
+  font-family: var(--font-body);
+  font-size: 13.5px;
+  line-height: 1.45;
+  color: var(--ink-soft);
+  margin: 4px 0 0;
+}
+.cal-beyond {
+  max-width: 880px;
+  margin: 8px auto 32px;
+  padding: 0 var(--gutter);
+  font-family: var(--font-label);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: var(--ink-faint);
+  text-transform: uppercase;
+  text-align: center;
+}
+
+/* Legacy venue-grouped styles kept in case linked elsewhere — orphaned otherwise. */
+.cal-venue-nav-legacy {
   position: sticky;
   top: 0;
   z-index: 4;

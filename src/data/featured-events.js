@@ -71,9 +71,9 @@ module.exports = {
       pairings: [
         { name: 'Indeed Brewing Co.', why: 'Inside Solar Arts. Walk out of a studio, walk into a pint.' },
         { name: 'Bauhaus Brew Labs', why: 'Patio, food trucks on Art-A-Whirl weekend, walking distance to Northrup King.' },
-        { name: 'Young Joni back bar', why: 'If you can get in. (Note: Young Joni closed in September 2025. Pivot to Pizzeria Lola in Southwest or Black Sheep on Washington if heading downtown.)' },
-        { name: 'Brasa Rotisserie', why: 'Central Ave, just south. Pulled chicken, collard greens, fast.' },
-        { name: 'Tongue in Cheek', why: 'East Side. A bigger meal after a long studio day.' }
+        { name: 'Dangerous Man Brewing', why: '13th Ave NE taproom. The classic Art-A-Whirl pit stop. Brewery only, food trucks usually parked outside.' },
+        { name: 'Sociable Cider Werks', why: 'Broadway St NE. Cider and beer, big patio, walkable from Northrup King.' },
+        { name: '612 Brew', why: 'Marshall St NE. Walkable from Northrup King, food trucks on weekends.' }
       ],
 
       tips: [

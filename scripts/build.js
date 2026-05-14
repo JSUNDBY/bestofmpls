@@ -420,7 +420,7 @@ function head({ title, description, slug, theme }) {
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=Archivo:wght@500;600;700&display=swap">
-<link rel="stylesheet" href="/style.css?v=23">
+<link rel="stylesheet" href="/style.css?v=24">
 <script>
 // Set color mode before paint to avoid flash. Reads localStorage first,
 // falls back to light mode (the new editorial default). mode-ready class
@@ -1700,7 +1700,7 @@ function renderAdminPicks() {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>${esc(title)}</title>
-<link rel="stylesheet" href="/style.css?v=23">
+<link rel="stylesheet" href="/style.css?v=24">
 <style>
   body { background: var(--paper); }
   .admin-wrap { max-width: 960px; margin: 0 auto; padding: 32px var(--gutter) 96px; }
@@ -2294,34 +2294,45 @@ function renderCalendar() {
   const description = 'Concerts, openings, talks, and performances at every Twin Cities venue. Updated daily.';
   const allEvents = eventsData.events || [];
 
-  // Films are out of the calendar entirely — they were the main source of
-  // visual noise and they're not what the calendar is for. Concerts, talks,
-  // openings, performances only. Run dedupe on the rest to drop occasional
-  // same-night duplicates.
-  const events = dedupeNonFilms(allEvents.filter(e => !isFilmEvent(e)));
+  // Films stay out of the calendar entirely. Concerts, talks, openings,
+  // performances only. Dedupe on (title, venue, date) to drop occasional
+  // same-night double bookings.
+  const allShows = dedupeNonFilms(allEvents.filter(e => !isFilmEvent(e)));
 
-  // Primary view: group by venue. Each venue gets a column of upcoming shows
-  // in date order. This is the answer to "what is coming up at First Ave."
-  const byVenue = new Map();
-  for (const e of events) {
-    if (!byVenue.has(e.venue)) byVenue.set(e.venue, {
-      name: e.venue,
-      neighborhood: e.venue_neighborhood,
-      events: []
-    });
-    byVenue.get(e.venue).events.push(e);
-  }
-  const venueList = [...byVenue.values()]
-    .map(v => ({ ...v, events: v.events.sort((a, b) => (a.date + (a.time || '')).localeCompare(b.date + (b.time || ''))) }))
-    .sort((a, b) => b.events.length - a.events.length);
+  // Window the calendar to roughly the next three weeks. A scrollable forever
+  // list is not a calendar — readers want "what's on this week and next."
+  // Anything beyond the window stays scrapable but does not render here.
+  const WINDOW_DAYS = 21;
+  const [ty, tm, td] = TODAY_ISO.split('-').map(Number);
+  const cutoff = Date.UTC(ty, tm - 1, td + WINDOW_DAYS);
+  const events = allShows.filter(e => {
+    if (e.date < TODAY_ISO) return false;
+    const [y, m, d] = e.date.split('-').map(Number);
+    return Date.UTC(y, m - 1, d) <= cutoff;
+  });
+  const beyondCount = allShows.filter(e => e.date > TODAY_ISO).length - events.length;
 
-  // Secondary view: same events, grouped by date.
+  // Group by ISO date for the primary view.
   const byDate = new Map();
   for (const e of events) {
     if (!byDate.has(e.date)) byDate.set(e.date, []);
     byDate.get(e.date).push(e);
   }
   const dateKeys = [...byDate.keys()].sort();
+  // Sort within each day by time, untimed last.
+  for (const d of dateKeys) {
+    byDate.get(d).sort((a, b) => {
+      if (a.time && b.time) return a.time.localeCompare(b.time);
+      if (a.time) return -1;
+      if (b.time) return 1;
+      return 0;
+    });
+  }
+
+  // Venues across the whole window — for the filter chips at the top.
+  // A reader who wants "just First Ave shows" can click that venue and the
+  // others fade out client-side. No forever scroll, no separate venue page.
+  const allVenues = [...new Set(allShows.map(e => e.venue))].sort();
 
   function fmtDay(iso) {
     const [y, m, d] = iso.split('-').map(Number);
@@ -2335,15 +2346,16 @@ function renderCalendar() {
     const hr = h % 12 === 0 ? 12 : h % 12;
     return `${hr}:${String(m).padStart(2, '0')} ${ampm}`;
   }
-  function categoryLabel(c) {
-    const map = { music: 'Music', art: 'Art', film: 'Film', lecture: 'Talk', performance: 'Performance', theater: 'Theater', community: 'Community' };
-    return map[c] || (c ? c[0].toUpperCase() + c.slice(1) : 'Event');
-  }
-
-  function fmtShortDate(iso) {
+  function dayLabel(iso) {
+    if (iso === TODAY_ISO) return 'Tonight';
     const [y, m, d] = iso.split('-').map(Number);
-    return new Date(y, m - 1, d).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+    const dt = new Date(Date.UTC(y, m - 1, d));
+    const todayDt = new Date(Date.UTC(ty, tm - 1, td));
+    const days = Math.round((dt - todayDt) / 86400000);
+    if (days === 1) return 'Tomorrow';
+    return fmtDay(iso);
   }
+  function venueAnchor(name) { return name.toLowerCase().replace(/[^a-z0-9]+/g, '-'); }
 
   const updated = eventsData.generated_at
     ? new Date(eventsData.generated_at).toLocaleString('en-US', { month: 'long', day: 'numeric', hour: 'numeric', minute: '2-digit' })
@@ -2354,54 +2366,79 @@ function renderCalendar() {
     .map(s => `${s.label} (${s.count})`)
     .join(' · ');
 
-  // Venue nav — anchor links to each venue block.
-  const venueNav = venueList.map(v => `<a href="#${esc(v.name.toLowerCase().replace(/[^a-z0-9]+/g, '-'))}" class="cal-venue-nav-link">${esc(v.name)} <span class="cal-venue-nav-count">${v.events.length}</span></a>`).join('');
+  // Venue filter chips. "All venues" first, then alphabetical. Client-side
+  // toggle, no page navigation. Works as quick search-by-venue without
+  // sending the reader to a separate venue-grouped page.
+  const venueChips = `
+    <button class="cal-chip cal-chip-all is-on" type="button" data-venue="all">All venues</button>
+    ${allVenues.map(v => `<button class="cal-chip" type="button" data-venue="${esc(v)}">${esc(v)}</button>`).join('')}`;
 
-  // Pre-id each venue block for the anchor links.
-  const venueBlocksWithIds = venueList.map(v => `
-    <section class="cal-venue" id="${esc(v.name.toLowerCase().replace(/[^a-z0-9]+/g, '-'))}">
-      <header class="cal-venue-head">
-        <h2 class="cal-venue-name">${esc(v.name)}</h2>
-        <div class="cal-venue-meta">
-          ${v.neighborhood ? `<span class="cal-venue-neigh">${esc(v.neighborhood)}</span>` : ''}
-          <span class="cal-venue-count">${v.events.length} show${v.events.length === 1 ? '' : 's'}</span>
-        </div>
+  const dayBlocks = dateKeys.map(iso => `
+    <section class="cal-day" data-date="${iso}">
+      <header class="cal-day-head">
+        <h2 class="cal-day-label">${esc(dayLabel(iso))}</h2>
+        <span class="cal-day-date">${esc(fmtDay(iso))}</span>
       </header>
-      <ul class="cal-venue-list">
-        ${v.events.map(e => `
-          <li class="cal-venue-event">
-            <div class="cal-venue-when">
-              <span class="cal-venue-date">${esc(fmtShortDate(e.date))}</span>
-              ${e.time ? `<span class="cal-venue-time">${esc(fmtTime(e.time))}</span>` : ''}
-            </div>
-            <div class="cal-venue-body">
-              <h3 class="cal-venue-event-title">${e.url ? `<a href="${esc(e.url)}" target="_blank" rel="noopener">${esc(e.title)} <span class="entry-meta-link-icon">↗</span></a>` : esc(e.title)}</h3>
-              ${e.subtitle ? `<p class="cal-venue-sub">${esc(e.subtitle.slice(0, 160))}${e.subtitle.length > 160 ? '…' : ''}</p>` : ''}
+      <ul class="cal-day-list">
+        ${byDate.get(iso).map(e => `
+          <li class="cal-row" data-venue="${esc(e.venue)}">
+            <div class="cal-row-when">${e.time ? esc(fmtTime(e.time)) : 'TBA'}</div>
+            <div class="cal-row-body">
+              <h3 class="cal-row-title">${e.url ? `<a href="${esc(e.url)}" target="_blank" rel="noopener">${esc(e.title)} <span class="entry-meta-link-icon">↗</span></a>` : esc(e.title)}</h3>
+              <div class="cal-row-venue"><a href="#venue-${esc(venueAnchor(e.venue))}" class="cal-row-venue-link">${esc(e.venue)}</a>${e.venue_neighborhood ? ` <span class="cal-row-neigh">· ${esc(e.venue_neighborhood)}</span>` : ''}</div>
+              ${e.subtitle ? `<p class="cal-row-sub">${esc(e.subtitle.slice(0, 140))}${e.subtitle.length > 140 ? '…' : ''}</p>` : ''}
             </div>
           </li>`).join('')}
       </ul>
     </section>`).join('');
 
+  const beyondNote = beyondCount > 0
+    ? `<p class="cal-beyond">${beyondCount} more show${beyondCount === 1 ? '' : 's'} on the books past the next ${WINDOW_DAYS} days.</p>`
+    : '';
+
   const empty = events.length === 0
     ? `<section class="wrap" style="padding: 64px var(--gutter);">
-         <p style="font-family: var(--font-body); font-size: 18px; color: var(--ink-soft);">The calendar is being assembled. Refresh in a few hours, or check the venues directly: <a href="/live-music/" style="color: var(--clay); border-bottom: 1px solid var(--clay);">live music venues</a>.</p>
+         <p style="font-family: var(--font-body); font-size: 18px; color: var(--ink-soft);">Quiet stretch on the scraped calendar — nothing in the next ${WINDOW_DAYS} days. Refresh in a few hours, or browse the venues directly under <a href="/live-music/" style="color: var(--clay); border-bottom: 1px solid var(--clay);">live music</a>.</p>
        </section>`
-    : `<nav class="cal-venue-nav">
-         <div class="wrap cal-venue-nav-inner">${venueNav}</div>
-       </nav>
-       <div class="cal-venue-stream">${venueBlocksWithIds}</div>`;
+    : `<div class="cal-controls">
+         <div class="wrap cal-controls-inner">
+           <span class="cal-filter-label">Filter by venue:</span>
+           <div class="cal-chip-row">${venueChips}</div>
+         </div>
+       </div>
+       <div class="cal-stream">${dayBlocks}</div>
+       ${beyondNote}`;
 
   return head({ title, description, slug: 'calendar', theme: 'forest' }) +
     header({ activeSlug: 'calendar' }) +
     `<section class="section-head">
        <div class="wrap">
-         <div class="section-eyebrow">${events.length} shows · ${venueList.length} venues · ${dateKeys.length} dates</div>
-         <h1 class="section-title">${esc(title)} <em>by venue</em></h1>
+         <div class="section-eyebrow">${events.length} shows · next ${WINDOW_DAYS} days · ${allVenues.length} venues</div>
+         <h1 class="section-title">${esc(title)}</h1>
          <p class="section-deck">${esc(description)}</p>
          ${updated ? `<p style="font-family: var(--font-label); font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-faint); margin-top: 16px;">Last refreshed ${esc(updated)} · sources: ${esc(sourcesLine)}</p>` : ''}
        </div>
      </section>
-     ${empty}` +
+     ${empty}
+     <script>
+       (function(){
+         var chips = document.querySelectorAll('.cal-chip');
+         var rows = document.querySelectorAll('.cal-row');
+         var days = document.querySelectorAll('.cal-day');
+         function apply(venue){
+           chips.forEach(function(c){ c.classList.toggle('is-on', c.dataset.venue === venue); });
+           rows.forEach(function(r){
+             r.style.display = (venue === 'all' || r.dataset.venue === venue) ? '' : 'none';
+           });
+           days.forEach(function(d){
+             var any = false;
+             d.querySelectorAll('.cal-row').forEach(function(r){ if (r.style.display !== 'none') any = true; });
+             d.style.display = any ? '' : 'none';
+           });
+         }
+         chips.forEach(function(c){ c.addEventListener('click', function(){ apply(c.dataset.venue); }); });
+       })();
+     </script>` +
     footer();
 }
 

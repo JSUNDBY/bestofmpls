@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-14T03:05:19.468Z",
+  "generated_at": "2026-05-14T03:45:10.236Z",
   "today": "2026-05-13",
   "sun": {
     "rise": "5:22 AM",
@@ -9,16 +9,16 @@
     "daylight_min": 885
   },
   "weather": {
-    "temp_now": 64,
+    "temp_now": 63,
     "temp_max": 79,
-    "feels_like": 64,
+    "feels_like": 63,
     "condition": "Mostly Sunny Then Chance Showers And Thunderstorms",
     "is_patio": false,
     "is_brutal": false,
     "is_snowing": false,
     "is_rainy": true,
     "mood": "rain",
-    "summary": "64°F · rain in the forecast",
+    "summary": "63°F · rain in the forecast",
     "source": "nws"
   },
   "countdowns": [
@@ -53,10 +53,10 @@
       "blurb": "Twenty-six miles from downtown Minneapolis to the State Capitol."
     },
     {
-      "name": "First frost (typical)",
-      "date": "2026-10-05",
-      "days": 145,
-      "blurb": "When the metro typically sees its first overnight frost."
+      "name": "Twin Cities Book Festival",
+      "date": "2026-10-17",
+      "days": 157,
+      "blurb": "The metro's largest free book festival, at the State Fairgrounds."
     }
   ],
   "sunset_pick": {

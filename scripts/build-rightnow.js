@@ -229,24 +229,32 @@ function buildCountdowns(now = centralNow()) {
     { name: 'Aquatennial',                 dateRule: y => new Date(y, 6, 16),         blurb: "Minneapolis's eleven-day midsummer festival." },
     { name: 'Minnesota State Fair',        dateRule: y => stateFairStart(y),          blurb: 'Twelve days ending Labor Day. The largest state fair by daily attendance.' },
     { name: 'Twin Cities Marathon',        dateRule: y => nthDowOf(y, 9, 0, 1),       blurb: 'Twenty-six miles from downtown Minneapolis to the State Capitol.' },
-    { name: 'Twin Cities Book Festival',   dateRule: y => nthDowOf(y, 9, 6, 3),       blurb: "The metro's largest free book festival, at the State Fairgrounds." },
-    { name: 'First frost (typical)',       dateRule: y => new Date(y, 9, 5),          blurb: 'When the metro typically sees its first overnight frost.' },
-    { name: 'First snow (typical)',        dateRule: y => new Date(y, 10, 1),         blurb: 'When the metro typically sees its first measurable snowfall.' }
+    { name: 'Twin Cities Book Festival',   dateRule: y => nthDowOf(y, 9, 6, 3),       blurb: "The metro's largest free book festival, at the State Fairgrounds.", season: 'fall' },
+    { name: 'First frost (typical)',       dateRule: y => new Date(y, 9, 5),          blurb: 'When the metro typically sees its first overnight frost.', season: 'winter' },
+    { name: 'First snow (typical)',        dateRule: y => new Date(y, 10, 1),         blurb: 'When the metro typically sees its first measurable snowfall.', season: 'winter' }
   ];
 
   // Cutoff = midnight Central this morning, so any event happening today
   // (with hours math truncated) shows as "0 days" and gets filtered out.
   const cutoff = new Date(Y, now.getMonth(), now.getDate());
 
-  const upcoming = events.map(ev => {
-    let d = ev.dateRule(Y);
-    if (d < cutoff) d = ev.dateRule(Y + 1);
-    const days = Math.round((d - cutoff) / 86400000);
-    return { name: ev.name, date: `${d.getFullYear()}-${pad2(d.getMonth()+1)}-${pad2(d.getDate())}`, days, blurb: ev.blurb };
-  })
-  .filter(e => e.days > 0)
-  .sort((a, b) => a.days - b.days)
-  .slice(0, 6);
+  // Hide winter-flavored countdowns (first frost, first snow) during the warm
+  // months — nobody wants to be reminded that winter is coming when they're
+  // still wearing shorts. Returns in October.
+  const month = now.getMonth() + 1;
+  const isWarmSeason = month >= 4 && month <= 9;
+
+  const upcoming = events
+    .filter(ev => !(isWarmSeason && ev.season === 'winter'))
+    .map(ev => {
+      let d = ev.dateRule(Y);
+      if (d < cutoff) d = ev.dateRule(Y + 1);
+      const days = Math.round((d - cutoff) / 86400000);
+      return { name: ev.name, date: `${d.getFullYear()}-${pad2(d.getMonth()+1)}-${pad2(d.getDate())}`, days, blurb: ev.blurb };
+    })
+    .filter(e => e.days > 0)
+    .sort((a, b) => a.days - b.days)
+    .slice(0, 6);
 
   return upcoming;
 }
