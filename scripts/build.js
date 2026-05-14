@@ -420,7 +420,7 @@ function head({ title, description, slug, theme }) {
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=Archivo:wght@500;600;700&display=swap">
-<link rel="stylesheet" href="/style.css?v=25">
+<link rel="stylesheet" href="/style.css?v=26">
 <script>
 // Set color mode before paint to avoid flash. Reads localStorage first,
 // falls back to light mode (the new editorial default). mode-ready class
@@ -1701,7 +1701,7 @@ function renderAdminPicks() {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>${esc(title)}</title>
-<link rel="stylesheet" href="/style.css?v=25">
+<link rel="stylesheet" href="/style.css?v=26">
 <style>
   body { background: var(--paper); }
   .admin-wrap { max-width: 960px; margin: 0 auto; padding: 32px var(--gutter) 96px; }
@@ -3164,7 +3164,7 @@ function renderTonight() {
       <div class="tonight-event-body">
         <h3 class="tonight-event-title">${e.url ? `<a href="${esc(e.url)}" target="_blank" rel="noopener">${esc(e.title)} <span class="entry-meta-link-icon">↗</span></a>` : esc(e.title)}</h3>
         <div class="tonight-event-meta">
-          <span class="tonight-event-venue">${esc(e.venue)}</span>
+          <a class="tonight-event-venue" href="/calendar/venue/${esc(entrySlug(e.venue))}/">${esc(e.venue)}</a>
           ${e.venue_neighborhood ? `<span class="tonight-event-neigh">${esc(e.venue_neighborhood)}</span>` : ''}
         </div>
         ${e.subtitle ? `<p class="tonight-event-sub">${esc(e.subtitle.slice(0, 200))}${e.subtitle.length > 200 ? '…' : ''}</p>` : ''}
