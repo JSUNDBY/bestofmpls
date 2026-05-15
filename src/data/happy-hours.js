@@ -104,5 +104,16 @@ module.exports = {
       price: '$$$',
       hours: 'Tue–Sat 4–5:30pm cafe side'
     },
+    {
+      name: 'Char Bar',
+      neighborhood: 'North Loop, Minneapolis',
+      style: 'Cocktails and bar snacks at Butcher & the Boar',
+      description: 'Daily happy hour at the small bar inside the Butcher & the Boar building. Four to six, every day, including weekends. Reasonable cocktails, snacks built for the program, and a room that knows exactly what it is.',
+      address: '901 N 3rd St, Suite 195, Minneapolis',
+      website: 'https://www.charbarmpls.com/',
+      reservation: 'https://www.opentable.com/r/char-bar-minneapolis',
+      price: '$$',
+      hours: 'Daily 4–6pm'
+    }
       ]
 };

@@ -52,6 +52,29 @@ function zodiacSvg(name) { return ZODIAC_SVG[name] || ''; }
 // worker is deployed (see worker/README.md). When empty, the form renders
 // in a safe "coming soon" state instead of trying to submit.
 const POLL_WORKER_URL = 'https://bestofmpls-poll.j-sundby.workers.dev';
+
+// OpenTable affiliate ref. Once approved through OpenTable's Impact
+// (impact.com) affiliate program, set this to your unique ref ID. Every
+// entry with `reservation:` pointing at opentable.com gets the ?ref=
+// param appended at build time. Empty = no tracking, links still work.
+// Resy/Tock have no public affiliate program — those URLs pass through
+// untouched.
+const OPENTABLE_AFFILIATE_REF = '';
+function reservationUrl(url) {
+  if (!url) return url;
+  if (!/opentable\.com/i.test(url)) return url;
+  if (!OPENTABLE_AFFILIATE_REF) return url;
+  const sep = url.includes('?') ? '&' : '?';
+  return `${url}${sep}ref=${encodeURIComponent(OPENTABLE_AFFILIATE_REF)}`;
+}
+function reservationPlatform(url) {
+  if (!url) return null;
+  if (/opentable\.com/i.test(url)) return 'OpenTable';
+  if (/resy\.com/i.test(url)) return 'Resy';
+  if (/exploretock|\btock\.com/i.test(url)) return 'Tock';
+  if (/yelp\.com.*reservations/i.test(url)) return 'Yelp';
+  return 'Book a table';
+}
 // Warm season runs April through September. Cold-flavored content (snow-day,
 // big-cold-night mystery, etc.) is hidden during these months and quietly
 // returns each October.
@@ -113,6 +136,29 @@ function dedupeNonFilms(events) {
     }
   }
   return [...seen.values()];
+}
+
+// Collapse multi-night runs of the same (title, venue) into a single entry
+// with a date range, anchored to the first night. Solves "Rosy Simas appears
+// four times this week on every page" — a dance piece that runs Wed→Sat is
+// one thing, not four. Used by the homepage live picks and the per-venue
+// pages; the main /calendar/ date stream keeps per-night rows so a reader
+// scanning a specific day still sees what's on that day.
+function collapseRuns(events) {
+  const sorted = [...events].sort((a, b) => (a.date + (a.time || '')).localeCompare(b.date + (b.time || '')));
+  const byKey = new Map();
+  for (const e of sorted) {
+    const key = `${e.title}::${e.venue}`;
+    if (!byKey.has(key)) {
+      byKey.set(key, { ...e, run_start: e.date, run_end: e.date, run_dates: [e.date] });
+    } else {
+      const g = byKey.get(key);
+      if (e.date > g.run_end) g.run_end = e.date;
+      if (e.date < g.run_start) g.run_start = e.date;
+      if (!g.run_dates.includes(e.date)) g.run_dates.push(e.date);
+    }
+  }
+  return [...byKey.values()].sort((a, b) => (a.run_start + (a.time || '')).localeCompare(b.run_start + (b.time || '')));
 }
 
 // Currently active featured event — the first one whose run-up window starts
@@ -420,7 +466,7 @@ function head({ title, description, slug, theme }) {
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=Archivo:wght@500;600;700&display=swap">
-<link rel="stylesheet" href="/style.css?v=27">
+<link rel="stylesheet" href="/style.css?v=28">
 <script>
 // Set color mode before paint to avoid flash. Reads localStorage first,
 // falls back to light mode (the new editorial default). mode-ready class
@@ -906,9 +952,12 @@ function renderHome() {
   // Featured calendar strip — show next 4 upcoming festivals
   const calendarPicks = festivals.entries.slice(0, 4);
 
-  // Live events strip — show next 6, but skip films (they belong in the
-  // dedicated /now-showing/ rail) and dedupe same-night double bookings.
-  const liveEventPicks = dedupeNonFilms((eventsData.events || []).filter(e => !isFilmEvent(e))).slice(0, 6);
+  // Live events strip — show next 6 distinct shows. Films excluded. Multi-
+  // night runs (e.g. a four-night dance piece) collapse to one entry so the
+  // strip is six different things, not the same show four times.
+  const liveEventPicks = collapseRuns(
+    dedupeNonFilms((eventsData.events || []).filter(e => !isFilmEvent(e) && e.date >= TODAY_ISO))
+  ).slice(0, 6);
   function fmtShortDay(iso) {
     if (!iso) return '';
     const [y,m,d] = iso.split('-').map(Number);
@@ -1121,6 +1170,10 @@ function renderCategory(c) {
     if (e.website) {
       const cleanUrl = e.website.replace(/^https?:\/\//, '').replace(/\/$/, '');
       footerBits.push(`<a class="entry-meta-link entry-meta-link--website" href="${esc(e.website)}" target="_blank" rel="noopener">${esc(cleanUrl)} <span class="entry-meta-link-icon">↗</span></a>`);
+    }
+    if (e.reservation) {
+      const platform = reservationPlatform(e.reservation);
+      footerBits.push(`<a class="entry-reserve" href="${esc(reservationUrl(e.reservation))}" target="_blank" rel="noopener sponsored">Reserve a table on ${esc(platform)} <span class="entry-meta-link-icon">↗</span></a>`);
     }
     if (e.price) footerBits.push(`<span class="entry-footer-price">${esc(e.price)}</span>`);
     if (e.hours) footerBits.push(`<span>${esc(e.hours)}</span>`);
@@ -1530,6 +1583,12 @@ function renderEntry(c, e, allCategories) {
     ? `<a class="entry-detail-website" href="${esc(e.website)}" target="_blank" rel="noopener">${esc(e.website.replace(/^https?:\/\//, '').replace(/\/$/, ''))} <span class="entry-meta-link-icon">↗</span></a>`
     : '';
 
+  // Reservation button (OpenTable, Resy, Tock). OpenTable URLs pick up the
+  // affiliate ref param when OPENTABLE_AFFILIATE_REF is configured.
+  const reservationBlock = e.reservation
+    ? `<a class="entry-detail-reserve" href="${esc(reservationUrl(e.reservation))}" target="_blank" rel="noopener sponsored">Reserve a table on ${esc(reservationPlatform(e.reservation))} <span class="entry-meta-link-icon">↗</span></a>`
+    : '';
+
   // Mini-map (Leaflet) if we have coords
   const miniMap = coords ? `
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
@@ -1576,6 +1635,7 @@ function renderEntry(c, e, allCategories) {
        <section class="entry-detail-meta">
          ${addressBlock}
          ${websiteBlock}
+         ${reservationBlock}
          ${e.price ? `<span class="entry-detail-price">${esc(e.price)}</span>` : ''}
          ${e.access ? `<div class="entry-detail-access"><strong>How to visit:</strong> ${esc(e.access)}</div>` : ''}
        </section>
@@ -1701,7 +1761,7 @@ function renderAdminPicks() {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>${esc(title)}</title>
-<link rel="stylesheet" href="/style.css?v=27">
+<link rel="stylesheet" href="/style.css?v=28">
 <style>
   body { background: var(--paper); }
   .admin-wrap { max-width: 960px; margin: 0 auto; padding: 32px var(--gutter) 96px; }
@@ -2488,8 +2548,9 @@ function resolveVenues() {
     }
     venues.get(slug).events.push(e);
   }
+  // Collapse runs per venue so a four-night dance piece is one row, not four.
   for (const v of venues.values()) {
-    v.events.sort((a, b) => (a.date + (a.time || '')).localeCompare(b.date + (b.time || '')));
+    v.events = collapseRuns(v.events);
   }
   return [...venues.values()].sort((a, b) => b.events.length - a.events.length);
 }
@@ -2510,11 +2571,22 @@ function renderVenuePage(v) {
     const [y, m, d] = iso.split('-').map(Number);
     return new Date(y, m - 1, d).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
   }
+  function fmtShort(iso) {
+    const [y, m, d] = iso.split('-').map(Number);
+    return new Date(y, m - 1, d).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+  }
+  // Date label for a single event that might be a multi-night run. Returns
+  // "Thursday, May 14" for one night, "May 13–16 (4 nights)" for a run.
+  function whenLabel(e) {
+    if (!e.run_dates || e.run_dates.length <= 1) return fmtLong(e.run_start || e.date);
+    return `${fmtShort(e.run_start)} – ${fmtShort(e.run_end)} · ${e.run_dates.length} nights`;
+  }
 
-  // Group by year-month so a heavy booking calendar doesn't look like a wall.
+  // Group by year-month, using run_start so a multi-night piece anchors to
+  // its opening date.
   const byMonth = new Map();
   for (const e of v.events) {
-    const key = e.date.slice(0, 7); // YYYY-MM
+    const key = (e.run_start || e.date).slice(0, 7);
     if (!byMonth.has(key)) byMonth.set(key, []);
     byMonth.get(key).push(e);
   }
@@ -2530,7 +2602,7 @@ function renderVenuePage(v) {
         ${byMonth.get(key).map(e => `
           <li class="venue-show">
             <div class="venue-show-when">
-              <div class="venue-show-date">${esc(fmtLong(e.date))}</div>
+              <div class="venue-show-date">${esc(whenLabel(e))}</div>
               <div class="venue-show-time">${esc(fmtTime12(e.time))}</div>
             </div>
             <div class="venue-show-body">

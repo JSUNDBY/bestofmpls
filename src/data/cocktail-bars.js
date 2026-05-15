@@ -37,6 +37,17 @@ module.exports = {
       description: 'The bar inside the Dakota, the city’s serious jazz club. Order a drink, listen to whatever set is happening, and take advantage of one of the more sophisticated bar rooms downtown. Cover may apply for the music; the bar itself is open all night.',
       address: 'Downtown Minneapolis',
       price: '$$$'
+    },
+    {
+      name: 'Char Bar',
+      neighborhood: 'North Loop, Minneapolis',
+      style: 'Companion bar to Butcher & the Boar',
+      description: 'The small bar tucked inside the historic Butcher & the Boar building on 3rd Street North. Cocktails, snacks, a daily happy hour from four to six. The room takes the easy-going Tuesday-night register that the steakhouse upstairs can not. Open 4 PM nightly.',
+      address: '901 N 3rd St, Suite 195, Minneapolis',
+      website: 'https://www.charbarmpls.com/',
+      reservation: 'https://www.opentable.com/r/char-bar-minneapolis',
+      hours: 'Sun–Thu 4–10 PM · Fri–Sat 4 PM–midnight',
+      price: '$$$'
     }
   ]
 };

@@ -4979,6 +4979,55 @@ html[data-mode="dark"] .venue-dir-info { background: var(--paper-2); }
 .weekend-show-venue a:hover { color: var(--clay); border-color: var(--clay); }
 .weekend-show-neigh { color: var(--ink-faint); }
 
+/* ===== Reservation buttons (entry listing + entry detail) =====
+   Calmly assertive — same weight as the website link but tinted clay so a
+   reader scanning a row sees that booking is one click away. */
+.entry-reserve {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-label);
+  font-weight: 700;
+  font-size: 11.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--clay);
+  background: rgba(225, 25, 0, 0.06);
+  padding: 5px 10px;
+  border-radius: 999px;
+  text-decoration: none;
+  border: 1px solid rgba(225, 25, 0, 0.25);
+  transition: background 0.12s, color 0.12s, border-color 0.12s;
+}
+.entry-reserve:hover {
+  background: var(--clay);
+  color: var(--paper);
+  border-color: var(--clay);
+}
+html[data-mode="dark"] .entry-reserve {
+  background: rgba(255, 61, 38, 0.10);
+  border-color: rgba(255, 61, 38, 0.35);
+}
+.entry-detail-reserve {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-label);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: var(--paper);
+  background: var(--clay);
+  padding: 10px 16px;
+  border-radius: 4px;
+  text-decoration: none;
+  margin-top: 8px;
+}
+.entry-detail-reserve:hover {
+  background: var(--ink);
+}
+
 /* ===== Print ===== */
 @media print {
   .site-header, .primary-nav, .site-footer { display: none; }
