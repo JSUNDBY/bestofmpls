@@ -442,6 +442,7 @@ const todayData     = loadJsonOptional(path.join(SRC, 'data/today.json')) || nul
 const coordsData    = loadJsonOptional(path.join(SRC, 'data/coords.json')) || {};
 const rightnowData  = loadJsonOptional(path.join(SRC, 'data/rightnow.json')) || null;
 const hoursData     = loadJsonOptional(path.join(SRC, 'data/hours.json')) || {};
+const skywaySegmentsData = loadJsonOptional(path.join(SRC, 'data/skyway-segments.json')) || { cities: { minneapolis: { segments: [] }, saintpaul: { segments: [] } } };
 
 // Resolve the best lat/lng for an entry. Preference order:
 //   1. Google Places location from hours.json (precise — pinned to the
@@ -764,7 +765,7 @@ function head({ title, description, slug, theme }) {
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600;700&family=Source+Sans+3:wght@400;600&family=Archivo:wght@500;600;700&family=Archivo+Narrow:wght@600;700&display=swap">
-<link rel="stylesheet" href="/style.css?v=34">
+<link rel="stylesheet" href="/style.css?v=35">
 <script>
 // Set color mode before paint to avoid flash. Reads localStorage first,
 // falls back to light mode (the new editorial default). mode-ready class
@@ -2192,7 +2193,7 @@ function renderAdminPicks() {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>${esc(title)}</title>
-<link rel="stylesheet" href="/style.css?v=34">
+<link rel="stylesheet" href="/style.css?v=35">
 <style>
   body { background: var(--paper); }
   .admin-wrap { max-width: 960px; margin: 0 auto; padding: 32px var(--gutter) 96px; }
@@ -4215,23 +4216,50 @@ function renderQuiz() {
     footer();
 }
 
-// ---------- /skyway/ — downtown Minneapolis indoor pedestrian network ----------
+// ---------- /skyway/ — both downtown indoor pedestrian networks ----------
 function renderSkyway() {
   const s = skyway;
-  const description = 'A short navigator for the largest indoor pedestrian network in the country. Hand-picked nodes, plain English routing, no app.';
+  const segData = skywaySegmentsData;
+  const description = 'A navigator for the largest indoor pedestrian networks in the country — both downtowns. Actual segment geometry from OpenStreetMap. Hand-picked navigation nodes.';
 
-  // Build adjacency JSON for client-side BFS routing
+  // Build adjacency JSON for client-side BFS routing (curated nodes only)
   const adj = {};
   s.nodes.forEach(n => { adj[n.id] = []; });
   s.edges.forEach(([a, b, w]) => {
     if (adj[a]) adj[a].push({ to: b, w });
     if (adj[b]) adj[b].push({ to: a, w });
   });
-  const nodeMap = {};
-  s.nodes.forEach(n => { nodeMap[n.id] = n; });
 
-  const nodeOptions = s.nodes.map(n => `<option value="${esc(n.id)}">${esc(n.name)}</option>`).join('');
+  const mplsNodes = s.nodes.filter(n => n.city === 'minneapolis');
+  const stpNodes  = s.nodes.filter(n => n.city === 'saintpaul');
+  const mplsSegs  = (segData.cities.minneapolis && segData.cities.minneapolis.segments) || [];
+  const stpSegs   = (segData.cities.saintpaul  && segData.cities.saintpaul.segments)  || [];
+
+  function optGroup(label, ns) {
+    return `<optgroup label="${esc(label)}">${ns.map(n => `<option value="${esc(n.id)}">${esc(n.name)}</option>`).join('')}</optgroup>`;
+  }
+  const nodeOptions = optGroup('Minneapolis', mplsNodes) + optGroup('Saint Paul', stpNodes);
   const tipsList = s.tips.map(t => `<li>${esc(t)}</li>`).join('');
+
+  // Approximate total mileage from the segment geometry. Haversine across
+  // every polyline pair, summed. Done at build time so the page can show
+  // an honest mile count instead of the stale "9.5 miles" estimate.
+  function segmentMiles(segs) {
+    const R = 3958.8, toR = d => d * Math.PI / 180;
+    let total = 0;
+    for (const seg of segs) {
+      for (let i = 1; i < seg.coords.length; i++) {
+        const a = seg.coords[i - 1], b = seg.coords[i];
+        const dLat = toR(b[0] - a[0]);
+        const dLng = toR(b[1] - a[1]);
+        const aa = Math.sin(dLat/2)**2 + Math.cos(toR(a[0])) * Math.cos(toR(b[0])) * Math.sin(dLng/2)**2;
+        total += 2 * R * Math.asin(Math.sqrt(aa));
+      }
+    }
+    return total;
+  }
+  const mplsMiles = segmentMiles(mplsSegs).toFixed(1);
+  const stpMiles  = segmentMiles(stpSegs).toFixed(1);
 
   return head({ title: s.title, description, slug: 'skyway', theme: 'midnight' }) +
     header({ activeSlug: 'skyway' }) +
@@ -4239,14 +4267,19 @@ function renderSkyway() {
      <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
      <section class="section-head">
        <div class="wrap">
-         <div class="section-eyebrow">${s.nodes.length} nodes · ${s.edges.length} segments</div>
+         <div class="section-eyebrow">${mplsMiles} mi Minneapolis · ${stpMiles} mi Saint Paul · ${mplsSegs.length + stpSegs.length} segments mapped</div>
          <h1 class="section-title">${esc(s.title)}</h1>
          <p class="section-deck">${esc(s.intro)}</p>
-         <p style="font-family: var(--font-label); font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-faint); margin-top: 16px;">General hours · ${esc(s.hours_general)}</p>
+         <p style="font-family: var(--font-label); font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-faint); margin-top: 16px;">General hours · ${esc(s.hours_general)} · Geometry from OpenStreetMap (ODbL)</p>
        </div>
      </section>
      <div class="skyway-controls">
        <div class="wrap skyway-controls-inner">
+         <div class="skyway-toggle" role="tablist" aria-label="Choose a downtown">
+           <button class="skyway-chip is-on" type="button" data-city="both">Both</button>
+           <button class="skyway-chip" type="button" data-city="minneapolis">Minneapolis</button>
+           <button class="skyway-chip" type="button" data-city="saintpaul">Saint Paul</button>
+         </div>
          <div class="skyway-route">
            <label>From <select id="sk-from">${nodeOptions}</select></label>
            <label>To <select id="sk-to">${nodeOptions}</select></label>
@@ -4260,48 +4293,100 @@ function renderSkyway() {
        <h2 class="tonight-section-title">Tips that will save you time</h2>
        <ul class="skyway-tips">${tipsList}</ul>
      </section>
+     <script id="skyway-data" type="application/json">${JSON.stringify({
+       nodes: s.nodes,
+       adj,
+       segments: { minneapolis: mplsSegs, saintpaul: stpSegs }
+     })}</script>
      <script>
        (function(){
-         var NODES = ${JSON.stringify(s.nodes)};
-         var ADJ   = ${JSON.stringify(adj)};
+         var DATA = JSON.parse(document.getElementById('skyway-data').textContent);
+         var NODES = DATA.nodes;
+         var ADJ   = DATA.adj;
+         var SEGS  = DATA.segments;
          var NODEMAP = {};
          NODES.forEach(function(n){ NODEMAP[n.id] = n; });
 
-         // Map setup centered on IDS Crystal Court
-         var map = L.map('skyway-map', { scrollWheelZoom: true }).setView([44.9762, -93.2705], 14);
+         var BOUNDS = {
+           minneapolis: [[44.969, -93.286], [44.984, -93.255]],
+           saintpaul:   [[44.940, -93.107], [44.954, -93.083]],
+           both:        [[44.940, -93.286], [44.984, -93.083]]
+         };
+         var COLORS = {
+           minneapolis: '#FF3825',  // signal red, Mpls
+           saintpaul:   '#FFB400'   // sodium-vapor amber, St Paul
+         };
+
+         var map = L.map('skyway-map', { scrollWheelZoom: true });
+         map.fitBounds(BOUNDS.both, { padding: [20, 20] });
          L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-           attribution: '© OpenStreetMap contributors © CARTO', subdomains: 'abcd', maxZoom: 19
+           attribution: '© OpenStreetMap contributors © CARTO · Skyway geometry © OSM (ODbL)',
+           subdomains: 'abcd', maxZoom: 19
          }).addTo(map);
 
-         // Plot every node
-         var markers = {};
+         // Render the actual OSM segment polylines per city as Leaflet
+         // layer groups so the toggle can show/hide them cleanly.
+         var layers = { minneapolis: L.layerGroup(), saintpaul: L.layerGroup() };
+         var nodeLayers = { minneapolis: L.layerGroup(), saintpaul: L.layerGroup() };
+
+         function renderSegments(city) {
+           SEGS[city].forEach(function(seg){
+             var line = L.polyline(seg.coords, {
+               color: COLORS[city],
+               weight: seg.bridge ? 3 : 2.5,
+               opacity: 0.78,
+               lineCap: 'round',
+               lineJoin: 'round'
+             });
+             line.addTo(layers[city]);
+           });
+         }
+         renderSegments('minneapolis');
+         renderSegments('saintpaul');
+
+         // Plot curated nodes per city.
          NODES.forEach(function(n){
            var icon = L.divIcon({
-             className: 'sk-marker',
+             className: 'sk-marker sk-marker-' + n.city,
              html: '<span></span>',
-             iconSize: [16, 16], iconAnchor: [8, 8]
+             iconSize: [12, 12], iconAnchor: [6, 6]
            });
-           var m = L.marker([n.lat, n.lng], { icon: icon }).addTo(map);
-           m.bindPopup('<b>' + n.name + '</b><br><span style="font-family: sans-serif; font-size: 12px;">' + n.note + '</span>');
-           markers[n.id] = m;
+           var m = L.marker([n.lat, n.lng], { icon: icon, riseOnHover: true });
+           m.bindPopup('<div class="sk-pop"><div class="sk-pop-eyebrow">' + (n.city === 'saintpaul' ? 'Saint Paul' : 'Minneapolis') + '</div><b>' + n.name + '</b><div class="sk-pop-neigh">' + n.neighborhood + '</div><p class="sk-pop-note">' + n.note + '</p></div>');
+           m.addTo(nodeLayers[n.city]);
          });
 
-         // Faint baseline edges
-         var baseLines = [];
-         Object.keys(ADJ).forEach(function(from){
-           ADJ[from].forEach(function(e){
-             if (from < e.to) {
-               var a = NODEMAP[from], b = NODEMAP[e.to];
-               var line = L.polyline([[a.lat, a.lng], [b.lat, b.lng]], { color: '#666', weight: 2, opacity: 0.4 }).addTo(map);
-               baseLines.push(line);
-             }
+         layers.minneapolis.addTo(map);
+         layers.saintpaul.addTo(map);
+         nodeLayers.minneapolis.addTo(map);
+         nodeLayers.saintpaul.addTo(map);
+
+         // City toggle
+         var chips = document.querySelectorAll('.skyway-chip');
+         chips.forEach(function(b){
+           b.addEventListener('click', function(){
+             chips.forEach(function(c){ c.classList.remove('is-on'); });
+             b.classList.add('is-on');
+             var city = b.dataset.city;
+             ['minneapolis','saintpaul'].forEach(function(c){
+               var show = (city === 'both' || city === c);
+               if (show) {
+                 if (!map.hasLayer(layers[c])) layers[c].addTo(map);
+                 if (!map.hasLayer(nodeLayers[c])) nodeLayers[c].addTo(map);
+               } else {
+                 if (map.hasLayer(layers[c])) map.removeLayer(layers[c]);
+                 if (map.hasLayer(nodeLayers[c])) map.removeLayer(nodeLayers[c]);
+               }
+             });
+             map.fitBounds(BOUNDS[city], { padding: [20, 20] });
            });
          });
+
+         // Routing — BFS across curated edges. Stays within a single city
+         // (no cross-river skyway exists).
          var routeLine = null;
-
          function bfs(from, to) {
-           var queue = [[from]];
-           var seen = {};
+           var queue = [[from]], seen = {};
            seen[from] = true;
            while (queue.length) {
              var path = queue.shift();
@@ -4313,17 +4398,21 @@ function renderSkyway() {
            }
            return null;
          }
-
          document.getElementById('sk-go').addEventListener('click', function(){
            var from = document.getElementById('sk-from').value;
            var to   = document.getElementById('sk-to').value;
+           var fromCity = NODEMAP[from].city, toCity = NODEMAP[to].city;
            if (from === to) {
              document.getElementById('sk-result').innerHTML = '<p>You are already there.</p>';
              return;
            }
+           if (fromCity !== toCity) {
+             document.getElementById('sk-result').innerHTML = '<p><b>No skyway between Minneapolis and Saint Paul.</b> The two systems are separate. Take the Green Line light rail between downtowns — 40 minutes, level boarding, runs every 10 minutes.</p>';
+             return;
+           }
            var path = bfs(from, to);
            if (!path) {
-             document.getElementById('sk-result').innerHTML = '<p>No skyway route found between those two. Walk outside.</p>';
+             document.getElementById('sk-result').innerHTML = '<p>No skyway route found between those two on our curated map. Walk outside, or pick a different pair.</p>';
              return;
            }
            var totalMin = 0;
@@ -4335,11 +4424,10 @@ function renderSkyway() {
              '<ol class="sk-route-list">' + path.map(function(id){ return '<li><b>' + NODEMAP[id].name + '</b><div class="sk-step-note">' + NODEMAP[id].note + '</div></li>'; }).join('') + '</ol>';
            document.getElementById('sk-result').innerHTML = html;
 
-           // Draw route on map
            if (routeLine) map.removeLayer(routeLine);
            var coords = path.map(function(id){ return [NODEMAP[id].lat, NODEMAP[id].lng]; });
-           routeLine = L.polyline(coords, { color: '#E11900', weight: 5, opacity: 0.85 }).addTo(map);
-           map.fitBounds(routeLine.getBounds(), { padding: [40, 40] });
+           routeLine = L.polyline(coords, { color: '#FFFFFF', weight: 5, opacity: 0.95, dashArray: '8 6' }).addTo(map);
+           map.fitBounds(routeLine.getBounds(), { padding: [60, 60] });
          });
        })();
      </script>` +
