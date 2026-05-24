@@ -27,10 +27,13 @@
   --sky:      #4A4A48;
 
   /* Fonts — civic over editorial.
-     Plex Sans = the display + UI face. Plex Mono = numerals, times,
-     temperatures, schedules. Archivo stays for labels. Source Sans for
-     long-form body. Playfair retired; if it ever comes back it's body
-     italic only, never display. */
+     Marquee = the compressed grotesk used for page-title display moments
+     (cover headline, section titles, big civic signage). Archivo Narrow
+     gives us actual signage register, not a tasteful publication header.
+     Plex Sans = entry names, secondary headlines, UI face. Plex Mono =
+     numerals, times, temperatures, schedules, neighborhood codes.
+     Archivo (regular width) stays for labels. Source Sans for long body. */
+  --font-marquee: 'Archivo Narrow', 'IBM Plex Sans Condensed', 'Helvetica Neue Condensed', 'Helvetica Neue', Helvetica, sans-serif;
   --font-display: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   --font-label:   'Archivo', 'IBM Plex Sans', 'Helvetica Neue', sans-serif;
   --font-body:    'Source Sans 3', 'IBM Plex Sans', 'Helvetica Neue', sans-serif;
@@ -253,16 +256,16 @@ p { margin: 0 0 1em; }
   margin-bottom: clamp(28px, 4vw, 48px);
 }
 .cover-headline {
-  font-family: var(--font-display);
+  font-family: var(--font-marquee);
   font-weight: 700;
-  font-size: clamp(40px, 6.5vw, 80px);
-  line-height: 0.96;
-  letter-spacing: -0.035em;
+  font-size: clamp(56px, 9vw, 120px);
+  line-height: 0.88;
+  letter-spacing: -0.025em;
   margin: 0 0 clamp(28px, 3.5vw, 44px);
   color: var(--ink);
-  max-width: 900px;
+  max-width: 1000px;
   overflow-wrap: break-word;
-  text-transform: none;
+  text-transform: uppercase;
 }
 .cover-deck {
   font-family: var(--font-body);
@@ -314,10 +317,12 @@ p { margin: 0 0 1em; }
   flex-wrap: wrap;
 }
 
-/* ===== Section header ===== */
+/* ===== Section header =====
+   Hard solid rule (not soft) — the page should read like a printed civic
+   schedule, with crisp section breaks instead of soft transitions. */
 .section-head {
-  padding: clamp(56px, 7vw, 96px) 0 clamp(32px, 4vw, 48px);
-  border-bottom: 1px solid var(--rule-soft);
+  padding: clamp(48px, 6vw, 80px) 0 clamp(28px, 3.5vw, 40px);
+  border-bottom: 2px solid var(--ink);
 }
 .section-eyebrow {
   font-family: var(--font-label);
@@ -329,13 +334,14 @@ p { margin: 0 0 1em; }
   margin-bottom: 18px;
 }
 .section-title {
-  font-family: var(--font-display);
+  font-family: var(--font-marquee);
   font-weight: 700;
-  font-size: clamp(32px, 4.2vw, 52px);
-  line-height: 1.0;
-  letter-spacing: -0.03em;
+  font-size: clamp(40px, 5vw, 72px);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
   margin: 0 0 22px;
-  max-width: 880px;
+  max-width: 920px;
+  text-transform: uppercase;
 }
 .section-title em {
   font-family: var(--font-display);
@@ -359,8 +365,9 @@ p { margin: 0 0 1em; }
 
 /* ===== Homepage clusters. Calm, generous spacing. ===== */
 .cluster {
-  border-bottom: 1px solid var(--rule-soft);
+  border-bottom: 1px solid var(--ink);
 }
+.cluster:last-of-type { border-bottom: 2px solid var(--ink); }
 .cluster-head {
   padding: clamp(56px, 7vw, 96px) var(--gutter) clamp(28px, 3vw, 44px);
   max-width: 1080px;
@@ -375,13 +382,14 @@ p { margin: 0 0 1em; }
   margin-bottom: 14px;
 }
 .cluster-title {
-  font-family: var(--font-display);
+  font-family: var(--font-marquee);
   font-weight: 700;
-  font-size: clamp(26px, 3.2vw, 38px);
-  line-height: 1.05;
-  letter-spacing: -0.03em;
+  font-size: clamp(32px, 4vw, 56px);
+  line-height: 0.96;
+  letter-spacing: -0.02em;
   margin: 0 0 16px;
-  max-width: 720px;
+  max-width: 760px;
+  text-transform: uppercase;
 }
 .cluster-deck {
   font-family: var(--font-body);
@@ -2552,46 +2560,66 @@ html:not([data-mode="dark"]) .nav-overlay { background: #FFFFFF; }
 .surprise-addr a:hover { color: var(--clay); border-bottom-color: var(--clay); }
 .surprise-button { display: inline-block; margin-top: 12px; cursor: pointer; border: none; }
 
-/* ===== Right Now strip on homepage ===== */
+/* ===== Right Now panel on homepage =====
+   Civic data board. Taller, harder rules, tabular-mono values. Reads as
+   a piece of public information infrastructure rather than a content card. */
 .rightnow-strip {
-  background: #0F1115;
-  color: #FFFFFF;
-  padding: 18px 0;
-  border-bottom: 1px solid rgba(255,255,255,0.18);
+  background: #0E0E10;
+  color: #F5F4F0;
+  padding: 28px 0 30px;
+  border-top: 3px solid var(--clay);
+  border-bottom: 1px solid rgba(245, 244, 240, 0.10);
+  position: relative;
+}
+.rightnow-strip::before {
+  /* Hairline "live" indicator that reads as a transit-board status bar. */
+  content: 'LIVE · UPDATED HOURLY';
+  position: absolute;
+  top: 8px;
+  left: var(--gutter);
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: var(--clay);
 }
 .rightnow-inner {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 24px;
-  align-items: center;
+  gap: 0;
+  align-items: stretch;
+  margin-top: 18px;
 }
 .rightnow-item {
   display: flex;
   flex-direction: column;
-  gap: 2px;
-  border-left: 1px solid rgba(255,255,255,0.18);
-  padding-left: 18px;
+  gap: 4px;
+  border-left: 1px solid rgba(245, 244, 240, 0.16);
+  padding: 0 22px;
 }
 .rightnow-item:first-child { border-left: none; padding-left: 0; }
 .rightnow-label {
   font-family: var(--font-label);
   font-weight: 700;
   font-size: 10.5px;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--clay);
+  color: rgba(245, 244, 240, 0.55);
 }
 .rightnow-value {
-  font-family: var(--font-display);
-  font-weight: 900;
-  font-size: 22px;
-  letter-spacing: -0.01em;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 24px;
+  letter-spacing: -0.02em;
   color: var(--paper);
+  font-variant-numeric: tabular-nums;
 }
 .rightnow-value-event {
-  font-size: 16px;
-  font-style: normal;
+  font-family: var(--font-marquee);
+  font-size: 20px;
   font-weight: 700;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
 }
 /* Signature numeral. Plex Mono tabular figures, station-clock register.
    Sits on the right-now strip like a public-information display reading. */
@@ -2660,14 +2688,15 @@ a.rightnow-link:hover { color: var(--clay); border-bottom-color: var(--clay); }
   margin-bottom: 18px;
 }
 .tonight-hero-headline {
-  font-family: var(--font-display);
+  font-family: var(--font-marquee);
   font-style: normal;
   font-weight: 700;
-  font-size: clamp(36px, 6vw, 64px);
-  line-height: 0.98;
-  letter-spacing: -0.035em;
+  font-size: clamp(44px, 7vw, 88px);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
   color: var(--paper);
   margin: 0 0 24px;
+  text-transform: uppercase;
 }
 .tonight-hero-headline em { color: var(--clay); font-style: normal; }
 /* Marquee numeral — the giant temperature display. Plex Mono, station-
@@ -4130,13 +4159,14 @@ html[data-mode="dark"] .feature-banner {
   100% { box-shadow: 0 0 0 0 rgba(225, 25, 0, 0); }
 }
 .feature-banner-title {
-  font-family: var(--font-display);
-  font-weight: 900;
+  font-family: var(--font-marquee);
+  font-weight: 700;
   font-style: normal;
-  font-size: clamp(28px, 4vw, 44px);
-  line-height: 1.0;
-  letter-spacing: -0.01em;
+  font-size: clamp(36px, 5vw, 56px);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
   margin: 0 0 10px;
+  text-transform: uppercase;
 }
 .feature-banner-deck {
   font-family: var(--font-body);
@@ -4188,13 +4218,14 @@ html[data-mode="dark"] .event-hero {
   margin: 0 0 16px;
 }
 .event-hero-headline {
-  font-family: var(--font-display);
-  font-weight: 900;
+  font-family: var(--font-marquee);
+  font-weight: 700;
   font-style: normal;
-  font-size: clamp(48px, 7vw, 88px);
-  line-height: 0.95;
+  font-size: clamp(56px, 9vw, 112px);
+  line-height: 0.9;
   letter-spacing: -0.02em;
   margin: 0 0 12px;
+  text-transform: uppercase;
 }
 .event-hero-tagline {
   font-family: var(--font-body);
@@ -4871,14 +4902,15 @@ html[data-mode="dark"] .cal-day-signal--cluster { background: rgba(255, 61, 38, 
 .venue-hero-breadcrumb a { color: var(--ink-soft); text-decoration: none; border-bottom: 1px dotted var(--rule); }
 .venue-hero-breadcrumb a:hover { color: var(--clay); border-color: var(--clay); }
 .venue-hero-name {
-  font-family: var(--font-display);
-  font-weight: 900;
+  font-family: var(--font-marquee);
+  font-weight: 700;
   font-style: normal;
-  font-size: clamp(40px, 6vw, 72px);
-  line-height: 0.95;
+  font-size: clamp(48px, 7vw, 88px);
+  line-height: 0.92;
   letter-spacing: -0.02em;
   margin: 0 0 8px;
   color: var(--ink);
+  text-transform: uppercase;
 }
 .venue-hero-neigh {
   font-family: var(--font-body);
@@ -5140,6 +5172,64 @@ html[data-mode="dark"] .venue-dir-info { background: var(--paper-2); }
 }
 .weekend-show-venue a:hover { color: var(--clay); border-color: var(--clay); }
 .weekend-show-neigh { color: var(--ink-faint); }
+
+/* ===== Neighborhood code tag — the signature graphic move =====
+   Every neighborhood mention renders as a transit-station-style lockup:
+   a 2-3 letter monospace code in a hard outlined box, followed by the
+   full neighborhood name. Reads everywhere on the site at the same scale
+   and shape, the way subway station codes do on a transit map. This is
+   the repeatable visual behavior that ties everything together. */
+.nhood-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--ink-soft);
+  line-height: 1.2;
+  vertical-align: baseline;
+}
+.nhood-tag-code {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 10.5px;
+  letter-spacing: 0.04em;
+  color: var(--clay);
+  border: 1px solid var(--clay);
+  padding: 2px 5px;
+  min-width: 26px;
+  height: 18px;
+  border-radius: 0;
+  font-variant-numeric: tabular-nums;
+  text-transform: uppercase;
+  flex-shrink: 0;
+}
+.nhood-tag-name {
+  color: inherit;
+  white-space: nowrap;
+}
+/* Dark-backed contexts (cover, /tonight/ hero, feature banner, footer)
+   need the inverse treatment so the tag stays readable on near-black. */
+.tonight-event .nhood-tag,
+.tonight-hero .nhood-tag,
+.cover .nhood-tag,
+.feature-banner .nhood-tag,
+.event-hero .nhood-tag,
+.site-footer .nhood-tag { color: rgba(245, 244, 240, 0.75); }
+.tonight-event .nhood-tag-code,
+.tonight-hero .nhood-tag-code,
+.cover .nhood-tag-code,
+.feature-banner .nhood-tag-code,
+.event-hero .nhood-tag-code { color: #FF8B7A; border-color: rgba(255, 139, 122, 0.55); }
+/* Compact variant — only show the code on very narrow screens to save room. */
+@media (max-width: 480px) {
+  .cal-row .nhood-tag-name,
+  .tonight-event .nhood-tag-name,
+  .weekend-show .nhood-tag-name { display: none; }
+}
 
 /* ===== Mobile dock — persistent bottom nav on narrow screens =====
    Five always-visible shortcuts: Tonight / Calendar / Map / Near / Menu.

@@ -92,9 +92,15 @@ the change is wrong.
 ## 4. Visual language
 
 ### Typography
-- **Display:** IBM Plex Sans (600, 700). Used for entry names, headlines,
-  page titles. Strong sans, slight humanist warmth. No italic — Plex
-  italic is not loaded and we don't fake it via fallback. Headline
+- **Marquee:** Archivo Narrow (700). The compressed grotesk reserved for
+  page-title-level signage moments — cover headline, section title,
+  cluster title, venue hero name, event hero name, feature-banner title.
+  Set ALL CAPS with -0.02em tracking. Reads as actual civic signage,
+  not a tasteful publication header. This is the "loudest" face on the
+  site and only appears at the most-important display moments.
+- **Display:** IBM Plex Sans (600, 700). Used for entry names, secondary
+  headlines, UI face. Strong sans, slight humanist warmth. No italic —
+  Plex italic is not loaded and we don't fake it via fallback. Headline
   emphasis happens through weight and tracking, not slant.
 - **Body:** Source Sans 3 (400, 600). Used for descriptions, intros.
 - **Label:** Archivo (500, 600, 700). All-caps, wide letter-spacing
@@ -167,6 +173,14 @@ These are working well. Don't re-invent unless there's a real reason.
   matters is set in IBM Plex Mono, weight 500–600, tabular figures.
   Reads as a station-board reading. Used on the homepage right-now
   strip, the /tonight/ hero, every event time, every venue page date.
+- **Neighborhood code tag** (the repeatable graphic signature): every
+  neighborhood mention renders as a transit-station lockup — a 2–3
+  letter Plex Mono code in a hard outlined box (NE, NL, DT, STP, LH,
+  WB, LF, MG, etc.) followed by the full neighborhood name. Defined
+  in `NEIGHBORHOOD_CODES` in build.js. Same shape and scale everywhere
+  on the site (entry cards, calendar rows, venue pages, tonight, this
+  weekend). The way subway-station codes tie a transit map together —
+  this is what makes the site read as municipal infrastructure.
 - **Cover band swap on weather mood**: homepage cover deck rewrites
   based on patio / brutal-cold / snow / rain. Reflects the day in copy.
 - **Right-now strip**: thin band under the cover with sunset, weather,

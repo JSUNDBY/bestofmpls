@@ -392,6 +392,87 @@ const esc = (s) => String(s == null ? '' : s)
 
 // Convert an entry name into a URL-safe slug. Handles accents (Khâluna),
 // apostrophes (Cossetta's), ampersands (Hen & Hatchet), etc.
+// Neighborhood code system — the signature repeatable graphic behavior.
+// Every neighborhood string ("Northeast Minneapolis", "Cathedral Hill,
+// St. Paul") collapses to a short transit-station-style code rendered in
+// Plex Mono. NE for Northeast, NL for North Loop, STP for downtown St Paul,
+// etc. Shown alongside the full neighborhood name everywhere a place is
+// listed — entries, calendar rows, venue pages, this-weekend. Becomes the
+// civic visual signature the way Søhne lockups are for the NYT.
+const NEIGHBORHOOD_CODES = {
+  // Minneapolis
+  'Northeast Minneapolis':          'NE',
+  'North Loop, Minneapolis':        'NL',
+  'Downtown Minneapolis':           'DT',
+  'Downtown East, Minneapolis':     'DTE',
+  'Warehouse District, Minneapolis':'WD',
+  'Mill District, Minneapolis':     'ML',
+  'Lowry Hill, Minneapolis':        'LH',
+  'Uptown, Minneapolis':            'UP',
+  'Lyn-Lake, Minneapolis':          'LL',
+  'Whittier, Minneapolis':          'WH',
+  'Eat Street, Minneapolis':        'ES',
+  'Kingfield, Minneapolis':         'KF',
+  'Powderhorn, Minneapolis':        'PW',
+  'Phillips, Minneapolis':          'PH',
+  'Seward, Minneapolis':            'SW',
+  'Longfellow, Minneapolis':        'LF',
+  'West Bank, Minneapolis':         'WB',
+  'Cedar-Riverside, Minneapolis':   'CR',
+  'Como, Minneapolis':              'CO',
+  'Bryn Mawr, Minneapolis':         'BM',
+  'Holland, Northeast Minneapolis': 'NE',
+  'Southwest Minneapolis':          'SWM',
+  'South Minneapolis':              'SM',
+  // Saint Paul
+  'Downtown St. Paul':              'STP',
+  'Lowertown, St. Paul':            'LT',
+  'Cathedral Hill, St. Paul':       'CH',
+  'Summit Avenue, St. Paul':        'SA',
+  'West End, St. Paul':             'WE',
+  'West Side, St. Paul':            'WS',
+  'Highland, St. Paul':             'HG',
+  'Hamline-Midway, St. Paul':       'MW',
+  'Midway, St. Paul':               'MW',
+  'Macalester-Groveland, St. Paul': 'MG',
+  "Dayton's Bluff, St. Paul":       'DB',
+  'Como, St. Paul':                 'COS',
+  'Capitol Hill, St. Paul':         'CAP',
+  // Suburbs / outliers
+  'Eagan':                          'EGN',
+  'Bloomington':                    'BMG',
+  'Excelsior':                      'EXC',
+  'St. Louis Park':                 'SLP',
+  'Edina':                          'EDN',
+  'Hopkins':                        'HOP',
+  'Northeast Minneapolis Arts Association': 'NE',
+  'University of Minnesota campus': 'UMN',
+  'Stadium Village, Minneapolis':   'SV',
+  'Como, St. Paul (zoo)':           'COS',
+  'Twin Cities':                    'TC',
+  'Northeast Minneapolis':          'NE',
+  'Northrup King Building, NE Minneapolis': 'NE'
+};
+function neighborhoodCode(neigh) {
+  if (!neigh) return null;
+  // Direct hit
+  if (NEIGHBORHOOD_CODES[neigh]) return NEIGHBORHOOD_CODES[neigh];
+  // Fallback: try to match on the leading segment before any comma.
+  const lead = neigh.split(',')[0].trim();
+  for (const [key, code] of Object.entries(NEIGHBORHOOD_CODES)) {
+    if (key.startsWith(lead) || lead === key.split(',')[0].trim()) return code;
+  }
+  // Last-resort: first two letters of the first significant word.
+  const word = lead.replace(/^(the|a|an)\s+/i, '');
+  return word.slice(0, 2).toUpperCase();
+}
+function nhoodTag(neigh) {
+  if (!neigh) return '';
+  const code = neighborhoodCode(neigh);
+  if (!code) return '';
+  return `<span class="nhood-tag" title="${esc(neigh)}"><span class="nhood-tag-code">${esc(code)}</span><span class="nhood-tag-name">${esc(neigh)}</span></span>`;
+}
+
 function entrySlug(name) {
   return String(name || '')
     .normalize('NFKD').replace(/[̀-ͯ]/g, '')   // strip accents
@@ -489,8 +570,8 @@ function head({ title, description, slug, theme }) {
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600;700&family=Source+Sans+3:wght@400;600&family=Archivo:wght@500;600;700&display=swap">
-<link rel="stylesheet" href="/style.css?v=30">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600;700&family=Source+Sans+3:wght@400;600&family=Archivo:wght@500;600;700&family=Archivo+Narrow:wght@600;700&display=swap">
+<link rel="stylesheet" href="/style.css?v=31">
 <script>
 // Set color mode before paint to avoid flash. Reads localStorage first,
 // falls back to light mode (the new editorial default). mode-ready class
@@ -1130,7 +1211,7 @@ function renderHome() {
               <div class="live-feature-day">${esc(fmtShortDay(e.date))}</div>
               <div class="live-feature-body">
                 <div class="live-feature-name">${e.url ? `<a href="${esc(e.url)}" target="_blank" rel="noopener">${esc(e.title)}</a>` : esc(e.title)}</div>
-                <div class="live-feature-meta">${esc(e.venue)}${e.subtitle ? ' · ' + esc(e.subtitle.slice(0, 60) + (e.subtitle.length > 60 ? '…' : '')) : ''}</div>
+                <div class="live-feature-meta">${esc(e.venue)} ${e.venue_neighborhood ? nhoodTag(e.venue_neighborhood) : ''}</div>
               </div>
             </li>
           `).join('')}
@@ -1191,7 +1272,7 @@ function renderCategory(c) {
     const isFeatured = i === 0;
     const featured = isFeatured ? ' entry--featured' : ' entry--unranked';
     const meta = [];
-    if (e.neighborhood) meta.push(`<span>${esc(e.neighborhood)}</span>`);
+    if (e.neighborhood) meta.push(nhoodTag(e.neighborhood));
     if (e.style) meta.push(`<span class="entry-meta-style">${esc(e.style)}</span>`);
     // Build the entry-footer utility row.
     // Each item is its own block: address (clickable to maps), website,
@@ -1801,7 +1882,7 @@ function renderAdminPicks() {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>${esc(title)}</title>
-<link rel="stylesheet" href="/style.css?v=30">
+<link rel="stylesheet" href="/style.css?v=31">
 <style>
   body { background: var(--paper); }
   .admin-wrap { max-width: 960px; margin: 0 auto; padding: 32px var(--gutter) 96px; }
@@ -2519,7 +2600,7 @@ function renderCalendar() {
             <div class="cal-row-when">${e.time ? esc(fmtTime(e.time)) : 'TBA'}</div>
             <div class="cal-row-body">
               <h3 class="cal-row-title">${e.url ? `<a href="${esc(e.url)}" target="_blank" rel="noopener">${esc(e.title)} <span class="entry-meta-link-icon">↗</span></a>` : esc(e.title)}</h3>
-              <div class="cal-row-venue"><a href="/calendar/venue/${esc(entrySlug(e.venue))}/" class="cal-row-venue-link">${esc(e.venue)}</a>${e.venue_neighborhood ? ` <span class="cal-row-neigh">· ${esc(e.venue_neighborhood)}</span>` : ''}</div>
+              <div class="cal-row-venue"><a href="/calendar/venue/${esc(entrySlug(e.venue))}/" class="cal-row-venue-link">${esc(e.venue)}</a>${e.venue_neighborhood ? ` ${nhoodTag(e.venue_neighborhood)}` : ''}</div>
               ${e.subtitle ? `<p class="cal-row-sub">${esc(e.subtitle.slice(0, 140))}${e.subtitle.length > 140 ? '…' : ''}</p>` : ''}
             </div>
           </li>`).join('')}
@@ -2730,7 +2811,7 @@ function renderVenuePage(v) {
        <div class="wrap venue-hero-inner">
          <div class="venue-hero-breadcrumb"><a href="/calendar/">The Calendar</a> · <span>Venue</span></div>
          <h1 class="venue-hero-name">${esc(v.name)}</h1>
-         ${v.neighborhood ? `<div class="venue-hero-neigh">${esc(v.neighborhood)}</div>` : ''}
+         ${v.neighborhood ? `<div class="venue-hero-neigh">${nhoodTag(v.neighborhood)}</div>` : ''}
          <div class="venue-hero-count">${v.events.length} upcoming show${v.events.length === 1 ? '' : 's'} on the books</div>
          ${mythologyBlock}
          ${dirInfo}
@@ -2816,7 +2897,7 @@ function renderWeekend() {
               <div class="weekend-show-when">${esc(fmtTime12(e.time))}</div>
               <div class="weekend-show-body">
                 <h3 class="weekend-show-title">${e.url ? `<a href="${esc(e.url)}" target="_blank" rel="noopener">${esc(e.title)} <span class="entry-meta-link-icon">↗</span></a>` : esc(e.title)}</h3>
-                <div class="weekend-show-venue"><a href="/calendar/venue/${esc(entrySlug(e.venue))}/">${esc(e.venue)}</a>${e.venue_neighborhood ? ` <span class="weekend-show-neigh">· ${esc(e.venue_neighborhood)}</span>` : ''}</div>
+                <div class="weekend-show-venue"><a href="/calendar/venue/${esc(entrySlug(e.venue))}/">${esc(e.venue)}</a>${e.venue_neighborhood ? ` ${nhoodTag(e.venue_neighborhood)}` : ''}</div>
               </div>
             </li>`).join('')}
         </ul>`}
@@ -3308,6 +3389,7 @@ function renderTonight() {
     v: e.venue,
     vs: entrySlug(e.venue),
     nh: e.venue_neighborhood || null,
+    nc: e.venue_neighborhood ? neighborhoodCode(e.venue_neighborhood) : null,
     s: e.subtitle ? (e.subtitle.length > 200 ? e.subtitle.slice(0, 200) + '…' : e.subtitle) : null,
     u: e.url || null
   }));
@@ -3347,7 +3429,7 @@ function renderTonight() {
         <h3 class="tonight-event-title">${e.url ? `<a href="${esc(e.url)}" target="_blank" rel="noopener">${esc(e.title)} <span class="entry-meta-link-icon">↗</span></a>` : esc(e.title)}</h3>
         <div class="tonight-event-meta">
           <a class="tonight-event-venue" href="/calendar/venue/${esc(entrySlug(e.venue))}/">${esc(e.venue)}</a>
-          ${e.venue_neighborhood ? `<span class="tonight-event-neigh">${esc(e.venue_neighborhood)}</span>` : ''}
+          ${e.venue_neighborhood ? nhoodTag(e.venue_neighborhood) : ''}
         </div>
         ${e.subtitle ? `<p class="tonight-event-sub">${esc(e.subtitle.slice(0, 200))}${e.subtitle.length > 200 ? '…' : ''}</p>` : ''}
       </div>
@@ -3453,7 +3535,7 @@ function renderTonight() {
        }
        function rowHtml(e){
          var venueLink = '<a class="tonight-event-venue" href="/calendar/venue/' + esc(e.vs) + '/">' + esc(e.v) + '</a>';
-         var neigh = e.nh ? '<span class="tonight-event-neigh">' + esc(e.nh) + '</span>' : '';
+         var neigh = e.nh ? '<span class="nhood-tag" title="' + esc(e.nh) + '">' + (e.nc ? '<span class="nhood-tag-code">' + esc(e.nc) + '</span>' : '') + '<span class="nhood-tag-name">' + esc(e.nh) + '</span></span>' : '';
          var titleHtml = e.u
            ? '<a href="' + esc(e.u) + '" target="_blank" rel="noopener">' + esc(e.n) + ' <span class="entry-meta-link-icon">↗</span></a>'
            : esc(e.n);
