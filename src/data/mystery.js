@@ -132,7 +132,7 @@ module.exports = {
           stops: [
             { kind: 'Leave the house at', text: '5:30 PM. Wear what flatters you. The first stop is on the west bank of the Mississippi.' },
             { kind: 'First stop', text: "A cocktail on the patio at Spoon and Stable's bar. Order one drink, one snack. Look downstream at the Stone Arch Bridge while you do. ($26)" },
-            { kind: 'Walk to', text: 'A reservation at Owamni in the Mill District. The whole pre-colonial menu is the point; do not skip the bison. ($60)' },
+            { kind: 'Walk to', text: 'Dinner at Tenant in the Mill District (Daniel del Prado, small Mediterranean room with a six-stool counter). Or up the block at Demi for a tasting if you can get in. ($75)' },
             { kind: 'End the night at', text: 'A walk across the Stone Arch Bridge at golden hour. Sit on the rocks below the falls if there is room. Free. ($0)' },
             { kind: 'Total', text: 'About $100 plus tip. Three and a half hours. The bridge at sunset does most of the work.' }
           ]

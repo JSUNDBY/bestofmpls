@@ -13107,25 +13107,6 @@
     ],
     "fetched_at": "2026-05-07T16:53:38.333Z"
   },
-  "restaurants:Owamni": {
-    "place_id": "ChIJrSqctJQts1IRc4Q-7QQpN5I",
-    "matched_name": "Owamni by The Sioux Chef",
-    "matched_address": "420 S 1st St, Minneapolis, MN 55401, USA",
-    "location": {
-      "latitude": 44.9811238,
-      "longitude": -93.2604073
-    },
-    "business_status": "CLOSED_TEMPORARILY",
-    "types": [
-      "american_restaurant",
-      "restaurant",
-      "food",
-      "point_of_interest",
-      "establishment"
-    ],
-    "hours": [],
-    "fetched_at": "2026-05-07T16:53:38.829Z"
-  },
   "restaurants:Demi": {
     "place_id": "ChIJIRuC3GEzs1IR95ImVc1yzlE",
     "matched_name": "Demi",

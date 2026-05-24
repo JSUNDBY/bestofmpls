@@ -34,15 +34,6 @@ module.exports = {
       price: '$$$$'
     },
     {
-      name: 'Owamni',
-      neighborhood: 'Mill District, Minneapolis',
-      style: 'Sean Sherman, Indigenous, James Beard 2022',
-      description: 'Sean Sherman’s pre-colonial Indigenous restaurant on the Mississippi at Owámniyomni (Saint Anthony Falls). Menu built without wheat, dairy, sugar, beef, or pork, which is a category of restaurant that essentially did not exist in the United States before this room. Won James Beard Best New Restaurant in 2022.',
-      address: '420 S 1st St, Minneapolis',
-      website: 'https://owamni.com',
-      price: '$$$$'
-    },
-    {
       name: 'Demi',
       neighborhood: 'North Loop, Minneapolis',
       style: 'Tasting menu, Gavin Kaysen',
