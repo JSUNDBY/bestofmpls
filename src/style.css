@@ -2130,63 +2130,121 @@ html:not([data-mode="dark"]) .nav-overlay { background: #FFFFFF; }
   .horoscope-feature-inner { grid-template-columns: 1fr; gap: 32px; }
 }
 
-/* ===== Tools strip on homepage ===== */
-.tools-strip {
+/* ===== Tools index on homepage =====
+   Replaces the previous tools-strip card grid. Now a single tall
+   transit-board index: each tool is a row with a station-style letter
+   code, name, short status, and an arrow. Reads as the front index of
+   a printed civic guide, not a SaaS launcher. */
+.tools-index {
   background: var(--paper);
-  border-top: 1px solid var(--rule);
-  border-bottom: 1px solid var(--rule);
-  padding: 28px 0;
+  border-top: 2px solid var(--ink);
+  border-bottom: 2px solid var(--ink);
+  padding: 0;
 }
-.tools-strip-inner {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 12px;
-}
-.tool-card {
+.tools-index .wrap { padding-top: 18px; padding-bottom: 0; }
+.tools-index-head {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 4px;
-  padding: 18px 16px;
-  border: 1px solid var(--rule);
-  border-radius: 4px;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 0;
+}
+.tools-index-eyebrow {
+  font-family: var(--font-label);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.20em;
+  text-transform: uppercase;
+  color: var(--clay);
+}
+.tools-index-stamp {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--ink-faint);
+  font-variant-numeric: tabular-nums;
+  text-transform: uppercase;
+}
+.tools-index-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.tools-index-row {
+  border-bottom: 1px solid var(--rule-soft);
+}
+.tools-index-row:last-child { border-bottom: none; padding-bottom: 12px; }
+.tools-index-row a {
+  display: grid;
+  grid-template-columns: 56px 1.1fr 2fr 24px;
+  align-items: baseline;
+  gap: 18px;
+  padding: 14px 0;
   text-decoration: none;
   color: var(--ink);
-  transition: all 0.12s ease;
-  background: var(--paper);
+  transition: background 0.12s ease;
 }
-.tool-card:hover {
-  border-color: var(--clay);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+.tools-index-row a:hover {
+  background: var(--paper-2);
+  padding-left: 8px;
+  padding-right: 8px;
+  margin-left: -8px;
+  margin-right: -8px;
 }
-.tool-icon {
-  font-size: 20px;
+.tix-code {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0;
   color: var(--clay);
-  line-height: 1;
-  margin-bottom: 4px;
+  border: 1.5px solid var(--clay);
+  padding: 4px 0;
+  min-width: 36px;
+  text-align: center;
+  text-transform: uppercase;
 }
-.tool-label {
-  font-family: var(--font-display);
+.tix-name {
+  font-family: var(--font-marquee);
   font-weight: 700;
-  font-size: 16px;
+  font-size: clamp(18px, 2vw, 24px);
   letter-spacing: -0.01em;
+  text-transform: uppercase;
   color: var(--ink);
 }
-.tool-deck {
-  font-family: var(--font-label);
+.tix-deck {
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--ink-soft);
+  line-height: 1.4;
+}
+.tix-arrow {
+  font-family: var(--font-mono);
   font-weight: 500;
-  font-size: 10.5px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  font-size: 16px;
   color: var(--ink-faint);
+  text-align: right;
+  transition: color 0.12s ease, transform 0.12s ease;
 }
-@media (max-width: 1100px) {
-  .tools-strip-inner { grid-template-columns: repeat(4, 1fr); }
+.tools-index-row a:hover .tix-arrow {
+  color: var(--clay);
+  transform: translateX(4px);
 }
-@media (max-width: 700px) {
-  .tools-strip-inner { grid-template-columns: repeat(2, 1fr); }
+@media (max-width: 720px) {
+  .tools-index-row a {
+    grid-template-columns: 44px 1fr 22px;
+    grid-template-rows: auto auto;
+    gap: 4px 12px;
+  }
+  .tix-code { grid-row: 1 / 3; align-self: center; }
+  .tix-name { grid-column: 2; }
+  .tix-deck { grid-column: 2; }
+  .tix-arrow { grid-column: 3; grid-row: 1 / 3; align-self: center; }
 }
+html[data-mode="dark"] .tools-index-row a:hover { background: var(--paper-2); }
 
 /* ===== Today feature on homepage ===== */
 .today-feature {
@@ -2583,12 +2641,36 @@ html:not([data-mode="dark"]) .nav-overlay { background: #FFFFFF; }
   letter-spacing: 0.14em;
   color: var(--clay);
 }
+.rightnow-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 8px;
+  margin: 18px 0 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(245, 244, 240, 0.10);
+}
+.rightnow-badge {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 10.5px;
+  letter-spacing: 0.08em;
+  color: rgba(245, 244, 240, 0.86);
+  padding: 4px 9px;
+  border: 1px solid rgba(245, 244, 240, 0.24);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.rightnow-badge:first-child {
+  background: var(--clay);
+  border-color: var(--clay);
+  color: var(--paper);
+}
 .rightnow-inner {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 0;
   align-items: stretch;
-  margin-top: 18px;
+  margin-top: 0;
 }
 .rightnow-item {
   display: flex;
@@ -2974,11 +3056,6 @@ a.rightnow-link:hover { color: var(--clay); border-bottom-color: var(--clay); }
 .cal-chip-opennow.is-on { background: #2E9E4A; border-color: #2E9E4A; color: var(--paper); }
 .cal-chip-opennow.is-on .opennow-dot { background: var(--paper); box-shadow: none; }
 
-/* ===== Tools strip: scale better for many cards ===== */
-.tools-strip-inner { grid-template-columns: repeat(6, 1fr); }
-@media (max-width: 1300px) { .tools-strip-inner { grid-template-columns: repeat(4, 1fr); } }
-@media (max-width: 900px)  { .tools-strip-inner { grid-template-columns: repeat(3, 1fr); } }
-@media (max-width: 600px)  { .tools-strip-inner { grid-template-columns: repeat(2, 1fr); } }
 
 /* ===== /near/ — geolocation walking radius ===== */
 .near-controls {

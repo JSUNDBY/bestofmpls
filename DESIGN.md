@@ -1,15 +1,22 @@
 # bestofmpls — Design Brief
 
 This is the canonical brief for anyone (human or AI) doing aesthetic, voice,
-or UX work on the site. Read this first; it captures the decisions we've
-already made and the lines we don't cross.
+or UX work on the site. **Read [MANIFESTO.md](./MANIFESTO.md) first** — it
+captures the *why*. This file is the visual rulebook for executing it.
 
-**The visual register is Scandinavian municipal modernism, not editorial
-luxury.** Think Helsinki transit, Stockholm tunnelbana, Copenhagen wayfinding,
-the IBM Plex / Söhne family of design-system grotesks. Not Eater, not
-Infatuation, not a magazine. The site should feel like **a beloved cultural
-utility for Minneapolis** — a piece of civic infrastructure people quietly
-rely on, not a lifestyle publication people scroll for entertainment.
+**The visual register is Scandinavian municipal modernism — seasonally
+aware, not winter-fetishised.** Think Helsinki transit, Stockholm
+tunnelbana, Copenhagen wayfinding, the IBM Plex / Söhne family of
+design-system grotesks. Not Eater, not Infatuation, not a magazine. The
+site should feel like **a beloved cultural utility for Minneapolis** — a
+piece of civic infrastructure people quietly rely on, not a lifestyle
+publication people scroll for entertainment.
+
+**Right now** (spring/summer) the site should metabolize: warm pavement,
+patio season, bikes, river walks, late sunsets, Northeast energy, baseball,
+humid dusk, music spilling into the street. Avoid: dark noir clichés,
+cinematic over-stylization, fake grit, luxury minimalism, boutique-hotel
+energy.
 
 ---
 

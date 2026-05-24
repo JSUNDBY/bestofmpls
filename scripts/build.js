@@ -105,6 +105,52 @@ function seasonalLine(rn) {
   return 'Two cities, a river, four real seasons. Made for the metro by the people who live here.';
 }
 
+// City-state badges for the right-now panel. Returns 2-4 short ALL-CAPS
+// tags that describe what kind of day this is in the metro right now:
+// PATIO SEASON, LATE SUNSET, BASEBALL HOMESTAND, FAIR WEEK, etc.
+// Reads as the city's current operational status, not a feature list.
+function cityStateBadges(rn) {
+  const out = [];
+  const mo = CURRENT_MONTH;
+  const day = parseInt(TODAY_ISO.slice(8, 10), 10);
+
+  // Weather mood
+  if (rn && rn.weather) {
+    if (rn.weather.is_patio)    out.push('PATIO WEATHER');
+    else if (rn.weather.is_brutal) out.push('STAY-IN COLD');
+    else if (rn.weather.is_snowing) out.push('SNOW DAY');
+    else if (rn.weather.is_rainy)   out.push('RAINY NIGHT');
+  }
+
+  // Daylight
+  if (rn && rn.sun && rn.sun.daylight_min) {
+    if (rn.sun.daylight_min > 870) out.push('LATE SUNSET');
+    else if (rn.sun.daylight_min < 570) out.push('SHORT DAYS');
+  }
+
+  // Season
+  if (mo === 5 || mo === 6) out.push('PATIO SEASON');
+  if (mo === 7 || mo === 8) out.push('MIDSUMMER');
+  if (mo === 9) out.push('LATE SUMMER');
+  if (mo === 10) out.push('PEAK COLOR');
+  if (mo === 11 || mo === 12 || mo === 1 || mo === 2) out.push('WINTER');
+  if (mo === 3 || mo === 4) out.push('THAW SEASON');
+
+  // Baseball — Twins typically play April through September
+  if (mo >= 4 && mo <= 9) out.push('TWINS SEASON');
+
+  // State Fair — last 12 days of August into Labor Day
+  if (mo === 8 && day >= 21) out.push('FAIR WEEK');
+  if (mo === 9 && day <= 4)  out.push('FAIR WEEK');
+
+  // Holiday-adjacent civic moments
+  if (mo === 5 && day >= 12 && day <= 18) out.push('ART-A-WHIRL WEEK');
+  if (mo === 7 && day >= 14 && day <= 24) out.push('AQUATENNIAL');
+
+  // Dedupe and cap at 4
+  return [...new Set(out)].slice(0, 4);
+}
+
 // Featured events — single-event homepage takeover + dedicated landing page.
 const featuredEvts = require(path.join(SRC, 'data/featured-events.js'));
 
@@ -571,7 +617,7 @@ function head({ title, description, slug, theme }) {
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600;700&family=Source+Sans+3:wght@400;600&family=Archivo:wght@500;600;700&family=Archivo+Narrow:wght@600;700&display=swap">
-<link rel="stylesheet" href="/style.css?v=31">
+<link rel="stylesheet" href="/style.css?v=32">
 <script>
 // Set color mode before paint to avoid flash. Reads localStorage first,
 // falls back to light mode (the new editorial default). mode-ready class
@@ -833,6 +879,54 @@ function footer() {
 </nav>
 
 <script>
+// Live sunset countdown — runs once a minute on any page that has the
+// rightnow-strip rendered. Reads data-sunset="HH:MM" off the strip and
+// rewrites the data-sunset-countdown span with a humanized "in 2h 14m"
+// string anchored to the user's current Central time.
+(function(){
+  var strip = document.querySelector('.rightnow-strip[data-sunset]');
+  if (!strip) return;
+  var raw = strip.getAttribute('data-sunset') || '';
+  // Accept either "8:08 PM" or "20:08" (24h preferred).
+  var hours, minutes;
+  var m24 = raw.match(/^(\\d{1,2}):(\\d{2})$/);
+  var m12 = raw.match(/^(\\d{1,2}):(\\d{2})\\s*(AM|PM)/i);
+  if (m24) { hours = parseInt(m24[1], 10); minutes = parseInt(m24[2], 10); }
+  else if (m12) {
+    hours = parseInt(m12[1], 10);
+    minutes = parseInt(m12[2], 10);
+    if (m12[3].toUpperCase() === 'PM' && hours < 12) hours += 12;
+    if (m12[3].toUpperCase() === 'AM' && hours === 12) hours = 0;
+  } else { return; }
+  var target = document.querySelectorAll('[data-sunset-countdown]');
+  function centralNow() {
+    return new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Chicago' }));
+  }
+  function update() {
+    var now = centralNow();
+    var sunset = new Date(now);
+    sunset.setHours(hours, minutes, 0, 0);
+    var diffMin = Math.round((sunset - now) / 60000);
+    var label;
+    if (diffMin > 60) {
+      var h = Math.floor(diffMin / 60), mm = diffMin % 60;
+      label = 'In ' + h + 'h ' + mm + 'm';
+    } else if (diffMin > 1) {
+      label = 'In ' + diffMin + ' min';
+    } else if (diffMin > -10) {
+      label = 'Setting now';
+    } else if (diffMin > -120) {
+      label = Math.abs(diffMin) + ' min past sunset';
+    } else {
+      // Sun is down for the night — show tomorrow's anticipation
+      label = 'Tomorrow ' + raw;
+    }
+    target.forEach(function(el){ el.textContent = label; });
+  }
+  update();
+  setInterval(update, 60000);
+})();
+
 // Newsletter signup: every [data-newsletter-form] on the page POSTs to the
 // worker's /newsletter endpoint. Multiple blocks (footer mini + inline
 // prominent) share this handler. Status node is the form's own data-status
@@ -1151,24 +1245,30 @@ function renderHome() {
       </a>
     </section>` : ''}
     ${r ? `
-    <section class="rightnow-strip">
-      <div class="wrap rightnow-inner">
-        <div class="rightnow-item">
-          <div class="rightnow-label">Sunset</div>
-          <div class="rightnow-value">${esc(r.sun.set)}</div>
-          <a class="rightnow-link" href="/tonight/">Where to watch →</a>
+    <section class="rightnow-strip" data-sunset="${esc(r.sun.set_24 || r.sun.set)}">
+      <div class="wrap">
+        ${(function(){
+          const badges = cityStateBadges(r);
+          return badges.length ? `<div class="rightnow-badges">${badges.map(b => `<span class="rightnow-badge">${esc(b)}</span>`).join('')}</div>` : '';
+        })()}
+        <div class="rightnow-inner">
+          <div class="rightnow-item">
+            <div class="rightnow-label">Sunset</div>
+            <div class="rightnow-value">${esc(r.sun.set)}</div>
+            <span class="rightnow-link" data-sunset-countdown>${esc(r.sun.set)} CT</span>
+          </div>
+          <div class="rightnow-item rightnow-item--temp">
+            <div class="rightnow-label">Right now</div>
+            <div class="rightnow-temp"><span class="rightnow-temp-num">${r.weather.temp_now}</span><span class="rightnow-temp-unit">°F</span></div>
+            <span class="rightnow-link">${esc(r.weather.condition)}</span>
+          </div>
+          ${r.countdowns.slice(0, 3).map(c => `
+          <div class="rightnow-item">
+            <div class="rightnow-label">In ${c.days} day${c.days === 1 ? '' : 's'}</div>
+            <div class="rightnow-value rightnow-value-event">${esc(c.name)}</div>
+            <a class="rightnow-link" href="/tonight/">More countdowns →</a>
+          </div>`).join('')}
         </div>
-        <div class="rightnow-item rightnow-item--temp">
-          <div class="rightnow-label">Right now</div>
-          <div class="rightnow-temp"><span class="rightnow-temp-num">${r.weather.temp_now}</span><span class="rightnow-temp-unit">°F</span></div>
-          <span class="rightnow-link">${esc(r.weather.condition)}</span>
-        </div>
-        ${r.countdowns.slice(0, 3).map(c => `
-        <div class="rightnow-item">
-          <div class="rightnow-label">In ${c.days} day${c.days === 1 ? '' : 's'}</div>
-          <div class="rightnow-value rightnow-value-event">${esc(c.name)}</div>
-          <a class="rightnow-link" href="/tonight/">More countdowns →</a>
-        </div>`).join('')}
       </div>
     </section>` : ''}
     <section class="civic-notice" aria-label="The metro, right now">
@@ -1178,21 +1278,27 @@ function renderHome() {
         <div class="civic-notice-stamp">Updated ${esc(new Date().toLocaleString('en-US', { timeZone: 'America/Chicago', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' }))} CT</div>
       </div>
     </section>
-    <section class="tools-strip">
-      <div class="wrap tools-strip-inner">
-        <a class="tool-card" href="/map/"><span class="tool-icon" aria-hidden="true">◉</span><span class="tool-label">The Map</span><span class="tool-deck">Every place, plotted</span></a>
-        <a class="tool-card" href="/near/"><span class="tool-icon" aria-hidden="true">◎</span><span class="tool-label">Near You</span><span class="tool-deck">10 minute walk</span></a>
-        <a class="tool-card" href="/calendar/"><span class="tool-icon" aria-hidden="true">▭</span><span class="tool-label">Calendar</span><span class="tool-deck">${dedupeNonFilms((eventsData.events || []).filter(e => !isFilmEvent(e))).length} events</span></a>
-        <a class="tool-card" href="/tonight/"><span class="tool-icon" aria-hidden="true">☾</span><span class="tool-label">Tonight</span><span class="tool-deck">${rightnowData ? `Sunset ${rightnowData.sun.set}` : 'Sunset + countdowns'}</span></a>
-        <a class="tool-card" href="/this-weekend/"><span class="tool-icon" aria-hidden="true">◷</span><span class="tool-label">This Weekend</span><span class="tool-deck">Fri · Sat · Sun</span></a>
-        <a class="tool-card" href="/quiz/"><span class="tool-icon" aria-hidden="true">?</span><span class="tool-label">Quiz</span><span class="tool-deck">Where to be tonight</span></a>
-        <a class="tool-card" href="/skyway/"><span class="tool-icon" aria-hidden="true">⇄</span><span class="tool-label">Skyway</span><span class="tool-deck">${skyway.nodes.length} downtown nodes</span></a>
-        <a class="tool-card" href="/take-them-to/"><span class="tool-icon" aria-hidden="true">⌖</span><span class="tool-label">Take Them To</span><span class="tool-deck">${(IS_WARM_SEASON ? situations.situations.filter(s => s.slug !== 'snow-day') : situations.situations).length} situations</span></a>
-        <a class="tool-card" href="/now-showing/"><span class="tool-icon" aria-hidden="true">▣</span><span class="tool-label">Now Showing</span><span class="tool-deck">${exhibitions.exhibitions.length} exhibitions</span></a>
-        <a class="tool-card" href="/horoscope/"><span class="tool-icon" aria-hidden="true">✦</span><span class="tool-label">Horoscope</span><span class="tool-deck">For the metro, today</span></a>
-        <a class="tool-card" href="/surprise/"><span class="tool-icon" aria-hidden="true">⚂</span><span class="tool-label">Surprise me</span><span class="tool-deck">A random pick</span></a>
-        <a class="tool-card" href="/mystery/"><span class="tool-icon" aria-hidden="true">✉</span><span class="tool-label">Mystery</span><span class="tool-deck">Sealed-envelope nights</span></a>
-        <a class="tool-card" href="/departed/"><span class="tool-icon" aria-hidden="true">†</span><span class="tool-label">Departed</span><span class="tool-deck">Places we lost</span></a>
+    <section class="tools-index" aria-label="Tools index">
+      <div class="wrap">
+        <div class="tools-index-head">
+          <span class="tools-index-eyebrow">Index · Tools</span>
+          <span class="tools-index-stamp">${(dedupeNonFilms((eventsData.events || []).filter(e => !isFilmEvent(e))).length)} live events · ${categories.reduce((sum, c) => sum + c.entries.length, 0)} places</span>
+        </div>
+        <ol class="tools-index-list">
+          <li class="tools-index-row"><a href="/tonight/"><span class="tix-code">T</span><span class="tix-name">Tonight</span><span class="tix-deck">${rightnowData ? `Sunset ${esc(rightnowData.sun.set)} · ${rightnowData.weather.temp_now}°F` : 'Sunset + tonight’s shows'}</span><span class="tix-arrow">→</span></a></li>
+          <li class="tools-index-row"><a href="/this-weekend/"><span class="tix-code">W</span><span class="tix-name">This Weekend</span><span class="tix-deck">Friday · Saturday · Sunday</span><span class="tix-arrow">→</span></a></li>
+          <li class="tools-index-row"><a href="/calendar/"><span class="tix-code">C</span><span class="tix-name">Calendar</span><span class="tix-deck">${dedupeNonFilms((eventsData.events || []).filter(e => !isFilmEvent(e))).length} events · next 21 days</span><span class="tix-arrow">→</span></a></li>
+          <li class="tools-index-row"><a href="/map/"><span class="tix-code">M</span><span class="tix-name">The Map</span><span class="tix-deck">Every place, plotted</span><span class="tix-arrow">→</span></a></li>
+          <li class="tools-index-row"><a href="/near/"><span class="tix-code">N</span><span class="tix-name">Near You</span><span class="tix-deck">10-minute walk from where you are</span><span class="tix-arrow">→</span></a></li>
+          <li class="tools-index-row"><a href="/take-them-to/"><span class="tix-code">X</span><span class="tix-name">Take Them To</span><span class="tix-deck">${(IS_WARM_SEASON ? situations.situations.filter(s => s.slug !== 'snow-day') : situations.situations).length} situational picks</span><span class="tix-arrow">→</span></a></li>
+          <li class="tools-index-row"><a href="/now-showing/"><span class="tix-code">A</span><span class="tix-name">Now Showing</span><span class="tix-deck">${exhibitions.exhibitions.length} current exhibitions</span><span class="tix-arrow">→</span></a></li>
+          <li class="tools-index-row"><a href="/skyway/"><span class="tix-code">S</span><span class="tix-name">Skyway</span><span class="tix-deck">${skyway.nodes.length} downtown nodes</span><span class="tix-arrow">→</span></a></li>
+          <li class="tools-index-row"><a href="/quiz/"><span class="tix-code">Q</span><span class="tix-name">Quiz</span><span class="tix-deck">Where to be tonight</span><span class="tix-arrow">→</span></a></li>
+          <li class="tools-index-row"><a href="/horoscope/"><span class="tix-code">H</span><span class="tix-name">Horoscope</span><span class="tix-deck">For the metro, today</span><span class="tix-arrow">→</span></a></li>
+          <li class="tools-index-row"><a href="/surprise/"><span class="tix-code">R</span><span class="tix-name">Surprise</span><span class="tix-deck">A random pick from the directory</span><span class="tix-arrow">→</span></a></li>
+          <li class="tools-index-row"><a href="/mystery/"><span class="tix-code">Y</span><span class="tix-name">Mystery</span><span class="tix-deck">Sealed-envelope nights</span><span class="tix-arrow">→</span></a></li>
+          <li class="tools-index-row"><a href="/departed/"><span class="tix-code">D</span><span class="tix-name">Departed</span><span class="tix-deck">Places we have lost</span><span class="tix-arrow">→</span></a></li>
+        </ol>
       </div>
     </section>
     ${clusterSections}
@@ -1882,7 +1988,7 @@ function renderAdminPicks() {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>${esc(title)}</title>
-<link rel="stylesheet" href="/style.css?v=31">
+<link rel="stylesheet" href="/style.css?v=32">
 <style>
   body { background: var(--paper); }
   .admin-wrap { max-width: 960px; margin: 0 auto; padding: 32px var(--gutter) 96px; }
