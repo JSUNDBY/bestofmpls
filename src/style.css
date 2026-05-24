@@ -5423,6 +5423,52 @@ html[data-mode="dark"] .venue-dir-info { background: var(--paper-2); }
   margin: 8px 0 0;
   text-wrap: balance;
 }
+/* Inline live-context strip — temperature, sunset countdown, city-state
+   badges. Sits inside the concierge head so the block is a complete
+   "you're here, this is what tonight is" frame, not split across two
+   bands. Mono numerals, mono badges. */
+.concierge-context {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 18px;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--rule-soft);
+}
+.concierge-context-item {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+.concierge-context-num {
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+}
+.concierge-context-label {
+  font-family: var(--font-label);
+  font-weight: 600;
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.concierge-context-badge {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 10.5px;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: var(--clay);
+  border: 1px solid var(--clay);
+  padding: 3px 8px;
+}
+html[data-mode="dark"] .concierge-context { border-top-color: rgba(245,244,240,0.10); }
 .concierge-picks {
   list-style: none;
   margin: 0;

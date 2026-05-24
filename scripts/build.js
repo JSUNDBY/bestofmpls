@@ -737,7 +737,7 @@ function head({ title, description, slug, theme }) {
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600;700&family=Source+Sans+3:wght@400;600&family=Archivo:wght@500;600;700&family=Archivo+Narrow:wght@600;700&display=swap">
-<link rel="stylesheet" href="/style.css?v=33">
+<link rel="stylesheet" href="/style.css?v=34">
 <script>
 // Set color mode before paint to avoid flash. Reads localStorage first,
 // falls back to light mode (the new editorial default). mode-ready class
@@ -1003,14 +1003,15 @@ function footer() {
 </nav>
 
 <script>
-// Live sunset countdown — runs once a minute on any page that has the
-// rightnow-strip rendered. Reads data-sunset="HH:MM" off the strip and
-// rewrites the data-sunset-countdown span with a humanized "in 2h 14m"
+// Live sunset countdown — runs once a minute on any page that exposes a
+// data-sunset attribute (right-now strip OR concierge block). Reads
+// data-sunset="HH:MM" off whichever element has it and rewrites every
+// data-sunset-countdown span on the page with a humanized "in 2h 14m"
 // string anchored to the user's current Central time.
 (function(){
-  var strip = document.querySelector('.rightnow-strip[data-sunset]');
-  if (!strip) return;
-  var raw = strip.getAttribute('data-sunset') || '';
+  var src = document.querySelector('[data-sunset]');
+  if (!src) return;
+  var raw = src.getAttribute('data-sunset') || '';
   // Accept either "8:08 PM" or "20:08" (24h preferred).
   var hours, minutes;
   var m24 = raw.match(/^(\\d{1,2}):(\\d{2})$/);
@@ -1281,8 +1282,44 @@ function renderHome() {
     </section>`;
   }).join('');
 
-  // Featured calendar strip — show next 4 upcoming festivals
-  const calendarPicks = festivals.entries.slice(0, 4);
+  // Featured calendar strip — surface the NEXT 4 upcoming festivals based on
+  // today's Central date. Avoids showing Winter Carnival in May. festivals.js
+  // stores `month` as a human string ("Mid-May", "Late June", "May 1"); we
+  // parse it into an approximate calendar position, roll to next year if
+  // already past, and take the soonest four.
+  function festivalApproxDate(monthStr, refIso) {
+    const s = String(monthStr || '').toLowerCase();
+    const monthMap = {
+      january: 0, february: 1, march: 2, april: 3, may: 4, june: 5,
+      july: 6, august: 7, september: 8, october: 9, november: 10, december: 11
+    };
+    // First month name we find anchors the date.
+    let mIdx = -1;
+    for (const [name, idx] of Object.entries(monthMap)) {
+      if (s.includes(name)) { mIdx = idx; break; }
+    }
+    if (mIdx < 0) return null;
+    // Day-of-month guess from the qualifier ("late" = 25, "mid" = 15, "early" = 5).
+    let day = 15;
+    if (/early/.test(s))  day = 5;
+    if (/mid/.test(s))    day = 15;
+    if (/late/.test(s))   day = 25;
+    // Explicit day number wins ("May 1", "May 15").
+    const dayMatch = s.match(/\b(\d{1,2})\b/);
+    if (dayMatch) day = Math.min(28, parseInt(dayMatch[1], 10));
+    const [refY] = refIso.split('-').map(Number);
+    let d = new Date(refY, mIdx, day);
+    const ref = new Date(refIso + 'T00:00:00');
+    // If already past, roll to next year.
+    if (d < ref) d = new Date(refY + 1, mIdx, day);
+    return d;
+  }
+  const calendarPicks = festivals.entries
+    .map(e => ({ e, when: festivalApproxDate(e.month, TODAY_ISO) }))
+    .filter(x => x.when)
+    .sort((a, b) => a.when - b.when)
+    .slice(0, 4)
+    .map(x => x.e);
 
   // Live events strip — show next 6 distinct shows. Films excluded. Multi-
   // night runs (e.g. a four-night dance piece) collapse to one entry so the
@@ -1395,12 +1432,18 @@ function renderHome() {
         </div>
       </div>
     </section>` : ''}
-    <section class="concierge" aria-label="Tonight in the metro">
+    <section class="concierge" aria-label="Tonight in the metro" data-sunset="${rightnowData ? esc(rightnowData.sun.set_24 || rightnowData.sun.set) : ''}">
       <div class="wrap concierge-inner">
         <header class="concierge-head">
           <span class="concierge-eyebrow">Tonight</span>
           <h2 class="concierge-headline">${esc((function(){ const [y,m,d] = TODAY_ISO.split('-').map(Number); return new Date(y, m-1, d).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' }); })()).toUpperCase()}</h2>
           <p class="concierge-deck">${esc(seasonalLine(rightnowData))}</p>
+          ${rightnowData ? `
+          <div class="concierge-context">
+            <span class="concierge-context-item"><span class="concierge-context-num">${rightnowData.weather.temp_now}°</span> <span class="concierge-context-label">${esc(rightnowData.weather.condition)}</span></span>
+            <span class="concierge-context-item"><span class="concierge-context-num">${esc(rightnowData.sun.set)}</span> <span class="concierge-context-label"><span data-sunset-countdown>sunset</span></span></span>
+            ${cityStateBadges(rightnowData).slice(0, 2).map(b => `<span class="concierge-context-badge">${esc(b)}</span>`).join('')}
+          </div>` : ''}
         </header>
         <ol class="concierge-picks">
           ${tonightConcierge(rightnowData, eventsData.events).map(p => `
@@ -2122,7 +2165,7 @@ function renderAdminPicks() {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>${esc(title)}</title>
-<link rel="stylesheet" href="/style.css?v=33">
+<link rel="stylesheet" href="/style.css?v=34">
 <style>
   body { background: var(--paper); }
   .admin-wrap { max-width: 960px; margin: 0 auto; padding: 32px var(--gutter) 96px; }
