@@ -105,6 +105,126 @@ function seasonalLine(rn) {
   return 'Two cities, a river, four real seasons. Made for the metro by the people who live here.';
 }
 
+// TONIGHT concierge — the emotional center of the homepage. Per MANIFESTO,
+// the site should answer "what should I do tonight?" before it indexes
+// anything. Returns 3-5 short, opinionated one-liners with destinations,
+// composed from real-time data (weather mood, tonight's scraped events,
+// active neighborhoods) and editorial fallbacks.
+//
+// Each pick is { kind, line, href? } — the "line" reads as a sentence
+// from a friend, not a card title. The block sits right under the
+// right-now panel and dominates the upper half of the cover.
+function tonightConcierge(rn, eventsAll) {
+  const picks = [];
+  const today = (rn && rn.today) || TODAY_ISO;
+  const events = dedupeNonFilms((eventsAll || []).filter(e => !isFilmEvent(e) && e.date === today));
+  const mood = rn && rn.weather ? rn.weather.mood : null;
+  const tempMax = rn && rn.weather ? rn.weather.temp_max : null;
+
+  // 1) Weather-driven opener — sets the emotional register.
+  if (mood === 'patio' || (tempMax && tempMax >= 65)) {
+    picks.push({
+      kind: 'WEATHER',
+      line: `Patios are open${tempMax ? ` and it is ${tempMax}°F` : ''}. Start with Bauhaus, Indeed, or Sociable Cider in Northeast — all walkable, all outside.`,
+      href: '/best-patios/'
+    });
+  } else if (mood === 'brutal') {
+    picks.push({
+      kind: 'WEATHER',
+      line: `It is cold enough to stay close to home. The slow rooms — Marvel-era cocktail dens, candle-lit dining rooms, warm bakeries — are doing their best work.`,
+      href: '/take-them-to/#snow-day'
+    });
+  } else if (mood === 'snow') {
+    picks.push({
+      kind: 'WEATHER',
+      line: `Snow on the ground. The warm rooms, hot dishes, and slow drinks are the move. Nowhere to be.`,
+      href: '/take-them-to/#snow-day'
+    });
+  } else if (mood === 'rain') {
+    picks.push({
+      kind: 'WEATHER',
+      line: `Steady rain in the forecast. Candle-lit tables, basement bars, second-run cinemas — early dinners that turn into long nights.`,
+      href: '/take-them-to/#rainy-night'
+    });
+  } else {
+    picks.push({
+      kind: 'WEATHER',
+      line: `A regular night in the metro. The good interior rooms are open and the neighborhoods are quiet enough to walk.`,
+      href: '/take-them-to/'
+    });
+  }
+
+  // 2) Anchor event tonight — pick the most editorially interesting.
+  // Heuristic: prefer events with time set, prefer non-Walker (because
+  // Walker tends to be the obvious choice; we want to surface variety).
+  if (events.length > 0) {
+    const ranked = events.slice().sort((a, b) => {
+      // Time present > time absent
+      if (a.time && !b.time) return -1;
+      if (!a.time && b.time) return 1;
+      return 0;
+    });
+    const featured = ranked[0];
+    const t = featured.time ? (function(){
+      const [h, m] = featured.time.split(':').map(Number);
+      const ampm = h >= 12 ? 'PM' : 'AM';
+      const hr = h % 12 === 0 ? 12 : h % 12;
+      return `${hr}:${String(m).padStart(2,'0')} ${ampm}`;
+    })() : 'tonight';
+    picks.push({
+      kind: 'SHOW',
+      line: `${featured.title} at ${featured.venue}${featured.venue_neighborhood ? ` (${featured.venue_neighborhood.split(',')[0]})` : ''}, ${t}.`,
+      href: featured.url || '/tonight/'
+    });
+  }
+
+  // 3) Where the city is alive tonight — neighborhood density signal.
+  if (events.length >= 3) {
+    const byNeigh = {};
+    for (const e of events) {
+      if (!e.venue_neighborhood) continue;
+      const n = e.venue_neighborhood.split(',')[0].trim();
+      byNeigh[n] = (byNeigh[n] || 0) + 1;
+    }
+    const sorted = Object.entries(byNeigh).sort((a, b) => b[1] - a[1]);
+    if (sorted.length && sorted[0][1] >= 2) {
+      const [neigh, count] = sorted[0];
+      picks.push({
+        kind: 'WHERE',
+        line: `${neigh} is the most active neighborhood tonight — ${count} ${count === 1 ? 'show' : 'shows'} in walking distance of each other.`,
+        href: '/calendar/'
+      });
+    }
+  }
+
+  // 4) Quiet-confidence fallback — always present.
+  const dow = (function(){
+    const [y, m, d] = today.split('-').map(Number);
+    return new Date(y, m - 1, d).getDay();
+  })();
+  if (dow === 5 || dow === 6) {
+    picks.push({
+      kind: 'FALLBACK',
+      line: `If you want a long table and a clear head tomorrow, the early-evening bar seats at Spoon and Stable, Bar La Grassa, and Hai Hai are the move.`,
+      href: '/best-happy-hours/'
+    });
+  } else if (dow === 0) {
+    picks.push({
+      kind: 'FALLBACK',
+      line: `Sunday in the metro is for slow brunch, a long walk along the river, and the kind of dinner that happens at home. The good bakeries open at seven.`,
+      href: '/pastries-and-bakeries/'
+    });
+  } else {
+    picks.push({
+      kind: 'FALLBACK',
+      line: `A weeknight here rewards the regulars. A bar seat at a kitchen you trust beats a reservation you had to chase. Take Them To has the situational picks.`,
+      href: '/take-them-to/'
+    });
+  }
+
+  return picks.slice(0, 4);
+}
+
 // City-state badges for the right-now panel. Returns 2-4 short ALL-CAPS
 // tags that describe what kind of day this is in the metro right now:
 // PATIO SEASON, LATE SUNSET, BASEBALL HOMESTAND, FAIR WEEK, etc.
@@ -617,7 +737,7 @@ function head({ title, description, slug, theme }) {
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600;700&family=Source+Sans+3:wght@400;600&family=Archivo:wght@500;600;700&family=Archivo+Narrow:wght@600;700&display=swap">
-<link rel="stylesheet" href="/style.css?v=32">
+<link rel="stylesheet" href="/style.css?v=33">
 <script>
 // Set color mode before paint to avoid flash. Reads localStorage first,
 // falls back to light mode (the new editorial default). mode-ready class
@@ -645,15 +765,19 @@ function head({ title, description, slug, theme }) {
 }
 
 function header({ activeSlug } = {}) {
-  // Primary nav is now five items only. Everything else lives in the Menu
-  // overlay (data-menu-open), grouped editorially. Same overlay is reused
+  // Primary nav — seven obvious items. Per MANIFESTO: do not reinvent
+  // navigation. Tonight first (that's the question most readers arrive
+  // with), then the broad collections, then the tools. Everything else
+  // lives in the Menu overlay (data-menu-open). Same overlay is reused
   // for the mobile hamburger.
   const primaryNav = [
-    { href: '/', label: 'Cover', slug: '' },
-    { href: '/tonight/', label: 'Tonight', slug: 'tonight' },
-    { href: '/calendar/', label: 'Calendar', slug: 'calendar' },
-    { href: '/map/', label: 'Map', slug: 'map' },
-    { href: '/search/', label: 'Search', slug: 'search' }
+    { href: '/tonight/',     label: 'Tonight',       slug: 'tonight' },
+    { href: '/#eat',         label: 'Eat',           slug: 'eat' },
+    { href: '/#drink',       label: 'Drink',         slug: 'drink' },
+    { href: '/live-music/',  label: 'Music',         slug: 'live-music' },
+    { href: '/neighborhoods/', label: 'Neighborhoods', slug: 'neighborhoods' },
+    { href: '/calendar/',    label: 'Calendar',      slug: 'calendar' },
+    { href: '/map/',         label: 'Map',           slug: 'map' }
   ];
 
   // Menu overlay groups. Cluster names mirror the homepage IA so the
@@ -1271,37 +1395,47 @@ function renderHome() {
         </div>
       </div>
     </section>` : ''}
-    <section class="civic-notice" aria-label="The metro, right now">
-      <div class="wrap civic-notice-inner">
-        <div class="civic-notice-label">Notice · The Metro</div>
-        <p class="civic-notice-line">${esc(seasonalLine(rightnowData))}</p>
-        <div class="civic-notice-stamp">Updated ${esc(new Date().toLocaleString('en-US', { timeZone: 'America/Chicago', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' }))} CT</div>
-      </div>
-    </section>
-    <section class="tools-index" aria-label="Tools index">
-      <div class="wrap">
-        <div class="tools-index-head">
-          <span class="tools-index-eyebrow">Index · Tools</span>
-          <span class="tools-index-stamp">${(dedupeNonFilms((eventsData.events || []).filter(e => !isFilmEvent(e))).length)} live events · ${categories.reduce((sum, c) => sum + c.entries.length, 0)} places</span>
-        </div>
-        <ol class="tools-index-list">
-          <li class="tools-index-row"><a href="/tonight/"><span class="tix-code">T</span><span class="tix-name">Tonight</span><span class="tix-deck">${rightnowData ? `Sunset ${esc(rightnowData.sun.set)} · ${rightnowData.weather.temp_now}°F` : 'Sunset + tonight’s shows'}</span><span class="tix-arrow">→</span></a></li>
-          <li class="tools-index-row"><a href="/this-weekend/"><span class="tix-code">W</span><span class="tix-name">This Weekend</span><span class="tix-deck">Friday · Saturday · Sunday</span><span class="tix-arrow">→</span></a></li>
-          <li class="tools-index-row"><a href="/calendar/"><span class="tix-code">C</span><span class="tix-name">Calendar</span><span class="tix-deck">${dedupeNonFilms((eventsData.events || []).filter(e => !isFilmEvent(e))).length} events · next 21 days</span><span class="tix-arrow">→</span></a></li>
-          <li class="tools-index-row"><a href="/map/"><span class="tix-code">M</span><span class="tix-name">The Map</span><span class="tix-deck">Every place, plotted</span><span class="tix-arrow">→</span></a></li>
-          <li class="tools-index-row"><a href="/near/"><span class="tix-code">N</span><span class="tix-name">Near You</span><span class="tix-deck">10-minute walk from where you are</span><span class="tix-arrow">→</span></a></li>
-          <li class="tools-index-row"><a href="/take-them-to/"><span class="tix-code">X</span><span class="tix-name">Take Them To</span><span class="tix-deck">${(IS_WARM_SEASON ? situations.situations.filter(s => s.slug !== 'snow-day') : situations.situations).length} situational picks</span><span class="tix-arrow">→</span></a></li>
-          <li class="tools-index-row"><a href="/now-showing/"><span class="tix-code">A</span><span class="tix-name">Now Showing</span><span class="tix-deck">${exhibitions.exhibitions.length} current exhibitions</span><span class="tix-arrow">→</span></a></li>
-          <li class="tools-index-row"><a href="/skyway/"><span class="tix-code">S</span><span class="tix-name">Skyway</span><span class="tix-deck">${skyway.nodes.length} downtown nodes</span><span class="tix-arrow">→</span></a></li>
-          <li class="tools-index-row"><a href="/quiz/"><span class="tix-code">Q</span><span class="tix-name">Quiz</span><span class="tix-deck">Where to be tonight</span><span class="tix-arrow">→</span></a></li>
-          <li class="tools-index-row"><a href="/horoscope/"><span class="tix-code">H</span><span class="tix-name">Horoscope</span><span class="tix-deck">For the metro, today</span><span class="tix-arrow">→</span></a></li>
-          <li class="tools-index-row"><a href="/surprise/"><span class="tix-code">R</span><span class="tix-name">Surprise</span><span class="tix-deck">A random pick from the directory</span><span class="tix-arrow">→</span></a></li>
-          <li class="tools-index-row"><a href="/mystery/"><span class="tix-code">Y</span><span class="tix-name">Mystery</span><span class="tix-deck">Sealed-envelope nights</span><span class="tix-arrow">→</span></a></li>
-          <li class="tools-index-row"><a href="/departed/"><span class="tix-code">D</span><span class="tix-name">Departed</span><span class="tix-deck">Places we have lost</span><span class="tix-arrow">→</span></a></li>
+    <section class="concierge" aria-label="Tonight in the metro">
+      <div class="wrap concierge-inner">
+        <header class="concierge-head">
+          <span class="concierge-eyebrow">Tonight</span>
+          <h2 class="concierge-headline">${esc((function(){ const [y,m,d] = TODAY_ISO.split('-').map(Number); return new Date(y, m-1, d).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' }); })()).toUpperCase()}</h2>
+          <p class="concierge-deck">${esc(seasonalLine(rightnowData))}</p>
+        </header>
+        <ol class="concierge-picks">
+          ${tonightConcierge(rightnowData, eventsData.events).map(p => `
+            <li class="concierge-pick">
+              <span class="concierge-pick-kind">${esc(p.kind)}</span>
+              <p class="concierge-pick-line">${p.href ? `<a href="${esc(p.href)}">${esc(p.line)}</a>` : esc(p.line)}</p>
+            </li>`).join('')}
         </ol>
+        <a class="concierge-more" href="/tonight/">See all of tonight →</a>
       </div>
     </section>
     ${clusterSections}
+    <section class="more-tools" aria-label="More tools">
+      <div class="wrap">
+        <div class="more-tools-head">
+          <span class="more-tools-eyebrow">More · Index</span>
+          <span class="more-tools-stamp">Optional exploration</span>
+        </div>
+        <ul class="more-tools-list">
+          <li><a href="/take-them-to/"><span class="mtools-code">X</span> Take Them To <em>${(IS_WARM_SEASON ? situations.situations.filter(s => s.slug !== 'snow-day') : situations.situations).length} situations</em></a></li>
+          <li><a href="/near/"><span class="mtools-code">N</span> Near You <em>walking radius</em></a></li>
+          <li><a href="/this-weekend/"><span class="mtools-code">W</span> This Weekend <em>Fri · Sat · Sun</em></a></li>
+          <li><a href="/now-showing/"><span class="mtools-code">A</span> Now Showing <em>${exhibitions.exhibitions.length} exhibitions</em></a></li>
+          <li><a href="/festivals/"><span class="mtools-code">F</span> Festivals <em>the year in order</em></a></li>
+          <li><a href="/visit/"><span class="mtools-code">V</span> First Time? <em>a weekend in the metro</em></a></li>
+          <li><a href="/skyway/"><span class="mtools-code">S</span> Skyway <em>${skyway.nodes.length} downtown nodes</em></a></li>
+          <li><a href="/quiz/"><span class="mtools-code">Q</span> Quiz <em>where to be tonight</em></a></li>
+          <li><a href="/horoscope/"><span class="mtools-code">H</span> Horoscope <em>for the metro</em></a></li>
+          <li><a href="/surprise/"><span class="mtools-code">R</span> Surprise <em>a random pick</em></a></li>
+          <li><a href="/mystery/"><span class="mtools-code">Y</span> Mystery <em>sealed-envelope nights</em></a></li>
+          <li><a href="/departed/"><span class="mtools-code">D</span> Departed <em>places we lost</em></a></li>
+          <li><a href="/glossary/"><span class="mtools-code">G</span> Loon’s Nest <em>a small glossary</em></a></li>
+        </ul>
+      </div>
+    </section>
     ${liveEventPicks.length ? `
     <section class="live-feature" id="live-events">
       <div class="wrap live-feature-inner">
@@ -1988,7 +2122,7 @@ function renderAdminPicks() {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>${esc(title)}</title>
-<link rel="stylesheet" href="/style.css?v=32">
+<link rel="stylesheet" href="/style.css?v=33">
 <style>
   body { background: var(--paper); }
   .admin-wrap { max-width: 960px; margin: 0 auto; padding: 32px var(--gutter) 96px; }

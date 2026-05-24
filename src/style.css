@@ -365,11 +365,11 @@ p { margin: 0 0 1em; }
 
 /* ===== Homepage clusters. Calm, generous spacing. ===== */
 .cluster {
-  border-bottom: 1px solid var(--ink);
+  border-bottom: 1px solid var(--rule-soft);
 }
-.cluster:last-of-type { border-bottom: 2px solid var(--ink); }
+.cluster:last-of-type { border-bottom: 1px solid var(--ink); }
 .cluster-head {
-  padding: clamp(56px, 7vw, 96px) var(--gutter) clamp(28px, 3vw, 44px);
+  padding: clamp(36px, 4.5vw, 56px) var(--gutter) clamp(20px, 2.5vw, 28px);
   max-width: 1080px;
 }
 .cluster-eyebrow {
@@ -384,10 +384,10 @@ p { margin: 0 0 1em; }
 .cluster-title {
   font-family: var(--font-marquee);
   font-weight: 700;
-  font-size: clamp(32px, 4vw, 56px);
-  line-height: 0.96;
-  letter-spacing: -0.02em;
-  margin: 0 0 16px;
+  font-size: clamp(24px, 3vw, 38px);
+  line-height: 0.98;
+  letter-spacing: -0.015em;
+  margin: 0 0 12px;
   max-width: 760px;
   text-transform: uppercase;
 }
@@ -5363,6 +5363,210 @@ html[data-mode="dark"] .venue-dir-info { background: var(--paper-2); }
     background: #050505;
     border-top-color: rgba(255, 255, 255, 0.08);
   }
+}
+
+/* ===== Concierge block (homepage) =====
+   The emotional center of the page. Replaces the old taxonomy / tools-grid
+   approach. Reads like a friend giving you 3-4 confident recommendations
+   for tonight, computed from real-time weather + events + city state.
+   Per MANIFESTO: recommendation over categorization, guidance over
+   indexing. This is the room the homepage is built around. */
+.concierge {
+  background: var(--paper);
+  border-top: 3px solid var(--ink);
+  border-bottom: 2px solid var(--ink);
+  padding: 44px 0 48px;
+}
+.concierge-inner {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+.concierge-head {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: baseline;
+  gap: 8px 18px;
+  margin: 0 0 28px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--rule);
+}
+.concierge-eyebrow {
+  font-family: var(--font-label);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--clay);
+  grid-column: 1;
+}
+.concierge-headline {
+  font-family: var(--font-marquee);
+  font-weight: 700;
+  font-size: clamp(22px, 2.6vw, 30px);
+  line-height: 1;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin: 0;
+  grid-column: 2;
+  text-align: right;
+}
+.concierge-deck {
+  grid-column: 1 / -1;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(20px, 2.6vw, 28px);
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+  margin: 8px 0 0;
+  text-wrap: balance;
+}
+.concierge-picks {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0;
+}
+.concierge-pick {
+  display: grid;
+  grid-template-columns: 88px 1fr;
+  gap: 22px;
+  padding: 18px 0;
+  border-top: 1px solid var(--rule-soft);
+}
+.concierge-pick:first-child { border-top: none; padding-top: 4px; }
+@media (max-width: 600px) {
+  .concierge-pick { grid-template-columns: 64px 1fr; gap: 12px; padding: 14px 0; }
+}
+.concierge-pick-kind {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 10.5px;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: var(--clay);
+  padding-top: 6px;
+}
+.concierge-pick-line {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(17px, 2vw, 21px);
+  line-height: 1.45;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  margin: 0;
+}
+.concierge-pick-line a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid var(--rule-soft);
+}
+.concierge-pick-line a:hover {
+  color: var(--clay);
+  border-bottom-color: var(--clay);
+}
+.concierge-more {
+  display: inline-block;
+  margin-top: 22px;
+  font-family: var(--font-label);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--clay);
+  text-decoration: none;
+  border-bottom: 1px solid var(--clay);
+  padding-bottom: 2px;
+}
+.concierge-more:hover { color: var(--ink); border-color: var(--ink); }
+html[data-mode="dark"] .concierge { background: #141416; }
+html[data-mode="dark"] .concierge-pick { border-top-color: rgba(245,244,240,0.10); }
+
+/* ===== "More" tools — demoted index, lower on the page =====
+   The transit-board tools index used to live up top. Per MANIFESTO it
+   should feel like optional exploration, not required onboarding. Now
+   a compact 3-column inline list below the clusters with a quiet
+   "Optional exploration" stamp. */
+.more-tools {
+  padding: 36px 0 48px;
+  border-top: 1px solid var(--rule-soft);
+}
+.more-tools .wrap { padding-top: 0; }
+.more-tools-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+.more-tools-eyebrow {
+  font-family: var(--font-label);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.20em;
+  text-transform: uppercase;
+  color: var(--clay);
+}
+.more-tools-stamp {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--ink-faint);
+  text-transform: uppercase;
+}
+.more-tools-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px 24px;
+}
+@media (max-width: 720px) { .more-tools-list { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 480px) { .more-tools-list { grid-template-columns: 1fr; } }
+.more-tools-list li { padding: 6px 0; border-top: 1px solid var(--rule-soft); }
+.more-tools-list li:first-child,
+.more-tools-list li:nth-child(2),
+.more-tools-list li:nth-child(3) { border-top: none; }
+@media (max-width: 720px) {
+  .more-tools-list li:nth-child(3) { border-top: 1px solid var(--rule-soft); }
+}
+@media (max-width: 480px) {
+  .more-tools-list li:nth-child(2),
+  .more-tools-list li:nth-child(3) { border-top: 1px solid var(--rule-soft); }
+}
+.more-tools-list a {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  text-decoration: none;
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.4;
+}
+.more-tools-list a:hover { color: var(--clay); }
+.mtools-code {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 10.5px;
+  letter-spacing: 0.04em;
+  color: var(--clay);
+  border: 1px solid var(--clay);
+  padding: 1px 5px;
+  min-width: 22px;
+  text-align: center;
+}
+.more-tools-list em {
+  font-style: normal;
+  margin-left: auto;
+  font-size: 12.5px;
+  color: var(--ink-faint);
 }
 
 /* ===== Civic notice (homepage) =====

@@ -36,33 +36,42 @@ algorithmic ranking, or scale.
 
 ---
 
-## 2. Five rules
+## 2. Six rules
 
-Every page on the site should answer all five. If a change breaks one,
+Every page on the site should answer all six. If a change breaks one,
 the change is wrong.
 
-1. **Every page answers one question.** Homepage = "what is the city like
-   today?" `/calendar/` = "what's on this week?" `/tonight/` = "what
-   should I do tonight?" Category = "where's the good X?" Entry = "should
+1. **Recommendation over categorization. Guidance over indexing.**
+   This is the deepest rule. The site is a concierge, not an
+   encyclopedia. The homepage opens with the **concierge** block —
+   3–4 short, opinionated, contextual picks for tonight — not a
+   directory of categories. Categories and indices live BELOW the
+   recommendation layer as optional exploration. If you find yourself
+   building a taxonomy as a first-class UI moment, stop. Build a
+   recommendation surface instead.
+
+2. **Every page answers one question.** Homepage = "what should I do
+   tonight?" `/calendar/` = "what's on this week?" `/tonight/` = "what's
+   happening tonight?" Category = "where's the good X?" Entry = "should
    I go to this place?" Pages that try to answer two questions get split.
 
-2. **No forever scrolls.** Calendar caps at 21 days. Departed is
+3. **No forever scrolls.** Calendar caps at 21 days. Departed is
    chronological but bounded. If a list is genuinely long, paginate or
    filter — never let it just keep going.
 
-3. **Dark mode is a first-class citizen.** Both modes look intentional.
+4. **Dark mode is a first-class citizen.** Both modes look intentional.
    No accidental white slabs at the bottom of a scroll. No muddy text in
    light mode. Footer, banners, hero bands, newsletter capture all
    stay coherent in both. **Specifically: when an element uses `var(--ink)`
    as background it WILL flip white in dark mode — use hard hex colors
    (`#0A0A0A` / `#141414`) for dark surfaces meant to stay dark.**
 
-4. **Editorial voice, not generic UI.** "Field notes from the metro," not
+5. **Editorial voice, not generic UI.** "Field notes from the metro," not
    "Subscribe." "Happening tonight," not "Tonight's Events." "Departed,"
    not "Closed Listings." "The list (coming soon)," not "Join Newsletter."
    Words first; UI follows.
 
-5. **Never lie about live data.** If the scraper failed, say so. If a
+6. **Never lie about live data.** If the scraper failed, say so. If a
    place closed, get it out of the directory within a day. If a winter
    event is six months away, hide it in May. Stale data is worse than no
    data. Honest "the list is starting; first dispatch lands this summer"
