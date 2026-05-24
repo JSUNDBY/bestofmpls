@@ -81,6 +81,30 @@ function reservationPlatform(url) {
 const CURRENT_MONTH = parseInt(TODAY_ISO.slice(5, 7), 10);
 const IS_WARM_SEASON = CURRENT_MONTH >= 4 && CURRENT_MONTH <= 9;
 
+// One-line editorial pull-quote for the homepage interruption block. Picks
+// from weather mood first (patio / brutal / snow / rain), then falls back
+// to a month-aware seasonal line. The line changes the page's emotional
+// register without re-doing the layout — one moment of editorial voice
+// between the data strip and the tools grid.
+function seasonalLine(rn) {
+  if (rn && rn.weather) {
+    const m = rn.weather.mood;
+    if (m === 'patio')  return 'The patios are open. The light stays past eight. The metro is outside this week.';
+    if (m === 'brutal') return 'Outside is short. Inside is long. The slow rooms know what to do with a day like this.';
+    if (m === 'snow')   return 'Snow on the ground. Warm rooms, hot dishes, slow drinks. Nowhere to be.';
+    if (m === 'rain')   return 'Steady rain in the forecast. The candle-lit tables and basement bars open early tonight.';
+  }
+  const mo = CURRENT_MONTH;
+  if (mo === 5 || mo === 6)  return 'Late spring. The river is moving again. The patios are filling at four.';
+  if (mo === 7 || mo === 8)  return 'Midsummer in the metro. The patios spill onto sidewalks. The State Fair is closer than you think.';
+  if (mo === 9)              return 'September. Sweater weather creeps in. The patios start to fold by the end of the month.';
+  if (mo === 10)             return 'October. The light goes early. The good interior rooms wake back up.';
+  if (mo === 11 || mo === 12) return 'Cold, quiet months. The slow rooms are the move. The metro becomes interior.';
+  if (mo === 1 || mo === 2)  return 'Deep winter. Short days, long nights, warm rooms. The metro knows how to do this.';
+  if (mo === 3 || mo === 4)  return 'Mud season, then thaw. The light comes back. The metro starts to remember itself.';
+  return 'Two cities, a river, four real seasons. Made for the metro by the people who live here.';
+}
+
 // Featured events — single-event homepage takeover + dedicated landing page.
 const featuredEvts = require(path.join(SRC, 'data/featured-events.js'));
 
@@ -466,7 +490,7 @@ function head({ title, description, slug, theme }) {
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=Archivo:wght@500;600;700&display=swap">
-<link rel="stylesheet" href="/style.css?v=28">
+<link rel="stylesheet" href="/style.css?v=29">
 <script>
 // Set color mode before paint to avoid flash. Reads localStorage first,
 // falls back to light mode (the new editorial default). mode-ready class
@@ -718,6 +742,15 @@ function footer() {
     </div>
   </div>
 </footer>
+
+<nav class="mobile-dock" aria-label="Primary mobile navigation">
+  <a class="mobile-dock-item" href="/tonight/"><span class="mobile-dock-icon" aria-hidden="true">☾</span><span class="mobile-dock-label">Tonight</span></a>
+  <a class="mobile-dock-item" href="/calendar/"><span class="mobile-dock-icon" aria-hidden="true">▭</span><span class="mobile-dock-label">Calendar</span></a>
+  <a class="mobile-dock-item" href="/map/"><span class="mobile-dock-icon" aria-hidden="true">◉</span><span class="mobile-dock-label">Map</span></a>
+  <a class="mobile-dock-item" href="/near/"><span class="mobile-dock-icon" aria-hidden="true">◎</span><span class="mobile-dock-label">Near</span></a>
+  <button class="mobile-dock-item" type="button" data-menu-open><span class="mobile-dock-icon" aria-hidden="true">≡</span><span class="mobile-dock-label">Menu</span></button>
+</nav>
+
 <script>
 // Newsletter signup: every [data-newsletter-form] on the page POSTs to the
 // worker's /newsletter endpoint. Multiple blocks (footer mini + inline
@@ -1044,9 +1077,9 @@ function renderHome() {
           <div class="rightnow-value">${esc(r.sun.set)}</div>
           <a class="rightnow-link" href="/tonight/">Where to watch →</a>
         </div>
-        <div class="rightnow-item">
+        <div class="rightnow-item rightnow-item--temp">
           <div class="rightnow-label">Right now</div>
-          <div class="rightnow-value">${r.weather.temp_now}°F</div>
+          <div class="rightnow-temp"><span class="rightnow-temp-num">${r.weather.temp_now}</span><span class="rightnow-temp-unit">°F</span></div>
           <span class="rightnow-link">${esc(r.weather.condition)}</span>
         </div>
         ${r.countdowns.slice(0, 3).map(c => `
@@ -1057,6 +1090,12 @@ function renderHome() {
         </div>`).join('')}
       </div>
     </section>` : ''}
+    <section class="editorial-interruption" aria-label="The city right now">
+      <div class="wrap editorial-interruption-inner">
+        <span class="editorial-interruption-mark">¶</span>
+        <p class="editorial-interruption-line">${esc(seasonalLine(rightnowData))}</p>
+      </div>
+    </section>
     <section class="tools-strip">
       <div class="wrap tools-strip-inner">
         <a class="tool-card" href="/map/"><span class="tool-icon" aria-hidden="true">◉</span><span class="tool-label">The Map</span><span class="tool-deck">Every place, plotted</span></a>
@@ -1761,7 +1800,7 @@ function renderAdminPicks() {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>${esc(title)}</title>
-<link rel="stylesheet" href="/style.css?v=28">
+<link rel="stylesheet" href="/style.css?v=29">
 <style>
   body { background: var(--paper); }
   .admin-wrap { max-width: 960px; margin: 0 auto; padding: 32px var(--gutter) 96px; }
@@ -2434,14 +2473,47 @@ function renderCalendar() {
     <button class="cal-chip cal-chip-all is-on" type="button" data-venue="all">All venues</button>
     ${allVenues.map(v => `<button class="cal-chip" type="button" data-venue="${esc(v)}">${esc(v)}</button>`).join('')}`;
 
-  const dayBlocks = dateKeys.map(iso => `
+  // Per-day signals — small editorial tags above each day's list. Computed
+  // from the data we already have, no extra inputs needed.
+  //  - cluster: 3+ shows in one neighborhood that night = "walkable night
+  //    in <neighborhood>" (the area is going to feel alive)
+  //  - quiet: ≤2 shows total = quiet night
+  //  - busy:  8+ shows = lots happening
+  function neighborhoodOf(venueNeigh) {
+    if (!venueNeigh) return null;
+    // venue_neighborhood is "Northeast Minneapolis" or "North Loop, Minneapolis" —
+    // collapse to the leading area name only.
+    return venueNeigh.split(',')[0].trim();
+  }
+  function daySignals(iso, events) {
+    const tags = [];
+    const byNeigh = new Map();
+    for (const e of events) {
+      const n = neighborhoodOf(e.venue_neighborhood);
+      if (!n) continue;
+      byNeigh.set(n, (byNeigh.get(n) || 0) + 1);
+    }
+    const clusters = [...byNeigh.entries()].filter(([_, c]) => c >= 3).sort((a, b) => b[1] - a[1]);
+    if (clusters.length) tags.push({ kind: 'cluster', text: `Walkable night in ${clusters[0][0]} · ${clusters[0][1]} shows` });
+    if (events.length >= 8) tags.push({ kind: 'busy', text: 'Big night across the metro' });
+    else if (events.length <= 2 && iso > TODAY_ISO) tags.push({ kind: 'quiet', text: 'Quiet on the calendar' });
+    return tags;
+  }
+
+  const dayBlocks = dateKeys.map(iso => {
+    const events = byDate.get(iso);
+    const signals = daySignals(iso, events);
+    const signalsBar = signals.length ? `
+        <div class="cal-day-signals">${signals.map(s => `<span class="cal-day-signal cal-day-signal--${esc(s.kind)}">${esc(s.text)}</span>`).join('')}</div>` : '';
+    return `
     <section class="cal-day" data-date="${iso}">
       <header class="cal-day-head">
         <h2 class="cal-day-label">${esc(dayLabel(iso))}</h2>
         <span class="cal-day-date">${esc(fmtDay(iso))}</span>
       </header>
+      ${signalsBar}
       <ul class="cal-day-list">
-        ${byDate.get(iso).map(e => `
+        ${events.map(e => `
           <li class="cal-row" data-venue="${esc(e.venue)}">
             <div class="cal-row-when">${e.time ? esc(fmtTime(e.time)) : 'TBA'}</div>
             <div class="cal-row-body">
@@ -2451,7 +2523,8 @@ function renderCalendar() {
             </div>
           </li>`).join('')}
       </ul>
-    </section>`).join('');
+    </section>`;
+  }).join('');
 
   const beyondNote = beyondCount > 0
     ? `<p class="cal-beyond">${beyondCount} more show${beyondCount === 1 ? '' : 's'} on the books past the next ${WINDOW_DAYS} days.</p>`
@@ -2613,11 +2686,25 @@ function renderVenuePage(v) {
       </ul>
     </section>`).join('');
 
+  // The directory description (from live-music.js) is the mythology — the
+  // editorial paragraph that tells you WHAT this room actually is. Promote
+  // it above the booking schedule on the venue page so the page doesn't
+  // read as a database row. Optional ritual_notes field (hand-written
+  // local lore) gets its own block below when present.
+  const mythologyBlock = v.directory && v.directory.description ? `
+    <div class="venue-mythology">
+      <p class="venue-mythology-text">${esc(v.directory.description)}</p>
+      ${v.directory.ritual_notes ? `
+        <div class="venue-mythology-rituals">
+          <div class="venue-mythology-eyebrow">Notes from the room</div>
+          <p class="venue-mythology-rituals-text">${esc(v.directory.ritual_notes)}</p>
+        </div>` : ''}
+    </div>` : '';
+
   const dirInfo = v.directory ? `
     <div class="venue-dir-info">
       ${v.directory.address ? `<div class="venue-dir-row"><span class="venue-dir-label">Address</span><a class="venue-dir-val" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(v.directory.address)}">${esc(v.directory.address)}</a></div>` : ''}
       ${v.directory.website ? `<div class="venue-dir-row"><span class="venue-dir-label">Official site</span><a class="venue-dir-val" target="_blank" rel="noopener" href="${esc(v.directory.website)}">${esc(v.directory.website.replace(/^https?:\/\//, ''))}</a></div>` : ''}
-      ${v.directory.description ? `<p class="venue-dir-desc">${esc(v.directory.description)}</p>` : ''}
     </div>` : '';
 
   const schema = {
@@ -2644,6 +2731,7 @@ function renderVenuePage(v) {
          <h1 class="venue-hero-name">${esc(v.name)}</h1>
          ${v.neighborhood ? `<div class="venue-hero-neigh">${esc(v.neighborhood)}</div>` : ''}
          <div class="venue-hero-count">${v.events.length} upcoming show${v.events.length === 1 ? '' : 's'} on the books</div>
+         ${mythologyBlock}
          ${dirInfo}
        </div>
      </section>
@@ -3315,12 +3403,16 @@ function renderTonight() {
        <div class="wrap tonight-hero-inner">
          <div class="tonight-hero-eyebrow" data-tonight-hero-eyebrow>${esc(builtDayLabel)} · Tonight in the metro</div>
          <h1 class="tonight-hero-headline" data-tonight-hero-headline>
-           <span data-tonight-hero-count>${tonightEventsServer.length}</span> <span data-tonight-hero-noun>${tonightEventsServer.length === 1 ? 'show' : 'shows'}</span> tonight. <em>Sunset at ${esc(r.sun.set)}.</em>
+           <span data-tonight-hero-count>${tonightEventsServer.length}</span> <span data-tonight-hero-noun>${tonightEventsServer.length === 1 ? 'show' : 'shows'}</span> tonight.
          </h1>
+         <div class="tonight-hero-marquee">
+           <span class="tonight-hero-temp"><span class="tonight-hero-temp-num">${r.weather.temp_now}</span><span class="tonight-hero-temp-unit">°F</span></span>
+           <span class="tonight-hero-condition">${esc(r.weather.condition)}</span>
+         </div>
          <div class="tonight-hero-meta">
-           <div class="tonight-meta-item"><span class="tonight-meta-label">Right now</span><span class="tonight-meta-val">${r.weather.temp_now}°F · ${esc(r.weather.condition)}</span></div>
            <div class="tonight-meta-item"><span class="tonight-meta-label">Sunset</span><span class="tonight-meta-val">${esc(r.sun.set)}</span></div>
-           <div class="tonight-meta-item"><span class="tonight-meta-label">Daylight</span><span class="tonight-meta-val">${Math.floor(r.sun.daylight_min/60)}h ${r.sun.daylight_min%60}m</span></div>
+           <div class="tonight-meta-item"><span class="tonight-meta-label">Sunrise tomorrow</span><span class="tonight-meta-val">${esc(r.sun.rise)}</span></div>
+           <div class="tonight-meta-item"><span class="tonight-meta-label">Daylight today</span><span class="tonight-meta-val">${Math.floor(r.sun.daylight_min/60)}h ${r.sun.daylight_min%60}m</span></div>
          </div>
        </div>
      </section>

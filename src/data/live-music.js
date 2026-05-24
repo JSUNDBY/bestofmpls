@@ -12,7 +12,8 @@ module.exports = {
       description: 'The room. Prince filmed Purple Rain here. The black stars on the outside wall track every act that has played the venue. The Mainroom is one of the best mid-sized rock clubs in the country, and the 7th St Entry next door is the small room where bands try out the city before they grow into the big stage. If you only see one show in Minneapolis, see it here.',
       address: '701 1st Ave N, Minneapolis',
       website: 'https://first-avenue.com',
-      capacity: '1,550 mainroom / 250 entry'
+      capacity: '1,550 mainroom / 250 entry',
+      ritual_notes: 'Mainroom holds 1,550 standing — get there by the opener if you want the rail. The balcony is the move for tall people and short sets. The bar at the back of the floor is the quietest spot to actually hear someone talk between songs. After the show, the Depot Tavern next door is where the touring band ends up.'
     },
     {
       name: 'The Fine Line Music Cafe',
@@ -48,7 +49,8 @@ module.exports = {
       description: 'A nonprofit listening room that has been booking world music, folk, and roots artists from across the globe since 1989. The room is small, the sound is excellent, and the curation reaches places few other American venues bother with. A West Bank institution.',
       address: '416 Cedar Ave S, Minneapolis',
       website: 'https://www.thecedar.org',
-      capacity: '600'
+      capacity: '600',
+      ritual_notes: 'Standing or seated depending on the show — check the listing. The room is small enough that there is no bad spot. Before or after, walk one block to Palmer\'s neighborhood for the Cedar-Riverside flavor: Keefer Court bakery, Acadia for a pint, the Hard Times Cafe for late food.'
     },
     {
       name: 'Icehouse',
@@ -66,7 +68,8 @@ module.exports = {
       description: 'A serious jazz club downtown, with a supper-club seating arrangement and a bookings calendar that brings in genuine national touring jazz acts week after week. The room is dim, the steaks are real, and the music is the focus.',
       address: '1010 Nicollet Mall, Minneapolis',
       website: 'https://www.dakotacooks.com',
-      capacity: '300'
+      capacity: '300',
+      ritual_notes: 'Reservations strongly suggested for any name act — the room sells out for the early set most weekends. Bar seating is the unsung move: cheaper, looser, same music. The kitchen is real (not "venue food"), order accordingly.'
     },
     {
       name: 'The Hook and Ladder Theater',
@@ -75,7 +78,8 @@ module.exports = {
       description: 'A converted 1907 firehouse running an eclectic music and theater program with a strong local-artist focus. Two-room setup with a big outdoor lot for warm-weather shows. The kind of room where you discover three new bands in a night.',
       address: '3010 Minnehaha Ave, Minneapolis',
       website: 'https://thehookmpls.com',
-      capacity: '500'
+      capacity: '500',
+      ritual_notes: 'Two indoor stages plus the outdoor Under the Canopy lot from May through September. Check which stage your show is on — the rooms feel completely different. Parking is on-street; the lot fills early on weekends.'
     },
     {
       name: 'Aster Cafe',
@@ -108,10 +112,11 @@ module.exports = {
       name: 'Berlin',
       neighborhood: 'North Loop, Minneapolis',
       style: 'New listening room',
-      description: 'A newer North Loop listening room from the team behind some of the city’s most respected venues. Tight programming, comfortable seating, a well-designed bar. The kind of small new room that gives you faith in the next generation of Minneapolis music.',
-      address: 'North Loop, Minneapolis',
+      description: 'A newer downtown listening room from the team behind some of the city’s most respected venues. Tight programming, comfortable seating, a well-designed bar. The kind of small new room that gives you faith in the next generation of Minneapolis music.',
+      address: 'Downtown Minneapolis',
       website: 'https://www.berlinmpls.com',
-      capacity: '85'
+      capacity: '85',
+      ritual_notes: '85 seats. That is the whole story. Buy ahead, sit anywhere, listen close. Bar opens before showtime; the cocktail program is real and worth showing up early for.'
     }
   ]
 };
