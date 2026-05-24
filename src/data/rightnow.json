@@ -1,68 +1,68 @@
 {
-  "generated_at": "2026-05-14T05:56:05.442Z",
-  "today": "2026-05-14",
+  "generated_at": "2026-05-24T16:43:00.576Z",
+  "today": "2026-05-24",
   "sun": {
-    "rise": "5:21 AM",
-    "set": "8:08 PM",
-    "rise_24": "05:21",
-    "set_24": "20:08",
-    "daylight_min": 887
+    "rise": "5:11 AM",
+    "set": "8:19 PM",
+    "rise_24": "05:11",
+    "set_24": "20:19",
+    "daylight_min": 908
   },
   "weather": {
-    "temp_now": 59,
-    "temp_max": 79,
-    "feels_like": 59,
-    "condition": "Mostly Sunny Then Chance Showers And Thunderstorms",
-    "is_patio": false,
+    "temp_now": 73,
+    "temp_max": 82,
+    "feels_like": 72,
+    "condition": "Sunny",
+    "is_patio": true,
     "is_brutal": false,
     "is_snowing": false,
-    "is_rainy": true,
-    "mood": "rain",
-    "summary": "59°F · rain in the forecast",
+    "is_rainy": false,
+    "mood": "patio",
+    "summary": "82°F high · patio weather",
     "source": "nws"
   },
   "countdowns": [
     {
-      "name": "Art-A-Whirl",
-      "date": "2026-05-15",
-      "days": 1,
-      "blurb": "Northeast Minneapolis opens nearly every artist studio at once, on the third weekend in May."
-    },
-    {
       "name": "Twin Cities Pride",
       "date": "2026-06-27",
-      "days": 44,
+      "days": 34,
       "blurb": "One of the largest Pride festivals in the country, last full weekend of June."
     },
     {
       "name": "Aquatennial",
       "date": "2026-07-16",
-      "days": 63,
+      "days": 53,
       "blurb": "Minneapolis's eleven-day midsummer festival."
     },
     {
       "name": "Minnesota State Fair",
       "date": "2026-08-27",
-      "days": 105,
+      "days": 95,
       "blurb": "Twelve days ending Labor Day. The largest state fair by daily attendance."
     },
     {
       "name": "Twin Cities Marathon",
       "date": "2026-10-04",
-      "days": 143,
+      "days": 133,
       "blurb": "Twenty-six miles from downtown Minneapolis to the State Capitol."
     },
     {
       "name": "Twin Cities Book Festival",
       "date": "2026-10-17",
-      "days": 156,
+      "days": 146,
       "blurb": "The metro's largest free book festival, at the State Fairgrounds."
+    },
+    {
+      "name": "Saint Paul Winter Carnival",
+      "date": "2027-01-22",
+      "days": 243,
+      "blurb": "The oldest winter festival in the country opens."
     }
   ],
   "sunset_pick": {
-    "name": "Stone Arch Bridge",
-    "neighborhood": "Mill District, Minneapolis",
-    "why": "Skyline behind, falls below, the canonical Minneapolis sunset."
+    "name": "Sea Salt patio at Minnehaha Falls",
+    "neighborhood": "South Minneapolis",
+    "why": "Falls behind, sun setting through the trees over the river gorge. Summer only."
   },
   "sunset_picks": [
     {

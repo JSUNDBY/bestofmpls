@@ -765,7 +765,7 @@ function head({ title, description, slug, theme }) {
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600;700&family=Source+Sans+3:wght@400;600&family=Archivo:wght@500;600;700&family=Archivo+Narrow:wght@600;700&display=swap">
-<link rel="stylesheet" href="/style.css?v=35">
+<link rel="stylesheet" href="/style.css?v=36">
 <script>
 // Set color mode before paint to avoid flash. Reads localStorage first,
 // falls back to light mode (the new editorial default). mode-ready class
@@ -1031,6 +1031,62 @@ function footer() {
 </nav>
 
 <script>
+// Live weather — fetches the actual current observation from NWS on
+// every page load and rewrites every [data-live-temp] and
+// [data-live-condition] on the page. The build-time rightnow.json is a
+// fallback for no-JS readers and for the moment between fetch and
+// response; once this resolves the page reflects real-time conditions.
+// localStorage caches for 15 min so navigation between pages doesn't
+// re-hammer api.weather.gov. NWS sends access-control-allow-origin: *
+// so direct browser fetch works.
+(function(){
+  var targets = document.querySelectorAll('[data-live-temp], [data-live-condition]');
+  if (!targets.length) return;
+  var KEY = 'bom-live-weather';
+  var TTL = 15 * 60 * 1000;
+  var STATION = 'https://api.weather.gov/stations/KMSP/observations/latest';
+
+  function apply(obs){
+    if (!obs || obs.tempF == null) return;
+    document.querySelectorAll('[data-live-temp]').forEach(function(el){
+      el.textContent = Math.round(obs.tempF);
+    });
+    if (obs.condition) {
+      document.querySelectorAll('[data-live-condition]').forEach(function(el){
+        el.textContent = obs.condition;
+      });
+    }
+  }
+
+  // 1. Try cache first.
+  try {
+    var raw = localStorage.getItem(KEY);
+    if (raw) {
+      var cached = JSON.parse(raw);
+      if (cached && (Date.now() - cached.ts) < TTL) {
+        apply(cached);
+      }
+    }
+  } catch (_) {}
+
+  // 2. Always fetch fresh in the background (15 min stale is the worst case).
+  fetch(STATION, { headers: { 'Accept': 'application/geo+json' } })
+    .then(function(r){ if (!r.ok) throw new Error(r.status); return r.json(); })
+    .then(function(d){
+      var p = d.properties || {};
+      var tempC = p.temperature && p.temperature.value;
+      var tempF = (tempC == null) ? null : (tempC * 9/5 + 32);
+      var obs = {
+        ts: Date.now(),
+        tempF: tempF,
+        condition: p.textDescription || null
+      };
+      try { localStorage.setItem(KEY, JSON.stringify(obs)); } catch (_) {}
+      apply(obs);
+    })
+    .catch(function(){ /* leave the build-time fallback in place */ });
+})();
+
 // Live sunset countdown — runs once a minute on any page that exposes a
 // data-sunset attribute (right-now strip OR concierge block). Reads
 // data-sunset="HH:MM" off whichever element has it and rewrites every
@@ -1448,8 +1504,8 @@ function renderHome() {
           </div>
           <div class="rightnow-item rightnow-item--temp">
             <div class="rightnow-label">Right now</div>
-            <div class="rightnow-temp"><span class="rightnow-temp-num">${r.weather.temp_now}</span><span class="rightnow-temp-unit">°F</span></div>
-            <span class="rightnow-link">${esc(r.weather.condition)}</span>
+            <div class="rightnow-temp"><span class="rightnow-temp-num" data-live-temp>${r.weather.temp_now}</span><span class="rightnow-temp-unit">°F</span></div>
+            <span class="rightnow-link" data-live-condition>${esc(r.weather.condition)}</span>
           </div>
           ${r.countdowns.slice(0, 3).map(c => `
           <div class="rightnow-item">
@@ -1468,7 +1524,7 @@ function renderHome() {
           <p class="concierge-deck">${esc(seasonalLine(rightnowData))}</p>
           ${rightnowData ? `
           <div class="concierge-context">
-            <span class="concierge-context-item"><span class="concierge-context-num">${rightnowData.weather.temp_now}°</span> <span class="concierge-context-label">${esc(rightnowData.weather.condition)}</span></span>
+            <span class="concierge-context-item"><span class="concierge-context-num"><span data-live-temp>${rightnowData.weather.temp_now}</span>°</span> <span class="concierge-context-label" data-live-condition>${esc(rightnowData.weather.condition)}</span></span>
             <span class="concierge-context-item"><span class="concierge-context-num">${esc(rightnowData.sun.set)}</span> <span class="concierge-context-label"><span data-sunset-countdown>sunset</span></span></span>
             ${cityStateBadges(rightnowData).slice(0, 2).map(b => `<span class="concierge-context-badge">${esc(b)}</span>`).join('')}
           </div>` : ''}
@@ -2193,7 +2249,7 @@ function renderAdminPicks() {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>${esc(title)}</title>
-<link rel="stylesheet" href="/style.css?v=35">
+<link rel="stylesheet" href="/style.css?v=36">
 <style>
   body { background: var(--paper); }
   .admin-wrap { max-width: 960px; margin: 0 auto; padding: 32px var(--gutter) 96px; }
@@ -3800,8 +3856,8 @@ function renderTonight() {
            <span data-tonight-hero-count>${tonightEventsServer.length}</span> <span data-tonight-hero-noun>${tonightEventsServer.length === 1 ? 'show' : 'shows'}</span> tonight.
          </h1>
          <div class="tonight-hero-marquee">
-           <span class="tonight-hero-temp"><span class="tonight-hero-temp-num">${r.weather.temp_now}</span><span class="tonight-hero-temp-unit">°F</span></span>
-           <span class="tonight-hero-condition">${esc(r.weather.condition)}</span>
+           <span class="tonight-hero-temp"><span class="tonight-hero-temp-num" data-live-temp>${r.weather.temp_now}</span><span class="tonight-hero-temp-unit">°F</span></span>
+           <span class="tonight-hero-condition" data-live-condition>${esc(r.weather.condition)}</span>
          </div>
          <div class="tonight-hero-meta">
            <div class="tonight-meta-item"><span class="tonight-meta-label">Sunset</span><span class="tonight-meta-val">${esc(r.sun.set)}</span></div>
