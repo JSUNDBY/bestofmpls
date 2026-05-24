@@ -23,14 +23,6 @@ module.exports = {
       price: '$$'
     },
     {
-      name: 'Hyderabad Biryani Place',
-      neighborhood: 'Eden Prairie',
-      style: 'Hyderabadi specialties',
-      description: 'A specialty spot focused on Hyderabadi-style dum biryani, with the long-grain basmati cooked together with marinated meat under sealed dough. The chicken biryani is the order. Go hungry.',
-      address: 'Eden Prairie',
-      price: '$$'
-    },
-        {
       name: 'Darbar India Grill',
       neighborhood: 'Brooklyn Park',
       style: 'North Indian, tandoor-forward',

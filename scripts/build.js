@@ -454,6 +454,33 @@ const hoursData     = loadJsonOptional(path.join(SRC, 'data/hours.json')) || {};
 //   3. null — entry will not appear on the map. Better than a wrong pin.
 function lookupCoords(slug, entry) {
   const hLook = hoursData[`${slug}:${entry.name}`];
+
+  // Accuracy guard: if the entry's address has no street number (e.g.
+  // "Eden Prairie" or "Northeast Minneapolis"), Places will routinely
+  // match to a same-name-or-similar storefront at a different location.
+  // We saw "Hyderabad Biryani Place / Eden Prairie" resolve to "The
+  // Hyderabad Indian Grill" in Richfield — a real bug a reader noticed
+  // on the map. Rule: if we can't verify the address with a street
+  // number, we don't pin it. The entry still appears in the directory
+  // with its neighborhood, just without a map pin or a /near/ result.
+  // Explicit allowlist: things that genuinely live at a place name
+  // (parks, lakes, bridges) can still resolve via Nominatim.
+  const addr = entry.address || '';
+  const hasNumber = /\d/.test(addr);
+  const isPlaceName = /park|garden|river|lake|conservatory|stadium|fairgrounds|cemetery|bridge|falls/i.test(addr);
+  if (!hasNumber && !isPlaceName) {
+    // Don't trust Places for a vague address. Don't try Nominatim
+    // either (it would just centroid the neighborhood). Return null
+    // so this entry stays off the map entirely.
+    return null;
+  }
+
+  // Closed places never get coords either — they should not appear on
+  // the map (the audit surfaces them for manual review / removal).
+  if (hLook && hLook.business_status && hLook.business_status === 'CLOSED_PERMANENTLY') {
+    return null;
+  }
+
   const placesCoord = (hLook && hLook.location && typeof hLook.location.latitude === 'number')
     ? { lat: hLook.location.latitude, lng: hLook.location.longitude }
     : null;
@@ -461,8 +488,8 @@ function lookupCoords(slug, entry) {
   // Nominatim coord for the entry's address (only if it has a digit, so
   // we are not geocoding a neighborhood centroid).
   let nominatimCoord = null;
-  if (entry.address && /\d/.test(entry.address)) {
-    const c = coordsData[entry.address.trim()];
+  if (hasNumber) {
+    const c = coordsData[addr.trim()];
     if (c && typeof c.lat === 'number') nominatimCoord = { lat: c.lat, lng: c.lng };
   }
 

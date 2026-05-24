@@ -313,7 +313,7 @@
     "hours": [],
     "fetched_at": "2026-05-07T16:51:07.072Z"
   },
-  "pastries-and-bakeries:A Baker’s Wife’s Pastry Shop": {
+  "pastries-and-bakeries:A Baker\u2019s Wife\u2019s Pastry Shop": {
     "place_id": "ChIJkRkxsUQo9ocRUvo2BUU_D0E",
     "matched_name": "A Baker's Wife's Pastry Shop",
     "matched_address": "4200 S 28th Ave, Minneapolis, MN 55406, USA",
@@ -1327,7 +1327,7 @@
     ],
     "fetched_at": "2026-05-07T16:51:17.408Z"
   },
-  "best-brunch:Mucci’s Italian": {
+  "best-brunch:Mucci\u2019s Italian": {
     "place_id": "ChIJ9eYyePkq9ocRSEjItytrCPc",
     "matched_name": "Mucci's Italian",
     "matched_address": "786 Randolph Ave, St Paul, MN 55102, USA",
@@ -1377,9 +1377,9 @@
     ],
     "fetched_at": "2026-05-07T16:51:17.893Z"
   },
-  "best-brunch:Khâluna": {
+  "best-brunch:Kh\u00e2luna": {
     "place_id": "ChIJL35qKIQn9ocRN82BSnqaw5Q",
-    "matched_name": "Khâluna",
+    "matched_name": "Kh\u00e2luna",
     "matched_address": "4000 Lyndale Ave S, Minneapolis, MN 55409, USA",
     "location": {
       "latitude": 44.9301684,
@@ -1549,7 +1549,7 @@
     ],
     "fetched_at": "2026-05-07T16:51:19.433Z"
   },
-  "burgers:Matt’s Bar": {
+  "burgers:Matt\u2019s Bar": {
     "place_id": "ChIJgzapGhIo9ocR1q6nNH0J_Xw",
     "matched_name": "Matt's Bar and Grill",
     "matched_address": "3500 Cedar Ave, Minneapolis, MN 55407, USA",
@@ -1722,7 +1722,7 @@
     ],
     "fetched_at": "2026-05-07T16:51:21.100Z"
   },
-  "burgers:Buster’s on 28th": {
+  "burgers:Buster\u2019s on 28th": {
     "place_id": "ChIJYVLys0Qo9ocRDNAYwYq45XU",
     "matched_name": "Busters on 28th Avenue",
     "matched_address": "4204 S 28th Ave, Minneapolis, MN 55406, USA",
@@ -1887,7 +1887,7 @@
     ],
     "fetched_at": "2026-05-07T16:51:22.622Z"
   },
-  "burgers:Brunson’s Pub": {
+  "burgers:Brunson\u2019s Pub": {
     "place_id": "ChIJNZbnMTrVslIRPy-Uvwkbfk4",
     "matched_name": "Brunson's Pub",
     "matched_address": "956 Payne Ave, St Paul, MN 55130, USA",
@@ -2247,7 +2247,7 @@
     ],
     "fetched_at": "2026-05-07T16:51:28.165Z"
   },
-  "cocktail-bars:Volstead’s Emporium": {
+  "cocktail-bars:Volstead\u2019s Emporium": {
     "place_id": "ChIJMRcB_oUn9ocRxQbJv2bdfAg",
     "matched_name": "Volstead's Emporium Uptown",
     "matched_address": "711 W Lake St, Minneapolis, MN 55408, USA",
@@ -2628,7 +2628,7 @@
     ],
     "fetched_at": "2026-05-07T16:51:32.329Z"
   },
-  "coffee-shops:Cafe Cerés": {
+  "coffee-shops:Cafe Cer\u00e9s": {
     "not_found": true,
     "fetched_at": "2026-05-07T16:51:32.837Z"
   },
@@ -2825,7 +2825,7 @@
     ],
     "fetched_at": "2026-05-07T16:51:35.092Z"
   },
-  "coffee-shops:Nina’s Coffee Cafe": {
+  "coffee-shops:Nina\u2019s Coffee Cafe": {
     "place_id": "ChIJQdT-z5cq9ocR4daFkh71kUI",
     "matched_name": "Nina's Coffee Cafe",
     "matched_address": "165 Western Ave N, St Paul, MN 55102, USA",
@@ -2924,7 +2924,7 @@
     "hours": [],
     "fetched_at": "2026-05-07T16:51:36.676Z"
   },
-  "coffee-shops:Penny’s Coffee": {
+  "coffee-shops:Penny\u2019s Coffee": {
     "not_found": true,
     "fetched_at": "2026-05-07T16:51:37.194Z"
   },
@@ -3180,7 +3180,7 @@
     ],
     "fetched_at": "2026-05-07T16:51:39.940Z"
   },
-  "best-dive-bars:Palmer’s Bar": {
+  "best-dive-bars:Palmer\u2019s Bar": {
     "place_id": "ChIJdb0PdkMts1IRhQtxT2d_4BQ",
     "matched_name": "Palmer's Bar",
     "matched_address": "500 Cedar Ave, Minneapolis, MN 55454, USA",
@@ -3253,7 +3253,7 @@
     ],
     "fetched_at": "2026-05-07T16:51:40.957Z"
   },
-  "best-dive-bars:Mortimer’s": {
+  "best-dive-bars:Mortimer\u2019s": {
     "place_id": "ChIJ7fYSZcUys1IR1PRcjN-kMw0",
     "matched_name": "Mortimer's Bar and Restaurant",
     "matched_address": "2001 Lyndale Ave S, Minneapolis, MN 55405, USA",
@@ -3370,7 +3370,7 @@
     ],
     "fetched_at": "2026-05-07T16:51:41.930Z"
   },
-  "best-dive-bars:Lee’s Liquor Lounge": {
+  "best-dive-bars:Lee\u2019s Liquor Lounge": {
     "place_id": "ChIJpeXWKe0ys1IRi0GmOOHbFYE",
     "matched_name": "Lee's Liquor Lounge",
     "matched_address": "101 Glenwood Ave, Minneapolis, MN 55403, USA",
@@ -3615,7 +3615,7 @@
     ],
     "fetched_at": "2026-05-07T16:51:45.885Z"
   },
-  "best-dive-bars:Mickey’s Diner": {
+  "best-dive-bars:Mickey\u2019s Diner": {
     "place_id": "ChIJhSnsyLIq9ocRSgtF_-jHkmY",
     "matched_name": "Mickey's Diner",
     "matched_address": "36 7th St W, St Paul, MN 55102, USA",
@@ -4242,7 +4242,7 @@
     ],
     "fetched_at": "2026-05-07T16:51:52.513Z"
   },
-  "best-happy-hours:Manny’s Steakhouse": {
+  "best-happy-hours:Manny\u2019s Steakhouse": {
     "place_id": "ChIJRa9-DJcys1IRScFQpyzdZPQ",
     "matched_name": "Manny's Steakhouse",
     "matched_address": "825 S Marquette Ave, Minneapolis, MN 55402, USA",
@@ -4298,7 +4298,7 @@
     ],
     "fetched_at": "2026-05-07T16:51:53.047Z"
   },
-  "best-happy-hours:Eli’s East": {
+  "best-happy-hours:Eli\u2019s East": {
     "place_id": "ChIJzeOJ_3Uts1IRDoLK83M8-r0",
     "matched_name": "Eli's East",
     "matched_address": "815 E Hennepin Ave, Minneapolis, MN 55413, USA",
@@ -4350,7 +4350,7 @@
     ],
     "fetched_at": "2026-05-07T16:51:53.666Z"
   },
-  "best-happy-hours:Brit’s Pub": {
+  "best-happy-hours:Brit\u2019s Pub": {
     "place_id": "ChIJwQMAd8DLj4ARxETHpYQPprs",
     "matched_name": "Brit's Pub",
     "matched_address": "1110 Nicollet Mall, Minneapolis, MN 55403, USA",
@@ -4602,7 +4602,7 @@
     ],
     "fetched_at": "2026-05-07T16:51:56.103Z"
   },
-  "best-happy-hours:Cossetta’s": {
+  "best-happy-hours:Cossetta\u2019s": {
     "place_id": "ChIJtdnyyrYq9ocRmJgrkC0JDSo",
     "matched_name": "Cossetta",
     "matched_address": "211 7th St W, St Paul, MN 55102, USA",
@@ -5228,7 +5228,7 @@
     ],
     "fetched_at": "2026-05-07T16:52:03.063Z"
   },
-  "hidden-gems:Bogart’s Doughnut Co. counter": {
+  "hidden-gems:Bogart\u2019s Doughnut Co. counter": {
     "place_id": "ChIJGYm1n5kn9ocR-ncuBsZLHTE",
     "matched_name": "Bogart's Doughnut Co.",
     "matched_address": "904 W 36th St, Minneapolis, MN 55408, USA",
@@ -5306,7 +5306,7 @@
     "hours": [],
     "fetched_at": "2026-05-07T16:52:04.210Z"
   },
-  "hidden-gems:Mickey’s Diner at 4am": {
+  "hidden-gems:Mickey\u2019s Diner at 4am": {
     "place_id": "ChIJhSnsyLIq9ocRSgtF_-jHkmY",
     "matched_name": "Mickey's Diner",
     "matched_address": "36 7th St W, St Paul, MN 55102, USA",
@@ -5897,7 +5897,7 @@
     "hours": [],
     "fetched_at": "2026-05-07T16:52:14.656Z"
   },
-  "boutique-hotels:Le Méridien Chambers": {
+  "boutique-hotels:Le M\u00e9ridien Chambers": {
     "place_id": "ChIJgdqRhh4zs1IR36CAjMWLUOs",
     "matched_name": "The Chambers Hotel",
     "matched_address": "901 Hennepin Ave, Minneapolis, MN 55403, USA",
@@ -6078,7 +6078,7 @@
     ],
     "fetched_at": "2026-05-07T16:52:18.845Z"
   },
-  "ice-cream:Sebastian Joe’s Ice Cream": {
+  "ice-cream:Sebastian Joe\u2019s Ice Cream": {
     "place_id": "ChIJWUgxj9oys1IRZlzd0h7R1js",
     "matched_name": "Sebastian Joe's Ice Cream Cafe",
     "matched_address": "1007 W Franklin Ave, Minneapolis, MN 55405, USA",
@@ -6136,7 +6136,7 @@
     ],
     "fetched_at": "2026-05-07T16:52:19.344Z"
   },
-  "ice-cream:Sonny’s Ice Cream": {
+  "ice-cream:Sonny\u2019s Ice Cream": {
     "place_id": "ChIJjz5eh5An9ocR14-ApqzIa40",
     "matched_name": "Sonny's Ice Cream Cafe",
     "matched_address": "3403 Lyndale Ave S, Minneapolis, MN 55408, USA",
@@ -6404,7 +6404,7 @@
     ],
     "fetched_at": "2026-05-07T16:52:21.824Z"
   },
-  "ice-cream:Cossetta’s Pasticceria": {
+  "ice-cream:Cossetta\u2019s Pasticceria": {
     "place_id": "ChIJHWbzyrYq9ocRpdwpHdfL6-w",
     "matched_name": "Pasticceria",
     "matched_address": "211 7th St W, St Paul, MN 55102, USA",
@@ -6629,67 +6629,6 @@
       }
     ],
     "fetched_at": "2026-05-07T16:52:23.309Z"
-  },
-  "indian-restaurants:Hyderabad Biryani Place": {
-    "place_id": "ChIJU7Du9xMn9ocRxN9NZW_FNzI",
-    "matched_name": "The Hyderabad Indian Grill Nicollet Ave Minneapolis",
-    "matched_address": "6009 Nicollet Ave, Minneapolis, MN 55419, USA",
-    "location": {
-      "latitude": 44.8939915,
-      "longitude": -93.2778579
-    },
-    "business_status": "OPERATIONAL",
-    "types": [
-      "indian_restaurant",
-      "catering_service",
-      "vegetarian_restaurant",
-      "meal_takeaway",
-      "food_delivery",
-      "south_indian_restaurant",
-      "restaurant",
-      "food",
-      "point_of_interest",
-      "service",
-      "establishment"
-    ],
-    "hours": [
-      {
-        "day": 0,
-        "open": "10:00",
-        "close": "23:45"
-      },
-      {
-        "day": 1,
-        "open": "10:00",
-        "close": "23:45"
-      },
-      {
-        "day": 2,
-        "open": "10:00",
-        "close": "23:45"
-      },
-      {
-        "day": 3,
-        "open": "10:00",
-        "close": "23:45"
-      },
-      {
-        "day": 4,
-        "open": "10:00",
-        "close": "23:45"
-      },
-      {
-        "day": 5,
-        "open": "10:00",
-        "close": "23:45"
-      },
-      {
-        "day": 6,
-        "open": "10:00",
-        "close": "23:45"
-      }
-    ],
-    "fetched_at": "2026-05-07T16:52:23.870Z"
   },
   "indian-restaurants:Bawarchi Biryanis": {
     "place_id": "ChIJtx9-5vhKs1IRsUhsbfnMlno",
@@ -7621,7 +7560,7 @@
     ],
     "fetched_at": "2026-05-07T16:52:32.565Z"
   },
-  "late-night:Mickey’s Diner": {
+  "late-night:Mickey\u2019s Diner": {
     "place_id": "ChIJhSnsyLIq9ocRSgtF_-jHkmY",
     "matched_name": "Mickey's Diner",
     "matched_address": "36 7th St W, St Paul, MN 55102, USA",
@@ -7723,9 +7662,9 @@
     ],
     "fetched_at": "2026-05-07T16:52:33.511Z"
   },
-  "late-night:Pizza Lucé Downtown": {
+  "late-night:Pizza Luc\u00e9 Downtown": {
     "place_id": "ChIJ4S8J0Y8ys1IRmWaq0xTwphg",
-    "matched_name": "Pizza Lucé Downtown",
+    "matched_name": "Pizza Luc\u00e9 Downtown",
     "matched_address": "119 N 4th St, Minneapolis, MN 55401, USA",
     "location": {
       "latitude": 44.981753999999995,
@@ -8065,7 +8004,7 @@
     ],
     "fetched_at": "2026-05-07T16:52:36.747Z"
   },
-  "lgbtq-nightlife:The Gay 90’s": {
+  "lgbtq-nightlife:The Gay 90\u2019s": {
     "place_id": "ChIJEaolDJAys1IRZjW9Gkx9pLM",
     "matched_name": "Gay 90's Minneapolis",
     "matched_address": "408 Hennepin Ave, Minneapolis, MN 55401, USA",
@@ -9007,7 +8946,7 @@
     ],
     "fetched_at": "2026-05-07T16:52:48.928Z"
   },
-  "mens-clothing:Heimie’s Haberdashery": {
+  "mens-clothing:Heimie\u2019s Haberdashery": {
     "place_id": "ChIJryv33UzV94cREpbtGgeCIwQ",
     "matched_name": "Heimie's Haberdashery",
     "matched_address": "400 St Peter St, St Paul, MN 55102, USA",
@@ -9492,7 +9431,7 @@
     "hours": [],
     "fetched_at": "2026-05-07T16:52:55.606Z"
   },
-  "mexican-and-tacos:Pepito’s Mexican Restaurant": {
+  "mexican-and-tacos:Pepito\u2019s Mexican Restaurant": {
     "place_id": "ChIJ34fFibUn9ocRCvoZtovbnOc",
     "matched_name": "Pepitos Mexigo Deli",
     "matched_address": "4624 Nicollet Ave, Minneapolis, MN 55419, USA",
@@ -12341,7 +12280,7 @@
     ],
     "fetched_at": "2026-05-07T16:53:30.385Z"
   },
-  "best-patios:Lord Fletcher’s Old Lake Lodge": {
+  "best-patios:Lord Fletcher\u2019s Old Lake Lodge": {
     "place_id": "ChIJO0foyYEC9ocRIvaR6_vHWa8",
     "matched_name": "Lord Fletcher's Old Lake Lodge",
     "matched_address": "3746 Sunset Dr, Spring Park, MN 55384, USA",
@@ -12668,7 +12607,7 @@
     ],
     "fetched_at": "2026-05-07T16:53:33.342Z"
   },
-  "best-pizza:Cossetta’s": {
+  "best-pizza:Cossetta\u2019s": {
     "place_id": "ChIJtdnyyrYq9ocRmJgrkC0JDSo",
     "matched_name": "Cossetta",
     "matched_address": "211 7th St W, St Paul, MN 55102, USA",
@@ -13347,9 +13286,9 @@
     ],
     "fetched_at": "2026-05-07T16:53:40.362Z"
   },
-  "restaurants:Petite León": {
+  "restaurants:Petite Le\u00f3n": {
     "place_id": "ChIJU85VslQn9ocRaZGPGJ3TeXo",
-    "matched_name": "Petite León",
+    "matched_name": "Petite Le\u00f3n",
     "matched_address": "3800 Nicollet Ave, Minneapolis, MN 55409, USA",
     "location": {
       "latitude": 44.933954899999996,
@@ -13577,7 +13516,7 @@
     ],
     "fetched_at": "2026-05-07T16:53:42.860Z"
   },
-  "sandwiches:Cossetta’s": {
+  "sandwiches:Cossetta\u2019s": {
     "place_id": "ChIJtdnyyrYq9ocRmJgrkC0JDSo",
     "matched_name": "Cossetta",
     "matched_address": "211 7th St W, St Paul, MN 55102, USA",
@@ -13642,9 +13581,9 @@
     ],
     "fetched_at": "2026-05-07T16:53:43.353Z"
   },
-  "sandwiches:Sammy’s Avenue Eatery": {
+  "sandwiches:Sammy\u2019s Avenue Eatery": {
     "place_id": "ChIJS5z2BFAys1IRUXaxnsnvXlw",
-    "matched_name": "Sammy’s Avenue Eatery",
+    "matched_name": "Sammy\u2019s Avenue Eatery",
     "matched_address": "1101 W Broadway #1, Minneapolis, MN 55411, USA",
     "location": {
       "latitude": 44.998941699999996,
@@ -13871,9 +13810,9 @@
     ],
     "fetched_at": "2026-05-07T16:53:45.230Z"
   },
-  "sandwiches:Khâluna": {
+  "sandwiches:Kh\u00e2luna": {
     "place_id": "ChIJL35qKIQn9ocRN82BSnqaw5Q",
-    "matched_name": "Khâluna",
+    "matched_name": "Kh\u00e2luna",
     "matched_address": "4000 Lyndale Ave S, Minneapolis, MN 55409, USA",
     "location": {
       "latitude": 44.9301684,
@@ -14049,7 +13988,7 @@
     ],
     "fetched_at": "2026-05-07T16:53:46.744Z"
   },
-  "sandwiches:Mucci’s Italian": {
+  "sandwiches:Mucci\u2019s Italian": {
     "place_id": "ChIJ9eYyePkq9ocRSEjItytrCPc",
     "matched_name": "Mucci's Italian",
     "matched_address": "786 Randolph Ave, St Paul, MN 55102, USA",
@@ -14363,7 +14302,7 @@
     ],
     "fetched_at": "2026-05-07T16:53:49.704Z"
   },
-  "independent-shops:Ingebretsen’s": {
+  "independent-shops:Ingebretsen\u2019s": {
     "place_id": "ChIJlbKxZgQo9ocRiWiNCMRQewA",
     "matched_name": "Ingebretsen's Scandinavian Gifts & Foods",
     "matched_address": "1601 E Lake St, Minneapolis, MN 55407, USA",
@@ -14459,7 +14398,7 @@
     ],
     "fetched_at": "2026-05-07T16:53:51.630Z"
   },
-  "independent-shops:Sebastian Joe’s Ice Cream": {
+  "independent-shops:Sebastian Joe\u2019s Ice Cream": {
     "place_id": "ChIJWUgxj9oys1IRZlzd0h7R1js",
     "matched_name": "Sebastian Joe's Ice Cream Cafe",
     "matched_address": "1007 W Franklin Ave, Minneapolis, MN 55405, USA",
@@ -14618,7 +14557,7 @@
     ],
     "fetched_at": "2026-05-07T16:53:53.607Z"
   },
-  "independent-shops:Hymie’s Vintage Records": {
+  "independent-shops:Hymie\u2019s Vintage Records": {
     "place_id": "ChIJ1YjEni4o9ocRvw10rgG_SjM",
     "matched_name": "Hymie's Records",
     "matched_address": "3820 E Lake St, Minneapolis, MN 55406, USA",
@@ -14908,7 +14847,7 @@
   },
   "thai:Thai Cafe": {
     "place_id": "ChIJfepqWqAq9ocRaLWY-2wFdW8",
-    "matched_name": "Thai Café",
+    "matched_name": "Thai Caf\u00e9",
     "matched_address": "371 University Ave W, St Paul, MN 55103, USA",
     "location": {
       "latitude": 44.9559632,
@@ -15117,7 +15056,7 @@
     ],
     "fetched_at": "2026-05-07T16:53:58.855Z"
   },
-  "theaters:Children’s Theatre Company": {
+  "theaters:Children\u2019s Theatre Company": {
     "place_id": "ChIJT0k6WbEys1IRenZd5xWl-5M",
     "matched_name": "Children's Theatre Company",
     "matched_address": "2400 3rd Ave S, Minneapolis, MN 55404, USA",
@@ -15238,9 +15177,9 @@
     ],
     "fetched_at": "2026-05-07T16:54:00.891Z"
   },
-  "theaters:Theater Latté Da": {
+  "theaters:Theater Latt\u00e9 Da": {
     "place_id": "ChIJg5AGSKgts1IRYj3VanNbKAA",
-    "matched_name": "Theater Latté Da",
+    "matched_name": "Theater Latt\u00e9 Da",
     "matched_address": "345 13th Ave NE, Minneapolis, MN 55413, USA",
     "location": {
       "latitude": 45.0009964,
@@ -16535,7 +16474,7 @@
     ],
     "fetched_at": "2026-05-07T16:54:15.440Z"
   },
-  "womens-clothing:Cliché": {
+  "womens-clothing:Clich\u00e9": {
     "place_id": "ChIJKchXR84ys1IRF0OrfiD5fhM",
     "matched_name": "Cliche Minneapolis",
     "matched_address": "2403 Lyndale Ave S, Minneapolis, MN 55405, USA",
@@ -18570,7 +18509,7 @@
   },
   "curiosities:Wicahapi (Indian Mounds Regional Park)": {
     "place_id": "ChIJSYdWS5zV94cR46mTnTL1bnw",
-    "matched_name": "Wicaḣapi Regional Park",
+    "matched_name": "Wicah\u0307api Regional Park",
     "matched_address": "10 Mounds Blvd, St Paul, MN 55106, USA",
     "location": {
       "latitude": 44.9467837,

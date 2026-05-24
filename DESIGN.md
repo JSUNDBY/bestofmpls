@@ -77,6 +77,15 @@ the change is wrong.
    data. Honest "the list is starting; first dispatch lands this summer"
    beats fake "subscribe to our weekly newsletter."
 
+   **Address accuracy is part of this rule.** If an entry's address
+   doesn't include a street number, it never gets a map pin — Places
+   will match a same-name storefront elsewhere and lie about location.
+   The entry can stay in the directory (the editorial recommendation is
+   still useful), but the map only shows places we can locate with
+   confidence. Run `node scripts/audit.js` regularly; remove anything
+   Places flags as `CLOSED_PERMANENTLY` same day, and manually verify
+   any `CLOSED_TEMPORARILY` (could be seasonal, could be real).
+
 ---
 
 ## 3. Voice & language rules
