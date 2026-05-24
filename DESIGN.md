@@ -4,6 +4,13 @@ This is the canonical brief for anyone (human or AI) doing aesthetic, voice,
 or UX work on the site. Read this first; it captures the decisions we've
 already made and the lines we don't cross.
 
+**The visual register is Scandinavian municipal modernism, not editorial
+luxury.** Think Helsinki transit, Stockholm tunnelbana, Copenhagen wayfinding,
+the IBM Plex / Söhne family of design-system grotesks. Not Eater, not
+Infatuation, not a magazine. The site should feel like **a beloved cultural
+utility for Minneapolis** — a piece of civic infrastructure people quietly
+rely on, not a lifestyle publication people scroll for entertainment.
+
 ---
 
 ## 1. What this site is
@@ -85,36 +92,45 @@ the change is wrong.
 ## 4. Visual language
 
 ### Typography
-- **Display:** Playfair Display (700, 900, 900 italic). Used for entry
-  names, headlines, page titles. The italic 900 is the signature move.
+- **Display:** IBM Plex Sans (600, 700). Used for entry names, headlines,
+  page titles. Strong sans, slight humanist warmth. No italic — Plex
+  italic is not loaded and we don't fake it via fallback. Headline
+  emphasis happens through weight and tracking, not slant.
 - **Body:** Source Sans 3 (400, 600). Used for descriptions, intros.
 - **Label:** Archivo (500, 600, 700). All-caps, wide letter-spacing
-  (0.10–0.18em). Used for eyebrows, metadata, chips, dates.
+  (0.10–0.20em). Used for eyebrows, metadata, chips, dates.
+- **Mono:** IBM Plex Mono (500, 600). The signature surface for any
+  numeric civic data — temperatures, times, dates, station-board
+  readings. Always tabular-nums. This is what gives the site its
+  "departure board" register. If a number can be in mono, it should be.
+- **Retired:** Playfair Display. The italic-serif editorial register
+  read as lifestyle-magazine, which the site is explicitly not.
 
 ### Color tokens
 
-**Light mode (default):**
+**Light mode (default):** Nordic municipal — cool paper, near-black,
+flat signal red. Not cream, not magazine.
 ```
---paper     #FFFFFF   page background
---paper-2   #F5F2EC   warm-tinted block / elevated card
---paper-3   #ECE7DD   deeper warm block
---ink       #0A0A0A   text, footer, dark slabs
---ink-soft  #4A4A4A   secondary text
---ink-faint #7A7A7A   metadata, captions
---clay      #E11900   accent (bright editorial red)
---rule      #0A0A0A   borders, dividers
+--paper     #F4F2EC   cool paper, slight warmth (NOT cream)
+--paper-2   #ECE9E1   card surface
+--paper-3   #E0DCD2   deeper block
+--ink       #141414   near-black, neutral undertone
+--ink-soft  #4A4A48   secondary text
+--ink-faint #878683   metadata, captions
+--clay      #C8200F   sign red — flat, matte, civic
+--rule      #141414   borders, dividers
 ```
 
-**Dark mode:**
+**Dark mode:** Concrete + steel + sodium-vapor accent. No warm tint.
 ```
---paper     #0A0A0A
---paper-2   #1A1A1A
---paper-3   #242424
---ink       #FFFFFF
---ink-soft  #B8B8B8
---ink-faint #7A7A7A
---clay      #FF3D26   (slightly punchier red on black)
---rule      #FFFFFF
+--paper     #0E0E10
+--paper-2   #18181B
+--paper-3   #24242A
+--ink       #F5F4F0
+--ink-soft  #B8B8B4
+--ink-faint #7A7A78
+--clay      #FF3825
+--rule      #F5F4F0
 ```
 
 **Important:** in dark mode `--ink` becomes white. Any element that
@@ -130,9 +146,9 @@ nudges to `#050505` or `#141414`. Don't reach for `var(--ink)` for a
 - Borders are 1px solid `var(--rule)`, occasionally 2px on first-in-list
 
 ### Texture
-- Subtle SVG noise grain overlay on body (`opacity: 0.045` light,
-  `0.08` dark). Gives the page a printed-paper feel without being
-  performative.
+- Very subtle SVG noise grain overlay on body (`opacity: 0.022` in
+  light mode, **off** in dark). Reads as municipal poster paper, not
+  printed-magazine. Dark mode is clean concrete; no grain.
 
 ---
 
@@ -144,9 +160,13 @@ These are working well. Don't re-invent unless there's a real reason.
   Rounded pill buttons, `is-on` = inverted bg.
 - **Date-range collapse** for multi-day runs (a four-night dance piece
   reads as one row "May 13–16 · 4 nights").
-- **Editorial eyebrow + display headline** pattern: small all-caps clay
-  eyebrow, large italic Playfair headline below. The signature page
-  opening.
+- **Civic eyebrow + display headline** pattern: small all-caps clay
+  eyebrow (Archivo, wide tracking), large Plex Sans bold headline
+  below. The signature page opening.
+- **Signature numeral pattern**: any temperature, time, or count that
+  matters is set in IBM Plex Mono, weight 500–600, tabular figures.
+  Reads as a station-board reading. Used on the homepage right-now
+  strip, the /tonight/ hero, every event time, every venue page date.
 - **Cover band swap on weather mood**: homepage cover deck rewrites
   based on patio / brutal-cold / snow / rain. Reflects the day in copy.
 - **Right-now strip**: thin band under the cover with sunset, weather,
@@ -154,6 +174,11 @@ These are working well. Don't re-invent unless there's a real reason.
 - **Featured-event banner**: dark band between cover and right-now strip
   during an event window. Pulsing dot, eyebrow, headline, deck, dates,
   CTA. Hides automatically when the event ends.
+- **Civic notice** (homepage): public-service-announcement block between
+  the data strip and the tools grid. Hard top border, square red
+  swatch, all-caps label ("NOTICE · THE METRO"), Plex Sans body line
+  that rotates with weather mood and season, mono-stamped update time.
+  The cultural-utility equivalent of a transit alert banner.
 - **Newsletter capture**: prominent block at the bottom of homepage,
   every category, and event pages. Honest "launching this summer"
   framing while the list grows.

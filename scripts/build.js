@@ -489,8 +489,8 @@ function head({ title, description, slug, theme }) {
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=Archivo:wght@500;600;700&display=swap">
-<link rel="stylesheet" href="/style.css?v=29">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600;700&family=Source+Sans+3:wght@400;600&family=Archivo:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="/style.css?v=30">
 <script>
 // Set color mode before paint to avoid flash. Reads localStorage first,
 // falls back to light mode (the new editorial default). mode-ready class
@@ -1090,10 +1090,11 @@ function renderHome() {
         </div>`).join('')}
       </div>
     </section>` : ''}
-    <section class="editorial-interruption" aria-label="The city right now">
-      <div class="wrap editorial-interruption-inner">
-        <span class="editorial-interruption-mark">¶</span>
-        <p class="editorial-interruption-line">${esc(seasonalLine(rightnowData))}</p>
+    <section class="civic-notice" aria-label="The metro, right now">
+      <div class="wrap civic-notice-inner">
+        <div class="civic-notice-label">Notice · The Metro</div>
+        <p class="civic-notice-line">${esc(seasonalLine(rightnowData))}</p>
+        <div class="civic-notice-stamp">Updated ${esc(new Date().toLocaleString('en-US', { timeZone: 'America/Chicago', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' }))} CT</div>
       </div>
     </section>
     <section class="tools-strip">
@@ -1800,7 +1801,7 @@ function renderAdminPicks() {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>${esc(title)}</title>
-<link rel="stylesheet" href="/style.css?v=29">
+<link rel="stylesheet" href="/style.css?v=30">
 <style>
   body { background: var(--paper); }
   .admin-wrap { max-width: 960px; margin: 0 auto; padding: 32px var(--gutter) 96px; }

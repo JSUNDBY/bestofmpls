@@ -1,33 +1,40 @@
 /* ============================================================
    bestofmpls
-   Calm, grounded magazine design.
-   Cream paper, deep forest, warm clay. Easy on the eyes.
+   Scandinavian municipal modernism. A beloved cultural utility for
+   Minneapolis — not a lifestyle publication. Civic typography over
+   editorial luxury. IBM Plex Sans + Plex Mono. Strong sans, monospace
+   numerals, transit-board rhythm. Read DESIGN.md before changing this.
    ============================================================ */
 
 /* Display + body fonts loaded from Google Fonts via <link> in HTML head. */
 
 :root {
-  /* Light mode (default). Warm cream paper, deep ink, red accent.
-     Read DESIGN.md if you're tempted to flip these to pure white/black —
-     the warmth is doing real work (printed-page feel, less startup-UI). */
-  --paper:    #FAF6EC;     /* warm cream, not white */
-  --paper-2:  #F2EDDF;     /* slight depth on cards */
-  --paper-3:  #E8E2D2;
-  --ink:      #161412;     /* off-black with warm undertone */
-  --ink-soft: #4F4A43;
-  --ink-faint:#8A857C;
-  --rule:     #161412;
-  --rule-soft: rgba(22, 20, 18, 0.14);
-  --accent:   #D62B0F;     /* slightly muted editorial red — reads warmer on cream */
-  --clay:     #D62B0F;     /* alias so existing rules keep working */
-  --forest:   #161412;
-  --sage:     #4F4A43;
-  --sky:      #4F4A43;
+  /* Light mode (default). Cool off-paper, near-black, signal red.
+     Nordic municipal palette — closer to a transit map than to a magazine.
+     Don't push back toward cream + serif unless DESIGN.md changes. */
+  --paper:    #F4F2EC;     /* cool paper, slight warmth, not cream */
+  --paper-2:  #ECE9E1;     /* card surface */
+  --paper-3:  #E0DCD2;
+  --ink:      #141414;     /* near-black, neutral undertone */
+  --ink-soft: #4A4A48;
+  --ink-faint:#878683;
+  --rule:     #141414;
+  --rule-soft: rgba(20, 20, 20, 0.14);
+  --accent:   #C8200F;     /* sign red — flat, matte, civic */
+  --clay:     #C8200F;     /* alias so existing rules keep working */
+  --forest:   #141414;
+  --sage:     #4A4A48;
+  --sky:      #4A4A48;
 
-  /* Fonts */
-  --font-display: 'Playfair Display', 'Times New Roman', Georgia, serif;
-  --font-label:   'Archivo', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  --font-body:    'Source Sans 3', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  /* Fonts — civic over editorial.
+     Plex Sans = the display + UI face. Plex Mono = numerals, times,
+     temperatures, schedules. Archivo stays for labels. Source Sans for
+     long-form body. Playfair retired; if it ever comes back it's body
+     italic only, never display. */
+  --font-display: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-label:   'Archivo', 'IBM Plex Sans', 'Helvetica Neue', sans-serif;
+  --font-body:    'Source Sans 3', 'IBM Plex Sans', 'Helvetica Neue', sans-serif;
+  --font-mono:    'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
 
   /* Layout */
   --max-w: 1180px;
@@ -36,19 +43,21 @@
 
 /* Dark mode: warm dark, not cold black. Same accent ratios, inverted base. */
 html[data-mode="dark"] {
-  --paper:    #0A0A0A;
-  --paper-2:  #1A1A1A;
-  --paper-3:  #242424;
-  --ink:      #FFFFFF;
-  --ink-soft: #B8B8B8;
-  --ink-faint:#7A7A7A;
-  --rule:     #FFFFFF;
-  --accent:   #FF3D26;     /* slightly punchier red on black */
-  --clay:     #FF3D26;
-  --forest:   #FFFFFF;
-  --sage:     #B8B8B8;
-  --sky:      #B8B8B8;
-  --rule-soft: rgba(255, 255, 255, 0.18);
+  /* Dark mode — same Nordic register, inverted. Neutral charcoals, signal red.
+     No warm tint anywhere; cold concrete + steel + sodium-vapor accent. */
+  --paper:    #0E0E10;
+  --paper-2:  #18181B;
+  --paper-3:  #24242A;
+  --ink:      #F5F4F0;
+  --ink-soft: #B8B8B4;
+  --ink-faint:#7A7A78;
+  --rule:     #F5F4F0;
+  --accent:   #FF3825;
+  --clay:     #FF3825;
+  --forest:   #F5F4F0;
+  --sage:     #B8B8B4;
+  --sky:      #B8B8B4;
+  --rule-soft: rgba(245, 244, 240, 0.16);
 }
 
 * { box-sizing: border-box; }
@@ -88,18 +97,20 @@ body {
    Inline data URI so no extra request. Pointer-events none so it doesn't
    intercept clicks. Pinned to viewport so it doesn't scroll with content. */
 body::before {
+  /* Lightly textured paper. Kept very subtle so it reads as municipal
+     poster paper rather than printed magazine. Dropped in dark mode —
+     dark mode should feel like clean concrete, not aged paper. */
   content: '';
   position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: 1;
-  opacity: 0.045;
+  opacity: 0.022;
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0'/></filter><rect width='200' height='200' filter='url(%23n)'/></svg>");
   mix-blend-mode: multiply;
 }
 html[data-mode="dark"] body::before {
-  opacity: 0.08;
-  mix-blend-mode: screen;
+  opacity: 0;
 }
 /* Make sure clickable content sits above the grain */
 .site-header, .site-footer, main, section, footer { position: relative; z-index: 2; }
@@ -152,15 +163,15 @@ p { margin: 0 0 1em; }
 }
 .masthead-tagline {
   font-family: var(--font-body);
-  font-style: italic;
+  font-style: normal;
   font-size: 13px;
   color: var(--ink-soft);
 }
 .logo {
   font-family: var(--font-display);
-  font-weight: 400;
-  font-size: clamp(24px, 3vw, 32px);
-  letter-spacing: -0.02em;
+  font-weight: 700;
+  font-size: clamp(22px, 2.6vw, 28px);
+  letter-spacing: -0.025em;
   line-height: 1;
   color: var(--ink);
   text-decoration: none;
@@ -243,14 +254,15 @@ p { margin: 0 0 1em; }
 }
 .cover-headline {
   font-family: var(--font-display);
-  font-weight: 400;
-  font-size: clamp(40px, 7vw, 88px);
-  line-height: 1;
-  letter-spacing: -0.025em;
+  font-weight: 700;
+  font-size: clamp(40px, 6.5vw, 80px);
+  line-height: 0.96;
+  letter-spacing: -0.035em;
   margin: 0 0 clamp(28px, 3.5vw, 44px);
   color: var(--ink);
   max-width: 900px;
   overflow-wrap: break-word;
+  text-transform: none;
 }
 .cover-deck {
   font-family: var(--font-body);
@@ -318,22 +330,22 @@ p { margin: 0 0 1em; }
 }
 .section-title {
   font-family: var(--font-display);
-  font-weight: 400;
-  font-size: clamp(32px, 4.5vw, 56px);
-  line-height: 1;
-  letter-spacing: -0.025em;
+  font-weight: 700;
+  font-size: clamp(32px, 4.2vw, 52px);
+  line-height: 1.0;
+  letter-spacing: -0.03em;
   margin: 0 0 22px;
   max-width: 880px;
 }
 .section-title em {
   font-family: var(--font-display);
-  font-style: italic;
+  font-style: normal;
   font-weight: 700;
   color: var(--clay);
 }
 .cover-headline em {
   font-family: var(--font-display);
-  font-style: italic;
+  font-style: normal;
   font-weight: 700;
   color: var(--clay);
 }
@@ -364,10 +376,10 @@ p { margin: 0 0 1em; }
 }
 .cluster-title {
   font-family: var(--font-display);
-  font-weight: 400;
-  font-size: clamp(28px, 3.6vw, 44px);
+  font-weight: 700;
+  font-size: clamp(26px, 3.2vw, 38px);
   line-height: 1.05;
-  letter-spacing: -0.022em;
+  letter-spacing: -0.03em;
   margin: 0 0 16px;
   max-width: 720px;
 }
@@ -493,10 +505,10 @@ p { margin: 0 0 1em; }
 .entry-meta-style { color: var(--forest); font-weight: 600; }
 .entry-name {
   font-family: var(--font-display);
-  font-weight: 400;
-  font-size: clamp(22px, 2.6vw, 30px);
+  font-weight: 700;
+  font-size: clamp(22px, 2.6vw, 28px);
   line-height: 1.1;
-  letter-spacing: -0.018em;
+  letter-spacing: -0.025em;
   margin: 0 0 14px;
   color: var(--ink);
 }
@@ -523,7 +535,7 @@ p { margin: 0 0 1em; }
   flex-basis: 100%;
   margin-top: 6px;
   font-family: var(--font-body);
-  font-style: italic;
+  font-style: normal;
   font-size: 13.5px;
   line-height: 1.45;
   color: var(--ink-soft);
@@ -670,7 +682,7 @@ html[data-mode="dark"] .site-footer {
 .footer-brand .dot { color: var(--clay); }
 .footer-tag {
   font-family: var(--font-body);
-  font-style: italic;
+  font-style: normal;
   font-size: 14.5px;
   line-height: 1.6;
   color: rgba(244, 238, 223, 0.72);
@@ -1078,7 +1090,7 @@ body[data-theme="default"] {
 .exhibition-section-title {
   font-family: var(--font-display);
   font-weight: 400;
-  font-style: italic;
+  font-style: normal;
   font-size: clamp(32px, 4.5vw, 56px);
   line-height: 1.05;
   letter-spacing: -0.025em;
@@ -1136,7 +1148,7 @@ body[data-theme="default"] {
 }
 .exhibition-artist {
   font-family: var(--font-display);
-  font-style: italic;
+  font-style: normal;
   font-weight: 400;
   font-size: 18px;
   color: var(--ink-soft);
@@ -1145,7 +1157,7 @@ body[data-theme="default"] {
 .exhibition-subtitle {
   font-family: var(--font-body);
   font-size: 14.5px;
-  font-style: italic;
+  font-style: normal;
   color: var(--ink-soft);
   margin-bottom: 10px;
 }
@@ -1565,7 +1577,7 @@ body[data-theme="default"] {
 }
 .search-empty {
   font-family: var(--font-body);
-  font-style: italic;
+  font-style: normal;
   color: var(--ink-soft);
   margin-top: 24px;
 }
@@ -1747,7 +1759,7 @@ html:not([data-mode="dark"]) .nav-overlay { background: #FFFFFF; }
 .nav-item-deck {
   display: block;
   font-family: var(--font-body);
-  font-style: italic;
+  font-style: normal;
   font-size: 13.5px;
   color: var(--ink-soft);
   line-height: 1.3;
@@ -2041,7 +2053,7 @@ html:not([data-mode="dark"]) .nav-overlay { background: #FFFFFF; }
 .horoscope-text {
   font-family: var(--font-display);
   font-weight: 400;
-  font-style: italic;
+  font-style: normal;
   font-size: 17px;
   line-height: 1.55;
   color: var(--ink);
@@ -2099,7 +2111,7 @@ html:not([data-mode="dark"]) .nav-overlay { background: #FFFFFF; }
 }
 .horoscope-feature-snippet {
   font-family: var(--font-display);
-  font-style: italic;
+  font-style: normal;
   font-weight: 400;
   font-size: 14.5px;
   line-height: 1.5;
@@ -2183,7 +2195,7 @@ html:not([data-mode="dark"]) .nav-overlay { background: #FFFFFF; }
 .today-feature .cluster-eyebrow { color: var(--clay); }
 .today-feature-title {
   font-family: var(--font-display);
-  font-style: italic;
+  font-style: normal;
   font-weight: 900;
   font-size: clamp(28px, 4vw, 44px);
   line-height: 1.05;
@@ -2194,7 +2206,7 @@ html:not([data-mode="dark"]) .nav-overlay { background: #FFFFFF; }
 .today-feature-body-text {
   font-family: var(--font-display);
   font-weight: 400;
-  font-style: italic;
+  font-style: normal;
   font-size: clamp(18px, 1.6vw, 22px);
   line-height: 1.55;
   color: rgba(255,255,255,0.92);
@@ -2227,7 +2239,7 @@ html:not([data-mode="dark"]) .nav-overlay { background: #FFFFFF; }
 }
 .today-title {
   font-family: var(--font-display);
-  font-style: italic;
+  font-style: normal;
   font-weight: 900;
   font-size: clamp(36px, 6vw, 64px);
   line-height: 1.05;
@@ -2244,7 +2256,7 @@ html:not([data-mode="dark"]) .nav-overlay { background: #FFFFFF; }
   margin: 0;
 }
 .today-body::first-letter {
-  font-style: italic;
+  font-style: normal;
   font-weight: 900;
   font-size: 1.4em;
   color: var(--clay);
@@ -2352,7 +2364,7 @@ html:not([data-mode="dark"]) .nav-overlay { background: #FFFFFF; }
 .departed-name {
   font-family: var(--font-display);
   font-weight: 900;
-  font-style: italic;
+  font-style: normal;
   font-size: clamp(22px, 2.4vw, 30px);
   line-height: 1.15;
   margin: 0 0 6px;
@@ -2372,7 +2384,7 @@ html:not([data-mode="dark"]) .nav-overlay { background: #FFFFFF; }
   line-height: 1.55;
   color: var(--ink-soft);
   margin: 0;
-  font-style: italic;
+  font-style: normal;
 }
 @media (max-width: 600px) {
   .departed-entry { grid-template-columns: 1fr; gap: 12px; }
@@ -2391,7 +2403,7 @@ html:not([data-mode="dark"]) .nav-overlay { background: #FFFFFF; }
 .situation-head { margin-bottom: 28px; max-width: 720px; }
 .situation-title {
   font-family: var(--font-display);
-  font-style: italic;
+  font-style: normal;
   font-weight: 900;
   font-size: clamp(28px, 3.5vw, 40px);
   letter-spacing: -0.02em;
@@ -2402,7 +2414,7 @@ html:not([data-mode="dark"]) .nav-overlay { background: #FFFFFF; }
 .situation-deck {
   font-family: var(--font-display);
   font-weight: 400;
-  font-style: italic;
+  font-style: normal;
   font-size: 18px;
   line-height: 1.5;
   color: var(--ink-soft);
@@ -2501,7 +2513,7 @@ html:not([data-mode="dark"]) .nav-overlay { background: #FFFFFF; }
 }
 .surprise-name {
   font-family: var(--font-display);
-  font-style: italic;
+  font-style: normal;
   font-weight: 900;
   font-size: clamp(32px, 5vw, 48px);
   line-height: 1.05;
@@ -2578,36 +2590,35 @@ html:not([data-mode="dark"]) .nav-overlay { background: #FFFFFF; }
 }
 .rightnow-value-event {
   font-size: 16px;
-  font-style: italic;
+  font-style: normal;
   font-weight: 700;
 }
-/* The site's signature typographic move — current temperature as an
-   oversized italic Playfair numeral. Anchors the right-now strip and
-   gives every visit one unforgettable detail. */
-.rightnow-item--temp { gap: 0; }
+/* Signature numeral. Plex Mono tabular figures, station-clock register.
+   Sits on the right-now strip like a public-information display reading. */
+.rightnow-item--temp { gap: 2px; }
 .rightnow-temp {
   display: inline-flex;
   align-items: baseline;
-  font-family: var(--font-display);
-  font-style: italic;
-  font-weight: 900;
+  font-family: var(--font-mono);
+  font-weight: 600;
   color: var(--paper);
   letter-spacing: -0.04em;
-  line-height: 0.85;
+  line-height: 0.9;
   margin-top: 2px;
+  font-variant-numeric: tabular-nums;
 }
 .rightnow-temp-num {
-  font-size: clamp(56px, 7vw, 86px);
+  font-size: clamp(52px, 6.5vw, 80px);
 }
 .rightnow-temp-unit {
-  font-size: clamp(18px, 2vw, 22px);
-  font-style: italic;
+  font-size: clamp(16px, 1.8vw, 20px);
   color: var(--clay);
-  margin-left: 4px;
-  font-weight: 700;
+  margin-left: 2px;
+  font-weight: 500;
+  letter-spacing: 0;
 }
 @media (max-width: 900px) {
-  .rightnow-temp-num { font-size: 64px; }
+  .rightnow-temp-num { font-size: 60px; }
 }
 .rightnow-link {
   font-family: var(--font-label);
@@ -2650,48 +2661,54 @@ a.rightnow-link:hover { color: var(--clay); border-bottom-color: var(--clay); }
 }
 .tonight-hero-headline {
   font-family: var(--font-display);
-  font-style: italic;
-  font-weight: 900;
-  font-size: clamp(40px, 8vw, 84px);
-  line-height: 0.95;
-  letter-spacing: -0.03em;
+  font-style: normal;
+  font-weight: 700;
+  font-size: clamp(36px, 6vw, 64px);
+  line-height: 0.98;
+  letter-spacing: -0.035em;
   color: var(--paper);
-  margin: 0 0 32px;
+  margin: 0 0 24px;
 }
-.tonight-hero-headline em { color: var(--clay); font-style: italic; }
-/* Marquee numeral — the giant temperature display. Same signature move
-   as the homepage right-now strip, scaled up. Anchors the page. */
+.tonight-hero-headline em { color: var(--clay); font-style: normal; }
+/* Marquee numeral — the giant temperature display. Plex Mono, station-
+   clock energy. Tabular figures so a 99°F and a 12°F sit on the same
+   baseline. This is the site's signature typographic move — civic, not
+   editorial. */
 .tonight-hero-marquee {
   display: flex;
   align-items: baseline;
-  gap: 18px;
-  margin: 0 0 28px;
+  gap: 24px;
+  margin: 0 0 36px;
   flex-wrap: wrap;
+  padding-bottom: 24px;
+  border-bottom: 1px solid rgba(245, 244, 240, 0.18);
 }
 .tonight-hero-temp {
   display: inline-flex;
   align-items: baseline;
-  font-family: var(--font-display);
-  font-style: italic;
-  font-weight: 900;
+  font-family: var(--font-mono);
+  font-weight: 600;
   color: var(--paper);
   letter-spacing: -0.04em;
-  line-height: 0.85;
+  line-height: 0.9;
+  font-variant-numeric: tabular-nums;
 }
-.tonight-hero-temp-num { font-size: clamp(96px, 16vw, 192px); }
+.tonight-hero-temp-num { font-size: clamp(96px, 15vw, 176px); }
 .tonight-hero-temp-unit {
   font-size: clamp(24px, 3vw, 36px);
   color: var(--clay);
-  margin-left: 6px;
-  font-weight: 700;
+  margin-left: 4px;
+  font-weight: 500;
+  letter-spacing: 0;
 }
 .tonight-hero-condition {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-weight: 700;
-  font-size: clamp(20px, 2.4vw, 28px);
-  color: rgba(248, 244, 235, 0.78);
-  letter-spacing: -0.01em;
+  font-family: var(--font-label);
+  font-weight: 600;
+  font-size: clamp(13px, 1.4vw, 16px);
+  color: rgba(245, 244, 240, 0.7);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding-bottom: 14px;
 }
 .tonight-hero-meta {
   display: flex;
@@ -2740,7 +2757,7 @@ a.rightnow-link:hover { color: var(--clay); border-bottom-color: var(--clay); }
 }
 .tonight-pick-name {
   font-family: var(--font-display);
-  font-style: italic;
+  font-style: normal;
   font-weight: 900;
   font-size: clamp(28px, 4vw, 40px);
   letter-spacing: -0.02em;
@@ -2757,7 +2774,7 @@ a.rightnow-link:hover { color: var(--clay); border-bottom-color: var(--clay); }
 }
 .tonight-pick-why {
   font-family: var(--font-display);
-  font-style: italic;
+  font-style: normal;
   font-size: 18px;
   line-height: 1.5;
   color: var(--ink-soft);
@@ -3022,7 +3039,7 @@ a.rightnow-link:hover { color: var(--clay); border-bottom-color: var(--clay); }
 }
 .near-empty {
   font-family: var(--font-display);
-  font-style: italic;
+  font-style: normal;
   font-size: 18px;
   color: var(--ink-soft);
   padding: 32px 0;
@@ -3111,7 +3128,7 @@ a.rightnow-link:hover { color: var(--clay); border-bottom-color: var(--clay); }
 }
 .quiz-winner-name {
   font-family: var(--font-display);
-  font-style: italic;
+  font-style: normal;
   font-weight: 900;
   font-size: clamp(36px, 5vw, 56px);
   letter-spacing: -0.02em;
@@ -3121,7 +3138,7 @@ a.rightnow-link:hover { color: var(--clay); border-bottom-color: var(--clay); }
 .quiz-winner-deck {
   font-family: var(--font-display);
   font-weight: 400;
-  font-style: italic;
+  font-style: normal;
   font-size: 19px;
   line-height: 1.55;
   color: var(--ink-soft);
@@ -3233,7 +3250,7 @@ a.rightnow-link:hover { color: var(--clay); border-bottom-color: var(--clay); }
 }
 .skyway-result:empty::before {
   content: 'Pick a starting building and a destination, then "Show route." We will draw it on the map and walk you through it stop by stop.';
-  font-style: italic;
+  font-style: normal;
   color: rgba(255,255,255,0.55);
   font-size: 15px;
   display: block;
@@ -3307,7 +3324,7 @@ a.rightnow-link:hover { color: var(--clay); border-bottom-color: var(--clay); }
 }
 .skyway-tips li {
   font-family: var(--font-display);
-  font-style: italic;
+  font-style: normal;
   font-size: 16px;
   line-height: 1.5;
   color: var(--ink);
@@ -3337,7 +3354,7 @@ a.rightnow-link:hover { color: var(--clay); border-bottom-color: var(--clay); }
 }
 .hist-empty {
   font-family: var(--font-display);
-  font-style: italic;
+  font-style: normal;
   font-size: 18px;
   color: var(--ink-soft);
 }
@@ -3358,7 +3375,7 @@ a.rightnow-link:hover { color: var(--clay); border-bottom-color: var(--clay); }
 .hist-entry-date {
   font-family: var(--font-display);
   font-weight: 900;
-  font-style: italic;
+  font-style: normal;
   font-size: 22px;
   letter-spacing: -0.01em;
   color: var(--clay);
@@ -3426,7 +3443,7 @@ a.rightnow-link:hover { color: var(--clay); border-bottom-color: var(--clay); }
 .hist-month { padding: 32px var(--gutter); max-width: 880px; }
 .hist-month-title {
   font-family: var(--font-display);
-  font-style: italic;
+  font-style: normal;
   font-weight: 900;
   font-size: clamp(28px, 3.6vw, 40px);
   letter-spacing: -0.02em;
@@ -3481,7 +3498,7 @@ a.rightnow-link:hover { color: var(--clay); border-bottom-color: var(--clay); }
 }
 .mystery-card-label {
   font-family: var(--font-display);
-  font-style: italic;
+  font-style: normal;
   font-weight: 900;
   font-size: 22px;
   letter-spacing: -0.01em;
@@ -3524,7 +3541,7 @@ a.rightnow-link:hover { color: var(--clay); border-bottom-color: var(--clay); }
 }
 .mystery-title {
   font-family: var(--font-display);
-  font-style: italic;
+  font-style: normal;
   font-weight: 900;
   font-size: clamp(28px, 4vw, 44px);
   letter-spacing: -0.02em;
@@ -3642,7 +3659,7 @@ a.rightnow-link:hover { color: var(--clay); border-bottom-color: var(--clay); }
 .mystery-stop-text {
   font-family: var(--font-display);
   font-weight: 400;
-  font-style: italic;
+  font-style: normal;
   font-size: 18px;
   line-height: 1.55;
   color: var(--ink);
@@ -3700,7 +3717,7 @@ html[data-mode="dark"] .countdown-name { color: #FFFFFF; }
 }
 .poll-headline {
   font-family: var(--font-display);
-  font-style: italic;
+  font-style: normal;
   font-weight: 900;
   font-size: clamp(26px, 3.6vw, 36px);
   line-height: 1.1;
@@ -3738,7 +3755,7 @@ html[data-mode="dark"] .countdown-name { color: #FFFFFF; }
   letter-spacing: 0;
   font-size: 12px;
   color: var(--ink-faint);
-  font-style: italic;
+  font-style: normal;
 }
 .poll-row input,
 .poll-row textarea {
@@ -3802,7 +3819,7 @@ html[data-mode="dark"] .countdown-name { color: #FFFFFF; }
 }
 .poll-thanks-title {
   font-family: var(--font-display);
-  font-style: italic;
+  font-style: normal;
   font-weight: 900;
   font-size: clamp(22px, 2.8vw, 28px);
   letter-spacing: -0.01em;
@@ -3833,7 +3850,7 @@ html[data-mode="dark"] .countdown-name { color: #FFFFFF; }
 .poll-thanks-again:hover { color: var(--ink); border-bottom-color: var(--ink); }
 .poll-disabled {
   font-family: var(--font-body);
-  font-style: italic;
+  font-style: normal;
   font-size: 15px;
   color: var(--ink-soft);
   padding: 18px 22px;
@@ -3896,7 +3913,7 @@ html[data-mode="dark"] .countdown-name { color: #FFFFFF; }
 .entry-detail-name {
   font-family: var(--font-display);
   font-weight: 900;
-  font-style: italic;
+  font-style: normal;
   font-size: clamp(40px, 6vw, 72px);
   line-height: 1.02;
   letter-spacing: -0.02em;
@@ -3953,7 +3970,7 @@ html[data-mode="dark"] .countdown-name { color: #FFFFFF; }
 .entry-detail-access {
   margin-top: 4px;
   font-family: var(--font-body);
-  font-style: italic;
+  font-style: normal;
   font-size: 14.5px;
   line-height: 1.5;
   color: var(--ink-soft);
@@ -3984,7 +4001,7 @@ html[data-mode="dark"] .countdown-name { color: #FFFFFF; }
 .entry-detail-related-title {
   font-family: var(--font-display);
   font-weight: 900;
-  font-style: italic;
+  font-style: normal;
   font-size: clamp(20px, 2.4vw, 26px);
   letter-spacing: -0.01em;
   margin: 0 0 18px;
@@ -4115,7 +4132,7 @@ html[data-mode="dark"] .feature-banner {
 .feature-banner-title {
   font-family: var(--font-display);
   font-weight: 900;
-  font-style: italic;
+  font-style: normal;
   font-size: clamp(28px, 4vw, 44px);
   line-height: 1.0;
   letter-spacing: -0.01em;
@@ -4173,7 +4190,7 @@ html[data-mode="dark"] .event-hero {
 .event-hero-headline {
   font-family: var(--font-display);
   font-weight: 900;
-  font-style: italic;
+  font-style: normal;
   font-size: clamp(48px, 7vw, 88px);
   line-height: 0.95;
   letter-spacing: -0.02em;
@@ -4241,7 +4258,7 @@ html[data-mode="dark"] .event-hero {
 .event-section-title {
   font-family: var(--font-display);
   font-weight: 900;
-  font-style: italic;
+  font-style: normal;
   font-size: clamp(28px, 3.4vw, 38px);
   line-height: 1.0;
   letter-spacing: -0.01em;
@@ -4363,7 +4380,7 @@ html[data-mode="dark"] .newsletter-capture {
 .newsletter-title {
   font-family: var(--font-display);
   font-weight: 900;
-  font-style: italic;
+  font-style: normal;
   font-size: clamp(24px, 2.8vw, 32px);
   line-height: 1.0;
   letter-spacing: -0.01em;
@@ -4434,7 +4451,7 @@ html[data-mode="dark"] .newsletter-capture {
   font-size: 12px;
   color: var(--ink-faint);
   margin: 6px 0 0;
-  font-style: italic;
+  font-style: normal;
 }
 
 /* ===== Calendar — Date stream + venue filter ===== */
@@ -4493,36 +4510,44 @@ html[data-mode="dark"] .newsletter-capture {
   padding: 28px var(--gutter) 8px;
 }
 .cal-day + .cal-day { border-top: 1px solid var(--rule); }
+/* Departure-board head. Day label as a strong civic display block,
+   ISO date in mono off to the side. The page reads like a station
+   arrivals board: heading, info pills, then a chronological list. */
 .cal-day-head {
   display: flex;
   align-items: baseline;
   gap: 14px;
   flex-wrap: wrap;
   margin: 0 0 16px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--ink);
 }
 .cal-day-label {
   font-family: var(--font-display);
-  font-weight: 900;
-  font-style: italic;
-  font-size: clamp(26px, 3.2vw, 34px);
+  font-weight: 700;
+  font-style: normal;
+  font-size: clamp(24px, 3vw, 32px);
   line-height: 1.0;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.025em;
   margin: 0;
   color: var(--ink);
+  text-transform: uppercase;
 }
 .cal-day-date {
-  font-family: var(--font-label);
-  font-weight: 600;
+  font-family: var(--font-mono);
+  font-weight: 500;
   font-size: 12px;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--ink-faint);
+  font-variant-numeric: tabular-nums;
+  margin-left: auto;
 }
 .cal-day-signals {
   display: flex;
-  gap: 8px;
+  gap: 6px;
   flex-wrap: wrap;
-  margin: 0 0 12px;
+  margin: 0 0 14px;
 }
 .cal-day-signal {
   display: inline-flex;
@@ -4530,10 +4555,10 @@ html[data-mode="dark"] .newsletter-capture {
   font-family: var(--font-label);
   font-weight: 700;
   font-size: 10.5px;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   padding: 4px 10px;
-  border-radius: 999px;
+  border-radius: 0;             /* square = civic */
   border: 1px solid var(--rule-soft);
 }
 .cal-day-signal--cluster { color: var(--clay); border-color: rgba(214, 43, 15, 0.35); background: rgba(214, 43, 15, 0.05); }
@@ -4555,18 +4580,20 @@ html[data-mode="dark"] .cal-day-signal--cluster { background: rgba(255, 61, 38, 
   .cal-row { grid-template-columns: 1fr; gap: 4px; }
 }
 .cal-row-when {
-  font-family: var(--font-label);
-  font-weight: 700;
-  font-size: 12px;
-  letter-spacing: 0.12em;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 13.5px;
+  letter-spacing: -0.02em;
   text-transform: uppercase;
   color: var(--clay);
+  font-variant-numeric: tabular-nums;
 }
 .cal-row-title {
   font-family: var(--font-display);
-  font-weight: 700;
-  font-size: clamp(18px, 2vw, 22px);
-  line-height: 1.2;
+  font-weight: 600;
+  font-size: clamp(17px, 1.9vw, 20px);
+  line-height: 1.25;
+  letter-spacing: -0.015em;
   margin: 0 0 4px;
 }
 .cal-row-title a { color: inherit; text-decoration: none; border-bottom: 1px solid var(--rule); }
@@ -4663,7 +4690,7 @@ html[data-mode="dark"] .cal-day-signal--cluster { background: rgba(255, 61, 38, 
 .cal-venue-name {
   font-family: var(--font-display);
   font-weight: 900;
-  font-style: italic;
+  font-style: normal;
   font-size: clamp(28px, 3.6vw, 40px);
   line-height: 1.0;
   letter-spacing: -0.01em;
@@ -4763,18 +4790,20 @@ html[data-mode="dark"] .cal-day-signal--cluster { background: rgba(255, 61, 38, 
   .tonight-event { grid-template-columns: 1fr; gap: 4px; }
 }
 .tonight-event-time {
-  font-family: var(--font-label);
-  font-weight: 700;
-  font-size: 12px;
-  letter-spacing: 0.12em;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: -0.02em;
   text-transform: uppercase;
   color: var(--clay);
+  font-variant-numeric: tabular-nums;
 }
 .tonight-event-title {
   font-family: var(--font-display);
-  font-weight: 700;
-  font-size: clamp(19px, 2.2vw, 24px);
-  line-height: 1.2;
+  font-weight: 600;
+  font-size: clamp(18px, 2vw, 22px);
+  line-height: 1.25;
+  letter-spacing: -0.015em;
   margin: 0 0 4px;
   color: var(--ink);
 }
@@ -4844,7 +4873,7 @@ html[data-mode="dark"] .cal-day-signal--cluster { background: rgba(255, 61, 38, 
 .venue-hero-name {
   font-family: var(--font-display);
   font-weight: 900;
-  font-style: italic;
+  font-style: normal;
   font-size: clamp(40px, 6vw, 72px);
   line-height: 0.95;
   letter-spacing: -0.02em;
@@ -4873,13 +4902,14 @@ html[data-mode="dark"] .cal-day-signal--cluster { background: rgba(255, 61, 38, 
   max-width: 720px;
 }
 .venue-mythology-text {
-  font-family: var(--font-display);
-  font-size: clamp(19px, 2.4vw, 24px);
-  line-height: 1.5;
+  font-family: var(--font-body);
+  font-size: clamp(17px, 1.9vw, 19px);
+  line-height: 1.6;
   color: var(--ink);
   margin: 0;
   font-weight: 400;
   text-wrap: balance;
+  max-width: 680px;
 }
 .venue-mythology-rituals {
   margin-top: 22px;
@@ -4945,7 +4975,7 @@ html[data-mode="dark"] .venue-dir-info { background: var(--paper-2); }
 .venue-month-label {
   font-family: var(--font-display);
   font-weight: 900;
-  font-style: italic;
+  font-style: normal;
   font-size: clamp(24px, 2.8vw, 30px);
   line-height: 1.0;
   letter-spacing: -0.01em;
@@ -4971,23 +5001,28 @@ html[data-mode="dark"] .venue-dir-info { background: var(--paper-2); }
   font-family: var(--font-label);
 }
 .venue-show-date {
-  font-weight: 700;
-  font-size: 12px;
-  letter-spacing: 0.12em;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: -0.02em;
   text-transform: uppercase;
   color: var(--clay);
+  font-variant-numeric: tabular-nums;
 }
 .venue-show-time {
+  font-family: var(--font-mono);
   font-weight: 500;
-  font-size: 12px;
+  font-size: 12.5px;
   color: var(--ink-faint);
-  letter-spacing: 0.04em;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
 }
 .venue-show-title {
   font-family: var(--font-display);
-  font-weight: 700;
-  font-size: clamp(19px, 2.2vw, 23px);
-  line-height: 1.2;
+  font-weight: 600;
+  font-size: clamp(18px, 2vw, 21px);
+  line-height: 1.25;
+  letter-spacing: -0.02em;
   margin: 0 0 4px;
 }
 .venue-show-title a { color: inherit; text-decoration: none; border-bottom: 1px solid var(--rule); }
@@ -5034,7 +5069,7 @@ html[data-mode="dark"] .venue-dir-info { background: var(--paper-2); }
 .weekend-day-label {
   font-family: var(--font-display);
   font-weight: 900;
-  font-style: italic;
+  font-style: normal;
   font-size: clamp(24px, 2.8vw, 30px);
   line-height: 1.0;
   letter-spacing: -0.01em;
@@ -5060,7 +5095,7 @@ html[data-mode="dark"] .venue-dir-info { background: var(--paper-2); }
 }
 .weekend-empty {
   font-family: var(--font-body);
-  font-style: italic;
+  font-style: normal;
   font-size: 14px;
   color: var(--ink-faint);
   margin: 8px 0 0;
@@ -5074,18 +5109,20 @@ html[data-mode="dark"] .venue-dir-info { background: var(--paper-2); }
   border-top: 1px solid var(--rule);
 }
 .weekend-show-when {
-  font-family: var(--font-label);
-  font-weight: 700;
-  font-size: 11.5px;
-  letter-spacing: 0.10em;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 12.5px;
+  letter-spacing: -0.02em;
   text-transform: uppercase;
   color: var(--clay);
+  font-variant-numeric: tabular-nums;
 }
 .weekend-show-title {
   font-family: var(--font-display);
-  font-weight: 700;
+  font-weight: 600;
   font-size: 16px;
-  line-height: 1.25;
+  line-height: 1.3;
+  letter-spacing: -0.015em;
   margin: 0 0 3px;
 }
 .weekend-show-title a { color: inherit; text-decoration: none; border-bottom: 1px solid var(--rule); }
@@ -5161,56 +5198,69 @@ html[data-mode="dark"] .venue-dir-info { background: var(--paper-2); }
   }
 }
 
-/* ===== Editorial interruption (homepage) =====
-   The one moment of editorial voice between the live-data strip and the
-   tools grid. Copy is weather + season aware. Intentionally breaks the
-   "uniform stack of cards" rhythm of the rest of the page. */
-.editorial-interruption {
+/* ===== Civic notice (homepage) =====
+   Public-service-announcement style. Black border, all-caps label, body
+   copy in clean sans, dateline stamp. The civic equivalent of a transit
+   alert banner: short, declarative, infrastructural. Copy is weather +
+   season aware. */
+.civic-notice {
   background: var(--paper);
-  padding: 56px 0 64px;
-  position: relative;
+  padding: 40px 0 44px;
+  border-top: 3px solid var(--ink);
   border-bottom: 1px solid var(--rule-soft);
 }
-.editorial-interruption-inner {
+.civic-notice-inner {
   max-width: 900px;
   margin: 0 auto;
   padding: 0 var(--gutter);
-  position: relative;
 }
-.editorial-interruption-mark {
-  position: absolute;
-  top: -8px;
-  left: var(--gutter);
-  font-family: var(--font-display);
-  font-style: italic;
-  font-weight: 900;
-  font-size: 120px;
-  line-height: 1;
-  color: var(--clay);
-  opacity: 0.18;
-  pointer-events: none;
-  user-select: none;
-}
-.editorial-interruption-line {
-  font-family: var(--font-display);
-  font-style: italic;
+.civic-notice-label {
+  font-family: var(--font-label);
   font-weight: 700;
-  font-size: clamp(28px, 4vw, 48px);
-  line-height: 1.15;
-  letter-spacing: -0.015em;
+  font-size: 11px;
+  letter-spacing: 0.20em;
+  text-transform: uppercase;
+  color: var(--clay);
+  margin: 0 0 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.civic-notice-label::before {
+  content: '';
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background: var(--clay);
+  /* No round; civic shapes are square. */
+}
+.civic-notice-line {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(22px, 3vw, 32px);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
   color: var(--ink);
-  margin: 0;
-  position: relative;
+  margin: 0 0 18px;
   max-width: 820px;
   text-wrap: balance;
 }
-html[data-mode="dark"] .editorial-interruption {
-  background: #141414;
-  border-bottom-color: rgba(255,255,255,0.08);
+.civic-notice-stamp {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  color: var(--ink-faint);
+  text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
+}
+html[data-mode="dark"] .civic-notice {
+  background: #141416;
+  border-top-color: var(--ink);
+  border-bottom-color: rgba(245, 244, 240, 0.08);
 }
 @media (max-width: 600px) {
-  .editorial-interruption { padding: 40px 0 44px; }
-  .editorial-interruption-mark { font-size: 80px; top: -2px; opacity: 0.22; }
+  .civic-notice { padding: 32px 0 36px; }
 }
 
 /* ===== Reservation buttons (entry listing + entry detail) =====
