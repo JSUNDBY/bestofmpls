@@ -858,6 +858,14 @@ function header({ activeSlug } = {}) {
         { href: '/departed/',  label: 'Departed',       deck: 'Places we lost' },
         { href: '/glossary/',  label: "Loon's Nest",    deck: 'A small Twin Cities glossary' }
       ]
+    },
+    {
+      label: 'About',
+      items: [
+        { href: '/about/',      label: 'About',         deck: 'Who makes this, and why' },
+        { href: '/contribute/', label: 'Send a tip',    deck: 'A place, a correction, a heads-up' },
+        { href: '/partner/',    label: 'For business',  deck: 'Featured partner placement, plainly explained' }
+      ]
     }
   ];
 
@@ -1011,6 +1019,7 @@ function footer() {
       <div class="colophon-links">
         <a href="/about/">About</a>
         <a href="/contribute/">Send a tip</a>
+        <a href="/partner/">For business</a>
         <a href="mailto:hello@bestofmpls.com">Contact</a>
         <a href="/search/">Search</a>
       </div>
@@ -1634,9 +1643,12 @@ function renderCategory(c) {
 
   const description = c.subtitle;
   const entries = c.entries.map((e, i) => {
-    // Only the first entry gets the Editor's Pick featured treatment.
-    // The rest are unranked list entries (no number, no star).
-    const isFeatured = i === 0;
+    // Featured treatment is now opt-in via `featured: true` on the entry
+    // — reserved for paid partner placements. See /partner/. Editorial
+    // recommendations stay unranked; the list order itself is the
+    // ranking. (Previously the first entry got an auto "Editor's Pick"
+    // star, which over-promised editorial endorsement.)
+    const isFeatured = e.featured === true;
     const featured = isFeatured ? ' entry--featured' : ' entry--unranked';
     const meta = [];
     if (e.neighborhood) meta.push(nhoodTag(e.neighborhood));
@@ -1669,8 +1681,10 @@ function renderCategory(c) {
     // Curiosities and other reservation-required entries can declare an
     // `access` field with how to actually get in (tour, ticket, etc).
     if (e.access) footerBits.push(`<span class="entry-footer-access"><strong>How to visit:</strong> ${esc(e.access)}</span>`);
-    const rankBlock = isFeatured ? `<div class="entry-rank">★</div>` : '';
-    const pickBadge = isFeatured ? '<span class="entry-meta-pick">Editor’s pick</span>' : '';
+    // Empty rank slot (used to be ★ for first entry). Paid-partner entries
+    // get a small "Featured" mark via the badge below instead.
+    const rankBlock = '';
+    const pickBadge = isFeatured ? '<span class="entry-meta-pick" title="Paid partner placement — see /partner/">Featured</span>' : '';
     // Look up hours for this entry. If we have them, embed as a data attribute
     // so the inline script at footer can compute open/closed in the user's
     // timezone on page load.
@@ -2642,13 +2656,11 @@ function renderNeighborhoodIndex(neighborhoods) {
       </div>
     </section>
     <section class="entry-list">
-      ${neighborhoods.map((nb, i) => `
-        <article class="entry${i === 0 ? ' entry--featured' : ''}">
-          <div class="entry-rank">${i === 0 ? '★' : String(i + 1).padStart(2, '0')}</div>
+      ${neighborhoods.map((nb) => `
+        <article class="entry entry--unranked">
           <div class="entry-body">
             <div class="entry-meta">
               <span>${nb.entries.length} places listed</span>
-              ${i === 0 ? '<span class="entry-meta-pick">Most-listed neighborhood</span>' : ''}
             </div>
             <h2 class="entry-name"><a href="/neighborhoods/${nb.slug}/">${esc(nb.name)} →</a></h2>
             <p class="entry-description">${esc(nb.intro)}</p>
@@ -4921,6 +4933,51 @@ function renderContribute() {
     footer();
 }
 
+// ---------- /partner/ — paid featured placement, civic register ----------
+function renderPartner() {
+  const title = 'Become a featured partner';
+  const description = 'Featured placement for Twin Cities businesses on bestofmpls. Editorial control retained. Clearly labeled. Limited per category.';
+  return head({ title, description, slug: 'partner', theme: 'default' }) +
+    header({ activeSlug: 'partner' }) +
+    `<section class="section-head">
+      <div class="wrap">
+        <div class="section-eyebrow">For Twin Cities businesses</div>
+        <h1 class="section-title">Become a featured partner</h1>
+        <p class="section-deck">A small number of restaurants, bars, venues, and shops are featured at the top of their category each month. It is the only paid surface on the site. Clearly labeled, editorially controlled, capped per category.</p>
+      </div>
+    </section>
+    <section class="wrap" style="max-width: 760px; padding: 48px var(--gutter);">
+      <h2 class="tonight-section-title">How it works</h2>
+      <ul class="skyway-tips" style="grid-template-columns: 1fr;">
+        <li><b>Top placement</b> in a single category list (Cocktail Bars, Pizza, Hidden Gems, etc.) for the partnership term.</li>
+        <li><b>A small "Featured" mark</b> on the listing, with a tooltip linking back to this page. Readers always know what is paid and what is editorial.</li>
+        <li><b>The editorial copy stays ours.</b> We write the description, the neighborhood note, and the "why" the way we would for any place we covered. You can suggest, you can correct facts; we hold the pen.</li>
+        <li><b>One featured slot per category per month.</b> So the list never becomes a stack of ads.</li>
+        <li><b>We reserve the right to decline.</b> Places that do not fit the editorial register — chain operators, dental practices, MLMs — get a polite no, even if the check would clear.</li>
+        <li><b>No promises about traffic, rankings, or outcomes.</b> We can tell you what the page got last month. We will not pretend to know what your booking calendar will do.</li>
+      </ul>
+
+      <h2 class="tonight-section-title" style="margin-top: 48px;">Pricing</h2>
+      <p style="font-family: var(--font-body); font-size: 17px; line-height: 1.6; color: var(--ink); max-width: 640px;">Starts at <b>$200 / month</b> per featured category. Quarterly and seasonal packages available. We try to match the rate to the business — a neighborhood bakery and a downtown hotel are not the same conversation.</p>
+      <p style="font-family: var(--font-body); font-size: 17px; line-height: 1.6; color: var(--ink-soft); max-width: 640px; margin-top: 12px;">If you run a Twin Cities venue, restaurant, or shop and the rate works, we want to talk. If the rate doesn't, tell us what does — small operators we already cover get genuine consideration.</p>
+
+      <h2 class="tonight-section-title" style="margin-top: 48px;">What we do not do</h2>
+      <ul class="skyway-tips" style="grid-template-columns: 1fr;">
+        <li>Banner ads, display ads, third-party trackers, retargeting pixels.</li>
+        <li>Sponsored content that pretends to be editorial.</li>
+        <li>Paid reviews. We do not review places; we pick places we like.</li>
+        <li>Affiliate links that go anywhere except OpenTable / Resy for actual reservations.</li>
+        <li>Native ad networks, programmatic anything, or "content amplification."</li>
+      </ul>
+
+      <h2 class="tonight-section-title" style="margin-top: 48px;">To start</h2>
+      <p style="font-family: var(--font-body); font-size: 17px; line-height: 1.6; color: var(--ink); max-width: 640px;">Email <a href="mailto:hello@bestofmpls.com?subject=Featured%20partner%20interest" style="color: var(--clay); border-bottom: 1px solid var(--clay);">hello@bestofmpls.com</a> with: which category, a few sentences about the business, what month you want to start, and any timing around your own seasonality (a patio in May; a soup-and-bourbon room in January). We will write back within a week.</p>
+
+      <p style="font-family: var(--font-body); font-style: italic; font-size: 15px; line-height: 1.6; color: var(--ink-soft); margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--rule-soft); max-width: 640px;">bestofmpls.com is an independent, locally-owned editorial guide. The site exists because the metro deserves a recommendation surface that is not owned by a publishing conglomerate or a tourism board. Featured partnerships are how it stays that way.</p>
+    </section>` +
+    footer();
+}
+
 function render404() {
   return head({ title: 'Page not found', description: 'That page is not here.', slug: '404', theme: 'default' }) +
     header({}) +
@@ -4954,6 +5011,7 @@ function renderSitemap(neighborhoods) {
     { loc: SITE + '/search/', priority: '0.5' },
     { loc: SITE + '/about/', priority: '0.6' },
     { loc: SITE + '/contribute/', priority: '0.5' },
+    { loc: SITE + '/partner/', priority: '0.5' },
     ...(featuredEvts.events || []).map(ev => ({ loc: `${SITE}/${ev.slug}/`, priority: '0.95' })),
     ...categories.map(c => ({ loc: `${SITE}/${c.slug}/`, priority: '0.9' })),
     ...resolveVenues().map(v => ({ loc: `${SITE}/calendar/venue/${v.slug}/`, priority: '0.8' })),
@@ -5111,6 +5169,7 @@ function build() {
   // marked noindex. Anyone can hit the URL but the worker enforces auth.
   writeFile('admin/picks/index.html', renderAdminPicks());
   writeFile('contribute/index.html', renderContribute());
+  writeFile('partner/index.html', renderPartner());
   writeFile('404.html', render404());
   writeFile('sitemap.xml', renderSitemap(neighborhoods));
   writeFile('robots.txt', renderRobots());
