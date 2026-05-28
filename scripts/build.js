@@ -765,7 +765,7 @@ function head({ title, description, slug, theme }) {
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600;700&family=Source+Sans+3:wght@400;600&family=Archivo:wght@500;600;700&family=Archivo+Narrow:wght@600;700&display=swap">
-<link rel="stylesheet" href="/style.css?v=36">
+<link rel="stylesheet" href="/style.css?v=37">
 <script>
 // Set color mode before paint to avoid flash. Reads localStorage first,
 // falls back to light mode (the new editorial default). mode-ready class
@@ -2263,7 +2263,7 @@ function renderAdminPicks() {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>${esc(title)}</title>
-<link rel="stylesheet" href="/style.css?v=36">
+<link rel="stylesheet" href="/style.css?v=37">
 <style>
   body { background: var(--paper); }
   .admin-wrap { max-width: 960px; margin: 0 auto; padding: 32px var(--gutter) 96px; }
@@ -2895,6 +2895,37 @@ function renderCalendar() {
   // others fade out client-side. No forever scroll, no separate venue page.
   const allVenues = [...new Set(allShows.map(e => e.venue))].sort();
 
+  // Venue → mood-tag lookup, built from live-music.js. Lets us tag each
+  // event row with its venue's moods so the client-side mood filter can
+  // match (iconic / intimate / dancey / late-night / etc.). The same
+  // venue-name → directory-entry map we use for venue pages.
+  const venueDirAlias = {
+    'First Avenue': 'First Avenue & 7th St Entry',
+    '7th St Entry': 'First Avenue & 7th St Entry',
+    'Turf Club': 'First Avenue & 7th St Entry',
+    'Fine Line': 'The Fine Line Music Cafe',
+    'The Cedar Cultural Center': 'Cedar Cultural Center',
+    'Palace Theatre': 'Palace Theatre',
+    'The Fitzgerald Theater': 'Fitzgerald Theater',
+    'Dakota Jazz Club': 'Dakota Jazz Club & Restaurant',
+    'The Hook and Ladder': 'The Hook and Ladder Theater',
+    'Berlin': 'Berlin',
+    'The 331 Club': 'The 331 Club'
+  };
+  const dirByName = new Map();
+  for (const e of (liveMusic.entries || [])) dirByName.set(e.name, e);
+  function moodsForVenue(venueName) {
+    const dirName = venueDirAlias[venueName] || venueName;
+    const dir = dirByName.get(dirName);
+    return (dir && dir.mood_tags) || [];
+  }
+  // Distinct mood tag vocabulary actually in use across our venues —
+  // capped to a curated discovery-first set so the chip row stays scannable.
+  const MOOD_DISPLAY_ORDER = ['iconic', 'intimate', 'listening-room', 'date-night', 'dancey', 'late-night', 'local-scene', 'free', 'dive'];
+  const usedMoods = new Set();
+  for (const v of allVenues) moodsForVenue(v).forEach(m => usedMoods.add(m));
+  const moodChips = MOOD_DISPLAY_ORDER.filter(m => usedMoods.has(m));
+
   function fmtDay(iso) {
     const [y, m, d] = iso.split('-').map(Number);
     const dt = new Date(y, m - 1, d);
@@ -2933,6 +2964,19 @@ function renderCalendar() {
   const venueChips = `
     <button class="cal-chip cal-chip-all is-on" type="button" data-venue="all">All venues</button>
     ${allVenues.map(v => `<button class="cal-chip" type="button" data-venue="${esc(v)}">${esc(v)}</button>`).join('')}`;
+
+  // Mood filter chips. Different axis from venue — "I want an intimate
+  // listening room tonight" or "where are the dancey rooms" or "what's
+  // free." Click a mood and only events at venues tagged with that mood
+  // stay visible. "All moods" resets.
+  const moodChipsBar = moodChips.length ? `
+    <div class="cal-filter-group cal-filter-group--mood">
+      <span class="cal-filter-label">Filter by mood:</span>
+      <div class="cal-chip-row">
+        <button class="cal-chip cal-chip-mood is-on" type="button" data-mood="all">All moods</button>
+        ${moodChips.map(m => `<button class="cal-chip cal-chip-mood" type="button" data-mood="${esc(m)}">${esc(m.replace('-', ' '))}</button>`).join('')}
+      </div>
+    </div>` : '';
 
   // Per-day signals — small editorial tags above each day's list. Computed
   // from the data we already have, no extra inputs needed.
@@ -2975,7 +3019,7 @@ function renderCalendar() {
       ${signalsBar}
       <ul class="cal-day-list">
         ${events.map(e => `
-          <li class="cal-row" data-venue="${esc(e.venue)}">
+          <li class="cal-row" data-venue="${esc(e.venue)}" data-moods="${esc(moodsForVenue(e.venue).join(' '))}">
             <div class="cal-row-when">${e.time ? esc(fmtTime(e.time)) : 'TBA'}</div>
             <div class="cal-row-body">
               <h3 class="cal-row-title">${e.url ? `<a href="${esc(e.url)}" target="_blank" rel="noopener">${esc(e.title)} <span class="entry-meta-link-icon">↗</span></a>` : esc(e.title)}</h3>
@@ -2997,8 +3041,11 @@ function renderCalendar() {
        </section>`
     : `<div class="cal-controls">
          <div class="wrap cal-controls-inner">
-           <span class="cal-filter-label">Filter by venue:</span>
-           <div class="cal-chip-row">${venueChips}</div>
+           <div class="cal-filter-group cal-filter-group--venue">
+             <span class="cal-filter-label">Filter by venue:</span>
+             <div class="cal-chip-row">${venueChips}</div>
+           </div>
+           ${moodChipsBar}
          </div>
        </div>
        <div class="cal-stream">${dayBlocks}</div>
@@ -3017,13 +3064,20 @@ function renderCalendar() {
      ${empty}
      <script>
        (function(){
-         var chips = document.querySelectorAll('.cal-chip');
+         // Two filter axes: venue (which room) and mood (what kind of room).
+         // Both run client-side, intersect, and re-run on every chip click.
+         var venueChips = document.querySelectorAll('.cal-chip:not(.cal-chip-mood)');
+         var moodChips  = document.querySelectorAll('.cal-chip-mood');
          var rows = document.querySelectorAll('.cal-row');
          var days = document.querySelectorAll('.cal-day');
-         function apply(venue){
-           chips.forEach(function(c){ c.classList.toggle('is-on', c.dataset.venue === venue); });
+         var state = { venue: 'all', mood: 'all' };
+         function apply(){
+           venueChips.forEach(function(c){ c.classList.toggle('is-on', c.dataset.venue === state.venue); });
+           moodChips.forEach(function(c){ c.classList.toggle('is-on', c.dataset.mood === state.mood); });
            rows.forEach(function(r){
-             r.style.display = (venue === 'all' || r.dataset.venue === venue) ? '' : 'none';
+             var venueMatch = (state.venue === 'all' || r.dataset.venue === state.venue);
+             var moodMatch  = (state.mood === 'all' || (r.dataset.moods || '').split(' ').indexOf(state.mood) !== -1);
+             r.style.display = (venueMatch && moodMatch) ? '' : 'none';
            });
            days.forEach(function(d){
              var any = false;
@@ -3031,7 +3085,8 @@ function renderCalendar() {
              d.style.display = any ? '' : 'none';
            });
          }
-         chips.forEach(function(c){ c.addEventListener('click', function(){ apply(c.dataset.venue); }); });
+         venueChips.forEach(function(c){ c.addEventListener('click', function(){ state.venue = c.dataset.venue; apply(); }); });
+         moodChips.forEach(function(c){  c.addEventListener('click', function(){ state.mood  = c.dataset.mood;  apply(); }); });
        })();
      </script>` +
     footer();
@@ -3162,6 +3217,33 @@ function renderVenuePage(v) {
         </div>` : ''}
     </div>` : '';
 
+  // Mood tag pills — small controlled vocabulary that doubles as the
+  // mood-filter taxonomy on /calendar/. Helps a reader scan whether a
+  // venue is "the iconic loud room" or "the intimate listening room."
+  const moodTags = (v.directory && v.directory.mood_tags) || [];
+  const moodTagsBlock = moodTags.length ? `
+    <div class="venue-mood-tags">
+      ${moodTags.map(t => `<span class="venue-mood-tag">${esc(t)}</span>`).join('')}
+    </div>` : '';
+
+  // Before / After block — the night-planning layer the brief asks for.
+  // Turns the venue page from "what's playing" into "how to plan the
+  // whole night around this show."
+  const ba = v.directory && v.directory.before_after;
+  const beforeAfterBlock = ba ? `
+    <section class="venue-ba">
+      <header class="venue-ba-head">
+        <span class="venue-ba-eyebrow">Plan the night</span>
+        <h2 class="venue-ba-title">Before · After</h2>
+      </header>
+      <dl class="venue-ba-list">
+        ${ba.eat   ? `<div class="venue-ba-row"><dt>Eat before</dt><dd>${esc(ba.eat)}</dd></div>` : ''}
+        ${ba.drink ? `<div class="venue-ba-row"><dt>Drink first</dt><dd>${esc(ba.drink)}</dd></div>` : ''}
+        ${ba.after ? `<div class="venue-ba-row"><dt>Second stop</dt><dd>${esc(ba.after)}</dd></div>` : ''}
+        ${ba.late  ? `<div class="venue-ba-row"><dt>Late food</dt><dd>${esc(ba.late)}</dd></div>` : ''}
+      </dl>
+    </section>` : '';
+
   const dirInfo = v.directory ? `
     <div class="venue-dir-info">
       ${v.directory.address ? `<div class="venue-dir-row"><span class="venue-dir-label">Address</span><a class="venue-dir-val" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(v.directory.address)}">${esc(v.directory.address)}</a></div>` : ''}
@@ -3192,10 +3274,12 @@ function renderVenuePage(v) {
          <h1 class="venue-hero-name">${esc(v.name)}</h1>
          ${v.neighborhood ? `<div class="venue-hero-neigh">${nhoodTag(v.neighborhood)}</div>` : ''}
          <div class="venue-hero-count">${v.events.length} upcoming show${v.events.length === 1 ? '' : 's'} on the books</div>
+         ${moodTagsBlock}
          ${mythologyBlock}
          ${dirInfo}
        </div>
      </section>
+     ${beforeAfterBlock}
      <section class="venue-shows">
        <div class="wrap">
          ${monthBlocks}

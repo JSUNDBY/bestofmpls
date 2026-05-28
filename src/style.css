@@ -5069,6 +5069,117 @@ html[data-mode="dark"] .cal-day-signal--cluster { background: rgba(255, 61, 38, 
   color: var(--clay);
   margin-bottom: 20px;
 }
+/* Mood tag pills — small controlled vocabulary that doubles as the
+   /calendar/ mood filter taxonomy. Renders on the venue hero. */
+.venue-mood-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 14px 0 4px;
+}
+.venue-mood-tag {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 10.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--clay);
+  border: 1px solid var(--clay);
+  padding: 3px 8px;
+  border-radius: 0;
+}
+
+/* Before / After block — the night-planning surface. Two-column on desktop,
+   stacked on mobile. Each row reads as a labeled recommendation. */
+.venue-ba {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 36px var(--gutter);
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+}
+.venue-ba-head {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin: 0 0 22px;
+}
+.venue-ba-eyebrow {
+  font-family: var(--font-label);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.20em;
+  text-transform: uppercase;
+  color: var(--clay);
+}
+.venue-ba-title {
+  font-family: var(--font-marquee);
+  font-weight: 700;
+  font-size: clamp(28px, 3.4vw, 38px);
+  line-height: 1.0;
+  letter-spacing: -0.02em;
+  margin: 0;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.venue-ba-list {
+  display: grid;
+  gap: 0;
+  margin: 0;
+}
+.venue-ba-row {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 20px;
+  padding: 14px 0;
+  border-top: 1px solid var(--rule-soft);
+}
+.venue-ba-row:first-child { border-top: 2px solid var(--ink); }
+@media (max-width: 600px) {
+  .venue-ba-row { grid-template-columns: 1fr; gap: 4px; padding: 12px 0; }
+}
+.venue-ba-row dt {
+  font-family: var(--font-label);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  padding-top: 4px;
+}
+.venue-ba-row dd {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--ink);
+}
+
+/* Mood filter row on /calendar/ — sits below the venue filter, same chip
+   register but with a slightly different color treatment so the two axes
+   read as different controls. */
+.cal-filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+.cal-filter-group + .cal-filter-group {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--rule-soft);
+}
+.cal-chip.cal-chip-mood {
+  border-color: var(--rule-soft);
+  color: var(--ink-soft);
+}
+.cal-chip.cal-chip-mood:hover { border-color: var(--ink); color: var(--ink); }
+.cal-chip.cal-chip-mood.is-on {
+  background: var(--clay);
+  color: var(--paper);
+  border-color: var(--clay);
+}
+
 /* Venue mythology — the editorial paragraph at the top of a venue page.
    Bigger type than a normal description because the venue IS the subject. */
 .venue-mythology {
