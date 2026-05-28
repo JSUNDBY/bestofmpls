@@ -117,6 +117,16 @@ module.exports = {
       website: 'https://www.berlinmpls.com',
       capacity: '85',
       ritual_notes: '85 seats. That is the whole story. Buy ahead, sit anywhere, listen close. Bar opens before showtime; the cocktail program is real and worth showing up early for.'
+    },
+    {
+      name: 'The 331 Club',
+      neighborhood: 'Northeast Minneapolis',
+      style: 'Dive bar with nightly live music, no cover',
+      description: 'A small corner bar at 13th and University running live music almost every night of the year. No cover. Two or three sets a night, often a 7 PM act and a 9:30 PM act, sometimes a third late. Strong local rotation, Harold\'s House Party on KFAI broadcasts from the room some Wednesdays. The kind of place you walk into in flannel and stay until last call. Northeast institution.',
+      address: '331 13th Ave NE, Minneapolis',
+      website: 'https://www.331club.com',
+      capacity: '100ish',
+      ritual_notes: 'No cover, no reservations, no tickets — just walk in. Two-stage setup (the main room and the back) means there are usually two acts going if it is busy. Cash tips for the band are how the no-cover model works; bring small bills.'
     }
   ]
 };

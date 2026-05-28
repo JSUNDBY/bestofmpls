@@ -77,6 +77,16 @@ module.exports = {
       address: '4312 Upton Ave S, Minneapolis',
       website: 'https://www.martinarestaurant.com',
       price: '$$$$'
+    },
+    {
+      name: 'Northeast Social Club',
+      neighborhood: 'Northeast Minneapolis',
+      style: 'Neighborhood bar and dining room',
+      description: 'The Northeast corner room at 13th and University, recently relaunched as Northeast Social Club. Full bar, a kitchen that takes the bar menu seriously, weekend brunch from 10. A small patio for the summer months. The kind of neighborhood spot you walk to from a show at the 331 Club next door.',
+      address: '359 13th Ave NE, Minneapolis',
+      website: 'https://northeastsocial.com',
+      hours: 'Thu–Fri 4–11 PM · Sat 10 AM–11 PM · Sun brunch 10 AM–2 PM',
+      price: '$$'
     }
   ]
 };
