@@ -203,6 +203,22 @@ module.exports = {
       }
     },
     {
+      name: 'Varsity Theater',
+      neighborhood: 'Dinkytown, Minneapolis',
+      style: 'Mid-sized rock + indie + metal',
+      description: 'The historic Dinkytown theater, restored and now a Live Nation room with a full booking calendar — indie rock, metal, hip-hop, the occasional touring act. Standing-room layout below the balcony, the kind of room that gets loud on a packed Friday.',
+      address: '1308 4th St SE, Minneapolis',
+      website: 'https://varsitytheater.com',
+      capacity: '900',
+      mood_tags: ['mid-sized', 'loud', 'standing', 'visitor-friendly'],
+      before_after: {
+        eat:   'Al\'s Breakfast for the diner counter (line is part of the experience), or Mesa Pizza for slices on the way to the show.',
+        drink: 'The Kitty Cat Klub or the Library Bar — both Dinkytown classics, both walking distance.',
+        after: 'Mesa Pizza is open until 2:30 AM Fri-Sat — the canonical Dinkytown after-show stop.',
+        late:  'Mesa Pizza until 2:30 AM. Annie\'s Parlour for malts if it\'s still open (verify before going).'
+      }
+    },
+    {
       name: 'The 331 Club',
       neighborhood: 'Northeast Minneapolis',
       style: 'Dive bar with nightly live music, no cover',

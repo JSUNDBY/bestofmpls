@@ -526,6 +526,7 @@ const situations   = require(path.join(SRC, 'data/situations.js'));
 const skyway       = require(path.join(SRC, 'data/skyway.js'));
 const history      = require(path.join(SRC, 'data/history.js'));
 const mystery      = require(path.join(SRC, 'data/mystery.js'));
+const scenes       = require(path.join(SRC, 'data/scenes.js'));
 
 // Editorial clusters drive the homepage layout. With 28 categories, the
 // homepage now reads like a real city magazine: Culture, Eat, Drink, Shop,
@@ -765,7 +766,7 @@ function head({ title, description, slug, theme }) {
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600;700&family=Source+Sans+3:wght@400;600&family=Archivo:wght@500;600;700&family=Archivo+Narrow:wght@600;700&display=swap">
-<link rel="stylesheet" href="/style.css?v=37">
+<link rel="stylesheet" href="/style.css?v=38">
 <script>
 // Set color mode before paint to avoid flash. Reads localStorage first,
 // falls back to light mode (the new editorial default). mode-ready class
@@ -816,6 +817,7 @@ function header({ activeSlug } = {}) {
       items: [
         { href: '/tonight/',   label: 'Tonight',        deck: 'Sunset, weather, what is coming up' },
         { href: '/calendar/',  label: 'Calendar',       deck: 'Live shows, openings, screenings' },
+        { href: '/scenes/',    label: 'Scenes',         deck: 'Jazz, punk, electronic, folk, hip-hop' },
         { href: '/now-showing/', label: 'Now Showing',  deck: 'Current art exhibitions' },
         { href: '/horoscope/', label: 'Horoscope',      deck: 'Twelve signs, daily' },
         { href: '/mystery/',   label: 'Mystery Itinerary', deck: 'Sealed-envelope nights' }
@@ -2263,7 +2265,7 @@ function renderAdminPicks() {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>${esc(title)}</title>
-<link rel="stylesheet" href="/style.css?v=37">
+<link rel="stylesheet" href="/style.css?v=38">
 <style>
   body { background: var(--paper); }
   .admin-wrap { max-width: 960px; margin: 0 auto; padding: 32px var(--gutter) 96px; }
@@ -2910,7 +2912,8 @@ function renderCalendar() {
     'Dakota Jazz Club': 'Dakota Jazz Club & Restaurant',
     'The Hook and Ladder': 'The Hook and Ladder Theater',
     'Berlin': 'Berlin',
-    'The 331 Club': 'The 331 Club'
+    'The 331 Club': 'The 331 Club',
+    'Varsity Theater': 'Varsity Theater'
   };
   const dirByName = new Map();
   for (const e of (liveMusic.entries || [])) dirByName.set(e.name, e);
@@ -3112,7 +3115,9 @@ function resolveVenues() {
     'The Fitzgerald Theater': 'Fitzgerald Theater',
     'Dakota Jazz Club': 'Dakota Jazz Club & Restaurant',
     'The Hook and Ladder': 'The Hook and Ladder Theater',
-    'Berlin': 'Berlin'
+    'Berlin': 'Berlin',
+    'The 331 Club': 'The 331 Club',
+    'Varsity Theater': 'Varsity Theater'
   };
   // Build a quick lookup of live-music entries.
   const liveMusicByName = new Map();
@@ -5062,6 +5067,142 @@ function renderPartner() {
     footer();
 }
 
+// ---------- /scenes/ — music scene guides ----------
+// Each scene is an editorial cluster of venues + the next two weeks of
+// shows at those venues. Built from the curated live-music.js entries
+// (for venue metadata + the editorial frame) and the scraped event
+// feed (for what's actually upcoming).
+function renderScenesIndex() {
+  const title = 'Music scenes';
+  const description = 'Editorial guides to the metro\'s music scenes — jazz, punk, electronic, folk, hip-hop, all-ages, free-and-cheap. The rooms that anchor each, and what is coming up.';
+  return head({ title, description, slug: 'scenes', theme: 'default' }) +
+    header({ activeSlug: 'scenes' }) +
+    `<section class="section-head">
+       <div class="wrap">
+         <div class="section-eyebrow">${scenes.scenes.length} scenes · the rooms that anchor each</div>
+         <h1 class="section-title">Scenes</h1>
+         <p class="section-deck">The metro\'s music scenes, organized by what they actually sound like — not by Spotify genre. Each guide lists the anchor venues, what is upcoming, and one thing worth knowing.</p>
+       </div>
+     </section>
+     <section class="scenes-grid wrap">
+       ${scenes.scenes.map(s => `
+         <a class="scene-card" href="/scenes/${esc(s.slug)}/">
+           <div class="scene-card-eyebrow">${esc(s.eyebrow)}</div>
+           <h2 class="scene-card-title">${esc(s.title)}</h2>
+           <p class="scene-card-deck">${esc(s.deck)}</p>
+           <div class="scene-card-meta">${s.venues.length} venues · ${esc(s.venues.slice(0, 2).join(', '))}${s.venues.length > 2 ? ', + more' : ''}</div>
+           <span class="scene-card-arrow">Read the scene →</span>
+         </a>
+       `).join('')}
+     </section>` +
+    footer();
+}
+
+function renderScene(s) {
+  const title = `${s.title} in the Twin Cities`;
+  const description = s.deck;
+  // Look up each venue's live-music.js entry for hero + URL
+  const dirByName = new Map();
+  for (const e of (liveMusic.entries || [])) dirByName.set(e.name, e);
+  const venueDetails = s.venues.map(name => ({
+    name,
+    dir: dirByName.get(name) || null
+  }));
+
+  // Pull upcoming events from scraped feed at any of these venues, next 21 days
+  const venueNames = new Set(s.venues);
+  const [ty, tm, td] = TODAY_ISO.split('-').map(Number);
+  const cutoffMs = Date.UTC(ty, tm - 1, td + 21);
+  const sceneVenueAlias = {
+    'First Avenue & 7th St Entry': ['First Avenue', '7th St Entry', 'Turf Club'],
+    'The Fine Line Music Cafe':    ['Fine Line'],
+    'Cedar Cultural Center':       ['The Cedar Cultural Center'],
+    'Dakota Jazz Club & Restaurant': ['Dakota Jazz Club'],
+    'The Hook and Ladder Theater': ['The Hook and Ladder'],
+    'Fitzgerald Theater':          ['The Fitzgerald Theater']
+  };
+  // Build a set of scraper venue names that map to this scene
+  const scrapedVenues = new Set();
+  s.venues.forEach(canonName => {
+    scrapedVenues.add(canonName);
+    (sceneVenueAlias[canonName] || []).forEach(v => scrapedVenues.add(v));
+  });
+  const upcoming = dedupeNonFilms((eventsData.events || [])
+    .filter(e => !isFilmEvent(e) && scrapedVenues.has(e.venue) && e.date >= TODAY_ISO)
+    .filter(e => {
+      const [y, m, d] = e.date.split('-').map(Number);
+      return Date.UTC(y, m - 1, d) <= cutoffMs;
+    }))
+    .sort((a, b) => (a.date + (a.time || '99:99')).localeCompare(b.date + (b.time || '99:99')))
+    .slice(0, 12);
+
+  function fmtShortDate(iso) {
+    const [y, m, d] = iso.split('-').map(Number);
+    return new Date(y, m - 1, d).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+  }
+  function fmtTime12(t) {
+    if (!t) return '';
+    const [h, m] = t.split(':').map(Number);
+    const ampm = h >= 12 ? 'PM' : 'AM';
+    const hr = h % 12 === 0 ? 12 : h % 12;
+    return `${hr}:${String(m).padStart(2, '0')} ${ampm}`;
+  }
+
+  return head({ title, description, slug: `scenes/${s.slug}`, theme: 'default' }) +
+    header({ activeSlug: 'scenes' }) +
+    `<section class="section-head">
+       <div class="wrap">
+         <div class="section-eyebrow"><a href="/scenes/" style="color: inherit;">Scenes</a> · ${esc(s.eyebrow)}</div>
+         <h1 class="section-title">${esc(s.title)}</h1>
+         <p class="section-deck">${esc(s.deck)}</p>
+       </div>
+     </section>
+
+     <section class="scene-body wrap">
+       <p class="scene-intro">${esc(s.intro)}</p>
+       ${s.tip ? `
+       <div class="scene-tip">
+         <span class="scene-tip-label">One thing</span>
+         <p class="scene-tip-text">${esc(s.tip)}</p>
+       </div>` : ''}
+     </section>
+
+     <section class="scene-venues wrap">
+       <h2 class="tonight-section-title">Anchor venues</h2>
+       <ul class="scene-venue-list">
+         ${venueDetails.map(v => v.dir ? `
+           <li class="scene-venue">
+             <h3 class="scene-venue-name"><a href="/calendar/venue/${esc(entrySlug(v.dir.name))}/">${esc(v.dir.name)}</a></h3>
+             <div class="scene-venue-meta">${nhoodTag(v.dir.neighborhood)}${v.dir.capacity ? ` · cap. ${esc(v.dir.capacity)}` : ''}</div>
+             <p class="scene-venue-desc">${esc(v.dir.description)}</p>
+           </li>` : `
+           <li class="scene-venue">
+             <h3 class="scene-venue-name">${esc(v.name)}</h3>
+           </li>`).join('')}
+       </ul>
+     </section>
+
+     ${upcoming.length ? `
+     <section class="scene-shows wrap">
+       <h2 class="tonight-section-title">Upcoming at these rooms (next 3 weeks)</h2>
+       <ul class="scene-show-list">
+         ${upcoming.map(e => `
+           <li class="scene-show">
+             <div class="scene-show-when">${esc(fmtShortDate(e.date))}${e.time ? ` · ${esc(fmtTime12(e.time))}` : ''}</div>
+             <div class="scene-show-body">
+               <h3 class="scene-show-title">${e.url ? `<a href="${esc(e.url)}" target="_blank" rel="noopener">${esc(e.title)} <span class="entry-meta-link-icon">↗</span></a>` : esc(e.title)}</h3>
+               <div class="scene-show-venue"><a href="/calendar/venue/${esc(entrySlug(e.venue))}/">${esc(e.venue)}</a></div>
+             </div>
+           </li>`).join('')}
+       </ul>
+     </section>` : ''}
+
+     <section class="scene-footer wrap">
+       <p><a href="/scenes/">← All scenes</a> · <a href="/calendar/">The full calendar →</a></p>
+     </section>` +
+    footer();
+}
+
 function render404() {
   return head({ title: 'Page not found', description: 'That page is not here.', slug: '404', theme: 'default' }) +
     header({}) +
@@ -5096,6 +5237,8 @@ function renderSitemap(neighborhoods) {
     { loc: SITE + '/about/', priority: '0.6' },
     { loc: SITE + '/contribute/', priority: '0.5' },
     { loc: SITE + '/partner/', priority: '0.5' },
+    { loc: SITE + '/scenes/', priority: '0.8' },
+    ...(scenes.scenes || []).map(s => ({ loc: `${SITE}/scenes/${s.slug}/`, priority: '0.7' })),
     ...(featuredEvts.events || []).map(ev => ({ loc: `${SITE}/${ev.slug}/`, priority: '0.95' })),
     ...categories.map(c => ({ loc: `${SITE}/${c.slug}/`, priority: '0.9' })),
     ...resolveVenues().map(v => ({ loc: `${SITE}/calendar/venue/${v.slug}/`, priority: '0.8' })),
@@ -5254,6 +5397,12 @@ function build() {
   writeFile('admin/picks/index.html', renderAdminPicks());
   writeFile('contribute/index.html', renderContribute());
   writeFile('partner/index.html', renderPartner());
+
+  // Music scene pages
+  writeFile('scenes/index.html', renderScenesIndex());
+  for (const s of (scenes.scenes || [])) {
+    writeFile(`scenes/${s.slug}/index.html`, renderScene(s));
+  }
   writeFile('404.html', render404());
   writeFile('sitemap.xml', renderSitemap(neighborhoods));
   writeFile('robots.txt', renderRobots());
