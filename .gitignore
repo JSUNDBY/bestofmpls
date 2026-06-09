@@ -6,3 +6,7 @@ dist/
 *.log
 .vscode/
 .idea/
+
+# Search Console service-account key (never commit)
+.gsc-key.json
+gsc-service-account.json
