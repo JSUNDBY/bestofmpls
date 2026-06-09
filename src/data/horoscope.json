@@ -1,90 +1,90 @@
 {
-  "date": "2026-05-04",
-  "generated_at": "2026-05-05T01:58:57.415Z",
+  "date": "2026-06-08",
+  "generated_at": "2026-06-09T02:46:25.494Z",
   "intro": "A daily reading for the metro, mood-pieces more than predictions. Refreshed each morning.",
   "horoscopes": [
     {
       "sign": "Aries",
       "symbol": "♈",
       "dates": "Mar 21 to Apr 19",
-      "text": "A door opens because you remembered to push it. A short conversation rearranges the rest of the week. Somewhere near the Stone Arch Bridge. Tomorrow is closer than it feels.",
+      "text": "Energy you usually save for Thursday shows up early. You catch yourself enjoying the part you usually skip. Somewhere near the Lake Harriet bandshell. The kitchen, not the bar, is the right room tonight.",
       "slug": "aries"
     },
     {
       "sign": "Taurus",
       "symbol": "♉",
       "dates": "Apr 20 to May 20",
-      "text": "The body wins the argument with the calendar. You finish a book you started in March. Outside, an east wind off the river. Light one candle, no more.",
+      "text": "You move through the day like someone who knows where the shortcuts are. You take a longer route home and notice three things. Somewhere near the second floor of Magers & Quinn. Skip the screen. Read instead.",
       "slug": "taurus"
     },
     {
       "sign": "Gemini",
       "symbol": "♊",
       "dates": "May 21 to Jun 20",
-      "text": "A coincidence that is not a coincidence. You learn a new word and use it correctly. Outside, the kind of warmth you don't notice you needed. You did enough. Stop checking.",
+      "text": "A page-turner of a Tuesday. You learn a new word and use it correctly. Put the phone face-down. Sleep finds you faster.",
       "slug": "gemini"
     },
     {
       "sign": "Cancer",
       "symbol": "♋",
       "dates": "Jun 21 to Jul 22",
-      "text": "A quiet kind of confidence arrives without being asked. A meal with one other person does most of the work this week. Soft sheets, hard sleep.",
+      "text": "The first hour belongs to whoever you live with. You write a long message and only send the short one. Somewhere near a corner of the North Loop. Call your mother, or someone who is.",
       "slug": "cancer"
     },
     {
       "sign": "Leo",
       "symbol": "♌",
       "dates": "Jul 23 to Aug 22",
-      "text": "A door opens because you walked toward it. A kindness, freely given, makes the day. Outside, a low gray ceiling that doesn't feel oppressive, just close. You were generous. Be generous to yourself, too.",
+      "text": "Today is the kind of day people remember you on. A friend asks for advice and your advice is useful. Outside, a sky the color of zinc. A long shower and an early bed.",
       "slug": "leo"
     },
     {
       "sign": "Virgo",
       "symbol": "♍",
       "dates": "Aug 23 to Sep 22",
-      "text": "A small repair, twenty minutes, large gain. A friend asks for your help with the exact thing you are good at. Outside, a lake-effect cool that did not exist on the forecast. Quiet, water, sleep. In that order.",
+      "text": "You are correct about a thing you were almost wrong about. A meeting ends ten minutes early and you do not refill the time. Somewhere near the Walker sculpture garden. Tomorrow's bag, packed tonight.",
       "slug": "virgo"
     },
     {
       "sign": "Libra",
       "symbol": "♎",
       "dates": "Sep 23 to Oct 22",
-      "text": "A small dispute resolves itself before you arrive. You give honest feedback and the friendship survives it. You did not need to win today. Good.",
+      "text": "You wake up gentler than you were yesterday. You forgive yourself for last week. Somewhere near the East Bank between classes. Light a candle. Read for ten minutes.",
       "slug": "libra"
     },
     {
       "sign": "Scorpio",
       "symbol": "♏",
       "dates": "Oct 23 to Nov 21",
-      "text": "You see what other people miss this morning. Pretend not to. A confession from someone you barely know. Receive it gently. Somewhere near the Walker sculpture garden. You were right. Stop being right.",
+      "text": "Quiet power, well held. A long story comes to a quiet conclusion. Sleep with the door closed. You earned it.",
       "slug": "scorpio"
     },
     {
       "sign": "Sagittarius",
       "symbol": "♐",
       "dates": "Nov 22 to Dec 21",
-      "text": "You consider the long road home and take it. You learn something the hard way and laugh about it later. Somewhere near the line for the Juicy Lucy at Matt's. A short nap of a chapter, then sleep.",
+      "text": "A morning that wants you outdoors, briefly. You realize you have outgrown a complaint. Outside, an early haze that burns off by ten. Forgive yourself the thing from Tuesday. Sleep.",
       "slug": "sagittarius"
     },
     {
       "sign": "Capricorn",
       "symbol": "♑",
       "dates": "Dec 22 to Jan 19",
-      "text": "You make an early decision the rest of the day rewards. You are reminded why you do the boring work. Somewhere near the Walker sculpture garden. You will be fine. You usually are. Sleep.",
+      "text": "The morning is for the slow build. Money behaves predictably. Two months of math holds. Outside, a sky the color of zinc. Tomorrow will still be Wednesday.",
       "slug": "capricorn"
     },
     {
       "sign": "Aquarius",
       "symbol": "♒",
       "dates": "Jan 20 to Feb 18",
-      "text": "You start writing a thing you have been thinking about for months. A small revolution at work, instigated by you, in writing. Somewhere near the steps of the Cathedral. The day was good. Stop tinkering.",
+      "text": "A weird connection between two old conversations clicks. You vote in the small election. It actually matters. Outside, a wind that smells like rain six hours out. You did the small revolutionary act. Now sleep.",
       "slug": "aquarius"
     },
     {
       "sign": "Pisces",
       "symbol": "♓",
       "dates": "Feb 19 to Mar 20",
-      "text": "A small ritual restores you. Do not skip it. You write the long letter. You do not have to send it. A glass of water and a long sleep.",
+      "text": "A poem you read once comes back, half-remembered, helpful. A friend's small problem becomes your large one for an hour. That is love. Somewhere near the Lake Harriet bandshell. Sleep finds the people who let it.",
       "slug": "pisces"
     }
   ]

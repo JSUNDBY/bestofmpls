@@ -5,8 +5,15 @@
  *
  * Output: dist/og-image.png (1200x630)
  *
- * Uses Impact / Arial Black system fonts since SVG @font-face is unreliable
- * across renderers. Result is a PNG so end-viewer's fonts don't matter.
+ * Updated to match the new civic register: cream paper, Archivo Narrow /
+ * Liberation Sans Narrow marquee headline, IBM Plex Mono / Liberation
+ * Mono accents, neighborhood-code tags as decoration. Photo overlay
+ * retired — the new design is municipal-modernist, not magazine.
+ *
+ * Font stack relies on system grotesks (Liberation Sans Narrow on
+ * Ubuntu CI; Helvetica Neue Condensed on macOS). Web fonts are
+ * intentionally not used — librsvg can't fetch @font-face reliably and
+ * a PNG renders identically regardless of viewer fonts.
  */
 const fs = require('fs');
 const path = require('path');
@@ -15,58 +22,70 @@ const { execSync } = require('child_process');
 const ROOT = path.resolve(__dirname, '..');
 const DIST = path.join(ROOT, 'dist');
 
-// Brand palette: Stark Editorial. White paper, black ink, bright red accent.
-const PAPER = '#FFFFFF';
-const PAPER_FAINT = '#7A7A7A';
-const INK = '#0A0A0A';
-const CLAY = '#E11900';
+// Brand palette: Scandinavian municipal modernism.
+const PAPER     = '#F4F2EC';
+const PAPER_2   = '#ECE9E1';
+const INK       = '#141414';
+const INK_SOFT  = '#4A4A48';
+const INK_FAINT = '#878683';
+const CLAY      = '#C8200F';
+
+// Font stacks chosen to render well in both macOS dev and Ubuntu CI.
+const FONT_MARQUEE = '"Liberation Sans Narrow", "Helvetica Neue Condensed", "Arial Narrow", Impact, sans-serif';
+const FONT_DISPLAY = '"Liberation Sans", "Helvetica Neue", Helvetica, Arial, sans-serif';
+const FONT_MONO    = '"Liberation Mono", "DejaVu Sans Mono", "Menlo", "Courier New", monospace';
 
 function generateSVG() {
-  // Embed the skyline photo as base64 so rsvg-convert can render it without
-  // any file-system path issues. JPEG keeps it manageable.
-  const skylinePath = path.join(ROOT, 'public/img/skyline-og.jpg');
-  const skylineB64 = fs.readFileSync(skylinePath).toString('base64');
-  const skylineDataUri = `data:image/jpeg;base64,${skylineB64}`;
-
-  // Layout: full-bleed photo. Crop anchored to TOP of the photo so we keep
-  // the sky + building tops + middle of skyline. River/bridge foreground
-  // gets cropped instead. Text overlays the bottom with a gradient for
-  // legibility.
   return `<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1200" height="630" viewBox="0 0 1200 630">
-  <defs>
-    <linearGradient id="bottomFade" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="${INK}" stop-opacity="0"/>
-      <stop offset="50%" stop-color="${INK}" stop-opacity="0.45"/>
-      <stop offset="100%" stop-color="${INK}" stop-opacity="0.95"/>
-    </linearGradient>
-    <linearGradient id="topFade" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="${INK}" stop-opacity="0.55"/>
-      <stop offset="100%" stop-color="${INK}" stop-opacity="0"/>
-    </linearGradient>
-  </defs>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <!-- Cream paper -->
+  <rect x="0" y="0" width="1200" height="630" fill="${PAPER}"/>
 
-  <!-- Photo full-bleed. xMidYMin slice: align crop to TOP so sky + building tops stay. -->
-  <image xlink:href="${skylineDataUri}" x="0" y="0" width="1200" height="630" preserveAspectRatio="xMidYMin slice"/>
+  <!-- Top clay bar (mirrors the right-now panel's hard 3px top rule). -->
+  <rect x="0" y="0" width="1200" height="8" fill="${CLAY}"/>
 
-  <!-- Top fade for the eyebrow over sky -->
-  <rect x="0" y="0" width="1200" height="120" fill="url(#topFade)"/>
+  <!-- Top eyebrow strip with a square clay swatch (mirrors the civic-notice
+       block on the homepage). -->
+  <rect x="60" y="58" width="14" height="14" fill="${CLAY}"/>
+  <text x="86" y="71" font-family='${FONT_DISPLAY}' font-weight="700" font-size="14" letter-spacing="3.2" fill="${CLAY}">AN INDEPENDENT GUIDE · MINNEAPOLIS · SAINT PAUL</text>
 
-  <!-- Bottom fade so brand mark + headline + URL stay legible -->
-  <rect x="0" y="280" width="1200" height="350" fill="url(#bottomFade)"/>
+  <!-- Marquee headline. Two lines of compressed sans, ALL CAPS, very tight
+       tracking — same treatment as the cover headline on the site. -->
+  <g transform="translate(60, 220)">
+    <text x="0" y="0" font-family='${FONT_MARQUEE}' font-weight="700" font-size="190" letter-spacing="-6" fill="${INK}">BEST OF MPLS</text>
+    <text x="0" y="158" font-family='${FONT_MARQUEE}' font-weight="700" font-size="190" letter-spacing="-6" fill="${INK}">&amp; SAINT PAUL<tspan fill="${CLAY}">.</tspan></text>
+  </g>
 
-  <!-- Top eyebrow -->
-  <text x="80" y="68" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="700" font-size="14" letter-spacing="3.5" fill="${CLAY}">VOL. 01 · SPRING 2026</text>
+  <!-- Subtitle (display sans, normal weight) -->
+  <text x="60" y="510" font-family='${FONT_DISPLAY}' font-weight="500" font-size="22" fill="${INK_SOFT}">Where to eat, drink, hear, see, and spend a Saturday in the metro.</text>
 
-  <!-- Hero brand mark, lower-left over photo -->
-  <text x="80" y="490" font-family="Playfair Display, Georgia, serif" font-style="italic" font-weight="900" font-size="124" letter-spacing="-3" fill="${PAPER}">bestofmpls<tspan fill="${CLAY}">.</tspan></text>
+  <!-- Right-side neighborhood-code tag rail — the site's signature
+       repeatable graphic. Outlined Plex Mono codes. -->
+  <g transform="translate(975, 95)">
+    ${[
+      ['NE',  'Northeast'],
+      ['NL',  'North Loop'],
+      ['DT',  'Downtown'],
+      ['LH',  'Lowry Hill'],
+      ['WB',  'West Bank'],
+      ['STP', 'Saint Paul']
+    ].map(([code, label], i) => {
+      const y = i * 42;
+      return `
+    <g transform="translate(0, ${y})">
+      <rect x="0" y="0" width="${code.length === 3 ? 60 : 50}" height="26" fill="none" stroke="${CLAY}" stroke-width="1.5"/>
+      <text x="${code.length === 3 ? 30 : 25}" y="18" font-family='${FONT_MONO}' font-weight="600" font-size="14" fill="${CLAY}" text-anchor="middle">${code}</text>
+      <text x="${code.length === 3 ? 70 : 60}" y="18" font-family='${FONT_DISPLAY}' font-weight="500" font-size="13" fill="${INK_SOFT}" letter-spacing="0.5">${label.toUpperCase()}</text>
+    </g>`;
+    }).join('')}
+  </g>
 
-  <!-- Sub-headline: the cities -->
-  <text x="80" y="552" font-family="Playfair Display, Georgia, serif" font-weight="400" font-size="36" letter-spacing="-0.5" fill="${PAPER}">Minneapolis <tspan font-style="italic" font-weight="700" fill="${CLAY}">&amp;</tspan> Saint Paul.</text>
+  <!-- Bottom rule -->
+  <rect x="60" y="555" width="1080" height="2" fill="${INK}"/>
 
-  <!-- Bottom row: tagline + URL -->
-  <text x="80" y="600" font-family="Playfair Display, Georgia, serif" font-style="italic" font-weight="400" font-size="20" fill="${PAPER}" fill-opacity="0.85">An independent guide to a city of long winters and bright light.</text>
-  <text x="1120" y="600" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="700" font-size="14" letter-spacing="3" fill="${CLAY}" text-anchor="end">BESTOFMPLS.COM</text>
+  <!-- Bottom row: mono dateline + URL -->
+  <text x="60" y="595" font-family='${FONT_MONO}' font-weight="500" font-size="14" fill="${INK_FAINT}" letter-spacing="0.5">VOL.01 · 2026 · CIVIC CULTURAL UTILITY</text>
+  <text x="1140" y="595" font-family='${FONT_DISPLAY}' font-weight="700" font-size="16" letter-spacing="3" fill="${CLAY}" text-anchor="end">BESTOFMPLS.COM</text>
 </svg>`;
 }
 
@@ -79,11 +98,9 @@ function build() {
   const svgPath = path.join(DIST, 'og-image.svg');
   const pngPath = path.join(DIST, 'og-image.png');
 
-  // Write SVG
   fs.writeFileSync(svgPath, generateSVG());
   console.log(`  → og-image.svg`);
 
-  // Convert SVG to PNG with rsvg-convert
   try {
     execSync(`rsvg-convert -w 1200 -h 630 "${svgPath}" -o "${pngPath}"`);
     const stat = fs.statSync(pngPath);

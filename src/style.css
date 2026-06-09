@@ -6077,6 +6077,12 @@ html[data-mode="dark"] .entry-reserve {
 .scene-footer { padding: 24px var(--gutter) 48px; max-width: 880px; margin: 0 auto; border-top: 1px solid var(--rule); font-family: var(--font-body); font-size: 15px; color: var(--ink-soft); }
 .scene-footer a { color: var(--clay); }
 
+/* ===== Category × neighborhood nav ===== */
+.nb-nav { margin: 4px auto 8px; }
+.nb-nav-label { margin-bottom: 10px; }
+.nb-nav-chips { display: flex; flex-wrap: wrap; gap: 10px; }
+.nb-nav-count { opacity: 0.55; font-variant-numeric: tabular-nums; }
+
 /* ===== Print ===== */
 @media print {
   .site-header, .primary-nav, .site-footer { display: none; }

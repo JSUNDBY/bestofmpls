@@ -17,6 +17,11 @@ const ROOT  = path.resolve(__dirname, '..');
 const SRC   = path.join(ROOT, 'src');
 const DIST  = path.join(ROOT, 'dist');
 const SITE  = 'https://bestofmpls.com';
+// Google Search Console verification. The site already runs GA4 (G-K6JECLPV8W),
+// so the fastest path is to verify via the "Google Analytics" method in Search
+// Console (no code needed). If that method is unavailable, paste the token from
+// Search Console's "HTML tag" method here and rebuild to emit the meta tag.
+const GSC_VERIFICATION = '';
 // Anchor "today" to Central time so the masthead and date-seeded picks
 // don't tick forward at 7 PM Central when UTC rolls past midnight.
 const TODAY = new Date().toLocaleDateString('en-US', {
@@ -746,6 +751,7 @@ function head({ title, description, slug, theme }) {
 <title>${esc(title)} · bestofmpls</title>
 <meta name="description" content="${esc(description)}">
 <link rel="canonical" href="${url}">
+${GSC_VERIFICATION ? `<meta name="google-site-verification" content="${esc(GSC_VERIFICATION)}">\n` : ''}
 
 <meta property="og:type" content="website">
 <meta property="og:url" content="${url}">
@@ -766,7 +772,7 @@ function head({ title, description, slug, theme }) {
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600;700&family=Source+Sans+3:wght@400;600&family=Archivo:wght@500;600;700&family=Archivo+Narrow:wght@600;700&display=swap">
-<link rel="stylesheet" href="/style.css?v=38">
+<link rel="stylesheet" href="/style.css?v=39">
 <script>
 // Set color mode before paint to avoid flash. Reads localStorage first,
 // falls back to light mode (the new editorial default). mode-ready class
@@ -1639,11 +1645,46 @@ function renderHome() {
     footer();
 }
 
+// ---------- SEO title / description ----------
+// The on-page H1 stays editorial ("Pizza in the Twin Cities"); the <title>
+// tag and meta description instead target what people actually search
+// ("best pizza minneapolis"). H1 differing from the title tag is intentional
+// and good practice. "Minneapolis" carries far more search volume than "Twin
+// Cities," so it leads; "& St. Paul" keeps us honest about metro coverage.
+// A handful of categories read badly as "Best X" (bare cuisine nouns, the
+// Departed/history pages) and get explicit overrides below. A category data
+// file can also set its own `seoTitle` / `seoDescription` to win outright.
+const SEO_TITLE_BY_SLUG = {
+  chinese: 'Best Chinese Restaurants in Minneapolis & St. Paul',
+  japanese: 'Best Japanese & Sushi Restaurants in the Twin Cities',
+  korean: 'Best Korean Restaurants & BBQ in the Twin Cities',
+  thai: 'Best Thai Restaurants in Minneapolis & St. Paul',
+  vietnamese: 'Best Vietnamese Restaurants & Pho in the Twin Cities',
+  ethiopian: 'Best Ethiopian Restaurants in the Twin Cities',
+  'mexican-and-tacos': 'Best Mexican Restaurants & Tacos in the Twin Cities',
+  curiosities: 'Twin Cities Curiosities & Hidden Oddities',
+  outdoors: 'Best Outdoor Activities in Minneapolis & St. Paul',
+  sports: 'Twin Cities Sports: Teams, Venues & Game-Day Guide',
+};
+function seoTitle(c) {
+  return c.seoTitle || SEO_TITLE_BY_SLUG[c.slug] || `Best ${c.title} in Minneapolis & St. Paul`;
+}
+// category.slug → [{nb, count}] of the neighborhood cross-pages that exist for
+// it. Populated in build() before any category page renders, so renderCategory
+// can show a "by neighborhood" nav that links down into the long-tail pages.
+let crossByCategory = {};
+function seoDescription(c) {
+  if (c.seoDescription) return c.seoDescription;
+  const text = `${c.subtitle || ''} ${c.intro || ''}`.replace(/\s+/g, ' ').trim();
+  if (text.length <= 155) return text;
+  return text.slice(0, 152).replace(/\s+\S*$/, '') + '…';
+}
+
 function renderCategory(c) {
   // Festivals page gets a special seasonal render
   if (c.layout === 'seasonal') return renderSeasonalCategory(c);
 
-  const description = c.subtitle;
+  const description = seoDescription(c);
   const entries = c.entries.map((e, i) => {
     // Featured treatment is now opt-in via `featured: true` on the entry
     // — reserved for paid partner placements. See /partner/. Editorial
@@ -1811,7 +1852,17 @@ function renderCategory(c) {
       </div>
     </div>` : '';
 
-  return head({ title: `${c.title} in the Twin Cities`, description, slug: c.slug, theme: c.hero_color }) +
+  // "By neighborhood" nav links down into the category×neighborhood pages.
+  const nbCross = (crossByCategory[c.slug] || []).slice().sort((a, b) => b.count - a.count);
+  const nbNav = nbCross.length ? `
+    <section class="wrap nb-nav">
+      <div class="cluster-eyebrow nb-nav-label">${esc(c.title)} by neighborhood</div>
+      <div class="nb-nav-chips">
+        ${nbCross.map(x => `<a class="cal-chip" href="/${c.slug}/in-${x.nb.slug}/">${esc(x.nb.short || x.nb.name)} <span class="nb-nav-count">${x.count}</span></a>`).join('')}
+      </div>
+    </section>` : '';
+
+  return head({ title: seoTitle(c), description, slug: c.slug, theme: c.hero_color }) +
     header({ activeSlug: c.slug }) +
     `<section class="section-head">
       <div class="wrap">
@@ -1820,6 +1871,7 @@ function renderCategory(c) {
         <p class="section-deck">${esc(c.intro)}</p>
       </div>
     </section>
+    ${nbNav}
     ${verifyBanner}
     ${externalCallout}
     ${openNowToggle}
@@ -2237,7 +2289,7 @@ function renderSeasonalCategory(c) {
     </div>`;
   }).join('');
 
-  return head({ title: `${c.title} in the Twin Cities`, description: c.subtitle, slug: c.slug, theme: c.hero_color }) +
+  return head({ title: seoTitle(c), description: seoDescription(c), slug: c.slug, theme: c.hero_color }) +
     header({ activeSlug: c.slug }) +
     `<section class="section-head">
       <div class="wrap">
@@ -2265,7 +2317,7 @@ function renderAdminPicks() {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>${esc(title)}</title>
-<link rel="stylesheet" href="/style.css?v=38">
+<link rel="stylesheet" href="/style.css?v=39">
 <style>
   body { background: var(--paper); }
   .admin-wrap { max-width: 960px; margin: 0 auto; padding: 32px var(--gutter) 96px; }
@@ -2720,6 +2772,125 @@ function renderNeighborhoodPage(nb) {
       </div>
     </section>
     ${sections}` +
+    footer();
+}
+
+// ---------- Category × neighborhood pages ----------
+// Long-tail local SEO: "best pizza north loop," "best coffee northeast." Only
+// generated where a category has enough real entries in a neighborhood to be a
+// genuine list (MIN_CROSS), never a thin doorway page. Category pages and
+// neighborhood guides cross-link into these; they cross-link back out.
+const MIN_CROSS = 4;
+const CROSS_EXCLUDE = new Set(['history', 'departed']); // date/closed lists, not place lists
+// Clean plural nouns for categories whose editorial title is a bare adjective.
+const CATEGORY_NOUN = {
+  chinese: 'Chinese Restaurants', japanese: 'Japanese Restaurants', korean: 'Korean Restaurants',
+  thai: 'Thai Restaurants', vietnamese: 'Vietnamese Restaurants', ethiopian: 'Ethiopian Restaurants',
+  'mexican-and-tacos': 'Mexican Restaurants & Tacos', 'best-dive-bars': 'Neighborhood Bars',
+};
+function categoryNoun(c) { return CATEGORY_NOUN[c.slug] || c.title; }
+
+// Compute every (category, neighborhood) pair that clears the threshold.
+// Returns the page list plus a category.slug → [{nb, count}] index for
+// building the "by neighborhood" nav on the parent category page.
+function buildCrossPages(neighborhoods) {
+  const pages = [];
+  for (const nb of neighborhoods) {
+    const byCat = {};
+    for (const item of nb.entries) {
+      if (CROSS_EXCLUDE.has(item.category.slug)) continue;
+      const g = byCat[item.category.slug] || (byCat[item.category.slug] = { category: item.category, items: [] });
+      g.items.push(item.entry);
+    }
+    for (const g of Object.values(byCat)) {
+      if (g.items.length >= MIN_CROSS) pages.push({ category: g.category, nb, items: g.items });
+    }
+  }
+  const byCategory = {};
+  for (const p of pages) {
+    (byCategory[p.category.slug] = byCategory[p.category.slug] || []).push({ nb: p.nb, count: p.items.length });
+  }
+  return { pages, byCategory };
+}
+
+function renderCategoryNeighborhood(page, allPages) {
+  const { category: c, nb, items } = page;
+  const where = nb.short || nb.name;
+  const noun = categoryNoun(c);
+  const title = `Best ${noun} in ${where}`;
+  const locality = /st\.? paul/i.test(nb.name) ? 'St. Paul' : 'Minneapolis';
+  const description = `Where to find the best ${noun.toLowerCase()} in ${where}, ${locality}. ${items.length} local picks, chosen and written by people who live here.`;
+  const slug = `${c.slug}/in-${nb.slug}`;
+
+  // Sibling neighborhoods with the same category, for internal linking.
+  const siblings = allPages
+    .filter(p => p.category.slug === c.slug && p.nb.slug !== nb.slug)
+    .map(p => p.nb);
+
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: title,
+    numberOfItems: items.length,
+    itemListElement: items.map((e, i) => {
+      const item = { '@type': 'Place', name: e.name, url: e.website || `${SITE}/${c.slug}/${entrySlug(e.name)}/` };
+      if (e.address) item.address = {
+        '@type': 'PostalAddress', streetAddress: e.address,
+        addressLocality: locality, addressRegion: 'MN', addressCountry: 'US'
+      };
+      if (e.description) item.description = e.description;
+      return { '@type': 'ListItem', position: i + 1, item };
+    })
+  };
+  const breadcrumb = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE}/` },
+      { '@type': 'ListItem', position: 2, name: c.title, item: `${SITE}/${c.slug}/` },
+      { '@type': 'ListItem', position: 3, name: where, item: `${SITE}/${slug}/` },
+    ]
+  };
+
+  const cards = items.map(e => `
+    <article class="nb-entry">
+      <div class="nb-entry-meta">
+        ${e.style ? `<span class="entry-meta-style">${esc(e.style)}</span>` : ''}
+        ${e.price ? `<span class="entry-footer-price">${esc(e.price)}</span>` : ''}
+      </div>
+      <h3 class="nb-entry-name">${esc(e.name)}</h3>
+      <p class="nb-entry-description">${esc(e.description)}</p>
+      <div class="entry-footer">
+        ${e.address ? `<span>${esc(e.address)}</span>` : ''}
+        ${e.website ? `<a class="entry-website" href="${esc(e.website)}" target="_blank" rel="noopener">${esc(e.website.replace(/^https?:\/\//, '').replace(/\/$/, ''))} →</a>` : ''}
+      </div>
+    </article>`).join('');
+
+  const siblingNav = siblings.length ? `
+    <section class="nb-section">
+      <div class="wrap nb-section-head">
+        <div class="cluster-eyebrow">${esc(noun)} in other neighborhoods</div>
+      </div>
+      <div class="wrap" style="display:flex;flex-wrap:wrap;gap:10px;">
+        ${siblings.map(s => `<a class="cal-chip" href="/${c.slug}/in-${s.slug}/">${esc(s.short || s.name)}</a>`).join('')}
+      </div>
+    </section>` : '';
+
+  return head({ title, description, slug, theme: c.hero_color }) +
+    `<script type="application/ld+json">${JSON.stringify(schema)}</script>\n` +
+    `<script type="application/ld+json">${JSON.stringify(breadcrumb)}</script>\n` +
+    header({ activeSlug: c.slug }) +
+    `<section class="section-head">
+      <div class="wrap">
+        <div class="section-eyebrow">${items.length} picks · ${esc(where)}</div>
+        <h1 class="section-title">Best ${esc(noun)} <em>in ${esc(where)}</em></h1>
+        <p class="section-deck">The ${esc(noun.toLowerCase())} we send people to in ${esc(nb.name)}. Part of our full <a href="/${c.slug}/">${esc(c.title.toLowerCase())} guide</a> and the <a href="/neighborhoods/${nb.slug}/">${esc(where)} neighborhood guide</a>.</p>
+      </div>
+    </section>
+    <section class="nb-section">
+      <div class="nb-list">${cards}</div>
+    </section>
+    ${siblingNav}` +
     footer();
 }
 
@@ -5214,7 +5385,7 @@ function render404() {
     footer();
 }
 
-function renderSitemap(neighborhoods) {
+function renderSitemap(neighborhoods, crossPages) {
   const urls = [
     { loc: SITE + '/', priority: '1.0' },
     { loc: SITE + '/visit/', priority: '0.9' },
@@ -5243,6 +5414,7 @@ function renderSitemap(neighborhoods) {
     ...categories.map(c => ({ loc: `${SITE}/${c.slug}/`, priority: '0.9' })),
     ...resolveVenues().map(v => ({ loc: `${SITE}/calendar/venue/${v.slug}/`, priority: '0.8' })),
     ...(neighborhoods || []).map(nb => ({ loc: `${SITE}/neighborhoods/${nb.slug}/`, priority: '0.8' })),
+    ...(crossPages || []).map(p => ({ loc: `${SITE}/${p.category.slug}/in-${p.nb.slug}/`, priority: '0.75' })),
     // Per-entry detail pages. The biggest SEO surface on the site.
     ...categories.flatMap(c => {
       if (c.layout === 'seasonal') return [];
@@ -5295,6 +5467,12 @@ function build() {
     }
   }
 
+  // Neighborhood index + category×neighborhood cross-pages are computed first
+  // so category pages can render their "by neighborhood" nav linking into them.
+  const neighborhoods = buildNeighborhoodIndex();
+  const cross = buildCrossPages(neighborhoods);
+  crossByCategory = cross.byCategory;
+
   writeFile('index.html', renderHome());
   for (const c of categories) writeFile(`${c.slug}/index.html`, renderCategory(c));
 
@@ -5314,9 +5492,14 @@ function build() {
   console.log(`  → ${entryPagesWritten} entry detail pages`);
 
   // Neighborhood pages
-  const neighborhoods = buildNeighborhoodIndex();
   writeFile('neighborhoods/index.html', renderNeighborhoodIndex(neighborhoods));
   for (const nb of neighborhoods) writeFile(`neighborhoods/${nb.slug}/index.html`, renderNeighborhoodPage(nb));
+
+  // Category × neighborhood long-tail pages (e.g. /best-pizza/in-north-loop/)
+  for (const page of cross.pages) {
+    writeFile(`${page.category.slug}/in-${page.nb.slug}/index.html`, renderCategoryNeighborhood(page, cross.pages));
+  }
+  console.log(`  → ${cross.pages.length} category×neighborhood pages (≥${MIN_CROSS} entries each)`);
 
   // First-time / itineraries page
   writeFile('visit/index.html', renderItineraries());
@@ -5404,7 +5587,7 @@ function build() {
     writeFile(`scenes/${s.slug}/index.html`, renderScene(s));
   }
   writeFile('404.html', render404());
-  writeFile('sitemap.xml', renderSitemap(neighborhoods));
+  writeFile('sitemap.xml', renderSitemap(neighborhoods, cross.pages));
   writeFile('robots.txt', renderRobots());
   writeFile('favicon.svg', renderFavicon());
 
