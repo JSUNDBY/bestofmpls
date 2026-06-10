@@ -47,12 +47,18 @@ function priceStr(prices) {
   return min === max ? `$${min}` : `$${min}–$${max}`;
 }
 
-// First non-empty line of the description, stripped of metadata boilerplate
-// like "6PM DOORS-FOOD-DRINKS // 8PM SHOW START // $20 ADVANCE...".
+// First plain-text line of the description, stripped of HTML tags and
+// boilerplate like "6PM DOORS // 8PM SHOW START // $20 ADVANCE...".
 function subtitle(description) {
   if (!description) return null;
-  const lines = description.split(/\n+/).map(l => l.trim()).filter(Boolean);
-  // Skip the door/show-time/price header lines (all-caps, lots of slashes).
+  // The API returns HTML. Replace block boundaries with newlines first so
+  // sentences don't run together, then strip all remaining tags.
+  const text = description
+    .replace(/<\/p>|<br\s*\/?>|<\/li>/gi, '\n')
+    .replace(/<[^>]+>/g, '')
+    .replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&nbsp;/g, ' ');
+  const lines = text.split(/\n+/).map(l => l.trim()).filter(Boolean);
+  // Skip all-caps door/price/time header lines.
   const body = lines.find(l => !/^[A-Z0-9 $+•,\-|/@()[\]:\.\/\\%!]{10,}$/.test(l));
   return body ? body.slice(0, 200) : null;
 }
