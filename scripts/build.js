@@ -2166,6 +2166,63 @@ function renderEntry(c, e, allCategories) {
 
   const description = `${e.name} — ${e.style || c.title.toLowerCase()} in ${e.neighborhood || 'the Twin Cities'}. ${e.description ? e.description.slice(0, 110) : ''}`.trim();
 
+  // Upcoming shows block — live-music, theaters, and arthouse-cinemas entries
+  // that have a matching scraper source get a mini-calendar right on the page.
+  const upcomingShowsBlock = (() => {
+    const VENUE_CATS = ['live-music', 'theaters', 'arthouse-cinemas'];
+    if (!VENUE_CATS.includes(c.slug)) return '';
+    // Map scraped venue name → live-music directory entry name. Same as the
+    // alias used in resolveVenues() so venue pages and entry pages stay in sync.
+    const ALIAS = {
+      'First Avenue': 'First Avenue & 7th St Entry',
+      '7th St Entry': 'First Avenue & 7th St Entry',
+      'Turf Club': 'First Avenue & 7th St Entry',
+      'Fine Line': 'The Fine Line Music Cafe',
+      'The Cedar Cultural Center': 'Cedar Cultural Center',
+      'Dakota Jazz Club': 'Dakota Jazz Club & Restaurant',
+      'The Hook and Ladder': 'The Hook and Ladder Theater',
+    };
+    // Reverse: find which scraped venue names point at this entry.
+    const scrapedNames = Object.entries(ALIAS)
+      .filter(([, dir]) => dir === e.name)
+      .map(([scraped]) => scraped);
+    if (!scrapedNames.length) scrapedNames.push(e.name);
+
+    const shows = (eventsData.events || [])
+      .filter(ev => scrapedNames.includes(ev.venue))
+      .slice(0, 8); // already sorted by date from scrape-events.js
+
+    if (!shows.length) return '';
+
+    const venueSlug = entrySlug(scrapedNames[0]);
+
+    function fmtShowDate(iso) {
+      const [y, m, d] = iso.split('-').map(Number);
+      return new Date(y, m - 1, d).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+    }
+    function fmtShowTime(t) {
+      if (!t) return '';
+      const [h, min] = t.split(':').map(Number);
+      const ampm = h >= 12 ? 'PM' : 'AM';
+      const hr = h % 12 === 0 ? 12 : h % 12;
+      return ` · ${hr}:${String(min).padStart(2, '0')} ${ampm}`;
+    }
+
+    return `
+    <section class="entry-upcoming-shows">
+      <h2 class="entry-upcoming-title">Upcoming Shows</h2>
+      <ul class="entry-upcoming-list">
+        ${shows.map(s => `
+          <li class="entry-upcoming-show">
+            <div class="entry-upcoming-when">${esc(fmtShowDate(s.date))}${esc(fmtShowTime(s.time))}</div>
+            <div class="entry-upcoming-what">${s.url ? `<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.title)}<span class="entry-meta-link-icon"> ↗</span></a>` : esc(s.title)}</div>
+            ${s.price ? `<div class="entry-upcoming-price">${esc(s.price)}</div>` : ''}
+          </li>`).join('')}
+      </ul>
+      <a href="/calendar/venue/${esc(venueSlug)}/" class="entry-upcoming-all">See full calendar →</a>
+    </section>`;
+  })();
+
   return head({ title: `${e.name} · ${c.title}`, description, slug: `${c.slug}/${slug}`, theme: c.hero_color }) +
     header({ activeSlug: c.slug }) +
     `<nav class="breadcrumb wrap">
@@ -2214,6 +2271,8 @@ function renderEntry(c, e, allCategories) {
          </ul>
          <a href="/${c.slug}/" class="entry-detail-back">See the full ${esc(c.title.toLowerCase())} list →</a>
        </section>` : ''}
+
+       ${upcomingShowsBlock}
      </article>
 
      <script type="application/ld+json">${JSON.stringify(schema)}</script>

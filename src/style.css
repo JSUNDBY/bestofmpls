@@ -4230,6 +4230,76 @@ html[data-mode="dark"] .countdown-name { color: #FFFFFF; }
 }
 .entry-detail-back:hover { color: var(--ink); border-bottom-color: var(--ink); }
 
+/* Upcoming shows block on live-music / theater entry pages */
+.entry-upcoming-shows {
+  margin-top: 40px;
+  padding-top: 32px;
+  border-top: 2px solid var(--ink);
+}
+.entry-upcoming-title {
+  font-family: var(--font-head);
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin: 0 0 20px;
+}
+.entry-upcoming-list {
+  list-style: none;
+  margin: 0 0 20px;
+  padding: 0;
+}
+.entry-upcoming-show {
+  display: grid;
+  grid-template-columns: 180px 1fr auto;
+  gap: 8px 16px;
+  align-items: baseline;
+  padding: 11px 0;
+  border-bottom: 1px solid var(--rule);
+}
+.entry-upcoming-show:first-child { border-top: 1px solid var(--rule); }
+@media (max-width: 600px) {
+  .entry-upcoming-show { grid-template-columns: 1fr auto; }
+  .entry-upcoming-when { grid-column: 1 / -1; }
+}
+.entry-upcoming-when {
+  font-family: var(--font-label);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  white-space: nowrap;
+}
+.entry-upcoming-what {
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: var(--ink);
+}
+.entry-upcoming-what a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid var(--rule);
+}
+.entry-upcoming-what a:hover { color: var(--clay); border-color: var(--clay); }
+.entry-upcoming-price {
+  font-family: var(--font-label);
+  font-size: 12px;
+  color: var(--ink-soft);
+  white-space: nowrap;
+}
+.entry-upcoming-all {
+  display: inline-block;
+  font-family: var(--font-label);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--clay);
+  text-decoration: none;
+  border-bottom: 1px solid var(--clay);
+}
+.entry-upcoming-all:hover { color: var(--ink); border-bottom-color: var(--ink); }
+
 /* "Read full entry →" link on category cards */
 .entry-readmore {
   display: inline-block;
