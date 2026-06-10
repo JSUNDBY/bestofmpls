@@ -35,7 +35,8 @@ const SCRAPERS = [
   require('./scrapers/hook.js'),
   require('./scrapers/berlin.js'),
   require('./scrapers/club331.js'),
-  require('./scrapers/varsity.js')
+  require('./scrapers/varsity.js'),
+  require('./scrapers/icehouse.js')
 ];
 
 function parseArgs() {
