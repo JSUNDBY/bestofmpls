@@ -410,6 +410,8 @@ const patios       = require(path.join(SRC, 'data/patios.js'));
 const happyHours   = require(path.join(SRC, 'data/happy-hours.js'));
 const mexican      = require(path.join(SRC, 'data/mexican.js'));
 const bakeries     = require(path.join(SRC, 'data/bakeries.js'));
+const glutenFree   = require(path.join(SRC, 'data/gluten-free.js'));
+const pool         = require(path.join(SRC, 'data/pool.js'));
 const hmong        = require(path.join(SRC, 'data/hmong.js'));
 const ethiopian    = require(path.join(SRC, 'data/ethiopian.js'));
 const indian       = require(path.join(SRC, 'data/indian.js'));
@@ -573,14 +575,14 @@ const categories = [
   // Culture
   museums, liveMusic, theaters, cinemas, lgbtq, sports,
   // Eat
-  restaurants, foodHalls, coffee, bakeries, sandwiches, burgers, pizza, brunch,
+  restaurants, foodHalls, coffee, bakeries, glutenFree, sandwiches, burgers, pizza, brunch,
   mexican, vietnamese, korean, japanese, hmong, ethiopian, indian, thai, chinese, iceCream, lateNight,
   // Drink
   cocktailBars, breweries, diveBars, patios, happyHours,
   // Shop
   shops, mensClothing, womensClothing, dispensaries,
   // Stay & Do
-  hotels, outdoors, wellness, hiddenGems, curiosities,
+  hotels, outdoors, wellness, hiddenGems, curiosities, pool,
   // Calendar
   festivals
 ];
