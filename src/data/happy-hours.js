@@ -179,15 +179,6 @@ module.exports = {
       hours: 'Mon–Fri 1–6pm; $3.31 martinis all day'
     },
     {
-      name: 'Young Joni',
-      neighborhood: 'Northeast Minneapolis',
-      style: 'Wood-fired pizza, back bar',
-      description: 'The back bar runs a social hour Sunday through Thursday from four to six: a pizza and Old Fashioned combo for thirteen dollars, plus the back-bar pizza menu at regular prices. Call ahead to confirm the back bar is open before making it the destination.',
-      address: '165 13th Ave NE, Minneapolis',
-      price: '$$',
-      hours: 'Sun–Thu 4–6pm (back bar; call ahead)'
-    },
-    {
       name: 'Dangerous Man Brewing',
       neighborhood: 'Northeast Minneapolis',
       style: 'Brewery taproom',
