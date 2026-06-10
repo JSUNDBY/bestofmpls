@@ -1,3 +1,13 @@
+> **STATUS (2026-06-09): NOT IN USE.** The service-account method below was
+> tried and Search Console rejected the service-account email ("email not found")
+> for this personal Gmail-owned property — its UI won't accept a service account
+> as a user, and there's no API to add one. Current approach is **live-read**
+> (read the Search Console Performance tab in the browser when needed). This doc
+> is kept only as reference; the service-account steps do **not** work here.
+> If unattended reporting is ever wanted, switch to **OAuth** (consent screen
+> published to production so the refresh token doesn't expire) — not a service
+> account.
+
 # Search Console reporting (unattended)
 
 `scripts/gsc-report.js` pulls bestofmpls.com's Search Analytics (last 28 days)
