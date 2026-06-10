@@ -827,7 +827,7 @@ function header({ activeSlug } = {}) {
         { href: '/calendar/',  label: 'Calendar',       deck: 'Live shows, openings, screenings' },
         { href: '/scenes/',    label: 'Scenes',         deck: 'Jazz, punk, electronic, folk, hip-hop' },
         { href: '/now-showing/', label: 'Now Showing',  deck: 'Current art exhibitions' },
-        { href: '/horoscope/', label: 'Horoscope',      deck: 'Twelve signs, daily' },
+        { href: '/horoscope/', label: 'Horoscope',      deck: 'Twelve signs, weekly' },
         { href: '/mystery/',   label: 'Mystery Itinerary', deck: 'Sealed-envelope nights' }
       ]
     },
@@ -1610,7 +1610,7 @@ function renderHome() {
         <div class="horoscope-feature-text">
           <div class="cluster-eyebrow">For the metro, today</div>
           <h2 class="cluster-title">A reading for the day</h2>
-          <p class="cluster-deck">A grounded daily horoscope. Mood pieces, more than predictions. Written for people who live here.</p>
+          <p class="cluster-deck">A grounded weekly horoscope. Mood pieces, more than predictions. Written for people who live here.</p>
           <a class="cat-card-arrow" href="/horoscope/">Read all twelve →</a>
         </div>
         <div class="horoscope-feature-cards">
@@ -3559,14 +3559,14 @@ function renderWeekend() {
     footer();
 }
 
-// ---------- Daily horoscope ----------
+// ---------- Weekly horoscope ----------
 function renderHoroscope() {
-  const title = 'Daily Horoscopes';
-  const description = 'A grounded daily reading for the metro. Mood pieces, more than predictions. Refreshed each morning.';
+  const title = 'Weekly Horoscopes';
+  const description = 'A grounded weekly reading for the metro. Mood pieces, more than predictions. Refreshed every Monday.';
   const data = horoscopeData;
-  const date = data.date
-    ? (function(){ const [y,m,d] = data.date.split('-').map(Number); return new Date(y, m-1, d).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' }); })()
-    : null;
+  const date = data.week_label || (data.date
+    ? (function(){ const [y,m,d] = data.date.split('-').map(Number); return new Date(y, m-1, d).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }); })()
+    : null);
 
   if (!data.horoscopes || data.horoscopes.length === 0) {
     return head({ title, description, slug: 'horoscope', theme: 'midnight' }) +
@@ -3589,7 +3589,7 @@ function renderHoroscope() {
     header({ activeSlug: 'horoscope' }) +
     `<section class="section-head">
        <div class="wrap">
-         <div class="section-eyebrow">${date ? esc(date) : 'Today'}</div>
+         <div class="section-eyebrow">${date ? esc(date) : 'This week'}</div>
          <h1 class="section-title">${esc(title)}</h1>
          <p class="section-deck">${esc(data.intro || description)}</p>
        </div>

@@ -611,18 +611,39 @@ const SIGNS = [
   }
 ];
 
-function dayOfYear(d) {
-  const start = new Date(d.getFullYear(), 0, 0);
-  const diff = d - start;
-  return Math.floor(diff / 86400000);
+// Returns the ISO 8601 week number and year for a given date.
+function isoWeek(d) {
+  const date = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+  date.setUTCDate(date.getUTCDate() + 4 - (date.getUTCDay() || 7));
+  const yearStart = new Date(Date.UTC(date.getUTCFullYear(), 0, 1));
+  const week = Math.ceil(((date - yearStart) / 86400000 + 1) / 7);
+  return { year: date.getUTCFullYear(), week };
+}
+
+// Returns the Monday (week-start) date string for the week containing d.
+function weekStartISO(d) {
+  const date = new Date(d);
+  const day = date.getDay() || 7; // 1=Mon … 7=Sun
+  date.setDate(date.getDate() - day + 1);
+  const pad = n => String(n).padStart(2, '0');
+  return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
+}
+
+// "Week of June 9, 2026"
+function weekLabel(d) {
+  const monday = new Date(d);
+  const day = monday.getDay() || 7;
+  monday.setDate(monday.getDate() - day + 1);
+  return monday.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 }
 
 function generateForDate(date) {
-  const pad = n => String(n).padStart(2, '0');
-  const isoDate = `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
-  const doy = dayOfYear(date);
-  const horoscopes = SIGNS.map((sign, idx) => {
-    const seed = hash(`${isoDate}:${sign.name}`);
+  const { year, week } = isoWeek(date);
+  const weekKey = `${year}-W${String(week).padStart(2, '0')}`;
+  const weekStart = weekStartISO(date);
+
+  const horoscopes = SIGNS.map((sign) => {
+    const seed = hash(`${weekKey}:${sign.name}`);
     const rng = mulberry32(seed);
     const opener = pick(sign.openers, rng);
     const middle = pick(sign.middles, rng);
@@ -645,20 +666,21 @@ function generateForDate(date) {
   });
 
   return {
-    date: isoDate,
+    date: weekStart,
+    week: weekKey,
+    week_label: `Week of ${weekLabel(date)}`,
     generated_at: new Date().toISOString(),
-    intro: 'A daily reading for the metro, mood-pieces more than predictions. Refreshed each morning.',
+    intro: 'A weekly reading for the metro, mood-pieces more than predictions. Refreshed every Monday.',
     horoscopes
   };
 }
 
 function main() {
-  // Anchor to Central time so the daily horoscope rolls at midnight Central,
-  // not at midnight UTC.
+  // Anchor to Central time so the weekly horoscope rolls at Monday midnight Central.
   const central = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Chicago' }));
   const data = generateForDate(central);
   fs.writeFileSync(OUT, JSON.stringify(data, null, 2));
-  console.log(`  → wrote horoscope.json for ${data.date} (${(fs.statSync(OUT).size / 1024).toFixed(1)} KB)`);
+  console.log(`  → wrote horoscope.json for ${data.week} (week of ${data.date}, ${(fs.statSync(OUT).size / 1024).toFixed(1)} KB)`);
 }
 
 if (require.main === module) main();
