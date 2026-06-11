@@ -92,7 +92,7 @@ module.exports = {
       name: 'Barbette',
       neighborhood: 'Uptown, Minneapolis',
       style: 'French bistro',
-      description: 'The Smith family’s French brasserie has anchored the corner of Lake and Irving for more than twenty years, a few blocks off the lake. The steak frites and the mussels are the long-running orders, the wine list is honest, and the all-day room slides from morning coffee to late-night with the same ease. Weekend brunch is an Uptown ritual. The sibling to Bryant Lake Bowl, and the kind of place that feels like it has always been here.',
+      description: 'Kim Bartmann turned her Café Wyrd coffee shop into this French brasserie in 2001 and it has anchored the corner of Lake and Irving ever since, a few blocks off the lake. The steak frites and the mussels are the long-running orders, the wine list is honest, and the all-day room slides from morning coffee to late-night with the same ease. Weekend brunch is an Uptown ritual. Sibling to Bryant Lake Bowl, and the kind of place that feels like it has always been here.',
       address: '1600 W Lake St, Minneapolis',
       website: 'https://www.barbette.com',
       price: '$$$'
