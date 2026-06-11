@@ -996,10 +996,6 @@ function footer() {
         <div class="footer-brand">bestofmpls<span class="dot">.</span></div>
         <p class="footer-tag">A guide to the museums, music, food, and small good things of Minneapolis and Saint Paul. Made for the metro by the people who live here.</p>
       </div>
-      <div class="footer-newsletter">
-        <p class="footer-list-title">The weekly dispatch</p>
-        <p class="footer-tag" style="margin:4px 0 0">Every Monday — shows, happy hours, horoscope. <a href="#newsletter-signup" style="color:var(--clay)">Subscribe above.</a></p>
-      </div>
     </div>
 
     <div class="footer-daily">
