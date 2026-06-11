@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-11T07:57:19.353Z",
+  "generated_at": "2026-06-11T15:49:16.085Z",
   "sources": [
     {
       "source": "first-avenue",
@@ -10,8 +10,9 @@
     {
       "source": "cedar",
       "label": "The Cedar Cultural Center",
-      "count": 51,
-      "ok": true
+      "count": 0,
+      "ok": false,
+      "error": "fetch failed"
     },
     {
       "source": "walker",
@@ -28,7 +29,7 @@
     {
       "source": "parkway",
       "label": "The Parkway Theater",
-      "count": 66,
+      "count": 71,
       "ok": true
     },
     {
@@ -355,11 +356,11 @@
       "source": "walker"
     },
     {
-      "id": "dakota:2026-06-11:bruce-a-henry-and-038-the-dakota-present-hands-and-038-hearts-for-the-arts",
+      "id": "dakota:2026-06-11:bruce-a-henry-and-the-dakota-present-hands-and-hearts-for-the-arts",
       "date": "2026-06-11",
       "time": "19:00",
       "end_date": "2026-06-11",
-      "title": "Bruce A. Henry &#038; The Dakota Present: Hands &#038; Hearts for the Arts",
+      "title": "Bruce A. Henry & The Dakota Present: Hands & Hearts for the Arts",
       "venue": "Dakota Jazz Club",
       "venue_neighborhood": "Downtown Minneapolis",
       "city": "Minneapolis",
@@ -421,23 +422,6 @@
       "price": null,
       "age": null,
       "source": "riverview"
-    },
-    {
-      "id": "cedar:2026-06-11:derya-yildirim-and-grup-simsek-with-dj-shehrzad",
-      "date": "2026-06-11",
-      "time": "19:30",
-      "end_date": null,
-      "title": "DERYA YILDIRIM & GRUP ŞIMŞEK with DJ Shehrzad",
-      "venue": "The Cedar Cultural Center",
-      "venue_neighborhood": "West Bank, Minneapolis",
-      "city": "Minneapolis",
-      "category": "music",
-      "subtitle": "Derya Yıldırım & Grup Şimşek are internationally recognized for their unique and infectious sound that combines Anatolian folk with psychedelia, pop and soul influences.",
-      "url": "https://www.thecedar.org/events/derya-yildirim-grup-simsek",
-      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1775062910084-HI8TVFDR69EHJAX6T6K0/260611_DYGS%CC%A7_Print+%281%29.png",
-      "price": null,
-      "age": "All ages",
-      "source": "cedar"
     },
     {
       "id": "berlin:2026-06-11:paolo-angeli-w-laura-harada-and-tim-o-keefe",
@@ -506,23 +490,6 @@
       "price": null,
       "age": null,
       "source": "first-avenue"
-    },
-    {
-      "id": "parkway:2026-06-11:pride-at-the-parkway-all-movie-pass",
-      "date": "2026-06-11",
-      "time": null,
-      "end_date": null,
-      "title": "Pride! at The Parkway // All Movie Pass",
-      "venue": "The Parkway Theater",
-      "venue_neighborhood": "Standish, Minneapolis",
-      "city": "Minneapolis",
-      "category": "film",
-      "subtitle": "Come celebrate pride month at The Parkway! Both nights will feature a live burlesque show before the film screenings, hosted by Queenie Von Curves! Afraid of commitment? You can always buy tickets to the individual films",
-      "url": "https://theparkwaytheater.com/all-events/pride-26",
-      "image": null,
-      "price": null,
-      "age": null,
-      "source": "parkway"
     },
     {
       "id": "parkway:2026-06-11:the-watermelon-woman-1996-w-pre-movie-burlesque-hosted-by-queenie-von-curves",
@@ -744,23 +711,6 @@
       "price": null,
       "age": "21+",
       "source": "berlin"
-    },
-    {
-      "id": "cedar:2026-06-12:first-avenue-presents-mohanad-elshieky",
-      "date": "2026-06-12",
-      "time": "20:00",
-      "end_date": null,
-      "title": "First Avenue presents Mohanad Elshieky",
-      "venue": "The Cedar Cultural Center",
-      "venue_neighborhood": "West Bank, Minneapolis",
-      "city": "Minneapolis",
-      "category": "music",
-      "subtitle": "Mohanad Elshieky is a New York-based, Libyan-born comedian who made his national TV debut on Conan, has been featured on The Late Show with Stephen Colbert, Don’t Tell Comedy, Comedy Central, This American Life, and has ",
-      "url": "https://www.thecedar.org/events/mohanad-elshieky",
-      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1768943635178-WF793L7QT7K1YEFW4QB6/MohanadElshieky-1080x1080.jpg",
-      "price": null,
-      "age": "All ages",
-      "source": "cedar"
     },
     {
       "id": "icehouse:2026-06-12:molly-brandt-museum-of-being-album-release",
@@ -999,23 +949,6 @@
       "price": null,
       "age": "21+",
       "source": "331"
-    },
-    {
-      "id": "cedar:2026-06-13:dinkytown-a-tale-of-a-legendary-village-film-screening",
-      "date": "2026-06-13",
-      "time": "16:00",
-      "end_date": null,
-      "title": "\"Dinkytown: A Tale of a Legendary Village\" Film Screening",
-      "venue": "The Cedar Cultural Center",
-      "venue_neighborhood": "West Bank, Minneapolis",
-      "city": "Minneapolis",
-      "category": "music",
-      "subtitle": "Dinkytown: A Tale of a Legendary Village tells the story of a unique village that has served as a small downtown for the University of Minnesota for over 150 years. Bob Dylan and Vice Presidents Hubert Humphrey and Walte",
-      "url": "https://www.thecedar.org/events/dinkytown-a-tale-of-a-legendary-village-film-screening",
-      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1778257923319-WN7D160E9TKPJTP9EGEN/DT-poster+Or.jpeg",
-      "price": null,
-      "age": "All ages",
-      "source": "cedar"
     },
     {
       "id": "riverview:2026-06-13:16:15:project-hail-mary",
@@ -1390,23 +1323,6 @@
       "price": null,
       "age": null,
       "source": "trylon"
-    },
-    {
-      "id": "cedar:2026-06-14:solidarity-in-stereo",
-      "date": "2026-06-14",
-      "time": "15:00",
-      "end_date": null,
-      "title": "SOLIDARITY IN STEREO",
-      "venue": "The Cedar Cultural Center",
-      "venue_neighborhood": "West Bank, Minneapolis",
-      "city": "Minneapolis",
-      "category": "music",
-      "subtitle": "SOLIDARITY IN STEREO: A benefit concert for TakeAction Minnesota's organizing featuring jeremy messersmith, Robyn Jamner, Salty Fears, and Brass Solidarity.",
-      "url": "https://www.thecedar.org/events/solidarity-in-stereo",
-      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1777321717921-C15PQUW5YI53Y3MBYXEN/No+Current+-+Flyer+.jpg",
-      "price": null,
-      "age": "All ages",
-      "source": "cedar"
     },
     {
       "id": "riverview:2026-06-14:15:30:project-hail-mary",
@@ -2378,23 +2294,6 @@
       "source": "riverview"
     },
     {
-      "id": "cedar:2026-06-18:an-evening-with-van-orman-and-helwin-with-marc-anderson",
-      "date": "2026-06-18",
-      "time": "19:30",
-      "end_date": null,
-      "title": "An Evening with VAN ORMAN & HELWIN WITH MARC ANDERSON",
-      "venue": "The Cedar Cultural Center",
-      "venue_neighborhood": "West Bank, Minneapolis",
-      "city": "Minneapolis",
-      "category": "music",
-      "subtitle": "John C. Van Orman and Adam Helwin are singer-songwriter neighbors in the bucolic countryside of southwestern Wisconsin’s Driftless region, a place of unglaciated hills, fertile soil, and clear-running trout streams where",
-      "url": "https://www.thecedar.org/events/an-evening-with-van-orman-helwin-with-marc-anderson",
-      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1774967455101-DR8B3C33M1Q1EQKH7Q9H/Van+Orman+and+Helwin+-+00016+%281%29.png",
-      "price": null,
-      "age": "All ages",
-      "source": "cedar"
-    },
-    {
       "id": "berlin:2026-06-18:anthony-cox-bryan-murray-davu-seru",
       "date": "2026-06-18",
       "time": "19:30",
@@ -2699,23 +2598,6 @@
       "price": null,
       "age": "21+",
       "source": "berlin"
-    },
-    {
-      "id": "cedar:2026-06-19:hot-8-brass-band-with-brass-solidarity-and-dj-tarik-thornton",
-      "date": "2026-06-19",
-      "time": "19:30",
-      "end_date": null,
-      "title": "HOT 8 BRASS BAND with Brass Solidarity and DJ Tarik Thornton",
-      "venue": "The Cedar Cultural Center",
-      "venue_neighborhood": "West Bank, Minneapolis",
-      "city": "Minneapolis",
-      "category": "music",
-      "subtitle": "Transcending genres and trends, the Hot 8 Brass Band have performed and collaborated with the likes of Jon Batiste, Blind Boys of Alabama, Basement Jaxx, George Ezra and Alice Russell, and provided live support for Mos D",
-      "url": "https://www.thecedar.org/events/hot-8-brass-band",
-      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1772733562248-HA1ZMRKGCMLK9OJ37WLD/031316_mus_hot8_fargo_nola-0144_1.jpg",
-      "price": null,
-      "age": "All ages",
-      "source": "cedar"
     },
     {
       "id": "icehouse:2026-06-19:soleent-presents-soul-train-night-hosted-by-drunken-monkeee",
@@ -3024,11 +2906,11 @@
       "source": "amsterdam"
     },
     {
-      "id": "dakota:2026-06-20:kevin-kling-and-038-larry-long",
+      "id": "dakota:2026-06-20:kevin-kling-and-larry-long",
       "date": "2026-06-20",
       "time": "19:00",
       "end_date": "2026-06-20",
-      "title": "Kevin Kling &#038; Larry Long",
+      "title": "Kevin Kling & Larry Long",
       "venue": "Dakota Jazz Club",
       "venue_neighborhood": "Downtown Minneapolis",
       "city": "Minneapolis",
@@ -3090,23 +2972,6 @@
       "price": null,
       "age": "21+",
       "source": "berlin"
-    },
-    {
-      "id": "cedar:2026-06-20:first-avenue-presents-bob-schneider",
-      "date": "2026-06-20",
-      "time": "20:00",
-      "end_date": null,
-      "title": "First Avenue presents BOB SCHNEIDER",
-      "venue": "The Cedar Cultural Center",
-      "venue_neighborhood": "West Bank, Minneapolis",
-      "city": "Minneapolis",
-      "category": "music",
-      "subtitle": "Austin, Texas-based singer-songwriter and former frontman of The Ugly Americans and The Scabs, Bob Schneider is one of the most-celebrated musicians in the live music capital. Combining diverse styles, Schneider’s music ",
-      "url": "https://www.thecedar.org/events/first-avenue-presents-bob-schneider",
-      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1773069709827-9OL6LC0YMM52W3CF7ZEQ/BobSchneider-1080x1080.jpg",
-      "price": null,
-      "age": "All ages",
-      "source": "cedar"
     },
     {
       "id": "icehouse:2026-06-20:urgent-emergent-performance-art-series-volume-six-queer-the-mic-a-pride-party",
@@ -3413,23 +3278,6 @@
       "price": null,
       "age": null,
       "source": "trylon"
-    },
-    {
-      "id": "cedar:2026-06-21:summer-solstice-sound-bath-with-marc-anderson",
-      "date": "2026-06-21",
-      "time": "16:00",
-      "end_date": null,
-      "title": "Summer Solstice Sound Bath with Marc Anderson",
-      "venue": "The Cedar Cultural Center",
-      "venue_neighborhood": "West Bank, Minneapolis",
-      "city": "Minneapolis",
-      "category": "music",
-      "subtitle": "Part sound bath, part trance dance, Marc Anderson's Summer Solstice Sound Bath, hosted on the Cedar's outdoor plaza, invites you to listen and engage with yourself and your community.",
-      "url": "https://www.thecedar.org/events/summer-solstice-sound-bath-with-marc-anderson",
-      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1769011058773-VM5VRCDUJI57BRW59IBJ/IMG_6552%2B%281%29.webp",
-      "price": null,
-      "age": "All ages",
-      "source": "cedar"
     },
     {
       "id": "icehouse:2026-06-21:trevor-mcspadden-and-band",
@@ -4180,23 +4028,6 @@
       "source": "riverview"
     },
     {
-      "id": "cedar:2026-06-24:amir-elsaffar-and-lorenzo-bianchi-hoesch-present-inner-spaces-with-robert-lehman",
-      "date": "2026-06-24",
-      "time": "19:30",
-      "end_date": null,
-      "title": "Amir ElSaffar and Lorenzo Bianchi Hoesch present INNER SPACES with ROBERT LEHMANN & TOBY RAMASWAMY",
-      "venue": "The Cedar Cultural Center",
-      "venue_neighborhood": "West Bank, Minneapolis",
-      "city": "Minneapolis",
-      "category": "music",
-      "subtitle": "Inner Spaces invites audiences on a transcendent musical journey, blending ancestral and futuristic sounds, acoustic and electronic elements, and global traditions. Led by Amir ElSaffar and Lorenzo Bianchi Hoesch, this c",
-      "url": "https://www.thecedar.org/events/amir-elsaffar-and-lorenzo-bianchi-hoesch-present-inner-spaces",
-      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1773417791323-30NHJYY0FPZSB07OHQXK/Screenshot+2026-03-12+at+12.14.17+PM.png",
-      "price": null,
-      "age": "All ages",
-      "source": "cedar"
-    },
-    {
       "id": "amsterdam:2026-06-24:lady-bunny-butchers-broadway",
       "date": "2026-06-24",
       "time": "19:30",
@@ -4367,11 +4198,11 @@
       "source": "varsity"
     },
     {
-      "id": "dakota:2026-06-25:l-a-buckner-and-038-big-homie-single-release-party",
+      "id": "dakota:2026-06-25:l-a-buckner-and-big-homie-single-release-party",
       "date": "2026-06-25",
       "time": "19:00",
       "end_date": "2026-06-25",
-      "title": "L.A. Buckner &#038; BiG HOMiE: Single Release Party",
+      "title": "L.A. Buckner & BiG HOMiE: Single Release Party",
       "venue": "Dakota Jazz Club",
       "venue_neighborhood": "Downtown Minneapolis",
       "city": "Minneapolis",
@@ -4416,23 +4247,6 @@
       "price": null,
       "age": null,
       "source": "riverview"
-    },
-    {
-      "id": "cedar:2026-06-25:an-evening-with-alysha-brilla-with-brandyn-lee-tulloch",
-      "date": "2026-06-25",
-      "time": "19:30",
-      "end_date": null,
-      "title": "An Evening with ALYSHA BRILLA with Brandyn Lee Tulloch",
-      "venue": "The Cedar Cultural Center",
-      "venue_neighborhood": "West Bank, Minneapolis",
-      "city": "Minneapolis",
-      "category": "music",
-      "subtitle": "Indo-Canadian songwriter and producer Alysha Brilla is a 3x Juno-nominated artist. Guided by heritage and imagination, Brilla sculpts sonic constellations where the ancestral meets the electric.",
-      "url": "https://www.thecedar.org/events/an-evening-with-alysha-brilla",
-      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1771615259799-EKZ52TXXCIAIREC5BM1Q/Alysha%2BBrilla%2BPerforming%2BLive+%281%29.webp",
-      "price": null,
-      "age": "All ages",
-      "source": "cedar"
     },
     {
       "id": "berlin:2026-06-25:majmin-w-shehrzad-dj-set",
@@ -4775,11 +4589,11 @@
       "source": "berlin"
     },
     {
-      "id": "dakota:2026-06-27:andrew-walesch-and-038-his-orchestra-vegas-1960",
+      "id": "dakota:2026-06-27:andrew-walesch-and-his-orchestra-vegas-1960",
       "date": "2026-06-27",
       "time": "19:00",
       "end_date": "2026-06-27",
-      "title": "Andrew Walesch &#038; His Orchestra: Vegas 1960",
+      "title": "Andrew Walesch & His Orchestra: Vegas 1960",
       "venue": "Dakota Jazz Club",
       "venue_neighborhood": "Downtown Minneapolis",
       "city": "Minneapolis",
@@ -5013,11 +4827,11 @@
       "source": "icehouse"
     },
     {
-      "id": "331:2026-06-28:colonel-mustard-and-8217-s-mechanical-orchestra",
+      "id": "331:2026-06-28:colonel-mustard-s-mechanical-orchestra",
       "date": "2026-06-28",
       "time": "17:00",
       "end_date": null,
-      "title": "Colonel Mustard&#8217;s Mechanical Orchestra",
+      "title": "Colonel Mustard’s Mechanical Orchestra",
       "venue": "The 331 Club",
       "venue_neighborhood": "Northeast Minneapolis",
       "city": "Minneapolis",
@@ -5198,23 +5012,6 @@
       "price": null,
       "age": null,
       "source": "first-avenue"
-    },
-    {
-      "id": "cedar:2026-06-29:volunteer-orientation",
-      "date": "2026-06-29",
-      "time": "17:30",
-      "end_date": null,
-      "title": "Volunteer Orientation",
-      "venue": "The Cedar Cultural Center",
-      "venue_neighborhood": "West Bank, Minneapolis",
-      "city": "Minneapolis",
-      "category": "music",
-      "subtitle": "Have you ever wanted to peek behind the scenes at the Cedar? Learn more about how to participate at our venue by attending our monthly Volunteer Orientation led by volunteer coordinator Jared Hemming!",
-      "url": "https://www.thecedar.org/events/volunteer-orientation",
-      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1708109477480-ADSOKPSPHQEE1WS4PG2Y/Image%2Bof%2BCedar%2BMarquee.jpg",
-      "price": null,
-      "age": "All ages",
-      "source": "cedar"
     },
     {
       "id": "dakota:2026-06-29:anders-osborne",
@@ -5455,23 +5252,6 @@
       "source": "amsterdam"
     },
     {
-      "id": "cedar:2026-07-01:puppeteers-for-fears-presents-robopocalypse-the-musical",
-      "date": "2026-07-01",
-      "time": "19:30",
-      "end_date": null,
-      "title": "Puppeteers For Fears presents Robopocalypse: The Musical!",
-      "venue": "The Cedar Cultural Center",
-      "venue_neighborhood": "West Bank, Minneapolis",
-      "city": "Minneapolis",
-      "category": "music",
-      "subtitle": "Oregon-based comedy troupe Puppeteers for Fears specializes in original horror and science fiction musicals performed with puppets.",
-      "url": "https://www.thecedar.org/events/puppeteers-for-fears-presents-robopocalypse-the-musical",
-      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1777904240470-I6775ARHN688SV9ZALLK/Chip+McDougan+interviewing+Wilson+-+PC+-+Sorrell+LaLune.JPG",
-      "price": null,
-      "age": "All ages",
-      "source": "cedar"
-    },
-    {
       "id": "berlin:2026-07-01:the-cherry-pit-open-jam",
       "date": "2026-07-01",
       "time": "22:00",
@@ -5523,21 +5303,38 @@
       "source": "dakota"
     },
     {
-      "id": "cedar:2026-07-02:sonido-gallo-negro-with-rudy-de-anda",
+      "id": "parkway:2026-07-02:brooklyn-at-the-parkway-all-movie-pass",
       "date": "2026-07-02",
-      "time": "19:30",
+      "time": null,
       "end_date": null,
-      "title": "SONIDO GALLO NEGRO with Rudy De Anda",
-      "venue": "The Cedar Cultural Center",
-      "venue_neighborhood": "West Bank, Minneapolis",
+      "title": "Brooklyn! at The Parkway // All Movie Pass",
+      "venue": "The Parkway Theater",
+      "venue_neighborhood": "Standish, Minneapolis",
       "city": "Minneapolis",
-      "category": "music",
-      "subtitle": "Mexico City’s Sonido Gallo Negro fuse cumbias with psychedelic tropicalia to create hypnotic, dancefloor-ready sounds.",
-      "url": "https://www.thecedar.org/events/sonido-gallo-negro",
-      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1771339295503-5JO00VUZ6YOQ5ABXIC7C/260702_Sonido+Gallo+Negro_IG.png",
+      "category": "film",
+      "subtitle": "This July The Parkway is celebrating everyone’s favorite borough in the Big Apple, Brooklyn! We’re presenting 4 films that will have you doing New Yorker things like yelling at cars, talking about how great New York City",
+      "url": "https://theparkwaytheater.com/all-events/brooklyn-26",
+      "image": null,
       "price": null,
-      "age": "All ages",
-      "source": "cedar"
+      "age": null,
+      "source": "parkway"
+    },
+    {
+      "id": "parkway:2026-07-02:the-warriors-1979-35mm-presentation-with-pre-movie-costume-contest-hosted-by-jef",
+      "date": "2026-07-02",
+      "time": null,
+      "end_date": null,
+      "title": "The Warriors (1979) 35mm presentation with pre-movie costume contest hosted by Jeff Pariseau",
+      "venue": "The Parkway Theater",
+      "venue_neighborhood": "Standish, Minneapolis",
+      "city": "Minneapolis",
+      "category": "film",
+      "subtitle": "A turf battle between New York City street gangs that rages from Coney Island to the Bronx. The Warriors are mistakenly fingered for the killing of a gang leader. Soon they have every gang in the city out to get revenge,",
+      "url": "https://theparkwaytheater.com/all-events/warriors-26",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "parkway"
     },
     {
       "id": "dakota:2026-07-03:ladies-of-soul-vol-4",
@@ -5640,6 +5437,23 @@
       "price": null,
       "age": null,
       "source": "trylon"
+    },
+    {
+      "id": "parkway:2026-07-03:scream-it-off-screen-short-film-competition",
+      "date": "2026-07-03",
+      "time": null,
+      "end_date": null,
+      "title": "SCREAM it off SCREEN // Short Film Competition",
+      "venue": "The Parkway Theater",
+      "venue_neighborhood": "Standish, Minneapolis",
+      "city": "Minneapolis",
+      "category": "film",
+      "subtitle": "It's the short film competition where YOU and other audience members decide what's worthy of the silver screen by yelling \"GONG\" or \"LET IT PLAY.”",
+      "url": "https://theparkwaytheater.com/all-events/sios-july-2026",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "parkway"
     },
     {
       "id": "trylon:2026-07-04:17:00:the-thing-in-4k",
@@ -5948,23 +5762,6 @@
       "source": "trylon"
     },
     {
-      "id": "cedar:2026-07-08:summer-at-the-cedar-wic-whitney",
-      "date": "2026-07-08",
-      "time": "18:00",
-      "end_date": null,
-      "title": "☀️Summer at The Cedar : WIC WHITNEY☀️",
-      "venue": "The Cedar Cultural Center",
-      "venue_neighborhood": "West Bank, Minneapolis",
-      "city": "Minneapolis",
-      "category": "music",
-      "subtitle": "Summer at The Cedar kicks off with Wic Whitney, who creates an eclectic, genre-spanning blend of hip-hop, folk, and funk, brought together by soulful vocals and thoughtful lyricism that invite you to take a breath and be",
-      "url": "https://www.thecedar.org/events/summer-at-the-cedar-wic-whitney",
-      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1778243150042-C7CMIIIJ1CGFMCQUTX4T/Wic+Whitney+-+press+photo.jpg",
-      "price": null,
-      "age": "All ages",
-      "source": "cedar"
-    },
-    {
       "id": "331:2026-07-08:bosso-poetry-company",
       "date": "2026-07-08",
       "time": "19:00",
@@ -5974,7 +5771,7 @@
       "venue_neighborhood": "Northeast Minneapolis",
       "city": "Minneapolis",
       "category": "music",
-      "subtitle": "With Harold&#8217;s House Party on KFAI · 9:30pm, 7:00pm",
+      "subtitle": "With Harold’s House Party on KFAI · 9:30pm, 7:00pm",
       "url": "https://www.331club.com/",
       "image": null,
       "price": null,
@@ -6025,7 +5822,7 @@
       "venue_neighborhood": "Northeast Minneapolis",
       "city": "Minneapolis",
       "category": "music",
-      "subtitle": "With Harold&#8217;s House Party on KFAI · 9:30pm, 7:00pm",
+      "subtitle": "With Harold’s House Party on KFAI · 9:30pm, 7:00pm",
       "url": "https://www.331club.com/",
       "image": null,
       "price": null,
@@ -6101,23 +5898,6 @@
       "source": "icehouse"
     },
     {
-      "id": "cedar:2026-07-09:fabiano-do-nascimento",
-      "date": "2026-07-09",
-      "time": "19:30",
-      "end_date": null,
-      "title": "FABIANO DO NASCIMENTO",
-      "venue": "The Cedar Cultural Center",
-      "venue_neighborhood": "West Bank, Minneapolis",
-      "city": "Minneapolis",
-      "category": "music",
-      "subtitle": "Fabiano do Nascimento is a Brazilian-American guitarist, composer, producer & arranger deeply rooted in Brazilian heritage & unique sound.",
-      "url": "https://www.thecedar.org/events/fabiano-do-nascimento",
-      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1779898350786-PN214PWG5YE5U0JSOS3I/DSC_0945.jpg",
-      "price": null,
-      "age": "All ages",
-      "source": "cedar"
-    },
-    {
       "id": "amsterdam:2026-07-09:north-star-nerdlesque-festival-opening-spectacular",
       "date": "2026-07-09",
       "time": "19:30",
@@ -6133,6 +5913,23 @@
       "price": null,
       "age": "21+",
       "source": "amsterdam"
+    },
+    {
+      "id": "parkway:2026-07-09:goodfellas-1990-w-pre-movie-trivia-hosted-by-josh-carson",
+      "date": "2026-07-09",
+      "time": null,
+      "end_date": null,
+      "title": "Goodfellas (1990) w/ pre-movie trivia hosted by Josh Carson",
+      "venue": "The Parkway Theater",
+      "venue_neighborhood": "Standish, Minneapolis",
+      "city": "Minneapolis",
+      "category": "film",
+      "subtitle": "Henry Hill (Ray Liotta) knows only too well that he must put the Mob's interests before everything, even his family. But when the good times turn sour for Henry and his mob partners Jimmy (Robert De Niro) and Tommy (Joe ",
+      "url": "https://theparkwaytheater.com/all-events/goodfellas-26",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "parkway"
     },
     {
       "id": "berlin:2026-07-10:room3",
@@ -6201,23 +5998,6 @@
       "price": "$15",
       "age": null,
       "source": "icehouse"
-    },
-    {
-      "id": "cedar:2026-07-10:clap-your-hands-say-yeah-piano-and-voice",
-      "date": "2026-07-10",
-      "time": "20:00",
-      "end_date": null,
-      "title": "CLAP YOUR HANDS SAY YEAH - Piano and Voice",
-      "venue": "The Cedar Cultural Center",
-      "venue_neighborhood": "West Bank, Minneapolis",
-      "city": "Minneapolis",
-      "category": "music",
-      "subtitle": "Best known as the frontman for indie rock band Clap Your Hands Say Yeah, Alec Ounsworth's intimate Piano & Voice tour showcases his songs in their purest form.",
-      "url": "https://www.thecedar.org/events/clap-your-hands-say-yeah-piano-and-voice",
-      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1777304823718-L9B5VZMFWV4K3RYQBRWF/Alec+Ounsworth+-+by+Matt+Barrick.png",
-      "price": null,
-      "age": "All ages",
-      "source": "cedar"
     },
     {
       "id": "trylon:2026-07-10:21:15:the-red-spectacles-in-4k",
@@ -6303,23 +6083,6 @@
       "price": null,
       "age": null,
       "source": "trylon"
-    },
-    {
-      "id": "cedar:2026-07-11:horse-lords-with-sidi-ould-ahmed-zeydan",
-      "date": "2026-07-11",
-      "time": "20:00",
-      "end_date": null,
-      "title": "HORSE LORDS with Sidi ould Ahmed Zeydan",
-      "venue": "The Cedar Cultural Center",
-      "venue_neighborhood": "West Bank, Minneapolis",
-      "city": "Minneapolis",
-      "category": "music",
-      "subtitle": "Horse Lords’ lengthy, hypnotic, polyrhythmic pieces draw from Krautrock, Afrobeat, and Appalachian folk traditions. The Baltimore-based quartet formed in 2010 and has spent the last 16 years touring relentlessly in the D",
-      "url": "https://www.thecedar.org/events/horse-lords",
-      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1773679504463-516NOO6SV7DZBW7GKMAJ/Horse_Lords_Summer_2026_4x5.png",
-      "price": null,
-      "age": "All ages",
-      "source": "cedar"
     },
     {
       "id": "icehouse:2026-07-11:sacred-advisory",
@@ -6679,23 +6442,6 @@
       "source": "trylon"
     },
     {
-      "id": "cedar:2026-07-15:summer-at-the-cedar-summer-deep-listening",
-      "date": "2026-07-15",
-      "time": "18:00",
-      "end_date": null,
-      "title": "☀️Summer at The Cedar : SUMMER DEEP LISTENING ☀️",
-      "venue": "The Cedar Cultural Center",
-      "venue_neighborhood": "West Bank, Minneapolis",
-      "city": "Minneapolis",
-      "category": "music",
-      "subtitle": "Featuring duets from Davu Seru & deVon Russel Gray, Michael Gallope & Mary Hanson Scott, and Dameun Strange & Leyna Marika Papach.",
-      "url": "https://www.thecedar.org/events/summer-deep-listening",
-      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1778245964760-B2M37O7HDYDBXSVE3I9O/Summer+Deep+Listening+Banner.png",
-      "price": null,
-      "age": "All ages",
-      "source": "cedar"
-    },
-    {
       "id": "trylon:2026-07-15:19:00:survive-style-5",
       "date": "2026-07-15",
       "time": "19:00",
@@ -6722,7 +6468,7 @@
       "venue_neighborhood": "Northeast Minneapolis",
       "city": "Minneapolis",
       "category": "music",
-      "subtitle": "With QUAERY, Harold&#8217;s House Party on KFAI · 9:30pm, 7:00pm",
+      "subtitle": "With QUAERY, Harold’s House Party on KFAI · 9:30pm, 7:00pm",
       "url": "https://www.331club.com/",
       "image": null,
       "price": null,
@@ -6849,6 +6595,23 @@
       "source": "331"
     },
     {
+      "id": "parkway:2026-07-16:do-the-right-thing-1989-w-pre-movie-music-by-carnage-the-executioner",
+      "date": "2026-07-16",
+      "time": null,
+      "end_date": null,
+      "title": "Do The Right Thing (1989) w/ pre-movie music by Carnage the Executioner",
+      "venue": "The Parkway Theater",
+      "venue_neighborhood": "Standish, Minneapolis",
+      "city": "Minneapolis",
+      "category": "film",
+      "subtitle": "On the hottest day of the year on a street in the Bedford-Stuyvesant section of Brooklyn, everyone's hate and bigotry smolders and builds until it explodes into violence. Featuring a star-studded ensemble cast including ",
+      "url": "https://theparkwaytheater.com/all-events/do-the-right-thing-26",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "parkway"
+    },
+    {
       "id": "trylon:2026-07-17:19:00:the-palm-beach-story",
       "date": "2026-07-17",
       "time": "19:00",
@@ -6881,23 +6644,6 @@
       "price": null,
       "age": "21+",
       "source": "331"
-    },
-    {
-      "id": "cedar:2026-07-17:an-evening-with-fanoos-ensemble",
-      "date": "2026-07-17",
-      "time": "19:30",
-      "end_date": null,
-      "title": "An Evening with FANOOS ENSEMBLE",
-      "venue": "The Cedar Cultural Center",
-      "venue_neighborhood": "West Bank, Minneapolis",
-      "city": "Minneapolis",
-      "category": "music",
-      "subtitle": "The Fanoos Ensemble features four brilliant Afghan musicians who are unable to perform inside Afghanistan today, as the Taliban has banned all music. Now living in the US, the ensemble performs a revue of Afghan culture ",
-      "url": "https://www.thecedar.org/events/an-evening-with-fanoos-ensemble",
-      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1763411394459-H53LFN4AWTY33CESJ7Q0/Screenshot+2025-11-17+at+2.28.06+PM.png",
-      "price": null,
-      "age": "All ages",
-      "source": "cedar"
     },
     {
       "id": "berlin:2026-07-17:green-is-beautiful-a-tribute-to-the-70s-jazz-funk-of-grant-green",
@@ -7138,23 +6884,6 @@
       "source": "trylon"
     },
     {
-      "id": "cedar:2026-07-19:latin-dance-mn-presents-aurora-do-samba",
-      "date": "2026-07-19",
-      "time": "16:00",
-      "end_date": null,
-      "title": "Latin Dance MN presents Aurora do Samba",
-      "venue": "The Cedar Cultural Center",
-      "venue_neighborhood": "West Bank, Minneapolis",
-      "city": "Minneapolis",
-      "category": "music",
-      "subtitle": "From the African drums to the dazzling colors of the Aurora Borealis, Aurora do Samba takes the audience on a vibrant journey through the history of samba , from sacred Afro-Brazilian ancestry and the rhythm of capoeira ",
-      "url": "https://www.thecedar.org/events/latin-dance-mn-presents-aurora-do-samba",
-      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1779981158578-XL8IZZP7BU9M9MT7Z2MK/LAILA.png",
-      "price": null,
-      "age": "All ages",
-      "source": "cedar"
-    },
-    {
       "id": "icehouse:2026-07-19:jazzwire-twin-cities-summit-finale-concert",
       "date": "2026-07-19",
       "time": "17:00",
@@ -7393,23 +7122,6 @@
       "source": "trylon"
     },
     {
-      "id": "cedar:2026-07-22:summer-at-the-cedar-the-foxgloves",
-      "date": "2026-07-22",
-      "time": "18:00",
-      "end_date": null,
-      "title": "☀️Summer at The Cedar : THE FOXGLOVES☀️",
-      "venue": "The Cedar Cultural Center",
-      "venue_neighborhood": "West Bank, Minneapolis",
-      "city": "Minneapolis",
-      "category": "music",
-      "subtitle": "The Foxgloves are an all-female Midwestern Americana band from the Twin Cities that meets you wherever you are and pulls you in.",
-      "url": "https://www.thecedar.org/events/summer-at-the-cedar-the-foxgloves",
-      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1778266787472-WXTVLCQJXKD3UO5EO2ZS/The+Foxgloves+-+press+photo.JPG",
-      "price": null,
-      "age": "All ages",
-      "source": "cedar"
-    },
-    {
       "id": "varsity:2026-07-22:nine-vicious-a-tour",
       "date": "2026-07-22",
       "time": "18:00",
@@ -7436,7 +7148,7 @@
       "venue_neighborhood": "Northeast Minneapolis",
       "city": "Minneapolis",
       "category": "music",
-      "subtitle": "With witchyard, Pinched., Harold&#8217;s House Party on KFAI · 9:30pm, 7:00pm",
+      "subtitle": "With witchyard, Pinched., Harold’s House Party on KFAI · 9:30pm, 7:00pm",
       "url": "https://www.331club.com/",
       "image": null,
       "price": null,
@@ -7512,23 +7224,6 @@
       "source": "icehouse"
     },
     {
-      "id": "cedar:2026-07-23:first-avenue-presents-wild-child",
-      "date": "2026-07-23",
-      "time": "19:30",
-      "end_date": null,
-      "title": "First Avenue presents WILD CHILD",
-      "venue": "The Cedar Cultural Center",
-      "venue_neighborhood": "West Bank, Minneapolis",
-      "city": "Minneapolis",
-      "category": "music",
-      "subtitle": "First Avenue presents Wild Child",
-      "url": "https://www.thecedar.org/events/first-avenue-presents-wild-child2026",
-      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1775570351272-9KPLS12ENK0E20YQII5Z/WildChild-1080x1080+%281%29.jpg",
-      "price": null,
-      "age": "All ages",
-      "source": "cedar"
-    },
-    {
       "id": "331:2026-07-23:nick-elstad-trio",
       "date": "2026-07-23",
       "time": "21:30",
@@ -7544,6 +7239,23 @@
       "price": null,
       "age": "21+",
       "source": "331"
+    },
+    {
+      "id": "parkway:2026-07-23:saturday-night-fever-1977-35mm-presentation-with-pre-movie-dj-set-by-transmissio",
+      "date": "2026-07-23",
+      "time": null,
+      "end_date": null,
+      "title": "Saturday Night Fever (1977) 35mm presentation with pre-movie DJ set by Transmission’s Shane Kramer",
+      "venue": "The Parkway Theater",
+      "venue_neighborhood": "Standish, Minneapolis",
+      "city": "Minneapolis",
+      "category": "film",
+      "subtitle": "Tony Manero (John Travolta) doesn't have much going for him during the weekdays. He still lives at home and works as a paint store clerk in his Brooklyn neighbourhood. But he lives for the weekends, when he and his frien",
+      "url": "https://theparkwaytheater.com/all-events/saturday-night-fever-26",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "parkway"
     },
     {
       "id": "trylon:2026-07-24:19:00:me-and-my-brother",
@@ -7612,23 +7324,6 @@
       "price": null,
       "age": null,
       "source": "varsity"
-    },
-    {
-      "id": "cedar:2026-07-24:magic-tuber-stringband-with-mother-shipton",
-      "date": "2026-07-24",
-      "time": "20:00",
-      "end_date": null,
-      "title": "MAGIC TUBER STRINGBAND with Mother Shipton",
-      "venue": "The Cedar Cultural Center",
-      "venue_neighborhood": "West Bank, Minneapolis",
-      "city": "Minneapolis",
-      "category": "music",
-      "subtitle": "Magic Tuber Stringband probes the undercurrents of the landscapes around them, their music reflecting time spent living across the Southeast and studying its regional folk traditions and natural histories.",
-      "url": "https://www.thecedar.org/events/magic-tuber-stringband",
-      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1777315789660-DQ5SOMR9D5AHB906YFIF/Magic+Tuber+Stringband+by+Libby+Rodenbough.JPG",
-      "price": null,
-      "age": "All ages",
-      "source": "cedar"
     },
     {
       "id": "trylon:2026-07-24:21:00:f-for-fake-in-35mm",
@@ -7748,23 +7443,6 @@
       "price": null,
       "age": "21+",
       "source": "berlin"
-    },
-    {
-      "id": "cedar:2026-07-25:sleepytime-gorilla-museum-with-wendy-eisenberg",
-      "date": "2026-07-25",
-      "time": "19:30",
-      "end_date": null,
-      "title": "SLEEPYTIME GORILLA MUSEUM with Wendy Eisenberg",
-      "venue": "The Cedar Cultural Center",
-      "venue_neighborhood": "West Bank, Minneapolis",
-      "city": "Minneapolis",
-      "category": "music",
-      "subtitle": "Sleepytime Gorilla Museum is the most gloriously unclassiﬁable American band in existence. Wendy Eisenberg is a singer-songwriter, improviser, and virtuoso guitarist. From art-rock and noise metal to free improv and frea",
-      "url": "https://www.thecedar.org/events/sleepytime-gorilla-museum",
-      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1776804305215-KF88Z514NXKSZS6SXFYB/Sleepytime+Gorilla+Museum.png",
-      "price": null,
-      "age": "All ages",
-      "source": "cedar"
     },
     {
       "id": "trylon:2026-07-25:21:00:f-for-fake-in-35mm",
@@ -8107,23 +7785,6 @@
       "source": "parkway"
     },
     {
-      "id": "cedar:2026-07-29:summer-at-the-cedar-taiga",
-      "date": "2026-07-29",
-      "time": "18:00",
-      "end_date": null,
-      "title": "☀️Summer at The Cedar : TAIGA☀️",
-      "venue": "The Cedar Cultural Center",
-      "venue_neighborhood": "West Bank, Minneapolis",
-      "city": "Minneapolis",
-      "category": "music",
-      "subtitle": "TAIGA is an electronic duo from Inner Mongolia and Xinjiang, blending traditional sounds with modern techniques.",
-      "url": "https://www.thecedar.org/events/summer-at-the-cedar-taiga",
-      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1778267402757-4E70EBPVV99IDEWGWGCL/TAIGA+-+press+photo.JPG",
-      "price": null,
-      "age": "All ages",
-      "source": "cedar"
-    },
-    {
       "id": "331:2026-07-29:lenz-and-frenz",
       "date": "2026-07-29",
       "time": "19:00",
@@ -8173,23 +7834,6 @@
       "price": null,
       "age": null,
       "source": "trylon"
-    },
-    {
-      "id": "cedar:2026-07-30:ml-buch-with-lee-noble",
-      "date": "2026-07-30",
-      "time": "19:30",
-      "end_date": null,
-      "title": "ML BUCH with Lee Noble",
-      "venue": "The Cedar Cultural Center",
-      "venue_neighborhood": "West Bank, Minneapolis",
-      "city": "Minneapolis",
-      "category": "music",
-      "subtitle": "Danish musician, composer, and producer ML Buch makes her Minnesota debut at The Cedar this Summer. Layering clean, 7-string guitar tones in open tunings over ethereal digital landscapes, ML Buch creates an immersive sou",
-      "url": "https://www.thecedar.org/events/ml-buch-with-lee-noble",
-      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1778736304570-13FY3IU9ZYFVB16H413X/ML+Buch+press+photo+by+Agnete+Hannibal+Petri.jpeg",
-      "price": null,
-      "age": "All ages",
-      "source": "cedar"
     },
     {
       "id": "331:2026-07-30:rabbit-by-owl-light",
@@ -8583,23 +8227,6 @@
       "source": "trylon"
     },
     {
-      "id": "cedar:2026-08-05:summer-at-the-cedar-daniel-villarreal",
-      "date": "2026-08-05",
-      "time": "18:00",
-      "end_date": null,
-      "title": "☀️Summer at The Cedar : DANIEL VILLARREAL☀️",
-      "venue": "The Cedar Cultural Center",
-      "venue_neighborhood": "West Bank, Minneapolis",
-      "city": "Minneapolis",
-      "category": "music",
-      "subtitle": "Daniel Villarreal moves fluidly from psychedelia and jazz to Latin rock, fusion, funk, blues, ballads, salsa, and soul.",
-      "url": "https://www.thecedar.org/events/summer-at-the-cedar-daniel-villarreal",
-      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1778268376979-9JEBBX30KHZ1KFPBZJHA/Daniel+Villarreal+-+press+photo.jpg",
-      "price": null,
-      "age": "All ages",
-      "source": "cedar"
-    },
-    {
       "id": "amsterdam:2026-08-05:savage-hands-and-of-virtue",
       "date": "2026-08-05",
       "time": "19:00",
@@ -8666,23 +8293,6 @@
       "price": null,
       "age": null,
       "source": "trylon"
-    },
-    {
-      "id": "cedar:2026-08-06:first-avenue-presents-cinema-therapy",
-      "date": "2026-08-06",
-      "time": "19:30",
-      "end_date": null,
-      "title": "First Avenue presents CINEMA THERAPY",
-      "venue": "The Cedar Cultural Center",
-      "venue_neighborhood": "West Bank, Minneapolis",
-      "city": "Minneapolis",
-      "category": "music",
-      "subtitle": "Movie Couple Therapy: Elizabeth Swann and Will Turner from Pirates of the Caribbean.Licensed therapist Jonathan Decker and filmmaker Alan Seawright dive into a treasure trove of relationship dynamics from this iconic fra",
-      "url": "https://www.thecedar.org/events/cinema-therapy",
-      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1779178352316-47XNXDGOMSFVFE25T1BC/CinemaTherapy-1080x1080.jpg",
-      "price": null,
-      "age": "All ages",
-      "source": "cedar"
     },
     {
       "id": "parkway:2026-08-06:sold-out-see-how-we-are-john-doe-and-exene-cervenka-in-an-acoustic-performance-w",
@@ -8768,23 +8378,6 @@
       "price": null,
       "age": null,
       "source": "trylon"
-    },
-    {
-      "id": "cedar:2026-08-08:creekbed-carter-s-hot-dog-ball",
-      "date": "2026-08-08",
-      "time": "20:00",
-      "end_date": null,
-      "title": "CREEKBED CARTER’s Hot Dog Ball",
-      "venue": "The Cedar Cultural Center",
-      "venue_neighborhood": "West Bank, Minneapolis",
-      "city": "Minneapolis",
-      "category": "music",
-      "subtitle": "The music of Creekbed Carter Hogan (he/they) is a quiet act of defiance made at the end of your rope. It is the warm feeling of solidarity coursing through your body as you link arms with strangers. It is a hard-won laug",
-      "url": "https://www.thecedar.org/events/creekbed-carters-hot-dog-ball",
-      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1778179048664-JTQLULFQYKHDGX855Y8Q/CreekbedCarter2025-47-+by+Emily+April+Allen.jpg",
-      "price": null,
-      "age": "All ages",
-      "source": "cedar"
     },
     {
       "id": "trylon:2026-08-08:21:00:dark-days-in-35mm",
@@ -8957,23 +8550,6 @@
       "source": "trylon"
     },
     {
-      "id": "cedar:2026-08-11:micky-and-the-motorcars",
-      "date": "2026-08-11",
-      "time": "19:30",
-      "end_date": null,
-      "title": "MICKY AND THE MOTORCARS",
-      "venue": "The Cedar Cultural Center",
-      "venue_neighborhood": "West Bank, Minneapolis",
-      "city": "Minneapolis",
-      "category": "music",
-      "subtitle": "Micky and the Motorcars hail from Austin, Texas, by way of Stanley, Idaho. Brothers Micky and Gary Braun are the sons of Western Swing musician Muzzie Braun, and along with their brothers Willy and Cody (Reckless Kelly),",
-      "url": "https://www.thecedar.org/events/micky-and-the-motorcars",
-      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1769548141977-T79PEM33JC59EP56V53O/Updated+Full+band+photo+3++credit+Brian+Monnone..jpg",
-      "price": null,
-      "age": "All ages",
-      "source": "cedar"
-    },
-    {
       "id": "amsterdam:2026-08-11:iryna-bilyk",
       "date": "2026-08-11",
       "time": "20:00",
@@ -9040,23 +8616,6 @@
       "price": null,
       "age": "18+",
       "source": "amsterdam"
-    },
-    {
-      "id": "cedar:2026-08-14:an-evening-with-fink",
-      "date": "2026-08-14",
-      "time": "20:00",
-      "end_date": null,
-      "title": "An Evening with FINK",
-      "venue": "The Cedar Cultural Center",
-      "venue_neighborhood": "West Bank, Minneapolis",
-      "city": "Minneapolis",
-      "category": "music",
-      "subtitle": "English songwriter Fink brings his trio to The Cedar Cultural Center for an intimate performance to celebrate their ninth album, the recently announced The City Is Coming To Erase It All.",
-      "url": "https://www.thecedar.org/events/an-evening-with-fink",
-      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1773841958396-LTLXU6E78JOFNZGRTJME/000038940009+copy+3.jpg",
-      "price": null,
-      "age": "All ages",
-      "source": "cedar"
     },
     {
       "id": "amsterdam:2026-08-15:the-toxhards",
@@ -9178,23 +8737,6 @@
       "source": "parkway"
     },
     {
-      "id": "cedar:2026-08-21:afro-dead-with-demitrious-rallis-band",
-      "date": "2026-08-21",
-      "time": "20:00",
-      "end_date": null,
-      "title": "AFRO DEAD with Demitrious Rallis Band",
-      "venue": "The Cedar Cultural Center",
-      "venue_neighborhood": "West Bank, Minneapolis",
-      "city": "Minneapolis",
-      "category": "music",
-      "subtitle": "Afro Dead is a musical collective formed in 2022 by Aaron Feder to reimagine the music of the Grateful Dead in Afro-Pop styles, such as soukous, Afrobeat, high-life, reggae and more. Featuring members of Chicago’s Alma A",
-      "url": "https://www.thecedar.org/events/afro-dead-with-demitrious-rallis-band",
-      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1767812919222-GOEWQRO15GU0N4CBIRN5/Afro+Dead+2026+Promo+1.jpg",
-      "price": null,
-      "age": "All ages",
-      "source": "cedar"
-    },
-    {
       "id": "parkway:2026-08-21:steely-dane-the-ultimate-steely-dan-tribute-band-two-nights",
       "date": "2026-08-21",
       "time": null,
@@ -9227,23 +8769,6 @@
       "price": "$15",
       "age": null,
       "source": "icehouse"
-    },
-    {
-      "id": "cedar:2026-08-22:sicard-hollow",
-      "date": "2026-08-22",
-      "time": "20:00",
-      "end_date": null,
-      "title": "SICARD HOLLOW",
-      "venue": "The Cedar Cultural Center",
-      "venue_neighborhood": "West Bank, Minneapolis",
-      "city": "Minneapolis",
-      "category": "music",
-      "subtitle": "Nashville’s psychedelic punk-grass rockers, Sicard Hollow, grew up sick of any existing institution telling them who and what to be.",
-      "url": "https://www.thecedar.org/events/sicard-hollow",
-      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1780340721486-CNFHBECT4B9G0LHE7FPX/20230627+-+Sicard+Hollow+-+Fontanel+Promo+-+9712.jpg",
-      "price": null,
-      "age": "All ages",
-      "source": "cedar"
     },
     {
       "id": "parkway:2026-08-23:jason-carter-band",
@@ -9348,40 +8873,6 @@
       "source": "berlin"
     },
     {
-      "id": "cedar:2026-09-02:son-lux",
-      "date": "2026-09-02",
-      "time": "19:30",
-      "end_date": null,
-      "title": "SON LUX",
-      "venue": "The Cedar Cultural Center",
-      "venue_neighborhood": "West Bank, Minneapolis",
-      "city": "Minneapolis",
-      "category": "music",
-      "subtitle": "Son Lux strives to question assumptions about how music is made and construct their own from a molecular level, cultivating a musical language rooted in curiosity and balancing opposites. Over two decades, the band has r",
-      "url": "https://www.thecedar.org/events/son-lux",
-      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1779177724414-QFO97GQ3U6KG7Z7VQSCQ/SonLuxSelects1_PhotoCreditAnnaPowellDenton.jpg",
-      "price": null,
-      "age": "All ages",
-      "source": "cedar"
-    },
-    {
-      "id": "cedar:2026-09-02:the-global-get-together-with-obi-original-and-the-black-atlantics",
-      "date": "2026-09-02",
-      "time": "20:00",
-      "end_date": null,
-      "title": "The Global Get Together with OBI ORIGINAL & THE BLACK ATLANTICS",
-      "venue": "The Cedar Cultural Center",
-      "venue_neighborhood": "West Bank, Minneapolis",
-      "city": "Minneapolis",
-      "category": "music",
-      "subtitle": "The Cedar returns to the Minnesota State Fair’s International Bazaar stage for the 4th year of our Global Get Together. Wednesday, September 2, Minnesota’s very own OBI ORGINAL AND THE BLACK ATLANTICS bring afro-pop, hig",
-      "url": "https://www.thecedar.org/events/the-global-get-together-with-obi-original-the-black-atlantics",
-      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1778832087602-CG78S3E6XA8N92KHX7AQ/Obi+Original++2026.jpg",
-      "price": null,
-      "age": "All ages",
-      "source": "cedar"
-    },
-    {
       "id": "varsity:2026-09-03:chad-gray-30-years-of-madnesss",
       "date": "2026-09-03",
       "time": "18:00",
@@ -9397,40 +8888,6 @@
       "price": null,
       "age": null,
       "source": "varsity"
-    },
-    {
-      "id": "cedar:2026-09-03:the-global-get-together-with-sababa-5",
-      "date": "2026-09-03",
-      "time": "20:00",
-      "end_date": null,
-      "title": "The Global Get Together with SABABA 5",
-      "venue": "The Cedar Cultural Center",
-      "venue_neighborhood": "West Bank, Minneapolis",
-      "city": "Minneapolis",
-      "category": "music",
-      "subtitle": "The Cedar returns to the Minnesota State Fair’s International Bazaar stage for the 4th year of our Global Get Together. Wednesday, September 2, Minnesota’s very own OBI ORGINAL AND THE BLACK ATLANTICS bring afro-pop, hig",
-      "url": "https://www.thecedar.org/events/the-global-get-together-with-sababa-5",
-      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1778832402126-NQ78YHUS916QNOZMYT88/sababa+5+8+by+Alex+Quai+des+brumes.jpg",
-      "price": null,
-      "age": "All ages",
-      "source": "cedar"
-    },
-    {
-      "id": "cedar:2026-09-04:yellow-swans-with-feel-free-hi-fi",
-      "date": "2026-09-04",
-      "time": "20:00",
-      "end_date": null,
-      "title": "YELLOW SWANS with Feel Free Hi Fi",
-      "venue": "The Cedar Cultural Center",
-      "venue_neighborhood": "West Bank, Minneapolis",
-      "city": "Minneapolis",
-      "category": "music",
-      "subtitle": "Gabriel Mindel Saloman and Pete Swanson aka Yellow Swans carved an influential path through America’s experimental music underground, at the axis of noise, psychedelia, industrial, drone, and hardcore. Their music is res",
-      "url": "https://www.thecedar.org/events/yellow-swans-with-feel-free-hi-fi",
-      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1779988681908-8PNPEGEPT30I2T79ORSC/YS+Synth1.jpg",
-      "price": null,
-      "age": "All ages",
-      "source": "cedar"
     },
     {
       "id": "parkway:2026-09-05:a-twink-and-a-redhead-a-musical-comedy-by-grant-and-ash",
@@ -9535,23 +8992,6 @@
       "source": "parkway"
     },
     {
-      "id": "cedar:2026-09-15:bear-ghost-tiny-hitman-tour-with-sarah-and-the-safe-word-and-spaceman-bob",
-      "date": "2026-09-15",
-      "time": "19:00",
-      "end_date": null,
-      "title": "BEAR GHOST , Tiny Hitman Tour with Sarah and the Safe Word and Spaceman Bob",
-      "venue": "The Cedar Cultural Center",
-      "venue_neighborhood": "West Bank, Minneapolis",
-      "city": "Minneapolis",
-      "category": "music",
-      "subtitle": "Bear Ghost is an Adventure Rock band that fuses fun and quirky musicianship with complex melodies, phat harmonies, heavy riffitude, and pop structure to deliver a sound purposely crafted to fill all booties, tall and sma",
-      "url": "https://www.thecedar.org/events/bear-ghost-tiny-hitman-tour",
-      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1779990538445-EP67MSSK9Y1055FSK2RI/BearGhost-JiminyPromo+-+JimHesterman-1201486+copy.jpg",
-      "price": null,
-      "age": "All ages",
-      "source": "cedar"
-    },
-    {
       "id": "amsterdam:2026-09-15:revocation-w-defeated-sanity-fuming-mouth-weeping",
       "date": "2026-09-15",
       "time": "19:00",
@@ -9567,23 +9007,6 @@
       "price": null,
       "age": "18+",
       "source": "amsterdam"
-    },
-    {
-      "id": "cedar:2026-09-16:sondre-lerche-acrobats-26-tour",
-      "date": "2026-09-16",
-      "time": "19:30",
-      "end_date": null,
-      "title": "SONDRE LERCHE Acrobats ‘26 Tour",
-      "venue": "The Cedar Cultural Center",
-      "venue_neighborhood": "West Bank, Minneapolis",
-      "city": "Minneapolis",
-      "category": "music",
-      "subtitle": "Norwegian indie-pop songwriter SONDRE LERCHE celebrates the release of his 11th album at The Cedar.",
-      "url": "https://www.thecedar.org/events/sondre-lerche-acrobats-26-tour",
-      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1778083153711-ZGWSUQWNO9GR253FEJD8/SL5+by+Hilde+Solli.jpg",
-      "price": null,
-      "age": "All ages",
-      "source": "cedar"
     },
     {
       "id": "parkway:2026-09-16:second-night-added-booker-t-presents-a-stax-revue-and-journey-thru-soul-blues-an",
@@ -9671,23 +9094,6 @@
       "source": "parkway"
     },
     {
-      "id": "cedar:2026-09-19:first-avenue-presents-aldous-harding",
-      "date": "2026-09-19",
-      "time": "20:00",
-      "end_date": null,
-      "title": "First Avenue presents ALDOUS HARDING",
-      "venue": "The Cedar Cultural Center",
-      "venue_neighborhood": "West Bank, Minneapolis",
-      "city": "Minneapolis",
-      "category": "music",
-      "subtitle": "First Avenue presents Aldous Harding",
-      "url": "https://www.thecedar.org/events/first-avenue-presents-aldous-harding",
-      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1768233697914-JE3SR7GDR976S2LGFU21/AldousHarding-1080x1080.jpg",
-      "price": null,
-      "age": "All ages",
-      "source": "cedar"
-    },
-    {
       "id": "parkway:2026-09-19:des-bishop",
       "date": "2026-09-19",
       "time": null,
@@ -9739,23 +9145,6 @@
       "source": "amsterdam"
     },
     {
-      "id": "cedar:2026-09-25:perfect-person-live-the-grey-area-tour",
-      "date": "2026-09-25",
-      "time": "20:00",
-      "end_date": null,
-      "title": "Perfect Person Live: The Grey Area Tour",
-      "venue": "The Cedar Cultural Center",
-      "venue_neighborhood": "West Bank, Minneapolis",
-      "city": "Minneapolis",
-      "category": "music",
-      "subtitle": "The award-winning call-in advice show Perfect Person is back on tour! Miles Bonsignore expertly solves your morally ambiguous problems live on stage with his special guests, and explores what it means to be a perfect per",
-      "url": "https://www.thecedar.org/events/first-avenue-presents-perfect-person-live-the-grey-area-tour",
-      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1781104327818-G1GRX0DAGIKUL2DMBFL3/PerfectPerson-1080x1080.jpg",
-      "price": null,
-      "age": "All ages",
-      "source": "cedar"
-    },
-    {
       "id": "parkway:2026-09-25:hassan-phills-genuinely-legendary-tour",
       "date": "2026-09-25",
       "time": null,
@@ -9790,23 +9179,6 @@
       "source": "parkway"
     },
     {
-      "id": "cedar:2026-09-27:taikoarts-midwest-presents-taikogroove-with-enso-daiko-and-savage-aural-hotbed",
-      "date": "2026-09-27",
-      "time": "19:00",
-      "end_date": null,
-      "title": "TaikoArts Midwest presents TaikoGroove with EnsŌ Daiko and Savage Aural Hotbed",
-      "venue": "The Cedar Cultural Center",
-      "venue_neighborhood": "West Bank, Minneapolis",
-      "city": "Minneapolis",
-      "category": "music",
-      "subtitle": "TaikoArts Midwest presents TaikoGroove , a genre-defying collision of taiko tradition and industrial power. Ensō Daiko and Savage Aural Hotbed join forces for an electrifying night of high-energy percussion, found-object",
-      "url": "https://www.thecedar.org/events/taikoarts-midwest-presents-taikogroove-2026",
-      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1779991912980-78INNKK4JBNX8ZEIB3YZ/BG+Tour+publicity+photo+7.jpeg",
-      "price": null,
-      "age": "All ages",
-      "source": "cedar"
-    },
-    {
       "id": "parkway:2026-09-27:5th-annual-harvest-at-the-parkway-a-tribute-to-neil-young",
       "date": "2026-09-27",
       "time": null,
@@ -9822,23 +9194,6 @@
       "price": null,
       "age": null,
       "source": "parkway"
-    },
-    {
-      "id": "cedar:2026-09-29:tangi-le-gall-carre-and-typhaine-corre",
-      "date": "2026-09-29",
-      "time": "19:30",
-      "end_date": null,
-      "title": "TANGI LE GALL-CARRE & TYPHAINE CORRE",
-      "venue": "The Cedar Cultural Center",
-      "venue_neighborhood": "West Bank, Minneapolis",
-      "city": "Minneapolis",
-      "category": "music",
-      "subtitle": "From the heart of Brittany comes a duo redefining traditional sound. Accordionist Tangi Le Gall-Carré, founding member of the iconic band Startijenn and a key figure of the Breton scene for decades, joins singer and actr",
-      "url": "https://www.thecedar.org/events/tangi-le-gall-carre-typhaine-corre",
-      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1777910660643-3P5QVOMK5RKEM3VMAPBY/Tangi+Le+Gall-Carre+%26+Typhaine+Corre+-+press+photo.jpg",
-      "price": null,
-      "age": "All ages",
-      "source": "cedar"
     },
     {
       "id": "varsity:2026-09-30:citizen-halcyon-blues",
@@ -9943,23 +9298,6 @@
       "source": "varsity"
     },
     {
-      "id": "cedar:2026-10-04:w-i-t-c-h",
-      "date": "2026-10-04",
-      "time": "19:30",
-      "end_date": null,
-      "title": "W.I.T.C.H.",
-      "venue": "The Cedar Cultural Center",
-      "venue_neighborhood": "West Bank, Minneapolis",
-      "city": "Minneapolis",
-      "category": "music",
-      "subtitle": "We Intend To Cause Havoc (W.I.T.C.H.) are progenitors of the Zamrock scene. Fusing Western rock and rhythm & blues with traditional African sounds, W.I.T.C.H. were among Zambia's most popular and influential bands in the",
-      "url": "https://www.thecedar.org/events/witch",
-      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1779804331967-3YHS26DJTN9X99MRRVXX/WITCH+2025+2+%28credit+Holly+Whitaker%29.jpg",
-      "price": null,
-      "age": "All ages",
-      "source": "cedar"
-    },
-    {
       "id": "varsity:2026-10-05:kelela-new-avatar-live",
       "date": "2026-10-05",
       "time": "19:00",
@@ -10062,23 +9400,6 @@
       "source": "parkway"
     },
     {
-      "id": "cedar:2026-10-09:an-intimate-evening-with-copeland-with-special-guest-jenny-dee",
-      "date": "2026-10-09",
-      "time": "20:00",
-      "end_date": null,
-      "title": "An Intimate Evening with COPELAND with special guest Jenny Dee",
-      "venue": "The Cedar Cultural Center",
-      "venue_neighborhood": "West Bank, Minneapolis",
-      "city": "Minneapolis",
-      "category": "music",
-      "subtitle": "Copeland is an American indie rock band formed in 2001 in Lakeland, Florida. Led by singer-songwriter, pianist and producer Aaron Marsh, the group is famous for its lush arrangements, rich keyboard textures, and abstract",
-      "url": "https://www.thecedar.org/events/an-intimate-evening-with-copeland-with-special-guest-jenny-dee",
-      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1781013333073-X3L5PUL4A8CZ87QZ7GEF/Copeland_FallTour_2026_2180x2700.png",
-      "price": null,
-      "age": "All ages",
-      "source": "cedar"
-    },
-    {
       "id": "amsterdam:2026-10-10:carbon-leaf",
       "date": "2026-10-10",
       "time": "20:00",
@@ -10096,40 +9417,6 @@
       "source": "amsterdam"
     },
     {
-      "id": "cedar:2026-10-10:first-avenue-presents-syml",
-      "date": "2026-10-10",
-      "time": "20:00",
-      "end_date": null,
-      "title": "First Avenue presents SYML",
-      "venue": "The Cedar Cultural Center",
-      "venue_neighborhood": "West Bank, Minneapolis",
-      "city": "Minneapolis",
-      "category": "music",
-      "subtitle": "SYML is the solo venture of Seattle artist Brian Fennell. Welsh for “simple”, he makes music that taps into the instincts that drive us to places of sanctuary, whether that be a place or a person.",
-      "url": "https://www.thecedar.org/events/syml",
-      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1776967776234-QG07FN3MF3WCOJ4L6VS0/SYML-1080x1080.jpg",
-      "price": null,
-      "age": "All ages",
-      "source": "cedar"
-    },
-    {
-      "id": "cedar:2026-10-13:jesse-roper-with-mae-simpson",
-      "date": "2026-10-13",
-      "time": "19:30",
-      "end_date": null,
-      "title": "JESSE ROPER with Mae Simpson",
-      "venue": "The Cedar Cultural Center",
-      "venue_neighborhood": "West Bank, Minneapolis",
-      "city": "Minneapolis",
-      "category": "music",
-      "subtitle": "Canadian songwriter Jesse Roper is a master at connecting his personal story and experiences to his songwriting - crafting narratives that hit on life's challenges and eccentricities - but that remain upbeat, engaging an",
-      "url": "https://www.thecedar.org/events/jesse-roper-with-mae-simpson",
-      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1779978204458-8W1AHTHWX3A8KI4YUBCV/Photo+-+Jesse+Roper+-+EthosPhotography_3.jpg",
-      "price": null,
-      "age": "All ages",
-      "source": "cedar"
-    },
-    {
       "id": "parkway:2026-10-14:conor-janda",
       "date": "2026-10-14",
       "time": null,
@@ -10145,40 +9432,6 @@
       "price": null,
       "age": null,
       "source": "parkway"
-    },
-    {
-      "id": "cedar:2026-10-17:laura-veirs-with-karl-blau",
-      "date": "2026-10-17",
-      "time": "20:00",
-      "end_date": null,
-      "title": "LAURA VEIRS with Karl Blau",
-      "venue": "The Cedar Cultural Center",
-      "venue_neighborhood": "West Bank, Minneapolis",
-      "city": "Minneapolis",
-      "category": "music",
-      "subtitle": "Portland, OR-based singer-songwriter Laura Veirs has forged a career singing personal songs of romantic intoxication, everyday vignettes, and social commentary that are often heavy on introspection and intense character ",
-      "url": "https://www.thecedar.org/events/laura-veirs-with-karl-blau",
-      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1778282407874-58R0700DJXK4SPYA5SAF/LauraVeirs-AllShows-1080x1350-INSTAPOSTER-layered.png",
-      "price": null,
-      "age": "All ages",
-      "source": "cedar"
-    },
-    {
-      "id": "cedar:2026-10-20:an-evening-with-windborne",
-      "date": "2026-10-20",
-      "time": "19:30",
-      "end_date": null,
-      "title": "An Evening with WINDBORNE",
-      "venue": "The Cedar Cultural Center",
-      "venue_neighborhood": "West Bank, Minneapolis",
-      "city": "Minneapolis",
-      "category": "music",
-      "subtitle": "With a 20-year background studying polyphonic music around the world, the four members of Windborne share a vibrant energy onstage.",
-      "url": "https://www.thecedar.org/events/an-evening-with-windborne",
-      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1780340536639-9IX376LTBDATC7R13U64/Windborne+Standard+Vocal+by+Jake+Jacobson.jpg",
-      "price": null,
-      "age": "All ages",
-      "source": "cedar"
     },
     {
       "id": "parkway:2026-10-24:jason-salmon",
@@ -10266,23 +9519,6 @@
       "source": "amsterdam"
     },
     {
-      "id": "cedar:2026-11-08:teddy-thompson",
-      "date": "2026-11-08",
-      "time": "19:30",
-      "end_date": null,
-      "title": "TEDDY THOMPSON",
-      "venue": "The Cedar Cultural Center",
-      "venue_neighborhood": "West Bank, Minneapolis",
-      "city": "Minneapolis",
-      "category": "music",
-      "subtitle": "Called “one of the most gifted singer-songwriters of his generation” by The New York Times.“Teddy’s glorious tenor is bracing but warm and never showy.” The Associated Press. “Buoyant, soulful.” Billboard",
-      "url": "https://www.thecedar.org/events/teddy-thompson",
-      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1778162985112-0VRT2K99DI8J8ZF8AASH/TeddyThompson202516-scaled.jpg",
-      "price": null,
-      "age": "All ages",
-      "source": "cedar"
-    },
-    {
       "id": "parkway:2026-11-13:amythyst-kiah-with-special-guest-tba",
       "date": "2026-11-13",
       "time": null,
@@ -10298,23 +9534,6 @@
       "price": null,
       "age": null,
       "source": "parkway"
-    },
-    {
-      "id": "cedar:2026-11-14:chicago-farmer-and-the-fieldnotes-with-jack-klatt",
-      "date": "2026-11-14",
-      "time": "20:00",
-      "end_date": null,
-      "title": "Chicago Farmer & The Fieldnotes with Jack Klatt",
-      "venue": "The Cedar Cultural Center",
-      "venue_neighborhood": "West Bank, Minneapolis",
-      "city": "Minneapolis",
-      "category": "music",
-      "subtitle": "“After a few listens to the record it becomes apparent that Chicago Farmer has a refreshingly firm grip on where he comes from. The songs are covered to the elbows in dirt from the fields and smell of the sweaty factory ",
-      "url": "https://www.thecedar.org/events/chicago-farmer",
-      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1773934533123-RND2OMIB2BQOD664HLC1/650413512_1336721628502335_7992958118579782797_n+%281%29.jpg",
-      "price": null,
-      "age": "All ages",
-      "source": "cedar"
     },
     {
       "id": "parkway:2026-11-19:davide-de-pierro-the-letters-i-never-sent",

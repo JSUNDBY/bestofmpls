@@ -149,9 +149,13 @@ function decodeEntities(s) {
   if (!s) return s;
   return String(s)
     .replace(/&lt;[^&]*?&gt;/g, ' ')
+    // Numeric entities first (&#038; → &, &#x27; → '), so the named-entity and
+    // tag-strip passes below see already-decoded characters.
+    .replace(/&#x([0-9a-fA-F]+);/g, (_, h) => String.fromCodePoint(parseInt(h, 16)))
+    .replace(/&#(\d+);/g, (_, d) => String.fromCodePoint(parseInt(d, 10)))
     .replace(/&nbsp;/g, ' ')
     .replace(/&quot;/g, '"')
-    .replace(/&#039;|&#39;|&apos;/g, "'")
+    .replace(/&apos;/g, "'")
     .replace(/&amp;/g, '&')
     .replace(/&lt;/g, '<')
     .replace(/&gt;/g, '>')

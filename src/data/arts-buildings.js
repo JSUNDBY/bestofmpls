@@ -22,9 +22,9 @@ module.exports = {
       style: 'Former factory, live/work studios',
       description: 'A former casket manufacturing factory converted into one of Northeast Minneapolis\'s premier artist communities. Over a hundred individual studios across multiple floors, with painters, sculptors, photographers, and mixed-media artists. This is also where Josh Sundby runs his studio practice, enterSTELLAR. The building is a regular stop on the Northeast First Friday art walk circuit.',
       address: '681 17th Ave NE, Minneapolis',
-      website: null,
+      website: 'https://casketarts.com/',
       tags: ['arts', 'studio'],
-      access: 'Open for First Friday events, typically 6-10pm monthly. Individual artists may have their own studio hours.'
+      access: 'Open studios on Second Saturdays each month, plus First Friday events. Individual artists may keep their own studio hours. Check casketarts.com for the current schedule.'
     },
     {
       name: 'California Building',
@@ -32,9 +32,9 @@ module.exports = {
       style: 'Historic industrial, artist studios and galleries',
       description: 'A historic industrial building in the heart of the Northeast arts district, housing artist studios and galleries including the long-running Rosalux Gallery. Part of what makes the neighborhood feel like a walkable arts district rather than a cluster of individual venues.',
       address: '1400 Van Buren St NE, Minneapolis',
-      website: null,
+      website: 'https://californiabuilding.com/',
       tags: ['arts', 'studio', 'gallery'],
-      access: 'Gallery hours vary by tenant. Participates in First Friday events and Art-A-Whirl.'
+      access: 'Open studios on Second Saturdays each month. Gallery hours otherwise vary by tenant. Also participates in Art-A-Whirl. Check californiabuilding.com for dates.'
     },
     {
       name: 'Solar Arts Building',
@@ -55,18 +55,6 @@ module.exports = {
       website: null,
       tags: ['arts', 'studio'],
       access: 'Participates in Art-A-Whirl and First Friday events. Hours vary by tenant.'
-    },
-
-    // ========== NORTH LOOP / DOWNTOWN ==========
-    {
-      name: 'Traffic Zone Center for Visual Art',
-      neighborhood: 'North Loop, Minneapolis',
-      style: 'Artist cooperative, mid-career',
-      description: 'An artist-owned cooperative founded in 1993 in a six-story limestone warehouse on the National Register. Houses studio and exhibition space for around 23 mid-career artists. Periodic open studios and shows make this one of the more accessible artist-run cooperatives in the city.',
-      address: '250 3rd Ave N, Minneapolis',
-      website: 'https://www.trafficzoneart.com',
-      tags: ['arts', 'studio', 'gallery'],
-      access: 'Free admission. Open during exhibitions and periodic open studio events. Check website for current schedule.'
     },
 
     // ========== ST. PAUL ==========
