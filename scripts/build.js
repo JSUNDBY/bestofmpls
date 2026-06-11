@@ -955,7 +955,12 @@ function newsletterCapture({ context = 'home' } = {}) {
           <p class="newsletter-deck">${esc(decks[context] || decks.home)}</p>
         </div>
         <div class="newsletter-form-block">
-          <script async src="https://subscribe-forms.beehiiv.com/v3/loader.js" data-beehiiv-form="fded3765-6a73-46c9-b90b-4c479f04ebb8"></script>
+          <form class="newsletter-form" data-newsletter-form>
+            <input type="email" name="email" placeholder="Your email" required autocomplete="email">
+            <input class="newsletter-hp" type="text" name="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+            <button type="submit">Subscribe</button>
+          </form>
+          <p class="newsletter-status" data-newsletter-status></p>
           <p class="newsletter-fine">No spam. Unsubscribe in one click.</p>
         </div>
       </div>
@@ -993,7 +998,12 @@ function footer() {
       </div>
       <div class="footer-newsletter">
         <p class="footer-list-title">The weekly dispatch</p>
-        <script async src="https://subscribe-forms.beehiiv.com/v3/loader.js" data-beehiiv-form="fded3765-6a73-46c9-b90b-4c479f04ebb8"></script>
+        <form class="footer-newsletter-form" data-newsletter-form>
+          <input type="email" name="email" placeholder="Your email" required autocomplete="email">
+          <input class="newsletter-hp" type="text" name="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <button type="submit">Subscribe</button>
+        </form>
+        <p data-newsletter-status style="font-size:12px;color:rgba(244,238,223,0.7);margin:6px 0 0;min-height:16px;"></p>
       </div>
     </div>
 
@@ -1030,7 +1040,6 @@ function footer() {
     </div>
   </div>
 </footer>
-<script type="text/javascript" async src="https://subscribe-forms.beehiiv.com/attribution.js"></script>
 
 <nav class="mobile-dock" aria-label="Primary mobile navigation">
   <a class="mobile-dock-item" href="/tonight/"><span class="mobile-dock-icon" aria-hidden="true">☾</span><span class="mobile-dock-label">Tonight</span></a>
@@ -1146,13 +1155,11 @@ function footer() {
   setInterval(update, 60000);
 })();
 
-// Newsletter signup: every [data-newsletter-form] on the page POSTs to the
-// worker's /newsletter endpoint. Multiple blocks (footer mini + inline
-// prominent) share this handler. Status node is the form's own data-status
-// attribute or the sibling [data-newsletter-status] below it.
+// Newsletter signup: every [data-newsletter-form] on the page POSTs directly
+// to Beehiiv's public forms API. Multiple blocks (footer mini + inline
+// prominent) share this handler. Status node is the sibling [data-newsletter-status].
 (function(){
-  var endpoint = ${JSON.stringify(POLL_WORKER_URL ? POLL_WORKER_URL + '/newsletter' : '')};
-  if (!endpoint) return;
+  var endpoint = 'https://api.beehiiv.com/v2/subscriptions/forms/fded3765-6a73-46c9-b90b-4c479f04ebb8/subscriptions';
   var forms = document.querySelectorAll('[data-newsletter-form]');
   forms.forEach(function(form){
     var status = form.parentElement.querySelector('[data-newsletter-status]')
@@ -1161,19 +1168,24 @@ function footer() {
     form.addEventListener('submit', async function(e){
       e.preventDefault();
       var fd = new FormData(form);
+      var email = (fd.get('email') || '').trim();
+      var hp = fd.get('hp') || '';
+      if (hp) return; // honeypot — bot submission
       var btn = form.querySelector('button[type="submit"]');
-      if (status) { status.textContent = 'Sending...'; status.removeAttribute('data-state'); }
+      if (status) { status.textContent = 'Subscribing...'; status.removeAttribute('data-state'); }
       if (btn) btn.disabled = true;
       try {
         var res = await fetch(endpoint, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email: fd.get('email'), hp: fd.get('hp') })
+          body: JSON.stringify({ email: email, utm_source: 'website' })
         });
-        var data = await res.json();
-        if (!res.ok) throw new Error(data.error || 'try again later');
+        if (!res.ok) {
+          var data = await res.json().catch(function(){ return {}; });
+          throw new Error(data.message || 'try again later');
+        }
         form.style.display = 'none';
-        if (status) { status.textContent = "You're on the list. The first dispatch lands this summer."; status.setAttribute('data-state', 'ok'); }
+        if (status) { status.textContent = "You're in. Dispatch lands every Monday."; status.setAttribute('data-state', 'ok'); }
       } catch (err) {
         if (status) { status.textContent = err.message || 'Try again in a moment.'; status.setAttribute('data-state', 'err'); }
         if (btn) btn.disabled = false;
