@@ -48,6 +48,83 @@ module.exports = {
       reservation: 'https://www.opentable.com/r/char-bar-minneapolis',
       hours: 'Sun–Thu 4–10 PM · Fri–Sat 4 PM–midnight',
       price: '$$$'
+    },
+    {
+      name: 'Public Domain',
+      neighborhood: 'North Loop, Minneapolis',
+      style: 'No-menu custom cocktails',
+      description: 'There is no menu. You tell the bartender what you are in the mood for and they build it on the spot, which sounds like a gimmick until the drink lands and it is exactly right. Caribbean-leaning bites, a first-come first-served room, no parties over six. The back has its own elevated dive called Neon Tiger if you want to switch registers without leaving the building.',
+      address: '119 N Washington Ave, Minneapolis',
+      website: 'https://www.publicdomainmpls.com/',
+      price: '$$$'
+    },
+    {
+      name: 'Parlour',
+      neighborhood: 'North Loop, Minneapolis',
+      style: 'Basement cocktail den',
+      description: 'The plush low-lit bar in the basement of Borough that helped set the modern Minneapolis cocktail standard. The Parlour Burger is the famous double, but the drinks are the reason to take the stairs down. Walk-in, open late on weekends, the kind of room where you settle in for three rounds.',
+      address: '730 N Washington Ave, Minneapolis',
+      website: 'https://www.parlourbar.com/',
+      hours: 'Sun–Thu 4–10 PM · Fri–Sat 4 PM–1 AM',
+      price: '$$$'
+    },
+    {
+      name: 'Berlin',
+      neighborhood: 'North Loop, Minneapolis',
+      style: 'Music bar + cocktails',
+      description: 'A tiny, stylish jazz-leaning music bar in the old Askov Finlayson building. Live sets most nights in a room small enough that there is no bad seat, with a cocktail program that takes itself as seriously as the bookings. Go on a weeknight when you can actually hear the band and talk to the bartender.',
+      address: '204 N 1st St, Minneapolis',
+      website: 'https://www.berlinmpls.com/',
+      hours: 'Wed–Sun, evenings',
+      price: '$$$'
+    },
+    {
+      name: 'Flora Room',
+      neighborhood: 'North Loop, Minneapolis',
+      style: 'Hidden speakeasy',
+      description: 'Daniel del Prado built a plant-drenched speakeasy in the literal old Marvel Bar space beneath Porzana, and the ghost of that room is in good hands. You go around back to an unmarked service entrance, no reservations, first come first served. Dim, green, and one of the better date-night drinks in town.',
+      address: '200 N 1st St, Minneapolis',
+      website: 'https://www.floraroommpls.com/',
+      hours: 'Daily 5 PM–1 AM',
+      price: '$$$'
+    },
+    {
+      name: 'Bar at P.S. Steak',
+      neighborhood: 'Downtown Minneapolis',
+      style: 'Steakhouse bar',
+      description: 'The 510 Groveland building near Loring Park has been a serious drinking address since the La Belle Vie days, and P.S. Steak keeps the tradition. There are two bars: a brighter casual lounge and the formal Victorian bar in the steakhouse proper. Take the lounge for a martini and a wedge without committing to the full dinner.',
+      address: '510 Groveland Ave, Minneapolis',
+      website: 'https://www.psmpls.com/',
+      price: '$$$$'
+    },
+    {
+      name: 'Stargazer',
+      neighborhood: 'Northeast Minneapolis',
+      style: 'Cocktails + Italian small plates',
+      description: 'The Travail crew built a cocktail bar around a digital galaxy of a menu, drinks grouped into clusters like the Agave Field and the Fermentation Firmament. It would be a stunt if the drinks were not this good and the housemade pasta this real. Intimate, ambitious, the most fun a QR-code menu has ever been.',
+      address: '1304 NE 2nd St, Minneapolis',
+      website: 'https://stargazermpls.com/',
+      price: '$$$'
+    },
+    {
+      name: 'Du Nord Cocktail Room',
+      neighborhood: 'Longfellow, Minneapolis',
+      style: 'Distillery cocktail room',
+      description: 'The spiritual successor to Du Nord’s original room, now in the historic Coliseum Building on East Lake. New Orleans flair, cocktails built on the spirits they distill a few blocks away, and the rare distillery bar that feels like a real neighborhood hangout rather than a tasting-room afterthought.',
+      address: '2700 E Lake St, Minneapolis',
+      website: 'https://dunordsocialspirits.com/',
+      hours: 'Tue–Thu 5–10 PM · Fri–Sat 5 PM–midnight',
+      price: '$$'
+    },
+    {
+      name: 'The Dampfwerk Distillery',
+      neighborhood: 'St. Louis Park',
+      style: 'Distillery cocktail lounge',
+      description: 'A family-run distillery and lounge making award-winning brandies, herbal liqueurs, gin, and whiskey in St. Louis Park. The 3,000-square-foot room runs warm, fireplace and communal table, with cocktails built around the German-leaning spirits they make on site. Worth the drive west when you want a Negroni variation no one downtown is pouring.',
+      address: '6311 Cambridge St, St. Louis Park',
+      website: 'https://www.thedampfwerk.com/',
+      hours: 'Tue–Thu 5–10 PM · Fri–Sat 4–11 PM',
+      price: '$$$'
     }
   ]
 };

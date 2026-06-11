@@ -70,6 +70,32 @@ module.exports = {
       description: 'A Hennepin Avenue Uptown standby running the standards in a sit-down room. Reliable green curry, dependable service, the kind of place locals send out-of-town colleagues without thinking twice.',
       address: '3024 Hennepin Ave S, Minneapolis',
       price: '$$'
+    },
+    {
+      name: 'Sawatdee',
+      neighborhood: 'Mill District, Minneapolis',
+      style: 'Classic Thai, since 1983',
+      description: 'The first Thai restaurant in the five-state area when it opened in 1983, still family-run, in a warehouse-turned-dining-room with a gold-leaf ceiling near the riverfront. The pad Thai and the lunch buffet are the workhorses, and the full bar makes it an easy pre-game stop before a Twins night.',
+      address: '607 Washington Ave S, Minneapolis',
+      website: 'https://www.sawatdee.com',
+      price: '$$'
+    },
+    {
+      name: 'King Thai',
+      neighborhood: 'Frogtown, St. Paul',
+      style: 'Thai and Vietnamese',
+      description: 'A University Avenue room running both Thai and Vietnamese, with weekday lunch specials that are some of the cheapest sit-down plates on the corridor. Closed Wednesdays. The kind of unfussy neighborhood spot that the office crowd keeps in heavy rotation.',
+      address: '225 University Ave W, St. Paul',
+      website: 'https://kingthaimn.com',
+      price: '$'
+    },
+    {
+      name: 'Thai Garden',
+      neighborhood: 'Frogtown, St. Paul',
+      style: 'Casual neighborhood Thai',
+      description: 'A University Avenue storefront a few blocks down from Bangkok Thai Deli, doing the standards in a quiet room with a loyal following. Closed Mondays. Dependable curries and noodle plates, the kind of place that rewards the regulars who skip the bigger names nearby.',
+      address: '432 University Ave W, St. Paul',
+      price: '$$'
     }
   ]
 };

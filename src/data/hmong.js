@@ -45,6 +45,24 @@ module.exports = {
       description: 'A small St. Paul restaurant doing Lao and Hmong dishes with a focus on the staples: papaya salad, sausage, jeow dipping sauces, and sticky rice. The kind of place where the menu is short and the kitchen does what it does without fuss.',
       address: 'St. Paul',
       price: '$$'
+    },
+    {
+      name: "Diane's Place",
+      neighborhood: 'Northeast Minneapolis',
+      style: 'Hmong American, chef Diane Moua',
+      description: 'James Beard-nominated pastry chef Diane Moua’s full-service room in the Food Building, blocks from Vinai. Hmong American comfort food run through a pastry chef’s precision, all day from breakfast through dinner. It landed on North America’s 50 Best list in 2026. Closed Wednesdays.',
+      address: '117 14th Ave NE, Minneapolis',
+      website: 'https://dianesplacemn.com',
+      price: '$$$'
+    },
+    {
+      name: 'Gai Noi',
+      neighborhood: 'Downtown Minneapolis',
+      style: 'Lao, chef Ann Ahmed',
+      description: 'Chef Ann Ahmed’s Lao restaurant in Loring Park, the one that made the New York Times best-restaurants list and refuses to dial down the heat for a Minnesota palate. The larb, the sticky rice, the jeow: cooked the way they should be. Walk-in only, lunch and dinner, seven days.',
+      address: '1610 Harmon Pl, Minneapolis',
+      website: 'https://www.gainoimpls.com',
+      price: '$$'
     }
   ]
 };

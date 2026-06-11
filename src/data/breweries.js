@@ -93,6 +93,30 @@ module.exports = {
       description: 'A St. Paul brewery founded by three electrical engineers, with a solid range of approachable styles and a taproom right next to CHS Field. The pre-Saints-game move and one of the more reliable downtown St. Paul taprooms.',
       address: 'Lowertown, St. Paul',
       price: '$$'
+    },
+    {
+      name: 'Inbound BrewCo',
+      neighborhood: 'North Loop, Minneapolis',
+      style: 'German beer hall in a converted recycling plant',
+      description: 'A 12,000-square-foot North Loop taproom built inside a former recycling facility, with floor-to-ceiling windows, a walk-around bar, and beer-hall seating. Dog-friendly, 20-plus rotating taps, and a room big enough to absorb a crowd without losing the hang. Food trucks rotate and the mezzanine is the move for a group.',
+      address: '701 N 5th St, Minneapolis',
+      price: '$$'
+    },
+    {
+      name: 'Dangerous Man Brewing',
+      neighborhood: 'Northeast Minneapolis',
+      style: 'Beloved Northeast taproom, reborn',
+      description: 'The cult Northeast favorite that closed in 2023 and reopened in March 2026 in the former Headflyer space on East Hennepin, with founder Rob Miller back as head brewer. Cash-friendly history, a chocolate milk stout people drove across town for, and one of the most missed taprooms in the metro now pouring again.',
+      address: '861 E Hennepin Ave, Minneapolis',
+      price: '$$'
+    },
+    {
+      name: 'Falling Knife Brewing Co.',
+      neighborhood: 'Northeast Minneapolis',
+      style: 'Full-service Northeast taproom',
+      description: 'A Northeast brewery on a 20-barrel system with a 149-seat taproom and full table service, which is still rare for a Twin Cities taproom. The lineup runs from clean lagers to bigger hop-forward beers, and the sit-down service makes it the easy choice when you want a meal with the pour.',
+      address: 'Northeast Minneapolis',
+      price: '$$'
     }
   ]
 };

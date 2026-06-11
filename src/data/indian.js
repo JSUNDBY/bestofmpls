@@ -54,5 +54,32 @@ module.exports = {
       address: 'Snelling Avenue, St. Paul',
       price: '$$'
     },
-      ]
+    {
+      name: 'Gorkha Palace',
+      neighborhood: 'Northeast Minneapolis',
+      style: 'Nepali, Indian, and Tibetan',
+      description: 'A Northeast institution since 2010, just across the river, doing Nepali and Tibetan alongside the Indian menu. The momos are the reason to come, the goat curry is the reason to come back, and the lunch is one of the better-value sit-down meals in the neighborhood.',
+      address: '23 4th St NE, Minneapolis',
+      website: 'https://gorkhapalacemn.com',
+      price: '$$'
+    },
+    {
+      name: 'The Hyderabad Indian Grill',
+      neighborhood: 'South Minneapolis',
+      style: 'Hyderabadi, biryani-forward',
+      description: 'A South Minneapolis arrival in the old Q Fanatic space on Nicollet, and one of the more serious Hyderabadi kitchens the city has had. The slow-cooked biryani is the headline, the tandoori specialties hold up, and the house chutneys are made fresh daily. Racket called it an elite addition to the south side.',
+      address: '6009 Nicollet Ave, Minneapolis',
+      website: 'https://hyderabadindiangrill.com',
+      price: '$$'
+    },
+    {
+      name: 'Dosa South Indian Grill',
+      neighborhood: 'Northeast Minneapolis',
+      style: 'South Indian, dosa specialist',
+      description: 'The Northeast outpost of a South Indian kitchen built around the dosa: paper-thin, crisp, and griddled to order in a long list of varieties. The idli and the South Indian thali round out a menu that fills a real gap in this part of town. Open late.',
+      address: '765 53rd Ave NE, Minneapolis',
+      website: 'https://www.dosamsp.com',
+      price: '$$'
+    }
+  ]
 };

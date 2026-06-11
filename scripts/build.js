@@ -525,6 +525,7 @@ function lookupCoords(slug, entry) {
 const shops        = require(path.join(SRC, 'data/shops.js'));
 const mensClothing = require(path.join(SRC, 'data/mens-clothing.js'));
 const womensClothing = require(path.join(SRC, 'data/womens-clothing.js'));
+const bookstores   = require(path.join(SRC, 'data/bookstores.js'));
 const hotels       = require(path.join(SRC, 'data/hotels.js'));
 const outdoors     = require(path.join(SRC, 'data/outdoors.js'));
 const hiddenGems   = require(path.join(SRC, 'data/hidden-gems.js'));
@@ -562,7 +563,7 @@ const clusters = [
     eyebrow: 'Shop',
     title: 'Where to spend money',
     deck: 'The independent shops where the buying has a point of view and the people who run them are usually behind the counter.',
-    categories: [shops, mensClothing, womensClothing, dispensaries]
+    categories: [shops, bookstores, mensClothing, womensClothing, dispensaries]
   },
   {
     eyebrow: 'Stay & Do',
@@ -581,7 +582,7 @@ const categories = [
   // Drink
   cocktailBars, breweries, diveBars, patios, happyHours,
   // Shop
-  shops, mensClothing, womensClothing, dispensaries,
+  shops, bookstores, mensClothing, womensClothing, dispensaries,
   // Stay & Do
   hotels, outdoors, wellness, hiddenGems, curiosities, pool,
   // Calendar

@@ -93,5 +93,67 @@ module.exports = {
       address: '501 1st Ave NE, Minneapolis',
       price: '$$'
     },
-      ]
+    {
+      name: 'Roadrunner Records',
+      neighborhood: 'Kingfield, Minneapolis',
+      style: 'Used and rare vinyl since 1987',
+      description: 'A deep, crate-digger’s record store on Nicollet that has been moving used and rare vinyl since 1987. Knowledgeable staff, fair prices, and the kind of bins you lose an hour in. A Record Store Day fixture every April.',
+      address: '4534 Nicollet Ave, Minneapolis',
+      website: 'https://www.roadrunnermpls.com/',
+      price: '$$'
+    },
+    {
+      name: 'Cheapo Records',
+      neighborhood: 'Whittier, Minneapolis',
+      style: 'Vast used vinyl and CD shop',
+      description: 'A Nicollet Avenue warehouse of used LPs, CDs, cassettes, and DVDs across every genre, priced to move. Not curated so much as overflowing, which is the point. Go in looking for one thing and leave with five you did not know existed.',
+      address: '2600 Nicollet Ave, Minneapolis',
+      price: '$'
+    },
+    {
+      name: 'HiFi Hair and Records',
+      neighborhood: 'Lyn-Lake, Minneapolis',
+      style: 'Record store inside a hair salon',
+      description: 'A record store tucked next to Jon Clifford’s leopard-print rock-and-roll hair salon on Hennepin. Get a cut and flip through vinyl in the same visit. Small, tightly chosen selection that leans rock, punk, and soul. One of the more genuinely Minneapolis rooms in the city.',
+      address: '1637 Hennepin Ave S, Minneapolis',
+      website: 'https://www.hifihair.com/',
+      price: '$$'
+    },
+    {
+      name: 'Rewind Vintage',
+      neighborhood: 'Northeast Minneapolis',
+      style: 'Vintage clothing, 70s through 90s',
+      description: 'A Johnson Street vintage shop with a tight focus on 70s, 80s, and 90s clothing for men and women. Well-organized racks, fair pricing, and a staff that actually knows the eras they are selling. The rare vintage store where the hunt does not feel like a chore.',
+      address: '2852B Johnson St NE, Minneapolis',
+      website: 'https://rewindminneapolis.com/',
+      price: '$$'
+    },
+    {
+      name: 'Tandem Vintage',
+      neighborhood: 'Kingfield, Minneapolis',
+      style: 'Curated secondhand, 50s through 90s',
+      description: 'A small, colorful vintage shop on West 38th Street with carefully curated clothing, purses, housewares, and one-of-a-kind finds from the 50s through the 90s. The owner has an eye, and the selection turns over fast enough to reward a regular drop-in.',
+      address: '316 W 38th St, Minneapolis',
+      website: 'https://www.tandemvintage.com/',
+      price: '$$'
+    },
+    {
+      name: 'MartinPatrick3',
+      neighborhood: 'North Loop, Minneapolis',
+      style: 'Menswear and home goods boutique',
+      description: 'A 30,000-square-foot North Loop boutique that started as menswear in 2008 and now runs from custom suits and sneakers to furniture, fine jewelry, apothecary, and design services. Even if you are not buying a suit, the styled rooms are worth walking through. Named a national Retailer of the Year in 2026.',
+      address: '212 3rd Ave N, Minneapolis',
+      website: 'https://www.martinpatrick3.com/',
+      price: '$$$'
+    },
+    {
+      name: 'Hunt & Gather',
+      neighborhood: 'Southwest Minneapolis',
+      style: 'Antiques and oddities',
+      description: 'The packed antique store anchoring the 50th and Xerxes shopping pocket. Aisles overflow with furniture, signage, taxidermy, and the kind of strange object you did not know you needed. Go with time to dig and no fixed shopping list.',
+      address: '4944 Xerxes Ave S, Minneapolis',
+      website: 'http://www.huntandgatherantiques.com/',
+      price: '$$'
+    },
+  ]
 };

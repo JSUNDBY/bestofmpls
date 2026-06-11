@@ -49,6 +49,33 @@ module.exports = {
       description: 'A skyway counter quietly run by a former Origami chef. Osaka-style pressed sushi, rice bowls, and udon, mostly built for the lunch rush. Worth knowing about if you work downtown.',
       address: '733 Marquette Ave, Minneapolis',
       price: '$$'
+    },
+    {
+      name: 'Billy Sushi',
+      neighborhood: 'North Loop, Minneapolis',
+      style: 'Sushi and omakase',
+      description: 'Chef Billy Tserenbat’s flashy North Loop sushi room, all gold and neon, run by a two-time USA representative at the global sushi challenge. The omakase is the move if you want to hand over the wheel, and the nigiri is some of the most precise in the metro. Dinner only.',
+      address: '116 N 1st Ave, Minneapolis',
+      website: 'https://billysushi.net',
+      price: '$$$$'
+    },
+    {
+      name: 'Ramen Kazama',
+      neighborhood: 'Kingfield, Minneapolis',
+      style: 'Tonkotsu ramen specialist',
+      description: 'A small Nicollet Avenue shop built around long-simmered tonkotsu, the rich pork-bone broth that defines the style. The bowls are the whole point and the room is tiny, so expect a wait. One of the few places in town doing ramen as the main event rather than a side.',
+      address: '3400 Nicollet Ave S, Minneapolis',
+      website: 'https://www.ramenkazama.com',
+      price: '$$'
+    },
+    {
+      name: 'Wakame Sushi & Asian Bistro',
+      neighborhood: 'St. Louis Park',
+      style: 'Sushi and pan-Asian',
+      description: 'A west-metro sushi room on Excelsior Boulevard with a deep maki list and a kitchen that runs late, which is rare out this direction. Reliable rolls, a long happy hour, and the kind of broad menu that suits a group where not everyone is sold on raw fish.',
+      address: '3070 Excelsior Blvd, St. Louis Park',
+      website: 'http://www.wakamebistro.com',
+      price: '$$'
     }
   ]
 };

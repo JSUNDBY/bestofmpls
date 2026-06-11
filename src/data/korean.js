@@ -50,6 +50,41 @@ module.exports = {
       address: '4207 MN-13, Savage',
       website: 'https://www.gogibarbq.com',
       price: '$$'
+    },
+    {
+      name: 'Minari & The Pikok Lounge',
+      neighborhood: 'Northeast Minneapolis',
+      style: 'Upscale Korean and East Asian',
+      description: 'Chef Jeffery Watson’s contemporary Korean room in Northeast, with the more casual Pikok Lounge sharing the space and its own menu. The kitchen treats Korean cooking with real ambition, and the lounge does upscale fare at prices Axios called a bargain. Dinner only.',
+      address: '323 13th Ave NE, Minneapolis',
+      website: 'https://www.minarirestaurant.com',
+      price: '$$$'
+    },
+    {
+      name: 'Korea Restaurant',
+      neighborhood: 'Prospect Park, Minneapolis',
+      style: 'Traditional Korean',
+      description: 'A longtime tradition-focused room near the University on Oak Street. No frills, no tabletop grills, just a deep menu of the standards cooked the way regulars expect. Closed Sundays. The kind of place that has outlasted most of its neighbors.',
+      address: '211 Oak St SE, Minneapolis',
+      price: '$$'
+    },
+    {
+      name: 'Kimchi Tofu House',
+      neighborhood: 'Prospect Park, Minneapolis',
+      style: 'Soondubu and home-style Korean',
+      description: 'A small spot near campus built around soondubu, the bubbling soft-tofu stew that comes to the table still boiling. The curry soondubu and the lunch bulgogi specials are the orders, and it is exactly what you want on a cold Minnesota day.',
+      address: '307 Oak St SE, Minneapolis',
+      website: 'https://kimchitofu.com',
+      price: '$$'
+    },
+    {
+      name: 'bb.q Chicken',
+      neighborhood: 'Uptown, Minneapolis',
+      style: 'Korean fried chicken',
+      description: 'The Uptown outpost of the global Korean fried chicken chain, on West Lake Street. The double-fried chicken comes glazed in soy garlic or the gochujang-based secret sauce, and it holds up to the hype that brought the chain stateside. Good for a group, better with beer.',
+      address: '1500 W Lake St, Minneapolis',
+      website: 'https://bbqchicken.com',
+      price: '$$'
     }
   ]
 };
