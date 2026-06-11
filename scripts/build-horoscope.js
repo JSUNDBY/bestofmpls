@@ -46,7 +46,7 @@ function pick(arr, rng) {
 // City-flavored neutrals. Drawn from across both cities; never recommend an
 // action, just locate the day in something concrete.
 const PLACES = [
-  'the Stone Arch Bridge', 'the river path at Hidden Falls', 'a back booth at the CC Club',
+  'the Stone Arch Bridge', 'the river path at Hidden Falls', 'a back booth at Barbette',
   'the steps of the Cathedral', 'the long table at Quang', 'the Como Conservatory',
   'a bench at Loring Park', 'the East Bank between classes', 'a corner of the North Loop',
   'the Walker sculpture garden', 'the parking lot at Holy Land', 'the Lake Harriet bandshell',

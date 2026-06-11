@@ -1,0 +1,25 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run build)",
+      "Bash(npm run build *)",
+      "Bash(npm ci)",
+      "Bash(node scripts/build.js *)",
+      "Bash(node scripts/build-horoscope.js *)",
+      "Bash(node scripts/scrape-events.js *)",
+      "Bash(node scripts/send-newsletter.js *)",
+      "Bash(node scripts/build-rightnow.js *)",
+      "Bash(node scripts/build-og.js *)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git push)",
+      "Bash(git push *)",
+      "Bash(curl *)",
+      "Bash(npx wrangler deploy *)",
+      "Bash(npx wrangler secret *)",
+      "Edit",
+      "Write",
+      "MultiEdit"
+    ]
+  }
+}

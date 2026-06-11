@@ -399,6 +399,7 @@ function featureDaysLabel(ev) {
 
 // ---------- Load all category data ----------
 const museums      = require(path.join(SRC, 'data/museums.js'));
+const artsBuildings = require(path.join(SRC, 'data/arts-buildings.js'));
 const liveMusic    = require(path.join(SRC, 'data/live-music.js'));
 const theaters     = require(path.join(SRC, 'data/theaters.js'));
 const coffee       = require(path.join(SRC, 'data/coffee.js'));
@@ -543,7 +544,7 @@ const clusters = [
     eyebrow: 'See & Experience',
     title: 'Culture',
     deck: 'The institutions, stages, screens, and rooms that make this a city worth living in.',
-    categories: [museums, liveMusic, theaters, cinemas, lgbtq, sports]
+    categories: [museums, artsBuildings, liveMusic, theaters, cinemas, lgbtq, sports]
   },
   {
     eyebrow: 'Eat',
@@ -573,7 +574,7 @@ const clusters = [
 
 const categories = [
   // Culture
-  museums, liveMusic, theaters, cinemas, lgbtq, sports,
+  museums, artsBuildings, liveMusic, theaters, cinemas, lgbtq, sports,
   // Eat
   restaurants, foodHalls, coffee, bakeries, glutenFree, sandwiches, burgers, pizza, brunch,
   mexican, vietnamese, korean, japanese, hmong, ethiopian, indian, thai, chinese, iceCream, lateNight,
@@ -690,7 +691,7 @@ function entrySlug(name) {
 // Each canonical neighborhood becomes a /neighborhoods/{slug}/ aggregator page
 // pulling every entry across all categories that lives there.
 const NEIGHBORHOODS = [
-  { slug: 'northeast-minneapolis', name: 'Northeast Minneapolis', short: 'Northeast', match: /(northeast|^ne |northrup king|columbia heights|st\.? anthony main|riverfront, northeast|mississippi riverfront)/i, intro: 'Old breweries turned taprooms, working artist studios, the densest concentration of independent restaurants and music venues in the metro. The most-talked-about Twin Cities neighborhood of the last decade and the easiest to spend a whole weekend in.' },
+  { slug: 'northeast-minneapolis', name: 'Northeast Minneapolis', short: 'Northeast', match: /(northeast|^ne |northrup king|columbia heights|st\.? anthony main|riverfront, northeast|mississippi riverfront|casket arts|solar arts|california building, ne)/i, intro: 'Old breweries turned taprooms, working artist studios, the densest concentration of independent restaurants and music venues in the metro. The most-talked-about Twin Cities neighborhood of the last decade and the easiest to spend a whole weekend in. The Northeast Arts District runs along Jackson Street and the avenues off 13th and 17th, with Northrup King, Casket Arts, the California Building, and Solar Arts holding hundreds of working studios between them.' },
   { slug: 'north-loop', name: 'North Loop, Minneapolis', short: 'North Loop', match: /(north loop|warehouse district|mill district)/i, intro: 'Warehouse-conversion restaurants, the city\'s densest run of designer-menswear shops, two destination breweries, and a riverfront that connects to the Stone Arch Bridge. The polished face of downtown Minneapolis.' },
   { slug: 'downtown-minneapolis', name: 'Downtown Minneapolis', short: 'Downtown Mpls', match: /(downtown minneapolis|hennepin theatre|loring park|nicollet mall)/i, intro: 'Hennepin Avenue theaters, the Foshay, the IDS Center, the Walker just to the west. A downtown still finding its shape, with some of the best music venues and hotels in the metro.' },
   { slug: 'uptown-lyn-lake', name: 'Uptown & Lyn-Lake', short: 'Uptown / Lyn-Lake', match: /(lyn-lake|uptown|kingfield)/i, intro: 'The CC Club, Bryant Lake Bowl, Mortimer\'s, Khâluna, and a stretch of Lyndale Avenue that still anchors a lot of Minneapolis nightlife. Less polished than it was, more interesting in some ways.' },
