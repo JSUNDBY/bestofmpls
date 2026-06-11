@@ -65,6 +65,12 @@ const POLL_WORKER_URL = 'https://bestofmpls-poll.j-sundby.workers.dev';
 // Resy/Tock have no public affiliate program — those URLs pass through
 // untouched.
 const OPENTABLE_AFFILIATE_REF = '';
+
+// One-line traffic proof for the /partner/ page, e.g.
+// '12,400 pageviews · 4,100 readers last month (GA4)'. Update monthly from
+// GA4 or the scripts/gsc-report.js output. Empty = the strip does not
+// render, so the page never shows stale or invented numbers.
+const PARTNER_STATS_LINE = '';
 function reservationUrl(url) {
   if (!url) return url;
   if (!/opentable\.com/i.test(url)) return url;
@@ -736,6 +742,45 @@ function buildNeighborhoodIndex() {
     .sort((a, b) => b.entries.length - a.entries.length);
 }
 
+// Flat list of every entry with coordinates, across all categories. Built
+// once and cached; powers the cross-category "Within a short walk" block on
+// entry detail pages. Entries that appear in multiple categories keep their
+// first occurrence only.
+let allCoordEntriesCache = null;
+function getAllCoordEntries() {
+  if (allCoordEntriesCache) return allCoordEntriesCache;
+  allCoordEntriesCache = [];
+  const seen = new Set();
+  for (const c of categories) {
+    if (c.layout === 'seasonal') continue;
+    for (const e of c.entries) {
+      if (seen.has(e.name)) continue;
+      const coords = lookupCoords(c.slug, e);
+      if (!coords) continue;
+      seen.add(e.name);
+      allCoordEntriesCache.push({
+        name: e.name,
+        slug: entrySlug(e.name),
+        category: c,
+        style: e.style || null,
+        lat: coords.lat,
+        lng: coords.lng
+      });
+    }
+  }
+  return allCoordEntriesCache;
+}
+
+function haversineMi(lat1, lng1, lat2, lng2) {
+  const R = 3958.8;
+  const toRad = (d) => d * Math.PI / 180;
+  const dLat = toRad(lat2 - lat1);
+  const dLng = toRad(lng2 - lng1);
+  const a = Math.sin(dLat / 2) ** 2 +
+    Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLng / 2) ** 2;
+  return 2 * R * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+}
+
 const ensureDir = (p) => fs.mkdirSync(p, { recursive: true });
 const writeFile = (rel, content) => {
   const out = path.join(DIST, rel);
@@ -746,20 +791,23 @@ const writeFile = (rel, content) => {
 
 // ---------- Components ----------
 function head({ title, description, slug, theme }) {
-  const url = `${SITE}/${slug || ''}`;
+  const url = slug ? `${SITE}/${slug}/` : `${SITE}/`;
+  // Homepage gets its full keyword title with no brand suffix (the brand is
+  // already in the domain); every other page gets the ' · bestofmpls' suffix.
+  const fullTitle = slug ? `${esc(title)} · bestofmpls` : esc(title);
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>${esc(title)} · bestofmpls</title>
+<title>${fullTitle}</title>
 <meta name="description" content="${esc(description)}">
 <link rel="canonical" href="${url}">
 ${GSC_VERIFICATION ? `<meta name="google-site-verification" content="${esc(GSC_VERIFICATION)}">\n` : ''}
 
 <meta property="og:type" content="website">
 <meta property="og:url" content="${url}">
-<meta property="og:title" content="${esc(title)} · bestofmpls">
+<meta property="og:title" content="${fullTitle}">
 <meta property="og:description" content="${esc(description)}">
 <meta property="og:site_name" content="bestofmpls">
 <meta property="og:image" content="${SITE}/og-image.png">
@@ -768,7 +816,7 @@ ${GSC_VERIFICATION ? `<meta name="google-site-verification" content="${esc(GSC_V
 <meta property="og:image:alt" content="bestofmpls. An independent guide to Minneapolis & Saint Paul.">
 
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="${esc(title)} · bestofmpls">
+<meta name="twitter:title" content="${fullTitle}">
 <meta name="twitter:description" content="${esc(description)}">
 <meta name="twitter:image" content="${SITE}/og-image.png">
 
@@ -776,7 +824,7 @@ ${GSC_VERIFICATION ? `<meta name="google-site-verification" content="${esc(GSC_V
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600;700&family=Source+Sans+3:wght@400;600&family=Archivo:wght@500;600;700&family=Archivo+Narrow:wght@600;700&display=swap">
-<link rel="stylesheet" href="/style.css?v=39">
+<link rel="stylesheet" href="/style.css?v=40">
 <script>
 // Set color mode before paint to avoid flash. Reads localStorage first,
 // falls back to light mode (the new editorial default). mode-ready class
@@ -816,7 +864,8 @@ function header({ activeSlug } = {}) {
     { href: '/live-music/',  label: 'Music',         slug: 'live-music' },
     { href: '/neighborhoods/', label: 'Neighborhoods', slug: 'neighborhoods' },
     { href: '/calendar/',    label: 'Calendar',      slug: 'calendar' },
-    { href: '/map/',         label: 'Map',           slug: 'map' }
+    { href: '/map/',         label: 'Map',           slug: 'map' },
+    { href: '/search/',      label: 'Search',        slug: 'search' }
   ];
 
   // Menu overlay groups. Cluster names mirror the homepage IA so the
@@ -836,12 +885,12 @@ function header({ activeSlug } = {}) {
     {
       label: 'Find',
       items: [
+        { href: '/search/',    label: 'Search',         deck: 'Across every entry' },
         { href: '/map/',       label: 'The Map',        deck: 'Every place, plotted' },
         { href: '/near/',      label: 'Near You',       deck: 'Walking radius search' },
         { href: '/quiz/',      label: 'Quiz',           deck: 'Where to be tonight' },
         { href: '/skyway/',    label: 'Skyway',         deck: 'Downtown indoor router' },
-        { href: '/surprise/',  label: 'Surprise me',    deck: 'A random pick' },
-        { href: '/search/',    label: 'Search',         deck: 'Across every entry' }
+        { href: '/surprise/',  label: 'Surprise me',    deck: 'A random pick' }
       ]
     },
     {
@@ -942,14 +991,18 @@ function header({ activeSlug } = {}) {
 // site footer and at the bottom of every category page. Honest about
 // launch state — we're collecting a list, the first dispatch lands when
 // it lands.
-function newsletterCapture({ context = 'home' } = {}) {
+function newsletterCapture({ context = 'home', compact = false } = {}) {
   const decks = {
-    home:     'What\'s happening in the Twin Cities, every Monday. Shows, happy hours, neighborhood picks, and a weekly horoscope written for Minneapolis.',
-    category: 'What\'s worth knowing in the Twin Cities, every Monday. Drop your email.',
-    event:    'More guides like this one, every Monday. Drop your email.'
+    home:      'What\'s happening in the Twin Cities, every Monday. Shows, happy hours, neighborhood picks, and a weekly horoscope written for Minneapolis.',
+    category:  'What\'s worth knowing in the Twin Cities, every Monday. Drop your email.',
+    event:     'More guides like this one, every Monday. Drop your email.',
+    entry:     'Liked this pick? Get five more every Monday.',
+    tonight:   'Tonight, every Monday morning, in your inbox.',
+    calendar:  'The week\'s best shows, every Monday morning, in your inbox.',
+    horoscope: 'Your horoscope plus the week\'s best picks, every Monday.'
   };
   return `
-    <section class="newsletter-capture" id="newsletter-signup" aria-label="Newsletter signup">
+    <section class="newsletter-capture${compact ? ' newsletter-capture--compact' : ''}" id="newsletter-signup" aria-label="Newsletter signup">
       <div class="wrap newsletter-inner">
         <div class="newsletter-copy">
           <p class="newsletter-eyebrow">The weekly dispatch</p>
@@ -1354,7 +1407,7 @@ function footer() {
 
 // ---------- Pages ----------
 function renderHome() {
-  const title = 'bestofmpls. Minneapolis & Saint Paul.';
+  const title = 'Best of Minneapolis & St. Paul: Restaurants, Bars, Music & Things to Do';
   const description = 'A locally written guide to the museums, music, theaters, coffee shops, sandwiches, restaurants, bars, hotels, and festivals of Minneapolis and Saint Paul.';
 
   // Cluster sections: each cluster gets its own editorial header + grid of cards
@@ -1500,6 +1553,7 @@ function renderHome() {
         <p class="feature-banner-deck">${esc(ACTIVE_FEATURE.teaser)}</p>
         <div class="feature-banner-meta">
           <span>${esc(ACTIVE_FEATURE.dates_display)}</span>
+          ${ACTIVE_FEATURE.sponsored ? '<span class="sponsored-mark" title="See /partner/">Paid partner placement</span>' : ''}
           <span class="feature-banner-cta">${esc(ACTIVE_FEATURE.cta_label)}</span>
         </div>
       </a>
@@ -1531,6 +1585,29 @@ function renderHome() {
         </div>
       </div>
     </section>` : ''}
+    <section class="more-tools" aria-label="More tools">
+      <div class="wrap">
+        <div class="more-tools-head">
+          <span class="more-tools-eyebrow">More · Index</span>
+          <span class="more-tools-stamp">Changes daily</span>
+        </div>
+        <ul class="more-tools-list">
+          <li><a href="/take-them-to/"><span class="mtools-code">X</span> Take Them To <em>${(IS_WARM_SEASON ? situations.situations.filter(s => s.slug !== 'snow-day') : situations.situations).length} situations</em></a></li>
+          <li><a href="/near/"><span class="mtools-code">N</span> Near You <em>walking radius</em></a></li>
+          <li><a href="/this-weekend/"><span class="mtools-code">W</span> This Weekend <em>Fri · Sat · Sun</em></a></li>
+          <li><a href="/now-showing/"><span class="mtools-code">A</span> Now Showing <em>${exhibitions.exhibitions.length} exhibitions</em></a></li>
+          <li><a href="/festivals/"><span class="mtools-code">F</span> Festivals <em>the year in order</em></a></li>
+          <li><a href="/visit/"><span class="mtools-code">V</span> First Time? <em>a weekend in the metro</em></a></li>
+          <li><a href="/skyway/"><span class="mtools-code">S</span> Skyway <em>${skyway.nodes.length} downtown nodes</em></a></li>
+          <li><a href="/quiz/"><span class="mtools-code">Q</span> Quiz <em>where to be tonight</em></a></li>
+          <li><a href="/horoscope/"><span class="mtools-code">H</span> Horoscope <em>for the metro</em></a></li>
+          <li><a href="/surprise/"><span class="mtools-code">R</span> Surprise <em>a random pick</em></a></li>
+          <li><a href="/mystery/"><span class="mtools-code">Y</span> Mystery <em>sealed-envelope nights</em></a></li>
+          <li><a href="/departed/"><span class="mtools-code">D</span> Departed <em>places we lost</em></a></li>
+          <li><a href="/glossary/"><span class="mtools-code">G</span> Loon’s Nest <em>a small glossary</em></a></li>
+        </ul>
+      </div>
+    </section>
     <section class="concierge" aria-label="Tonight in the metro" data-sunset="${rightnowData ? esc(rightnowData.sun.set_24 || rightnowData.sun.set) : ''}">
       <div class="wrap concierge-inner">
         <header class="concierge-head">
@@ -1552,30 +1629,6 @@ function renderHome() {
             </li>`).join('')}
         </ol>
         <a class="concierge-more" href="/tonight/">See all of tonight →</a>
-      </div>
-    </section>
-    ${clusterSections}
-    <section class="more-tools" aria-label="More tools">
-      <div class="wrap">
-        <div class="more-tools-head">
-          <span class="more-tools-eyebrow">More · Index</span>
-          <span class="more-tools-stamp">Optional exploration</span>
-        </div>
-        <ul class="more-tools-list">
-          <li><a href="/take-them-to/"><span class="mtools-code">X</span> Take Them To <em>${(IS_WARM_SEASON ? situations.situations.filter(s => s.slug !== 'snow-day') : situations.situations).length} situations</em></a></li>
-          <li><a href="/near/"><span class="mtools-code">N</span> Near You <em>walking radius</em></a></li>
-          <li><a href="/this-weekend/"><span class="mtools-code">W</span> This Weekend <em>Fri · Sat · Sun</em></a></li>
-          <li><a href="/now-showing/"><span class="mtools-code">A</span> Now Showing <em>${exhibitions.exhibitions.length} exhibitions</em></a></li>
-          <li><a href="/festivals/"><span class="mtools-code">F</span> Festivals <em>the year in order</em></a></li>
-          <li><a href="/visit/"><span class="mtools-code">V</span> First Time? <em>a weekend in the metro</em></a></li>
-          <li><a href="/skyway/"><span class="mtools-code">S</span> Skyway <em>${skyway.nodes.length} downtown nodes</em></a></li>
-          <li><a href="/quiz/"><span class="mtools-code">Q</span> Quiz <em>where to be tonight</em></a></li>
-          <li><a href="/horoscope/"><span class="mtools-code">H</span> Horoscope <em>for the metro</em></a></li>
-          <li><a href="/surprise/"><span class="mtools-code">R</span> Surprise <em>a random pick</em></a></li>
-          <li><a href="/mystery/"><span class="mtools-code">Y</span> Mystery <em>sealed-envelope nights</em></a></li>
-          <li><a href="/departed/"><span class="mtools-code">D</span> Departed <em>places we lost</em></a></li>
-          <li><a href="/glossary/"><span class="mtools-code">G</span> Loon’s Nest <em>a small glossary</em></a></li>
-        </ul>
       </div>
     </section>
     ${liveEventPicks.length ? `
@@ -1620,6 +1673,7 @@ function renderHome() {
         </div>
       </div>
     </section>` : ''}
+    ${clusterSections}
     <section class="calendar-feature" id="calendar">
       <div class="wrap calendar-feature-inner">
         <div class="calendar-feature-text">
@@ -1683,7 +1737,12 @@ function renderCategory(c) {
   if (c.layout === 'seasonal') return renderSeasonalCategory(c);
 
   const description = seoDescription(c);
-  const entries = c.entries.map((e, i) => {
+  // Featured (paid) entries float to the top of the list — the "top
+  // placement in a single category list" the /partner/ page sells, so one
+  // field flip on the data entry delivers the whole product. The sort is
+  // stable, so editorial order holds within each group.
+  const ordered = [...c.entries].sort((a, b) => (b.featured === true) - (a.featured === true));
+  const entries = ordered.map((e, i) => {
     // Featured treatment is now opt-in via `featured: true` on the entry
     // — reserved for paid partner placements. See /partner/. Editorial
     // recommendations stay unranked; the list order itself is the
@@ -2115,6 +2174,24 @@ function renderEntry(c, e, allCategories) {
     ? sameCat.filter(o => normalizeNeighborhood(o.neighborhood) === neighborhoodNormSelf)
     : [];
   const related = (sameNeighborhood.length >= 2 ? sameNeighborhood : sameCat).slice(0, 4);
+  // The "More in …" heading matches on normalized neighborhood groups, so it
+  // must print the group name (e.g. "Uptown & Lyn-Lake"), not the raw entry
+  // neighborhood — Tenant (Kingfield) under a "More in Uptown" heading reads
+  // as wrong to anyone who knows the city.
+  const nbGroup = neighborhoodNormSelf ? NEIGHBORHOODS.find(nb => nb.slug === neighborhoodNormSelf) : null;
+  const relatedHeading = sameNeighborhood.length >= 2
+    ? `More in ${(nbGroup && nbGroup.name) || e.neighborhood}`
+    : `More ${c.title.toLowerCase()}`;
+
+  // Cross-category "Within a short walk" — the nearest entries by straight-
+  // line distance, any category, excluding this entry and anything already
+  // in the related list. Turns one pageview into several.
+  const nearby = coords ? getAllCoordEntries()
+    .filter(o => o.name !== e.name)
+    .map(o => ({ ...o, dist: haversineMi(coords.lat, coords.lng, o.lat, o.lng) }))
+    .filter(o => o.dist <= 1)
+    .sort((a, b) => a.dist - b.dist)
+    .slice(0, 6) : [];
 
   // Open Now: re-use the existing client-side logic by emitting a data attr.
   const hoursAttr = (hoursLookup && hoursLookup.hours && hoursLookup.hours.length > 0)
@@ -2160,7 +2237,7 @@ function renderEntry(c, e, allCategories) {
       })();
     </script>` : '';
 
-  const description = `${e.name} — ${e.style || c.title.toLowerCase()} in ${e.neighborhood || 'the Twin Cities'}. ${e.description ? e.description.slice(0, 110) : ''}`.trim();
+  const description = `${e.name} — ${e.style || c.title.toLowerCase()} in ${e.neighborhood || 'the Twin Cities'}. ${e.description ? (e.description.length > 110 ? e.description.slice(0, 110).replace(/\s+\S*$/, '') + '…' : e.description) : ''}`.trim();
 
   // Upcoming shows block — live-music, theaters, and arthouse-cinemas entries
   // that have a matching scraper source get a mini-calendar right on the page.
@@ -2219,7 +2296,7 @@ function renderEntry(c, e, allCategories) {
     </section>`;
   })();
 
-  return head({ title: `${e.name} · ${c.title}`, description, slug: `${c.slug}/${slug}`, theme: c.hero_color }) +
+  return head({ title: `${e.name} · ${e.neighborhood || 'Minneapolis'} · ${c.title}`, description, slug: `${c.slug}/${slug}`, theme: c.hero_color }) +
     header({ activeSlug: c.slug }) +
     `<nav class="breadcrumb wrap">
        <a href="/">bestofmpls</a>
@@ -2255,7 +2332,7 @@ function renderEntry(c, e, allCategories) {
 
        ${related.length ? `
        <section class="entry-detail-related">
-         <h2 class="entry-detail-related-title">${sameNeighborhood.length >= 2 ? `More in ${esc(e.neighborhood)}` : `More ${esc(c.title.toLowerCase())}`}</h2>
+         <h2 class="entry-detail-related-title">${esc(relatedHeading)}</h2>
          <ul class="entry-detail-related-list">
            ${related.map(r => `
              <li>
@@ -2268,10 +2345,26 @@ function renderEntry(c, e, allCategories) {
          <a href="/${c.slug}/" class="entry-detail-back">See the full ${esc(c.title.toLowerCase())} list →</a>
        </section>` : ''}
 
+       ${nearby.length >= 2 ? `
+       <section class="entry-detail-related entry-detail-nearby">
+         <h2 class="entry-detail-related-title">Within a short walk</h2>
+         <ul class="entry-detail-related-list">
+           ${nearby.map(n => `
+             <li>
+               <a href="/${n.category.slug}/${n.slug}/">
+                 <span class="entry-detail-related-name">${esc(n.name)}</span>
+                 <span class="entry-detail-related-neigh">${esc(n.style || n.category.title)}</span>
+               </a>
+             </li>`).join('')}
+         </ul>
+         <a href="/near/" class="entry-detail-back">Everything near here →</a>
+       </section>` : ''}
+
        ${upcomingShowsBlock}
      </article>
-
-     <script type="application/ld+json">${JSON.stringify(schema)}</script>
+` +
+    newsletterCapture({ context: 'entry', compact: true }) +
+    `<script type="application/ld+json">${JSON.stringify(schema)}</script>
      <script type="application/ld+json">${JSON.stringify(breadcrumb)}</script>` +
     footer();
 }
@@ -2374,7 +2467,7 @@ function renderAdminPicks() {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>${esc(title)}</title>
-<link rel="stylesheet" href="/style.css?v=39">
+<link rel="stylesheet" href="/style.css?v=40">
 <style>
   body { background: var(--paper); }
   .admin-wrap { max-width: 960px; margin: 0 auto; padding: 32px var(--gutter) 96px; }
@@ -3296,7 +3389,7 @@ function renderCalendar() {
        <div class="cal-stream">${dayBlocks}</div>
        ${beyondNote}`;
 
-  return head({ title, description, slug: 'calendar', theme: 'forest' }) +
+  return head({ title: 'Minneapolis & St. Paul Events Calendar', description, slug: 'calendar', theme: 'forest' }) +
     header({ activeSlug: 'calendar' }) +
     `<section class="section-head">
        <div class="wrap">
@@ -3334,6 +3427,7 @@ function renderCalendar() {
          moodChips.forEach(function(c){  c.addEventListener('click', function(){ state.mood  = c.dataset.mood;  apply(); }); });
        })();
      </script>` +
+    newsletterCapture({ context: 'calendar', compact: true }) +
     footer();
 }
 
@@ -3344,6 +3438,38 @@ function renderCalendar() {
 // dedicated venue page, so we show the full booking calendar). We also
 // attempt to match the venue back to its directory entry under /live-music/
 // so the page can link to the entry's neighborhood/address/description.
+// Shared Event JSON-LD builder. Google's event rich results require a
+// location with a street address, so pass the resolved venue record when
+// one exists (its live-music directory entry carries the address). Returns
+// a plain object ready for JSON.stringify inside an ld+json script.
+function eventJsonLd(e, venue) {
+  const inStPaul = /\bst\.?\s*paul|saint paul/i.test(e.venue_neighborhood || e.city || '');
+  const address = { '@type': 'PostalAddress', addressLocality: inStPaul ? 'Saint Paul' : 'Minneapolis', addressRegion: 'MN' };
+  if (venue && venue.directory && venue.directory.address) address.streetAddress = venue.directory.address;
+  const obj = {
+    '@type': 'Event',
+    name: e.title,
+    startDate: e.time ? `${e.date}T${e.time}:00-05:00` : e.date,
+    eventStatus: 'https://schema.org/EventScheduled',
+    eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+    location: { '@type': 'Place', name: e.venue, address },
+    organizer: { '@type': 'Organization', name: e.venue }
+  };
+  if (e.end_date) obj.endDate = e.end_date;
+  if (e.image) obj.image = e.image;
+  if (e.url) obj.url = e.url;
+  if (venue && venue.directory && venue.directory.website) obj.organizer.url = venue.directory.website;
+  if (e.price) {
+    const free = /free/i.test(e.price);
+    const m = /(\d+(?:\.\d{1,2})?)/.exec(e.price);
+    if (free || m) {
+      obj.offers = { '@type': 'Offer', price: free ? '0' : m[1], priceCurrency: 'USD' };
+      if (e.url) obj.offers.url = e.url;
+    }
+  }
+  return obj;
+}
+
 function resolveVenues() {
   // Manual map from scraped venue name → matching live-music directory entry
   // name. Anything not in the map falls back to a name-only entry.
@@ -3372,8 +3498,10 @@ function resolveVenues() {
   for (const e of events_dedup) {
     const slug = entrySlug(e.venue);
     if (!venues.has(slug)) {
+      // Try the alias map first, then the scraped name verbatim — venues like
+      // Icehouse match the directory exactly and need no alias.
       const aliasName = directoryAlias[e.venue];
-      const dirEntry = aliasName ? liveMusicByName.get(aliasName) : null;
+      const dirEntry = (aliasName ? liveMusicByName.get(aliasName) : null) || liveMusicByName.get(e.venue) || null;
       venues.set(slug, {
         slug,
         name: e.venue,
@@ -3392,7 +3520,8 @@ function resolveVenues() {
 }
 
 function renderVenuePage(v) {
-  const title = v.name;
+  const venueCity = /\bst\.?\s*paul|saint paul/i.test(v.neighborhood || '') ? 'St. Paul' : 'Minneapolis';
+  const title = `${v.name} Upcoming Shows & Events · ${venueCity}`;
   const description = `Upcoming live music and events at ${v.name}${v.neighborhood ? ', ' + v.neighborhood : ''}. ${v.events.length} show${v.events.length === 1 ? '' : 's'} on the schedule.`;
   const slug = `calendar/venue/${v.slug}`;
 
@@ -3503,13 +3632,7 @@ function renderVenuePage(v) {
     name: v.name,
     address: v.directory?.address ? { '@type': 'PostalAddress', streetAddress: v.directory.address, addressLocality: 'Minneapolis', addressRegion: 'MN' } : undefined,
     url: `${SITE}/calendar/venue/${v.slug}/`,
-    event: v.events.slice(0, 30).map(e => ({
-      '@type': 'Event',
-      name: e.title,
-      startDate: e.date + (e.time ? `T${e.time}:00` : ''),
-      url: e.url || undefined,
-      location: { '@type': 'Place', name: v.name }
-    }))
+    event: v.events.slice(0, 30).map(e => eventJsonLd(e, v))
   };
 
   return head({ title, description, slug, theme: 'forest' }) +
@@ -3613,9 +3736,23 @@ function renderWeekend() {
         </ul>`}
     </section>`).join('');
 
-  return head({ title: 'This Weekend', description: `Friday through Sunday across Minneapolis and Saint Paul. ${totalShows} shows on the calendar between ${headlineDate} and ${endDate}.`, slug: 'this-weekend', theme: 'forest' }) +
+  // Event rich-results markup for the weekend's shows, capped to keep the
+  // payload sane. Venue lookup wires in street addresses where we have them.
+  const venueBySlug = new Map(resolveVenues().map(v => [v.slug, v]));
+  const weekendSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    itemListElement: weekendDays.flatMap(d => d.events).slice(0, 50).map((e, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      item: eventJsonLd(e, venueBySlug.get(entrySlug(e.venue)))
+    }))
+  };
+
+  return head({ title: 'Things to Do This Weekend in Minneapolis & St. Paul', description: `Friday through Sunday across Minneapolis and Saint Paul. ${totalShows} shows on the calendar between ${headlineDate} and ${endDate}.`, slug: 'this-weekend', theme: 'forest' }) +
     header({ activeSlug: 'this-weekend' }) +
-    `<section class="section-head">
+    `<script type="application/ld+json">${JSON.stringify(weekendSchema)}</script>
+     <section class="section-head">
        <div class="wrap">
          <div class="section-eyebrow">${totalShows} shows · ${headlineDate} to ${endDate}</div>
          <h1 class="section-title">This Weekend</h1>
@@ -3666,6 +3803,7 @@ function renderHoroscope() {
      <section class="horoscope-grid wrap">
        ${cards}
      </section>` +
+    newsletterCapture({ context: 'horoscope', compact: true }) +
     footer();
 }
 
@@ -4007,6 +4145,7 @@ function renderFeaturedEvent(ev) {
          <div class="event-hero-status">
            ${(isActive || isUpcoming) ? '<span class="feature-banner-pulse" aria-hidden="true"></span>' : ''}
            <span>${esc(statusLabel)}</span>
+           ${ev.sponsored ? '<span class="sponsored-mark" title="See /partner/">Paid partner placement</span>' : ''}
          </div>
          <h1 class="event-hero-headline">${esc(ev.name)}</h1>
          <p class="event-hero-tagline">${esc(ev.tagline)}</p>
@@ -4077,7 +4216,7 @@ function renderFeaturedEvent(ev) {
 // from that bundle. Server-side render is the JS-disabled fallback.
 function renderTonight() {
   const r = rightnowData;
-  const title = 'Tonight';
+  const title = 'Things to Do Tonight in Minneapolis & St. Paul';
   const description = 'Concerts, openings, talks, and screenings happening tonight in Minneapolis and Saint Paul. Plus sunset, weather, and what is coming up next.';
 
   if (!r) {
@@ -4164,6 +4303,34 @@ function renderTonight() {
         ${events.length > 6 ? `<a class="tonight-more" href="/calendar/">See all ${events.length} →</a>` : ''}
       </div>` : '';
 
+  // Server-rendered week-ahead list. Real crawlable HTML with event names
+  // and venue links, even when the build's TODAY_ISO is a day or two stale
+  // and the today/tomorrow blocks above come up empty. JS never touches it.
+  const isoPlusDays = (iso, days) => {
+    const [y, m, d] = iso.split('-').map(Number);
+    const dt = new Date(Date.UTC(y, m - 1, d)); dt.setUTCDate(dt.getUTCDate() + days);
+    return `${dt.getUTCFullYear()}-${String(dt.getUTCMonth()+1).padStart(2,'0')}-${String(dt.getUTCDate()).padStart(2,'0')}`;
+  };
+  const weekEndIso = isoPlusDays(r.today, 7);
+  const weekDates = [...new Set(allUpcoming
+    .filter(e => e.date > tomorrowIso && e.date <= weekEndIso)
+    .map(e => e.date))].sort();
+  const weekDayLabel = (iso) => {
+    const [y, m, d] = iso.split('-').map(Number);
+    return new Date(y, m - 1, d).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+  };
+  const weekBlock = weekDates.length ? `
+     <section class="tonight-events-section tonight-events-week">
+       <div class="wrap">
+         <div class="tonight-section-eyebrow">Later this week</div>
+         <h2 class="tonight-section-title">Coming up in the next seven days</h2>
+         ${weekDates.map(iso => `
+         <h3 class="tonight-week-day">${esc(weekDayLabel(iso))}</h3>
+         <ul class="tonight-events-list">${eventsOnDate(iso).map(eventRow).join('')}</ul>`).join('')}
+         <a class="tonight-more" href="/calendar/">The full calendar →</a>
+       </div>
+     </section>` : '';
+
   const pickCard = `
     <article class="tonight-pick">
       <div class="tonight-pick-eyebrow">Tonight's sunset pick</div>
@@ -4190,9 +4357,25 @@ function renderTonight() {
     return new Date(y, m-1, d).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
   })();
 
+  // Event rich-results markup: tonight, tomorrow, and the week ahead,
+  // capped to keep the payload sane.
+  const venueBySlug = new Map(resolveVenues().map(v => [v.slug, v]));
+  const tonightSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    itemListElement: [...tonightEventsServer, ...tomorrowEventsServer, ...weekDates.flatMap(iso => eventsOnDate(iso))]
+      .slice(0, 50)
+      .map((e, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        item: eventJsonLd(e, venueBySlug.get(entrySlug(e.venue)))
+      }))
+  };
+
   return head({ title, description, slug: 'tonight', theme: 'midnight' }) +
     header({ activeSlug: 'tonight' }) +
-    `<section class="tonight-hero">
+    `<script type="application/ld+json">${JSON.stringify(tonightSchema)}</script>
+     <section class="tonight-hero">
        <div class="wrap tonight-hero-inner">
          <div class="tonight-hero-eyebrow" data-tonight-hero-eyebrow>${esc(builtDayLabel)} · Tonight in the metro</div>
          <h1 class="tonight-hero-headline" data-tonight-hero-headline>
@@ -4211,6 +4394,7 @@ function renderTonight() {
      </section>
      <section class="tonight-events-section" data-tonight-today-block>${renderTonightBlock(tonightEventsServer)}</section>
      <section class="tonight-events-section tonight-events-tomorrow" data-tonight-tomorrow-block>${renderTomorrowBlock(tomorrowEventsServer)}</section>
+     ${weekBlock}
      <section class="tonight-pick-section wrap">${pickCard}</section>
      <section class="tonight-countdowns wrap">
        <h2 class="tonight-section-title">Coming up on the calendar</h2>
@@ -4323,6 +4507,7 @@ function renderTonight() {
        }
      })();
      </script>` +
+    newsletterCapture({ context: 'tonight', compact: true }) +
     footer();
 }
 
@@ -5275,6 +5460,7 @@ function renderPartner() {
         <div class="section-eyebrow">For Twin Cities businesses</div>
         <h1 class="section-title">Become a featured partner</h1>
         <p class="section-deck">A small number of restaurants, bars, venues, and shops are featured at the top of their category each month. It is the only paid surface on the site. Clearly labeled, editorially controlled, capped per category.</p>
+        ${PARTNER_STATS_LINE ? `<p style="font-family: var(--font-mono); font-size: 13px; letter-spacing: 0.04em; color: var(--ink-soft); margin-top: 16px;">${esc(PARTNER_STATS_LINE)}</p>` : ''}
       </div>
     </section>
     <section class="wrap" style="max-width: 760px; padding: 48px var(--gutter);">
@@ -5288,9 +5474,22 @@ function renderPartner() {
         <li><b>No promises about traffic, rankings, or outcomes.</b> We can tell you what the page got last month. We will not pretend to know what your booking calendar will do.</li>
       </ul>
 
+      <h2 class="tonight-section-title" style="margin-top: 48px;">What Featured looks like</h2>
+      <article class="entry entry--featured" aria-label="Example of a featured listing" style="margin-top: 24px;">
+        <div class="entry-body">
+          <div class="entry-meta"><span class="entry-meta-pick" title="Paid partner placement — see /partner/">Featured</span><span class="entry-meta-style">Your category here</span></div>
+          <h2 class="entry-name">Your Business Name</h2>
+          <p class="entry-description">The editorial copy stays ours — written the way we would write about any place we cover. Your listing moves to the top of its category list, gets this treatment, and carries an honest "Featured" mark.</p>
+        </div>
+      </article>
+      <p style="font-family: var(--font-body); font-size: 14px; line-height: 1.5; color: var(--ink-faint); margin-top: 8px;">Rendered above with the exact styling a featured listing gets on its category page.</p>
+
       <h2 class="tonight-section-title" style="margin-top: 48px;">Pricing</h2>
       <p style="font-family: var(--font-body); font-size: 17px; line-height: 1.6; color: var(--ink); max-width: 640px;">Starts at <b>$200 / month</b> per featured category. Quarterly and seasonal packages available. We try to match the rate to the business — a neighborhood bakery and a downtown hotel are not the same conversation.</p>
       <p style="font-family: var(--font-body); font-size: 17px; line-height: 1.6; color: var(--ink-soft); max-width: 640px; margin-top: 12px;">If you run a Twin Cities venue, restaurant, or shop and the rate works, we want to talk. If the rate doesn't, tell us what does — small operators we already cover get genuine consideration.</p>
+
+      <h2 class="tonight-section-title" style="margin-top: 48px;">Homepage takeover</h2>
+      <p style="font-family: var(--font-body); font-size: 17px; line-height: 1.6; color: var(--ink); max-width: 640px;">For a festival, venue anniversary, or one-off event: the homepage feature banner plus a dedicated landing page on the site, date-windowed to your run. <b>$350–500 / week</b>, one at a time, same editorial rules, clearly labeled "Paid partner placement." Ask about it in the same email.</p>
 
       <h2 class="tonight-section-title" style="margin-top: 48px;">What we do not do</h2>
       <ul class="skyway-tips" style="grid-template-columns: 1fr;">
@@ -5302,7 +5501,7 @@ function renderPartner() {
       </ul>
 
       <h2 class="tonight-section-title" style="margin-top: 48px;">To start</h2>
-      <p style="font-family: var(--font-body); font-size: 17px; line-height: 1.6; color: var(--ink); max-width: 640px;">Email <a href="mailto:hello@bestofmpls.com?subject=Featured%20partner%20interest" style="color: var(--clay); border-bottom: 1px solid var(--clay);">hello@bestofmpls.com</a> with: which category, a few sentences about the business, what month you want to start, and any timing around your own seasonality (a patio in May; a soup-and-bourbon room in January). We will write back within a week.</p>
+      <p style="font-family: var(--font-body); font-size: 17px; line-height: 1.6; color: var(--ink); max-width: 640px;">Email <a href="mailto:hello@bestofmpls.com?subject=Featured%20partner%20interest&body=Business%20name%3A%20%0ACategory%20(Cocktail%20Bars%2C%20Pizza%2C%20Breweries%2C%20etc.)%3A%20%0AStart%20month%3A%20%0AA%20few%20sentences%20about%20the%20business%3A%20%0AAny%20seasonality%20we%20should%20time%20around%3A%20" style="color: var(--clay); border-bottom: 1px solid var(--clay);">hello@bestofmpls.com</a> with: which category, a few sentences about the business, what month you want to start, and any timing around your own seasonality (a patio in May; a soup-and-bourbon room in January). We will write back within a week.</p>
 
       <p style="font-family: var(--font-body); font-style: italic; font-size: 15px; line-height: 1.6; color: var(--ink-soft); margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--rule-soft); max-width: 640px;">bestofmpls.com is an independent, locally-owned editorial guide. The site exists because the metro deserves a recommendation surface that is not owned by a publishing conglomerate or a tourism board. Featured partnerships are how it stays that way.</p>
     </section>` +
@@ -5495,9 +5694,10 @@ function renderSitemap(neighborhoods, crossPages) {
       }));
     })
   ];
+  const lastmod = new Date().toISOString().slice(0, 10);
   return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${urls.map(u => `  <url><loc>${u.loc}</loc><priority>${u.priority}</priority></url>`).join('\n')}
+${urls.map(u => `  <url><loc>${u.loc}</loc><lastmod>${lastmod}</lastmod><priority>${u.priority}</priority></url>`).join('\n')}
 </urlset>`;
 }
 

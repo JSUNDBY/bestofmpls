@@ -650,6 +650,19 @@ p { margin: 0 0 1em; }
   padding: 3px 9px 4px;
   border-radius: 999px;
 }
+/* Honest paid-placement label on the featured-event banner + landing page.
+   Mirrors the entry-meta-pick badge. */
+.sponsored-mark {
+  font-family: var(--font-label);
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  border: 1px solid currentColor;
+  padding: 2px 8px 3px;
+  border-radius: 999px;
+  opacity: 0.85;
+}
 
 @media (max-width: 720px) {
   .entry { grid-template-columns: 1fr; gap: 8px; padding: 28px var(--gutter); }
@@ -2943,6 +2956,14 @@ a.rightnow-link:hover { color: var(--clay); border-bottom-color: var(--clay); }
   padding-bottom: 12px;
   border-bottom: 2px solid var(--ink);
 }
+.tonight-week-day {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: 0.02em;
+  margin: 28px 0 12px;
+  color: var(--ink-soft);
+}
 .tonight-others-list {
   list-style: none;
   padding: 0;
@@ -4641,6 +4662,12 @@ html[data-mode="dark"] .newsletter-capture {
   background: var(--paper-2);
   border-color: var(--rule-soft);
 }
+.newsletter-capture--compact {
+  padding: 28px 0;
+}
+.newsletter-capture--compact .newsletter-title {
+  font-size: clamp(20px, 2.2vw, 24px);
+}
 .newsletter-inner {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -5850,29 +5877,21 @@ html[data-mode="dark"] .concierge-pick { border-top-color: rgba(245,244,240,0.10
   color: var(--ink-faint);
   text-transform: uppercase;
 }
+/* Single horizontal chip-scroller strip — sits directly under the
+   rightnow strip on the homepage so the daily tools read as one row. */
 .more-tools-list {
   list-style: none;
   margin: 0;
-  padding: 0;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 4px 24px;
-}
-@media (max-width: 720px) { .more-tools-list { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 480px) { .more-tools-list { grid-template-columns: 1fr; } }
-.more-tools-list li { padding: 6px 0; border-top: 1px solid var(--rule-soft); }
-.more-tools-list li:first-child,
-.more-tools-list li:nth-child(2),
-.more-tools-list li:nth-child(3) { border-top: none; }
-@media (max-width: 720px) {
-  .more-tools-list li:nth-child(3) { border-top: 1px solid var(--rule-soft); }
-}
-@media (max-width: 480px) {
-  .more-tools-list li:nth-child(2),
-  .more-tools-list li:nth-child(3) { border-top: 1px solid var(--rule-soft); }
-}
-.more-tools-list a {
+  padding: 0 0 6px;
   display: flex;
+  gap: 8px;
+  white-space: nowrap;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.more-tools-list li { flex: 0 0 auto; }
+.more-tools-list a {
+  display: inline-flex;
   align-items: baseline;
   gap: 8px;
   text-decoration: none;
@@ -5880,8 +5899,11 @@ html[data-mode="dark"] .concierge-pick { border-top-color: rgba(245,244,240,0.10
   font-family: var(--font-body);
   font-size: 14px;
   line-height: 1.4;
+  border: 1px solid var(--rule-soft);
+  border-radius: 999px;
+  padding: 5px 14px;
 }
-.more-tools-list a:hover { color: var(--clay); }
+.more-tools-list a:hover { color: var(--clay); border-color: var(--clay); }
 .mtools-code {
   font-family: var(--font-mono);
   font-weight: 600;

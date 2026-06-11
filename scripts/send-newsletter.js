@@ -14,6 +14,16 @@
  * Required env vars:
  *   BEEHIIV_API_KEY   — from Beehiiv Settings → API
  *   BEEHIIV_PUB_ID    — publication ID (pub_c1d001ef-...)
+ *
+ * Sponsor slot (optional):
+ *   SPONSOR_NAME      — sponsor display name
+ *   SPONSOR_TAGLINE   — one-line tagline shown after the name
+ *   SPONSOR_URL       — link the sponsor name points to
+ *
+ * How to sell it: when a sponsor signs, set SPONSOR_NAME, SPONSOR_TAGLINE,
+ * and SPONSOR_URL as GitHub Actions secrets/vars on this repo. The next
+ * Monday send picks them up automatically. When the run ends, remove the
+ * three values and the slot disappears — no code changes either way.
  */
 
 const fs   = require('fs');
@@ -26,6 +36,10 @@ const SITE         = 'https://bestofmpls.com';
 
 const API_KEY = process.env.BEEHIIV_API_KEY;
 const PUB_ID  = process.env.BEEHIIV_PUB_ID || 'pub_c1d001ef-b72b-46b4-ab41-efad0f2f2f88';
+
+const SPONSOR_NAME    = process.env.SPONSOR_NAME;
+const SPONSOR_TAGLINE = process.env.SPONSOR_TAGLINE;
+const SPONSOR_URL     = process.env.SPONSOR_URL;
 
 if (!API_KEY) {
   console.error('Missing BEEHIIV_API_KEY');
@@ -154,12 +168,19 @@ function horoscopeHtml(horoscope) {
   return html;
 }
 
+function sponsorHtml() {
+  if (!SPONSOR_NAME) return '';
+  const name = SPONSOR_URL ? `<a href="${SPONSOR_URL}">${SPONSOR_NAME}</a>` : SPONSOR_NAME;
+  const tagline = SPONSOR_TAGLINE ? `, ${SPONSOR_TAGLINE}` : '';
+  return `\n<p style="color:#888; font-size:14px;">This week's dispatch is presented by ${name}${tagline}</p>\n`;
+}
+
 function buildHtml(events, happyHour, horoscope) {
   const label = weekLabel();
   return `
 <h1>Best of MPLS</h1>
 <p style="color:#888">Week of ${label}</p>
-
+${sponsorHtml()}
 <hr>
 
 <h2>This week on the calendar</h2>
