@@ -212,12 +212,37 @@ export default {
       }
       ctx.waitUntil(env.POLLS.put(rlKey, '1', { expirationTtl: 30 }));
 
+      // Forward to Beehiiv. BEEHIIV_API_KEY and BEEHIIV_PUB_ID are worker secrets.
+      if (env.BEEHIIV_API_KEY && env.BEEHIIV_PUB_ID) {
+        try {
+          const bhRes = await fetch(
+            `https://api.beehiiv.com/v2/publications/${env.BEEHIIV_PUB_ID}/subscriptions`,
+            {
+              method: 'POST',
+              headers: {
+                'Authorization': `Bearer ${env.BEEHIIV_API_KEY}`,
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({ email, utm_source: 'website', utm_medium: 'organic' })
+            }
+          );
+          if (!bhRes.ok) {
+            const err = await bhRes.json().catch(() => ({}));
+            return json({ error: err.message || 'subscription failed' }, 502, origin);
+          }
+        } catch (e) {
+          return json({ error: 'could not reach Beehiiv' }, 502, origin);
+        }
+      }
+
+      // Also log to KV for our own records.
       const ts = Date.now();
       const nonce = crypto.randomUUID().slice(0, 8);
       const submission = { kind: 'newsletter', email, ip_hash: ipHash, ts };
-      await env.POLLS.put(`submission:${ts}-${nonce}`, JSON.stringify(submission), {
+      ctx.waitUntil(env.POLLS.put(`submission:${ts}-${nonce}`, JSON.stringify(submission), {
         expirationTtl: 60 * 60 * 24 * 365 * 2
-      });
+      }));
+
       return json({ ok: true }, 200, origin);
     }
 

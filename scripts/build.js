@@ -1150,7 +1150,7 @@ function footer() {
 // to Beehiiv's public forms API. Multiple blocks (footer mini + inline
 // prominent) share this handler. Status node is the sibling [data-newsletter-status].
 (function(){
-  var endpoint = 'https://api.beehiiv.com/v2/subscriptions/forms/fded3765-6a73-46c9-b90b-4c479f04ebb8/subscriptions';
+  var endpoint = ${JSON.stringify(POLL_WORKER_URL ? POLL_WORKER_URL + '/newsletter' : '')}; if (!endpoint) return;
   var forms = document.querySelectorAll('[data-newsletter-form]');
   forms.forEach(function(form){
     var status = form.parentElement.querySelector('[data-newsletter-status]')
