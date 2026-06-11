@@ -942,26 +942,21 @@ function header({ activeSlug } = {}) {
 // it lands.
 function newsletterCapture({ context = 'home' } = {}) {
   const decks = {
-    home:     'A monthly note from the metro. New places, what to do this weekend, what just closed. The list is starting; the first dispatch goes out this summer.',
-    category: 'Want the short list a month before everyone else? Drop your email. First dispatch lands this summer.',
-    event:    'More guides like this one. Drop your email and you will hear when the next dispatch lands.'
+    home:     'What\'s happening in the Twin Cities, every Monday. Shows, happy hours, neighborhood picks, and a weekly horoscope written for Minneapolis.',
+    category: 'What\'s worth knowing in the Twin Cities, every Monday. Drop your email.',
+    event:    'More guides like this one, every Monday. Drop your email.'
   };
   return `
     <section class="newsletter-capture" aria-label="Newsletter signup">
       <div class="wrap newsletter-inner">
         <div class="newsletter-copy">
-          <p class="newsletter-eyebrow">The list · launching this summer</p>
-          <h2 class="newsletter-title">Field notes from the metro.</h2>
+          <p class="newsletter-eyebrow">The weekly dispatch</p>
+          <h2 class="newsletter-title">Best of MPLS, every Monday.</h2>
           <p class="newsletter-deck">${esc(decks[context] || decks.home)}</p>
         </div>
         <div class="newsletter-form-block">
-          <form class="newsletter-form" data-newsletter-form>
-            <input type="email" name="email" placeholder="you@example.com" required aria-label="Email address" maxlength="200">
-            <input type="text" name="hp" tabindex="-1" autocomplete="off" class="newsletter-hp" aria-hidden="true">
-            <button type="submit">Join the list</button>
-          </form>
-          <div class="newsletter-status" data-newsletter-status></div>
-          <p class="newsletter-fine">No spam. Unsubscribe in one click. One email a month at most.</p>
+          <script async src="https://subscribe-forms.beehiiv.com/v3/loader.js" data-beehiiv-form="fded3765-6a73-46c9-b90b-4c479f04ebb8"></script>
+          <p class="newsletter-fine">No spam. Unsubscribe in one click.</p>
         </div>
       </div>
     </section>`;
@@ -997,13 +992,8 @@ function footer() {
         <p class="footer-tag">A guide to the museums, music, food, and small good things of Minneapolis and Saint Paul. Made for the metro by the people who live here.</p>
       </div>
       <div class="footer-newsletter">
-        <p class="footer-list-title">The list (coming soon)</p>
-        <form class="footer-newsletter-form" data-newsletter-form>
-          <input type="email" name="email" placeholder="you@example.com" required aria-label="Email address" maxlength="200">
-          <input type="text" name="hp" tabindex="-1" autocomplete="off" class="poll-hp" aria-hidden="true">
-          <button type="submit">Join</button>
-        </form>
-        <div class="footer-newsletter-status" data-newsletter-status></div>
+        <p class="footer-list-title">The weekly dispatch</p>
+        <script async src="https://subscribe-forms.beehiiv.com/v3/loader.js" data-beehiiv-form="fded3765-6a73-46c9-b90b-4c479f04ebb8"></script>
       </div>
     </div>
 
@@ -1040,6 +1030,7 @@ function footer() {
     </div>
   </div>
 </footer>
+<script type="text/javascript" async src="https://subscribe-forms.beehiiv.com/attribution.js"></script>
 
 <nav class="mobile-dock" aria-label="Primary mobile navigation">
   <a class="mobile-dock-item" href="/tonight/"><span class="mobile-dock-icon" aria-hidden="true">☾</span><span class="mobile-dock-label">Tonight</span></a>
