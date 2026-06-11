@@ -50,6 +50,21 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Send weekly newsletter (Mondays only)
+        if: github.event_name == 'schedule' && startsWith(github.event.schedule, '5 5') && startsWith(toJSON(github.event), '{}')
+        run: |
+          DAY=$(date -u +%u)
+          if [ "$DAY" = "1" ]; then
+            echo "Monday — sending newsletter"
+            node scripts/send-newsletter.js
+          else
+            echo "Not Monday (day $DAY) — skipping"
+          fi
+        env:
+          BEEHIIV_API_KEY: ${{ secrets.BEEHIIV_API_KEY }}
+          BEEHIIV_PUB_ID: pub_c1d001ef-b72b-46b4-ab41-efad0f2f2f88
+        continue-on-error: true
+
       - name: Build OG image
         run: |
           sudo apt-get install -y librsvg2-bin
