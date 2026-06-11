@@ -947,7 +947,7 @@ function newsletterCapture({ context = 'home' } = {}) {
     event:    'More guides like this one, every Monday. Drop your email.'
   };
   return `
-    <section class="newsletter-capture" aria-label="Newsletter signup">
+    <section class="newsletter-capture" id="newsletter-signup" aria-label="Newsletter signup">
       <div class="wrap newsletter-inner">
         <div class="newsletter-copy">
           <p class="newsletter-eyebrow">The weekly dispatch</p>
@@ -998,12 +998,7 @@ function footer() {
       </div>
       <div class="footer-newsletter">
         <p class="footer-list-title">The weekly dispatch</p>
-        <form class="footer-newsletter-form" data-newsletter-form>
-          <input type="email" name="email" placeholder="Your email" required autocomplete="email">
-          <input class="newsletter-hp" type="text" name="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
-          <button type="submit">Subscribe</button>
-        </form>
-        <p data-newsletter-status style="font-size:12px;color:rgba(244,238,223,0.7);margin:6px 0 0;min-height:16px;"></p>
+        <p class="footer-tag" style="margin:4px 0 0">Every Monday — shows, happy hours, horoscope. <a href="#newsletter-signup" style="color:var(--clay)">Subscribe above.</a></p>
       </div>
     </div>
 
