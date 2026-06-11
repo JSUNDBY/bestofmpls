@@ -88,7 +88,10 @@
     "lat": 44.9302409,
     "lng": -93.2888324
   },
-  "600 E Hennepin Ave, Minneapolis (and 777 Grand Ave, St. Paul)": null,
+  "600 E Hennepin Ave, Minneapolis (and 777 Grand Ave, St. Paul)": {
+    "lat": 44.9895296,
+    "lng": -93.2512554
+  },
   "180 Grand Ave, St. Paul": {
     "lat": 44.9412862,
     "lng": -93.1073351
@@ -97,7 +100,10 @@
     "lat": 44.939425,
     "lng": -93.2476391
   },
-  "5800 Cedar Ave S, Minneapolis (and others)": null,
+  "5800 Cedar Ave S, Minneapolis (and others)": {
+    "lat": 44.897719,
+    "lng": -93.2478991
+  },
   "492 Hamline Ave S, St. Paul": {
     "lat": 44.9265822,
     "lng": -93.1566977
@@ -131,8 +137,14 @@
     "lng": -93.2668826
   },
   "Various Twin Cities locations": null,
-  "2531 E Hennepin Ave, Minneapolis (and Linden Hills)": null,
-  "1500 Como Ave SE, Minneapolis (and others)": null,
+  "2531 E Hennepin Ave, Minneapolis (and Linden Hills)": {
+    "lat": 44.9916304,
+    "lng": -93.2172367
+  },
+  "1500 Como Ave SE, Minneapolis (and others)": {
+    "lat": 44.9876808,
+    "lng": -93.2300981
+  },
   "769 Cleveland Ave S, St. Paul": {
     "lat": 44.9182844,
     "lng": -93.1875601
@@ -572,7 +584,10 @@
     "lat": 44.9280155,
     "lng": -93.1265955
   },
-  "2400 Third Ave S, Minneapolis": null,
+  "2400 Third Ave S, Minneapolis": {
+    "lat": 44.959160157364,
+    "lng": -93.272815558635
+  },
   "333 E River Pkwy, Minneapolis": {
     "lat": 44.9730862,
     "lng": -93.2370455
@@ -617,7 +632,10 @@
     "lat": 44.9616635,
     "lng": -93.3082359
   },
-  "1500 Jackson St NE, Studio 144, Minneapolis": null,
+  "1500 Jackson St NE, Studio 144, Minneapolis": {
+    "lat": 45.0382563,
+    "lng": -93.249882
+  },
   "2909 Bryant Ave S #101, Minneapolis": {
     "lat": 44.9496498,
     "lng": -93.2903677
@@ -626,13 +644,22 @@
     "lat": 44.948503,
     "lng": -93.291482
   },
-  "210 N 2nd St, Suite 104, Minneapolis": null,
+  "210 N 2nd St, Suite 104, Minneapolis": {
+    "lat": 44.9849919,
+    "lng": -93.2703703
+  },
   "2222 1/2 E 35th St, Minneapolis": {
     "lat": 44.9395518,
     "lng": -93.2320729
   },
-  "1400 Van Buren St NE, Suite 195, Minneapolis": null,
-  "1500 Jackson St NE, Studio 395, Minneapolis": null,
+  "1400 Van Buren St NE, Suite 195, Minneapolis": {
+    "lat": 45.0391556,
+    "lng": -93.2486213
+  },
+  "1500 Jackson St NE, Studio 395, Minneapolis": {
+    "lat": 45.0382563,
+    "lng": -93.249882
+  },
   "1237 4th St NE, Minneapolis": {
     "lat": 45.0001636,
     "lng": -93.2614449
@@ -641,7 +668,10 @@
     "lat": 44.967488,
     "lng": -93.290467
   },
-  "2637 27th Ave S, Suite 1, Minneapolis": null,
+  "2637 27th Ave S, Suite 1, Minneapolis": {
+    "lat": 44.954425,
+    "lng": -93.2323298
+  },
   "2601 27th Ave S, Minneapolis": {
     "lat": 44.95545,
     "lng": -93.232972
@@ -785,7 +815,10 @@
     "lng": -93.2719758
   },
   "600 Washington Ave N, Minneapolis (and others)": null,
-  "1519 Como Ave SE, St. Paul": null,
+  "1519 Como Ave SE, St. Paul": {
+    "lat": 44.977388153486,
+    "lng": -93.164353012926
+  },
   "Robbinsdale and Bloomington": null,
   "5416 Penn Ave S, Minneapolis": {
     "lat": 44.9045581,
@@ -844,7 +877,10 @@
     "lat": 44.9485247,
     "lng": -93.2931489
   },
-  "600 E Hennepin Ave, Minneapolis (and Selby, St. Paul)": null,
+  "600 E Hennepin Ave, Minneapolis (and Selby, St. Paul)": {
+    "lat": 44.9895296,
+    "lng": -93.2512554
+  },
   "4552 Grand Ave S, Minneapolis": {
     "lat": 44.9197712,
     "lng": -93.2847888
@@ -877,7 +913,10 @@
     "lat": 44.948454,
     "lng": -93.2296305
   },
-  "2605 Nicollet Ave, Minneapolis (and Northeast)": null,
+  "2605 Nicollet Ave, Minneapolis (and Northeast)": {
+    "lat": 44.9551678,
+    "lng": -93.277711
+  },
   "2010 E Hennepin Ave, Minneapolis": {
     "lat": 44.9907139,
     "lng": -93.2232242
@@ -959,7 +998,10 @@
     "lng": -93.1564685
   },
   "Various Twin Cities pop-up locations": null,
-  "729 Washington Ave NE, Minneapolis": null,
+  "729 Washington Ave NE, Minneapolis": {
+    "lat": 44.997627401591,
+    "lng": -93.257445182496
+  },
   "748 Lake St E, Wayzata": {
     "lat": 44.9688723,
     "lng": -93.5103966
@@ -1024,5 +1066,588 @@
   "3024 Hennepin Ave S, Minneapolis": {
     "lat": 44.9474023,
     "lng": -93.2986542
+  },
+  "1400 Van Buren St NE, Minneapolis": {
+    "lat": 45.0391556,
+    "lng": -93.2486213
+  },
+  "711 15th Ave NE, Minneapolis": {
+    "lat": 45.0033817,
+    "lng": -93.2515432
+  },
+  "77 13th Ave NE, Minneapolis": {
+    "lat": 44.999738,
+    "lng": -93.2719124
+  },
+  "241 Wacouta St, St. Paul": {
+    "lat": 44.9499198,
+    "lng": -93.0876195
+  },
+  "240 4th St E, St. Paul": {
+    "lat": 44.9488961,
+    "lng": -93.0852565
+  },
+  "3157 Hennepin Ave S, Minneapolis": {
+    "lat": 44.9448827,
+    "lng": -93.2981761
+  },
+  "604 W 26th St, Minneapolis": {
+    "lat": 44.9557056,
+    "lng": -93.2872514
+  },
+  "2301 E 38th St, Minneapolis": {
+    "lat": 44.9339591,
+    "lng": -93.2381619
+  },
+  "2716 E 31st St, Minneapolis": {
+    "lat": 44.947038,
+    "lng": -93.2325511
+  },
+  "708 W 26th St, Minneapolis": {
+    "lat": 44.9556717,
+    "lng": -93.2886083
+  },
+  "214 13th Ave NE, Minneapolis": {
+    "lat": 45.0008246,
+    "lng": -93.2657937
+  },
+  "6 W Fifth St, St. Paul": {
+    "lat": 44.945595222881,
+    "lng": -93.094516871994
+  },
+  "38 S Snelling Ave, St. Paul": {
+    "lat": 44.9105535,
+    "lng": -93.1669917
+  },
+  "1319 University Ave W, St. Paul": {
+    "lat": 44.9559346,
+    "lng": -93.1557985
+  },
+  "1579 University Ave W, St. Paul": {
+    "lat": 44.9657804,
+    "lng": -93.2024953
+  },
+  "701 N 5th St, Minneapolis": {
+    "lat": 44.9850033,
+    "lng": -93.2802819
+  },
+  "861 E Hennepin Ave, Minneapolis": {
+    "lat": 44.9918857,
+    "lng": -93.2438983
+  },
+  "956 Payne Ave, St. Paul": {
+    "lat": 44.9700841,
+    "lng": -93.0733739
+  },
+  "2739 Nicollet Ave, Minneapolis": {
+    "lat": 44.9524668,
+    "lng": -93.2776832
+  },
+  "730 N Washington Ave, Minneapolis": {
+    "lat": 44.9888886,
+    "lng": -93.2781256
+  },
+  "1337 University Ave W, St. Paul": {
+    "lat": 44.955953,
+    "lng": -93.1566426
+  },
+  "394 University Ave W, St. Paul": {
+    "lat": 44.9554819,
+    "lng": -93.1165657
+  },
+  "88 Nathan Ln N, Plymouth": {
+    "lat": 44.9789285,
+    "lng": -93.4070544
+  },
+  "422 University Ave W, St. Paul": {
+    "lat": 44.9555524,
+    "lng": -93.1173842
+  },
+  "1320 4th St SE, Minneapolis": {
+    "lat": 44.9808225,
+    "lng": -93.2367924
+  },
+  "5625 Wayzata Blvd, St. Louis Park": {
+    "lat": 44.9695408,
+    "lng": -93.3514892
+  },
+  "10602 France Ave S, Bloomington": {
+    "lat": 44.8439207,
+    "lng": -93.3293361
+  },
+  "4321 Egan Dr, Savage": {
+    "lat": 44.7465581,
+    "lng": -93.3325915
+  },
+  "901 N 3rd St, Suite 195, Minneapolis": {
+    "lat": 44.9883629,
+    "lng": -93.2804272
+  },
+  "119 N Washington Ave, Minneapolis": {
+    "lat": 44.9831407,
+    "lng": -93.2712598
+  },
+  "204 N 1st St, Minneapolis": {
+    "lat": 44.9856952,
+    "lng": -93.2691913
+  },
+  "200 N 1st St, Minneapolis": {
+    "lat": 44.985617,
+    "lng": -93.2690425
+  },
+  "510 Groveland Ave, Minneapolis": {
+    "lat": 44.9671832,
+    "lng": -93.2872213
+  },
+  "1304 NE 2nd St, Minneapolis": {
+    "lat": 45.0010663,
+    "lng": -93.2662508
+  },
+  "2700 E Lake St, Minneapolis": {
+    "lat": 44.9486306,
+    "lng": -93.2327208
+  },
+  "6311 Cambridge St, St. Louis Park": {
+    "lat": 44.9332493,
+    "lng": -93.3603076
+  },
+  "528 N Washington Ave, Minneapolis": {
+    "lat": 44.9867449,
+    "lng": -93.2752394
+  },
+  "120 3rd Ave N, Minneapolis": {
+    "lat": 44.9860142,
+    "lng": -93.2705843
+  },
+  "2710 W 43rd St, Minneapolis": {
+    "lat": 44.9245257,
+    "lng": -93.3134642
+  },
+  "708 W 22nd St, Minneapolis": {
+    "lat": 44.9610412,
+    "lng": -93.288555
+  },
+  "3746 23rd Ave S, Minneapolis": {
+    "lat": 44.9342686,
+    "lng": -93.2390991
+  },
+  "3262 Minnehaha Ave, Minneapolis": {
+    "lat": 44.9431093,
+    "lng": -93.2307075
+  },
+  "315 16th Ave SE, Minneapolis": {
+    "lat": 44.9790516,
+    "lng": -93.233684
+  },
+  "459 W 7th St, St. Paul": {
+    "lat": 44.9382742,
+    "lng": -93.1115261
+  },
+  "1340 Thomas Ave, St. Paul": {
+    "lat": 44.9592162,
+    "lng": -93.1569997
+  },
+  "2709 E 25th St, Minneapolis": {
+    "lat": 44.9572877,
+    "lng": -93.2327832
+  },
+  "215 Wabasha St S, St. Paul": {
+    "lat": 44.9357855,
+    "lng": -93.0870209
+  },
+  "239 Selby Ave, St. Paul": {
+    "lat": 44.9469589,
+    "lng": -93.1092362
+  },
+  "240 Summit Ave, St. Paul": {
+    "lat": 44.945101,
+    "lng": -93.1089265
+  },
+  "821 Marquette Ave S, Minneapolis": {
+    "lat": 44.975047948375,
+    "lng": -93.27182921407
+  },
+  "2200 W River Pkwy, Minneapolis": {
+    "lat": 44.9792944,
+    "lng": -93.256773
+  },
+  "102 Portland Ave S, Minneapolis": {
+    "lat": 44.9095177,
+    "lng": -93.2671466
+  },
+  "Midtown Greenway at Hiawatha Ave, near E 28th St, Minneapolis": null,
+  "700 Nicollet Mall, Minneapolis": {
+    "lat": 44.9765571,
+    "lng": -93.273489
+  },
+  "2945 Cedar Ave S, Minneapolis": {
+    "lat": 44.9492835,
+    "lng": -93.2472898
+  },
+  "3600 Hennepin Ave, Minneapolis": {
+    "lat": 44.9751775,
+    "lng": -93.2794284
+  },
+  "120 W Kellogg Blvd, St. Paul": {
+    "lat": 44.9470685,
+    "lng": -93.1042897
+  },
+  "75 Rev Dr Martin Luther King Jr Blvd, St. Paul": null,
+  "214 E 4th St, St. Paul (Union Depot)": {
+    "lat": 44.9473029,
+    "lng": -93.0857476
+  },
+  "10 Mounds Blvd, St. Paul": {
+    "lat": 44.9468866,
+    "lng": -93.0611024
+  },
+  "2200 4th St NE, Minneapolis": {
+    "lat": 45.010125,
+    "lng": -93.261667
+  },
+  "331 13th Ave NE, Minneapolis": {
+    "lat": 45.0011006,
+    "lng": -93.2629161
+  },
+  "617 Central Ave SE, Minneapolis": {
+    "lat": 44.9872758,
+    "lng": -93.2544557
+  },
+  "227 Oak St SE, Minneapolis": {
+    "lat": 44.9738284,
+    "lng": -93.2268246
+  },
+  "2901 27th Ave S, Minneapolis": {
+    "lat": 44.9500545,
+    "lng": -93.2329805
+  },
+  "2713 E Lake St, Minneapolis": {
+    "lat": 44.94829,
+    "lng": -93.2328593
+  },
+  "3915 Hiawatha Ave, Minneapolis": {
+    "lat": 44.9316346,
+    "lng": -93.2264003
+  },
+  "1813 Riverside Ave, Minneapolis": {
+    "lat": 44.9697022,
+    "lng": -93.2465174
+  },
+  "308 E Prince St, St. Paul": {
+    "lat": 44.9491982,
+    "lng": -93.0835612
+  },
+  "4557 Bloomington Ave, Minneapolis": {
+    "lat": 44.9198177,
+    "lng": -93.2521713
+  },
+  "3800 S 28th Ave, Minneapolis": {
+    "lat": 44.9250152,
+    "lng": -93.2321117
+  },
+  "4050 Brookside Ave, St. Louis Park": {
+    "lat": 44.927899,
+    "lng": -93.3558958
+  },
+  "11849 Millpond Ave, Burnsville": {
+    "lat": 44.7906669,
+    "lng": -93.2446203
+  },
+  "Minneapolis (pickup locations vary)": null,
+  "603 N Washington Ave, Minneapolis": {
+    "lat": 44.9869355,
+    "lng": -93.2760867
+  },
+  "606 Washington Ave N, Minneapolis": {
+    "lat": 44.9872838,
+    "lng": -93.2761088
+  },
+  "701 N Washington Ave, Minneapolis": {
+    "lat": 44.9872996,
+    "lng": -93.277046
+  },
+  "508 Washington Ave N, Minneapolis": {
+    "lat": 44.9862989,
+    "lng": -93.2748624
+  },
+  "801 Nicollet Mall, Minneapolis": {
+    "lat": 44.9812275,
+    "lng": -93.2685698
+  },
+  "931 Nicollet Mall, Minneapolis": {
+    "lat": 44.9740816,
+    "lng": -93.2743945
+  },
+  "1428 4th St NE, Minneapolis": {
+    "lat": 45.0023528,
+    "lng": -93.2616987
+  },
+  "359 13th Ave NE, Minneapolis": {
+    "lat": 45.0009808,
+    "lng": -93.2624282
+  },
+  "356 Monroe St NE, Minneapolis": {
+    "lat": 44.9937543,
+    "lng": -93.2525726
+  },
+  "861 E Hennepin Ave NE, Minneapolis": {
+    "lat": 44.9886188,
+    "lng": -93.2574061
+  },
+  "2412 Nicollet Ave, Minneapolis": {
+    "lat": 44.9585052,
+    "lng": -93.2781467
+  },
+  "2626 Hennepin Ave, Minneapolis": {
+    "lat": 44.9547581,
+    "lng": -93.2975002
+  },
+  "3200 Lyndale Ave S, Minneapolis": {
+    "lat": 44.9444623,
+    "lng": -93.2887416
+  },
+  "3012 Lyndale Ave S, Minneapolis": {
+    "lat": 44.9478079,
+    "lng": -93.2885185
+  },
+  "380 St. Peter St, Suite 125, St. Paul": {
+    "lat": 44.9454831,
+    "lng": -93.0953274
+  },
+  "250 E 7th St, St. Paul": {
+    "lat": 44.966669,
+    "lng": -93.0076411
+  },
+  "139 E 7th St, St. Paul": {
+    "lat": 44.966669,
+    "lng": -93.0076411
+  },
+  "267 W 7th St, St. Paul": {
+    "lat": 44.9423106,
+    "lng": -93.1056146
+  },
+  "788 Grand Ave, St. Paul": {
+    "lat": 44.9398276,
+    "lng": -93.1332136
+  },
+  "1571 Grand Ave, St. Paul": {
+    "lat": 44.9402557,
+    "lng": -93.1666753
+  },
+  "96 Dale St N, St. Paul": {
+    "lat": 44.9809065,
+    "lng": -93.1262996
+  },
+  "1085 Grand Ave, St. Paul": {
+    "lat": 44.9401265,
+    "lng": -93.1458307
+  },
+  "393 Selby Ave, St. Paul": {
+    "lat": 44.9467217,
+    "lng": -93.1168275
+  },
+  "79 Western Ave N, St. Paul": {
+    "lat": 44.9431709,
+    "lng": -93.1161882
+  },
+  "498 Selby Ave, St. Paul": {
+    "lat": 44.9463647,
+    "lng": -93.1210324
+  },
+  "169 N Victoria St, St. Paul": {
+    "lat": 44.9464525,
+    "lng": -93.1366188
+  },
+  "208 N 1st Ave, Minneapolis": {
+    "lat": 44.9810248,
+    "lng": -93.2728582
+  },
+  "117 14th Ave NE, Minneapolis": {
+    "lat": 45.001521,
+    "lng": -93.2704364
+  },
+  "1610 Harmon Pl, Minneapolis": {
+    "lat": 44.9715688,
+    "lng": -93.2854284
+  },
+  "23 4th St NE, Minneapolis": {
+    "lat": 44.9893463,
+    "lng": -93.2550186
+  },
+  "6009 Nicollet Ave, Minneapolis": {
+    "lat": 44.8939683,
+    "lng": -93.2778613
+  },
+  "765 53rd Ave NE, Minneapolis": {
+    "lat": 45.064454784286,
+    "lng": -93.249025796263
+  },
+  "116 N 1st Ave, Minneapolis": {
+    "lat": 44.9810248,
+    "lng": -93.2728582
+  },
+  "3400 Nicollet Ave S, Minneapolis": {
+    "lat": 44.8901972,
+    "lng": -93.2781218
+  },
+  "3070 Excelsior Blvd, St. Louis Park": {
+    "lat": 44.937429,
+    "lng": -93.3328714
+  },
+  "323 13th Ave NE, Minneapolis": {
+    "lat": 45.0011737,
+    "lng": -93.2633885
+  },
+  "211 Oak St SE, Minneapolis": {
+    "lat": 44.9742924,
+    "lng": -93.2267246
+  },
+  "307 Oak St SE, Minneapolis": {
+    "lat": 44.9732872,
+    "lng": -93.2268428
+  },
+  "1500 W Lake St, Minneapolis": {
+    "lat": 44.9485291,
+    "lng": -93.3010421
+  },
+  "1308 4th St SE, Minneapolis": {
+    "lat": 44.9808756,
+    "lng": -93.2369242
+  },
+  "307 Milltown Rd, Taylors Falls, MN": {
+    "lat": 45.3937304,
+    "lng": -92.6689069
+  },
+  "600 Washington Ave N, Minneapolis": {
+    "lat": 44.9871359,
+    "lng": -93.2758888
+  },
+  "4040 Central Ave NE, Columbia Heights": {
+    "lat": 45.0416875,
+    "lng": -93.2475368
+  },
+  "2920 E 38th St, Minneapolis": {
+    "lat": 44.9342672,
+    "lng": -93.2300481
+  },
+  "1828 Jefferson St NE, Minneapolis": {
+    "lat": 45.0072864,
+    "lng": -93.2553106
+  },
+  "729 Marshall St NE, Minneapolis": {
+    "lat": 44.9950417,
+    "lng": -93.26612
+  },
+  "7178 University Ave NE, Fridley": {
+    "lat": 45.0984443,
+    "lng": -93.2633332
+  },
+  "1934 Hwy 13 E, Burnsville": {
+    "lat": 44.787558333975,
+    "lng": -93.247728748351
+  },
+  "1600 W Lake St, Minneapolis": {
+    "lat": 44.9485176,
+    "lng": -93.3022759
+  },
+  "410 St Peter St, St. Paul": {
+    "lat": 44.946542,
+    "lng": -93.096776
+  },
+  "4300 Bryant Ave S, Minneapolis": {
+    "lat": 44.92485,
+    "lng": -93.2910734
+  },
+  "1300 NE 2nd St, Minneapolis": {
+    "lat": 45.0010399,
+    "lng": -93.2663511
+  },
+  "245 Hennepin Ave, Minneapolis": {
+    "lat": 44.98163,
+    "lng": -93.2693556
+  },
+  "4534 Nicollet Ave, Minneapolis": {
+    "lat": 44.9203113,
+    "lng": -93.2782149
+  },
+  "2600 Nicollet Ave, Minneapolis": {
+    "lat": 44.9553362,
+    "lng": -93.2782267
+  },
+  "1637 Hennepin Ave S, Minneapolis": {
+    "lat": 44.9676069,
+    "lng": -93.288174
+  },
+  "2852B Johnson St NE, Minneapolis": {
+    "lat": 45.0042454,
+    "lng": -93.2363457
+  },
+  "316 W 38th St, Minneapolis": {
+    "lat": 44.9342223,
+    "lng": -93.2840727
+  },
+  "212 3rd Ave N, Minneapolis": {
+    "lat": 44.9853336,
+    "lng": -93.2719528
+  },
+  "4944 Xerxes Ave S, Minneapolis": {
+    "lat": 44.9128309,
+    "lng": -93.3191784
+  },
+  "1 Twins Way, Minneapolis": {
+    "lat": 44.9816845,
+    "lng": -93.2778643
+  },
+  "401 Chicago Ave, Minneapolis": {
+    "lat": 44.9736154,
+    "lng": -93.2574663
+  },
+  "600 N 1st Ave, Minneapolis": {
+    "lat": 44.9810248,
+    "lng": -93.2728582
+  },
+  "199 W Kellogg Blvd, St. Paul": {
+    "lat": 44.9470685,
+    "lng": -93.1042897
+  },
+  "400 Snelling Ave N, St. Paul": {
+    "lat": 44.9852202,
+    "lng": -93.1669176
+  },
+  "360 N Broadway St, St. Paul": {
+    "lat": 44.951545,
+    "lng": -93.0864214
+  },
+  "420 23rd Ave SE, Minneapolis": {
+    "lat": 44.9765397,
+    "lng": -93.2240767
+  },
+  "1925 University Ave SE, Minneapolis": {
+    "lat": 44.9763523,
+    "lng": -93.2284394
+  },
+  "1901 4th St SE, Minneapolis": {
+    "lat": 44.9778997,
+    "lng": -93.2290658
+  },
+  "2600 Vikings Cir, Eagan": {
+    "lat": 44.8577886,
+    "lng": -93.1171623
+  },
+  "2411 Central Ave NE, Minneapolis": {
+    "lat": 45.0358157,
+    "lng": -93.2473553
+  },
+  "607 Washington Ave S, Minneapolis": {
+    "lat": 44.9779222,
+    "lng": -93.259661
+  },
+  "225 University Ave W, St. Paul": {
+    "lat": 44.9610403,
+    "lng": -93.1906143
+  },
+  "432 University Ave W, St. Paul": {
+    "lat": 44.9556694,
+    "lng": -93.1181726
   }
 }
