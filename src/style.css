@@ -480,14 +480,16 @@ p { margin: 0 0 1em; }
   gap: 28px;
   padding: 36px var(--gutter);
   border-bottom: 1px solid var(--rule-soft);
-  transition: background 0.18s ease;
+  transition: background 0.18s ease, border-left-color 0.18s ease, padding-left 0.18s ease;
 }
 /* Unranked entries (everything except the Editor's Pick) skip the rank column */
 .entry--unranked {
   display: block;
   padding: 32px var(--gutter);
+  border-bottom: 1px solid var(--rule-soft);
 }
 .entry:hover { background: var(--paper-2); }
+.entry--unranked:hover { border-left: 3px solid var(--clay); padding-left: calc(var(--gutter) - 3px); }
 .entry-rank {
   font-family: var(--font-display);
   font-weight: 400;
@@ -514,7 +516,7 @@ p { margin: 0 0 1em; }
 .entry-name {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(22px, 2.6vw, 28px);
+  font-size: clamp(24px, 2.6vw, 30px);
   line-height: 1.1;
   letter-spacing: -0.025em;
   margin: 0 0 14px;
@@ -608,10 +610,11 @@ p { margin: 0 0 1em; }
    Wider grid layout, oversized rank as a graphic moment, larger name. */
 .entry--featured {
   background: var(--paper-2);
-  padding: clamp(40px, 6vw, 80px) var(--gutter);
+  padding: clamp(40px, 6vw, 80px) var(--gutter) clamp(40px, 6vw, 80px) calc(var(--gutter) - 3px);
   grid-template-columns: 1fr;
   gap: 32px;
   border-bottom: 2px solid var(--ink);
+  border-left: 3px solid var(--clay);
 }
 .entry--featured .entry-rank {
   font-family: var(--font-display);
@@ -1089,6 +1092,42 @@ body[data-theme="default"] {
 }
 @media (max-width: 720px) {
   .nb-entry { border-right: 0 !important; }
+}
+
+/* ----- Neighborhood page: Explore by category ----- */
+.nb-explore-cats {
+  border-top: 1px solid var(--ink);
+  padding: 48px 0;
+}
+.nb-cat-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.nb-cat-links li a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-label);
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink);
+  border: 1px solid var(--ink);
+  padding: 6px 12px;
+  text-decoration: none;
+  transition: background 0.12s, color 0.12s;
+}
+.nb-cat-links li a:hover {
+  background: var(--ink);
+  color: var(--paper);
+}
+.nb-cat-count {
+  opacity: 0.5;
+  font-variant-numeric: tabular-nums;
 }
 
 /* ===== Now Showing / Exhibitions page ===== */

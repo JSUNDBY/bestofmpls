@@ -194,6 +194,20 @@ function buildSubject() {
 
 // ── Beehiiv API ───────────────────────────────────────────────────────────────
 
+async function alreadySentThisWeek(subject) {
+  const url = `https://api.beehiiv.com/v2/publications/${PUB_ID}/posts`;
+  const res = await fetch(url, {
+    headers: {
+      'Authorization': `Bearer ${API_KEY}`,
+      'Accept': 'application/json'
+    }
+  });
+  if (!res.ok) return false; // if the check fails, let the post attempt proceed
+  const data = await res.json();
+  const posts = data.data || [];
+  return posts.some(p => p.subject === subject);
+}
+
 async function postToBeehiiv(subject, html) {
   const url = `https://api.beehiiv.com/v2/publications/${PUB_ID}/posts`;
   const body = {
@@ -238,6 +252,11 @@ async function main() {
 
   console.log(`\n  Subject: ${subject}`);
   console.log(`  HTML length: ${html.length} chars\n`);
+
+  if (await alreadySentThisWeek(subject)) {
+    console.log('Already sent this week — skipping');
+    return;
+  }
 
   const result = await postToBeehiiv(subject, html);
   console.log(`  ✓ Posted to Beehiiv — post ID: ${result.data?.id || JSON.stringify(result)}\n`);

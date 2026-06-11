@@ -2816,6 +2816,19 @@ function renderNeighborhoodPage(nb) {
     </section>
   `).join('');
 
+  const exploreByCat = `
+    <section class="nb-explore-cats">
+      <div class="wrap">
+        <div class="cluster-eyebrow" style="margin-bottom: 16px;">Explore ${esc(nb.short || nb.name)} by category</div>
+        <ul class="nb-cat-links">
+          ${Object.values(byCategory).map(group => `
+            <li><a href="/${group.category.slug}/">${esc(group.category.title)} <span class="nb-cat-count">${group.items.length}</span></a></li>
+          `).join('')}
+        </ul>
+      </div>
+    </section>
+  `;
+
   return head({ title, description, slug: `neighborhoods/${nb.slug}`, theme: 'default' }) +
     header({}) +
     `<section class="section-head">
@@ -2826,7 +2839,8 @@ function renderNeighborhoodPage(nb) {
         <p style="margin-top: 16px; font-family: var(--font-label); font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-soft);"><a href="/neighborhoods/" style="color: var(--clay); border-bottom: 1px solid var(--clay);">← All neighborhoods</a></p>
       </div>
     </section>
-    ${sections}` +
+    ${sections}
+    ${exploreByCat}` +
     footer();
 }
 

@@ -95,6 +95,11 @@ async function main() {
     events: fresh
   };
 
+  if (fresh.length === 0) {
+    console.warn('WARN: scrape returned 0 events — keeping existing events.json');
+    process.exit(0);
+  }
+
   fs.writeFileSync(OUT, JSON.stringify(output, null, 2));
   console.log(`\n  → wrote ${fresh.length} events to src/data/events.json (${(fs.statSync(OUT).size / 1024).toFixed(1)} KB)\n`);
 
