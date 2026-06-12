@@ -1649,5 +1649,25 @@
   "432 University Ave W, St. Paul": {
     "lat": 44.9556694,
     "lng": -93.1181726
+  },
+  "525 Selby Ave, St. Paul": {
+    "lat": 44.9464683,
+    "lng": -93.1223509
+  },
+  "276 Exchange St S, St. Paul": {
+    "lat": 44.9413295,
+    "lng": -93.1038573
+  },
+  "4304 Upton Ave S, Minneapolis": {
+    "lat": 44.9244704,
+    "lng": -93.3148594
+  },
+  "2900 Johnson St NE, Minneapolis": {
+    "lat": 45.020566,
+    "lng": -93.23723
+  },
+  "816 Lowry Ave NE, Minneapolis": {
+    "lat": 45.0130266,
+    "lng": -93.2502093
   }
 }
