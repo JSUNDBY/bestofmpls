@@ -128,7 +128,7 @@ function seasonalLine(rn) {
 function tonightConcierge(rn, eventsAll) {
   const picks = [];
   const today = (rn && rn.today) || TODAY_ISO;
-  const events = dedupeNonFilms((eventsAll || []).filter(e => !isFilmEvent(e) && e.date === today));
+  const events = dedupeNonFilms((eventsAll || []).filter(e => isShowEvent(e) && e.date === today));
   const mood = rn && rn.weather ? rn.weather.mood : null;
   const tempMax = rn && rn.weather ? rn.weather.temp_max : null;
 
@@ -294,6 +294,10 @@ const featuredEvts = require(path.join(SRC, 'data/featured-events.js'));
 // film+venue with a date range) and leaves the date-by-date stream for the
 // time-bound stuff (concerts, talks, openings).
 function isFilmEvent(e) { return e.category === 'film'; }
+// A "show" is a concert or performance. Museum programming (Walker art-making
+// workshops, tours, sensory-friendly hours — all category 'art') and films are
+// real events but not shows, so they stay out of the concert/tonight listings.
+function isShowEvent(e) { return e.category !== 'film' && e.category !== 'art'; }
 
 function collapseFilms(events) {
   // Returns { films: [{title, venue, venue_neighborhood, url, image, first_date,
@@ -1477,7 +1481,7 @@ function renderHome() {
   // night runs (e.g. a four-night dance piece) collapse to one entry so the
   // strip is six different things, not the same show four times.
   const liveEventPicks = collapseRuns(
-    dedupeNonFilms((eventsData.events || []).filter(e => !isFilmEvent(e) && e.date >= TODAY_ISO))
+    dedupeNonFilms((eventsData.events || []).filter(e => isShowEvent(e) && e.date >= TODAY_ISO))
   ).slice(0, 6);
   function fmtShortDay(iso) {
     if (!iso) return '';
@@ -3195,7 +3199,7 @@ function renderCalendar() {
   // Films stay out of the calendar entirely. Concerts, talks, openings,
   // performances only. Dedupe on (title, venue, date) to drop occasional
   // same-night double bookings.
-  const allShows = dedupeNonFilms(allEvents.filter(e => !isFilmEvent(e)));
+  const allShows = dedupeNonFilms(allEvents.filter(e => isShowEvent(e)));
 
   // Window the calendar to roughly the next three weeks. A scrollable forever
   // list is not a calendar — readers want "what's on this week and next."
@@ -3491,7 +3495,7 @@ function resolveVenues() {
   const liveMusicByName = new Map();
   for (const e of (liveMusic.entries || [])) liveMusicByName.set(e.name, e);
 
-  const events = (eventsData.events || []).filter(e => !isFilmEvent(e));
+  const events = (eventsData.events || []).filter(e => isShowEvent(e));
   const events_dedup = dedupeNonFilms(events);
 
   const venues = new Map();
@@ -3664,7 +3668,7 @@ function renderVenuePage(v) {
 // ---------- /this-weekend/ — Fri/Sat/Sun bundle ----------
 function renderWeekend() {
   const allEvents = eventsData.events || [];
-  const events = dedupeNonFilms(allEvents.filter(e => !isFilmEvent(e)));
+  const events = dedupeNonFilms(allEvents.filter(e => isShowEvent(e)));
 
   // Find the next Friday/Saturday/Sunday triplet. If today is Thu, Fri, Sat,
   // or Sun, that means "this" weekend (the one already happening or about to
@@ -4228,7 +4232,7 @@ function renderTonight() {
 
   // Bundle a week's worth of upcoming events, films excluded.
   const allUpcoming = dedupeNonFilms(
-    (eventsData.events || []).filter(e => !isFilmEvent(e) && e.date >= r.today)
+    (eventsData.events || []).filter(e => isShowEvent(e) && e.date >= r.today)
   );
   // Slim event records so the inline JSON stays small.
   const bundle = allUpcoming.map(e => ({

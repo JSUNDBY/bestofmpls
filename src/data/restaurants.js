@@ -168,6 +168,96 @@ module.exports = {
       address: '245 Hennepin Ave, Minneapolis',
       website: 'https://www.mararestaurantandbar.com',
       price: '$$$$'
+    },
+    {
+      name: 'Myriel',
+      neighborhood: 'Mac-Groveland, St. Paul',
+      style: 'Seasonal New American',
+      description: 'A small, deeply seasonal restaurant on Cleveland Avenue in St. Paul that has earned some of the most serious praise in the metro since opening. The menu turns over constantly with whatever is at its peak, and the room is intimate enough that every plate feels considered. Dinner Wednesday through Saturday, and reservations are the move.',
+      address: '470 Cleveland Ave S, St. Paul',
+      website: 'https://www.myrielmn.com',
+      price: '$$$$'
+    },
+    {
+      name: 'Diane’s Place',
+      neighborhood: 'Northeast Minneapolis',
+      style: 'Hmong American, Diane Moua',
+      description: 'Pastry chef Diane Moua’s first solo restaurant, in the Food Building in Northeast, where her Hmong American cooking finally takes the lead instead of dessert. The all-day kitchen runs from breakfast through dinner, and the pastry program is, predictably, extraordinary. Food & Wine named it 2025 Restaurant of the Year, and Moua is a perennial James Beard name. Worth the table.',
+      address: '117 14th Ave NE, Minneapolis',
+      website: 'https://dianesplacemn.com',
+      price: '$$$'
+    },
+    {
+      name: 'The Kenwood',
+      neighborhood: 'Kenwood, Minneapolis',
+      style: 'Seasonal New American',
+      description: 'The neighborhood restaurant just up from Lake of the Isles, where chef-owner Joel DeBilzan cooks locally sourced seasonal plates and homemade pasta. A recent remodel added a proper bar open all business hours, which makes it an easy walk-in as well as a reservation. The kind of quietly excellent corner room every neighborhood wishes it had.',
+      address: '2115 W 21st St, Minneapolis',
+      website: 'https://www.thekenwoodrestaurant.com',
+      price: '$$$'
+    },
+    {
+      name: 'Manny’s Steakhouse',
+      neighborhood: 'Downtown Minneapolis',
+      style: 'Classic steakhouse',
+      description: 'The Parasole steakhouse that opened in 1988 and has been the metro’s definitive special-occasion meat palace ever since, now inside the Foshay at 9th and Marquette. The cuts come to the table on a rolling meat cart, the portions are gleefully excessive, and the bone-in ribeye is the order. Regularly named one of the best steakhouses in the country.',
+      address: '825 Marquette Ave, Minneapolis',
+      website: 'https://mannyssteakhouse.com',
+      price: '$$$$'
+    },
+    {
+      name: 'Kado no Mise',
+      neighborhood: 'North Loop, Minneapolis',
+      style: 'Japanese, omakase',
+      description: 'Chef Shigeyuki Furukawa’s Edomae sushi and kaiseki counter, with the omakase served upstairs and a Japanese whisky bar, Gori Gori Peku, on the ground floor. Three set omakase menus build from delicate to all-out, and the counter is where you want to sit. The most serious sushi experience in the metro, and a genuine occasion.',
+      address: '33 N 1st Ave, Minneapolis',
+      website: 'https://www.kadonomise.com',
+      price: '$$$$'
+    },
+    {
+      name: 'Jun',
+      neighborhood: 'North Loop, Minneapolis',
+      style: 'Szechuan',
+      description: 'The North Loop’s Szechuan kitchen and bar, turning out wok-fired Sichuan classics, handmade noodles, dim sum, and dumplings from family recipes. The heat is real and the cocktail program is more ambitious than the genre usually allows. Long the neighborhood’s only Chinese restaurant, and a reliably good one.',
+      address: '730 N Washington Ave, Minneapolis',
+      website: 'https://junnorthloop.com',
+      price: '$$$'
+    },
+    {
+      name: 'Moscow on the Hill',
+      neighborhood: 'Cathedral Hill, St. Paul',
+      style: 'Russian',
+      description: 'The Selby Avenue Russian restaurant that has anchored the corner of Western and Selby since 1994, serving the metro’s most authentic Russian and Eastern European comfort food. Pelmeni, beef stroganoff, and a long list of infused vodkas poured cold. The patio in summer and the warm room in winter both deliver. A St. Paul institution.',
+      address: '371 Selby Ave, St. Paul',
+      website: 'https://www.moscowonthehill.com',
+      price: '$$'
+    },
+    {
+      name: 'Picnic',
+      neighborhood: 'Linden Hills, Minneapolis',
+      style: 'Neighborhood bar',
+      description: 'The neighborhood bar that took over the old Clancey’s space on Upton in Linden Hills, where you are treated like a regular from the first visit. Lunch through late night with a kitchen that takes its bar food seriously and a room built for lingering. The easy, walkable corner spot the neighborhood had been missing.',
+      address: '4307 Upton Ave S, Minneapolis',
+      website: 'https://www.picniclindenhills.com',
+      price: '$$'
+    },
+    {
+      name: 'St. Genevieve',
+      neighborhood: 'Lynnhurst, Minneapolis',
+      style: 'French, Steven Brown',
+      description: 'Steven Brown’s French salon at 50th and Bryant, inspired by the cafés and buvettes of between-the-wars Paris. The wine list runs deep into French bottles, the bar pours from an amber bar cart, and the bistro plates are exactly right. As much a place to settle in for a glass and a snack as a full dinner. A true neighborhood gift.',
+      address: '5003 Bryant Ave S, Minneapolis',
+      website: 'https://www.stgmpls.com',
+      price: '$$$'
+    },
+    {
+      name: 'Cafe Yoto',
+      neighborhood: 'North Loop, Minneapolis',
+      style: 'Japanese',
+      description: 'A Japanese cafe on Washington Avenue serving udon, donburi rice bowls, and hand-rolled temaki for lunch and dinner, plus a roster of inventive desserts and drinks. Nine versions of donburi, from sashimi to grilled eel, make it an easy repeat. Small, bright, and more of a real meal than the name lets on.',
+      address: '548 N Washington Ave, Minneapolis',
+      website: 'https://www.cafeyoto.com',
+      price: '$$'
     }
   ]
 };

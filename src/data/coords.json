@@ -1669,5 +1669,29 @@
   "816 Lowry Ave NE, Minneapolis": {
     "lat": 45.0130266,
     "lng": -93.2502093
+  },
+  "5057 France Ave S, Minneapolis": {
+    "lat": 44.911504693375,
+    "lng": -93.328947733256
+  },
+  "470 Cleveland Ave S, St. Paul": {
+    "lat": 44.927422690417,
+    "lng": -93.187291080181
+  },
+  "371 Selby Ave, St. Paul": {
+    "lat": 44.946607296472,
+    "lng": -93.115115224915
+  },
+  "4307 Upton Ave S, Minneapolis": {
+    "lat": 44.924457123311,
+    "lng": -93.314605054769
+  },
+  "548 N Washington Ave, Minneapolis": {
+    "lat": 44.986534278228,
+    "lng": -93.27524296678
+  },
+  "693 Raymond Ave, St. Paul": {
+    "lat": 44.962354980525,
+    "lng": -93.197642744056
   }
 }

@@ -86,6 +86,15 @@ module.exports = {
       address: '1332 Grand Ave, St. Paul',
       website: 'https://www.emqueviet.com',
       price: '$$'
+    },
+    {
+      name: 'Khue’s Kitchen',
+      neighborhood: 'St. Anthony Park, St. Paul',
+      style: 'Modern Vietnamese, James Beard-adjacent newcomer',
+      description: 'Eric Pham grew up inside Quang on Eat Street, the restaurant his grandmother founded in 1989 and his mother Khue now runs. He named this one for her. After a fire destroyed his first space, he reopened on Raymond Avenue in March 2025 and the Star Tribune named it the best new restaurant of the year. Order the fried chicken sandwich with chili crunch.',
+      address: '693 Raymond Ave, St. Paul',
+      website: 'https://www.khueskitchen.com',
+      price: '$$'
     }
   ]
 };

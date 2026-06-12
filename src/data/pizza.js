@@ -103,6 +103,15 @@ module.exports = {
       address: '3904 Sunnyside Rd, Edina',
       website: 'https://www.hellopizza.com',
       price: '$'
+    },
+    {
+      name: 'Mothership Pizza Paradise',
+      neighborhood: '50th & France, Minneapolis',
+      style: 'Wood-fired, Neapolitan-New York hybrid',
+      description: 'Tommy Begnaud and Carrie Erickson, the team behind Mr. Paul’s Supper Club, took over the old Arezzo space and built a loud, saucy neighborhood pizzeria. The pies split the difference between Naples and New York, and every one is named for a staffer’s mom. The name is a tribute to Begnaud’s own mother, whom he and his brothers called the mothership.',
+      address: '5057 France Ave S, Minneapolis',
+      website: 'https://mothershippizza.com',
+      price: '$$'
     }
   ]
 };
