@@ -6246,3 +6246,21 @@ html[data-mode="dark"] .entry-reserve {
   color: var(--ink);
   margin: 0;
 }
+
+/* ===== Food Trucks "where to find them" block ===== */
+.truck-finder { margin: 8px 0 32px; }
+.truck-finder-deck { font-family: var(--font-body); font-size: 15px; color: var(--ink-soft); margin: 0 0 14px; max-width: 620px; }
+.truck-finder-maps { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 28px; }
+.truck-finder-subhead {
+  font-family: var(--font-label); font-weight: 600; font-size: 12px;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--clay);
+  margin: 0 0 10px;
+}
+.truck-finder-clusters, .truck-finder-events { margin-top: 22px; }
+.truck-finder-list { list-style: none; padding: 0; margin: 0; max-width: 720px; }
+.truck-finder-list li {
+  font-family: var(--font-body); font-size: 15px; line-height: 1.5;
+  color: var(--ink); padding: 8px 0; border-bottom: 1px solid var(--rule);
+}
+.truck-finder-list li:last-child { border-bottom: none; }
+.truck-finder-when { color: var(--ink-soft); font-size: 13px; }

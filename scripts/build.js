@@ -411,6 +411,7 @@ function featureDaysLabel(ev) {
 const museums      = require(path.join(SRC, 'data/museums.js'));
 const artsBuildings = require(path.join(SRC, 'data/arts-buildings.js'));
 const lectures = require(path.join(SRC, 'data/lectures.js'));
+const foodTrucks = require(path.join(SRC, 'data/food-trucks.js'));
 const liveMusic    = require(path.join(SRC, 'data/live-music.js'));
 const theaters     = require(path.join(SRC, 'data/theaters.js'));
 const coffee       = require(path.join(SRC, 'data/coffee.js'));
@@ -562,7 +563,7 @@ const clusters = [
     eyebrow: 'Eat',
     title: 'Where to eat',
     deck: 'A real food town in fifteen directions at once. Restaurants worth a reservation, sushi, banh mi, tacos, sandwiches, late-night slices, ice cream by the lake, and the burger Minneapolis invented.',
-    categories: [restaurants, foodHalls, coffee, bakeries, sandwiches, burgers, pizza, brunch, mexican, vietnamese, korean, japanese, hmong, ethiopian, indian, thai, chinese, iceCream, lateNight]
+    categories: [restaurants, foodHalls, foodTrucks, coffee, bakeries, sandwiches, burgers, pizza, brunch, mexican, vietnamese, korean, japanese, hmong, ethiopian, indian, thai, chinese, iceCream, lateNight]
   },
   {
     eyebrow: 'Drink',
@@ -588,7 +589,7 @@ const categories = [
   // Culture
   museums, artsBuildings, liveMusic, theaters, cinemas, lectures, lgbtq, sports,
   // Eat
-  restaurants, foodHalls, coffee, bakeries, glutenFree, sandwiches, burgers, pizza, brunch,
+  restaurants, foodHalls, foodTrucks, coffee, bakeries, glutenFree, sandwiches, burgers, pizza, brunch,
   mexican, vietnamese, korean, japanese, hmong, ethiopian, indian, thai, chinese, iceCream, lateNight,
   // Drink
   cocktailBars, breweries, diveBars, patios, happyHours,
@@ -829,7 +830,7 @@ ${GSC_VERIFICATION ? `<meta name="google-site-verification" content="${esc(GSC_V
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600;700&family=Source+Sans+3:wght@400;600&family=Archivo:wght@500;600;700&family=Archivo+Narrow:wght@600;700&display=swap">
-<link rel="stylesheet" href="/style.css?v=41">
+<link rel="stylesheet" href="/style.css?v=42">
 <script>
 // Set color mode before paint to avoid flash. Reads localStorage first,
 // falls back to light mode (the new editorial default). mode-ready class
@@ -1960,6 +1961,40 @@ function renderCategory(c) {
     }
   }
 
+  // Food Trucks page only: a "where to find them right now" block — links to
+  // the live citywide maps, the reliable clusters, and the season's festivals.
+  let truckFinder = '';
+  if (c.slug === 'food-trucks' && (c.liveMaps || c.clusters)) {
+    const maps = (c.liveMaps || []);
+    const clusters = (c.clusters || []);
+    const events = (c.events || []);
+    truckFinder = `
+      <section class="truck-finder wrap" aria-label="Where to find food trucks right now">
+        ${maps.length ? `
+        <div class="truck-finder-live">
+          <h2 class="entry-upcoming-title">Where they are right now</h2>
+          <p class="truck-finder-deck">Trucks post the day’s spot on these live maps. Start here for "who’s parked near me."</p>
+          <div class="truck-finder-maps">
+            ${maps.map(m => `<a class="entry-reserve" href="${esc(m.url)}" target="_blank" rel="noopener">${esc(m.label.replace(/\\s*\\(.*\\)$/, ''))} <span class="entry-meta-link-icon">↗</span></a>`).join('')}
+          </div>
+        </div>` : ''}
+        ${clusters.length ? `
+        <div class="truck-finder-clusters">
+          <h3 class="truck-finder-subhead">Where trucks reliably gather</h3>
+          <ul class="truck-finder-list">
+            ${clusters.map(c2 => `<li><strong>${esc(c2.name)}</strong>${c2.when ? ` <span class="truck-finder-when">${esc(c2.when)}</span>` : ''}${c2.detail ? `. ${esc(c2.detail)}` : ''}</li>`).join('')}
+          </ul>
+        </div>` : ''}
+        ${events.length ? `
+        <div class="truck-finder-events">
+          <h3 class="truck-finder-subhead">Festivals and rallies</h3>
+          <ul class="truck-finder-list">
+            ${events.map(ev => `<li><strong>${ev.url ? `<a href="${esc(ev.url)}" target="_blank" rel="noopener">${esc(ev.name)}</a>` : esc(ev.name)}</strong>${ev.when ? ` <span class="truck-finder-when">${esc(ev.when)}</span>` : ''}${ev.detail ? `. ${esc(ev.detail)}` : ''}</li>`).join('')}
+          </ul>
+        </div>` : ''}
+      </section>`;
+  }
+
   return head({ title: seoTitle(c), description, slug: c.slug, theme: c.hero_color }) +
     header({ activeSlug: c.slug }) +
     `<section class="section-head">
@@ -1971,6 +2006,7 @@ function renderCategory(c) {
       </div>
     </section>
     ${upcomingTalks}
+    ${truckFinder}
     ${nbNav}
     ${verifyBanner}
     ${externalCallout}
@@ -2510,7 +2546,7 @@ function renderAdminPicks() {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>${esc(title)}</title>
-<link rel="stylesheet" href="/style.css?v=41">
+<link rel="stylesheet" href="/style.css?v=42">
 <style>
   body { background: var(--paper); }
   .admin-wrap { max-width: 960px; margin: 0 auto; padding: 32px var(--gutter) 96px; }
