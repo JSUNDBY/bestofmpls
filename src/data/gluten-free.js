@@ -49,6 +49,16 @@ module.exports = {
       address: 'Minneapolis (pickup locations vary)',
       price: '$$',
       hours: 'Order online at heavenglutenfree.com'
+    },
+    {
+      name: 'Hark Bakery',
+      neighborhood: 'Plymouth',
+      style: 'Dedicated GF and vegan, order-ahead',
+      description: 'A fully gluten-free and vegan bakery, women- and LGBTQ-owned, that closed its downtown cafe in 2024 to focus on custom and celebration work out of a commercial kitchen. This is the one for the occasion cake: birthdays, weddings, and event dessert spreads that everyone at the table can actually eat. Order celebration cakes online and pick up Wednesday through Saturday, or fill out an inquiry form for custom and wedding work.',
+      address: '3425 Hwy 169 N, Plymouth',
+      website: 'https://www.harkbakery.com',
+      price: '$$',
+      hours: 'Pickup by appointment, Wed–Sat'
     }
   ]
 };
