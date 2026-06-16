@@ -830,7 +830,7 @@ ${GSC_VERIFICATION ? `<meta name="google-site-verification" content="${esc(GSC_V
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600;700&family=Source+Sans+3:wght@400;600&family=Archivo:wght@500;600;700&family=Archivo+Narrow:wght@600;700&display=swap">
-<link rel="stylesheet" href="/style.css?v=43">
+<link rel="stylesheet" href="/style.css?v=44">
 <script>
 // Set color mode before paint to avoid flash. Reads localStorage first,
 // falls back to light mode (the new editorial default). mode-ready class
@@ -1394,7 +1394,7 @@ function footer() {
 // Scroll-fade for cards and entries via IntersectionObserver. Lightweight.
 (function(){
   if (!('IntersectionObserver' in window)) return;
-  var targets = document.querySelectorAll('.cat-card, .entry, .festival-entry, .calendar-feature-item');
+  var targets = document.querySelectorAll('.cat-card, .entry, .festival-entry, .calendar-feature-item, .concierge, .support-note, .horoscope-feature, .newsletter-capture, .truck-finder, .entry-upcoming-shows, .live-feature, .more-tools');
   targets.forEach(function(el){ el.classList.add('fade-in'); });
   var io = new IntersectionObserver(function(entries){
     entries.forEach(function(entry){
@@ -2562,7 +2562,7 @@ function renderAdminPicks() {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>${esc(title)}</title>
-<link rel="stylesheet" href="/style.css?v=43">
+<link rel="stylesheet" href="/style.css?v=44">
 <style>
   body { background: var(--paper); }
   .admin-wrap { max-width: 960px; margin: 0 auto; padding: 32px var(--gutter) 96px; }
