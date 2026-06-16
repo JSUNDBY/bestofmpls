@@ -10,6 +10,13 @@ compatibility_date = "2026-05-04"
 binding = "POLLS"
 id = "9ca11b9cee2d4c56992fabb3f951bc63"
 
+# Cloudflare Email Routing sender — emails Josh on each submission so nothing
+# is missed. destination_address must be a VERIFIED Email Routing destination
+# on the account (it is: hello@bestofmpls.com already forwards there).
+[[send_email]]
+name = "NOTIFY"
+destination_address = "j.sundby@gmail.com"
+
 # Allow bestofmpls.com to call the worker. Keep localhost in for dev.
 [vars]
 ALLOWED_ORIGIN_PROD = "https://bestofmpls.com"

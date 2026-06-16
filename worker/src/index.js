@@ -19,11 +19,42 @@
  *   rl:{ipHash}                   → presence flag with 30s TTL
  */
 
+import { EmailMessage } from 'cloudflare:email';
+
 const ALLOWED_ORIGINS = [
   'https://bestofmpls.com',
   'https://www.bestofmpls.com',
   'http://localhost:47823'
 ];
+
+// Notification email. NOTIFY_TO must match the send_email binding's
+// destination_address in wrangler.toml (a verified Email Routing destination).
+const NOTIFY_FROM = 'noreply@bestofmpls.com';
+const NOTIFY_TO = 'j.sundby@gmail.com';
+
+// Email Josh about a submission. Best-effort: a send failure must never break
+// the submission itself, so callers wrap this in ctx.waitUntil and it swallows
+// its own errors.
+async function notify(env, subject, lines) {
+  if (!env.NOTIFY) return;
+  const body = lines.filter((l) => l != null).join('\r\n');
+  const raw = [
+    `From: Best of MPLS <${NOTIFY_FROM}>`,
+    `To: ${NOTIFY_TO}`,
+    `Subject: ${subject}`,
+    `Message-ID: <${crypto.randomUUID()}@bestofmpls.com>`,
+    `Date: ${new Date().toUTCString()}`,
+    'MIME-Version: 1.0',
+    'Content-Type: text/plain; charset="utf-8"',
+    '',
+    body
+  ].join('\r\n');
+  try {
+    await env.NOTIFY.send(new EmailMessage(NOTIFY_FROM, NOTIFY_TO, raw));
+  } catch (e) {
+    console.error('notify failed:', e && e.message);
+  }
+}
 
 function corsHeaders(origin) {
   const allow = ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0];
@@ -157,6 +188,14 @@ export default {
       }
       await env.POLLS.put(tallyKey, JSON.stringify(tally));
 
+      ctx.waitUntil(notify(env, `New reader vote: ${category}`, [
+        'A new reader poll vote on bestofmpls.com:',
+        '',
+        `Category: ${category}`,
+        `Place:    ${place}`,
+        why ? `Why:      ${why}` : 'Why:      (none)',
+        `Email:    ${email || '(none)'}`
+      ]));
       return json({ ok: true, place, category, total_for_place: (entry ? entry.count : 1) }, 200, origin);
     }
 
@@ -191,6 +230,16 @@ export default {
       await env.POLLS.put(`submission:${ts}-${nonce}`, JSON.stringify(submission), {
         expirationTtl: 60 * 60 * 24 * 365 * 2
       });
+      ctx.waitUntil(notify(env, 'New tip from bestofmpls.com', [
+        'A new tip was submitted on bestofmpls.com:',
+        '',
+        `Name:  ${name || '(none)'}`,
+        `Email: ${email || '(none)'}`,
+        `Place: ${place || '(none)'}`,
+        '',
+        'Message:',
+        message
+      ]));
       return json({ ok: true }, 200, origin);
     }
 
@@ -242,6 +291,13 @@ export default {
       ctx.waitUntil(env.POLLS.put(`submission:${ts}-${nonce}`, JSON.stringify(submission), {
         expirationTtl: 60 * 60 * 24 * 365 * 2
       }));
+      ctx.waitUntil(notify(env, 'New newsletter signup', [
+        'A new newsletter signup on bestofmpls.com:',
+        '',
+        `Email: ${email}`,
+        '',
+        '(also forwarded to Beehiiv)'
+      ]));
 
       return json({ ok: true }, 200, origin);
     }
