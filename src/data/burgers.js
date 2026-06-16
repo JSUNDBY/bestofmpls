@@ -178,6 +178,15 @@ module.exports = {
       description: 'Nikki and Brian Podgorski’s smash-burger truck, known for double-deckers on toasted brioche. A fixture on the Twin Cities truck and festival circuit. Check their socials for the current location.',
       address: 'Various Twin Cities locations',
       price: '$'
+    },
+    {
+      name: 'Lion’s Tap',
+      neighborhood: 'Eden Prairie',
+      style: 'Famous burgers, family-run since 1977',
+      description: 'A family-run roadhouse out by the Minnesota River that has been grilling its Famous Hamburgers for decades. A reader put it best: as good as Kings in Miesville, without the drive. The beer is plentiful, including their own root beer, and the whole thing is gloriously simple. Worth the trip to Eden Prairie.',
+      address: '16180 Flying Cloud Dr, Eden Prairie',
+      website: 'https://lionstap.com',
+      price: '$'
     }
   ]
 };

@@ -1833,5 +1833,13 @@
   "1222 NE 2nd St, Minneapolis": {
     "lat": 45.0006647,
     "lng": -93.2663432
+  },
+  "4800 28th Ave S, Minneapolis": {
+    "lat": 44.9158461,
+    "lng": -93.2324264
+  },
+  "16180 Flying Cloud Dr, Eden Prairie": {
+    "lat": 44.8854779,
+    "lng": -93.4051977
   }
 }

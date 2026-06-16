@@ -69,6 +69,14 @@ module.exports = {
       description: 'A small Linden Hills pastry shop using saffron, rose, pistachio, and orange blossom in ways that read different than every other bakery in town. The saffron rice pudding is the standout. Pair with a Persian tea.',
       address: 'Linden Hills, Minneapolis',
       price: '$$'
+    },
+    {
+      name: 'Mel-O-Glaze Bakery',
+      neighborhood: 'Longfellow, Minneapolis',
+      style: 'Old-school doughnut counter, since 1961',
+      description: 'A South Minneapolis institution near Minnehaha Parkway, baking since 1961 and routinely called the metro’s most-awarded doughnut shop. The glazed doughnuts melt; the donut holes are free, one per customer; and the Saturday cinnamon rolls and fritters are the reason people set an alarm. Smiles come standard.',
+      address: '4800 28th Ave S, Minneapolis',
+      price: '$'
     }
   ]
 };
