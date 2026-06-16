@@ -1922,7 +1922,10 @@ function renderCategory(c) {
 
   // "By neighborhood" nav links down into the category×neighborhood pages.
   const nbCross = (crossByCategory[c.slug] || []).slice().sort((a, b) => b.count - a.count);
-  const nbNav = nbCross.length ? `
+  // Only show the "by neighborhood" nav when there are at least two chips —
+  // a single lonely chip reads as broken/incomplete (e.g. lectures, spread
+  // thin across many neighborhoods, only clears the threshold in one).
+  const nbNav = nbCross.length >= 2 ? `
     <section class="wrap nb-nav">
       <div class="cluster-eyebrow nb-nav-label">${esc(c.title)} by neighborhood</div>
       <div class="nb-nav-chips">
