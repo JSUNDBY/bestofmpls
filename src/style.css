@@ -6221,3 +6221,28 @@ html[data-mode="dark"] .entry-reserve {
   .entry { page-break-inside: avoid; }
   .poll-section, .feature-banner, .newsletter-capture { display: none; }
 }
+
+/* ===== "A note, while it matters" — homepage support note ===== */
+.support-note {
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  margin: 8px 0;
+  padding: 28px 0;
+}
+.support-note-inner { max-width: 680px; }
+.support-note-eyebrow {
+  font-family: var(--font-label);
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--clay);
+  margin: 0 0 8px;
+}
+.support-note-body {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--ink);
+  margin: 0;
+}

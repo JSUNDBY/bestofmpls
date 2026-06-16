@@ -829,7 +829,7 @@ ${GSC_VERIFICATION ? `<meta name="google-site-verification" content="${esc(GSC_V
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600;700&family=Source+Sans+3:wght@400;600&family=Archivo:wght@500;600;700&family=Archivo+Narrow:wght@600;700&display=swap">
-<link rel="stylesheet" href="/style.css?v=40">
+<link rel="stylesheet" href="/style.css?v=41">
 <script>
 // Set color mode before paint to avoid flash. Reads localStorage first,
 // falls back to light mode (the new editorial default). mode-ready class
@@ -1634,6 +1634,12 @@ function renderHome() {
             </li>`).join('')}
         </ol>
         <a class="concierge-more" href="/tonight/">See all of tonight →</a>
+      </div>
+    </section>
+    <section class="support-note" aria-label="A note">
+      <div class="wrap support-note-inner">
+        <p class="support-note-eyebrow">A note, while it matters</p>
+        <p class="support-note-body">A lot of what makes this a real food city is immigrant-run, and right now many of those places, especially along Lake Street and on the East Side, are having a hard time. Some have gone quiet, some have cut back to takeout, some are just working to keep the lights on. If you have a favorite, this is the season to show up: order the pickup, leave the good review, bring a friend, go. We will keep the listings here as honest as we can about who&rsquo;s open. Showing up is the whole point.</p>
       </div>
     </section>
     ${liveEventPicks.length ? `
@@ -2501,7 +2507,7 @@ function renderAdminPicks() {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>${esc(title)}</title>
-<link rel="stylesheet" href="/style.css?v=40">
+<link rel="stylesheet" href="/style.css?v=41">
 <style>
   body { background: var(--paper); }
   .admin-wrap { max-width: 960px; margin: 0 auto; padding: 32px var(--gutter) 96px; }
