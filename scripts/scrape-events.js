@@ -40,7 +40,13 @@ const SCRAPERS = [
   require('./scrapers/amsterdam.js'),
   require('./scrapers/astercafe.js'),
   require('./scrapers/bryantlakebowl.js'),
-  require('./scrapers/bauhaus.js')
+  require('./scrapers/bauhaus.js'),
+  // Lectures & talks
+  require('./scrapers/westminster.js'),
+  require('./scrapers/umn-events.js'),
+  require('./scrapers/hclib.js'),
+  require('./scrapers/loft.js'),
+  require('./scrapers/mnhs.js')
 ];
 
 function parseArgs() {

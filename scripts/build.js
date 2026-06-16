@@ -1924,6 +1924,33 @@ function renderCategory(c) {
       </div>
     </section>` : '';
 
+  // Lectures page only: a live "upcoming talks" rail above the directory,
+  // built from scraped lecture-category events. Directory of series sits below.
+  let upcomingTalks = '';
+  if (c.slug === 'lectures') {
+    const talks = dedupeNonFilms(
+      (eventsData.events || []).filter(e => e.category === 'lecture' && e.date >= TODAY_ISO)
+    ).sort((a, b) => (a.date + (a.time || '')).localeCompare(b.date + (b.time || ''))).slice(0, 24);
+    if (talks.length) {
+      const fmtDay = iso => { const [y,m,d] = iso.split('-').map(Number);
+        return new Date(y, m-1, d).toLocaleDateString('en-US', { weekday:'short', month:'short', day:'numeric' }); };
+      const fmtT = t => { if (!t) return ''; const [h,m]=t.split(':').map(Number);
+        const ap=h>=12?'pm':'am', hr=h%12===0?12:h%12; return ` · ${hr}:${String(m).padStart(2,'0')}${ap}`; };
+      upcomingTalks = `
+      <section class="entry-upcoming-shows wrap" aria-label="Upcoming talks">
+        <h2 class="entry-upcoming-title">Upcoming talks</h2>
+        <ul class="entry-upcoming-list">
+          ${talks.map(t => `
+            <li class="entry-upcoming-show">
+              <span class="entry-upcoming-when">${esc(fmtDay(t.date))}${esc(fmtT(t.time))}</span>
+              <span class="entry-upcoming-what">${t.url ? `<a href="${esc(t.url)}" target="_blank" rel="noopener">${esc(t.title)}</a>` : esc(t.title)}<span class="entry-upcoming-venue"> · ${esc(t.venue)}</span></span>
+              ${t.price ? `<span class="entry-upcoming-price">${esc(t.price)}</span>` : ''}
+            </li>`).join('')}
+        </ul>
+      </section>`;
+    }
+  }
+
   return head({ title: seoTitle(c), description, slug: c.slug, theme: c.hero_color }) +
     header({ activeSlug: c.slug }) +
     `<section class="section-head">
@@ -1934,6 +1961,7 @@ function renderCategory(c) {
         ${c.slug === 'lectures' ? `<p class="section-deck" style="margin-top:14px"><a class="entry-reserve" href="/contribute/">Hosting a public talk? List it free →</a></p>` : ''}
       </div>
     </section>
+    ${upcomingTalks}
     ${nbNav}
     ${verifyBanner}
     ${externalCallout}
@@ -3297,8 +3325,12 @@ function renderCalendar() {
     ? new Date(eventsData.generated_at).toLocaleString('en-US', { month: 'long', day: 'numeric', hour: 'numeric', minute: '2-digit' })
     : null;
 
+  // Credit only the sources that actually fed this calendar. Lecture-only and
+  // film-only sources drop off, since their events live on /lectures/ and
+  // /now-showing/ rather than here.
+  const showSourceKeys = new Set(allShows.map(e => e.source));
   const sourcesLine = (eventsData.sources || [])
-    .filter(s => s.ok)
+    .filter(s => s.ok && showSourceKeys.has(s.source))
     .map(s => `${s.label} (${s.count})`)
     .join(' · ');
 
