@@ -297,7 +297,7 @@ function isFilmEvent(e) { return e.category === 'film'; }
 // A "show" is a concert or performance. Museum programming (Walker art-making
 // workshops, tours, sensory-friendly hours — all category 'art') and films are
 // real events but not shows, so they stay out of the concert/tonight listings.
-function isShowEvent(e) { return e.category !== 'film' && e.category !== 'art'; }
+function isShowEvent(e) { return e.category !== 'film' && e.category !== 'art' && e.category !== 'lecture'; }
 
 function collapseFilms(events) {
   // Returns { films: [{title, venue, venue_neighborhood, url, image, first_date,
@@ -410,6 +410,7 @@ function featureDaysLabel(ev) {
 // ---------- Load all category data ----------
 const museums      = require(path.join(SRC, 'data/museums.js'));
 const artsBuildings = require(path.join(SRC, 'data/arts-buildings.js'));
+const lectures = require(path.join(SRC, 'data/lectures.js'));
 const liveMusic    = require(path.join(SRC, 'data/live-music.js'));
 const theaters     = require(path.join(SRC, 'data/theaters.js'));
 const coffee       = require(path.join(SRC, 'data/coffee.js'));
@@ -555,7 +556,7 @@ const clusters = [
     eyebrow: 'See & Experience',
     title: 'Culture',
     deck: 'The institutions, stages, screens, and rooms that make this a city worth living in.',
-    categories: [museums, artsBuildings, liveMusic, theaters, cinemas, lgbtq, sports]
+    categories: [museums, artsBuildings, liveMusic, theaters, cinemas, lectures, lgbtq, sports]
   },
   {
     eyebrow: 'Eat',
@@ -585,7 +586,7 @@ const clusters = [
 
 const categories = [
   // Culture
-  museums, artsBuildings, liveMusic, theaters, cinemas, lgbtq, sports,
+  museums, artsBuildings, liveMusic, theaters, cinemas, lectures, lgbtq, sports,
   // Eat
   restaurants, foodHalls, coffee, bakeries, glutenFree, sandwiches, burgers, pizza, brunch,
   mexican, vietnamese, korean, japanese, hmong, ethiopian, indian, thai, chinese, iceCream, lateNight,
@@ -1930,6 +1931,7 @@ function renderCategory(c) {
         <div class="section-eyebrow">${c.entries.length} picks</div>
         <h1 class="section-title">${esc(c.title)} <em>in the Twin Cities</em></h1>
         <p class="section-deck">${esc(c.intro)}</p>
+        ${c.slug === 'lectures' ? `<p class="section-deck" style="margin-top:14px"><a class="entry-reserve" href="/contribute/">Hosting a public talk? List it free →</a></p>` : ''}
       </div>
     </section>
     ${nbNav}
