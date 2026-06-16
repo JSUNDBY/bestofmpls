@@ -258,6 +258,51 @@ module.exports = {
       address: '548 N Washington Ave, Minneapolis',
       website: 'https://www.cafeyoto.com',
       price: '$$'
+    },
+    {
+      name: 'Šhotá',
+      neighborhood: 'Seward, Minneapolis',
+      style: 'Indigenous BBQ, Sean Sherman',
+      description: 'Sean Sherman’s Indigenous barbecue counter inside NATIFS Wóyute Thipi, the old Seward Co-op Creamery on Franklin. The name means smoke or clouds in Dakota, the same word that lives inside Minnesota. The kitchen follows the Owamni rules with no wheat flour, dairy, or cane sugar, and turns out smoked meats and fish alongside maple-baked beans, dirty wild rice, braised greens, and a three sisters bison stew. The decolonized menu, now in barbecue form.',
+      address: '2601 E Franklin Ave, Minneapolis',
+      website: 'https://shotabbq.com',
+      price: '$$'
+    },
+    {
+      name: 'Mestiizo',
+      neighborhood: 'Northeast Minneapolis',
+      style: 'Mexican-Asian, cocktail bar',
+      description: 'Danny Guerrero and Luis Puentes’ intimate Northeast room in the old Altburger space, where Mexican and Asian flavors meet across a fully gluten-free menu. Head chef Marco Luna runs tacos, sushi, and shared plates, and Guerrero, a Guadalajara bartender by trade, builds the cocktails around tequila and Japanese whisky. Low light, 68 seats, late hours on the weekend. The kind of date-night corner Northeast keeps minting.',
+      address: '337 13th Ave NE, Minneapolis',
+      website: 'https://mestiizo.com',
+      price: '$$$'
+    },
+    {
+      name: 'Bar Oscar',
+      neighborhood: 'Northeast Minneapolis',
+      style: 'Cocktail and wine bar',
+      description: 'The Central Avenue room that industry veterans Jeff Luten and Mike Hoolihan rebranded from Dutch Bar in late 2025, now a proper neighborhood cocktail and wine bar with a kitchen that takes its small plates seriously. The charcuterie board with marcona almonds and herb-buttered toast is the move, the wine list is curated, and the kitchen runs until 10. Open Tuesday through Saturday, late.',
+      address: '2512 Central Ave NE, Minneapolis',
+      website: 'https://www.baroscarmn.com',
+      price: '$$'
+    },
+    {
+      name: 'Jook Sing',
+      neighborhood: 'Northeast Minneapolis',
+      style: 'Cantonese American, Mike Yuen + Tony Gao',
+      description: 'The pop-up darling from Mike Yuen and Tony Gao that finally landed a permanent home as the kitchen inside Steady Pour, the Northeast cocktail den on East Hennepin. The name is a Cantonese term for someone who builds their own identity while honoring their roots, which is exactly the food: playful Chinese American classics like mapo hotdish and the couples’ beef tartare, plated against one of the better bar programs in the neighborhood. Wednesday through Saturday.',
+      address: '2125 E Hennepin Ave, Minneapolis',
+      website: 'https://www.jooksingmn.com',
+      price: '$$$'
+    },
+    {
+      name: 'Oro by Nixta',
+      neighborhood: 'Northeast Minneapolis',
+      style: 'Mexican, masa-driven',
+      description: 'The full-service evolution of Gustavo Romero and Kate Romero’s Nixta tortilleria, a James Beard-nominated room in the Northeast Arts District built entirely on their own nixtamalized masa. The tortillas and the masa run through everything, in original seasonal dishes that change with what is good. A small, focused kitchen open Wednesday through Saturday, and one of the most quietly serious Mexican rooms in the city.',
+      address: '1222 NE 2nd St, Minneapolis',
+      website: 'https://www.nixtampls.com/oro',
+      price: '$$$'
     }
   ]
 };

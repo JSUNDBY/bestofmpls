@@ -87,6 +87,24 @@ module.exports = {
       description: "David Fong Jr. opened this Savage spot in 1996 to carry forward the family menu after the original David Fong's in Bloomington closed in 2022 after sixty-four years. The cashew chicken and the egg foo young are still cooked the way grandfather wrote them.",
       address: '4321 Egan Dr, Savage',
       price: '$$'
+    },
+    {
+      name: 'Jade Dynasty',
+      neighborhood: 'Lyn-Lake, Minneapolis',
+      style: 'Cantonese, dim sum and hot pot',
+      description: 'A Lyn-Lake room from Paul Wu and Eric Zeng built around dim sum, fresh seafood, hot pot, and a Peking roasted duck that is the signature order. A more ambitious sit-down Cantonese option than the corridor strip-malls, and a rare dim sum address on the Minneapolis side of the river.',
+      address: '600 W Lake St, Minneapolis',
+      website: 'https://jadedynasty.kwickmenu.com',
+      price: '$$'
+    },
+    {
+      name: 'Meet Up Noodle',
+      neighborhood: 'Whittier (Eat Street), Minneapolis',
+      style: 'Northwestern Chinese, hand-pulled noodles',
+      description: 'A small Eat Street shop focused on northwest regional Chinese cooking and hand-pulled noodles. Piping noodle soups and stir-fries, plus cold noodles, scallion pancakes, and fried rice. The hand-pull work is the reason to go, and the bowls come fast.',
+      address: '2 E 26th St, Minneapolis',
+      website: 'https://www.meetupnoodle.com',
+      price: '$'
     }
   ]
 };

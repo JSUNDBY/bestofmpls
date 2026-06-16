@@ -1693,5 +1693,145 @@
   "693 Raymond Ave, St. Paul": {
     "lat": 44.9619742,
     "lng": -93.1978418
+  },
+  "600 W Lake St, Minneapolis": {
+    "lat": 44.9484967,
+    "lng": -93.2872253
+  },
+  "2 E 26th St, Minneapolis": {
+    "lat": 44.9557127,
+    "lng": -93.2776755
+  },
+  "1411 Nicollet Ave S, Minneapolis": {
+    "lat": 44.8901972,
+    "lng": -93.2781218
+  },
+  "901 W Lake St, Minneapolis": {
+    "lat": 44.9482275,
+    "lng": -93.2908325
+  },
+  "2819 Nicollet Ave, Minneapolis": {
+    "lat": 44.9512876,
+    "lng": -93.2777938
+  },
+  "84 Church St SE, Minneapolis, MN 55455": {
+    "lat": 44.9764788,
+    "lng": -93.2353693
+  },
+  "301 19th Ave S, Minneapolis, MN 55455": {
+    "lat": 44.9716445,
+    "lng": -93.2441292
+  },
+  "216 Pillsbury Dr SE, Minneapolis, MN 55455": {
+    "lat": 44.9775159,
+    "lng": -93.235723
+  },
+  "2088 Larpenteur Ave W, St. Paul, MN 55113": {
+    "lat": 44.9911955,
+    "lng": -93.1881145
+  },
+  "2501 Stevens Ave, Minneapolis, MN 55404": {
+    "lat": 44.9567885,
+    "lng": -93.274653
+  },
+  "1600 Grand Ave, St. Paul, MN 55105": {
+    "lat": 44.9410211,
+    "lng": -93.1681016
+  },
+  "1200 Marquette Avenue, Minneapolis, MN 55403": {
+    "lat": 44.9713008,
+    "lng": -93.2757804
+  },
+  "345 W. Kellogg Blvd, St. Paul, MN 55102": {
+    "lat": 44.9470685,
+    "lng": -93.1042897
+  },
+  "2400 Third Avenue South, Minneapolis, MN 55404": {
+    "lat": 44.959160157364,
+    "lng": -93.272815558635
+  },
+  "725 Vineland Place, Minneapolis, MN 55403": {
+    "lat": 44.9688165,
+    "lng": -93.2885125
+  },
+  "2600 Park Avenue, Minneapolis, MN 55407": {
+    "lat": 44.9549927,
+    "lng": -93.2660811
+  },
+  "3537 Zenith Avenue South, Minneapolis, MN 55416": {
+    "lat": 44.9386018,
+    "lng": -93.3217241
+  },
+  "10 E Exchange St, St. Paul, MN 55101": {
+    "lat": 44.9493379,
+    "lng": -93.0971353
+  },
+  "1111 Mainstreet, Hopkins, MN 55343": {
+    "lat": 44.9246532,
+    "lng": -93.4146008
+  },
+  "300 Nicollet Mall, Minneapolis, MN 55401": {
+    "lat": 44.9801673,
+    "lng": -93.2699568
+  },
+  "461 Dale St N, St. Paul, MN 55103": {
+    "lat": 44.9735202,
+    "lng": -93.1263687
+  },
+  "1011 Washington Ave S, Minneapolis, MN 55415": {
+    "lat": 44.9756018,
+    "lng": -93.2541482
+  },
+  "3038 Hennepin Ave, Minneapolis, MN 55408": {
+    "lat": 44.9471037,
+    "lng": -93.2987405
+  },
+  "38 S Snelling Ave, St. Paul, MN 55105": {
+    "lat": 44.912315,
+    "lng": -93.1670498
+  },
+  "6 W Fifth St, St. Paul, MN 55102": {
+    "lat": 44.945595222881,
+    "lng": -93.094516871994
+  },
+  "3032 Minnehaha Ave, Minneapolis, MN 55406": {
+    "lat": 44.9472955,
+    "lng": -93.2337742
+  },
+  "1319 University Ave W, St. Paul, MN 55104": {
+    "lat": 44.9559346,
+    "lng": -93.1557985
+  },
+  "2115 W 21st St, Minneapolis, MN 55405": {
+    "lat": 44.9616293,
+    "lng": -93.3080356
+  },
+  "2904 Lyndale Ave S, Minneapolis": {
+    "lat": 44.9497895,
+    "lng": -93.2883772
+  },
+  "3002 W 50th St, Minneapolis": {
+    "lat": 44.9125436,
+    "lng": -93.3177392
+  },
+  "2601 E Franklin Ave, Minneapolis": {
+    "lat": 44.9625491,
+    "lng": -93.2342806
+  },
+  "337 13th Ave NE, Minneapolis": {
+    "lat": 45.0010495,
+    "lng": -93.2627071
+  },
+  "2512 Central Ave NE, Minneapolis": {
+    "lat": 45.0358157,
+    "lng": -93.2473553
+  },
+  "2125 E Hennepin Ave, Minneapolis": {
+    "lat": 44.9915754,
+    "lng": -93.2224116
+  },
+  "1222 NE 2nd St, Minneapolis": {
+    "lat": 45.0006647,
+    "lng": -93.2663432
   }
 }

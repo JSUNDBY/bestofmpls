@@ -117,6 +117,24 @@ module.exports = {
       address: '470 Selby Ave, St. Paul',
       website: 'https://stpaulcurlingclub.org',
       price: '$$ to play, free to watch'
+    },
+    {
+      name: 'Albi Kitchen',
+      neighborhood: 'Loring Park, Minneapolis',
+      style: 'Somali comfort food + sweets',
+      description: 'A bright, joyful little room on Nicollet serving Somali comfort food for the modern eater. The sambusas are the move, from the classic beef and veggie to versions stuffed with buffalo chicken or Philly cheesesteak, alongside a case of sweets. Open late on weekends, the kind of place that does not show up on the tourist list but should.',
+      address: '1411 Nicollet Ave S, Minneapolis',
+      website: 'https://albikitchen.com',
+      price: '$'
+    },
+    {
+      name: 'Lito’s on Lake',
+      neighborhood: 'Lyn-Lake, Minneapolis',
+      style: 'L.A.-style breakfast burritos',
+      description: 'Miguel Hernandez built a cult following for griddled L.A.-style breakfast burritos at the original Lito’s in Richfield, and the Lake Street outpost brings them to the heart of the city. Hand-sized, foil-wrapped, the right answer to almost any morning. The breakfast burrito is the whole point.',
+      address: '901 W Lake St, Minneapolis',
+      website: 'https://www.litos-burritos.com',
+      price: '$'
     }
   ]
 };

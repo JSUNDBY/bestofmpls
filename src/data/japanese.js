@@ -76,6 +76,14 @@ module.exports = {
       address: '3070 Excelsior Blvd, St. Louis Park',
       website: 'http://www.wakamebistro.com',
       price: '$$'
+    },
+    {
+      name: 'Hikari Hand Roll Bar',
+      neighborhood: 'Whittier (Eat Street), Minneapolis',
+      style: 'Temaki hand-roll counter',
+      description: 'A temaki specialist inside the Eat Street Crossing food hall from chef Jason Yeung, twenty years deep in sushi. Cone-shaped hand rolls made to order so the nori stays crisp, eaten immediately. The spicy scallop and spicy salmon rolls are the regulars, and the whole thing stays genuinely affordable.',
+      address: '2819 Nicollet Ave, Minneapolis',
+      price: '$$'
     }
   ]
 };

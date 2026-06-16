@@ -77,6 +77,15 @@ module.exports = {
       description: 'A South Minneapolis neighborhood spot connected to the Parkway Theater. Margaritas in pitchers, enchiladas the way you remember them, and a dim warm room that has been the right move for cold-night dinners for decades.',
       address: 'South Minneapolis',
       price: '$$'
+    },
+    {
+      name: 'Las Delicias de Frida',
+      neighborhood: 'Lyn-Lake, Minneapolis',
+      style: 'Mexican ice cream and antojitos',
+      description: 'A traditional Mexican ice cream and snack shop on Lyndale just north of the Lyn-Lake intersection. Nieves and paletas, plus the loaded chip cups and tostilocos built on Doritos, Tostitos, and Takis that have a serious local following. The kind of warm-weather stop you walk to and then circle back for.',
+      address: '2904 Lyndale Ave S, Minneapolis',
+      website: 'https://lasdeliciasdefrida.com',
+      price: '$'
     }
   ]
 };

@@ -112,6 +112,15 @@ module.exports = {
       address: '5057 France Ave S, Minneapolis',
       website: 'https://mothershippizza.com',
       price: '$$'
+    },
+    {
+      name: 'Tono Pizzeria + Cheesesteaks',
+      neighborhood: '50th & France, Minneapolis',
+      style: 'Neapolitan-ish pizza and cheesesteaks',
+      description: 'A fast-growing local group doing wood-fired pizza alongside proper Philly-style cheesesteaks. The 50th Street room is the Minneapolis-proper location of a metro chain that has spread fast for a reason: the pies and the steaks both deliver, and you can feed a split table that cannot agree on dinner.',
+      address: '3002 W 50th St, Minneapolis',
+      website: 'https://tonomn.com',
+      price: '$$'
     }
   ]
 };
