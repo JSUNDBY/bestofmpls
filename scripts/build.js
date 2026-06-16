@@ -830,7 +830,7 @@ ${GSC_VERIFICATION ? `<meta name="google-site-verification" content="${esc(GSC_V
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600;700&family=Source+Sans+3:wght@400;600&family=Archivo:wght@500;600;700&family=Archivo+Narrow:wght@600;700&display=swap">
-<link rel="stylesheet" href="/style.css?v=42">
+<link rel="stylesheet" href="/style.css?v=43">
 <script>
 // Set color mode before paint to avoid flash. Reads localStorage first,
 // falls back to light mode (the new editorial default). mode-ready class
@@ -1981,16 +1981,32 @@ function renderCategory(c) {
         ${clusters.length ? `
         <div class="truck-finder-clusters">
           <h3 class="truck-finder-subhead">Where trucks reliably gather</h3>
-          <ul class="truck-finder-list">
-            ${clusters.map(c2 => `<li><strong>${esc(c2.name)}</strong>${c2.when ? ` <span class="truck-finder-when">${esc(c2.when)}</span>` : ''}${c2.detail ? `. ${esc(c2.detail)}` : ''}</li>`).join('')}
-          </ul>
+          <div class="truck-spots">
+            ${clusters.map(c2 => `
+            <details class="truck-spot">
+              <summary class="truck-spot-head">
+                <span class="truck-spot-name">${esc(c2.name)}</span>
+                ${c2.when ? `<span class="truck-spot-when">${esc(c2.when)}</span>` : ''}
+                <span class="truck-spot-toggle" aria-hidden="true"></span>
+              </summary>
+              ${c2.detail ? `<p class="truck-spot-detail">${esc(c2.detail)}</p>` : ''}
+            </details>`).join('')}
+          </div>
         </div>` : ''}
         ${events.length ? `
         <div class="truck-finder-events">
           <h3 class="truck-finder-subhead">Festivals and rallies</h3>
-          <ul class="truck-finder-list">
-            ${events.map(ev => `<li><strong>${ev.url ? `<a href="${esc(ev.url)}" target="_blank" rel="noopener">${esc(ev.name)}</a>` : esc(ev.name)}</strong>${ev.when ? ` <span class="truck-finder-when">${esc(ev.when)}</span>` : ''}${ev.detail ? `. ${esc(ev.detail)}` : ''}</li>`).join('')}
-          </ul>
+          <div class="truck-spots">
+            ${events.map(ev => `
+            <details class="truck-spot">
+              <summary class="truck-spot-head">
+                <span class="truck-spot-name">${ev.url ? `<a href="${esc(ev.url)}" target="_blank" rel="noopener">${esc(ev.name)}</a>` : esc(ev.name)}</span>
+                ${ev.when ? `<span class="truck-spot-when">${esc(ev.when)}</span>` : ''}
+                <span class="truck-spot-toggle" aria-hidden="true"></span>
+              </summary>
+              ${ev.detail ? `<p class="truck-spot-detail">${esc(ev.detail)}</p>` : ''}
+            </details>`).join('')}
+          </div>
         </div>` : ''}
       </section>`;
   }
@@ -2060,7 +2076,7 @@ function renderPollForm(c) {
         </div>
         ` : `
         <div class="poll-disabled">
-          <p>The reader poll is being wired up this week. Until then, send your picks to <a href="mailto:hello@bestofmpls.com">hello@bestofmpls.com</a> or <a href="/contribute/">use the tip form</a>.</p>
+          <p>Have a pick for this category? <a href="/contribute/">Send it through our tip form →</a> We read every submission.</p>
         </div>
         `}
       </div>
@@ -2546,7 +2562,7 @@ function renderAdminPicks() {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>${esc(title)}</title>
-<link rel="stylesheet" href="/style.css?v=42">
+<link rel="stylesheet" href="/style.css?v=43">
 <style>
   body { background: var(--paper); }
   .admin-wrap { max-width: 960px; margin: 0 auto; padding: 32px var(--gutter) 96px; }
@@ -2920,7 +2936,7 @@ function renderAbout() {
         <p>bestofmpls is a guide to the museums, music, theaters, coffee shops, sandwiches, restaurants, bars, hotels, festivals, and small good things that make Minneapolis and Saint Paul worth living in. Two of the best small cities in America, written by the people who actually live here.</p>
         <p>The Twin Cities is a real cultural place. Two great encyclopedic museums. The most theater seats per capita in America after Manhattan. A music scene that has shaped American popular music for half a century. An indie press scene, a food scene that has earned its national attention, and dozens of small neighborhoods that each have their own bar, bookstore, and morning bakery. We do not feel the need to argue any of that anymore.</p>
         <p>The lists are not sponsored. Picks are not paid placements. There is no pay-to-play readers-poll voting. If a place pays to advertise on this site, it will be marked clearly and will not appear in the editorial rankings.</p>
-        <p>If you know a place we missed, a correction we need, or a tip we should chase, write to <a href="mailto:hello@bestofmpls.com">hello@bestofmpls.com</a>. We read every note.</p>
+        <p>If you know a place we missed, a correction we need, or a tip we should chase, <a href="/contribute/">send it our way →</a>. We read every note.</p>
       </div>
     </section>` +
     footer();

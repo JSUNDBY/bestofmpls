@@ -6257,10 +6257,35 @@ html[data-mode="dark"] .entry-reserve {
   margin: 0 0 10px;
 }
 .truck-finder-clusters, .truck-finder-events { margin-top: 22px; }
-.truck-finder-list { list-style: none; padding: 0; margin: 0; max-width: 720px; }
-.truck-finder-list li {
-  font-family: var(--font-body); font-size: 15px; line-height: 1.5;
-  color: var(--ink); padding: 8px 0; border-bottom: 1px solid var(--rule);
+
+/* Tap-to-expand gather spots — scannable by default, detail on demand. */
+.truck-spots { max-width: 760px; border-top: 1px solid var(--rule); }
+.truck-spot { border-bottom: 1px solid var(--rule); }
+.truck-spot-head {
+  display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+  list-style: none; cursor: pointer; padding: 15px 0;
 }
-.truck-finder-list li:last-child { border-bottom: none; }
-.truck-finder-when { color: var(--ink-soft); font-size: 13px; }
+.truck-spot-head::-webkit-details-marker { display: none; }
+.truck-spot-name {
+  font-family: var(--font-body); font-weight: 700; font-size: 16px; color: var(--ink);
+}
+.truck-spot-name a { color: var(--clay); }
+.truck-spot-when {
+  font-family: var(--font-label); font-weight: 600; font-size: 11px;
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--clay);
+  background: rgba(225, 25, 0, 0.07); border: 1px solid var(--rule);
+  border-radius: 999px; padding: 3px 11px; white-space: nowrap;
+}
+.truck-spot-toggle {
+  margin-left: auto; position: relative; width: 14px; height: 14px; flex: none;
+}
+.truck-spot-toggle::before, .truck-spot-toggle::after {
+  content: ''; position: absolute; background: var(--ink-soft);
+}
+.truck-spot-toggle::before { top: 50%; left: 0; width: 14px; height: 2px; transform: translateY(-50%); }
+.truck-spot-toggle::after  { left: 50%; top: 0; width: 2px; height: 14px; transform: translateX(-50%); transition: opacity 0.2s ease; }
+.truck-spot[open] .truck-spot-toggle::after { opacity: 0; }
+.truck-spot-detail {
+  font-family: var(--font-body); font-size: 15px; line-height: 1.6;
+  color: var(--ink-soft); margin: 0 0 16px; max-width: 680px;
+}
