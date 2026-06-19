@@ -1,68 +1,68 @@
 {
-  "generated_at": "2026-06-09T02:46:26.391Z",
-  "today": "2026-06-08",
+  "generated_at": "2026-06-19T02:15:01.233Z",
+  "today": "2026-06-18",
   "sun": {
-    "rise": "5:02 AM",
-    "set": "8:32 PM",
-    "rise_24": "05:02",
-    "set_24": "20:32",
-    "daylight_min": 930
+    "rise": "5:01 AM",
+    "set": "8:37 PM",
+    "rise_24": "05:01",
+    "set_24": "20:37",
+    "daylight_min": 936
   },
   "weather": {
-    "temp_now": 75,
-    "temp_max": 91,
-    "feels_like": 76,
-    "condition": "Patchy Fog Then Mostly Sunny",
+    "temp_now": 64,
+    "temp_max": 74,
+    "feels_like": 64,
+    "condition": "Mostly Clear",
     "is_patio": true,
     "is_brutal": false,
     "is_snowing": false,
     "is_rainy": false,
     "mood": "patio",
-    "summary": "91°F high · patio weather",
+    "summary": "74°F high · patio weather",
     "source": "nws"
   },
   "countdowns": [
     {
       "name": "Twin Cities Pride",
       "date": "2026-06-27",
-      "days": 19,
+      "days": 9,
       "blurb": "One of the largest Pride festivals in the country, last full weekend of June."
     },
     {
       "name": "Aquatennial",
       "date": "2026-07-16",
-      "days": 38,
+      "days": 28,
       "blurb": "Minneapolis's eleven-day midsummer festival."
     },
     {
       "name": "Minnesota State Fair",
       "date": "2026-08-27",
-      "days": 80,
+      "days": 70,
       "blurb": "Twelve days ending Labor Day. The largest state fair by daily attendance."
     },
     {
       "name": "Twin Cities Marathon",
       "date": "2026-10-04",
-      "days": 118,
+      "days": 108,
       "blurb": "Twenty-six miles from downtown Minneapolis to the State Capitol."
     },
     {
       "name": "Twin Cities Book Festival",
       "date": "2026-10-17",
-      "days": 131,
+      "days": 121,
       "blurb": "The metro's largest free book festival, at the State Fairgrounds."
     },
     {
       "name": "Saint Paul Winter Carnival",
       "date": "2027-01-22",
-      "days": 228,
+      "days": 218,
       "blurb": "The oldest winter festival in the country opens."
     }
   ],
   "sunset_pick": {
-    "name": "Hidden Falls boat launch",
-    "neighborhood": "Highland, St. Paul",
-    "why": "River-level. The whole sky reflects."
+    "name": "Bde Maka Ska east shore",
+    "neighborhood": "Southwest Minneapolis",
+    "why": "Long views west across the lake, no obstructions."
   },
   "sunset_picks": [
     {

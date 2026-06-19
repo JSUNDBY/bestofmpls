@@ -141,29 +141,36 @@ function classifyWeather(weather) {
   // running after sunset), the period's temperature is tonight's low and the
   // next daytime period is tomorrow's day, so we still use [0] as "today".
   const dayPeriod = periods.find(p => p.isDaytime) || periods[0];
-  const nightPeriod = periods.find(p => !p.isDaytime) || periods[0];
+  // The period happening RIGHT NOW is always periods[0] (NWS lists it first,
+  // day or night). The displayed condition and the rain/mood signal must both
+  // come from this period or they contradict: after sunset, dayPeriod is
+  // tomorrow, so the old code showed tomorrow's "Mostly Clear" as "right now"
+  // while a separate signal flipped the night to "rainy".
+  const currentPeriod = periods[0];
 
-  // Daytime period.temperature is the high (in F). Night period is the low.
+  // Daytime period.temperature is the high (in F), used for the high + patio.
   const tempMax = dayPeriod.isDaytime ? dayPeriod.temperature : null;
-  const condition = describeNws(dayPeriod.shortForecast);
-  const popDay  = dayPeriod.probabilityOfPrecipitation?.value ?? 0;
+  const condition = describeNws(currentPeriod.shortForecast);
+  const popNow  = currentPeriod.probabilityOfPrecipitation?.value ?? 0;
 
   // Current temp + feels-like from KMSP observation.
   const obsProps = weather.obs?.properties || null;
   const obsTempF = cToF(obsProps?.temperature?.value);
   const windChillF = cToF(obsProps?.windChill?.value);
   const heatIdxF = cToF(obsProps?.heatIndex?.value);
-  const obsText = obsProps?.textDescription || null;
 
   const tempNow = obsTempF ?? periods[0].temperature;
   const feelsLike = windChillF ?? heatIdxF ?? tempNow;
 
-  // Combine forecast text + current observation text for mood detection.
-  const mood1 = moodFromText(dayPeriod.shortForecast);
-  const mood2 = moodFromText(obsText);
-  const is_snowing = mood1.snow || mood2.snow;
-  const is_rainy   = !is_snowing && (mood1.rain || mood2.rain);
-  const dryAndSunny = (mood1.sunny || (!mood1.cloudy && !mood1.fog)) && popDay < 30;
+  // Mood from the current period's forecast text, gated on a real chance of
+  // precipitation. A "slight chance" or a passing mention (low POP) must not
+  // turn the night "rainy" — that is what put steady rain on a clear night.
+  // Snow stays text-based (snow forecasts rarely false-positive and matter
+  // for the cold-weather mood even at lower probabilities).
+  const moodNow = moodFromText(currentPeriod.shortForecast);
+  const is_snowing = moodNow.snow;
+  const is_rainy   = !is_snowing && moodNow.rain && popNow >= 50;
+  const dryAndSunny = (moodNow.sunny || (!moodNow.cloudy && !moodNow.fog)) && popNow < 30;
 
   // Patio day: high ≥ 65, low precip chance, generally clear.
   const is_patio = (tempMax ?? tempNow) >= 65 && dryAndSunny && !is_rainy && !is_snowing;
