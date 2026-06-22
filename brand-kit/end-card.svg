@@ -1,0 +1,16 @@
+<svg width="1080" height="1920" viewBox="0 0 1080 1920" xmlns="http://www.w3.org/2000/svg">
+  <!-- Closing frame. Always end here. 1080x1920. -->
+  <rect width="1080" height="1920" fill="#0E0E10"/>
+
+  <rect x="440" y="760" width="200" height="3" fill="#C8200F"/>
+
+  <!-- big wordmark, centered -->
+  <text x="540" y="1000" text-anchor="middle" font-family="'IBM Plex Sans', sans-serif" font-weight="800" font-size="120" fill="#F5F4F0">bestofmpls<tspan fill="#C8200F">.</tspan></text>
+
+  <!-- tagline -->
+  <text x="540" y="1080" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-weight="400" font-size="40" fill="#B8B8B4">A guide to the Twin Cities</text>
+
+  <!-- CTA -->
+  <text x="540" y="1230" text-anchor="middle" font-family="Archivo, sans-serif" font-weight="700" font-size="40" letter-spacing="4" fill="#C8200F">FOLLOW FOR DAILY PICKS</text>
+  <text x="540" y="1290" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-weight="600" font-size="36" fill="#F5F4F0">bestofmpls.com</text>
+</svg>

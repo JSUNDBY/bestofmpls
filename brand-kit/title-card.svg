@@ -1,0 +1,20 @@
+<svg width="1080" height="1920" viewBox="0 0 1080 1920" xmlns="http://www.w3.org/2000/svg">
+  <!-- Best of MPLS title card. Swap the eyebrow + headline text. 1080x1920. -->
+  <rect width="1080" height="1920" fill="#0E0E10"/>
+
+  <!-- top hairline + live label -->
+  <rect x="96" y="300" width="888" height="3" fill="#C8200F"/>
+  <text x="96" y="362" font-family="Archivo, sans-serif" font-weight="600" font-size="30" letter-spacing="6" fill="#C8200F">LIVE · THE TWIN CITIES</text>
+
+  <!-- eyebrow (swap me) -->
+  <text x="96" y="780" font-family="Archivo, sans-serif" font-weight="700" font-size="48" letter-spacing="8" fill="#C8200F">THIS WEEKEND</text>
+
+  <!-- headline (swap me) -->
+  <text x="92" y="900" font-family="'IBM Plex Sans', sans-serif" font-weight="800" font-size="130" fill="#F5F4F0">5 things to do</text>
+  <text x="92" y="1040" font-family="'IBM Plex Sans', sans-serif" font-weight="800" font-size="130" fill="#F5F4F0">in the Twin</text>
+  <text x="92" y="1180" font-family="'IBM Plex Sans', sans-serif" font-weight="800" font-size="130" fill="#F5F4F0">Cities</text>
+
+  <!-- wordmark -->
+  <text x="96" y="1660" font-family="'IBM Plex Sans', sans-serif" font-weight="700" font-size="52" fill="#F5F4F0">bestofmpls<tspan fill="#C8200F">.</tspan></text>
+  <text x="96" y="1712" font-family="Source Sans 3, sans-serif" font-weight="400" font-size="32" fill="#B8B8B4">bestofmpls.com</text>
+</svg>

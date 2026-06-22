@@ -1,0 +1,22 @@
+<svg width="1080" height="1920" viewBox="0 0 1080 1920" xmlns="http://www.w3.org/2000/svg">
+  <!-- Lower-third to tag a place over footage. Export as PNG (transparent) and
+       overlay in DaVinci. The scrim keeps text legible over any video. -->
+  <defs>
+    <linearGradient id="scrim" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0E0E10" stop-opacity="0"/>
+      <stop offset="1" stop-color="#0E0E10" stop-opacity="0.85"/>
+    </linearGradient>
+  </defs>
+  <!-- scrim only on bottom third; rest transparent for the footage -->
+  <rect x="0" y="1280" width="1080" height="640" fill="url(#scrim)"/>
+
+  <!-- neighborhood chip (swap me) -->
+  <rect x="96" y="1500" width="430" height="64" rx="32" fill="none" stroke="#C8200F" stroke-width="2.5"/>
+  <text x="128" y="1543" font-family="Archivo, sans-serif" font-weight="600" font-size="30" letter-spacing="4" fill="#C8200F">NORTHEAST MINNEAPOLIS</text>
+
+  <!-- place name (swap me) -->
+  <text x="92" y="1660" font-family="'IBM Plex Sans', sans-serif" font-weight="800" font-size="96" fill="#F5F4F0">Diane&#8217;s Place</text>
+
+  <!-- wordmark, small corner -->
+  <text x="96" y="1740" font-family="'IBM Plex Sans', sans-serif" font-weight="700" font-size="38" fill="#F5F4F0">bestofmpls<tspan fill="#C8200F">.</tspan></text>
+</svg>
