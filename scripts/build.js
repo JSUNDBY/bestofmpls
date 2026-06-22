@@ -1212,6 +1212,9 @@ function footer() {
 // prominent) share this handler. Status node is the sibling [data-newsletter-status].
 (function(){
   var endpoint = ${JSON.stringify(POLL_WORKER_URL ? POLL_WORKER_URL + '/newsletter' : '')}; if (!endpoint) return;
+  // Attribute the signup to whatever channel sent them. Social links should
+  // carry ?utm_source=instagram (etc.); default to 'website' for organic.
+  var utmSource = (new URLSearchParams(location.search).get('utm_source') || 'website').slice(0, 40);
   var forms = document.querySelectorAll('[data-newsletter-form]');
   forms.forEach(function(form){
     var status = form.parentElement.querySelector('[data-newsletter-status]')
@@ -1230,7 +1233,7 @@ function footer() {
         var res = await fetch(endpoint, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email: email, utm_source: 'website' })
+          body: JSON.stringify({ email: email, utm_source: utmSource })
         });
         if (!res.ok) {
           var data = await res.json().catch(function(){ return {}; });
@@ -1238,6 +1241,7 @@ function footer() {
         }
         form.style.display = 'none';
         if (status) { status.textContent = "You're in. Dispatch lands every Monday."; status.setAttribute('data-state', 'ok'); }
+        if (typeof gtag === 'function') gtag('event', 'newsletter_signup', { source: utmSource });
       } catch (err) {
         if (status) { status.textContent = err.message || 'Try again in a moment.'; status.setAttribute('data-state', 'err'); }
         if (btn) btn.disabled = false;
