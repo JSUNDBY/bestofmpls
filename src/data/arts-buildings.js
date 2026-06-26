@@ -30,8 +30,8 @@ module.exports = {
       name: 'California Building',
       neighborhood: 'Northeast Minneapolis',
       style: 'Historic industrial, artist studios and galleries',
-      description: 'A historic industrial building in the heart of the Northeast arts district, housing artist studios and galleries including the long-running Rosalux Gallery. Part of what makes the neighborhood feel like a walkable arts district rather than a cluster of individual venues.',
-      address: '1400 Van Buren St NE, Minneapolis',
+      description: 'A historic industrial building in the heart of the Northeast arts district, home to more than 80 artist studios and galleries across its floors. One of the anchors that makes the neighborhood feel like a walkable arts district rather than a cluster of individual venues.',
+      address: '2205 California St NE, Minneapolis',
       website: 'https://californiabuilding.com/',
       tags: ['arts', 'studio', 'gallery'],
       access: 'Open studios on Second Saturdays each month. Gallery hours otherwise vary by tenant. Also participates in Art-A-Whirl. Check californiabuilding.com for dates.'

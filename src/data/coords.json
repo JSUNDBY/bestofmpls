@@ -1849,5 +1849,9 @@
   "651 Cleveland Ave S, St. Paul": {
     "lat": 44.9218955,
     "lng": -93.1877927
+  },
+  "2205 California St NE, Minneapolis": {
+    "lat": 45.0106916,
+    "lng": -93.2685159
   }
 }
