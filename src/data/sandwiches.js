@@ -93,6 +93,15 @@ module.exports = {
       description: 'A small West Seventh Italian-American restaurant whose lunch sandwiches deserve more attention than they get. Meatball subs, Italian beef, and a roasted-pepper-and-mortadella that is one of the best sandwiches in St. Paul on any given Tuesday.',
       address: '786 Randolph Ave, St. Paul',
       price: '$$'
+    },
+    {
+      name: 'Cecil&#8217;s Deli',
+      neighborhood: 'Highland Park, St. Paul',
+      style: 'Classic Jewish deli, since 1949',
+      description: 'The last of the true established delis in Minnesota, run by the Glickman family in Highland Park since 1949. The Reuben is the order, the matzo ball soup is the cure, and the corned beef and pastrami are cut the way they should be. Eat in at the restaurant or hit the deli counter for a pound to take home.',
+      address: '651 Cleveland Ave S, St. Paul',
+      website: 'https://cecilsdeli.com',
+      price: '$$'
     }
   ]
 };
