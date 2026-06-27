@@ -6326,3 +6326,28 @@ html[data-mode="dark"] .entry-reserve {
   letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-soft);
 }
 .guide-pick-why { font-family: var(--font-body); font-size: 15px; line-height: 1.55; color: var(--ink-soft); margin-top: 3px; }
+
+/* ===== Pride weekend ===== */
+.pride-rule, .pride-banner-rule {
+  height: 4px;
+  background: linear-gradient(90deg, #e40303 0 16.6%, #ff8c00 16.6% 33.3%, #ffed00 33.3% 50%, #008026 50% 66.6%, #004dff 66.6% 83.3%, #750787 83.3% 100%);
+}
+.pride-banner {
+  display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+  border: 1px solid var(--rule); border-radius: 8px; overflow: hidden;
+  margin: 16px var(--gutter); padding: 0; max-width: calc(var(--max-w) - 0px);
+  margin-left: auto; margin-right: auto; background: var(--paper-2);
+}
+.pride-banner .pride-banner-rule { width: 8px; height: auto; align-self: stretch; flex: none; }
+.pride-banner-text { font-family: var(--font-body); font-size: 15.5px; color: var(--ink); padding: 14px 0; flex: 1 1 240px; }
+.pride-banner-go { font-family: var(--font-label); font-weight: 700; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--clay); padding-right: 18px; white-space: nowrap; }
+.pride-banner:hover .pride-banner-go { text-decoration: underline; }
+
+.pride-essentials { margin-top: 8px; }
+.pride-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; max-width: 900px; }
+.pride-card { border-top: 2px solid var(--clay); padding-top: 14px; }
+.pride-card-when { font-family: var(--font-label); font-weight: 600; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--clay); }
+.pride-card-name { font-family: var(--font-display); font-weight: 700; font-size: 20px; margin: 4px 0 2px; color: var(--ink); }
+.pride-card-where { font-family: var(--font-body); font-size: 14px; color: var(--ink-soft); }
+.pride-card-detail { font-family: var(--font-body); font-size: 15px; line-height: 1.55; color: var(--ink-soft); margin: 8px 0 0; }
+.pride-also { font-family: var(--font-body); font-size: 14px; color: var(--ink-soft); margin-top: 18px; max-width: 720px; }

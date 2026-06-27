@@ -414,6 +414,7 @@ const lectures = require(path.join(SRC, 'data/lectures.js'));
 const foodTrucks = require(path.join(SRC, 'data/food-trucks.js'));
 const openings = require(path.join(SRC, 'data/openings.js'));
 const guides = require(path.join(SRC, 'data/guides.js'));
+const pride = require(path.join(SRC, 'data/pride.js'));
 const liveMusic    = require(path.join(SRC, 'data/live-music.js'));
 const theaters     = require(path.join(SRC, 'data/theaters.js'));
 const coffee       = require(path.join(SRC, 'data/coffee.js'));
@@ -834,7 +835,7 @@ ${GSC_VERIFICATION ? `<meta name="google-site-verification" content="${esc(GSC_V
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600;700&family=Source+Sans+3:wght@400;600&family=Archivo:wght@500;600;700&family=Archivo+Narrow:wght@600;700&display=swap">
-<link rel="stylesheet" href="/style.css?v=45">
+<link rel="stylesheet" href="/style.css?v=46">
 <script>
 // Set color mode before paint to avoid flash. Reads localStorage first,
 // falls back to light mode (the new editorial default). mode-ready class
@@ -1630,6 +1631,12 @@ function renderHome() {
         </ul>
       </div>
     </section>
+    ${TODAY_ISO <= '2026-06-28' ? `
+    <a class="pride-banner" href="/pride/">
+      <span class="pride-banner-rule" aria-hidden="true"></span>
+      <span class="pride-banner-text"><strong>Happy Pride.</strong> The free festival, the parade down Hennepin, and where to celebrate all weekend.</span>
+      <span class="pride-banner-go">Pride weekend guide →</span>
+    </a>` : ''}
     <section class="concierge" aria-label="Tonight in the metro" data-sunset="${rightnowData ? esc(rightnowData.sun.set_24 || rightnowData.sun.set) : ''}">
       <div class="wrap concierge-inner">
         <header class="concierge-head">
@@ -2578,7 +2585,7 @@ function renderAdminPicks() {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>${esc(title)}</title>
-<link rel="stylesheet" href="/style.css?v=45">
+<link rel="stylesheet" href="/style.css?v=46">
 <style>
   body { background: var(--paper); }
   .admin-wrap { max-width: 960px; margin: 0 auto; padding: 32px var(--gutter) 96px; }
@@ -5770,6 +5777,50 @@ function render404() {
     footer();
 }
 
+// ---------- Twin Cities Pride weekend guide ----------
+function renderPride() {
+  // Nightlife pulled from the existing LGBTQ+ category (skip the festival meta-entry).
+  const nightlife = (lgbtq.entries || []).filter(e => e.name !== 'Twin Cities Pride');
+  const essentials = (pride.essentials || []).map(e => `
+    <div class="pride-card">
+      <div class="pride-card-when">${esc(e.when)}</div>
+      <h3 class="pride-card-name">${e.url ? `<a href="${esc(e.url)}" target="_blank" rel="noopener">${esc(e.name)}</a>` : esc(e.name)}</h3>
+      <div class="pride-card-where">${esc(e.where)}</div>
+      <p class="pride-card-detail">${esc(e.detail)}</p>
+    </div>`).join('');
+  const bars = nightlife.map(e => `
+    <a class="guide-pick" href="/lgbtq-nightlife/${entrySlug(e.name)}/">
+      <span class="guide-pick-rank">★</span>
+      <span class="guide-pick-body">
+        <span class="guide-pick-name">${esc(e.name)}</span>
+        ${e.neighborhood ? `<span class="guide-pick-hood">${esc(e.neighborhood)}</span>` : ''}
+        ${e.description ? `<span class="guide-pick-why">${esc(e.description.split('. ')[0])}.</span>` : ''}
+      </span>
+    </a>`).join('');
+
+  return head({ title: pride.title, description: pride.seoDescription, slug: 'pride', theme: 'midnight' }) +
+    header({ activeSlug: '' }) +
+    `<div class="pride-rule" aria-hidden="true"></div>
+    <section class="section-head">
+      <div class="wrap">
+        <div class="section-eyebrow">This weekend</div>
+        <h1 class="section-title">${esc(pride.h1)}</h1>
+        <p class="section-deck">${esc(pride.intro)}</p>
+      </div>
+    </section>
+    <section class="wrap pride-essentials">
+      <h2 class="truck-finder-subhead">The essentials</h2>
+      <div class="pride-cards">${essentials}</div>
+      ${pride.alsoNote ? `<p class="pride-also">${esc(pride.alsoNote)}</p>` : ''}
+    </section>
+    <section class="wrap">
+      <h2 class="truck-finder-subhead">Where to celebrate</h2>
+      <div class="guide-list">${bars}</div>
+      <p class="pride-also">More on the <a href="/lgbtq-nightlife/">LGBTQ+ nightlife guide</a>, and check the <a href="/calendar/">calendar</a> for Pride-weekend shows.</p>
+    </section>` +
+    footer();
+}
+
 // ---------- SEO guide pages (curated cross-cuts of existing entries) ----------
 function renderGuide(g) {
   const picks = (g.picks || []).map(p => {
@@ -5846,6 +5897,7 @@ function renderSitemap(neighborhoods, crossPages) {
     ...(scenes.scenes || []).map(s => ({ loc: `${SITE}/scenes/${s.slug}/`, priority: '0.7' })),
     ...(featuredEvts.events || []).map(ev => ({ loc: `${SITE}/${ev.slug}/`, priority: '0.95' })),
     ...guides.map(g => ({ loc: `${SITE}/${g.slug}/`, priority: '0.85' })),
+    { loc: SITE + '/pride/', priority: '0.85' },
     ...categories.map(c => ({ loc: `${SITE}/${c.slug}/`, priority: '0.9' })),
     ...resolveVenues().map(v => ({ loc: `${SITE}/calendar/venue/${v.slug}/`, priority: '0.8' })),
     ...(neighborhoods || []).map(nb => ({ loc: `${SITE}/neighborhoods/${nb.slug}/`, priority: '0.8' })),
@@ -5913,6 +5965,7 @@ function build() {
   for (const c of categories) writeFile(`${c.slug}/index.html`, renderCategory(c));
   for (const g of guides) writeFile(`${g.slug}/index.html`, renderGuide(g));
   console.log(`  → ${guides.length} guide pages`);
+  writeFile('pride/index.html', renderPride());
 
   // Per-entry detail pages. ~350 of them, each at /{c.slug}/{entry-slug}/.
   // Build the indexable surface area Google can crawl for long-tail searches
