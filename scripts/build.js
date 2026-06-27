@@ -412,6 +412,8 @@ const museums      = require(path.join(SRC, 'data/museums.js'));
 const artsBuildings = require(path.join(SRC, 'data/arts-buildings.js'));
 const lectures = require(path.join(SRC, 'data/lectures.js'));
 const foodTrucks = require(path.join(SRC, 'data/food-trucks.js'));
+const openings = require(path.join(SRC, 'data/openings.js'));
+const guides = require(path.join(SRC, 'data/guides.js'));
 const liveMusic    = require(path.join(SRC, 'data/live-music.js'));
 const theaters     = require(path.join(SRC, 'data/theaters.js'));
 const coffee       = require(path.join(SRC, 'data/coffee.js'));
@@ -598,7 +600,9 @@ const categories = [
   // Stay & Do
   hotels, outdoors, wellness, hiddenGems, curiosities, pool,
   // Calendar
-  festivals
+  festivals,
+  // Standalone (builds its own page, kept out of the homepage clusters)
+  openings
 ];
 
 // ---------- Helpers ----------
@@ -830,7 +834,7 @@ ${GSC_VERIFICATION ? `<meta name="google-site-verification" content="${esc(GSC_V
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600;700&family=Source+Sans+3:wght@400;600&family=Archivo:wght@500;600;700&family=Archivo+Narrow:wght@600;700&display=swap">
-<link rel="stylesheet" href="/style.css?v=44">
+<link rel="stylesheet" href="/style.css?v=45">
 <script>
 // Set color mode before paint to avoid flash. Reads localStorage first,
 // falls back to light mode (the new editorial default). mode-ready class
@@ -1063,6 +1067,14 @@ function footer() {
       <span class="footer-daily-label">Daily ·</span>
       <nav class="footer-daily-nav">
         ${dailyLinks.map(l => `<a href="${l.href}">${esc(l.label)}</a>`).join('')}
+      </nav>
+    </div>
+
+    <div class="footer-daily">
+      <span class="footer-daily-label">Guides ·</span>
+      <nav class="footer-daily-nav">
+        <a href="/new/">New &amp; Notable</a>
+        ${guides.map(g => `<a href="/${g.slug}/">${esc(g.h1.replace(/^The /, '').replace(/ in the Twin Cities$/, ''))}</a>`).join('')}
       </nav>
     </div>
 
@@ -1621,7 +1633,7 @@ function renderHome() {
     <section class="concierge" aria-label="Tonight in the metro" data-sunset="${rightnowData ? esc(rightnowData.sun.set_24 || rightnowData.sun.set) : ''}">
       <div class="wrap concierge-inner">
         <header class="concierge-head">
-          <span class="concierge-eyebrow">Tonight</span>
+          <span class="concierge-eyebrow">Tonight${(function(){ const n = (eventsData.events || []).filter(e => isShowEvent(e) && e.date === TODAY_ISO).length; return n > 0 ? ` · ${n} happening` : ''; })()}</span>
           <h2 class="concierge-headline">${esc((function(){ const [y,m,d] = TODAY_ISO.split('-').map(Number); return new Date(y, m-1, d).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' }); })()).toUpperCase()}</h2>
           <p class="concierge-deck">${esc(seasonalLine(rightnowData))}</p>
           ${rightnowData ? `
@@ -2566,7 +2578,7 @@ function renderAdminPicks() {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>${esc(title)}</title>
-<link rel="stylesheet" href="/style.css?v=44">
+<link rel="stylesheet" href="/style.css?v=45">
 <style>
   body { background: var(--paper); }
   .admin-wrap { max-width: 960px; margin: 0 auto; padding: 32px var(--gutter) 96px; }
@@ -5758,6 +5770,55 @@ function render404() {
     footer();
 }
 
+// ---------- SEO guide pages (curated cross-cuts of existing entries) ----------
+function renderGuide(g) {
+  const picks = (g.picks || []).map(p => {
+    let mod; try { mod = require(path.join(SRC, 'data', p.category + '.js')); } catch (_) { return null; }
+    const e = (mod.entries || []).find(x => entrySlug(x.name) === entrySlug(p.name));
+    if (!e) return null;
+    return { e, why: p.why, href: `/${mod.slug}/${entrySlug(e.name)}/` };
+  }).filter(Boolean);
+
+  const cards = picks.map((p, i) => `
+    <a class="guide-pick" href="${esc(p.href)}">
+      <span class="guide-pick-rank">${i + 1}</span>
+      <span class="guide-pick-body">
+        <span class="guide-pick-name">${esc(p.e.name)}</span>
+        ${p.e.neighborhood ? `<span class="guide-pick-hood">${esc(p.e.neighborhood)}</span>` : ''}
+        <span class="guide-pick-why">${esc(p.why)}</span>
+      </span>
+    </a>`).join('');
+
+  const itemList = {
+    '@context': 'https://schema.org', '@type': 'ItemList',
+    name: g.h1,
+    itemListElement: picks.map((p, i) => ({
+      '@type': 'ListItem', position: i + 1, name: p.e.name, url: `${SITE}${p.href}`
+    }))
+  };
+  const breadcrumb = {
+    '@context': 'https://schema.org', '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Best of MPLS', item: SITE },
+      { '@type': 'ListItem', position: 2, name: g.h1, item: `${SITE}/${g.slug}/` }
+    ]
+  };
+
+  return head({ title: g.title, description: g.seoDescription, slug: g.slug, theme: 'forest' }) +
+    header({ activeSlug: '' }) +
+    `<section class="section-head">
+      <div class="wrap">
+        <div class="section-eyebrow">${picks.length} picks</div>
+        <h1 class="section-title">${esc(g.h1)}</h1>
+        <p class="section-deck">${esc(g.intro)}</p>
+      </div>
+    </section>
+    <section class="wrap guide-list">${cards}</section>
+    <script type="application/ld+json">${JSON.stringify(itemList)}</script>
+    <script type="application/ld+json">${JSON.stringify(breadcrumb)}</script>` +
+    footer();
+}
+
 function renderSitemap(neighborhoods, crossPages) {
   const urls = [
     { loc: SITE + '/', priority: '1.0' },
@@ -5784,6 +5845,7 @@ function renderSitemap(neighborhoods, crossPages) {
     { loc: SITE + '/scenes/', priority: '0.8' },
     ...(scenes.scenes || []).map(s => ({ loc: `${SITE}/scenes/${s.slug}/`, priority: '0.7' })),
     ...(featuredEvts.events || []).map(ev => ({ loc: `${SITE}/${ev.slug}/`, priority: '0.95' })),
+    ...guides.map(g => ({ loc: `${SITE}/${g.slug}/`, priority: '0.85' })),
     ...categories.map(c => ({ loc: `${SITE}/${c.slug}/`, priority: '0.9' })),
     ...resolveVenues().map(v => ({ loc: `${SITE}/calendar/venue/${v.slug}/`, priority: '0.8' })),
     ...(neighborhoods || []).map(nb => ({ loc: `${SITE}/neighborhoods/${nb.slug}/`, priority: '0.8' })),
@@ -5849,6 +5911,8 @@ function build() {
 
   writeFile('index.html', renderHome());
   for (const c of categories) writeFile(`${c.slug}/index.html`, renderCategory(c));
+  for (const g of guides) writeFile(`${g.slug}/index.html`, renderGuide(g));
+  console.log(`  → ${guides.length} guide pages`);
 
   // Per-entry detail pages. ~350 of them, each at /{c.slug}/{entry-slug}/.
   // Build the indexable surface area Google can crawl for long-tail searches

@@ -6305,3 +6305,24 @@ html[data-mode="dark"] .entry-reserve {
   font-family: var(--font-body); font-size: 15px; line-height: 1.6;
   color: var(--ink-soft); margin: 0 0 16px; max-width: 680px;
 }
+
+/* ===== SEO guide pages (curated cross-cut lists) ===== */
+.guide-list { display: grid; gap: 0; max-width: 820px; margin-top: 8px; }
+.guide-pick {
+  display: flex; gap: 18px; align-items: baseline;
+  padding: 20px 0; border-bottom: 1px solid var(--rule);
+  transition: transform 0.18s ease;
+}
+.guide-pick:hover { transform: translateX(4px); }
+.guide-pick:last-child { border-bottom: none; }
+.guide-pick-rank {
+  font-family: var(--font-label); font-weight: 700; font-size: 14px;
+  color: var(--clay); min-width: 26px; flex: none; font-variant-numeric: tabular-nums;
+}
+.guide-pick-body { display: flex; flex-direction: column; gap: 3px; }
+.guide-pick-name { font-family: var(--font-display); font-weight: 700; font-size: 21px; color: var(--ink); }
+.guide-pick-hood {
+  font-family: var(--font-label); font-weight: 600; font-size: 11px;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-soft);
+}
+.guide-pick-why { font-family: var(--font-body); font-size: 15px; line-height: 1.55; color: var(--ink-soft); margin-top: 3px; }
