@@ -9,7 +9,10 @@
  * API: https://icehouse.turntabletickets.com/api/performance/?page_size=200
  *   { count, pageSize, results: [{ id, datetime, show: { id, name, description, image, price_per_person } }] }
  *
- * Show ticket URL: https://icehouse.turntabletickets.com/shows/{show.id}/
+ * Show ticket URL: https://icehouse.turntabletickets.com/p/{perf.id}/
+ *   NOTE: the /shows/{show.id}/ route 404s on a cold load (no SPA rewrite on
+ *   that path). The /p/{performance.id}/ route serves the app shell (200) and
+ *   resolves to the show, so that is the shareable deep link.
  */
 
 const { slugify } = require('./_helpers');
@@ -122,7 +125,7 @@ async function scrape() {
         city: 'Minneapolis',
         category: 'music',
         subtitle: subtitle(show.description),
-        url: `https://icehouse.turntabletickets.com/shows/${show.id}/`,
+        url: `https://icehouse.turntabletickets.com/p/${perf.id}/?utm_source=bestofmpls.com&utm_medium=referral`,
         image: show.image || null,
         price: priceStr(show.price_per_person),
         age: null,
