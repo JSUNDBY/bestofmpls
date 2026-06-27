@@ -3564,31 +3564,58 @@ function renderCalendar() {
 // location with a street address, so pass the resolved venue record when
 // one exists (its live-music directory entry carries the address). Returns
 // a plain object ready for JSON.stringify inside an ld+json script.
+// Add `h` hours to a date+time and return an ISO string in the same -05:00
+// offset the startDate uses, with correct day rollover (a 10pm + 3h show ends
+// at 1am the next day). Used to supply a sensible endDate when the source
+// doesn't give one.
+function plusHoursISO(dateStr, timeStr, h) {
+  const dt = new Date(`${dateStr}T${timeStr}:00-05:00`);
+  const local = new Date(dt.getTime() + h * 3600000 - 5 * 3600000);
+  const p = n => String(n).padStart(2, '0');
+  return `${local.getUTCFullYear()}-${p(local.getUTCMonth() + 1)}-${p(local.getUTCDate())}T${p(local.getUTCHours())}:${p(local.getUTCMinutes())}:00-05:00`;
+}
+
 function eventJsonLd(e, venue) {
   const inStPaul = /\bst\.?\s*paul|saint paul/i.test(e.venue_neighborhood || e.city || '');
   const address = { '@type': 'PostalAddress', addressLocality: inStPaul ? 'Saint Paul' : 'Minneapolis', addressRegion: 'MN' };
   if (venue && venue.directory && venue.directory.address) address.streetAddress = venue.directory.address;
+  // Description: prefer the scraped subtitle; otherwise a plain, true sentence.
+  const description = (e.subtitle && e.subtitle.trim())
+    ? e.subtitle.trim()
+    : `${e.title} at ${e.venue}${e.venue_neighborhood ? ' in ' + e.venue_neighborhood : ''}.`;
   const obj = {
     '@type': 'Event',
     name: e.title,
+    description,
     startDate: e.time ? `${e.date}T${e.time}:00-05:00` : e.date,
+    endDate: e.end_date || (e.time ? plusHoursISO(e.date, e.time, 3) : e.date),
     eventStatus: 'https://schema.org/EventScheduled',
     eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
     location: { '@type': 'Place', name: e.venue, address },
+    // Real show image when we scraped one, else the site's branded fallback.
+    image: e.image || `${SITE}/og-image.png`,
     organizer: { '@type': 'Organization', name: e.venue }
   };
-  if (e.end_date) obj.endDate = e.end_date;
-  if (e.image) obj.image = e.image;
+  // Performer only where the title genuinely names the act (concerts, shows).
+  if (e.category === 'music' || e.category === 'performance' || !e.category) {
+    obj.performer = { '@type': 'PerformingGroup', name: e.title };
+  }
   if (e.url) obj.url = e.url;
   if (venue && venue.directory && venue.directory.website) obj.organizer.url = venue.directory.website;
+  // Always provide an Offer with a real ticket/info URL. Add a price only when
+  // we actually know it — never fabricate one.
+  const offers = {
+    '@type': 'Offer',
+    availability: 'https://schema.org/InStock',
+    url: e.url || (venue && venue.directory && venue.directory.website) || `${SITE}/calendar/`
+  };
   if (e.price) {
     const free = /free/i.test(e.price);
     const m = /(\d+(?:\.\d{1,2})?)/.exec(e.price);
-    if (free || m) {
-      obj.offers = { '@type': 'Offer', price: free ? '0' : m[1], priceCurrency: 'USD' };
-      if (e.url) obj.offers.url = e.url;
-    }
+    if (free) { offers.price = '0'; offers.priceCurrency = 'USD'; }
+    else if (m) { offers.price = m[1]; offers.priceCurrency = 'USD'; }
   }
+  obj.offers = offers;
   return obj;
 }
 
@@ -4241,6 +4268,7 @@ function renderFeaturedEvent(ev) {
     '@type': 'Festival',
     name: `${ev.name} ${ev.year}`,
     description: ev.intro,
+    image: ev.image || `${SITE}/og-image.png`,
     startDate: ev.starts,
     endDate: ev.ends,
     eventStatus: 'https://schema.org/EventScheduled',
