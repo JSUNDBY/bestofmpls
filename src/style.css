@@ -6351,3 +6351,23 @@ html[data-mode="dark"] .entry-reserve {
 .pride-card-where { font-family: var(--font-body); font-size: 14px; color: var(--ink-soft); }
 .pride-card-detail { font-family: var(--font-body); font-size: 15px; line-height: 1.55; color: var(--ink-soft); margin: 8px 0 0; }
 .pride-also { font-family: var(--font-body); font-size: 14px; color: var(--ink-soft); margin-top: 18px; max-width: 720px; }
+
+/* ===== Calendar filters on phones =====
+   Was a sticky block of wrapped chips (~560px, two-thirds of an iPhone screen)
+   pinned while scrolling. On mobile: not sticky (scrolls away as you browse),
+   and each filter is a single horizontally-swipeable row instead of wrapping. */
+@media (max-width: 720px) {
+  .cal-controls { position: static; padding: 12px 0; }
+  .cal-controls-inner { gap: 12px; }
+  .cal-filter-group { flex-direction: column; align-items: stretch; gap: 7px; width: 100%; }
+  .cal-filter-group + .cal-filter-group { margin-top: 0; }
+  .cal-chip-row {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 4px;
+  }
+  .cal-chip-row::-webkit-scrollbar { display: none; }
+  .cal-chip { flex: 0 0 auto; white-space: nowrap; }
+}
