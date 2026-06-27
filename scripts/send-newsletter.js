@@ -99,29 +99,59 @@ function weekLabel() {
 
 // ── Data loading ──────────────────────────────────────────────────────────────
 
+// Titles that aren't "shows" you'd put on a what's-on onesheet.
+const NOISE = /\b(yoga|trivia|bingo|karaoke|open mic|open-mic|happy hour|brunch|story ?time|book club|class|workshop|market|paint|craft night|meeting|networking|drag brunch)\b/i;
+
+// Venue → music scene. Accurate at the venue level (these rooms book this way),
+// which is what lets the newsletter read as an overview "by type" without
+// guessing each act's exact genre. Anything unmapped falls to "Around the clubs".
+const SCENES = [
+  { key: 'jazz',  label: 'Jazz & supper clubs',     venues: ['Dakota Jazz Club', 'Crooners Supper Club', 'Berlin'] },
+  { key: 'rock',  label: 'Rock, indie & touring',   venues: ['First Avenue', '7th St Entry', 'Fine Line', 'Turf Club', 'Palace Theatre', 'Varsity Theater', 'Amsterdam Bar & Hall', 'The Armory'] },
+  { key: 'folk',  label: 'Folk, world & roots',     venues: ['The Cedar Cultural Center'] },
+  { key: 'clubs', label: 'Around the clubs',        venues: ['Icehouse', 'White Squirrel Bar', 'The 331 Club', 'Hook & Ladder', 'The Hook and Ladder Theater', 'The Parkway Theater', 'Parkway Theater', 'Hexagon Bar', 'Mortimer\'s', 'Green Room'] },
+];
+// The marquee rooms — their bookings lead the week.
+const MARQUEE = new Set(['First Avenue', '7th St Entry', 'Fine Line', 'Turf Club', 'Palace Theatre', 'The Cedar Cultural Center', 'Dakota Jazz Club', 'Varsity Theater', 'Walker Art Center', 'Amsterdam Bar & Hall', 'The Armory', 'Icehouse']);
+
+function sceneKey(venue) {
+  for (const s of SCENES) if (s.venues.includes(venue)) return s.key;
+  return 'clubs';
+}
+
+// Drop subtitles that are really door/price/time boilerplate, not a description,
+// and strip "read more" tails and run-together junk.
+function cleanSub(s) {
+  if (!s) return '';
+  let t = s.replace(/\s*[.…]*\s*read more.*$/i, '')   // "... Read More"
+           .replace(/\s+/g, ' ')
+           .trim();
+  if (t.length < 12) return '';
+  if (/^[A-Z0-9 $+•,\-|/@()\[\]:.\\%!]{10,}$/.test(t)) return '';            // all-caps header
+  if (/^(no cover|free|doors|cover|sets at|\$?\d{1,2})/i.test(t) && t.length < 42) return ''; // starts with price/door/time
+  if (/(no cover|doors?|advance tickets?|cover charge|\bGA\b|21\+|18\+|\bpm show\b)/i.test(t) && t.length < 48) return '';
+  return t.length > 120 ? t.slice(0, 117).replace(/\s+\S*$/, '') + '…' : t;
+}
+
+// Load the week's events, cleaned: in-window, no films, no non-show noise,
+// de-duplicated by title. Returns the full clean set; grouping/caps happen at
+// render time so each section can balance venues on its own.
 function loadEvents() {
   if (!fs.existsSync(EVENTS_FILE)) return [];
   const data = JSON.parse(fs.readFileSync(EVENTS_FILE, 'utf8'));
   const today = todayISO();
   const sunday = thisSunday();
-  const inWeek = (data.events || []).filter(e => e.date >= today && e.date <= sunday);
-
-  // Curate for a readable dispatch, not a raw dump:
-  //  - collapse repeated titles (a movie with four showtimes becomes one line)
-  //  - cap any single venue so one room can't take over the week
   const norm = s => String(s || '').toLowerCase().replace(/[^a-z0-9]+/g, '');
-  const seenTitle = new Set();
-  const perVenue = new Map();
+  const seen = new Set();
   const out = [];
-  for (const e of inWeek) {
+  for (const e of (data.events || [])) {
+    if (e.date < today || e.date > sunday) continue;
+    if (e.category === 'film') continue;          // movie showtimes aren't shows
+    if (NOISE.test(e.title)) continue;            // yoga, trivia, brunch, etc.
     const t = norm(e.title);
-    if (seenTitle.has(t)) continue;
-    const v = norm(e.venue);
-    if ((perVenue.get(v) || 0) >= 3) continue; // max 3 per venue
-    seenTitle.add(t);
-    perVenue.set(v, (perVenue.get(v) || 0) + 1);
+    if (seen.has(t)) continue;                    // collapse repeated titles
+    seen.add(t);
     out.push(e);
-    if (out.length >= 14) break;
   }
   return out;
 }
@@ -181,36 +211,92 @@ function divider() {
   return `<tr><td style="padding:30px 32px 0 32px;"><div style="border-top:1px solid ${C.rule};font-size:0;line-height:0;">&nbsp;</div></td></tr>`;
 }
 
-function eventsHtml(events) {
+// Short day stamp for the week-overview rows, e.g. "Fri · Jun 27".
+function fmtDay(iso) {
+  const [y, m, d] = iso.split('-').map(Number);
+  return new Date(y, m - 1, d).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+}
+
+// One show row. `lead` makes the title bigger and always shows the blurb (used
+// for the headliners). Otherwise the blurb is shown only when we have a real one.
+function showRow(s, lead) {
+  const title = s.url
+    ? `<a href="${s.url}" style="color:${C.ink};text-decoration:none;">${s.title}</a>`
+    : s.title;
+  const meta = [s.venue, fmtDay(s.date), (s.time ? fmtTime(s.time).replace(/^ · /, '') : ''), s.price]
+    .filter(Boolean).join('  ·  ');
+  const sub = cleanSub(s.subtitle);
+  return `<tr><td style="padding:${lead ? 16 : 13}px 32px 0 32px;">
+    <div style="font:${lead ? 700 : 600} ${lead ? 18 : 16}px/1.35 ${FONT};color:${C.ink};">${title}</div>
+    <div style="font:400 13px/1.4 ${FONT};color:${C.clay};margin-top:3px;">${meta}</div>
+    ${sub ? `<div style="font:400 14px/1.5 ${FONT};color:${C.soft};margin-top:4px;">${sub}</div>` : ''}
+  </td></tr>`;
+}
+
+// A labelled group with a tight list of shows.
+function groupBlock(label, shows) {
+  if (!shows.length) return '';
+  return `<tr><td style="padding:24px 32px 0 32px;">
+      <div style="font:700 13px/1 ${FONT};letter-spacing:0.06em;text-transform:uppercase;color:${C.ink};border-bottom:2px solid ${C.clay};padding-bottom:6px;display:inline-block;">${label}</div>
+    </td></tr>` + shows.map(s => showRow(s, false)).join('');
+}
+
+// Spread picks across venues: at most `perVenue` from any one room, up to `max`.
+function spread(events, perVenue, max) {
+  const count = new Map();
+  const out = [];
+  for (const e of events) {
+    const c = count.get(e.venue) || 0;
+    if (c >= perVenue) continue;
+    count.set(e.venue, c + 1);
+    out.push(e);
+    if (out.length >= max) break;
+  }
+  return out;
+}
+
+function showsHtml(events) {
   if (!events.length) {
     return `<tr><td style="padding:14px 32px 0 32px;font:400 16px/1.6 ${FONT};color:${C.soft};">
       Quiet week on the calendar. The <a href="${SITE}/calendar/" style="color:${C.clay};text-decoration:none;font-weight:600;">full calendar</a> has anything that came in after this sent.
     </td></tr>`;
   }
-  const byDate = new Map();
-  for (const e of events) {
-    if (!byDate.has(e.date)) byDate.set(e.date, []);
-    byDate.get(e.date).push(e);
+  // Venue character beats the scraper's category: a concert at a music room is
+  // music even if the venue tags it "performance". Only genuine non-music stays
+  // in the stage bucket.
+  const inScene = e => SCENES.some(s => s.venues.includes(e.venue));
+  const music = events.filter(e => e.category === 'music' || inScene(e));
+  const stage = events.filter(e => e.category === 'performance' && !inScene(e));
+  const arts  = events.filter(e => e.category === 'art' || e.category === 'lecture');
+
+  // Headliners: marquee rooms first, blurbed shows ahead of bare ones, max 2 per
+  // venue so it's a true spread, then 5 across the week.
+  const used = new Set();
+  const headliners = spread(
+    music.filter(e => MARQUEE.has(e.venue))
+         .sort((a, b) => (cleanSub(b.subtitle) ? 1 : 0) - (cleanSub(a.subtitle) ? 1 : 0)),
+    2, 5
+  );
+  headliners.forEach(e => used.add(e.id));
+
+  const rest = music.filter(e => !used.has(e.id));
+  const sceneRows = SCENES.map(sc => {
+    const list = spread(rest.filter(e => sceneKey(e.venue) === sc.key), 2, 5);
+    list.forEach(e => used.add(e.id));
+    return groupBlock(sc.label, list);
+  }).join('');
+
+  let html = '';
+  if (headliners.length) {
+    html += `<tr><td style="padding:18px 32px 0 32px;">
+      <div style="font:700 13px/1 ${FONT};letter-spacing:0.06em;text-transform:uppercase;color:${C.ink};border-bottom:2px solid ${C.clay};padding-bottom:6px;display:inline-block;">The headliners</div>
+    </td></tr>` + headliners.map(s => showRow(s, true)).join('');
   }
-  let rows = '';
-  for (const [date, shows] of byDate) {
-    rows += `<tr><td style="padding:20px 32px 0 32px;">
-      <div style="font:700 12px/1 ${FONT};letter-spacing:0.08em;text-transform:uppercase;color:${C.faint};padding-bottom:4px;border-bottom:2px solid ${C.ink};display:inline-block;">${fmtDate(date)}</div>
-    </td></tr>`;
-    for (const s of shows) {
-      const title = s.url
-        ? `<a href="${s.url}" style="color:${C.ink};text-decoration:none;">${s.title}</a>`
-        : s.title;
-      const meta = [s.venue, (s.time ? fmtTime(s.time).replace(/^ · /, '') : ''), s.price]
-        .filter(Boolean).join('  ·  ');
-      rows += `<tr><td style="padding:12px 32px 0 32px;">
-        <div style="font:600 16px/1.35 ${FONT};color:${C.ink};">${title}</div>
-        ${meta ? `<div style="font:400 14px/1.4 ${FONT};color:${C.soft};margin-top:2px;">${meta}</div>` : ''}
-      </td></tr>`;
-    }
-  }
-  rows += `<tr><td style="padding:22px 32px 0 32px;">${button('See the full calendar', SITE + '/calendar/')}</td></tr>`;
-  return rows;
+  html += sceneRows;
+  html += groupBlock('Comedy & stage', spread(stage, 3, 5));
+  html += groupBlock('Arts & talks', spread(arts, 3, 5));
+  html += `<tr><td style="padding:24px 32px 0 32px;">${button('See the full calendar', SITE + '/calendar/')}</td></tr>`;
+  return html;
 }
 
 function happyHourHtml(pick) {
@@ -284,8 +370,8 @@ function buildHtml(events, happyHour, horoscope) {
       </td></tr>
       ${sponsorHtml()}
 
-      ${sectionHead('On the calendar', 'This week, by the day')}
-      ${eventsHtml(events)}
+      ${sectionHead('The week ahead', 'What\'s on, by scene')}
+      ${showsHtml(events)}
 
       ${divider()}
       ${sectionHead('Where to post up', 'Happy hour pick')}
