@@ -70,14 +70,6 @@ module.exports = {
       price: '$'
     },
     {
-      name: 'Town Talk Diner & Gastropub',
-      neighborhood: 'Lake Street, Minneapolis',
-      style: 'Retro neon',
-      description: 'The neon sign alone earns it a spot. Reopened after a long hiatus, the booths still creak, the cocktails are stronger than the food prices suggest, and the late-night kitchen hits exactly when you need it to.',
-      address: '2707 E Lake St, Minneapolis',
-      price: '$'
-    },
-    {
       name: 'Mickey’s Diner',
       neighborhood: 'Downtown St. Paul',
       style: 'Honorable mention, not a bar',

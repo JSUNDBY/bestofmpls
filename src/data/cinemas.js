@@ -37,7 +37,7 @@ module.exports = {
       name: 'Parkway Theater',
       neighborhood: 'South Minneapolis',
       style: 'Repertory + live events',
-      description: 'A South Minneapolis single-screen theater connected to Pepito’s Mexican Restaurant. The programming mixes repertory cinema, live comedy, and concerts. The room itself is small enough to feel like a private screening with friends.',
+      description: 'A South Minneapolis single-screen theater on Chicago Ave. The programming mixes repertory cinema, live comedy, and concerts. The room itself is small enough to feel like a private screening with friends.',
       address: 'South Minneapolis',
       website: 'https://theparkwaytheater.com',
       price: '$$'

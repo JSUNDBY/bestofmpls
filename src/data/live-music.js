@@ -215,7 +215,7 @@ module.exports = {
         eat:   'Al\'s Breakfast for the diner counter (line is part of the experience), or Mesa Pizza for slices on the way to the show.',
         drink: 'The Kitty Cat Klub or the Library Bar — both Dinkytown classics, both walking distance.',
         after: 'Mesa Pizza is open until 2:30 AM Fri-Sat — the canonical Dinkytown after-show stop.',
-        late:  'Mesa Pizza until 2:30 AM. Annie\'s Parlour for malts if it\'s still open (verify before going).'
+        late:  'Mesa Pizza until 2:30 AM is the canonical late stop in Dinkytown.'
       }
     },
     {

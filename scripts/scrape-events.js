@@ -46,7 +46,10 @@ const SCRAPERS = [
   require('./scrapers/umn-events.js'),
   require('./scrapers/hclib.js'),
   require('./scrapers/loft.js'),
-  require('./scrapers/mnhs.js')
+  require('./scrapers/mnhs.js'),
+  // More music venues
+  require('./scrapers/whitesquirrel.js'),
+  require('./scrapers/crooners.js')
 ];
 
 function parseArgs() {

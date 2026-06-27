@@ -18,7 +18,7 @@ module.exports = {
       name: 'Quang Restaurant',
       neighborhood: 'Eat Street, Minneapolis',
       style: 'Vietnamese, banh mi anchor',
-      description: 'A James Beard America’s Classic and the banh mi the rest of the city is judged by. Five dollars gets you a sandwich that has been quietly perfected over four decades. The cured pork with pâté is the move. The pho is the meal you order alongside it.',
+      description: 'The banh mi the rest of the city is judged by. A few dollars gets you a sandwich that has been quietly perfected over four decades on Eat Street. The cured pork with pâté is the move. The pho is the meal you order alongside it.',
       address: '2719 Nicollet Ave, Minneapolis',
       price: '$'
     },

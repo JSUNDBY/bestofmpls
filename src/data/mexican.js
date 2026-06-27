@@ -10,7 +10,7 @@ module.exports = {
       name: 'Centro',
       neighborhood: 'Northeast Minneapolis',
       style: 'Casual modern taqueria',
-      description: 'A Northeast taco bar from chef Jami Olson. Fresh masa for the tortillas, a tight rotating menu, and a bar program that takes mezcal as seriously as the kitchen takes the al pastor. The kind of place you end up at on a random Wednesday and remember why you live here.',
+      description: 'A Northeast taco bar from restaurateur Jami Olson and chef Jose Alarcon. Fresh masa for the tortillas, a tight rotating menu, and a bar program that takes mezcal as seriously as the kitchen takes the al pastor. The kind of place you end up at on a random Wednesday and remember why you live here.',
       address: 'Northeast Minneapolis',
       price: '$$'
     },
@@ -68,14 +68,6 @@ module.exports = {
       style: 'Yucatecan',
       description: 'A Northeast institution focused on Yucatecan dishes you do not see elsewhere in the metro. Cochinita pibil, papadzules, salbutes. The horchata is made fresh and the whole place feels like a long quiet lunch even on a Tuesday.',
       address: 'Northeast Minneapolis',
-      price: '$$'
-    },
-        {
-      name: 'Pepito’s Mexican Restaurant',
-      neighborhood: 'Mpls',
-      style: 'Neighborhood Mexican-American',
-      description: 'A South Minneapolis neighborhood spot connected to the Parkway Theater. Margaritas in pitchers, enchiladas the way you remember them, and a dim warm room that has been the right move for cold-night dinners for decades.',
-      address: 'South Minneapolis',
       price: '$$'
     },
     {

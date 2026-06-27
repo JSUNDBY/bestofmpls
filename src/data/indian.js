@@ -10,7 +10,7 @@ module.exports = {
       name: 'Spice & Tonic',
       neighborhood: 'Downtown East, Minneapolis',
       style: 'North Indian, family-run',
-      description: 'A downtown Minneapolis spot near US Bank Stadium, run by the family of chef Joginder Cheema (his father co-founded Taste of India). North Indian classics done with serious depth, a flatbread program that holds up, and a bar that takes the cocktail half of the name seriously. Spice levels run 1 to 6.',
+      description: 'A downtown Minneapolis spot near US Bank Stadium from chef Joginder Cheema, who founded Taste of India, run with his family. North Indian classics done with serious depth, a flatbread program that holds up, and a bar that takes the cocktail half of the name seriously. Spice levels run 1 to 6.',
       address: '903 S Washington Ave, Minneapolis',
       price: '$$'
     },

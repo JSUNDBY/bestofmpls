@@ -106,7 +106,7 @@ module.exports = {
       name: 'Dangerous Man Brewing',
       neighborhood: 'Northeast Minneapolis',
       style: 'Beloved Northeast taproom, reborn',
-      description: 'The cult Northeast favorite that closed in 2023 and reopened in March 2026 in the former Headflyer space on East Hennepin, with founder Rob Miller back as head brewer. Cash-friendly history, a chocolate milk stout people drove across town for, and one of the most missed taprooms in the metro now pouring again.',
+      description: 'The cult Northeast favorite that closed in 2023 and reopened in June 2026 in the former Headflyer space on East Hennepin, with cofounder Rob Miller back as head brewer. Cash-friendly history, a chocolate milk stout people drove across town for, and one of the most missed taprooms in the metro now pouring again.',
       address: '861 E Hennepin Ave, Minneapolis',
       price: '$$'
     },

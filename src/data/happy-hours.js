@@ -72,15 +72,6 @@ module.exports = {
       hours: 'Mon–Thu 4–6pm; Mon half-off bottles 4pm–midnight'
     },
     {
-      name: 'Saffron Restaurant',
-      neighborhood: 'Warehouse District, Minneapolis',
-      style: 'Eastern Mediterranean',
-      description: 'Sameh Wadi\'s long-running Mediterranean restaurant runs a happy hour built around the bar menu\'s mezze board. Half-priced glasses of natural wine, lamb sliders, and hummus that has ruined every other hummus for you.',
-      address: '123 N 3rd St, Minneapolis',
-      price: '$$$',
-      hours: 'Tue–Sat 4–6pm at the bar'
-    },
-    {
       name: 'Char Bar',
       neighborhood: 'North Loop, Minneapolis',
       style: 'Cocktails and bar snacks at Butcher & the Boar',

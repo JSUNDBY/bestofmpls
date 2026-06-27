@@ -9,7 +9,7 @@ module.exports = {
     {
       name: 'Quang Restaurant',
       neighborhood: 'Whittier (Eat Street), Minneapolis',
-      style: 'Family-run, James Beard America’s Classic',
+      style: 'Family-run Eat Street institution',
       description: 'An Eat Street fixture since 1989. The pho is the draw, but the menu runs deep into bun, com, and a long list of weekend specials. Plain dining room, big bowls, fast service.',
       address: '2719 Nicollet Ave, Minneapolis',
       website: 'https://www.quang-restaurant.com',
