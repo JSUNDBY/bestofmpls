@@ -184,10 +184,10 @@ module.exports = {
     },
     {
       name: 'Rosalux Gallery',
-      neighborhood: 'Northeast Minneapolis',
+      neighborhood: 'Tangletown, Minneapolis',
       style: 'Artist cooperative, contemporary',
-      description: 'An artist-run cooperative serving Minnesota since 2002, now located in the California Building. Around twenty member artists rotate through monthly exhibitions of painting, printmaking, and mixed media. Open Saturdays and Sundays.',
-      address: '1400 Van Buren St NE, Suite 195, Minneapolis',
+      description: 'An artist-run cooperative serving Minnesota since 2002, in the Tangletown neighborhood of south Minneapolis. Around twenty member artists rotate through monthly exhibitions of painting, printmaking, and mixed media. Open Saturdays and Sundays.',
+      address: '315 W 48th St, Minneapolis',
       website: 'https://www.rosaluxgallery.com',
       price: 'Free'
     },
