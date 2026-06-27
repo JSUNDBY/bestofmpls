@@ -226,23 +226,24 @@ function buildCountdowns(now = centralNow()) {
 
   // forYear lets us evaluate a rule against either this year or next, so
   // the year-boundary roll is exact (e.g. The Great Northern in January).
+  // runDays = how many days the event runs, so a multi-day festival that has
+  // already started still reads as happening NOW instead of being skipped.
   const events = [
-    { name: 'Saint Paul Winter Carnival',  dateRule: y => new Date(y, 0, 22),         blurb: 'The oldest winter festival in the country opens.' },
-    { name: 'The Great Northern',          dateRule: y => new Date(y, 0, 22),         blurb: 'A ten-day cultural festival celebrating winter and climate.' },
-    { name: 'Loppet Festival',             dateRule: y => new Date(y, 1, 7),          blurb: 'Cross-country ski weekend at Theodore Wirth Park.' },
-    { name: 'May Day Parade in Powderhorn',dateRule: y => nthDowOf(y, 4, 0, 1),       blurb: "In the Heart of the Beast's annual procession through Powderhorn, on the first Sunday in May." },
-    { name: 'Art-A-Whirl',                 dateRule: y => nthDowOf(y, 4, 5, 3),       blurb: 'Northeast Minneapolis opens nearly every artist studio at once, on the third weekend in May.' },
-    { name: 'Twin Cities Pride',           dateRule: y => lastDowOf(y, 5, 6),         blurb: 'One of the largest Pride festivals in the country, last full weekend of June.' },
-    { name: 'Aquatennial',                 dateRule: y => new Date(y, 6, 16),         blurb: "Minneapolis's eleven-day midsummer festival." },
-    { name: 'Minnesota State Fair',        dateRule: y => stateFairStart(y),          blurb: 'Twelve days ending Labor Day. The largest state fair by daily attendance.' },
-    { name: 'Twin Cities Marathon',        dateRule: y => nthDowOf(y, 9, 0, 1),       blurb: 'Twenty-six miles from downtown Minneapolis to the State Capitol.' },
-    { name: 'Twin Cities Book Festival',   dateRule: y => nthDowOf(y, 9, 6, 3),       blurb: "The metro's largest free book festival, at the State Fairgrounds.", season: 'fall' },
-    { name: 'First frost (typical)',       dateRule: y => new Date(y, 9, 5),          blurb: 'When the metro typically sees its first overnight frost.', season: 'winter' },
-    { name: 'First snow (typical)',        dateRule: y => new Date(y, 10, 1),         blurb: 'When the metro typically sees its first measurable snowfall.', season: 'winter' }
+    { name: 'Saint Paul Winter Carnival',  runDays: 10, dateRule: y => new Date(y, 0, 22),   blurb: 'The oldest winter festival in the country opens.' },
+    { name: 'The Great Northern',          runDays: 10, dateRule: y => new Date(y, 0, 22),   blurb: 'A ten-day cultural festival celebrating winter and climate.' },
+    { name: 'Loppet Festival',             runDays: 3,  dateRule: y => new Date(y, 1, 7),    blurb: 'Cross-country ski weekend at Theodore Wirth Park.' },
+    { name: 'May Day Parade in Powderhorn',runDays: 1,  dateRule: y => nthDowOf(y, 4, 0, 1), blurb: "In the Heart of the Beast's annual procession through Powderhorn, on the first Sunday in May." },
+    { name: 'Art-A-Whirl',                 runDays: 3,  dateRule: y => nthDowOf(y, 4, 5, 3), blurb: 'Northeast Minneapolis opens nearly every artist studio at once, on the third weekend in May.' },
+    { name: 'Twin Cities Pride',           runDays: 2,  dateRule: y => lastDowOf(y, 5, 6),   blurb: 'One of the largest Pride festivals in the country, last full weekend of June.' },
+    { name: 'Aquatennial',                 runDays: 11, dateRule: y => new Date(y, 6, 16),   blurb: "Minneapolis's eleven-day midsummer festival." },
+    { name: 'Minnesota State Fair',        runDays: 12, dateRule: y => stateFairStart(y),    blurb: 'Twelve days ending Labor Day. The largest state fair by daily attendance.' },
+    { name: 'Twin Cities Marathon',        runDays: 1,  dateRule: y => nthDowOf(y, 9, 0, 1), blurb: 'Twenty-six miles from downtown Minneapolis to the State Capitol.' },
+    { name: 'Twin Cities Book Festival',   runDays: 2,  dateRule: y => nthDowOf(y, 9, 6, 3), blurb: "The metro's largest free book festival, at the State Fairgrounds.", season: 'fall' },
+    { name: 'First frost (typical)',       runDays: 1,  dateRule: y => new Date(y, 9, 5),    blurb: 'When the metro typically sees its first overnight frost.', season: 'winter' },
+    { name: 'First snow (typical)',        runDays: 1,  dateRule: y => new Date(y, 10, 1),   blurb: 'When the metro typically sees its first measurable snowfall.', season: 'winter' }
   ];
 
-  // Cutoff = midnight Central this morning, so any event happening today
-  // (with hours math truncated) shows as "0 days" and gets filtered out.
+  // Cutoff = midnight Central this morning.
   const cutoff = new Date(Y, now.getMonth(), now.getDate());
 
   // Hide winter-flavored countdowns (first frost, first snow) during the warm
@@ -254,13 +255,16 @@ function buildCountdowns(now = centralNow()) {
   const upcoming = events
     .filter(ev => !(isWarmSeason && ev.season === 'winter'))
     .map(ev => {
+      const run = ev.runDays || 1;
       let d = ev.dateRule(Y);
-      if (d < cutoff) d = ev.dateRule(Y + 1);
-      const days = Math.round((d - cutoff) / 86400000);
-      return { name: ev.name, date: `${d.getFullYear()}-${pad2(d.getMonth()+1)}-${pad2(d.getDate())}`, days, blurb: ev.blurb };
+      let startDays = Math.round((d - cutoff) / 86400000);
+      // Roll to next year only if the whole run is already past.
+      if (startDays + run - 1 < 0) { d = ev.dateRule(Y + 1); startDays = Math.round((d - cutoff) / 86400000); }
+      const now = startDays <= 0 && startDays > -run;   // underway right now
+      return { name: ev.name, date: `${d.getFullYear()}-${pad2(d.getMonth()+1)}-${pad2(d.getDate())}`, days: now ? 0 : startDays, now, blurb: ev.blurb };
     })
-    .filter(e => e.days > 0)
-    .sort((a, b) => a.days - b.days)
+    .filter(e => e.now || e.days > 0)
+    .sort((a, b) => (b.now ? 1 : 0) - (a.now ? 1 : 0) || a.days - b.days)   // happening-now first
     .slice(0, 6);
 
   return upcoming;

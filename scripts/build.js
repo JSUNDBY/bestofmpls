@@ -98,6 +98,13 @@ const IS_WARM_SEASON = CURRENT_MONTH >= 4 && CURRENT_MONTH <= 9;
 // register without re-doing the layout — one moment of editorial voice
 // between the data strip and the tools grid.
 function seasonalLine(rn) {
+  // Lead with what's actually happening now — a major festival underway beats
+  // a generic seasonal mood line.
+  const nowEv = ((rn && rn.countdowns) || []).find(c => c.now);
+  if (nowEv) {
+    if (/pride/i.test(nowEv.name)) return 'It is Pride weekend. The festival fills Loring Park and the parade runs down Hennepin on Sunday.';
+    return `${nowEv.name} is on right now. ${nowEv.blurb}`;
+  }
   if (rn && rn.weather) {
     const m = rn.weather.mood;
     if (m === 'patio')  return 'The patios are open. The light stays past eight. The metro is outside this week.';
@@ -128,49 +135,30 @@ function seasonalLine(rn) {
 function tonightConcierge(rn, eventsAll) {
   const picks = [];
   const today = (rn && rn.today) || TODAY_ISO;
-  const events = dedupeNonFilms((eventsAll || []).filter(e => isShowEvent(e) && e.date === today));
-  const mood = rn && rn.weather ? rn.weather.mood : null;
-  const tempMax = rn && rn.weather ? rn.weather.temp_max : null;
+  // Tonight = real shows only: no films, no classes/recurring noise (yoga,
+  // trivia, brunch), and prefer the evening over a morning slot.
+  const events = dedupeNonFilms((eventsAll || [])
+    .filter(e => isShowEvent(e) && e.date === today && !isNoiseEvent(e)));
 
-  // 1) Weather-driven opener — sets the emotional register.
-  if (mood === 'patio' || (tempMax && tempMax >= 65)) {
+  // 1) What's happening now — a major festival underway leads the night.
+  const nowEv = ((rn && rn.countdowns) || []).find(c => c.now);
+  if (nowEv) {
     picks.push({
-      kind: 'WEATHER',
-      line: `Patios are open${tempMax ? ` and it is ${tempMax}°F` : ''}. Start with Bauhaus, Indeed, or Sociable Cider in Northeast — all walkable, all outside.`,
-      href: '/best-patios/'
-    });
-  } else if (mood === 'brutal') {
-    picks.push({
-      kind: 'WEATHER',
-      line: `It is cold enough to stay close to home. The slow rooms — Marvel-era cocktail dens, candle-lit dining rooms, warm bakeries — are doing their best work.`,
-      href: '/take-them-to/#snow-day'
-    });
-  } else if (mood === 'snow') {
-    picks.push({
-      kind: 'WEATHER',
-      line: `Snow on the ground. The warm rooms, hot dishes, and slow drinks are the move. Nowhere to be.`,
-      href: '/take-them-to/#snow-day'
-    });
-  } else if (mood === 'rain') {
-    picks.push({
-      kind: 'WEATHER',
-      line: `Steady rain in the forecast. Candle-lit tables, basement bars, second-run cinemas — early dinners that turn into long nights.`,
-      href: '/take-them-to/#rainy-night'
-    });
-  } else {
-    picks.push({
-      kind: 'WEATHER',
-      line: `A regular night in the metro. The good interior rooms are open and the neighborhoods are quiet enough to walk.`,
-      href: '/take-them-to/'
+      kind: 'NOW',
+      line: /pride/i.test(nowEv.name)
+        ? `It is Twin Cities Pride weekend. The free festival is in Loring Park and the parade runs down Hennepin on Sunday at 11.`
+        : `${nowEv.name} is on right now. ${nowEv.blurb}`,
+      href: /pride/i.test(nowEv.name) ? '/pride/' : '/calendar/'
     });
   }
 
-  // 2) Anchor event tonight — pick the most editorially interesting.
-  // Heuristic: prefer events with time set, prefer non-Walker (because
-  // Walker tends to be the obvious choice; we want to surface variety).
+  // 2) Anchor show tonight — prefer the evening, then the marquee rooms.
   if (events.length > 0) {
+    const eve = e => e.time && parseInt(e.time.slice(0, 2), 10) >= 16; // 4pm+
     const ranked = events.slice().sort((a, b) => {
-      // Time present > time absent
+      if (eve(a) !== eve(b)) return eve(a) ? -1 : 1;          // evening first
+      const am = MARQUEE_VENUES.has(a.venue), bm = MARQUEE_VENUES.has(b.venue);
+      if (am !== bm) return am ? -1 : 1;                       // marquee rooms next
       if (a.time && !b.time) return -1;
       if (!a.time && b.time) return 1;
       return 0;
@@ -184,7 +172,7 @@ function tonightConcierge(rn, eventsAll) {
     })() : 'tonight';
     picks.push({
       kind: 'SHOW',
-      line: `${featured.title} at ${featured.venue}${featured.venue_neighborhood ? ` (${featured.venue_neighborhood.split(',')[0]})` : ''}, ${t}.`,
+      line: `${featured.title} at ${featured.venue}${featured.venue_neighborhood ? `, ${featured.venue_neighborhood}` : ''}, ${t}.`,
       href: featured.url || '/tonight/'
     });
   }
@@ -194,7 +182,7 @@ function tonightConcierge(rn, eventsAll) {
     const byNeigh = {};
     for (const e of events) {
       if (!e.venue_neighborhood) continue;
-      const n = e.venue_neighborhood.split(',')[0].trim();
+      const n = e.venue_neighborhood.trim();   // full "Neighborhood, City"
       byNeigh[n] = (byNeigh[n] || 0) + 1;
     }
     const sorted = Object.entries(byNeigh).sort((a, b) => b[1] - a[1]);
@@ -243,7 +231,18 @@ function tonightConcierge(rn, eventsAll) {
 function cityStateBadges(rn) {
   const out = [];
   const mo = CURRENT_MONTH;
-  const day = parseInt(TODAY_ISO.slice(8, 10), 10);
+
+  // What's happening NOW leads — a festival underway (Pride, the Fair) beats a
+  // generic season tag. Driven by the same live countdowns as the rest of the
+  // page, so it's always current.
+  for (const c of ((rn && rn.countdowns) || [])) {
+    if (!c.now) continue;
+    if (/pride/i.test(c.name)) out.push('PRIDE WEEKEND');
+    else if (/state fair/i.test(c.name)) out.push('STATE FAIR');
+    else if (/aquatennial/i.test(c.name)) out.push('AQUATENNIAL');
+    else if (/art-a-whirl/i.test(c.name)) out.push('ART-A-WHIRL');
+    else out.push(c.name.toUpperCase());
+  }
 
   // Weather mood
   if (rn && rn.weather) {
@@ -259,8 +258,8 @@ function cityStateBadges(rn) {
     else if (rn.sun.daylight_min < 570) out.push('SHORT DAYS');
   }
 
-  // Season
-  if (mo === 5 || mo === 6) out.push('PATIO SEASON');
+  // Season — but skip PATIO SEASON when PATIO WEATHER already says it.
+  if ((mo === 5 || mo === 6) && !out.includes('PATIO WEATHER')) out.push('PATIO SEASON');
   if (mo === 7 || mo === 8) out.push('MIDSUMMER');
   if (mo === 9) out.push('LATE SUMMER');
   if (mo === 10) out.push('PEAK COLOR');
@@ -270,15 +269,7 @@ function cityStateBadges(rn) {
   // Baseball — Twins typically play April through September
   if (mo >= 4 && mo <= 9) out.push('TWINS SEASON');
 
-  // State Fair — last 12 days of August into Labor Day
-  if (mo === 8 && day >= 21) out.push('FAIR WEEK');
-  if (mo === 9 && day <= 4)  out.push('FAIR WEEK');
-
-  // Holiday-adjacent civic moments
-  if (mo === 5 && day >= 12 && day <= 18) out.push('ART-A-WHIRL WEEK');
-  if (mo === 7 && day >= 14 && day <= 24) out.push('AQUATENNIAL');
-
-  // Dedupe and cap at 4
+  // Dedupe and cap at 4 (timely happenings already sit first).
   return [...new Set(out)].slice(0, 4);
 }
 
@@ -298,6 +289,15 @@ function isFilmEvent(e) { return e.category === 'film'; }
 // workshops, tours, sensory-friendly hours — all category 'art') and films are
 // real events but not shows, so they stay out of the concert/tonight listings.
 function isShowEvent(e) { return e.category !== 'film' && e.category !== 'art' && e.category !== 'lecture'; }
+
+// Recurring/class-type listings that aren't "shows" worth featuring (a venue's
+// morning yoga or weekly trivia shouldn't be the night's headline pick).
+const NOISE_RE = /\b(yoga|trivia|bingo|karaoke|open mic|open-mic|happy hour|brunch|story ?time|book club|class|workshop|market|paint|craft night|meeting|networking|drag brunch)\b/i;
+function isNoiseEvent(e) { return NOISE_RE.test(e.title || ''); }
+
+// The marquee rooms — used to prefer a real headliner when picking the night's
+// anchor show.
+const MARQUEE_VENUES = new Set(['First Avenue', '7th St Entry', 'Fine Line', 'Turf Club', 'Palace Theatre', 'The Cedar Cultural Center', 'Dakota Jazz Club', 'Varsity Theater', 'Walker Art Center', 'Amsterdam Bar & Hall', 'The Armory', 'Icehouse', 'Crooners Supper Club', 'Berlin', 'The Parkway Theater']);
 
 function collapseFilms(events) {
   // Returns { films: [{title, venue, venue_neighborhood, url, image, first_date,
@@ -1601,9 +1601,9 @@ function renderHome() {
           </div>
           ${r.countdowns.slice(0, 3).map(c => `
           <div class="rightnow-item">
-            <div class="rightnow-label">In ${c.days} day${c.days === 1 ? '' : 's'}</div>
+            <div class="rightnow-label">${c.now ? 'Happening now' : `In ${c.days} day${c.days === 1 ? '' : 's'}`}</div>
             <div class="rightnow-value rightnow-value-event">${esc(c.name)}</div>
-            <a class="rightnow-link" href="/tonight/">More countdowns →</a>
+            <a class="rightnow-link" href="${c.now && /pride/i.test(c.name) ? '/pride/' : '/tonight/'}">${c.now && /pride/i.test(c.name) ? 'Pride guide →' : 'More countdowns →'}</a>
           </div>`).join('')}
         </div>
       </div>
@@ -4490,10 +4490,11 @@ function renderTonight() {
     </article>`;
 
   const countdowns = r.countdowns.map(c => `
-    <li class="countdown">
+    <li class="countdown${c.now ? ' countdown--now' : ''}">
       <div class="countdown-days">
-        <span class="countdown-num">${c.days}</span>
-        <span class="countdown-unit">${c.days === 1 ? 'day' : 'days'} until</span>
+        ${c.now
+          ? `<span class="countdown-num">Now</span><span class="countdown-unit">happening</span>`
+          : `<span class="countdown-num">${c.days}</span><span class="countdown-unit">${c.days === 1 ? 'day' : 'days'} until</span>`}
       </div>
       <div class="countdown-body">
         <div class="countdown-name">${esc(c.name)}</div>
