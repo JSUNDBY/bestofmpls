@@ -835,7 +835,7 @@ ${GSC_VERIFICATION ? `<meta name="google-site-verification" content="${esc(GSC_V
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600;700&family=Source+Sans+3:wght@400;600&family=Archivo:wght@500;600;700&family=Archivo+Narrow:wght@600;700&display=swap">
-<link rel="stylesheet" href="/style.css?v=48">
+<link rel="stylesheet" href="/style.css?v=49">
 <script>
 // Set color mode before paint to avoid flash. Reads localStorage first,
 // falls back to light mode (the new editorial default). mode-ready class
@@ -2585,7 +2585,7 @@ function renderAdminPicks() {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>${esc(title)}</title>
-<link rel="stylesheet" href="/style.css?v=48">
+<link rel="stylesheet" href="/style.css?v=49">
 <style>
   body { background: var(--paper); }
   .admin-wrap { max-width: 960px; margin: 0 auto; padding: 32px var(--gutter) 96px; }
@@ -3521,21 +3521,6 @@ function renderCalendar() {
          ${updated ? `<p style="font-family: var(--font-label); font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-faint); margin-top: 16px;">Last refreshed ${esc(updated)} · sources: ${esc(sourcesLine)}</p>` : ''}
        </div>
      </section>
-     ${events.length ? `
-     <section class="wrap">
-       <div class="cal-subscribe">
-         <div class="cal-subscribe-text">
-           <span class="cal-subscribe-eyebrow">Put it in your own calendar</span>
-           <p class="cal-subscribe-deck">Subscribe once and the city's shows show up in Google or Apple Calendar, refreshed on their own. No app, no checking back.</p>
-         </div>
-         <div class="cal-subscribe-actions">
-           <a class="cal-sub-btn" href="https://calendar.google.com/calendar/r?cid=webcal://bestofmpls.com/calendar.ics" target="_blank" rel="noopener">Google Calendar</a>
-           <a class="cal-sub-btn" href="webcal://bestofmpls.com/calendar.ics">Apple Calendar</a>
-           <a class="cal-sub-btn cal-sub-btn--ghost" href="/calendar.ics" download>Download .ics</a>
-         </div>
-         <p class="cal-subscribe-note">Or paste <code>bestofmpls.com/calendar.ics</code> into any calendar app that subscribes by URL.</p>
-       </div>
-     </section>` : ''}
      ${empty}
      <script>
        (function(){
@@ -3563,7 +3548,8 @@ function renderCalendar() {
          venueChips.forEach(function(c){ c.addEventListener('click', function(){ state.venue = c.dataset.venue; apply(); }); });
          moodChips.forEach(function(c){  c.addEventListener('click', function(){ state.mood  = c.dataset.mood;  apply(); }); });
        })();
-     </script>` +
+     </script>
+     ${events.length ? `<section class="wrap"><p class="cal-subscribe-mini">Prefer your own calendar? Subscribe in <a href="https://calendar.google.com/calendar/r?cid=webcal://bestofmpls.com/calendar.ics" target="_blank" rel="noopener">Google</a> or <a href="webcal://bestofmpls.com/calendar.ics">Apple</a>, or <a href="/calendar.ics" download>download the .ics</a>. The site stays the best way to see what's on.</p></section>` : ''}` +
     newsletterCapture({ context: 'calendar', compact: true }) +
     footer();
 }

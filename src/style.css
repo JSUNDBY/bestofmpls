@@ -6372,31 +6372,18 @@ html[data-mode="dark"] .entry-reserve {
   .cal-chip { flex: 0 0 auto; white-space: nowrap; }
 }
 
-/* ===== Calendar subscribe (iCal feed) ===== */
-.cal-subscribe {
-  border: 1px solid var(--rule);
-  border-radius: 12px;
-  padding: 22px 24px;
-  margin-top: 24px;
-  background: var(--paper-2, var(--paper));
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
+/* ===== Calendar subscribe (iCal feed) — quiet footnote under the events ===== */
+.cal-subscribe-mini {
+  font-family: var(--font-body);
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--ink-faint);
+  margin: 28px 0 0;
+  max-width: 620px;
 }
-.cal-subscribe-eyebrow {
-  font-family: var(--font-label); font-weight: 700; font-size: 11px;
-  letter-spacing: 0.14em; text-transform: uppercase; color: var(--clay);
+.cal-subscribe-mini a {
+  color: var(--ink-soft);
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }
-.cal-subscribe-deck { font-family: var(--font-body); font-size: 16px; line-height: 1.5; color: var(--ink); margin: 6px 0 0; max-width: 640px; }
-.cal-subscribe-actions { display: flex; flex-wrap: wrap; gap: 10px; }
-.cal-sub-btn {
-  font-family: var(--font-label); font-weight: 700; font-size: 12px;
-  letter-spacing: 0.04em; text-decoration: none;
-  background: var(--ink); color: var(--paper);
-  border: 1px solid var(--ink); border-radius: 8px;
-  padding: 11px 16px; transition: opacity 0.12s;
-}
-.cal-sub-btn:hover { opacity: 0.85; }
-.cal-sub-btn--ghost { background: transparent; color: var(--ink); }
-.cal-subscribe-note { font-family: var(--font-body); font-size: 13px; color: var(--ink-soft); margin: 0; }
-.cal-subscribe-note code { font-family: var(--font-mono, monospace); font-size: 12.5px; background: rgba(0,0,0,0.05); padding: 2px 6px; border-radius: 4px; }
+.cal-subscribe-mini a:hover { color: var(--clay); }
