@@ -1417,8 +1417,8 @@ function footer() {
 
 // ---------- Pages ----------
 function renderHome() {
-  const title = 'Best of Minneapolis & St. Paul: Restaurants, Bars, Music & Things to Do';
-  const description = 'A locally written guide to the museums, music, theaters, coffee shops, sandwiches, restaurants, bars, hotels, and festivals of Minneapolis and Saint Paul.';
+  const title = 'What\'s Happening in Minneapolis & St. Paul Tonight | Best of MPLS';
+  const description = 'The one place to see what\'s on tonight across Minneapolis and Saint Paul: live music, events, restaurants, and bars, with the location right there. Updated daily, free.';
 
   // Cluster sections: each cluster gets its own editorial header + grid of cards
   const clusterAnchors = ['culture', 'eat', 'drink', 'shop', 'visit'];
