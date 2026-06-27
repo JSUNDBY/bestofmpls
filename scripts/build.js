@@ -835,7 +835,7 @@ ${GSC_VERIFICATION ? `<meta name="google-site-verification" content="${esc(GSC_V
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600;700&family=Source+Sans+3:wght@400;600&family=Archivo:wght@500;600;700&family=Archivo+Narrow:wght@600;700&display=swap">
-<link rel="stylesheet" href="/style.css?v=47">
+<link rel="stylesheet" href="/style.css?v=48">
 <script>
 // Set color mode before paint to avoid flash. Reads localStorage first,
 // falls back to light mode (the new editorial default). mode-ready class
@@ -2585,7 +2585,7 @@ function renderAdminPicks() {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>${esc(title)}</title>
-<link rel="stylesheet" href="/style.css?v=47">
+<link rel="stylesheet" href="/style.css?v=48">
 <style>
   body { background: var(--paper); }
   .admin-wrap { max-width: 960px; margin: 0 auto; padding: 32px var(--gutter) 96px; }
@@ -3521,6 +3521,21 @@ function renderCalendar() {
          ${updated ? `<p style="font-family: var(--font-label); font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-faint); margin-top: 16px;">Last refreshed ${esc(updated)} · sources: ${esc(sourcesLine)}</p>` : ''}
        </div>
      </section>
+     ${events.length ? `
+     <section class="wrap">
+       <div class="cal-subscribe">
+         <div class="cal-subscribe-text">
+           <span class="cal-subscribe-eyebrow">Put it in your own calendar</span>
+           <p class="cal-subscribe-deck">Subscribe once and the city's shows show up in Google or Apple Calendar, refreshed on their own. No app, no checking back.</p>
+         </div>
+         <div class="cal-subscribe-actions">
+           <a class="cal-sub-btn" href="https://calendar.google.com/calendar/r?cid=webcal://bestofmpls.com/calendar.ics" target="_blank" rel="noopener">Google Calendar</a>
+           <a class="cal-sub-btn" href="webcal://bestofmpls.com/calendar.ics">Apple Calendar</a>
+           <a class="cal-sub-btn cal-sub-btn--ghost" href="/calendar.ics" download>Download .ics</a>
+         </div>
+         <p class="cal-subscribe-note">Or paste <code>bestofmpls.com/calendar.ics</code> into any calendar app that subscribes by URL.</p>
+       </div>
+     </section>` : ''}
      ${empty}
      <script>
        (function(){
@@ -5899,6 +5914,67 @@ function renderGuide(g) {
     footer();
 }
 
+// ---------- Subscribable iCal feed ----------
+// A static calendar.ics so readers can subscribe in Google/Apple Calendar and
+// have the city's events show up in the tool they already use, auto-refreshing
+// with each build. Requested by readers who don't want "another app to check".
+function renderICS(events) {
+  const esc = s => String(s == null ? '' : s)
+    .replace(/\\/g, '\\\\').replace(/;/g, '\\;').replace(/,/g, '\\,').replace(/\r?\n/g, '\\n');
+  const fold = line => {
+    if (line.length <= 73) return line;
+    let out = '', s = line;
+    while (s.length > 73) { out += s.slice(0, 73) + '\r\n '; s = s.slice(73); }
+    return out + s;
+  };
+  // Central-local date+time → the real UTC instant (handles CST/CDT correctly).
+  const instant = (dateStr, timeStr) => {
+    const [y, m, d] = dateStr.split('-').map(Number);
+    const [hh, mm] = (timeStr || '00:00').split(':').map(Number);
+    const asUTC = Date.UTC(y, m - 1, d, hh, mm);
+    const tz = new Intl.DateTimeFormat('en-US', { timeZone: 'America/Chicago', timeZoneName: 'longOffset' })
+      .formatToParts(new Date(asUTC)).find(p => p.type === 'timeZoneName').value; // "GMT-05:00"
+    const mt = tz.match(/GMT([+-]\d{2}):?(\d{2})/);
+    const offMin = mt ? (parseInt(mt[1], 10) * 60 + Math.sign(parseInt(mt[1], 10)) * parseInt(mt[2], 10)) : -300;
+    return asUTC - offMin * 60000;
+  };
+  const fmtUTC = ms => {
+    const u = new Date(ms), p = n => String(n).padStart(2, '0');
+    return `${u.getUTCFullYear()}${p(u.getUTCMonth() + 1)}${p(u.getUTCDate())}T${p(u.getUTCHours())}${p(u.getUTCMinutes())}00Z`;
+  };
+  const dateOnly = s => s.replace(/-/g, '');
+  const nextDay = s => { const [y, m, d] = s.split('-').map(Number); const dt = new Date(Date.UTC(y, m - 1, d + 1)); return `${dt.getUTCFullYear()}${String(dt.getUTCMonth() + 1).padStart(2, '0')}${String(dt.getUTCDate()).padStart(2, '0')}`; };
+
+  const stamp = fmtUTC(instant(TODAY_ISO, '00:00'));
+  const out = [
+    'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//bestofmpls//Twin Cities Events//EN',
+    'CALSCALE:GREGORIAN', 'METHOD:PUBLISH',
+    'X-WR-CALNAME:Best of MPLS — Twin Cities Events',
+    'X-WR-CALDESC:Live music, art, and performance across Minneapolis and Saint Paul. From bestofmpls.com.',
+    'X-WR-TIMEZONE:America/Chicago',
+    'REFRESH-INTERVAL;VALUE=DURATION:PT12H', 'X-PUBLISHED-TTL:PT12H'
+  ];
+  for (const e of events) {
+    const uid = `${e.id || `${e.source}:${e.date}:${entrySlug(e.title)}`}@bestofmpls.com`;
+    out.push('BEGIN:VEVENT', 'UID:' + uid, 'DTSTAMP:' + stamp);
+    if (e.time) {
+      const start = instant(e.date, e.time);
+      out.push('DTSTART:' + fmtUTC(start), 'DTEND:' + fmtUTC(start + 3 * 3600000));
+    } else {
+      out.push('DTSTART;VALUE=DATE:' + dateOnly(e.date), 'DTEND;VALUE=DATE:' + nextDay(e.date));
+    }
+    out.push(fold('SUMMARY:' + esc(e.title)));
+    const loc = [e.venue, e.venue_neighborhood].filter(Boolean).join(', ');
+    if (loc) out.push(fold('LOCATION:' + esc(loc)));
+    const desc = [e.subtitle, e.url].filter(Boolean).join('\n\n');
+    if (desc) out.push(fold('DESCRIPTION:' + esc(desc)));
+    if (e.url) out.push(fold('URL:' + esc(e.url)));
+    out.push('END:VEVENT');
+  }
+  out.push('END:VCALENDAR');
+  return out.join('\r\n') + '\r\n';
+}
+
 function renderSitemap(neighborhoods, crossPages) {
   const urls = [
     { loc: SITE + '/', priority: '1.0' },
@@ -5995,6 +6071,18 @@ function build() {
   for (const g of guides) writeFile(`${g.slug}/index.html`, renderGuide(g));
   console.log(`  → ${guides.length} guide pages`);
   writeFile('pride/index.html', renderPride());
+
+  // Subscribable iCal feed: upcoming creative events (no film showtime spam, no
+  // recurring noise), next 60 days, deduped — so readers can live it in their
+  // own calendar instead of checking the site.
+  (function(){
+    const end = (function(){ const [y,m,d] = TODAY_ISO.split('-').map(Number); const dt = new Date(Date.UTC(y,m-1,d+60)); return dt.toISOString().slice(0,10); })();
+    const icsEvents = dedupeNonFilms((eventsData.events || [])
+      .filter(e => e.category !== 'film' && !isNoiseEvent(e) && e.date >= TODAY_ISO && e.date <= end))
+      .sort((a,b) => (a.date + (a.time||'')).localeCompare(b.date + (b.time||'')));
+    writeFile('calendar.ics', renderICS(icsEvents));
+    console.log(`  → calendar.ics (${icsEvents.length} events)`);
+  })();
 
   // Per-entry detail pages. ~350 of them, each at /{c.slug}/{entry-slug}/.
   // Build the indexable surface area Google can crawl for long-tail searches
