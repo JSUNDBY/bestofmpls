@@ -133,6 +133,19 @@ function cleanSub(s) {
   return t.length > 120 ? t.slice(0, 117).replace(/\s+\S*$/, '') + '…' : t;
 }
 
+// Editorial notes: short, verified "why go" takes keyed by event id, produced
+// by the weekly editorial pass (scripts/editorial-targets.js picks the shows,
+// an agent researches them and writes src/data/editorial-notes.json). When a
+// note exists for an event, it's used as the blurb over the scraped listing.
+const EDITORIAL_FILE = path.join(ROOT, 'src/data/editorial-notes.json');
+function loadEditorial() {
+  try {
+    const j = JSON.parse(fs.readFileSync(EDITORIAL_FILE, 'utf8'));
+    return new Map(Object.entries(j.notes || {}));
+  } catch (_) { return new Map(); }
+}
+const EDITORIAL = loadEditorial();
+
 // Load the week's events, cleaned: in-window, no films, no non-show noise,
 // de-duplicated by title. Returns the full clean set; grouping/caps happen at
 // render time so each section can balance venues on its own.
@@ -225,7 +238,8 @@ function showRow(s, lead) {
     : s.title;
   const meta = [s.venue, fmtDay(s.date), (s.time ? fmtTime(s.time).replace(/^ · /, '') : ''), s.price]
     .filter(Boolean).join('  ·  ');
-  const sub = cleanSub(s.subtitle);
+  // Prefer the editorial "why go" take; fall back to the cleaned listing blurb.
+  const sub = EDITORIAL.get(s.id) || cleanSub(s.subtitle);
   return `<tr><td style="padding:${lead ? 16 : 13}px 32px 0 32px;">
     <div style="font:${lead ? 700 : 600} ${lead ? 18 : 16}px/1.35 ${FONT};color:${C.ink};">${title}</div>
     <div style="font:400 13px/1.4 ${FONT};color:${C.clay};margin-top:3px;">${meta}</div>
@@ -323,8 +337,11 @@ function horoscopeHtml(horoscope) {
     rows += `<tr><td style="padding:12px 32px 0 32px;font:400 15px/1.6 ${FONT};color:${C.soft};font-style:italic;">${horoscope.intro}</td></tr>`;
   }
   for (const h of picks) {
+    // No emoji glyph: email clients strip the site's custom SVG and the Unicode
+    // sign characters render as cheap colored emoji. Clean type instead, with the
+    // sign name in clay and the date range as a muted suffix.
     rows += `<tr><td style="padding:16px 32px 0 32px;">
-      <div style="font:700 16px/1.3 ${FONT};color:${C.ink};">${h.symbol ? h.symbol + ' ' : ''}${h.sign}</div>
+      <div style="font:700 15px/1.3 ${FONT};color:${C.ink};">${h.sign}${h.dates ? ` <span style="font-weight:400;color:${C.faint};letter-spacing:0.02em;">${h.dates}</span>` : ''}</div>
       <div style="font:400 15px/1.55 ${FONT};color:${C.soft};margin-top:3px;">${h.text}</div>
     </td></tr>`;
   }
