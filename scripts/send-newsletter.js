@@ -239,7 +239,15 @@ function showRow(s, lead) {
   const meta = [s.venue, fmtDay(s.date), (s.time ? fmtTime(s.time).replace(/^ · /, '') : ''), s.price]
     .filter(Boolean).join('  ·  ');
   // Prefer the editorial "why go" take; fall back to the cleaned listing blurb.
-  const sub = EDITORIAL.get(s.id) || cleanSub(s.subtitle);
+  let sub = EDITORIAL.get(s.id) || cleanSub(s.subtitle);
+  // Guard: a note must never claim free/no-cover for a paid event. The editorial
+  // pass can be wrong about price; the meta line is the source of truth. If a note
+  // contradicts a non-free price, drop it back to the listing blurb.
+  if (EDITORIAL.get(s.id)
+      && /\b(no cover|free admission|free show|cover charge|no charge)\b/i.test(sub)
+      && !(s.price && /free/i.test(s.price))) {
+    sub = cleanSub(s.subtitle);
+  }
   return `<tr><td style="padding:${lead ? 16 : 13}px 32px 0 32px;">
     <div style="font:${lead ? 700 : 600} ${lead ? 18 : 16}px/1.35 ${FONT};color:${C.ink};">${title}</div>
     <div style="font:400 13px/1.4 ${FONT};color:${C.clay};margin-top:3px;">${meta}</div>
