@@ -12,7 +12,7 @@ on:
     - cron: '5 5,11,17,23 * * *'
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -63,6 +63,27 @@ jobs:
         env:
           BEEHIIV_API_KEY: ${{ secrets.BEEHIIV_API_KEY }}
           BEEHIIV_PUB_ID: pub_c1d001ef-b72b-46b4-ab41-efad0f2f2f88
+        continue-on-error: true
+
+      - name: Generate weekly social pack (Mondays only)
+        if: github.event_name == 'schedule'
+        run: |
+          DAY=$(date -u +%u)
+          if [ "$DAY" = "1" ]; then
+            echo "Monday — generating social pack"
+            node scripts/social-ideas.js > /dev/null
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add growth/social-pack.md
+            if git diff --staged --quiet; then
+              echo "No change to social pack"
+            else
+              git commit -m "Weekly social pack [skip ci]"
+              git push
+            fi
+          else
+            echo "Not Monday (day $DAY) — skipping social pack"
+          fi
         continue-on-error: true
 
       - name: Build OG image

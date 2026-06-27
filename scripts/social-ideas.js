@@ -180,13 +180,20 @@ const seed = weekSeed();
   });
 })();
 
+// Suggested posting queue — local-friendly slots, spread across the week so the
+// pack reads like a ready-to-schedule queue (paste into Buffer/Metricool).
+const POST_SLOTS = [
+  'Mon 5:30 PM', 'Tue 11:30 AM', 'Wed 5:30 PM', 'Thu 11:30 AM',
+  'Fri 4:00 PM', 'Sat 10:00 AM', 'Sun 11:00 AM', 'Mon 12:00 PM',
+];
+
 // ===== Render =====
 const monday = (() => { const d = new Date(); const day = d.getDay()||7; d.setDate(d.getDate()-day+1); return d.toLocaleDateString('en-US',{month:'long',day:'numeric'}); })();
 let md = `# Best of MPLS — Content Plan (week of ${monday})\n\n`;
-md += `${ideas.length} post concepts from live site data. Faceless-friendly: each is a shot list, not an on-camera script. Shoot 2-3 in one outing, let the repurposer fan them across IG / TikTok / Reels / Threads.\n\n`;
+md += `${ideas.length} post concepts from live site data. Faceless-friendly: each is a shot list, not an on-camera script. Shoot 2-3 in one outing, let the repurposer fan them across IG / TikTok / Reels / Threads. The Post slot is a suggested time to queue it.\n\n`;
 ideas.forEach((idea, i) => {
   md += `---\n\n## ${i + 1}. ${idea.title}\n`;
-  md += `**Format:** ${idea.format}\n\n`;
+  md += `**Format:** ${idea.format}  ·  **Post:** ${POST_SLOTS[i % POST_SLOTS.length]}\n\n`;
   md += `**Hook:** ${idea.hook}\n\n`;
   md += `**Shot list:**\n${idea.shots.map(s => `- ${s}`).join('\n')}\n\n`;
   md += `**Caption:** ${idea.caption}\n\n`;
@@ -194,6 +201,10 @@ ideas.forEach((idea, i) => {
 });
 md += `---\n\nEvery caption should end "link in bio" pointing at ${SITE} (and the newsletter signup). That is the whole funnel: video pulls them in, the newsletter keeps them.\n`;
 
+// Local copy (gitignored) + a tracked copy the weekly cron commits back so the
+// fresh pack is always waiting in the repo with zero effort.
 fs.writeFileSync(path.join(ROOT, 'social-plan.md'), md);
+fs.mkdirSync(path.join(ROOT, 'growth'), { recursive: true });
+fs.writeFileSync(path.join(ROOT, 'growth/social-pack.md'), md);
 console.log(md);
-console.log(`\n[wrote ${ideas.length} ideas to social-plan.md]`);
+console.log(`\n[wrote ${ideas.length} ideas to social-plan.md and growth/social-pack.md]`);
