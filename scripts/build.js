@@ -851,7 +851,7 @@ ${GSC_VERIFICATION ? `<meta name="google-site-verification" content="${esc(GSC_V
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600;700&family=Source+Sans+3:wght@400;600&family=Archivo:wght@500;600;700&family=Archivo+Narrow:wght@600;700&display=swap">
-<link rel="stylesheet" href="/style.css?v=58">
+<link rel="stylesheet" href="/style.css?v=59">
 <script>
 // Set color mode before paint to avoid flash. Reads localStorage first,
 // falls back to light mode (the new editorial default). mode-ready class
@@ -1663,6 +1663,24 @@ function renderHome() {
         </div>
       </div>
     </section>` : ''}
+    ${(() => {
+      const talks = dedupeNonFilms((eventsData.events || []).filter(e => e.category === 'lecture' && e.date >= TODAY_ISO && !isNoiseEvent(e)))
+        .sort((a, b) => (a.date + (a.time || '')).localeCompare(b.date + (b.time || ''))).slice(0, 5);
+      if (!talks.length) return '';
+      const fmtDay = iso => { const [y, m, d] = iso.split('-').map(Number); return new Date(y, m - 1, d).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' }); };
+      return `
+    <section class="home-talks" aria-label="Upcoming talks">
+      <div class="wrap">
+        <div class="home-talks-head">
+          <span class="home-talks-eyebrow">Upcoming talks</span>
+          <a class="home-talks-link" href="/lectures/">All lectures &amp; talks →</a>
+        </div>
+        <ul class="home-talks-list">
+          ${talks.map(t => `<li class="home-talk"><span class="home-talk-when">${esc(fmtDay(t.date))}</span><span class="home-talk-what">${t.url ? `<a href="${esc(t.url)}" target="_blank" rel="noopener">${esc(t.title)}</a>` : esc(t.title)}</span><span class="home-talk-venue">${esc(t.venue)}</span></li>`).join('')}
+        </ul>
+      </div>
+    </section>`;
+    })()}
     ${LIVING_TOP.length ? `
     <section class="loved-rail" aria-label="What locals are loving">
       <div class="wrap">
@@ -2031,7 +2049,7 @@ function renderCategory(c) {
   let upcomingTalks = '';
   if (c.slug === 'lectures') {
     const talks = dedupeNonFilms(
-      (eventsData.events || []).filter(e => e.category === 'lecture' && e.date >= TODAY_ISO)
+      (eventsData.events || []).filter(e => e.category === 'lecture' && e.date >= TODAY_ISO && !isNoiseEvent(e))
     ).sort((a, b) => (a.date + (a.time || '')).localeCompare(b.date + (b.time || ''))).slice(0, 24);
     if (talks.length) {
       const fmtDay = iso => { const [y,m,d] = iso.split('-').map(Number);
@@ -2713,7 +2731,7 @@ function renderAdminPicks() {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>${esc(title)}</title>
-<link rel="stylesheet" href="/style.css?v=58">
+<link rel="stylesheet" href="/style.css?v=59">
 <style>
   body { background: var(--paper); }
   .admin-wrap { max-width: 960px; margin: 0 auto; padding: 32px var(--gutter) 96px; }
