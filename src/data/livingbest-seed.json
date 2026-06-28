@@ -114,12 +114,13 @@
   {
     "slug": "best-dive-bars",
     "award": "Best Dive Bar",
-    "winner": "CC Club",
+    "winner": "",
     "runnersUp": [
-      "Matt’s Bar",
-      "The Turf Club"
+      "Mortimer’s",
+      "Grumpy’s Northeast"
     ],
-    "rationale": "The CC Club is the metro's most storied true dive, a 90-plus-year Lyn-Lake room that anchored the Replacements-era Minneapolis scene and inspired \"Here Comes a Regular,\" and it is still pouring in 2026."
+    "rationale": "The CC Club is the metro's most storied true dive, a 90-plus-year Lyn-Lake room that anchored the Replacements-era Minneapolis scene and inspired \"Here Comes a Regular,\" and it is still pouring in 2026.",
+    "note": "CC Club dropped from the seed per editorial; no hand-crown, signal decides."
   },
   {
     "slug": "best-happy-hours",

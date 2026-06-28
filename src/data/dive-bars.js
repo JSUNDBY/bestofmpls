@@ -5,14 +5,6 @@ module.exports = {
   intro: 'A real neighborhood bar is not a brand. It is a room that someone has been keeping the lights on in for a long time. The good ones in this city happen to be a little dim, a little loud on the right night, and a lot more interesting than the cocktail menus would have you believe.',
   hero_color: 'forest',
   entries: [
-        {
-      name: 'CC Club',
-      neighborhood: 'Lyn-Lake, Minneapolis',
-      style: 'Vinyl jukebox, Replacements memorabilia',
-      description: 'Paul Westerberg drank here. The Replacements wrote about it. The vinyl jukebox is real and the cheeseburgers are better than they should be. Come early on weekends or come on a Tuesday.',
-      address: '2600 Lyndale Ave S, Minneapolis',
-      price: '$'
-    },
     {
       name: 'Mortimer’s',
       neighborhood: 'Lyn-Lake, Minneapolis',
@@ -123,6 +115,14 @@ module.exports = {
       style: 'Oldest pub house in town',
       description: 'Open since 1932 and arguably the oldest pub house in Minneapolis. Pool tables, daily specials, and live music five nights a week with never a cover. A genuine Longfellow neighborhood relic that has outlasted nearly everything around it by simply refusing to change.',
       address: '2901 27th Ave S, Minneapolis',
+      price: '$'
+    },
+    {
+      name: 'CC Club',
+      neighborhood: 'Lyn-Lake, Minneapolis',
+      style: 'Vinyl jukebox, Replacements memorabilia',
+      description: 'Paul Westerberg drank here. The Replacements wrote about it. The vinyl jukebox is real and the cheeseburgers are better than they should be. Come early on weekends or come on a Tuesday.',
+      address: '2600 Lyndale Ave S, Minneapolis',
       price: '$'
     }
   ]
