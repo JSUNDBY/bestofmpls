@@ -4188,7 +4188,7 @@ function renderSituations() {
   const cards = visibleSituations.map(sit => `
     <article class="situation" id="${esc(sit.slug)}">
       <header class="situation-head">
-        <h2 class="situation-title">${esc(sit.title)}</h2>
+        <h2 class="situation-title"><a href="/take-them-to/${esc(sit.slug)}/" style="color:inherit;text-decoration:none;">${esc(sit.title)}</a></h2>
         <p class="situation-deck">${esc(sit.deck)}</p>
       </header>
       <ol class="situation-picks">
@@ -4212,6 +4212,47 @@ function renderSituations() {
        </div>
      </section>
      <section class="situations-list wrap">${cards}</section>` +
+    footer();
+}
+
+// Each situation as its own indexable "perfect for" SEO page — the high-intent
+// landing surface ("where to take an out-of-town friend") that a single anchor
+// page can't rank for. Built from the same situations.js content.
+function renderSituation(sit) {
+  const title = `${sit.title}: where to take them in the Twin Cities`;
+  const description = sit.deck;
+  const picks = sit.picks.map(p => `
+    <li class="situation-pick">
+      <div class="situation-pick-kind">${esc(p.kind)}</div>
+      <div class="situation-pick-name">${esc(p.name)}</div>
+      <div class="situation-pick-where">${esc(p.neighborhood)}</div>
+      <p class="situation-pick-why">${esc(p.why)}</p>
+    </li>`).join('');
+  const itemList = {
+    '@context': 'https://schema.org', '@type': 'ItemList', name: title,
+    itemListElement: sit.picks.map((p, i) => ({ '@type': 'ListItem', position: i + 1, name: p.name }))
+  };
+  const breadcrumb = {
+    '@context': 'https://schema.org', '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'bestofmpls', item: SITE },
+      { '@type': 'ListItem', position: 2, name: 'Take Them To', item: `${SITE}/take-them-to/` },
+      { '@type': 'ListItem', position: 3, name: sit.title, item: `${SITE}/take-them-to/${sit.slug}/` }
+    ]
+  };
+  return head({ title, description, slug: `take-them-to/${sit.slug}`, theme: 'forest' }) +
+    header({ activeSlug: 'take-them-to' }) +
+    `<section class="section-head">
+       <div class="wrap">
+         <div class="section-eyebrow"><a href="/take-them-to/" style="color:inherit;text-decoration:none;">Take Them To</a></div>
+         <h1 class="section-title">${esc(sit.title)}</h1>
+         <p class="section-deck">${esc(sit.deck)}</p>
+         ${freshnessNote()}
+       </div>
+     </section>
+     <section class="situations-list wrap"><article class="situation"><ol class="situation-picks">${picks}</ol></article></section>
+     <script type="application/ld+json">${JSON.stringify(itemList)}</script>
+     <script type="application/ld+json">${JSON.stringify(breadcrumb)}</script>` +
     footer();
 }
 
@@ -6035,6 +6076,7 @@ function renderSitemap(neighborhoods, crossPages) {
     { loc: SITE + '/skyway/', priority: '0.8' },
     { loc: SITE + '/mystery/', priority: '0.8' },
     { loc: SITE + '/take-them-to/', priority: '0.8' },
+    ...(situations.situations || []).map(s => ({ loc: `${SITE}/take-them-to/${s.slug}/`, priority: '0.75' })),
     { loc: SITE + '/now-showing/', priority: '0.8' },
     { loc: SITE + '/horoscope/', priority: '0.7' },
     { loc: SITE + '/departed/', priority: '0.7' },
@@ -6184,6 +6226,7 @@ function build() {
 
   // Take Them To — situational picks
   writeFile('take-them-to/index.html', renderSituations());
+  for (const sit of (situations.situations || [])) writeFile(`take-them-to/${sit.slug}/index.html`, renderSituation(sit));
 
   // Tonight — sunset clock, weather, civic countdowns
   writeFile('tonight/index.html', renderTonight());
