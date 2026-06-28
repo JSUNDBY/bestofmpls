@@ -846,7 +846,7 @@ ${GSC_VERIFICATION ? `<meta name="google-site-verification" content="${esc(GSC_V
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600;700&family=Source+Sans+3:wght@400;600&family=Archivo:wght@500;600;700&family=Archivo+Narrow:wght@600;700&display=swap">
-<link rel="stylesheet" href="/style.css?v=53">
+<link rel="stylesheet" href="/style.css?v=54">
 <script>
 // Set color mode before paint to avoid flash. Reads localStorage first,
 // falls back to light mode (the new editorial default). mode-ready class
@@ -2627,7 +2627,7 @@ function renderAdminPicks() {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>${esc(title)}</title>
-<link rel="stylesheet" href="/style.css?v=53">
+<link rel="stylesheet" href="/style.css?v=54">
 <style>
   body { background: var(--paper); }
   .admin-wrap { max-width: 960px; margin: 0 auto; padding: 32px var(--gutter) 96px; }
@@ -3856,7 +3856,7 @@ function renderVenuePage(v) {
 // ---------- /this-weekend/ — Fri/Sat/Sun bundle ----------
 function renderWeekend() {
   const allEvents = eventsData.events || [];
-  const events = dedupeNonFilms(allEvents.filter(e => isShowEvent(e)));
+  const events = dedupeNonFilms(allEvents.filter(e => isShowEvent(e) && !isNoiseEvent(e)));
 
   // Find the next Friday/Saturday/Sunday triplet. If today is Thu, Fri, Sat,
   // or Sun, that means "this" weekend (the one already happening or about to
@@ -3941,6 +3941,22 @@ function renderWeekend() {
     }))
   };
 
+  // Free this weekend — surface the explicitly free/no-cover shows as a highlight.
+  const isFree = e => /\bfree\b|no cover/i.test(e.price || '') || /\bfree\b|no cover/i.test(e.subtitle || '');
+  const freeShows = weekendDays
+    .flatMap(d => d.events.map(e => ({ ...e, _day: d.label })))
+    .filter(isFree)
+    .slice(0, 12);
+  const freeBlock = freeShows.length ? `
+     <section class="wrap">
+       <div class="weekend-free">
+         <div class="weekend-free-head"><span class="weekend-free-label">Free this weekend</span></div>
+         <ul class="weekend-free-list">
+           ${freeShows.map(e => `<li class="weekend-free-item"><span class="weekend-free-name">${e.url ? `<a href="${esc(e.url)}" target="_blank" rel="noopener">${esc(e.title)}</a>` : esc(e.title)}</span><span class="weekend-free-meta">${esc(e.venue)} · ${esc(e._day)}</span></li>`).join('')}
+         </ul>
+       </div>
+     </section>` : '';
+
   return head({ title: 'Things to Do This Weekend in Minneapolis & St. Paul', description: `Friday through Sunday across Minneapolis and Saint Paul. ${totalShows} shows on the calendar between ${headlineDate} and ${endDate}.`, slug: 'this-weekend', theme: 'forest' }) +
     header({ activeSlug: 'this-weekend' }) +
     `<script type="application/ld+json">${JSON.stringify(weekendSchema)}</script>
@@ -3948,9 +3964,11 @@ function renderWeekend() {
        <div class="wrap">
          <div class="section-eyebrow">${totalShows} shows · ${headlineDate} to ${endDate}</div>
          <h1 class="section-title">This Weekend</h1>
-         <p class="section-deck">Friday through Sunday. Every concert, opening, talk, and performance the scraper found, by day.</p>
+         <p class="section-deck">Friday through Sunday across Minneapolis and Saint Paul. Every concert, opening, talk, and performance the scraper found, by day, refreshed all weekend.</p>
+         ${freshnessNote()}
        </div>
      </section>
+     ${freeBlock}
      <section class="weekend-grid">
        <div class="wrap weekend-grid-inner">${dayBlocks}</div>
      </section>` +
