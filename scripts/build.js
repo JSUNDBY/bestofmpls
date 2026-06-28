@@ -846,7 +846,7 @@ ${GSC_VERIFICATION ? `<meta name="google-site-verification" content="${esc(GSC_V
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600;700&family=Source+Sans+3:wght@400;600&family=Archivo:wght@500;600;700&family=Archivo+Narrow:wght@600;700&display=swap">
-<link rel="stylesheet" href="/style.css?v=54">
+<link rel="stylesheet" href="/style.css?v=55">
 <script>
 // Set color mode before paint to avoid flash. Reads localStorage first,
 // falls back to light mode (the new editorial default). mode-ready class
@@ -1086,6 +1086,7 @@ function footer() {
     <div class="footer-daily">
       <span class="footer-daily-label">Guides ·</span>
       <nav class="footer-daily-nav">
+        <a href="/best-of-${BEST_OF_YEAR}/">Best of MPLS ${BEST_OF_YEAR}</a>
         <a href="/new/">New &amp; Notable</a>
         ${guides.map(g => `<a href="/${g.slug}/">${esc(g.h1.replace(/^The /, '').replace(/ in the Twin Cities$/, ''))}</a>`).join('')}
       </nav>
@@ -2472,6 +2473,7 @@ function renderEntry(c, e, allCategories) {
            <span class="entry-status" data-entry-status></span>
          </div>
          <h1 class="entry-detail-name">${esc(e.name)}</h1>
+         ${isBestOfWinner(c.slug, e.name) ? `<a class="bestof-ribbon" href="/best-of-${BEST_OF_YEAR}/">★ Best of MPLS ${BEST_OF_YEAR}: ${esc(bestOfAwardLabel(c.slug))}</a>` : ''}
        </header>
 
        <section class="entry-detail-body">
@@ -2627,7 +2629,7 @@ function renderAdminPicks() {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>${esc(title)}</title>
-<link rel="stylesheet" href="/style.css?v=54">
+<link rel="stylesheet" href="/style.css?v=55">
 <style>
   body { background: var(--paper); }
   .admin-wrap { max-width: 960px; margin: 0 auto; padding: 32px var(--gutter) 96px; }
@@ -6041,6 +6043,97 @@ function renderGuide(g) {
     footer();
 }
 
+// ---------- Flagship annual ranking: Best of MPLS 2026 ----------
+// One editor's pick per category, drawn from the existing curated order (the
+// featured entry, else the top entry). The press-baitable, business-attracting
+// asset the metro lacks. Editor-curated, never pay-to-play.
+const BEST_OF_YEAR = '2026';
+const AWARDS = [
+  { group: 'Eat', items: [
+    ['restaurants', 'Restaurant of the Year'], ['best-pizza', 'Best Pizza'],
+    ['burgers', 'Best Burger'], ['mexican-and-tacos', 'Best Tacos'],
+    ['sandwiches', 'Best Sandwich'], ['vietnamese', 'Best Vietnamese'],
+    ['pastries-and-bakeries', 'Best Bakery'], ['coffee-shops', 'Best Coffee'],
+    ['ice-cream', 'Best Ice Cream'],
+  ]},
+  { group: 'Drink', items: [
+    ['cocktail-bars', 'Best Cocktail Bar'], ['breweries', 'Best Brewery'],
+    ['best-dive-bars', 'Best Dive Bar'], ['best-happy-hours', 'Best Happy Hour'],
+    ['best-patios', 'Best Patio'],
+  ]},
+  { group: 'Do', items: [
+    ['live-music', 'Best Music Venue'], ['arthouse-cinemas', 'Best Cinema'],
+    ['museums-and-galleries', 'Best Museum or Gallery'], ['wellness-and-spas', 'Best Spa'],
+  ]},
+];
+function bestOfWinnerOf(slug) {
+  const c = categories.find(x => x.slug === slug);
+  if (!c || !c.entries || !c.entries.length) return null;
+  return c.entries.find(e => e.featured) || c.entries[0];
+}
+function isBestOfWinner(slug, name) {
+  if (!AWARDS.some(g => g.items.some(([s]) => s === slug))) return false;
+  const w = bestOfWinnerOf(slug);
+  return !!w && w.name === name;
+}
+function bestOfAwardLabel(slug) {
+  for (const g of AWARDS) for (const [s, label] of g.items) if (s === slug) return label;
+  return null;
+}
+function renderBestOf() {
+  const firstSentence = s => { const t = String(s || '').trim(); const m = t.match(/^.*?[.!?](\s|$)/); const out = m ? m[0].trim() : t; return out.length > 160 ? out.slice(0, 157).replace(/\s+\S*$/, '') + '…' : out; };
+  const groups = AWARDS.map(g => ({
+    group: g.group,
+    items: g.items.map(([slug, award]) => {
+      const c = categories.find(x => x.slug === slug);
+      const winner = bestOfWinnerOf(slug);
+      return c && winner ? { award, c, winner } : null;
+    }).filter(Boolean)
+  })).filter(g => g.items.length);
+  const total = groups.reduce((n, g) => n + g.items.length, 0);
+
+  const body = groups.map(g => `
+    <section class="wrap bestof-group">
+      <h2 class="bestof-group-title">${esc(g.group)}</h2>
+      <div class="bestof-list">
+        ${g.items.map(it => `
+          <a class="bestof-award" href="/${it.c.slug}/${entrySlug(it.winner.name)}/">
+            <span class="bestof-award-label">${esc(it.award)}</span>
+            <span class="bestof-award-winner">${esc(it.winner.name)}</span>
+            ${it.winner.neighborhood ? `<span class="bestof-award-hood">${esc(it.winner.neighborhood)}</span>` : ''}
+            ${it.winner.description ? `<span class="bestof-award-why">${esc(firstSentence(it.winner.description))}</span>` : ''}
+          </a>`).join('')}
+      </div>
+    </section>`).join('');
+
+  const itemList = {
+    '@context': 'https://schema.org', '@type': 'ItemList', name: `Best of MPLS ${BEST_OF_YEAR}`,
+    itemListElement: groups.flatMap(g => g.items).map((it, i) => ({
+      '@type': 'ListItem', position: i + 1, name: `${it.award}: ${it.winner.name}`,
+      url: `${SITE}/${it.c.slug}/${entrySlug(it.winner.name)}/`
+    }))
+  };
+
+  return head({ title: `Best of MPLS ${BEST_OF_YEAR}: The Twin Cities' Best, Picked`, description: `Our pick in ${total} categories across Minneapolis and Saint Paul for ${BEST_OF_YEAR}. Editor-curated, independent, never pay-to-play.`, slug: 'best-of-2026', theme: 'clay' }) +
+    header({ activeSlug: '' }) +
+    `<section class="section-head">
+       <div class="wrap">
+         <div class="section-eyebrow">${total} categories · ${BEST_OF_YEAR}</div>
+         <h1 class="section-title">Best of MPLS ${BEST_OF_YEAR}</h1>
+         <p class="section-deck">One pick in each category, across Minneapolis and Saint Paul. Not a reader poll, not a popularity contest, our pick of the metro right now.</p>
+         ${freshnessNote()}
+       </div>
+     </section>
+     ${body}
+     <section class="wrap bestof-about">
+       <h2 class="bestof-about-title">How these are chosen</h2>
+       <p>One winner per category, the place we'd send you first. Editor's pick, from spots we actually cover. <strong>No business paid to win, and no placement is for sale.</strong> Chains and pay-to-play need not apply. Refreshed as the metro changes.</p>
+       <p class="bestof-badge-note">Won your category? The "Best of MPLS ${BEST_OF_YEAR}" badge is yours to put in your window or on your site, link it back here. <a href="mailto:hello@bestofmpls.com?subject=Best%20of%20MPLS%20${BEST_OF_YEAR}%20badge">Ask for the badge file</a>.</p>
+     </section>
+     <script type="application/ld+json">${JSON.stringify(itemList)}</script>` +
+    footer();
+}
+
 // ---------- Subscribable iCal feed ----------
 // A static calendar.ics so readers can subscribe in Google/Apple Calendar and
 // have the city's events show up in the tool they already use, auto-refreshing
@@ -6131,6 +6224,7 @@ function renderSitemap(neighborhoods, crossPages) {
     ...(featuredEvts.events || []).map(ev => ({ loc: `${SITE}/${ev.slug}/`, priority: '0.95' })),
     ...guides.map(g => ({ loc: `${SITE}/${g.slug}/`, priority: '0.85' })),
     { loc: SITE + '/pride/', priority: '0.85' },
+    { loc: `${SITE}/best-of-${BEST_OF_YEAR}/`, priority: '0.9' },
     ...categories.map(c => ({ loc: `${SITE}/${c.slug}/`, priority: '0.9' })),
     ...resolveVenues().map(v => ({ loc: `${SITE}/calendar/venue/${v.slug}/`, priority: '0.8' })),
     ...(neighborhoods || []).map(nb => ({ loc: `${SITE}/neighborhoods/${nb.slug}/`, priority: '0.8' })),
@@ -6199,6 +6293,7 @@ function build() {
   for (const g of guides) writeFile(`${g.slug}/index.html`, renderGuide(g));
   console.log(`  → ${guides.length} guide pages`);
   writeFile('pride/index.html', renderPride());
+  writeFile(`best-of-${BEST_OF_YEAR}/index.html`, renderBestOf());
 
   // Subscribable iCal feed: upcoming creative events (no film showtime spam, no
   // recurring noise), next 60 days, deduped — so readers can live it in their
