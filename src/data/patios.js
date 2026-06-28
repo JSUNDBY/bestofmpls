@@ -6,14 +6,6 @@ module.exports = {
   hero_color: 'sky',
   entries: [
     {
-      name: 'Bryant Lake Bowl',
-      neighborhood: 'Lyn-Lake, Minneapolis',
-      style: 'Upper-deck rooftop',
-      description: 'A rooftop patio above one of the city’s most beloved bowling-alley-and-actual-theaters. Strong cocktails, a brunch menu that holds up on the deck, a Lyn-Lake view that hits different at golden hour.',
-      address: '810 W Lake St, Minneapolis',
-      price: '$$'
-    },
-    {
       name: 'Bauhaus Brew Labs',
       neighborhood: 'Northeast Minneapolis',
       style: 'Industrial beer garden',
