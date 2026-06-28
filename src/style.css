@@ -6460,3 +6460,28 @@ html[data-mode="dark"] .entry-reserve {
 .bestof-badge-note { font-size: 14px !important; }
 .bestof-ribbon { display: inline-block; margin-top: 12px; font-family: var(--font-label); font-weight: 700; font-size: 12px; letter-spacing: 0.03em; color: var(--paper); background: var(--clay); border-radius: 20px; padding: 6px 14px; text-decoration: none; }
 .bestof-ribbon:hover { filter: brightness(0.92); }
+
+/* ===== The Living Best of — participation buttons ===== */
+.lb-actions { margin-top: 20px; border-top: 1px solid var(--rule); padding-top: 16px; }
+.lb-actions-row { display: flex; flex-wrap: wrap; gap: 10px; }
+.lb-btn {
+  font-family: var(--font-label); font-weight: 700; font-size: 12.5px;
+  letter-spacing: 0.02em; cursor: pointer;
+  background: transparent; color: var(--ink);
+  border: 1px solid var(--rule-strong, var(--ink)); border-radius: 999px;
+  padding: 9px 16px; transition: background 0.12s, color 0.12s, border-color 0.12s;
+}
+.lb-btn:hover { border-color: var(--clay); color: var(--clay); }
+.lb-btn.is-on { background: var(--clay); color: var(--paper); border-color: var(--clay); }
+.lb-btn.is-on:hover { color: var(--paper); }
+.lb-story { margin-top: 12px; max-width: 460px; }
+.lb-story-text {
+  width: 100%; box-sizing: border-box; font-family: var(--font-body); font-size: 15px;
+  border: 1px solid var(--rule-strong, var(--ink)); border-radius: 8px; padding: 10px 12px; resize: vertical;
+  background: var(--paper); color: var(--ink);
+}
+.lb-story-foot { display: flex; align-items: center; gap: 12px; margin-top: 8px; }
+.lb-btn--send { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.lb-story-msg { font-family: var(--font-body); font-size: 13px; color: var(--ink-soft); }
+.lb-thanks { margin-top: 12px; font-family: var(--font-body); font-size: 14px; color: var(--clay); font-weight: 600; }
+.lb-note { font-family: var(--font-body); font-size: 12.5px; color: var(--ink-faint); margin-top: 12px; }

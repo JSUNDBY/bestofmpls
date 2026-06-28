@@ -846,7 +846,7 @@ ${GSC_VERIFICATION ? `<meta name="google-site-verification" content="${esc(GSC_V
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600;700&family=Source+Sans+3:wght@400;600&family=Archivo:wght@500;600;700&family=Archivo+Narrow:wght@600;700&display=swap">
-<link rel="stylesheet" href="/style.css?v=55">
+<link rel="stylesheet" href="/style.css?v=56">
 <script>
 // Set color mode before paint to avoid flash. Reads localStorage first,
 // falls back to light mode (the new editorial default). mode-ready class
@@ -1435,6 +1435,43 @@ function footer() {
     });
   }, { rootMargin: '0px 0px -10% 0px', threshold: 0.05 });
   targets.forEach(function(el){ io.observe(el); });
+})();
+
+// The Living Best of — participation. Anonymous device id in localStorage; taps
+// post to the worker /signal endpoint (fire-and-forget, optimistic UI).
+(function(){
+  var WORKER = ${JSON.stringify(POLL_WORKER_URL || '')};
+  if (!WORKER) return;
+  function dev(){ try { var d = localStorage.getItem('bom_dev'); if (!d) { d = Date.now().toString(36) + Math.random().toString(36).slice(2, 10); localStorage.setItem('bom_dev', d); } return d; } catch (e) { return 'anon'; } }
+  function getMap(k){ try { return JSON.parse(localStorage.getItem(k) || '{}'); } catch (e) { return {}; } }
+  function setMap(k, o){ try { localStorage.setItem(k, JSON.stringify(o)); } catch (e) {} }
+  function send(place, type, extra){ try { fetch(WORKER + '/signal', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(Object.assign({ type: type, place: place, device: dev() }, extra || {})), keepalive: true }).catch(function(){}); } catch (e) {} }
+
+  // Save / I'm a regular / Share a moment
+  var box = document.querySelector('.lb-actions');
+  if (box) {
+    var place = box.getAttribute('data-lb-place');
+    var bSave = box.querySelector('[data-lb="save"]'), bReg = box.querySelector('[data-lb="regular"]');
+    if (place) {
+      if (getMap('bom_saved')[place] && bSave) bSave.classList.add('is-on');
+      if (getMap('bom_regular')[place] && bReg) bReg.classList.add('is-on');
+      function toggle(btn, key, type){ var m = getMap(key); if (m[place]) { delete m[place]; btn.classList.remove('is-on'); send(place, type, { remove: true }); } else { m[place] = 1; btn.classList.add('is-on'); send(place, type); } setMap(key, m); }
+      if (bSave) bSave.addEventListener('click', function(){ toggle(bSave, 'bom_saved', 'save'); });
+      if (bReg) bReg.addEventListener('click', function(){ toggle(bReg, 'bom_regular', 'regular'); });
+      var bOpen = box.querySelector('[data-lb="story-open"]'), form = box.querySelector('[data-lb-story]'), thanks = box.querySelector('[data-lb-thanks]');
+      if (bOpen && form) bOpen.addEventListener('click', function(){ form.hidden = !form.hidden; if (!form.hidden) { var t = form.querySelector('textarea'); if (t) t.focus(); } });
+      if (form) form.addEventListener('submit', function(e){ e.preventDefault(); var t = form.querySelector('textarea'), msg = form.querySelector('[data-lb-msg]'); var text = (t && t.value || '').trim(); if (text.length < 10) { if (msg) msg.textContent = 'A little more, please.'; return; } send(place, 'story', { text: text }); form.hidden = true; if (thanks) thanks.hidden = false; });
+    }
+  }
+
+  // Directions taps = real visit intent.
+  document.querySelectorAll('[data-lb-directions]').forEach(function(a){
+    a.addEventListener('click', function(){
+      var place = a.getAttribute('data-lb-place'); if (!place) return;
+      var body = JSON.stringify({ type: 'directions', place: place, device: dev() });
+      try { if (navigator.sendBeacon) navigator.sendBeacon(WORKER + '/signal', new Blob([body], { type: 'application/json' })); else send(place, 'directions'); } catch (e) {}
+    });
+  });
 })();
 </script>
 </body>
@@ -2350,8 +2387,24 @@ function renderEntry(c, e, allCategories) {
   const directionsBlock = (coords || (e.address && /\d/.test(e.address))) ? (() => {
     const dest = coords ? `${coords.lat},${coords.lng}` : e.address;
     const u = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(dest)}`;
-    return `<a class="entry-detail-directions" href="${esc(u)}" target="_blank" rel="noopener">Get directions <span class="entry-meta-link-icon">↗</span></a>`;
+    return `<a class="entry-detail-directions" href="${esc(u)}" target="_blank" rel="noopener" data-lb-directions data-lb-place="${c.slug}/${slug}">Get directions <span class="entry-meta-link-icon">↗</span></a>`;
   })() : '';
+
+  // The Living Best of — participation. Anonymous taps that shape the read.
+  const lbActionsBlock = POLL_WORKER_URL ? `
+    <div class="lb-actions" data-lb-place="${c.slug}/${slug}">
+      <div class="lb-actions-row">
+        <button class="lb-btn" data-lb="save" type="button">Save</button>
+        <button class="lb-btn" data-lb="regular" type="button">I'm a regular</button>
+        <button class="lb-btn" data-lb="story-open" type="button">Share a moment</button>
+      </div>
+      <form class="lb-story" data-lb-story hidden>
+        <textarea class="lb-story-text" maxlength="1000" rows="3" placeholder="A moment you had here — the meal, the night, why it matters."></textarea>
+        <div class="lb-story-foot"><button class="lb-btn lb-btn--send" data-lb="story-send" type="submit">Share</button><span class="lb-story-msg" data-lb-msg></span></div>
+      </form>
+      <div class="lb-thanks" data-lb-thanks hidden>Thanks — that shapes the read.</div>
+      <p class="lb-note">Saves, regulars, and moments shape the Best of MPLS. Anonymous, never sold.</p>
+    </div>` : '';
 
   // Full week of hours, rendered server-side (the header already carries the live
   // "Open now" pip from the existing status script, so no duplicate badge here).
@@ -2488,6 +2541,7 @@ function renderEntry(c, e, allCategories) {
          ${e.price ? `<span class="entry-detail-price">${esc(e.price)}</span>` : ''}
          ${e.access ? `<div class="entry-detail-access"><strong>How to visit:</strong> ${esc(e.access)}</div>` : ''}
          ${hoursBlock}
+         ${lbActionsBlock}
        </section>
 
        ${miniMap}
@@ -2629,7 +2683,7 @@ function renderAdminPicks() {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>${esc(title)}</title>
-<link rel="stylesheet" href="/style.css?v=55">
+<link rel="stylesheet" href="/style.css?v=56">
 <style>
   body { background: var(--paper); }
   .admin-wrap { max-width: 960px; margin: 0 auto; padding: 32px var(--gutter) 96px; }
