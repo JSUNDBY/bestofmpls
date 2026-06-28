@@ -92,6 +92,17 @@ function reservationPlatform(url) {
 const CURRENT_MONTH = parseInt(TODAY_ISO.slice(5, 7), 10);
 const IS_WARM_SEASON = CURRENT_MONTH >= 4 && CURRENT_MONTH <= 9;
 
+// Human-readable build date, used to show readers the guide is current — the
+// freshness moat over every stale incumbent, made visible.
+const UPDATED_LABEL = (function(){
+  const [y, m, d] = TODAY_ISO.split('-').map(Number);
+  return new Date(y, m - 1, d).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+})();
+// A small "kept current + independent" stamp for guide and category pages.
+function freshnessNote() {
+  return `<p class="freshness-note">Updated ${UPDATED_LABEL} · Independent and locally run. Our picks aren't for sale; any paid placement is labeled.</p>`;
+}
+
 // One-line editorial pull-quote for the homepage interruption block. Picks
 // from weather mood first (patio / brutal / snow / rain), then falls back
 // to a month-aware seasonal line. The line changes the page's emotional
@@ -835,7 +846,7 @@ ${GSC_VERIFICATION ? `<meta name="google-site-verification" content="${esc(GSC_V
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600;700&family=Source+Sans+3:wght@400;600&family=Archivo:wght@500;600;700&family=Archivo+Narrow:wght@600;700&display=swap">
-<link rel="stylesheet" href="/style.css?v=49">
+<link rel="stylesheet" href="/style.css?v=50">
 <script>
 // Set color mode before paint to avoid flash. Reads localStorage first,
 // falls back to light mode (the new editorial default). mode-ready class
@@ -1061,6 +1072,7 @@ function footer() {
       <div class="footer-brand-block">
         <div class="footer-brand">bestofmpls<span class="dot">.</span></div>
         <p class="footer-tag">A guide to the museums, music, food, and small good things of Minneapolis and Saint Paul. Made for the metro by the people who live here.</p>
+        <p class="footer-promise">Independent and locally run. Updated daily. The picks aren't for sale.</p>
       </div>
     </div>
 
@@ -2042,6 +2054,7 @@ function renderCategory(c) {
         <h1 class="section-title">${esc(c.title)} <em>in the Twin Cities</em></h1>
         <p class="section-deck">${esc(c.intro)}</p>
         ${c.slug === 'lectures' ? `<p class="section-deck" style="margin-top:14px"><a class="entry-reserve" href="/contribute/">Hosting a public talk? List it free →</a></p>` : ''}
+        ${freshnessNote()}
       </div>
     </section>
     ${upcomingTalks}
@@ -2585,7 +2598,7 @@ function renderAdminPicks() {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>${esc(title)}</title>
-<link rel="stylesheet" href="/style.css?v=49">
+<link rel="stylesheet" href="/style.css?v=50">
 <style>
   body { background: var(--paper); }
   .admin-wrap { max-width: 960px; margin: 0 auto; padding: 32px var(--gutter) 96px; }
@@ -5892,6 +5905,7 @@ function renderGuide(g) {
         <div class="section-eyebrow">${picks.length} picks</div>
         <h1 class="section-title">${esc(g.h1)}</h1>
         <p class="section-deck">${esc(g.intro)}</p>
+        ${freshnessNote()}
       </div>
     </section>
     <section class="wrap guide-list">${cards}</section>

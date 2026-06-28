@@ -6387,3 +6387,20 @@ html[data-mode="dark"] .entry-reserve {
   text-underline-offset: 2px;
 }
 .cal-subscribe-mini a:hover { color: var(--clay); }
+
+/* ===== Freshness + independence signaling ===== */
+.freshness-note {
+  font-family: var(--font-label);
+  font-size: 11.5px;
+  letter-spacing: 0.04em;
+  color: var(--ink-faint);
+  margin-top: 16px;
+}
+.footer-promise {
+  font-family: var(--font-label);
+  font-size: 11.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--clay);
+  margin-top: 10px;
+}
