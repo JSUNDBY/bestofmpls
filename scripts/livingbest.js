@@ -33,8 +33,12 @@ function entrySlug(name) {
 
 // Scoring knobs (documented so they're easy to tune; the model is transparent).
 const WEIGHTS = { save: 1, regular: 3, directions: 1, story: 5 }; // loyalty + meaning weigh most
-const SEED_WINNER = 20;    // durable accolade baseline (James Beard, etc.)
-const SEED_RUNNER = 8;
+// Accolades are ONE input, not a crown. A small, durable credibility floor so a
+// place with real honors doesn't start at zero — but a handful of real regulars
+// or a couple of stories overtake it. Press and trophies don't decide the winner;
+// the people who actually go do.
+const SEED_WINNER = 5;     // strongest accolade in the category (e.g. Beard winner)
+const SEED_RUNNER = 3;     // also-recognized
 const HALFLIFE_DAYS = 90;  // recent actions weigh more — this is what makes it "now"
 const MS_DAY = 86400000;
 const LN2 = Math.log(2);
