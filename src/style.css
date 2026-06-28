@@ -6430,3 +6430,6 @@ html[data-mode="dark"] .entry-reserve {
 .partner-stat-num { font-family: var(--font-display); font-weight: 800; font-size: 34px; line-height: 1; color: var(--ink); }
 .partner-stat-label { font-family: var(--font-label); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-soft); }
 .partner-numbers-note { font-family: var(--font-body); font-size: 14px; line-height: 1.5; color: var(--ink-faint); margin-top: 16px; max-width: 600px; }
+
+/* ===== Guide map ===== */
+.guide-map { height: 380px; border-radius: 10px; border: 1px solid var(--rule); margin-top: 10px; z-index: 0; }

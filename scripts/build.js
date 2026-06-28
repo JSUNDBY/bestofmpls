@@ -846,7 +846,7 @@ ${GSC_VERIFICATION ? `<meta name="google-site-verification" content="${esc(GSC_V
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600;700&family=Source+Sans+3:wght@400;600&family=Archivo:wght@500;600;700&family=Archivo+Narrow:wght@600;700&display=swap">
-<link rel="stylesheet" href="/style.css?v=52">
+<link rel="stylesheet" href="/style.css?v=53">
 <script>
 // Set color mode before paint to avoid flash. Reads localStorage first,
 // falls back to light mode (the new editorial default). mode-ready class
@@ -2627,7 +2627,7 @@ function renderAdminPicks() {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>${esc(title)}</title>
-<link rel="stylesheet" href="/style.css?v=52">
+<link rel="stylesheet" href="/style.css?v=53">
 <style>
   body { background: var(--paper); }
   .admin-wrap { max-width: 960px; margin: 0 auto; padding: 32px var(--gutter) 96px; }
@@ -5958,8 +5958,28 @@ function renderGuide(g) {
     let mod; try { mod = require(path.join(SRC, 'data', p.category + '.js')); } catch (_) { return null; }
     const e = (mod.entries || []).find(x => entrySlug(x.name) === entrySlug(p.name));
     if (!e) return null;
-    return { e, why: p.why, href: `/${mod.slug}/${entrySlug(e.name)}/` };
+    return { e, why: p.why, href: `/${mod.slug}/${entrySlug(e.name)}/`, coords: lookupCoords(mod.slug, e) };
   }).filter(Boolean);
+
+  // Pinned map of the picks that have verified coords — Eater's spatial UX, but
+  // auto-updating. Numbered to match the list below.
+  const mapPts = picks.map((p, i) => p.coords ? { lat: p.coords.lat, lng: p.coords.lng, name: p.e.name, href: p.href, n: i + 1 } : null).filter(Boolean);
+  const guideMap = mapPts.length >= 2 ? `
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <section class="wrap"><div id="guide-map" class="guide-map"></div></section>
+    <script>(function(){
+      var pts=${JSON.stringify(mapPts)};
+      var map=L.map('guide-map',{scrollWheelZoom:false}).setView([44.97,-93.24],11);
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{attribution:'© OpenStreetMap contributors © CARTO',subdomains:'abcd',maxZoom:19}).addTo(map);
+      var b=[];
+      pts.forEach(function(p){
+        var m=L.marker([p.lat,p.lng],{icon:L.divIcon({className:'bom-marker',html:'<span style="background:#E11900"></span>',iconSize:[16,16],iconAnchor:[8,8]})}).addTo(map);
+        m.bindPopup('<a href="'+p.href+'" style="font-weight:700">'+p.n+'. '+p.name+'</a>');
+        b.push([p.lat,p.lng]);
+      });
+      if(b.length)map.fitBounds(b,{padding:[36,36],maxZoom:14});
+    })();</script>` : '';
 
   const cards = picks.map((p, i) => `
     <a class="guide-pick" href="${esc(p.href)}">
@@ -5996,6 +6016,7 @@ function renderGuide(g) {
         ${freshnessNote()}
       </div>
     </section>
+    ${guideMap}
     <section class="wrap guide-list">${cards}</section>
     <script type="application/ld+json">${JSON.stringify(itemList)}</script>
     <script type="application/ld+json">${JSON.stringify(breadcrumb)}</script>` +
