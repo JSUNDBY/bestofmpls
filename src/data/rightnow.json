@@ -1,24 +1,24 @@
 {
-  "generated_at": "2026-06-27T15:24:36.768Z",
-  "today": "2026-06-27",
+  "generated_at": "2026-06-28T19:37:35.181Z",
+  "today": "2026-06-28",
   "sun": {
     "rise": "5:03 AM",
     "set": "8:38 PM",
     "rise_24": "05:03",
     "set_24": "20:38",
-    "daylight_min": 936
+    "daylight_min": 935
   },
   "weather": {
-    "temp_now": 72,
-    "temp_max": 83,
-    "feels_like": 71,
-    "condition": "Sunny",
+    "temp_now": 79,
+    "temp_max": 81,
+    "feels_like": 83,
+    "condition": "Partly Cloudy",
     "is_patio": true,
     "is_brutal": false,
     "is_snowing": false,
     "is_rainy": false,
     "mood": "patio",
-    "summary": "83°F high · patio weather",
+    "summary": "81°F high · patio weather",
     "source": "nws"
   },
   "countdowns": [
@@ -32,43 +32,43 @@
     {
       "name": "Aquatennial",
       "date": "2026-07-16",
-      "days": 19,
+      "days": 18,
       "now": false,
       "blurb": "Minneapolis's eleven-day midsummer festival."
     },
     {
       "name": "Minnesota State Fair",
       "date": "2026-08-27",
-      "days": 61,
+      "days": 60,
       "now": false,
       "blurb": "Twelve days ending Labor Day. The largest state fair by daily attendance."
     },
     {
       "name": "Twin Cities Marathon",
       "date": "2026-10-04",
-      "days": 99,
+      "days": 98,
       "now": false,
       "blurb": "Twenty-six miles from downtown Minneapolis to the State Capitol."
     },
     {
       "name": "Twin Cities Book Festival",
       "date": "2026-10-17",
-      "days": 112,
+      "days": 111,
       "now": false,
       "blurb": "The metro's largest free book festival, at the State Fairgrounds."
     },
     {
       "name": "Saint Paul Winter Carnival",
       "date": "2027-01-22",
-      "days": 209,
+      "days": 208,
       "now": false,
       "blurb": "The oldest winter festival in the country opens."
     }
   ],
   "sunset_pick": {
-    "name": "Indian Mounds Park",
-    "neighborhood": "Dayton's Bluff, St. Paul",
-    "why": "Bluff overlook above the Mississippi. Quiet. Historical. The light is long."
+    "name": "Sea Salt patio at Minnehaha Falls",
+    "neighborhood": "South Minneapolis",
+    "why": "Falls behind, sun setting through the trees over the river gorge. Summer only."
   },
   "sunset_picks": [
     {

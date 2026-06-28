@@ -1133,56 +1133,38 @@ function footer() {
 </nav>
 
 <script>
-// Live weather — fetches the actual current observation from NWS on
-// every page load and rewrites every [data-live-temp] and
-// [data-live-condition] on the page. The build-time rightnow.json is a
-// fallback for no-JS readers and for the moment between fetch and
-// response; once this resolves the page reflects real-time conditions.
-// localStorage caches for 15 min so navigation between pages doesn't
-// re-hammer api.weather.gov. NWS sends access-control-allow-origin: *
-// so direct browser fetch works.
+// Live weather — fetches the current temperature at the actual downtown point
+// from Open-Meteo (not the airport station) on every page load and rewrites every
+// [data-live-temp] and [data-live-condition]. Same source as the build, so the
+// number is consistent and accurate to the metro, not KMSP ~10 miles south.
+// The build-time rightnow.json is the no-JS / pre-fetch fallback. localStorage
+// caches 15 min. Open-Meteo sends access-control-allow-origin: * so it works.
 (function(){
   var targets = document.querySelectorAll('[data-live-temp], [data-live-condition]');
   if (!targets.length) return;
-  var KEY = 'bom-live-weather';
+  var KEY = 'bom-live-weather2';
   var TTL = 15 * 60 * 1000;
-  var STATION = 'https://api.weather.gov/stations/KMSP/observations/latest';
+  var URL = 'https://api.open-meteo.com/v1/forecast?latitude=44.9778&longitude=-93.2650&current=temperature_2m,weather_code&temperature_unit=fahrenheit&timezone=America%2FChicago';
+  var WMO = {0:'Clear',1:'Mostly Clear',2:'Partly Cloudy',3:'Overcast',45:'Fog',48:'Fog',51:'Light Drizzle',53:'Drizzle',55:'Drizzle',56:'Freezing Drizzle',57:'Freezing Drizzle',61:'Light Rain',63:'Rain',65:'Heavy Rain',66:'Freezing Rain',67:'Freezing Rain',71:'Light Snow',73:'Snow',75:'Heavy Snow',77:'Snow Grains',80:'Showers',81:'Showers',82:'Heavy Showers',85:'Snow Showers',86:'Snow Showers',95:'Thunderstorm',96:'Thunderstorm',99:'Thunderstorm'};
 
   function apply(obs){
     if (!obs || obs.tempF == null) return;
-    document.querySelectorAll('[data-live-temp]').forEach(function(el){
-      el.textContent = Math.round(obs.tempF);
-    });
-    if (obs.condition) {
-      document.querySelectorAll('[data-live-condition]').forEach(function(el){
-        el.textContent = obs.condition;
-      });
-    }
+    document.querySelectorAll('[data-live-temp]').forEach(function(el){ el.textContent = Math.round(obs.tempF); });
+    if (obs.condition) document.querySelectorAll('[data-live-condition]').forEach(function(el){ el.textContent = obs.condition; });
   }
 
   // 1. Try cache first.
   try {
     var raw = localStorage.getItem(KEY);
-    if (raw) {
-      var cached = JSON.parse(raw);
-      if (cached && (Date.now() - cached.ts) < TTL) {
-        apply(cached);
-      }
-    }
+    if (raw) { var cached = JSON.parse(raw); if (cached && (Date.now() - cached.ts) < TTL) apply(cached); }
   } catch (_) {}
 
-  // 2. Always fetch fresh in the background (15 min stale is the worst case).
-  fetch(STATION, { headers: { 'Accept': 'application/geo+json' } })
+  // 2. Always fetch fresh in the background.
+  fetch(URL)
     .then(function(r){ if (!r.ok) throw new Error(r.status); return r.json(); })
     .then(function(d){
-      var p = d.properties || {};
-      var tempC = p.temperature && p.temperature.value;
-      var tempF = (tempC == null) ? null : (tempC * 9/5 + 32);
-      var obs = {
-        ts: Date.now(),
-        tempF: tempF,
-        condition: p.textDescription || null
-      };
+      var cur = d.current || {};
+      var obs = { ts: Date.now(), tempF: (typeof cur.temperature_2m === 'number') ? cur.temperature_2m : null, condition: WMO[cur.weather_code] || null };
       try { localStorage.setItem(KEY, JSON.stringify(obs)); } catch (_) {}
       apply(obs);
     })

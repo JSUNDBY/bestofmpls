@@ -87,6 +87,23 @@ function hm24(d) {
 const NWS_UA = 'bestofmpls.com (hello@bestofmpls.com)';
 const NWS_FORECAST = 'https://api.weather.gov/gridpoints/MPX/108,72/forecast';
 const NWS_OBS = 'https://api.weather.gov/stations/KMSP/observations/latest';
+// Current temp comes from Open-Meteo at the actual downtown Minneapolis point
+// (44.9778, -93.2650), not the airport station. Model-interpolated to the city
+// center, free, no key, and consistent between the build and the live updater.
+const OPEN_METEO = 'https://api.open-meteo.com/v1/forecast?latitude=44.9778&longitude=-93.2650&current=temperature_2m,apparent_temperature,weather_code&temperature_unit=fahrenheit&timezone=America%2FChicago';
+
+// WMO weather code → short label (matches the client-side mapper in build.js).
+function wmoText(code) {
+  const m = {
+    0: 'Clear', 1: 'Mostly Clear', 2: 'Partly Cloudy', 3: 'Overcast',
+    45: 'Fog', 48: 'Fog', 51: 'Light Drizzle', 53: 'Drizzle', 55: 'Drizzle',
+    56: 'Freezing Drizzle', 57: 'Freezing Drizzle', 61: 'Light Rain', 63: 'Rain', 65: 'Heavy Rain',
+    66: 'Freezing Rain', 67: 'Freezing Rain', 71: 'Light Snow', 73: 'Snow', 75: 'Heavy Snow',
+    77: 'Snow Grains', 80: 'Showers', 81: 'Showers', 82: 'Heavy Showers',
+    85: 'Snow Showers', 86: 'Snow Showers', 95: 'Thunderstorm', 96: 'Thunderstorm', 99: 'Thunderstorm'
+  };
+  return m[code] || null;
+}
 
 function cToF(c) { return c == null ? null : (c * 9 / 5) + 32; }
 
@@ -98,11 +115,12 @@ async function fetchJson(url) {
 
 async function fetchWeather() {
   try {
-    const [forecast, obs] = await Promise.all([
+    const [forecast, obs, openMeteo] = await Promise.all([
       fetchJson(NWS_FORECAST),
-      fetchJson(NWS_OBS).catch(e => { console.warn(`  obs fetch failed: ${e.message}`); return null; })
+      fetchJson(NWS_OBS).catch(e => { console.warn(`  obs fetch failed: ${e.message}`); return null; }),
+      fetch(OPEN_METEO).then(r => r.ok ? r.json() : null).catch(e => { console.warn(`  open-meteo fetch failed: ${e.message}`); return null; })
     ]);
-    return { forecast, obs };
+    return { forecast, obs, openMeteo };
   } catch (e) {
     console.warn(`  weather fetch failed: ${e.message}`);
     return null;
@@ -141,6 +159,8 @@ function classifyWeather(weather) {
   // running after sunset), the period's temperature is tonight's low and the
   // next daytime period is tomorrow's day, so we still use [0] as "today".
   const dayPeriod = periods.find(p => p.isDaytime) || periods[0];
+  // Open-Meteo current at the downtown point (preferred for current temp).
+  const om = weather.openMeteo?.current || null;
   // The period happening RIGHT NOW is always periods[0] (NWS lists it first,
   // day or night). The displayed condition and the rain/mood signal must both
   // come from this period or they contradict: after sunset, dayPeriod is
@@ -150,17 +170,21 @@ function classifyWeather(weather) {
 
   // Daytime period.temperature is the high (in F), used for the high + patio.
   const tempMax = dayPeriod.isDaytime ? dayPeriod.temperature : null;
-  const condition = describeNws(currentPeriod.shortForecast);
   const popNow  = currentPeriod.probabilityOfPrecipitation?.value ?? 0;
 
-  // Current temp + feels-like from KMSP observation.
+  // Current temp + feels-like. Prefer Open-Meteo at the downtown point; fall
+  // back to the KMSP observation, then the forecast period.
   const obsProps = weather.obs?.properties || null;
   const obsTempF = cToF(obsProps?.temperature?.value);
   const windChillF = cToF(obsProps?.windChill?.value);
   const heatIdxF = cToF(obsProps?.heatIndex?.value);
 
-  const tempNow = obsTempF ?? periods[0].temperature;
-  const feelsLike = windChillF ?? heatIdxF ?? tempNow;
+  const tempNow = (om && typeof om.temperature_2m === 'number') ? om.temperature_2m
+    : (obsTempF ?? periods[0].temperature);
+  const feelsLike = (om && typeof om.apparent_temperature === 'number') ? om.apparent_temperature
+    : (windChillF ?? heatIdxF ?? tempNow);
+  // Current sky from Open-Meteo's code; fall back to the NWS short forecast.
+  const condition = (om && wmoText(om.weather_code)) || describeNws(currentPeriod.shortForecast);
 
   // Mood from the current period's forecast text, gated on a real chance of
   // precipitation. A "slight chance" or a passing mention (low POP) must not
