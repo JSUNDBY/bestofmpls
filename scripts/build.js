@@ -1086,7 +1086,7 @@ function footer() {
     <div class="footer-daily">
       <span class="footer-daily-label">Guides ·</span>
       <nav class="footer-daily-nav">
-        <a href="/best-of-${BEST_OF_YEAR}/">Best of MPLS ${BEST_OF_YEAR}</a>
+        ${BEST_OF_LIVE ? `<a href="/best-of-${BEST_OF_YEAR}/">Best of MPLS ${BEST_OF_YEAR}</a>` : ''}
         <a href="/new/">New &amp; Notable</a>
         ${guides.map(g => `<a href="/${g.slug}/">${esc(g.h1.replace(/^The /, '').replace(/ in the Twin Cities$/, ''))}</a>`).join('')}
       </nav>
@@ -2473,7 +2473,7 @@ function renderEntry(c, e, allCategories) {
            <span class="entry-status" data-entry-status></span>
          </div>
          <h1 class="entry-detail-name">${esc(e.name)}</h1>
-         ${isBestOfWinner(c.slug, e.name) ? `<a class="bestof-ribbon" href="/best-of-${BEST_OF_YEAR}/">★ Best of MPLS ${BEST_OF_YEAR}: ${esc(bestOfAwardLabel(c.slug))}</a>` : ''}
+         ${BEST_OF_LIVE && isBestOfWinner(c.slug, e.name) ? `<a class="bestof-ribbon" href="/best-of-${BEST_OF_YEAR}/">★ Best of MPLS ${BEST_OF_YEAR}: ${esc(bestOfAwardLabel(c.slug))}</a>` : ''}
        </header>
 
        <section class="entry-detail-body">
@@ -6048,6 +6048,9 @@ function renderGuide(g) {
 // featured entry, else the top entry). The press-baitable, business-attracting
 // asset the metro lacks. Editor-curated, never pay-to-play.
 const BEST_OF_YEAR = '2026';
+// Held in draft until the winner-selection mechanism is decided. When true, the
+// page builds, links appear, ribbons show. The renderer + data are kept ready.
+const BEST_OF_LIVE = false;
 const AWARDS = [
   { group: 'Eat', items: [
     ['restaurants', 'Restaurant of the Year'], ['best-pizza', 'Best Pizza'],
@@ -6227,7 +6230,7 @@ function renderSitemap(neighborhoods, crossPages) {
     ...(featuredEvts.events || []).map(ev => ({ loc: `${SITE}/${ev.slug}/`, priority: '0.95' })),
     ...guides.map(g => ({ loc: `${SITE}/${g.slug}/`, priority: '0.85' })),
     { loc: SITE + '/pride/', priority: '0.85' },
-    { loc: `${SITE}/best-of-${BEST_OF_YEAR}/`, priority: '0.9' },
+    ...(BEST_OF_LIVE ? [{ loc: `${SITE}/best-of-${BEST_OF_YEAR}/`, priority: '0.9' }] : []),
     ...categories.map(c => ({ loc: `${SITE}/${c.slug}/`, priority: '0.9' })),
     ...resolveVenues().map(v => ({ loc: `${SITE}/calendar/venue/${v.slug}/`, priority: '0.8' })),
     ...(neighborhoods || []).map(nb => ({ loc: `${SITE}/neighborhoods/${nb.slug}/`, priority: '0.8' })),
@@ -6296,7 +6299,7 @@ function build() {
   for (const g of guides) writeFile(`${g.slug}/index.html`, renderGuide(g));
   console.log(`  → ${guides.length} guide pages`);
   writeFile('pride/index.html', renderPride());
-  writeFile(`best-of-${BEST_OF_YEAR}/index.html`, renderBestOf());
+  if (BEST_OF_LIVE) writeFile(`best-of-${BEST_OF_YEAR}/index.html`, renderBestOf());
 
   // Subscribable iCal feed: upcoming creative events (no film showtime spam, no
   // recurring noise), next 60 days, deduped — so readers can live it in their
