@@ -851,7 +851,7 @@ ${GSC_VERIFICATION ? `<meta name="google-site-verification" content="${esc(GSC_V
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600;700&family=Source+Sans+3:wght@400;600&family=Archivo:wght@500;600;700&family=Archivo+Narrow:wght@600;700&display=swap">
-<link rel="stylesheet" href="/style.css?v=57">
+<link rel="stylesheet" href="/style.css?v=58">
 <script>
 // Set color mode before paint to avoid flash. Reads localStorage first,
 // falls back to light mode (the new editorial default). mode-ready class
@@ -1663,6 +1663,18 @@ function renderHome() {
         </div>
       </div>
     </section>` : ''}
+    ${LIVING_TOP.length ? `
+    <section class="loved-rail" aria-label="What locals are loving">
+      <div class="wrap">
+        <div class="loved-rail-head">
+          <span class="loved-rail-eyebrow">What locals are loving</span>
+          <a class="loved-rail-link" href="/best-of-${BEST_OF_YEAR}/">The living Best of →</a>
+        </div>
+        <div class="loved-rail-list">
+          ${LIVING_TOP.map(p => `<a class="loved-item" href="${esc(p.url)}"><span class="loved-item-name">${esc(p.name)}</span><span class="loved-item-meta">${esc(p.award)}${p.neighborhood ? ' · ' + esc(p.neighborhood.split(',')[0]) : ''}</span><span class="loved-item-voices">${p.voices} local${p.voices === 1 ? '' : 's'}</span></a>`).join('')}
+        </div>
+      </div>
+    </section>` : ''}
     <section class="more-tools" aria-label="More tools">
       <div class="wrap">
         <div class="more-tools-head">
@@ -1875,6 +1887,8 @@ function renderCategory(c) {
     // get a small "Featured" mark via the badge below instead.
     const rankBlock = '';
     const pickBadge = isFeatured ? '<span class="entry-meta-pick" title="Paid partner placement — see /partner/">Featured</span>' : '';
+    // Living Best of: the current local #1 in this category (only with real signal).
+    const livingBadge = (BEST_OF_LIVE && isBestOfWinner(c.slug, e.name)) ? `<a class="entry-meta-living" href="/best-of-${BEST_OF_YEAR}/" title="Locals' #1 right now">★ Locals' #1</a>` : '';
     // Look up hours for this entry. If we have them, embed as a data attribute
     // so the inline script at footer can compute open/closed in the user's
     // timezone on page load.
@@ -1887,7 +1901,7 @@ function renderCategory(c) {
     return `<article class="entry${featured}" id="${esc(detailSlug)}"${hoursAttr}>
       ${rankBlock}
       <div class="entry-body">
-        <div class="entry-meta">${meta.join('')}${pickBadge}<span class="entry-status" data-entry-status></span></div>
+        <div class="entry-meta">${meta.join('')}${pickBadge}${livingBadge}<span class="entry-status" data-entry-status></span></div>
         <h2 class="entry-name"><a href="${detailUrl}">${esc(e.name)}</a></h2>
         <p class="entry-description">${esc(e.description)}</p>
         <div class="entry-footer">${footerBits.join('')}</div>
@@ -2396,8 +2410,19 @@ function renderEntry(c, e, allCategories) {
   })() : '';
 
   // The Living Best of — participation. Anonymous taps that shape the read.
+  // Live standing — only once the category has real reader signal (never on the
+  // accolade floor alone).
+  const lbStanding = (() => {
+    const r = livingRankOf(c.slug, e.name);
+    if (!r || !r.voices) return '';
+    const label = r.rank === 1
+      ? `Locals' #1 ${esc(r.award)} right now`
+      : `#${r.rank} in ${esc(r.award)} right now`;
+    return `<div class="lb-standing"><a href="/best-of-${BEST_OF_YEAR}/">${label}</a> · shaped by ${r.voices} local${r.voices === 1 ? '' : 's'}</div>`;
+  })();
   const lbActionsBlock = POLL_WORKER_URL ? `
     <div class="lb-actions" data-lb-place="${c.slug}/${slug}">
+      ${lbStanding}
       <div class="lb-actions-row">
         <button class="lb-btn" data-lb="save" type="button">Save</button>
         <button class="lb-btn" data-lb="regular" type="button">I'm a regular</button>
@@ -2688,7 +2713,7 @@ function renderAdminPicks() {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>${esc(title)}</title>
-<link rel="stylesheet" href="/style.css?v=57">
+<link rel="stylesheet" href="/style.css?v=58">
 <style>
   body { background: var(--paper); }
   .admin-wrap { max-width: 960px; margin: 0 auto; padding: 32px var(--gutter) 96px; }
@@ -6164,6 +6189,21 @@ const LIVING_RANK = (function(){
   return map;
 })();
 function livingRankOf(slug, name) { return LIVING_RANK[`${slug}/${entrySlug(name)}`] || null; }
+
+// Top places by live signal across all award categories, for the homepage rail.
+// Empty until real voices exist, so the rail stays hidden at cold-start.
+const LIVING_TOP = (function(){
+  const rows = [];
+  for (const g of AWARDS) for (const [slug, award] of g.items) {
+    const c = categories.find(x => x.slug === slug);
+    if (!c || !c.entries) continue;
+    for (const e of c.entries) {
+      const lb = livingBest.places[`${slug}/${entrySlug(e.name)}`];
+      if (lb && lb.voices > 0) rows.push({ name: e.name, neighborhood: e.neighborhood || '', award, url: `/${slug}/${entrySlug(e.name)}/`, voices: lb.voices, score: lb.score });
+    }
+  }
+  return rows.sort((a, b) => b.score - a.score).slice(0, 6);
+})();
 function renderBestOf() {
   const firstSentence = s => { const t = String(s || '').trim(); const m = t.match(/^.*?[.!?](\s|$)/); const out = m ? m[0].trim() : t; return out.length > 150 ? out.slice(0, 147).replace(/\s+\S*$/, '') + '…' : out; };
   const totalVoices = livingBest.total_voices || 0;
