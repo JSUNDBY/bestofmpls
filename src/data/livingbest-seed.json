@@ -2,12 +2,14 @@
   {
     "slug": "restaurants",
     "award": "Restaurant of the Year",
-    "winner": "Indígena by Owamni",
+    "winner": "",
     "runnersUp": [
+      "Indígena by Owamni",
       "Demi",
       "Hyacinth"
     ],
-    "rationale": "As Owamni, Sean Sherman's Indigenous kitchen won the James Beard Foundation's national Best New Restaurant award in 2022, and its 2026 move into a doubled-size space at the Guthrie makes it the most consequential and most-covered restaurant in the metro right now."
+    "rationale": "As Owamni, Sean Sherman's Indigenous kitchen won the James Beard Foundation's national Best New Restaurant award in 2022, and its 2026 move into a doubled-size space at the Guthrie makes it the most consequential and most-covered restaurant in the metro right now.",
+    "note": "Flagship: no hand-crown. Divisive on hype-vs-substance; the living signal decides."
   },
   {
     "slug": "best-pizza",
@@ -122,12 +124,13 @@
   {
     "slug": "best-happy-hours",
     "award": "Best Happy Hour",
-    "winner": "Spoon and Stable",
+    "winner": "Bar La Grassa",
     "runnersUp": [
-      "Bar La Grassa",
-      "Manny's Steakhouse"
+      "Spoon and Stable",
+      "Manny’s Steakhouse"
     ],
-    "rationale": "Gavin Kaysen is a James Beard Award winner whose North Loop flagship pairs that pedigree with a 4-to-5:30 bar happy hour widely regarded as the best value in the metro, dollar oysters and a half-priced burger at fine-dining quality."
+    "rationale": "Gavin Kaysen is a James Beard Award winner whose North Loop flagship pairs that pedigree with a 4-to-5:30 bar happy hour widely regarded as the best value in the metro, dollar oysters and a half-priced burger at fine-dining quality.",
+    "note": "Swapped from Spoon and Stable, which has no actual happy-hour deal (category mismatch)."
   },
   {
     "slug": "best-patios",
@@ -162,12 +165,13 @@
   {
     "slug": "museums-and-galleries",
     "award": "Best Museum or Gallery",
-    "winner": "Walker Art Center",
+    "winner": "Minneapolis Institute of Art (Mia)",
     "runnersUp": [
-      "Minneapolis Institute of Art (Mia)",
+      "Walker Art Center",
       "Weisman Art Museum"
     ],
-    "rationale": "The Walker ranks as one of the top contemporary art museums in the country and #1 in the metro across critic guides, and it anchors the Minneapolis Sculpture Garden and Spoonbridge & Cherry, the city's unofficial symbol."
+    "rationale": "The Walker ranks as one of the top contemporary art museums in the country and #1 in the metro across critic guides, and it anchors the Minneapolis Sculpture Garden and Spoonbridge & Cherry, the city's unofficial symbol.",
+    "note": "Swapped from Walker (divisive; paid galleries). Mia is free and beloved."
   },
   {
     "slug": "wellness-and-spas",

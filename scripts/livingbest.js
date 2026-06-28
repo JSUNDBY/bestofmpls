@@ -72,9 +72,10 @@ async function fetchSignals() {
     return places[pid];
   };
 
-  // Cold-start seed: durable accolade baseline (never decays — real honors last).
+  // Cold-start seed: small, durable credibility floor. A blank winner means
+  // "no hand-crown — let the signal decide" (e.g. Restaurant of the Year).
   for (const s of seed) {
-    ensure(`${s.slug}/${entrySlug(s.winner)}`, s.slug).seed += SEED_WINNER;
+    if (s.winner) ensure(`${s.slug}/${entrySlug(s.winner)}`, s.slug).seed += SEED_WINNER;
     for (const r of (s.runnersUp || [])) ensure(`${s.slug}/${entrySlug(r)}`, s.slug).seed += SEED_RUNNER;
   }
 
