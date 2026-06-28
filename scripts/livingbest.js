@@ -68,7 +68,12 @@ async function fetchSignals() {
 
   const places = {};
   const ensure = (pid, category) => {
-    if (!places[pid]) places[pid] = { category, score: 0, seed: 0, saves: 0, regulars: 0, directions: 0, stories: 0 };
+    if (!places[pid]) places[pid] = {
+      category, score: 0, seed: 0,
+      dSave: 0, dRegular: 0, dDirections: 0, dStory: 0,           // decayed (feed the score)
+      nSaves: 0, nRegulars: 0, nDirections: 0, nStories: 0,        // raw counts (for display)
+      voices: 0, stories: []                                        // people who weighed in + approved story texts
+    };
     return places[pid];
   };
 
@@ -79,34 +84,43 @@ async function fetchSignals() {
     for (const r of (s.runnersUp || [])) ensure(`${s.slug}/${entrySlug(r)}`, s.slug).seed += SEED_RUNNER;
   }
 
-  // Live reader signals, time-decayed.
+  // Live reader signals: decayed sums feed the score; raw counts feed the display.
   for (const [pid, sig] of Object.entries(signals)) {
     const p = ensure(pid, pid.split('/')[0]);
-    p.saves += decaySum(sig.saves, now);
-    p.regulars += decaySum(sig.regulars, now);
-    p.directions += decaySum(sig.directions, now);
-    p.stories += decaySum((sig.stories || []).map(x => x.ts), now);
+    p.dSave += decaySum(sig.saves, now);
+    p.dRegular += decaySum(sig.regulars, now);
+    p.dDirections += decaySum(sig.directions, now);
+    p.dStory += decaySum((sig.stories || []).map(x => x.ts), now);
+    p.nSaves += (sig.saves || []).length;
+    p.nRegulars += (sig.regulars || []).length;
+    p.nDirections += (sig.directions || []).length;
+    p.nStories += (sig.stories || []).length;
+    for (const st of (sig.stories || [])) if (st.text) p.stories.push(st.text);
   }
 
   for (const p of Object.values(places)) {
-    p.score = +(p.seed + p.saves * WEIGHTS.save + p.regulars * WEIGHTS.regular
-      + p.directions * WEIGHTS.directions + p.stories * WEIGHTS.story).toFixed(2);
-    p.saves = +p.saves.toFixed(2); p.regulars = +p.regulars.toFixed(2);
-    p.directions = +p.directions.toFixed(2); p.stories = +p.stories.toFixed(2);
+    p.score = +(p.seed + p.dSave * WEIGHTS.save + p.dRegular * WEIGHTS.regular
+      + p.dDirections * WEIGHTS.directions + p.dStory * WEIGHTS.story).toFixed(2);
+    // "voices" = people who actually weighed in (saves + regulars + stories).
+    p.voices = p.nSaves + p.nRegulars + p.nStories;
+    // drop the decayed working fields from the stored output (keep it readable)
+    delete p.dSave; delete p.dRegular; delete p.dDirections; delete p.dStory;
   }
 
   const standings = {};
   for (const [pid, p] of Object.entries(places)) {
-    (standings[p.category] = standings[p.category] || []).push({ place: pid, score: p.score });
+    (standings[p.category] = standings[p.category] || []).push({ place: pid, score: p.score, voices: p.voices });
   }
   for (const cat of Object.keys(standings)) standings[cat].sort((a, b) => b.score - a.score);
 
+  const totalVoices = Object.values(places).reduce((n, p) => n + p.voices, 0);
   const out = {
     generated_at: new Date(now).toISOString().slice(0, 10),
     halflife_days: HALFLIFE_DAYS,
     weights: WEIGHTS,
     seed_boost: { winner: SEED_WINNER, runner: SEED_RUNNER },
     live_signals: live ? Object.keys(signals).length : 0,
+    total_voices: totalVoices,
     places,
     standings
   };

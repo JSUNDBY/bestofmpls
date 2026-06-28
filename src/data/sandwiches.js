@@ -95,7 +95,7 @@ module.exports = {
       price: '$$'
     },
     {
-      name: 'Cecil&#8217;s Deli',
+      name: 'Cecil’s Deli',
       neighborhood: 'Highland Park, St. Paul',
       style: 'Classic Jewish deli, since 1949',
       description: 'The last of the true established delis in Minnesota, run by the Glickman family in Highland Park since 1949. The Reuben is the order, the matzo ball soup is the cure, and the corned beef and pastrami are cut the way they should be. Eat in at the restaurant or hit the deli counter for a pound to take home.',
