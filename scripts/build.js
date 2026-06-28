@@ -6069,7 +6069,10 @@ const AWARDS = [
 function bestOfWinnerOf(slug) {
   const c = categories.find(x => x.slug === slug);
   if (!c || !c.entries || !c.entries.length) return null;
-  return c.entries.find(e => e.featured) || c.entries[0];
+  // The winner is an explicit editorial pick (bestOf: true), never the paid
+  // `featured` flag — paid placement must never decide an award. Until a winner
+  // is designated, fall back to the top curated entry as a placeholder.
+  return c.entries.find(e => e.bestOf) || c.entries[0];
 }
 function isBestOfWinner(slug, name) {
   if (!AWARDS.some(g => g.items.some(([s]) => s === slug))) return false;
