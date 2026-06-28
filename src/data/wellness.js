@@ -98,6 +98,62 @@ module.exports = {
       address: '2400 N 2nd St #212, Minneapolis',
       website: 'https://soulbodyfinesse.com',
       price: '$$'
+    },
+    {
+      name: 'PORTAL° Thermaculture',
+      neighborhood: 'West Maka Ska, Minneapolis',
+      style: 'Nordic sauna + cold plunge social club',
+      description: 'A members-and-drop-ins thermaculture club with two electric saunas, a wood-fired sauna, and a big 38-degree communal cold plunge tub, plus an indoor-outdoor patio. You move through three rounds of hot and cold, and the design-forward space has quickly become the spot people name first when they talk sauna in the city.',
+      address: '3120 Excelsior Blvd, Minneapolis, MN 55416',
+      price: '$$'
+    },
+    {
+      name: 'Embrace North',
+      neighborhood: 'Marcy-Holmes, Minneapolis',
+      style: 'Communal bathhouse + cold spa',
+      description: 'Calls itself the people’s bathhouse, with three electric saunas running around 200 degrees and a cold spa that seats up to a dozen at 38 to 43 degrees. The vibe is accessible and community-driven, down to their run-and-plunge events that loop in a cold dip in the Mississippi.',
+      address: '811 SE 9th St, Minneapolis, MN 55414',
+      price: '$$'
+    },
+    {
+      name: 'Cedar & Stone Nordic Sauna',
+      neighborhood: 'Downtown, Minneapolis',
+      style: 'Private rooftop Nordic sauna',
+      description: 'A private rooftop sauna on the fourth-floor terrace of the Four Seasons, booked by the group for a 75-minute hot, cold, rest, repeat cycle with a bucket-shower plunge and a downtown view. It is the splurge option, best for a small crew that wants the space to themselves.',
+      address: '245 Hennepin Ave, Minneapolis, MN 55401',
+      price: '$$$'
+    },
+    {
+      name: '612 Sauna Cooperative',
+      neighborhood: 'Theodore Wirth Park, Minneapolis',
+      style: 'Member-owned mobile wood-fired sauna',
+      description: 'The country’s first community-owned mobile sauna, a 24-foot cedar-lined wood-fired unit nicknamed the Forge that seats eight to ten and parks at The Trailhead through the cold months. This is the homegrown, lake-plunge heart of Twin Cities sauna culture, run by and for its members.',
+      address: '1221 Theodore Wirth Pkwy, Minneapolis, MN 55422',
+      price: '$'
+    },
+    {
+      name: 'Sauna Camp',
+      neighborhood: 'Independence (west metro)',
+      style: 'Lakeside wood-fired sauna village',
+      description: 'A winter sauna village on the shore of a lake at Camp Ihduhapi with up to seven wood-fired saunas, including a giant cedar barrel, and a cut-in-the-ice cold plunge straight into the lake. Day passes and season passes draw a steady crowd of regulars all winter long.',
+      address: '3425 Ihduhapi Trail, Independence, MN 55357',
+      price: '$$'
+    },
+    {
+      name: 'Fire & Ice at Carpe Diem Studio',
+      neighborhood: 'Northeast Minneapolis / St. Anthony Park, St. Paul',
+      style: 'Private infrared sauna + cold plunge',
+      description: 'A private room with an infrared sauna around 140 degrees and a self-filtering cold plunge near 50 degrees, booked in 20-minute sessions at two yoga-studio locations. It is the easy, low-key option for a quick contrast session without committing to a big bathhouse outing.',
+      address: '1209 Tyler St NE, Minneapolis, MN 55413',
+      price: '$'
+    },
+    {
+      name: 'The Yard at Superior Sauna & Steam',
+      neighborhood: 'Kingfield, Minneapolis',
+      style: 'Backyard sauna lot + cold shower',
+      description: 'A semi-permanent sauna lot at Superior Sauna’s South Minneapolis showroom, with saunas running 176 to 200 degrees, a cold-water shower, a misting canopy, and lawn chairs for cooling down. Free community steam on Thursdays and family-friendly daytime hours make it one of the most welcoming entry points to sauna in town.',
+      address: '4355 Nicollet Ave, Minneapolis, MN 55409',
+      price: '$'
     }
   ]
 };
