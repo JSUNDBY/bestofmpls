@@ -199,6 +199,80 @@ export default {
       return json({ ok: true, place, category, total_for_place: (entry ? entry.count : 1) }, 200, origin);
     }
 
+    // ===== POST /signal — The Living Best of engine =====
+    // A reader action on a place: save, regular, directions-tap, or a story.
+    // Stored per place; save/regular dedupe per device. The build reads the
+    // public aggregate at GET /signals and scores it with time-decay.
+    if (request.method === 'POST' && url.pathname === '/signal') {
+      let body;
+      try { body = await request.json(); }
+      catch (_) { return json({ error: 'invalid json' }, 400, origin); }
+      if (body.hp) return json({ ok: true }, 200, origin);
+
+      const TYPES = ['save', 'regular', 'directions', 'story'];
+      const type = clean(body.type, 16);
+      const place = clean(body.place, 120).toLowerCase().replace(/[^a-z0-9/_-]/g, '');
+      const device = clean(body.device, 64).replace(/[^a-zA-Z0-9_-]/g, '');
+      if (!TYPES.includes(type)) return json({ error: 'bad type' }, 400, origin);
+      if (!place || place.length < 3) return json({ error: 'bad place' }, 400, origin);
+      if (!device || device.length < 8) return json({ error: 'bad device' }, 400, origin);
+
+      // Per-(device, place, type) rate limit so a single tap can't be spammed.
+      const rlKey = `rl:sig:${device}:${place}:${type}`;
+      if (await env.POLLS.get(rlKey)) return json({ error: 'too fast' }, 429, origin);
+      ctx.waitUntil(env.POLLS.put(rlKey, '1', { expirationTtl: type === 'directions' ? 3600 : 5 }));
+
+      const ts = Date.now();
+      const key = `lb:${place}`;
+      let rec = null;
+      try { const ex = await env.POLLS.get(key); rec = ex ? JSON.parse(ex) : null; } catch (_) {}
+      if (!rec) rec = { saves: {}, regulars: {}, directions: [], stories: [] };
+
+      if (type === 'save' || type === 'regular') {
+        const map = type === 'save' ? rec.saves : rec.regulars;
+        if (body.remove) delete map[device];        // toggle off
+        else map[device] = ts;                       // dedupes by device
+      } else if (type === 'directions') {
+        rec.directions.push(ts);
+        if (rec.directions.length > 1000) rec.directions = rec.directions.slice(-1000);
+      } else if (type === 'story') {
+        const text = clean(body.text, 1000);
+        if (text.length < 10) return json({ error: 'tell us a little more' }, 400, origin);
+        rec.stories.push({ d: device, ts, text, ok: false });   // ok:false until moderated
+        if (rec.stories.length > 500) rec.stories = rec.stories.slice(-500);
+        ctx.waitUntil(notify(env, `New Best-of story: ${place}`, [
+          'A reader shared a moment on bestofmpls.com:', '',
+          `Place: ${place}`, '', text, '',
+          'Set ok:true on this story in KV to publish it.'
+        ]));
+      }
+      await env.POLLS.put(key, JSON.stringify(rec));
+      const count = (n) => Object.keys(n || {}).length;
+      return json({ ok: true, type, place, saves: count(rec.saves), regulars: count(rec.regulars) }, 200, origin);
+    }
+
+    // ===== GET /signals — public aggregate for the build (no device ids) =====
+    if (request.method === 'GET' && url.pathname === '/signals') {
+      const out = {};
+      let cursor;
+      do {
+        const list = await env.POLLS.list({ prefix: 'lb:', cursor, limit: 1000 });
+        for (const k of list.keys) {
+          try {
+            const rec = JSON.parse(await env.POLLS.get(k.name));
+            out[k.name.slice(3)] = {
+              saves: Object.values(rec.saves || {}),
+              regulars: Object.values(rec.regulars || {}),
+              directions: rec.directions || [],
+              stories: (rec.stories || []).filter(s => s.ok).map(s => ({ ts: s.ts, text: s.text }))
+            };
+          } catch (_) {}
+        }
+        cursor = list.list_complete ? null : list.cursor;
+      } while (cursor);
+      return json({ generated: Date.now(), places: out }, 200, origin, { 'Cache-Control': 'public, max-age=120' });
+    }
+
     // ===== POST /tip =====
     // Free-form tip / correction / general feedback. No tally, just stored
     // for review in the admin dashboard.

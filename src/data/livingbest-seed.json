@@ -1,0 +1,182 @@
+[
+  {
+    "slug": "restaurants",
+    "award": "Restaurant of the Year",
+    "winner": "Indígena by Owamni",
+    "runnersUp": [
+      "Demi",
+      "Hyacinth"
+    ],
+    "rationale": "As Owamni, Sean Sherman's Indigenous kitchen won the James Beard Foundation's national Best New Restaurant award in 2022, and its 2026 move into a doubled-size space at the Guthrie makes it the most consequential and most-covered restaurant in the metro right now."
+  },
+  {
+    "slug": "best-pizza",
+    "award": "Best Pizza",
+    "winner": "Pizzeria Lola",
+    "runnersUp": [
+      "Cossetta’s",
+      "Black Sheep Coal-Fired Pizza"
+    ],
+    "rationale": "Ann Kim's Armatage pizzeria reset the bar for Twin Cities pizza after opening in 2010, and it has the national record to match, with a James Beard Best Chef: Midwest win for Kim, repeated national best-pizza rankings, and a turn on Netflix's Chef's Table: Pizza."
+  },
+  {
+    "slug": "burgers",
+    "award": "Best Burger",
+    "winner": "Matt’s Bar",
+    "runnersUp": [
+      "Parlour Bar St. Paul",
+      "The Nook"
+    ],
+    "rationale": "Open on Cedar Avenue since 1954 and the origin claimant of the Jucy Lucy, Matt's is the metro's most essential burger institution, with verified national press from The New York Times and the Travel Channel and a spot on a \"50 best burgers in America\" list."
+  },
+  {
+    "slug": "mexican-and-tacos",
+    "award": "Best Tacos",
+    "winner": "Oro by Nixta",
+    "runnersUp": [
+      "Centro",
+      "Sonora Grill"
+    ],
+    "rationale": "Built entirely on heirloom corn ground and nixtamalized in-house, Oro by Nixta carries the strongest verifiable record in the pool: Star Tribune 2023 Restaurant of the Year, a 2024 James Beard finalist for Best New Restaurant, and a 2026 James Beard semifinalist."
+  },
+  {
+    "slug": "sandwiches",
+    "award": "Best Sandwich",
+    "winner": "Cecil’s Deli",
+    "runnersUp": [
+      "Quang Restaurant",
+      "Cossetta’s"
+    ],
+    "rationale": "Run by the Glickman family in Highland Park since 1949 and widely documented as the last of Minnesota's true established delis, Cecil's still bakes its own bread and builds its Reuben from house-cured corned beef and pastrami, making it the metro's most enduring sandwich institution."
+  },
+  {
+    "slug": "vietnamese",
+    "award": "Best Vietnamese",
+    "winner": "Hai Hai",
+    "runnersUp": [
+      "Khue's Kitchen",
+      "Quang Restaurant"
+    ],
+    "rationale": "Chef-owner Christina Nguyen won the 2024 James Beard Award for Best Chef: Midwest, the strongest verified honor in the field and a first for a Vietnamese woman, on top of a beloved Northeast room and patio."
+  },
+  {
+    "slug": "pastries-and-bakeries",
+    "award": "Best Bakery",
+    "winner": "Patisserie 46",
+    "runnersUp": [
+      "Rustica Bakery",
+      "Honey & Rye Bakehouse"
+    ],
+    "rationale": "John Kraus carries the deepest verifiable resume in the metro: a James Beard semifinalist for Outstanding Baker and Outstanding Pastry Chef nominee, the first American inducted into the elite French order Relais Desserts, and a Coupe du Monde de la Pâtisserie bronze, all behind a French viennoiserie program he has run in South Minneapolis since 2010."
+  },
+  {
+    "slug": "coffee-shops",
+    "award": "Best Coffee",
+    "winner": "Dogwood Coffee",
+    "runnersUp": [
+      "Spyhouse Coffee",
+      "Quixotic Coffee"
+    ],
+    "rationale": "Food & Wine named Dogwood the best coffee roaster in Minnesota, and as an independent, locally owned roaster running since 2010 it helped build the metro's specialty scene and still pours some of the most consistent coffee in town."
+  },
+  {
+    "slug": "ice-cream",
+    "award": "Best Ice Cream",
+    "winner": "Sebastian Joe’s Ice Cream",
+    "runnersUp": [
+      "Grand Ole Creamery",
+      "Milkjam Creamery"
+    ],
+    "rationale": "Making small-batch ice cream on the premises in Linden Hills since 1984, Sebastian Joe's marked its 40th anniversary in 2024 with a Racket retrospective, bills itself as the most-awarded ice cream in the Twin Cities, and still draws summer lines around the corner for its signature Pavarotti."
+  },
+  {
+    "slug": "cocktail-bars",
+    "award": "Best Cocktail Bar",
+    "winner": "Stargazer",
+    "runnersUp": [
+      "Parlour",
+      "Flora Room"
+    ],
+    "rationale": "Stargazer is the team behind the James Beard-nominated Meteor turning a true bartender-built, 50-drink program into the metro's most talked-about cocktail destination, drawing immediate Star Tribune, Racket, and Mpls.St.Paul coverage."
+  },
+  {
+    "slug": "breweries",
+    "award": "Best Brewery",
+    "winner": "Surly Brewing Co.",
+    "runnersUp": [
+      "Fair State Brewing Cooperative",
+      "Indeed Brewing Company"
+    ],
+    "rationale": "Surly drove the 2011 law change that legalized Minnesota taprooms and started the boom, and it carries the deepest national track record of any candidate, named Best Brewery in America by BeerAdvocate, a RateBeer top-100 brewery worldwide, and a Great American Beer Festival medalist."
+  },
+  {
+    "slug": "best-dive-bars",
+    "award": "Best Dive Bar",
+    "winner": "CC Club",
+    "runnersUp": [
+      "Matt’s Bar",
+      "The Turf Club"
+    ],
+    "rationale": "The CC Club is the metro's most storied true dive, a 90-plus-year Lyn-Lake room that anchored the Replacements-era Minneapolis scene and inspired \"Here Comes a Regular,\" and it is still pouring in 2026."
+  },
+  {
+    "slug": "best-happy-hours",
+    "award": "Best Happy Hour",
+    "winner": "Spoon and Stable",
+    "runnersUp": [
+      "Bar La Grassa",
+      "Manny's Steakhouse"
+    ],
+    "rationale": "Gavin Kaysen is a James Beard Award winner whose North Loop flagship pairs that pedigree with a 4-to-5:30 bar happy hour widely regarded as the best value in the metro, dollar oysters and a half-priced burger at fine-dining quality."
+  },
+  {
+    "slug": "best-patios",
+    "award": "Best Patio",
+    "winner": "Surly Brewing Beer Hall",
+    "runnersUp": [
+      "Sea Salt Eatery",
+      "Bauhaus Brew Labs"
+    ],
+    "rationale": "The Star Tribune's Twin Cities patio guide calls Surly the \"King of outdoor patios,\" and its glass-ringed beer hall opening onto a green that fills the moment the weather breaks is the metro's true destination patio, good for crowds, kids, dogs, and surprisingly strong pizza all season long."
+  },
+  {
+    "slug": "live-music",
+    "award": "Best Music Venue",
+    "winner": "First Avenue & 7th St Entry",
+    "runnersUp": [
+      "Dakota Jazz Club & Restaurant",
+      "Palace Theatre"
+    ],
+    "rationale": "First Avenue is the metro's defining room, the place that filmed Purple Rain and that the New York Times ranks alongside CBGB and the 9:30 Club for cultural weight, with a Mainroom widely held as one of the best mid-sized rock clubs in the country."
+  },
+  {
+    "slug": "arthouse-cinemas",
+    "award": "Best Cinema",
+    "winner": "Trylon Cinema",
+    "runnersUp": [
+      "Heights Theater",
+      "Walker Art Center cinema"
+    ],
+    "rationale": "The Trylon is Minnesota's only full-time repertory cinema, a volunteer-run nonprofit that was voted the metro's best movie theater by City Pages in 2011, 2012, and 2018 and remains the most essential arthouse room in the Twin Cities."
+  },
+  {
+    "slug": "museums-and-galleries",
+    "award": "Best Museum or Gallery",
+    "winner": "Walker Art Center",
+    "runnersUp": [
+      "Minneapolis Institute of Art (Mia)",
+      "Weisman Art Museum"
+    ],
+    "rationale": "The Walker ranks as one of the top contemporary art museums in the country and #1 in the metro across critic guides, and it anchors the Minneapolis Sculpture Garden and Spoonbridge & Cherry, the city's unofficial symbol."
+  },
+  {
+    "slug": "wellness-and-spas",
+    "award": "Best Spa",
+    "winner": "Watershed Spa",
+    "runnersUp": [
+      "The Spa at Hotel Ivy",
+      "Spalon Montage"
+    ],
+    "rationale": "Watershed is the Twin Cities' first communal bathhouse, opened in 2022 along the Mississippi in the historic Switch House, drew KARE 11 and repeated Mpls.St.Paul Magazine coverage, books out weeks ahead, and is now expanding to a second North Loop location, making it the spa most central to the metro's hot-cold ritual moment right now."
+  }
+]
