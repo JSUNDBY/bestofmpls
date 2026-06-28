@@ -846,7 +846,7 @@ ${GSC_VERIFICATION ? `<meta name="google-site-verification" content="${esc(GSC_V
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600;700&family=Source+Sans+3:wght@400;600&family=Archivo:wght@500;600;700&family=Archivo+Narrow:wght@600;700&display=swap">
-<link rel="stylesheet" href="/style.css?v=51">
+<link rel="stylesheet" href="/style.css?v=52">
 <script>
 // Set color mode before paint to avoid flash. Reads localStorage first,
 // falls back to light mode (the new editorial default). mode-ready class
@@ -2627,7 +2627,7 @@ function renderAdminPicks() {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>${esc(title)}</title>
-<link rel="stylesheet" href="/style.css?v=51">
+<link rel="stylesheet" href="/style.css?v=52">
 <style>
   body { background: var(--paper); }
   .admin-wrap { max-width: 960px; margin: 0 auto; padding: 32px var(--gutter) 96px; }
@@ -5654,9 +5654,23 @@ function renderPartner() {
         <div class="section-eyebrow">For Twin Cities businesses</div>
         <h1 class="section-title">Become a featured partner</h1>
         <p class="section-deck">A small number of restaurants, bars, venues, and shops are featured at the top of their category each month. It is the only paid surface on the site. Clearly labeled, editorially controlled, capped per category.</p>
-        ${PARTNER_STATS_LINE ? `<p style="font-family: var(--font-mono); font-size: 13px; letter-spacing: 0.04em; color: var(--ink-soft); margin-top: 16px;">${esc(PARTNER_STATS_LINE)}</p>` : ''}
       </div>
     </section>
+    ${(() => {
+      const spots = Math.floor(categories.reduce((n, c) => n + (c.layout === 'seasonal' ? 0 : c.entries.length), 0) / 50) * 50;
+      const events = (eventsData.events || []).length;
+      const venues = resolveVenues().length;
+      const stat = (num, label) => `<div class="partner-stat"><span class="partner-stat-num">${num}</span><span class="partner-stat-label">${label}</span></div>`;
+      return `<section class="wrap" style="max-width: 760px; padding: 32px var(--gutter) 0;">
+      <div class="partner-numbers">
+        ${stat(spots + '+', 'spots covered')}
+        ${stat(events, 'events tracked')}
+        ${stat(venues, 'venues')}
+        ${stat('4×', 'refreshed daily')}
+      </div>
+      <p class="partner-numbers-note">Independent and locally run, updated daily. Ask for current monthly traffic and newsletter numbers and we'll share the real figures.</p>
+    </section>`;
+    })()}
     <section class="wrap" style="max-width: 760px; padding: 48px var(--gutter);">
       <h2 class="tonight-section-title">How it works</h2>
       <ul class="skyway-tips" style="grid-template-columns: 1fr;">
@@ -5684,6 +5698,10 @@ function renderPartner() {
 
       <h2 class="tonight-section-title" style="margin-top: 48px;">Homepage takeover</h2>
       <p style="font-family: var(--font-body); font-size: 17px; line-height: 1.6; color: var(--ink); max-width: 640px;">For a festival, venue anniversary, or one-off event: the homepage feature banner plus a dedicated landing page on the site, date-windowed to your run. <b>$350–500 / week</b>, one at a time, same editorial rules, clearly labeled "Paid partner placement." Ask about it in the same email.</p>
+
+      <h2 class="tonight-section-title" style="margin-top: 48px;">Cannabis brands</h2>
+      <p style="font-family: var(--font-body); font-size: 17px; line-height: 1.6; color: var(--ink); max-width: 640px;">Minnesota dispensaries are largely shut out of advertising on Google and Meta. bestofmpls is a brand-safe, local, opt-in audience already deciding where to go and spend. Licensed operators can take a featured listing, a spot in the dispensary guide, or a newsletter sponsorship.</p>
+      <p style="font-family: var(--font-body); font-size: 17px; line-height: 1.6; color: var(--ink-soft); max-width: 640px; margin-top: 12px;">Same rules as everyone else: the placement is clearly labeled, and the editorial picks stay ours.</p>
 
       <h2 class="tonight-section-title" style="margin-top: 48px;">What we do not do</h2>
       <ul class="skyway-tips" style="grid-template-columns: 1fr;">

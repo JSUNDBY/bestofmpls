@@ -6423,3 +6423,10 @@ html[data-mode="dark"] .entry-reserve {
 .entry-hours-row { display: flex; justify-content: space-between; font-family: var(--font-body); font-size: 13.5px; color: var(--ink-soft); padding: 2px 0; }
 .entry-hours-row.is-today { color: var(--ink); font-weight: 600; }
 .entry-hours-day { letter-spacing: 0.02em; }
+
+/* ===== Partner page: by-the-numbers ===== */
+.partner-numbers { display: flex; flex-wrap: wrap; gap: 28px 40px; padding: 20px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+.partner-stat { display: flex; flex-direction: column; gap: 2px; }
+.partner-stat-num { font-family: var(--font-display); font-weight: 800; font-size: 34px; line-height: 1; color: var(--ink); }
+.partner-stat-label { font-family: var(--font-label); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-soft); }
+.partner-numbers-note { font-family: var(--font-body); font-size: 14px; line-height: 1.5; color: var(--ink-faint); margin-top: 16px; max-width: 600px; }
