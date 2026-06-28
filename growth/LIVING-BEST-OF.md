@@ -80,9 +80,55 @@ rather than a shaky winner.
 - Right Now — the metro's living best of
 - The Pulse
 
-## Open decisions for Josh
-1. Name.
-2. v1 signal set, propose all six, or start with Save + Regular + Story + the
-   directions beacon and fold votes/accolades in.
-3. Real-time later, or rebuild-cadence (recommended) for v1.
-4. Public score breakdown shown, or kept lighter at launch.
+## Locked direction (Josh)
+1. **It's the organizing principle, rolled out over time.** Ship the Best-of page
+   first, but build the engine as a reusable core that can later power Tonight,
+   the map, neighborhoods, the whole site.
+2. **Light identity, no friction.** Start anonymous; design toward "my regulars /
+   my saves." (How, below.)
+3. **Editorial curates, the automation stays unbiased.** Josh keeps as much
+   curatorial control as possible; the score itself is never hand-weighted. The
+   two are layered, not mixed (How, below). "Live" is not the brand yet, but the
+   freshness and the by-the-people nature must be visible: show how often it
+   updates and how many locals shaped it. Fresh, for the people, by the people.
+
+## How light identity works
+- **Layer 0 — anonymous device (day one, zero friction):** each browser gets a
+  random ID in localStorage. Their saves/regulars are remembered on that device;
+  one save / one regular per device per place. They just tap, no login. This is
+  how "my saves / my regulars" works from the start (per device).
+- **Layer 1 — optional passwordless link (later):** if they want their saves to
+  follow them across devices, they enter an email and get a magic link. No
+  passwords, minimal data, fully optional. Bonus: that opt-in grows the newsletter
+  list with real consent.
+- Privacy: the device ID is anonymous, the only thing tied to it is their own
+  saves; email only if they choose it.
+
+## How editorial control + unbiased automation coexist (layered, not mixed)
+- **The score is pure signal.** Computed only from real actions + time-decay,
+  transparent, never hand-tuned per business, and the paid `featured` flag never
+  touches it. That's the "not skewed in any way" part.
+- **Editorial wraps around it, never inside the math:**
+  - *Eligibility & categories* — Josh curates what's in the pool.
+  - *Veto / hide* — Josh can remove what's wrong, closed, or off-register.
+  - *Editor's note* — Josh's voice appears alongside a standing as a clearly
+    separate, labeled note, never as a thumb on the ranking.
+- So Josh curates heavily (pool, framing, notes, veto) while the ranking stays
+  honest and unbought.
+
+## How freshness + "by the people" is shown
+- Every standing carries "Updated [date] · shaped by [N] locals this season" and a
+  "how this works" link (shows its work). The cadence and the participation are
+  always visible, without renaming the brand to "live."
+
+## Build phases
+1. **Engine core** — worker `/signal` endpoint + storage + per-device dedup; the
+   scoring function (decay) in the build; cold-start seed (accolades + the 18 recs
+   + existing votes). Reusable, keyed by place id so any surface can read it.
+2. **Participation UI** — Save · I'm a regular · Share a moment on entry pages
+   (anonymous device id); directions beacon; story form + moderation.
+3. **The page** — re-enable Best of, rendered from the living score, with the
+   freshness/“shaped by N locals” line, the shows-its-work breakdown, and room
+   for editor's notes; a per-entry standing line.
+4. **Roll across the site** — surface standings on Tonight, the map, neighborhoods.
+5. **Later** — optional passwordless identity for cross-device + list growth.
