@@ -850,8 +850,8 @@ ${GSC_VERIFICATION ? `<meta name="google-site-verification" content="${esc(GSC_V
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600;700&family=Source+Sans+3:wght@400;600&family=Archivo:wght@500;600;700&family=Archivo+Narrow:wght@600;700&display=swap">
-<link rel="stylesheet" href="/style.css?v=59">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;600;700;800&family=IBM+Plex+Mono:wght@500;600;700&family=Source+Sans+3:wght@400;600&display=swap">
+<link rel="stylesheet" href="/style.css?v=61">
 <script>
 // Set color mode before paint to avoid flash. Reads localStorage first,
 // falls back to light mode (the new editorial default). mode-ready class
@@ -1584,10 +1584,7 @@ function renderHome() {
 
   return head({ title, description, slug: '', theme: 'default' }) +
     header({ activeSlug: '' }) +
-    `<section class="cover" data-mood="${r ? r.weather.mood : 'normal'}">
-      <figure class="cover-photo">
-        <img src="/img/skyline-cover.jpg" alt="Minneapolis skyline at twilight, with the Stone Arch Bridge area in the foreground" loading="eager" fetchpriority="high">
-      </figure>
+    `<section class="cover cover--type" data-mood="${r ? r.weather.mood : 'normal'}">
       <div class="wrap cover-wrap">
         <div class="cover-issue">${esc(coverIssue)}</div>
         <h1 class="cover-headline">Minneapolis<br><em>&amp;</em> Saint Paul.</h1>
@@ -1632,13 +1629,13 @@ function renderHome() {
             <span class="rightnow-link" data-sunset-countdown>${esc(r.sun.set)} CT</span>
           </div>
           <div class="rightnow-item rightnow-item--temp">
-            <div class="rightnow-label">Right now</div>
+            <div class="rightnow-label"><span class="pulse-dot" aria-hidden="true"></span>Right now</div>
             <div class="rightnow-temp"><span class="rightnow-temp-num" data-live-temp>${r.weather.temp_now}</span><span class="rightnow-temp-unit">°F</span></div>
             <span class="rightnow-link" data-live-condition>${esc(r.weather.condition)}</span>
           </div>
           ${r.countdowns.slice(0, 3).map(c => `
           <div class="rightnow-item">
-            <div class="rightnow-label">${c.now ? 'Happening now' : `In ${c.days} day${c.days === 1 ? '' : 's'}`}</div>
+            <div class="rightnow-label">${c.now ? '<span class="pulse-dot" aria-hidden="true"></span>Happening now' : `In ${c.days} day${c.days === 1 ? '' : 's'}`}</div>
             <div class="rightnow-value rightnow-value-event">${esc(c.name)}</div>
             <a class="rightnow-link" href="${c.now && /pride/i.test(c.name) ? '/pride/' : '/tonight/'}">${c.now && /pride/i.test(c.name) ? 'Pride guide →' : 'More countdowns →'}</a>
           </div>`).join('')}
@@ -1647,20 +1644,16 @@ function renderHome() {
     </section>` : ''}
     ${(() => {
       const talks = dedupeNonFilms((eventsData.events || []).filter(e => e.category === 'lecture' && e.date >= TODAY_ISO && !isNoiseEvent(e)))
-        .sort((a, b) => (a.date + (a.time || '')).localeCompare(b.date + (b.time || ''))).slice(0, 5);
+        .sort((a, b) => (a.date + (a.time || '')).localeCompare(b.date + (b.time || '')));
       if (!talks.length) return '';
-      const fmtDay = iso => { const [y, m, d] = iso.split('-').map(Number); return new Date(y, m - 1, d).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' }); };
+      const more = talks.length > 1 ? ` and ${talks.length - 1} more` : '';
       return `
-    <section class="home-talks" aria-label="Upcoming talks">
-      <div class="wrap">
-        <div class="home-talks-head">
-          <span class="home-talks-eyebrow">Upcoming talks</span>
-          <a class="home-talks-link" href="/lectures/">All lectures &amp; talks →</a>
-        </div>
-        <ul class="home-talks-list">
-          ${talks.map(t => `<li class="home-talk"><span class="home-talk-when">${esc(fmtDay(t.date))}</span><span class="home-talk-what">${t.url ? `<a href="${esc(t.url)}" target="_blank" rel="noopener">${esc(t.title)}</a>` : esc(t.title)}</span><span class="home-talk-venue">${esc(t.venue)}</span></li>`).join('')}
-        </ul>
-      </div>
+    <section class="home-talks-mini" aria-label="Upcoming talks">
+      <a class="wrap home-talks-mini-link" href="/lectures/">
+        <span class="home-talks-mini-eyebrow">Talks &amp; lectures</span>
+        <span class="home-talks-mini-next">${esc(talks[0].title)}${more}</span>
+        <span class="home-talks-mini-arrow" aria-hidden="true">→</span>
+      </a>
     </section>`;
     })()}
     ${LIVING_TOP.length ? `
@@ -2418,7 +2411,7 @@ function renderEntry(c, e, allCategories) {
     const label = r.rank === 1
       ? `Locals' #1 ${esc(r.award)} right now`
       : `#${r.rank} in ${esc(r.award)} right now`;
-    return `<div class="lb-standing"><a href="/best-of-${BEST_OF_YEAR}/">${label}</a> · shaped by ${r.voices} local${r.voices === 1 ? '' : 's'}</div>`;
+    return `<div class="lb-standing"><span class="pulse-dot" aria-hidden="true"></span><a href="/best-of-${BEST_OF_YEAR}/">${label}</a> · shaped by ${r.voices} local${r.voices === 1 ? '' : 's'}</div>`;
   })();
   const lbActionsBlock = POLL_WORKER_URL ? `
     <div class="lb-actions" data-lb-place="${c.slug}/${slug}">
@@ -2713,7 +2706,7 @@ function renderAdminPicks() {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>${esc(title)}</title>
-<link rel="stylesheet" href="/style.css?v=59">
+<link rel="stylesheet" href="/style.css?v=61">
 <style>
   body { background: var(--paper); }
   .admin-wrap { max-width: 960px; margin: 0 auto; padding: 32px var(--gutter) 96px; }
