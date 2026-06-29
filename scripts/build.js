@@ -837,7 +837,7 @@ ${GSC_VERIFICATION ? `<meta name="google-site-verification" content="${esc(GSC_V
 <meta property="og:title" content="${fullTitle}">
 <meta property="og:description" content="${esc(description)}">
 <meta property="og:site_name" content="bestofmpls">
-<meta property="og:image" content="${SITE}/og-image.png">
+<meta property="og:image" content="${SITE}/og-image.png?v=2">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="bestofmpls. An independent guide to Minneapolis & Saint Paul.">
@@ -845,7 +845,7 @@ ${GSC_VERIFICATION ? `<meta name="google-site-verification" content="${esc(GSC_V
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="${fullTitle}">
 <meta name="twitter:description" content="${esc(description)}">
-<meta name="twitter:image" content="${SITE}/og-image.png">
+<meta name="twitter:image" content="${SITE}/og-image.png?v=2">
 
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -3709,7 +3709,7 @@ function eventJsonLd(e, venue) {
     eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
     location: { '@type': 'Place', name: e.venue, address },
     // Real show image when we scraped one, else the site's branded fallback.
-    image: e.image || `${SITE}/og-image.png`,
+    image: e.image || `${SITE}/og-image.png?v=2`,
     organizer: { '@type': 'Organization', name: e.venue }
   };
   // Performer only where the title genuinely names the act (concerts, shows).
@@ -4443,7 +4443,7 @@ function renderFeaturedEvent(ev) {
     '@type': 'Festival',
     name: `${ev.name} ${ev.year}`,
     description: ev.intro,
-    image: ev.image || `${SITE}/og-image.png`,
+    image: ev.image || `${SITE}/og-image.png?v=2`,
     startDate: ev.starts,
     endDate: ev.ends,
     eventStatus: 'https://schema.org/EventScheduled',
