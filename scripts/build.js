@@ -870,7 +870,7 @@ ${GSC_VERIFICATION ? `<meta name="google-site-verification" content="${esc(GSC_V
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;600;700;800&family=IBM+Plex+Mono:wght@500;600;700&family=Source+Sans+3:wght@400;600&display=swap">
-<link rel="stylesheet" href="/style.css?v=62">
+<link rel="stylesheet" href="/style.css?v=63">
 <script>
 // Set color mode before paint to avoid flash. Reads localStorage first,
 // falls back to light mode (the new editorial default). mode-ready class
@@ -2729,7 +2729,7 @@ function renderAdminPicks() {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>${esc(title)}</title>
-<link rel="stylesheet" href="/style.css?v=62">
+<link rel="stylesheet" href="/style.css?v=63">
 <style>
   body { background: var(--paper); }
   .admin-wrap { max-width: 960px; margin: 0 auto; padding: 32px var(--gutter) 96px; }
@@ -4740,6 +4740,11 @@ function renderTonight() {
            <span class="tonight-hero-temp"><span class="tonight-hero-temp-num" data-live-temp>${r.weather.temp_now}</span><span class="tonight-hero-temp-unit">°F</span></span>
            <span class="tonight-hero-condition" data-live-condition>${esc(r.weather.condition)}</span>
          </div>
+         ${r.weather.forecast && (r.weather.forecast.tonight_low != null || r.weather.forecast.tomorrow_high != null) ? `
+         <div class="tonight-hero-forecast">
+           ${r.weather.forecast.tonight_low != null ? `<span class="tonight-fc"><span class="tonight-fc-label">Tonight</span> <span class="tonight-fc-val">${r.weather.forecast.tonight_low}°${r.weather.forecast.tonight_cond ? ` · ${esc(r.weather.forecast.tonight_cond)}` : ''}</span></span>` : ''}
+           ${r.weather.forecast.tomorrow_high != null ? `<span class="tonight-fc"><span class="tonight-fc-label">${esc(r.weather.forecast.tomorrow_name)}</span> <span class="tonight-fc-val">${r.weather.forecast.tomorrow_high}°${r.weather.forecast.tomorrow_low != null ? ` / ${r.weather.forecast.tomorrow_low}°` : ''}${r.weather.forecast.tomorrow_cond ? ` · ${esc(r.weather.forecast.tomorrow_cond)}` : ''}</span></span>` : ''}
+         </div>` : ''}
          <div class="tonight-hero-meta">
            <div class="tonight-meta-item"><span class="tonight-meta-label">Sunset</span><span class="tonight-meta-val">${esc(r.sun.set)}</span></div>
            <div class="tonight-meta-item"><span class="tonight-meta-label">Sunrise tomorrow</span><span class="tonight-meta-val">${esc(r.sun.rise)}</span></div>

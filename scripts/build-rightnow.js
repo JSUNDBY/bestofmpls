@@ -215,6 +215,23 @@ function classifyWeather(weather) {
   else if (is_snowing) { mode = 'snow';   summary = `${Math.round(tempNow)}°F · snowing`; }
   else if (is_rainy)   { mode = 'rain';   summary = `${Math.round(tempNow)}°F · rain in the forecast`; }
 
+  // Tonight + tomorrow outlook. periods[] is NWS, ordered from now: the first
+  // night period is the upcoming overnight low, the next daytime period is
+  // tomorrow's high, the night after that is tomorrow's low.
+  const firstNightIdx = periods.findIndex(p => !p.isDaytime);
+  const tonightP = firstNightIdx >= 0 ? periods[firstNightIdx] : null;
+  const tomorrowDay = (firstNightIdx >= 0 ? periods.slice(firstNightIdx + 1) : periods).find(p => p.isDaytime) || null;
+  const tomorrowNight = tomorrowDay ? periods.slice(periods.indexOf(tomorrowDay) + 1).find(p => !p.isDaytime) : null;
+
+  const forecast = {
+    tonight_low: tonightP ? Math.round(tonightP.temperature) : null,
+    tonight_cond: tonightP ? describeNws(tonightP.shortForecast) : null,
+    tomorrow_name: tomorrowDay ? tomorrowDay.name : 'Tomorrow',
+    tomorrow_high: tomorrowDay ? Math.round(tomorrowDay.temperature) : null,
+    tomorrow_low: tomorrowNight ? Math.round(tomorrowNight.temperature) : null,
+    tomorrow_cond: tomorrowDay ? describeNws(tomorrowDay.shortForecast) : null,
+  };
+
   return {
     temp_now: Math.round(tempNow),
     temp_max: tempMax != null ? Math.round(tempMax) : null,
@@ -222,6 +239,7 @@ function classifyWeather(weather) {
     condition,
     is_patio, is_brutal, is_snowing, is_rainy,
     mood: mode, summary,
+    forecast,
     source: 'nws'
   };
 }

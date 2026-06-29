@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-29T03:05:34.104Z",
+  "generated_at": "2026-06-29T03:15:35.940Z",
   "today": "2026-06-28",
   "sun": {
     "rise": "5:03 AM",
@@ -9,16 +9,24 @@
     "daylight_min": 935
   },
   "weather": {
-    "temp_now": 73,
+    "temp_now": 74,
     "temp_max": 95,
     "feels_like": 76,
-    "condition": "Rain",
+    "condition": "Overcast",
     "is_patio": false,
     "is_brutal": false,
     "is_snowing": false,
     "is_rainy": false,
     "mood": "normal",
-    "summary": "73°F · Rain",
+    "summary": "74°F · Overcast",
+    "forecast": {
+      "tonight_low": 72,
+      "tonight_cond": "Chance Showers And Thunderstorms",
+      "tomorrow_name": "Monday",
+      "tomorrow_high": 95,
+      "tomorrow_low": 72,
+      "tomorrow_cond": "Sunny"
+    },
     "source": "nws"
   },
   "countdowns": [

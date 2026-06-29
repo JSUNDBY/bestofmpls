@@ -54,8 +54,8 @@ function chrome(sky) {
       </feComponentTransfer>
     </filter>
     <linearGradient id="bandmask" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#000"/><stop offset="0.50" stop-color="#000"/>
-      <stop offset="0.66" stop-color="#fff"/><stop offset="1" stop-color="#fff"/>
+      <stop offset="0" stop-color="#000"/><stop offset="0.46" stop-color="#000"/>
+      <stop offset="0.60" stop-color="#fff"/><stop offset="1" stop-color="#fff"/>
     </linearGradient>
     <mask id="skymask"><rect x="0" y="0" width="1200" height="630" fill="url(#bandmask)"/></mask>
     <linearGradient id="scrim" x1="0" y1="0" x2="0" y2="1">
@@ -65,7 +65,7 @@ function chrome(sky) {
   </defs>`,
     back: `<rect x="0" y="0" width="1200" height="630" fill="${CARD}"/>
   <g mask="url(#skymask)" opacity="0.66">
-    <image xlink:href="${sky}" x="0" y="118" width="1200" height="801" filter="url(#duotone-bom)" preserveAspectRatio="none"/>
+    <image xlink:href="${sky}" x="0" y="150" width="1200" height="800" filter="url(#duotone-bom)" preserveAspectRatio="none"/>
   </g>
   <rect x="0" y="496" width="1200" height="134" fill="url(#scrim)"/>
   <rect x="0" y="0" width="1200" height="10" fill="${CLAY}"/>`,
