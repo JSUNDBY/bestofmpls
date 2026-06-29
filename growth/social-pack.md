@@ -1,4 +1,4 @@
-# Best of MPLS — Content Plan (week of June 22)
+# Best of MPLS — Content Plan (week of June 29)
 
 8 post concepts from live site data. Faceless-friendly: each is a shot list, not an on-camera script. Shoot 2-3 in one outing, let the repurposer fan them across IG / TikTok / Reels / Threads. The Post slot is a suggested time to queue it.
 
@@ -10,13 +10,13 @@
 **Hook:** On screen, frame 1: "5 things to do this weekend in Minneapolis"
 
 **Shot list:**
-- Early Evening Jazz: Henry Scamurra’s Pathways Trio at Berlin (16:30) — b-roll of the venue or a poster
-- Charlie Doesn’t Surf at The 331 Club (19:00) — b-roll of the venue or a poster
-- Mature Content: Pride Edition at Varsity Theater (19:00) — b-roll of the venue or a poster
-- Stanley Jordan at Dakota Jazz Club (19:00) — b-roll of the venue or a poster
-- Bokani Dyer Trio at Berlin (19:30) — b-roll of the venue or a poster
+- Colonel Mustard’s Mechanical Orchestra at The 331 Club (17:00) — b-roll of the venue or a poster
+- TGNP Sundays: The Clee-Shays / DJ Haley Fohr at Berlin (19:00) — b-roll of the venue or a poster
+- Ben Lapidus at 7th St Entry — b-roll of the venue or a poster
+- Jules! Mini Summer Tour at The Parkway Theater — b-roll of the venue or a poster
+- Kristy Lee // An Evening of Songs & Stories at The Parkway Theater — b-roll of the venue or a poster
 
-**Caption:** Five ways to spend the weekend, no scrolling six apps required. Full calendar and more at the link. Berlin, The 331 Club, Varsity Theater and more.
+**Caption:** Five ways to spend the weekend, no scrolling six apps required. Full calendar and more at the link. The 331 Club, Berlin, 7th St Entry and more.
 
 **Tags:** #minneapolis #saintpaul #twincities #onlyinmn #mnpls #mplsevents #twincitieslife #thingstodomn
 
@@ -78,9 +78,9 @@
 **Hook:** Slide 1: "Your Minneapolis horoscope this week"
 
 **Shot list:**
-- Taurus: "You move through the day like someone who knows where the shortcuts are. You take a longer..."
-- Gemini: "Today, the small talk is genuinely good. You tell a story better than you have ever told i..."
-- Cancer: "The weather and your mood are in easy agreement. A meal with one other person does most of..."
+- Taurus: "A meal stretches longer than scheduled and is better for it. A craving turns out to be hun..."
+- Gemini: "Something you almost forgot to mention turns out to be the most important thing. A questio..."
+- Cancer: "The weather and your mood are in easy agreement. A long conversation in the kitchen, leani..."
 
 **Caption:** A weekly reading written for the metro. All twelve signs at the link. Which one are you.
 
