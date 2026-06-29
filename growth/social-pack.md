@@ -14,7 +14,7 @@
 - Volunteer Orientation at The Cedar Cultural Center (17:30) — b-roll of the venue or a poster
 - Kate Beahen and Friends Sing Broadway and More at Crooners Supper Club (18:00) — b-roll of the venue or a poster
 - Pop Wagner at White Squirrel Bar (18:00) — b-roll of the venue or a poster
-- Anders Osborne at Dakota Jazz Club (19:00) — b-roll of the venue or a poster
+- The Johnnie Brown Experience Through the Decades: Benefiting The Brownstone at Crooners Supper Club (19:00) — b-roll of the venue or a poster
 
 **Caption:** Five ways to spend the weekend, no scrolling six apps required. Full calendar and more at the link. Crooners Supper Club, The Cedar Cultural Center, Crooners Supper Club and more.
 
