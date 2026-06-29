@@ -179,8 +179,15 @@ function classifyWeather(weather) {
   const windChillF = cToF(obsProps?.windChill?.value);
   const heatIdxF = cToF(obsProps?.heatIndex?.value);
 
-  const tempNow = (om && typeof om.temperature_2m === 'number') ? om.temperature_2m
-    : (obsTempF ?? periods[0].temperature);
+  // Current temp. No single source is "the truth" — Open-Meteo's downtown model,
+  // the measured KMSP observation, and the big consumer apps routinely disagree
+  // 3–5°F. When we have BOTH the downtown model and the measured observation we
+  // average them: that tracks the consensus of the major providers and removes
+  // single-source outliers (the model alone was reading several degrees low).
+  const omTemp = (om && typeof om.temperature_2m === 'number') ? om.temperature_2m : null;
+  const tempNow = (omTemp != null && obsTempF != null) ? (omTemp + obsTempF) / 2
+    : (omTemp != null ? omTemp
+    : (obsTempF ?? periods[0].temperature));
   const feelsLike = (om && typeof om.apparent_temperature === 'number') ? om.apparent_temperature
     : (windChillF ?? heatIdxF ?? tempNow);
   // Current sky from Open-Meteo's code; fall back to the NWS short forecast.

@@ -17,6 +17,19 @@ const ROOT  = path.resolve(__dirname, '..');
 const SRC   = path.join(ROOT, 'src');
 const DIST  = path.join(ROOT, 'dist');
 const SITE  = 'https://bestofmpls.com';
+// Big, share-worthy landing pages that get their own duotone OG card (rendered
+// by build-og.js from the manifest we write at build time). Keyed by the exact
+// page slug head() receives. headline = the big line on the card; kicker = the
+// small brand line above it. Keep the set small — each card is a ~400KB image.
+const OG_VERSION = 2;
+const SECTION_OG = {
+  'best-of-2026':  { headline: 'The Living Best of', kicker: 'Best of MPLS 2026' },
+  'tonight':       { headline: 'Tonight', kicker: 'in the Twin Cities' },
+  'this-weekend':  { headline: 'This Weekend', kicker: 'Fri · Sat · Sun' },
+  'restaurants':   { headline: 'Where to Eat', kicker: 'The restaurant guide' },
+  'cocktail-bars': { headline: 'Where to Drink', kicker: 'Bars & cocktails' },
+  'live-music':    { headline: 'Live Music', kicker: 'Shows around the metro' },
+};
 // Google Search Console verification. The site already runs GA4 (G-K6JECLPV8W),
 // so the fastest path is to verify via the "Google Analytics" method in Search
 // Console (no code needed). If that method is unavailable, paste the token from
@@ -822,6 +835,12 @@ function head({ title, description, slug, theme }) {
   // Homepage gets its full keyword title with no brand suffix (the brand is
   // already in the domain); every other page gets the ' · bestofmpls' suffix.
   const fullTitle = slug ? `${esc(title)} · bestofmpls` : esc(title);
+  // Big landing pages get their own duotone card; everything else shares the
+  // default. ?v=OG_VERSION forces social platforms to re-scrape on changes.
+  const og = SECTION_OG[slug];
+  const ogImg = `${SITE}/${og ? 'og-' + slug : 'og-image'}.png?v=${OG_VERSION}`;
+  const ogAlt = og ? `${esc(og.headline)} — bestofmpls, an independent guide to the Twin Cities.`
+    : 'bestofmpls. An independent guide to Minneapolis & Saint Paul.';
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -837,15 +856,15 @@ ${GSC_VERIFICATION ? `<meta name="google-site-verification" content="${esc(GSC_V
 <meta property="og:title" content="${fullTitle}">
 <meta property="og:description" content="${esc(description)}">
 <meta property="og:site_name" content="bestofmpls">
-<meta property="og:image" content="${SITE}/og-image.png?v=2">
+<meta property="og:image" content="${ogImg}">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="bestofmpls. An independent guide to Minneapolis & Saint Paul.">
+<meta property="og:image:alt" content="${ogAlt}">
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="${fullTitle}">
 <meta name="twitter:description" content="${esc(description)}">
-<meta name="twitter:image" content="${SITE}/og-image.png?v=2">
+<meta name="twitter:image" content="${ogImg}">
 
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1146,9 +1165,10 @@ function footer() {
 (function(){
   var targets = document.querySelectorAll('[data-live-temp], [data-live-condition]');
   if (!targets.length) return;
-  var KEY = 'bom-live-weather2';
+  var KEY = 'bom-live-weather3';
   var TTL = 15 * 60 * 1000;
-  var URL = 'https://api.open-meteo.com/v1/forecast?latitude=44.9778&longitude=-93.2650&current=temperature_2m,weather_code&temperature_unit=fahrenheit&timezone=America%2FChicago';
+  var OM_URL = 'https://api.open-meteo.com/v1/forecast?latitude=44.9778&longitude=-93.2650&current=temperature_2m,weather_code&temperature_unit=fahrenheit&timezone=America%2FChicago';
+  var NWS_URL = 'https://api.weather.gov/stations/KMSP/observations/latest';
   var WMO = {0:'Clear',1:'Mostly Clear',2:'Partly Cloudy',3:'Overcast',45:'Fog',48:'Fog',51:'Light Drizzle',53:'Drizzle',55:'Drizzle',56:'Freezing Drizzle',57:'Freezing Drizzle',61:'Light Rain',63:'Rain',65:'Heavy Rain',66:'Freezing Rain',67:'Freezing Rain',71:'Light Snow',73:'Snow',75:'Heavy Snow',77:'Snow Grains',80:'Showers',81:'Showers',82:'Heavy Showers',85:'Snow Showers',86:'Snow Showers',95:'Thunderstorm',96:'Thunderstorm',99:'Thunderstorm'};
 
   function apply(obs){
@@ -1163,16 +1183,25 @@ function footer() {
     if (raw) { var cached = JSON.parse(raw); if (cached && (Date.now() - cached.ts) < TTL) apply(cached); }
   } catch (_) {}
 
-  // 2. Always fetch fresh in the background.
-  fetch(URL)
-    .then(function(r){ if (!r.ok) throw new Error(r.status); return r.json(); })
-    .then(function(d){
-      var cur = d.current || {};
-      var obs = { ts: Date.now(), tempF: (typeof cur.temperature_2m === 'number') ? cur.temperature_2m : null, condition: WMO[cur.weather_code] || null };
-      try { localStorage.setItem(KEY, JSON.stringify(obs)); } catch (_) {}
-      apply(obs);
-    })
-    .catch(function(){ /* leave the build-time fallback in place */ });
+  // 2. Fetch BOTH the downtown model and the measured KMSP observation, then
+  // average the temps — the same blend as the build, so the number tracks the
+  // consensus of the major providers instead of any single low/high source.
+  // Either source alone still works if the other fails.
+  Promise.all([
+    fetch(OM_URL).then(function(r){ return r.ok ? r.json() : null; }).catch(function(){ return null; }),
+    fetch(NWS_URL).then(function(r){ return r.ok ? r.json() : null; }).catch(function(){ return null; })
+  ]).then(function(res){
+    var om = res[0] && res[0].current ? res[0].current : null;
+    var nws = res[1] && res[1].properties ? res[1].properties : null;
+    var omF = (om && typeof om.temperature_2m === 'number') ? om.temperature_2m : null;
+    var nwsC = (nws && nws.temperature) ? nws.temperature.value : null;
+    var nwsF = (typeof nwsC === 'number') ? (nwsC * 9 / 5 + 32) : null;
+    var tempF = (omF != null && nwsF != null) ? (omF + nwsF) / 2 : (omF != null ? omF : nwsF);
+    if (tempF == null) return;
+    var obs = { ts: Date.now(), tempF: tempF, condition: om ? (WMO[om.weather_code] || null) : null };
+    try { localStorage.setItem(KEY, JSON.stringify(obs)); } catch (_) {}
+    apply(obs);
+  }).catch(function(){ /* leave the build-time fallback in place */ });
 })();
 
 // Live sunset countdown — runs once a minute on any page that exposes a
@@ -6565,6 +6594,12 @@ function build() {
   // GitHub Pages custom-domain marker. Tells GH Pages to serve at bestofmpls.com.
   fs.writeFileSync(path.join(DIST, 'CNAME'), 'bestofmpls.com\n');
   console.log(`  → CNAME (bestofmpls.com)`);
+
+  // OG manifest — the list of per-section duotone cards for build-og.js to
+  // render (it runs after this build, in CI, and reads this file).
+  const ogManifest = Object.entries(SECTION_OG).map(([slug, v]) => ({ slug, ...v }));
+  fs.writeFileSync(path.join(DIST, 'og-manifest.json'), JSON.stringify(ogManifest, null, 2));
+  console.log(`  → og-manifest.json (${ogManifest.length} section cards)`);
 
   // Copy public/ recursively into dist/. Includes the OG image (generated
   // by build-og.js) and any other static assets like /img/, /fonts/, etc.

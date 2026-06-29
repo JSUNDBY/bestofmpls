@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-28T19:37:35.181Z",
+  "generated_at": "2026-06-29T03:05:34.104Z",
   "today": "2026-06-28",
   "sun": {
     "rise": "5:03 AM",
@@ -9,16 +9,16 @@
     "daylight_min": 935
   },
   "weather": {
-    "temp_now": 79,
-    "temp_max": 81,
-    "feels_like": 83,
-    "condition": "Partly Cloudy",
-    "is_patio": true,
+    "temp_now": 73,
+    "temp_max": 95,
+    "feels_like": 76,
+    "condition": "Rain",
+    "is_patio": false,
     "is_brutal": false,
     "is_snowing": false,
     "is_rainy": false,
-    "mood": "patio",
-    "summary": "81°F high · patio weather",
+    "mood": "normal",
+    "summary": "73°F · Rain",
     "source": "nws"
   },
   "countdowns": [
