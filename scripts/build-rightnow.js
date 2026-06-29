@@ -147,6 +147,29 @@ function describeNws(text) {
   return text.replace(/\b\w/g, ch => ch.toUpperCase());
 }
 
+// Compress a verbose NWS shortForecast into a short, tight label for the
+// outlook line. "Chance Showers And Thunderstorms" → "Storms likely",
+// "Slight Chance Rain Showers" → "Showers possible", "Mostly Cloudy" → "Cloudy".
+function shortCond(text) {
+  if (!text) return 'Clear';
+  const t = text.toLowerCase();
+  let base;
+  if (/thunder|t-?storm|tstm/.test(t))            base = 'Storms';
+  else if (/freezing/.test(t))                     base = 'Freezing rain';
+  else if (/snow|flurr|wintry|sleet|\bice\b/.test(t)) base = 'Snow';
+  else if (/rain|shower|drizzle/.test(t))          base = 'Showers';
+  else if (/fog|mist/.test(t))                     base = 'Fog';
+  else if (/haze|smoke/.test(t))                   base = 'Hazy';
+  else if (/sunny/.test(t))   base = /mostly/.test(t) ? 'Mostly sunny' : /partly/.test(t) ? 'Partly sunny' : 'Sunny';
+  else if (/clear/.test(t))   base = 'Clear';
+  else if (/cloud|overcast/.test(t)) base = /partly/.test(t) ? 'Partly cloudy' : 'Cloudy';
+  else return describeNws(text);
+  const precip = /Storms|Snow|Showers|Freezing/.test(base);
+  const chance = /slight chance|isolated/.test(t) ? ' possible'
+    : /\bchance\b|\blikely\b|\bscattered\b/.test(t) ? ' likely' : '';
+  return base + (precip ? chance : '');
+}
+
 function classifyWeather(weather) {
   if (!weather || !weather.forecast) {
     return { is_patio: false, is_brutal: false, summary: 'Twin Cities, today' };
@@ -225,11 +248,11 @@ function classifyWeather(weather) {
 
   const forecast = {
     tonight_low: tonightP ? Math.round(tonightP.temperature) : null,
-    tonight_cond: tonightP ? describeNws(tonightP.shortForecast) : null,
+    tonight_cond: tonightP ? shortCond(tonightP.shortForecast) : null,
     tomorrow_name: tomorrowDay ? tomorrowDay.name : 'Tomorrow',
     tomorrow_high: tomorrowDay ? Math.round(tomorrowDay.temperature) : null,
     tomorrow_low: tomorrowNight ? Math.round(tomorrowNight.temperature) : null,
-    tomorrow_cond: tomorrowDay ? describeNws(tomorrowDay.shortForecast) : null,
+    tomorrow_cond: tomorrowDay ? shortCond(tomorrowDay.shortForecast) : null,
   };
 
   return {
