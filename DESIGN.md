@@ -116,26 +116,49 @@ the change is wrong.
 
 ## 4. Visual language
 
-### Typography
-- **Marquee:** Archivo Narrow (700). The compressed grotesk reserved for
-  page-title-level signage moments — cover headline, section title,
-  cluster title, venue hero name, event hero name, feature-banner title.
-  Set ALL CAPS with -0.02em tracking. Reads as actual civic signage,
-  not a tasteful publication header. This is the "loudest" face on the
-  site and only appears at the most-important display moments.
-- **Display:** IBM Plex Sans (600, 700). Used for entry names, secondary
-  headlines, UI face. Strong sans, slight humanist warmth. No italic —
-  Plex italic is not loaded and we don't fake it via fallback. Headline
-  emphasis happens through weight and tracking, not slant.
-- **Body:** Source Sans 3 (400, 600). Used for descriptions, intros.
-- **Label:** Archivo (500, 600, 700). All-caps, wide letter-spacing
-  (0.10–0.20em). Used for eyebrows, metadata, chips, dates.
-- **Mono:** IBM Plex Mono (500, 600). The signature surface for any
-  numeric civic data — temperatures, times, dates, station-board
-  readings. Always tabular-nums. This is what gives the site its
-  "departure board" register. If a number can be in mono, it should be.
-- **Retired:** Playfair Display. The italic-serif editorial register
-  read as lifestyle-magazine, which the site is explicitly not.
+### Typography  (2026 pass — three families, one signature)
+Cut from five families to three. One signature display face carries every
+headline; one neutral body; one mono accent. Fewer fonts, more identity.
+
+- **Signature display — Schibsted Grotesk (700, 800).** The single display face,
+  used for the cover marquee, every section title, cluster title, entry name,
+  venue/event hero, feature-banner title, and the wordmark. Chosen on purpose:
+  Schibsted is a contemporary Nordic *news* grotesk (drawn for a Scandinavian
+  media group) — clean enough to read as civic infrastructure, distinct enough
+  to never read as a default system sans. This is the signature, and it's exactly
+  on-register for "Helsinki transit meets independent city paper."
+  - Marquee (cover / hero): Schibsted 800, ALL CAPS, -0.03em tracking, line-height
+    0.9. Big and confident; the editorial-civic headline, not a condensed sign.
+  - Section titles / entry names: Schibsted 700–800, -0.02em.
+  - Fallbacks: `'Archivo Narrow', 'Helvetica Neue', Helvetica, sans-serif`.
+- **Body — Source Sans 3 (400, 600).** Descriptions, intros. Unchanged.
+- **Mono accent — IBM Plex Mono (500, 600).** The numeric/civic surface —
+  temps, times, dates, codes, the "departure board" register. Always
+  tabular-nums. Unchanged; this is the other signature.
+- **Retired:** Archivo Narrow, Archivo, IBM Plex Sans (display) — folded into
+  Schibsted. Playfair Display (long retired).
+
+### Space + radius tokens (2026 pass)
+A real scale, used everywhere instead of scattered one-off clamps:
+`--s1:4 --s2:8 --s3:12 --s4:16 --s5:24 --s6:32 --s7:48 --s8:64 --s9:96`,
+section vertical `--sec-y: clamp(40px,6vw,88px)`, `--radius:8px` (pills 999px).
+
+### Live visual language (2026 pass)
+The site is *alive*; make it felt. A small clay **pulse dot** that gently breathes
+(opacity+scale, ~2.4s, `prefers-reduced-motion` → static) sits next to live data:
+the right-now temperature, "happening now" markers, and Living Best of standings.
+The one expressive motion on an otherwise still, restrained site.
+
+### Imagery (2026 pass)
+The site is text-forward — almost no photos by design. Where an image earns its
+place it is rendered as a **duotone etching**, never a raw photo: a single SVG
+filter (`#duotone-bom`) maps shadows → near-black and highlights → cream, so any
+image collapses to the two-tone municipal-print register. The signature use is
+the **footer skyline** — a twilight Minneapolis horizon (Stone Arch / downtown)
+at the top of the always-dark footer, masked to dissolve into the slab at ~0.5
+opacity. One treatment reads correctly under both light and dark page modes
+(the footer is `#0A0A0A`/`#050505` regardless), and it signs off every page.
+Rule: no full-bleed photo heroes, no stock-photo washes — duotone or nothing.
 
 ### Color tokens
 

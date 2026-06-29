@@ -2024,7 +2024,7 @@ html:not([data-mode="dark"]) .nav-overlay { background: #FFFFFF; }
 .live-feature {
   background: #0F1115;
   color: #FFFFFF;
-  padding: 80px 0;
+  padding: var(--sec-y) 0;
 }
 .live-feature-inner {
   display: grid;
@@ -2146,7 +2146,7 @@ html:not([data-mode="dark"]) .nav-overlay { background: #FFFFFF; }
 
 /* ===== Horoscope feature on homepage ===== */
 .horoscope-feature {
-  padding: 80px 0;
+  padding: var(--sec-y) 0;
   background: var(--paper);
   border-top: 1px solid var(--rule);
   border-bottom: 1px solid var(--rule);
@@ -2326,7 +2326,7 @@ html[data-mode="dark"] .tools-index-row a:hover { background: var(--paper-2); }
 .today-feature {
   background: #0F1115;
   color: var(--paper);
-  padding: 80px 0;
+  padding: var(--sec-y) 0;
 }
 .today-feature-inner {
   display: grid;
@@ -2363,7 +2363,7 @@ html[data-mode="dark"] .tools-index-row a:hover { background: var(--paper-2); }
 .today-page {
   background: #0F1115;
   color: var(--paper);
-  padding: 80px 0 120px;
+  padding: var(--sec-y) 0 calc(var(--sec-y) + 32px);
   min-height: calc(100vh - 200px);
 }
 .today-essay {
@@ -2630,7 +2630,7 @@ html[data-mode="dark"] .tools-index-row a:hover { background: var(--paper-2); }
 
 /* ===== Surprise me ===== */
 .surprise-page {
-  padding: 80px 0 120px;
+  padding: var(--sec-y) 0 calc(var(--sec-y) + 32px);
   min-height: 60vh;
 }
 .surprise-inner {
@@ -6538,13 +6538,19 @@ html[data-mode="dark"] .entry-reserve {
 .cover--type { padding-top: clamp(40px, 7vw, 96px); }
 .cover--type .cover-headline { margin-top: var(--s3); }
 
-/* Upcoming talks — slim accessible line, not a section */
-.home-talks-mini { padding: var(--s4) 0 0; }
-.home-talks-mini-link { display: flex; align-items: baseline; gap: var(--s4); text-decoration: none; padding: var(--s3) 0; border-bottom: 1px solid var(--rule); }
-.home-talks-mini-eyebrow { font-family: var(--font-label); font-weight: 700; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--clay); flex: none; }
-.home-talks-mini-next { font-family: var(--font-body); font-size: 15px; color: var(--ink-soft); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.home-talks-mini-arrow { margin-left: auto; font-family: var(--font-label); font-weight: 700; color: var(--ink); flex: none; }
-.home-talks-mini-link:hover .home-talks-mini-next, .home-talks-mini-link:hover .home-talks-mini-arrow { color: var(--clay); }
+/* Footer skyline — the site's signature image, done as a duotone etching.
+   Cream highlights / near-black shadows on the always-dark footer, so the lit
+   twilight skyline glows and the shadows dissolve into the slab. One treatment
+   reads correctly in both light and dark page modes. */
+.footer-skyline { position: relative; width: 100%; height: clamp(110px, 15vw, 190px); overflow: hidden; }
+.footer-skyline .svg-defs { position: absolute; width: 0; height: 0; }
+.footer-skyline img {
+  width: 100%; height: 100%; object-fit: cover; object-position: 50% 42%;
+  filter: url(#duotone-bom); opacity: 0.5;
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 34%, #000 72%, transparent);
+  mask-image: linear-gradient(to bottom, transparent, #000 34%, #000 72%, transparent);
+}
+.site-footer { padding-top: 0; }
 
 /* Live pulse — the one expressive motion. A clay dot that breathes next to
    live data, so the site's "alive" quality is felt. */

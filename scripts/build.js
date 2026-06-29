@@ -851,7 +851,7 @@ ${GSC_VERIFICATION ? `<meta name="google-site-verification" content="${esc(GSC_V
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;600;700;800&family=IBM+Plex+Mono:wght@500;600;700&family=Source+Sans+3:wght@400;600&display=swap">
-<link rel="stylesheet" href="/style.css?v=61">
+<link rel="stylesheet" href="/style.css?v=62">
 <script>
 // Set color mode before paint to avoid flash. Reads localStorage first,
 // falls back to light mode (the new editorial default). mode-ready class
@@ -1072,6 +1072,10 @@ function footer() {
   ];
 
   return `<footer class="site-footer">
+  <div class="footer-skyline" aria-hidden="true">
+    <svg class="svg-defs" width="0" height="0" aria-hidden="true" focusable="false"><filter id="duotone-bom" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="0.33 0.33 0.33 0 0 0.33 0.33 0.33 0 0 0.33 0.33 0.33 0 0 0 0 0 1 0"/><feComponentTransfer><feFuncR type="table" tableValues="0.04 0.957"/><feFuncG type="table" tableValues="0.04 0.949"/><feFuncB type="table" tableValues="0.04 0.925"/></feComponentTransfer></filter></svg>
+    <img src="/img/skyline-cover.jpg" alt="" loading="lazy" decoding="async">
+  </div>
   <div class="wrap">
     <div class="footer-top">
       <div class="footer-brand-block">
@@ -1642,20 +1646,6 @@ function renderHome() {
         </div>
       </div>
     </section>` : ''}
-    ${(() => {
-      const talks = dedupeNonFilms((eventsData.events || []).filter(e => e.category === 'lecture' && e.date >= TODAY_ISO && !isNoiseEvent(e)))
-        .sort((a, b) => (a.date + (a.time || '')).localeCompare(b.date + (b.time || '')));
-      if (!talks.length) return '';
-      const more = talks.length > 1 ? ` and ${talks.length - 1} more` : '';
-      return `
-    <section class="home-talks-mini" aria-label="Upcoming talks">
-      <a class="wrap home-talks-mini-link" href="/lectures/">
-        <span class="home-talks-mini-eyebrow">Talks &amp; lectures</span>
-        <span class="home-talks-mini-next">${esc(talks[0].title)}${more}</span>
-        <span class="home-talks-mini-arrow" aria-hidden="true">→</span>
-      </a>
-    </section>`;
-    })()}
     ${LIVING_TOP.length ? `
     <section class="loved-rail" aria-label="What locals are loving">
       <div class="wrap">
@@ -1679,6 +1669,10 @@ function renderHome() {
           <li><a href="/near/"><span class="mtools-code">N</span> Near You <em>walking radius</em></a></li>
           <li><a href="/this-weekend/"><span class="mtools-code">W</span> This Weekend <em>Fri · Sat · Sun</em></a></li>
           <li><a href="/now-showing/"><span class="mtools-code">A</span> Now Showing <em>${exhibitions.exhibitions.length} exhibitions</em></a></li>
+          ${(() => {
+            const t = dedupeNonFilms((eventsData.events || []).filter(e => e.category === 'lecture' && e.date >= TODAY_ISO && !isNoiseEvent(e)));
+            return t.length ? `<li><a href="/lectures/"><span class="mtools-code">T</span> Talks &amp; Lectures <em>${t.length} upcoming</em></a></li>` : '';
+          })()}
           <li><a href="/festivals/"><span class="mtools-code">F</span> Festivals <em>the year in order</em></a></li>
           <li><a href="/visit/"><span class="mtools-code">V</span> First Time? <em>a weekend in the metro</em></a></li>
           <li><a href="/skyway/"><span class="mtools-code">S</span> Skyway <em>${skyway.nodes.length} downtown nodes</em></a></li>
@@ -2706,7 +2700,7 @@ function renderAdminPicks() {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>${esc(title)}</title>
-<link rel="stylesheet" href="/style.css?v=61">
+<link rel="stylesheet" href="/style.css?v=62">
 <style>
   body { background: var(--paper); }
   .admin-wrap { max-width: 960px; margin: 0 auto; padding: 32px var(--gutter) 96px; }
