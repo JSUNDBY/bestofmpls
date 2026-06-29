@@ -10,13 +10,13 @@
 **Hook:** On screen, frame 1: "5 things to do this weekend in Minneapolis"
 
 **Shot list:**
-- Colonel Mustard’s Mechanical Orchestra at The 331 Club (17:00) — b-roll of the venue or a poster
-- TGNP Sundays: The Clee-Shays / DJ Haley Fohr at Berlin (19:00) — b-roll of the venue or a poster
-- Ben Lapidus at 7th St Entry — b-roll of the venue or a poster
-- Jules! Mini Summer Tour at The Parkway Theater — b-roll of the venue or a poster
-- Kristy Lee // An Evening of Songs & Stories at The Parkway Theater — b-roll of the venue or a poster
+- Erin Livingston and Adi Yeshaya at Crooners Supper Club (17:00) — b-roll of the venue or a poster
+- Volunteer Orientation at The Cedar Cultural Center (17:30) — b-roll of the venue or a poster
+- Kate Beahen and Friends Sing Broadway and More at Crooners Supper Club (18:00) — b-roll of the venue or a poster
+- Pop Wagner at White Squirrel Bar (18:00) — b-roll of the venue or a poster
+- Anders Osborne at Dakota Jazz Club (19:00) — b-roll of the venue or a poster
 
-**Caption:** Five ways to spend the weekend, no scrolling six apps required. Full calendar and more at the link. The 331 Club, Berlin, 7th St Entry and more.
+**Caption:** Five ways to spend the weekend, no scrolling six apps required. Full calendar and more at the link. Crooners Supper Club, The Cedar Cultural Center, Crooners Supper Club and more.
 
 **Tags:** #minneapolis #saintpaul #twincities #onlyinmn #mnpls #mplsevents #twincitieslife #thingstodomn
 
@@ -78,9 +78,9 @@
 **Hook:** Slide 1: "Your Minneapolis horoscope this week"
 
 **Shot list:**
-- Taurus: "A meal stretches longer than scheduled and is better for it. A craving turns out to be hun..."
-- Gemini: "Something you almost forgot to mention turns out to be the most important thing. A questio..."
-- Cancer: "The weather and your mood are in easy agreement. A long conversation in the kitchen, leani..."
+- Taurus: "The radio plays the song you needed to hear. A gift you did not ask for arrives. Somewhere..."
+- Gemini: "Words come easy. The right ones arrive first. A long-stalled conversation finally moves fo..."
+- Cancer: "A quiet kind of confidence arrives without being asked. A long conversation in the kitchen..."
 
 **Caption:** A weekly reading written for the metro. All twelve signs at the link. Which one are you.
 
