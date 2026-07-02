@@ -6600,7 +6600,9 @@ html[data-mode="dark"] .home-board { background: #050505; border-top: 1px solid 
 .home-lanes-label { font-family: var(--font-label); font-weight: 700; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #8E8B82; margin-right: var(--s2); }
 .home-lane { font-family: var(--font-label); font-weight: 700; font-size: 13.5px; color: #F4EEDF; text-decoration: none; border: 1px solid rgba(244,238,223,0.35); border-radius: 999px; padding: 10px 16px; min-height: 44px; display: inline-flex; align-items: center; transition: border-color 0.12s, color 0.12s; }
 .home-lane:hover { border-color: var(--clay); color: var(--clay); }
-/* App-feel on phones: compress the hero so the board lands near the first screen. */
+/* App-feel on phones: compress the hero so the board lands near the first screen,
+   then collapse the magazine stack below it. The homepage on mobile is a tool —
+   board, lanes, launcher — not an endless scroll. Desktop keeps the rich layout. */
 @media (max-width: 640px) {
   .cover--type { padding-top: 28px; }
   .cover--type .cover-deck { font-size: 15.5px; margin-bottom: var(--s3); }
@@ -6609,6 +6611,31 @@ html[data-mode="dark"] .home-board { background: #050505; border-top: 1px solid 
   .cover--type .cover-meta { display: none; }
   .cover--type .cover-actions { margin-bottom: 0; }
   .home-board-time { width: 64px; font-size: 12px; }
+
+  /* Category clusters become an app-drawer: dense 2-up tiles, title + count
+     only. Every link survives (SEO + wayfinding), at a tenth of the height. */
+  .cluster { padding: var(--s6) 0; }
+  .cluster-head { padding-bottom: var(--s2); }
+  .cluster-head .cluster-deck { display: none; }
+  .cluster-grid, .cluster-grid--2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; padding: 0 var(--gutter); }
+  .cluster-grid .cat-card, .cluster-grid--2 .cat-card {
+    padding: 12px 14px; min-height: 72px; border: 1px solid var(--rule-soft) !important;
+    border-radius: var(--radius); display: flex; flex-direction: column; justify-content: center;
+  }
+  .cat-card-deck, .cat-card .cat-card-arrow { display: none; }
+  .cat-card-title { font-size: 15px; line-height: 1.25; margin: 2px 0 0; }
+  .cat-card-eyebrow { font-size: 10px; }
+
+  /* Feature teasers collapse to their pitch + link; the card stacks go. */
+  .live-feature-list, .horoscope-feature-cards, .calendar-feature-list { display: none; }
+  .live-feature, .horoscope-feature, .calendar-feature { padding: var(--s6) 0; }
+
+  /* Concierge: keep the curated picks, drop the duplicate weather context. */
+  .concierge { padding: var(--s6) 0; }
+  .concierge-context { display: none; }
+
+  /* Live strip: sunset + temp + the next countdown; the rest live on /tonight/. */
+  .rightnow-inner .rightnow-item:nth-child(n+4) { display: none; }
 }
 
 /* Live pulse — the one expressive motion. A clay dot that breathes next to

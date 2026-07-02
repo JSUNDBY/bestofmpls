@@ -867,10 +867,17 @@ ${GSC_VERIFICATION ? `<meta name="google-site-verification" content="${esc(GSC_V
 <meta name="twitter:image" content="${ogImg}">
 
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#F4F2EC">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0A0A0A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="bestofmpls">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;600;700;800&family=IBM+Plex+Mono:wght@500;600;700&family=Source+Sans+3:wght@400;600&display=swap">
-<link rel="stylesheet" href="/style.css?v=66">
+<link rel="stylesheet" href="/style.css?v=67">
 <script>
 // Set color mode before paint to avoid flash. Reads localStorage first,
 // falls back to light mode (the new editorial default). mode-ready class
@@ -2794,7 +2801,7 @@ function renderAdminPicks() {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>${esc(title)}</title>
-<link rel="stylesheet" href="/style.css?v=66">
+<link rel="stylesheet" href="/style.css?v=67">
 <style>
   body { background: var(--paper); }
   .admin-wrap { max-width: 960px; margin: 0 auto; padding: 32px var(--gutter) 96px; }
@@ -6491,10 +6498,10 @@ Sitemap: ${SITE}/sitemap.xml`;
 }
 
 function renderFavicon() {
-  // Bold "B" in clay on cream
+  // Bold "b" in cream on the brand clay (matches the PWA icons)
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" fill="#F4EEDF"/>
-  <text x="32" y="48" font-family="Archivo, system-ui, sans-serif" font-size="48" font-weight="800" text-anchor="middle" fill="#B0673A">b</text>
+  <rect width="64" height="64" fill="#C8200F"/>
+  <text x="32" y="49" font-family="'Helvetica Neue', Helvetica, Arial, system-ui, sans-serif" font-size="50" font-weight="800" text-anchor="middle" fill="#F4EEDF">b</text>
 </svg>`;
 }
 
