@@ -489,6 +489,16 @@ function loadJsonOptional(p) {
   catch (_) { return null; }
 }
 const eventsData    = loadJsonOptional(path.join(SRC, 'data/events.json')) || { generated_at: null, sources: [], events: [] };
+// Scraped subtitles arrive with venue-page text jammed together ("NO COVER5:00pm
+// Show"). Normalize once at load: separate a letter mashed against a clock time,
+// and collapse whitespace. Conservative on purpose — no case-boundary guessing.
+for (const ev of (eventsData.events || [])) {
+  if (ev.subtitle) {
+    ev.subtitle = String(ev.subtitle)
+      .replace(/([A-Za-z])(\d{1,2}:\d{2}\s?(?:am|pm|AM|PM)?)/g, '$1 · $2')
+      .replace(/\s+/g, ' ').trim();
+  }
+}
 const horoscopeData = loadJsonOptional(path.join(SRC, 'data/horoscope.json')) || { date: null, intro: '', horoscopes: [] };
 const todayData     = loadJsonOptional(path.join(SRC, 'data/today.json')) || null;
 const coordsData    = loadJsonOptional(path.join(SRC, 'data/coords.json')) || {};
@@ -2013,18 +2023,18 @@ function renderCategory(c) {
       const isStreetAddress = /\d/.test(e.address);
       if (isStreetAddress) {
         const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(e.address)}`;
-        footerBits.push(`<a class="entry-meta-link" href="${esc(mapsUrl)}" target="_blank" rel="noopener" title="Open in Google Maps">${esc(e.address)} <span class="entry-meta-link-icon">↗</span></a>`);
+        footerBits.push(`<a class="entry-meta-link" href="${esc(mapsUrl)}" target="_blank" rel="noopener" title="Open in Google Maps">${esc(e.address)} <span class="entry-meta-link-icon">↗︎</span></a>`);
       } else {
         footerBits.push(`<span>${esc(e.address)}</span>`);
       }
     }
     if (e.website) {
       const cleanUrl = e.website.replace(/^https?:\/\//, '').replace(/\/$/, '');
-      footerBits.push(`<a class="entry-meta-link entry-meta-link--website" href="${esc(e.website)}" target="_blank" rel="noopener">${esc(cleanUrl)} <span class="entry-meta-link-icon">↗</span></a>`);
+      footerBits.push(`<a class="entry-meta-link entry-meta-link--website" href="${esc(e.website)}" target="_blank" rel="noopener">${esc(cleanUrl)} <span class="entry-meta-link-icon">↗︎</span></a>`);
     }
     if (e.reservation) {
       const platform = reservationPlatform(e.reservation);
-      footerBits.push(`<a class="entry-reserve" href="${esc(reservationUrl(e.reservation))}" target="_blank" rel="noopener sponsored">Reserve a table on ${esc(platform)} <span class="entry-meta-link-icon">↗</span></a>`);
+      footerBits.push(`<a class="entry-reserve" href="${esc(reservationUrl(e.reservation))}" target="_blank" rel="noopener sponsored">Reserve a table on ${esc(platform)} <span class="entry-meta-link-icon">↗︎</span></a>`);
     }
     if (e.price) footerBits.push(`<span class="entry-footer-price">${esc(e.price)}</span>`);
     if (e.hours) footerBits.push(`<span>${esc(e.hours)}</span>`);
@@ -2216,7 +2226,7 @@ function renderCategory(c) {
           <h2 class="entry-upcoming-title">Where they are right now</h2>
           <p class="truck-finder-deck">Trucks post the day’s spot on these live maps. Start here for "who’s parked near me."</p>
           <div class="truck-finder-maps">
-            ${maps.map(m => `<a class="entry-reserve" href="${esc(m.url)}" target="_blank" rel="noopener">${esc(m.label.replace(/\\s*\\(.*\\)$/, ''))} <span class="entry-meta-link-icon">↗</span></a>`).join('')}
+            ${maps.map(m => `<a class="entry-reserve" href="${esc(m.url)}" target="_blank" rel="noopener">${esc(m.label.replace(/\\s*\\(.*\\)$/, ''))} <span class="entry-meta-link-icon">↗︎</span></a>`).join('')}
           </div>
         </div>` : ''}
         ${clusters.length ? `
@@ -2541,21 +2551,21 @@ function renderEntry(c, e, allCategories) {
     const isStreet = /\d/.test(e.address);
     if (isStreet) {
       const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(e.address)}`;
-      return `<a class="entry-detail-address" href="${esc(mapsUrl)}" target="_blank" rel="noopener">${esc(e.address)} <span class="entry-meta-link-icon">↗</span></a>`;
+      return `<a class="entry-detail-address" href="${esc(mapsUrl)}" target="_blank" rel="noopener">${esc(e.address)} <span class="entry-meta-link-icon">↗︎</span></a>`;
     }
     return `<span class="entry-detail-address">${esc(e.address)}</span>`;
   })();
 
   // Website link
   const websiteBlock = e.website
-    ? `<a class="entry-detail-website" href="${esc(e.website)}" target="_blank" rel="noopener">${esc(e.website.replace(/^https?:\/\//, '').replace(/\/$/, ''))} <span class="entry-meta-link-icon">↗</span></a>`
+    ? `<a class="entry-detail-website" href="${esc(e.website)}" target="_blank" rel="noopener">${esc(e.website.replace(/^https?:\/\//, '').replace(/\/$/, ''))} <span class="entry-meta-link-icon">↗︎</span></a>`
     : '';
 
   // Get-directions deep link — start the visit from our page, not Google Maps.
   const directionsBlock = (coords || (e.address && /\d/.test(e.address))) ? (() => {
     const dest = coords ? `${coords.lat},${coords.lng}` : e.address;
     const u = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(dest)}`;
-    return `<a class="entry-detail-directions" href="${esc(u)}" target="_blank" rel="noopener" data-lb-directions data-lb-place="${c.slug}/${slug}">Get directions <span class="entry-meta-link-icon">↗</span></a>`;
+    return `<a class="entry-detail-directions" href="${esc(u)}" target="_blank" rel="noopener" data-lb-directions data-lb-place="${c.slug}/${slug}">Get directions <span class="entry-meta-link-icon">↗︎</span></a>`;
   })() : '';
 
   // The Living Best of — participation. Anonymous taps that shape the read.
@@ -2617,7 +2627,7 @@ function renderEntry(c, e, allCategories) {
   // Reservation button (OpenTable, Resy, Tock). OpenTable URLs pick up the
   // affiliate ref param when OPENTABLE_AFFILIATE_REF is configured.
   const reservationBlock = e.reservation
-    ? `<a class="entry-detail-reserve" href="${esc(reservationUrl(e.reservation))}" target="_blank" rel="noopener sponsored">Reserve a table on ${esc(reservationPlatform(e.reservation))} <span class="entry-meta-link-icon">↗</span></a>`
+    ? `<a class="entry-detail-reserve" href="${esc(reservationUrl(e.reservation))}" target="_blank" rel="noopener sponsored">Reserve a table on ${esc(reservationPlatform(e.reservation))} <span class="entry-meta-link-icon">↗︎</span></a>`
     : '';
 
   // Mini-map (Leaflet) if we have coords
@@ -2688,7 +2698,7 @@ function renderEntry(c, e, allCategories) {
         ${shows.map(s => `
           <li class="entry-upcoming-show">
             <div class="entry-upcoming-when">${esc(fmtShowDate(s.date))}${esc(fmtShowTime(s.time))}</div>
-            <div class="entry-upcoming-what">${s.url ? `<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.title)}<span class="entry-meta-link-icon"> ↗</span></a>` : esc(s.title)}</div>
+            <div class="entry-upcoming-what">${s.url ? `<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.title)}<span class="entry-meta-link-icon"> ↗︎</span></a>` : esc(s.title)}</div>
             ${s.price ? `<div class="entry-upcoming-price">${esc(s.price)}</div>` : ''}
           </li>`).join('')}
       </ul>
@@ -3550,7 +3560,7 @@ function renderExhibitions() {
         <div class="exhibition-venue">${esc(e.venue)}</div>
       </div>
       <div class="exhibition-body">
-        <h3 class="exhibition-title">${e.url ? `<a href="${esc(e.url)}" target="_blank" rel="noopener">${esc(e.title)} <span class="entry-meta-link-icon">↗</span></a>` : esc(e.title)}</h3>
+        <h3 class="exhibition-title">${e.url ? `<a href="${esc(e.url)}" target="_blank" rel="noopener">${esc(e.title)} <span class="entry-meta-link-icon">↗︎</span></a>` : esc(e.title)}</h3>
         ${e.artist ? `<div class="exhibition-artist">${esc(e.artist)}</div>` : ''}
         ${e.subtitle ? `<div class="exhibition-subtitle">${esc(e.subtitle)}</div>` : ''}
         <p class="exhibition-description">${esc(e.description)}</p>
@@ -3769,7 +3779,7 @@ function renderCalendar() {
           <li class="cal-row" data-venue="${esc(e.venue)}" data-moods="${esc(moodsForVenue(e.venue).join(' '))}">
             <div class="cal-row-when">${e.time ? esc(fmtTime(e.time)) : 'TBA'}</div>
             <div class="cal-row-body">
-              <h3 class="cal-row-title">${e.url ? `<a href="${esc(e.url)}" target="_blank" rel="noopener">${esc(e.title)} <span class="entry-meta-link-icon">↗</span></a>` : esc(e.title)}</h3>
+              <h3 class="cal-row-title">${e.url ? `<a href="${esc(e.url)}" target="_blank" rel="noopener">${esc(e.title)} <span class="entry-meta-link-icon">↗︎</span></a>` : esc(e.title)}</h3>
               <div class="cal-row-venue"><a href="/calendar/venue/${esc(entrySlug(e.venue))}/" class="cal-row-venue-link">${esc(e.venue)}</a>${e.venue_neighborhood ? ` ${nhoodTag(e.venue_neighborhood)}` : ''}</div>
               ${e.subtitle ? `<p class="cal-row-sub">${esc(e.subtitle.slice(0, 140))}${e.subtitle.length > 140 ? '…' : ''}</p>` : ''}
             </div>
@@ -4008,7 +4018,7 @@ function renderVenuePage(v) {
               <div class="venue-show-time">${esc(fmtTime12(e.time))}</div>
             </div>
             <div class="venue-show-body">
-              <h3 class="venue-show-title">${e.url ? `<a href="${esc(e.url)}" target="_blank" rel="noopener">${esc(e.title)} <span class="entry-meta-link-icon">↗</span></a>` : esc(e.title)}</h3>
+              <h3 class="venue-show-title">${e.url ? `<a href="${esc(e.url)}" target="_blank" rel="noopener">${esc(e.title)} <span class="entry-meta-link-icon">↗︎</span></a>` : esc(e.title)}</h3>
               ${e.subtitle ? `<p class="venue-show-sub">${esc(e.subtitle.slice(0, 200))}${e.subtitle.length > 200 ? '…' : ''}</p>` : ''}
             </div>
           </li>`).join('')}
@@ -4166,7 +4176,7 @@ function renderWeekend() {
             <li class="weekend-show">
               <div class="weekend-show-when">${esc(fmtTime12(e.time))}</div>
               <div class="weekend-show-body">
-                <h3 class="weekend-show-title">${e.url ? `<a href="${esc(e.url)}" target="_blank" rel="noopener">${esc(e.title)} <span class="entry-meta-link-icon">↗</span></a>` : esc(e.title)}</h3>
+                <h3 class="weekend-show-title">${e.url ? `<a href="${esc(e.url)}" target="_blank" rel="noopener">${esc(e.title)} <span class="entry-meta-link-icon">↗︎</span></a>` : esc(e.title)}</h3>
                 <div class="weekend-show-venue"><a href="/calendar/venue/${esc(entrySlug(e.venue))}/">${esc(e.venue)}</a>${e.venue_neighborhood ? ` ${nhoodTag(e.venue_neighborhood)}` : ''}</div>
               </div>
             </li>`).join('')}
@@ -4590,7 +4600,7 @@ function renderSurprise() {
            '<h1 class="surprise-name"><a href="/' + e.slug + '/#' + e.anchor + '">' + e.name + '</a></h1>' +
            (e.neighborhood ? '<div class="surprise-where">' + e.neighborhood + '</div>' : '') +
            (e.description ? '<p class="surprise-desc">' + e.description + '</p>' : '') +
-           (e.address ? '<div class="surprise-addr"><a href="https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(e.address) + '" target="_blank" rel="noopener">' + e.address + ' ↗</a></div>' : '');
+           (e.address ? '<div class="surprise-addr"><a href="https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(e.address) + '" target="_blank" rel="noopener">' + e.address + ' ↗︎</a></div>' : '');
          document.getElementById('surprise-card').innerHTML = html;
        }
        pick();
@@ -4772,7 +4782,7 @@ function renderTonight() {
     <li class="tonight-event">
       <div class="tonight-event-time">${esc(fmtTime12(e.time))}</div>
       <div class="tonight-event-body">
-        <h3 class="tonight-event-title">${e.url ? `<a href="${esc(e.url)}" target="_blank" rel="noopener">${esc(e.title)} <span class="entry-meta-link-icon">↗</span></a>` : esc(e.title)}</h3>
+        <h3 class="tonight-event-title">${e.url ? `<a href="${esc(e.url)}" target="_blank" rel="noopener">${esc(e.title)} <span class="entry-meta-link-icon">↗︎</span></a>` : esc(e.title)}</h3>
         <div class="tonight-event-meta">
           <a class="tonight-event-venue" href="/calendar/venue/${esc(entrySlug(e.venue))}/">${esc(e.venue)}</a>
           ${e.venue_neighborhood ? nhoodTag(e.venue_neighborhood) : ''}
@@ -4934,7 +4944,7 @@ function renderTonight() {
          var venueLink = '<a class="tonight-event-venue" href="/calendar/venue/' + esc(e.vs) + '/">' + esc(e.v) + '</a>';
          var neigh = e.nh ? '<span class="nhood-tag" title="' + esc(e.nh) + '">' + (e.nc ? '<span class="nhood-tag-code">' + esc(e.nc) + '</span>' : '') + '<span class="nhood-tag-name">' + esc(e.nh) + '</span></span>' : '';
          var titleHtml = e.u
-           ? '<a href="' + esc(e.u) + '" target="_blank" rel="noopener">' + esc(e.n) + ' <span class="entry-meta-link-icon">↗</span></a>'
+           ? '<a href="' + esc(e.u) + '" target="_blank" rel="noopener">' + esc(e.n) + ' <span class="entry-meta-link-icon">↗︎</span></a>'
            : esc(e.n);
          var sub = e.s ? '<p class="tonight-event-sub">' + esc(e.s) + '</p>' : '';
          return '<li class="tonight-event">' +
@@ -6152,7 +6162,7 @@ function renderScene(s) {
            <li class="scene-show">
              <div class="scene-show-when">${esc(fmtShortDate(e.date))}${e.time ? ` · ${esc(fmtTime12(e.time))}` : ''}</div>
              <div class="scene-show-body">
-               <h3 class="scene-show-title">${e.url ? `<a href="${esc(e.url)}" target="_blank" rel="noopener">${esc(e.title)} <span class="entry-meta-link-icon">↗</span></a>` : esc(e.title)}</h3>
+               <h3 class="scene-show-title">${e.url ? `<a href="${esc(e.url)}" target="_blank" rel="noopener">${esc(e.title)} <span class="entry-meta-link-icon">↗︎</span></a>` : esc(e.title)}</h3>
                <div class="scene-show-venue"><a href="/calendar/venue/${esc(entrySlug(e.venue))}/">${esc(e.venue)}</a></div>
              </div>
            </li>`).join('')}
