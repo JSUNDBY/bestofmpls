@@ -5102,9 +5102,9 @@ function renderQuiz() {
   // Map quiz answers to neighborhood scores. Each question contributes
   // points to one or more neighborhoods.
   const neighborhoods = [
-    { slug: 'northeast-minneapolis', label: 'Northeast Minneapolis', short: 'Northeast', deck: 'Old breweries, working artist studios, the densest run of independent restaurants in the metro.', picks: ['Young Joni replacement (try Brunson\'s Pub)', 'Indeed Brewing patio', 'Northrup King artist studios'] },
+    { slug: 'northeast-minneapolis', label: 'Northeast Minneapolis', short: 'Northeast', deck: 'Old breweries, working artist studios, the densest run of independent restaurants in the metro.', picks: ['Dinner at Vinai', 'Indeed Brewing patio', 'Northrup King artist studios'] },
     { slug: 'north-loop', label: 'North Loop, Minneapolis', short: 'North Loop', deck: 'Warehouse-conversion restaurants, designer-menswear shops, riverfront walks.', picks: ['Spoon and Stable', 'Bar La Grassa', 'A walk to the Stone Arch Bridge'] },
-    { slug: 'uptown-lyn-lake', label: 'Uptown / Lyn-Lake', short: 'Lyn-Lake', deck: 'Where Minneapolis nightlife still lives, less polished than it was, more interesting in some ways.', picks: ['The CC Club', 'Khâluna', "Mortimer's"] },
+    { slug: 'uptown-lyn-lake', label: 'Uptown / Lyn-Lake', short: 'Lyn-Lake', deck: 'Where Minneapolis nightlife still lives, less polished than it was, more interesting in some ways.', picks: ['Khâluna', "Mortimer's", 'Bryant Lake Bowl for dinner and a show'] },
     { slug: 'cathedral-hill', label: 'Cathedral Hill, St. Paul', short: 'Cathedral Hill', deck: 'A walking St. Paul neighborhood under the cathedral. Feels like a small vacation.', picks: ['Hyacinth', "Nina's Coffee Cafe", 'A walk past the Cathedral at golden hour'] },
     { slug: 'linden-hills', label: 'Linden Hills, Minneapolis', short: 'Linden Hills', deck: 'Tight Main-Street feel: bookstores, ice cream, real restaurants, walk the whole thing in 20 minutes.', picks: ['Tilia patio', 'Sebastian Joe\'s', 'Wild Rumpus or Birchbark Books'] },
     { slug: 'downtown-st-paul', label: 'Downtown St. Paul', short: 'Downtown St. Paul', deck: 'Lowertown warehouse district, the Saint Paul Hotel, a downtown that still feels lived-in.', picks: ['Meritage', 'The Saint Paul Hotel lobby bar', "Mickey's Diner"] },

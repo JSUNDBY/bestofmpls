@@ -149,8 +149,8 @@ module.exports = {
         {
           stops: [
             { kind: 'Leave the house at', text: '6:00 PM. Northeast tonight. Park once and walk.' },
-            { kind: 'First stop', text: 'A glass of orange wine at the Bar Brigade outpost or Indeed Brewing patio if you want a beer. ($16)' },
-            { kind: 'Dinner at', text: 'A reservation at Brunson\'s Pub or Hai Hai depending on your mood. Order generously. ($66)' },
+            { kind: 'First stop', text: 'A drink at the Vinai bar or Indeed Brewing patio if you want a beer. ($16)' },
+            { kind: 'Dinner at', text: 'A reservation at Oro by Nixta or Hai Hai depending on your mood. Order generously. ($66)' },
             { kind: 'End the night at', text: 'A short drive to the Stone Arch Bridge. Walk halfway and back. Watch the city pretend to be a smaller city. ($0)' },
             { kind: 'Total', text: 'About $82 plus tip. Three hours. Northeast in summer is at peak.' }
           ]
