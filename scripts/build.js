@@ -4297,7 +4297,7 @@ function renderMap() {
         category: c.title,
         cluster: clusters.find(cl => cl.categories.includes(c))?.eyebrow || 'Other',
         slug: c.slug,
-        anchor: e.name.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+        anchor: entrySlug(e.name),  // real entry-page slug (naive slugger broke '&' names)
         neighborhood: e.neighborhood || '',
         address: (hLook && hLook.matched_address) || e.address || '',
         url: e.website || null,
@@ -4363,7 +4363,7 @@ function renderMap() {
            m.cluster = p.cluster;
            var html = '<div class="bom-popup">' +
              '<div class="bom-popup-cat" style="color:'+color+'">'+p.category+'</div>' +
-             '<div class="bom-popup-name"><a href="/'+p.slug+'/#'+p.anchor+'">'+p.name+'</a></div>' +
+             '<div class="bom-popup-name"><a href="/'+p.slug+'/'+p.anchor+'/">'+p.name+'</a></div>' +
              (p.neighborhood ? '<div class="bom-popup-neigh">'+p.neighborhood+'</div>' : '') +
              '</div>';
            m.bindPopup(html);
@@ -4575,7 +4575,7 @@ function renderSurprise() {
         name: e.name,
         category: c.title,
         slug: c.slug,
-        anchor: e.name.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+        anchor: entrySlug(e.name),  // real entry-page slug (naive slugger broke '&' names)
         neighborhood: e.neighborhood || '',
         description: e.description || '',
         address: e.address || ''
@@ -4597,7 +4597,7 @@ function renderSurprise() {
        function pick() {
          var e = ALL[Math.floor(Math.random() * ALL.length)];
          var html = '<div class="surprise-cat">' + e.category + '</div>' +
-           '<h1 class="surprise-name"><a href="/' + e.slug + '/#' + e.anchor + '">' + e.name + '</a></h1>' +
+           '<h1 class="surprise-name"><a href="/' + e.slug + '/' + e.anchor + '/">' + e.name + '</a></h1>' +
            (e.neighborhood ? '<div class="surprise-where">' + e.neighborhood + '</div>' : '') +
            (e.description ? '<p class="surprise-desc">' + e.description + '</p>' : '') +
            (e.address ? '<div class="surprise-addr"><a href="https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(e.address) + '" target="_blank" rel="noopener">' + e.address + ' ↗︎</a></div>' : '');
@@ -5051,7 +5051,7 @@ function renderNear() {
         category: c.title,
         cluster: clusters.find(cl => cl.categories.includes(c))?.eyebrow || 'Other',
         slug: c.slug,
-        anchor: e.name.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+        anchor: entrySlug(e.name),  // real entry-page slug (naive slugger broke '&' names)
         neighborhood: e.neighborhood || '',
         hours: (hLook && hLook.hours && hLook.hours.length > 0) ? hLook.hours : null
       });
@@ -5131,7 +5131,7 @@ function renderNear() {
                  '<div class="near-dist">' + dist + '</div>' +
                  '<div class="near-body">' +
                  '<div class="near-cat">' + x.p.category + '</div>' +
-                 '<a class="near-name" href="/' + x.p.slug + '/#' + x.p.anchor + '">' + x.p.name + '</a>' +
+                 '<a class="near-name" href="/' + x.p.slug + '/' + x.p.anchor + '/">' + x.p.name + '</a>' +
                  (x.p.neighborhood ? '<div class="near-neigh">' + x.p.neighborhood + '</div>' : '') +
                  (statusBadge ? '<div class="near-status">' + statusBadge + '</div>' : '') +
                  '</div></li>';
