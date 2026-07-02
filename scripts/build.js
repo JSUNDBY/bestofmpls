@@ -870,7 +870,7 @@ ${GSC_VERIFICATION ? `<meta name="google-site-verification" content="${esc(GSC_V
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;600;700;800&family=IBM+Plex+Mono:wght@500;600;700&family=Source+Sans+3:wght@400;600&display=swap">
-<link rel="stylesheet" href="/style.css?v=63">
+<link rel="stylesheet" href="/style.css?v=64">
 <script>
 // Set color mode before paint to avoid flash. Reads localStorage first,
 // falls back to light mode (the new editorial default). mode-ready class
@@ -905,8 +905,8 @@ function header({ activeSlug } = {}) {
   // for the mobile hamburger.
   const primaryNav = [
     { href: '/tonight/',     label: 'Tonight',       slug: 'tonight' },
-    { href: '/#eat',         label: 'Eat',           slug: 'eat' },
-    { href: '/#drink',       label: 'Drink',         slug: 'drink' },
+    { href: '/restaurants/', label: 'Eat',           slug: 'restaurants' },
+    { href: '/cocktail-bars/', label: 'Drink',       slug: 'cocktail-bars' },
     { href: '/live-music/',  label: 'Music',         slug: 'live-music' },
     { href: '/neighborhoods/', label: 'Neighborhoods', slug: 'neighborhoods' },
     { href: '/calendar/',    label: 'Calendar',      slug: 'calendar' },
@@ -1062,7 +1062,7 @@ function newsletterCapture({ context = 'home', compact = false } = {}) {
             <button type="submit">Subscribe</button>
           </form>
           <p class="newsletter-status" data-newsletter-status></p>
-          <p class="newsletter-fine">No spam. Unsubscribe in one click.</p>
+          <p class="newsletter-fine">One dispatch a week. Leave whenever you like.</p>
         </div>
       </div>
     </section>`;
@@ -1150,8 +1150,8 @@ function footer() {
 <nav class="mobile-dock" aria-label="Primary mobile navigation">
   <a class="mobile-dock-item" href="/tonight/"><span class="mobile-dock-icon" aria-hidden="true">☾</span><span class="mobile-dock-label">Tonight</span></a>
   <a class="mobile-dock-item" href="/calendar/"><span class="mobile-dock-icon" aria-hidden="true">▭</span><span class="mobile-dock-label">Calendar</span></a>
-  <a class="mobile-dock-item" href="/map/"><span class="mobile-dock-icon" aria-hidden="true">◉</span><span class="mobile-dock-label">Map</span></a>
-  <a class="mobile-dock-item" href="/near/"><span class="mobile-dock-icon" aria-hidden="true">◎</span><span class="mobile-dock-label">Near</span></a>
+  <a class="mobile-dock-item" href="/map/"><span class="mobile-dock-icon" aria-hidden="true">▦</span><span class="mobile-dock-label">Map</span></a>
+  <a class="mobile-dock-item" href="/near/"><span class="mobile-dock-icon" aria-hidden="true">⌖</span><span class="mobile-dock-label">Near</span></a>
   <button class="mobile-dock-item" type="button" data-menu-open><span class="mobile-dock-icon" aria-hidden="true">≡</span><span class="mobile-dock-label">Menu</span></button>
 </nav>
 
@@ -1622,6 +1622,7 @@ function renderHome() {
         <div class="cover-issue">${esc(coverIssue)}</div>
         <h1 class="cover-headline">Minneapolis<br><em>&amp;</em> Saint Paul.</h1>
         <p class="cover-deck">${esc(coverDeck)}</p>
+        <p class="cover-promise">A living best-of, shaped by the people who actually go. No paid placements.</p>
         <div class="cover-actions">
           <a class="cover-cta" href="${coverCta.href}">${esc(coverCta.label)}</a>
           <div class="cover-meta">
@@ -1682,6 +1683,7 @@ function renderHome() {
           <span class="loved-rail-eyebrow">What locals are loving</span>
           <a class="loved-rail-link" href="/best-of-${BEST_OF_YEAR}/">The living Best of →</a>
         </div>
+        <p class="loved-rail-context">Ranked by real saves and check-ins, weighted to right now. Your taps count too.</p>
         <div class="loved-rail-list">
           ${LIVING_TOP.map(p => `<a class="loved-item" href="${esc(p.url)}"><span class="loved-item-name">${esc(p.name)}</span><span class="loved-item-meta">${esc(p.award)}${p.neighborhood ? ' · ' + esc(p.neighborhood.split(',')[0]) : ''}</span><span class="loved-item-voices">${p.voices} local${p.voices === 1 ? '' : 's'}</span></a>`).join('')}
         </div>
@@ -2430,7 +2432,16 @@ function renderEntry(c, e, allCategories) {
   // accolade floor alone).
   const lbStanding = (() => {
     const r = livingRankOf(c.slug, e.name);
-    if (!r || !r.voices) return '';
+    if (!r) return '';
+    if (!r.voices) {
+      // Cold-start: only the accolade-seeded top picks announce a standing; regular
+      // entries stay quiet until real taps arrive. Still shows the live pulse so the
+      // "shaped by locals" promise is visible before the first vote.
+      if (r.rank <= 3 && r.score > 0) {
+        return `<div class="lb-standing"><span class="pulse-dot" aria-hidden="true"></span><a href="/best-of-${BEST_OF_YEAR}/">${esc(r.award)} pick</a> · accolade floor, your taps decide the order</div>`;
+      }
+      return '';
+    }
     const label = r.rank === 1
       ? `Locals' #1 ${esc(r.award)} right now`
       : `#${r.rank} in ${esc(r.award)} right now`;
@@ -2579,6 +2590,8 @@ function renderEntry(c, e, allCategories) {
          <p class="entry-detail-description">${esc(e.description)}</p>
        </section>
 
+       ${lbActionsBlock}
+
        <section class="entry-detail-meta">
          ${addressBlock}
          ${directionsBlock}
@@ -2587,7 +2600,6 @@ function renderEntry(c, e, allCategories) {
          ${e.price ? `<span class="entry-detail-price">${esc(e.price)}</span>` : ''}
          ${e.access ? `<div class="entry-detail-access"><strong>How to visit:</strong> ${esc(e.access)}</div>` : ''}
          ${hoursBlock}
-         ${lbActionsBlock}
        </section>
 
        ${miniMap}
@@ -2729,7 +2741,7 @@ function renderAdminPicks() {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>${esc(title)}</title>
-<link rel="stylesheet" href="/style.css?v=63">
+<link rel="stylesheet" href="/style.css?v=64">
 <style>
   body { background: var(--paper); }
   .admin-wrap { max-width: 960px; margin: 0 auto; padding: 32px var(--gutter) 96px; }

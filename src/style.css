@@ -5652,7 +5652,7 @@ html[data-mode="dark"] .venue-dir-info { background: var(--paper-2); }
   display: none;
 }
 @media (max-width: 720px) {
-  body { padding-bottom: 68px; }
+  body { padding-bottom: calc(64px + env(safe-area-inset-bottom)); }
   .mobile-dock {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
@@ -5678,6 +5678,7 @@ html[data-mode="dark"] .venue-dir-info { background: var(--paper-2); }
     align-items: center;
     justify-content: center;
     gap: 2px;
+    min-height: 48px;
     padding: 6px 0;
     cursor: pointer;
     font-family: var(--font-label);
@@ -6473,12 +6474,15 @@ html[data-mode="dark"] .entry-reserve {
 .lb-actions { margin-top: 20px; border-top: 1px solid var(--rule); padding-top: 16px; }
 .lb-actions-row { display: flex; flex-wrap: wrap; gap: 10px; }
 .lb-btn {
-  font-family: var(--font-label); font-weight: 700; font-size: 12.5px;
+  font-family: var(--font-label); font-weight: 700; font-size: 13.5px;
   letter-spacing: 0.02em; cursor: pointer;
   background: transparent; color: var(--ink);
   border: 1px solid var(--rule-strong, var(--ink)); border-radius: 999px;
-  padding: 9px 16px; transition: background 0.12s, color 0.12s, border-color 0.12s;
+  min-height: 44px; padding: 11px 18px; transition: background 0.12s, color 0.12s, border-color 0.12s;
 }
+/* Save is the signature action — give it a clay-tinted resting state so it reads
+   as the primary invitation, not the quietest control on the page. */
+.lb-btn[data-lb="save"] { border-color: var(--clay); color: var(--clay); }
 .lb-btn:hover { border-color: var(--clay); color: var(--clay); }
 .lb-btn.is-on { background: var(--clay); color: var(--paper); border-color: var(--clay); }
 .lb-btn.is-on:hover { color: var(--paper); }
@@ -6536,6 +6540,10 @@ html[data-mode="dark"] .entry-reserve {
 /* ===== 2026 design pass ===== */
 /* Typographic cover (photo retired — the type is the hero) */
 .cover--type { padding-top: clamp(40px, 7vw, 96px); }
+/* Hero differentiator line — the one-sentence "why this isn't Yelp", right in the fold */
+.cover-promise { font-family: var(--font-body); font-size: 15px; color: var(--ink-soft); margin-top: var(--s3); max-width: 44ch; }
+/* Context under the homepage "What locals are loving" rail */
+.loved-rail-context { font-family: var(--font-body); font-size: 13.5px; color: var(--ink-faint); margin: 0 0 var(--s4); max-width: 60ch; }
 .cover--type .cover-headline { margin-top: var(--s3); }
 
 /* Footer skyline — the site's signature image, done as a duotone etching.
