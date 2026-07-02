@@ -887,7 +887,7 @@ ${GSC_VERIFICATION ? `<meta name="google-site-verification" content="${esc(GSC_V
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;600;700;800&family=IBM+Plex+Mono:wght@500;600;700&family=Source+Sans+3:wght@400;600&display=swap">
-<link rel="stylesheet" href="/style.css?v=67">
+<link rel="stylesheet" href="/style.css?v=68">
 <script>
 // Set color mode before paint to avoid flash. Reads localStorage first,
 // falls back to light mode (the new editorial default). mode-ready class
@@ -2882,7 +2882,7 @@ function renderAdminPicks() {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>${esc(title)}</title>
-<link rel="stylesheet" href="/style.css?v=67">
+<link rel="stylesheet" href="/style.css?v=68">
 <style>
   body { background: var(--paper); }
   .admin-wrap { max-width: 960px; margin: 0 auto; padding: 32px var(--gutter) 96px; }
@@ -3780,7 +3780,7 @@ function renderCalendar() {
             <div class="cal-row-when">${e.time ? esc(fmtTime(e.time)) : 'TBA'}</div>
             <div class="cal-row-body">
               <h3 class="cal-row-title">${e.url ? `<a href="${esc(e.url)}" target="_blank" rel="noopener">${esc(e.title)} <span class="entry-meta-link-icon">↗︎</span></a>` : esc(e.title)}</h3>
-              <div class="cal-row-venue"><a href="/calendar/venue/${esc(entrySlug(e.venue))}/" class="cal-row-venue-link">${esc(e.venue)}</a>${e.venue_neighborhood ? ` ${nhoodTag(e.venue_neighborhood)}` : ''}</div>
+              <div class="cal-row-venue">${venueLink(e.venue, 'cal-row-venue-link')}${e.venue_neighborhood ? ` ${nhoodTag(e.venue_neighborhood)}` : ''}</div>
               ${e.subtitle ? `<p class="cal-row-sub">${esc(e.subtitle.slice(0, 140))}${e.subtitle.length > 140 ? '…' : ''}</p>` : ''}
             </div>
           </li>`).join('')}
@@ -3938,7 +3938,10 @@ function resolveVenues() {
   const liveMusicByName = new Map();
   for (const e of (liveMusic.entries || [])) liveMusicByName.set(e.name, e);
 
-  const events = (eventsData.events || []).filter(e => isShowEvent(e));
+  // Include film venues (Riverview, Trylon...) so cinema entry pages and
+  // tonight's film rows have a real venue page to link to. Only lectures and
+  // art openings stay pageless (libraries and galleries aren't "venues" here).
+  const events = (eventsData.events || []).filter(e => e.category !== 'lecture' && e.category !== 'art');
   const events_dedup = dedupeNonFilms(events);
 
   const venues = new Map();
@@ -3964,6 +3967,31 @@ function resolveVenues() {
     v.events = collapseRuns(v.events);
   }
   return [...venues.values()].sort((a, b) => b.events.length - a.events.length);
+}
+
+// THE venue-link authority. Every "/calendar/venue/..." href on the site goes
+// through venueHref/venueLink so a link exists only when the page does. Covers
+// both the scraped venue name and its directory alias ("First Avenue & 7th St
+// Entry" -> /calendar/venue/first-avenue/). Never mint venue slugs elsewhere.
+let VENUES_MEMO = null;
+function getVenues() { if (!VENUES_MEMO) VENUES_MEMO = resolveVenues(); return VENUES_MEMO; }
+let VENUE_HREF_MEMO = null;
+function venueHref(name) {
+  if (!VENUE_HREF_MEMO) {
+    VENUE_HREF_MEMO = new Map();
+    for (const v of getVenues()) {
+      VENUE_HREF_MEMO.set(v.name, `/calendar/venue/${v.slug}/`);
+      if (v.directory && v.directory.name) {
+        if (!VENUE_HREF_MEMO.has(v.directory.name)) VENUE_HREF_MEMO.set(v.directory.name, `/calendar/venue/${v.slug}/`);
+      }
+    }
+  }
+  return VENUE_HREF_MEMO.get(name) || null;
+}
+function venueLink(name, cls) {
+  const h = venueHref(name);
+  const attr = cls ? ` class="${cls}"` : '';
+  return h ? `<a${attr} href="${h}">${esc(name)}</a>` : `<span${attr}>${esc(name)}</span>`;
 }
 
 function renderVenuePage(v) {
@@ -4177,7 +4205,7 @@ function renderWeekend() {
               <div class="weekend-show-when">${esc(fmtTime12(e.time))}</div>
               <div class="weekend-show-body">
                 <h3 class="weekend-show-title">${e.url ? `<a href="${esc(e.url)}" target="_blank" rel="noopener">${esc(e.title)} <span class="entry-meta-link-icon">↗︎</span></a>` : esc(e.title)}</h3>
-                <div class="weekend-show-venue"><a href="/calendar/venue/${esc(entrySlug(e.venue))}/">${esc(e.venue)}</a>${e.venue_neighborhood ? ` ${nhoodTag(e.venue_neighborhood)}` : ''}</div>
+                <div class="weekend-show-venue">${venueLink(e.venue)}${e.venue_neighborhood ? ` ${nhoodTag(e.venue_neighborhood)}` : ''}</div>
               </div>
             </li>`).join('')}
         </ul>`}
@@ -4706,7 +4734,7 @@ function renderFeaturedEvent(ev) {
      </section>` : ''}
 
      <section class="event-footer wrap">
-       <p>The directory has more on what to do in Northeast: <a href="/breweries/">breweries</a>, <a href="/coffee/">coffee</a>, <a href="/pizza/">pizza</a>, <a href="/museums/">galleries and arts buildings</a>.</p>
+       <p>The directory has more on what to do in Northeast: <a href="/breweries/">breweries</a>, <a href="/coffee-shops/">coffee</a>, <a href="/best-pizza/">pizza</a>, <a href="/museums-and-galleries/">galleries and arts buildings</a>.</p>
      </section>` +
     newsletterCapture({ context: 'event' }) +
     footer();
@@ -4743,7 +4771,7 @@ function renderTonight() {
     t: e.time || null,
     n: e.title,
     v: e.venue,
-    vs: entrySlug(e.venue),
+    vs: venueHref(e.venue) ? entrySlug(e.venue) : null,
     nh: e.venue_neighborhood || null,
     nc: e.venue_neighborhood ? neighborhoodCode(e.venue_neighborhood) : null,
     s: e.subtitle ? (e.subtitle.length > 200 ? e.subtitle.slice(0, 200) + '…' : e.subtitle) : null,
@@ -4784,7 +4812,7 @@ function renderTonight() {
       <div class="tonight-event-body">
         <h3 class="tonight-event-title">${e.url ? `<a href="${esc(e.url)}" target="_blank" rel="noopener">${esc(e.title)} <span class="entry-meta-link-icon">↗︎</span></a>` : esc(e.title)}</h3>
         <div class="tonight-event-meta">
-          <a class="tonight-event-venue" href="/calendar/venue/${esc(entrySlug(e.venue))}/">${esc(e.venue)}</a>
+          ${venueLink(e.venue, 'tonight-event-venue')}
           ${e.venue_neighborhood ? nhoodTag(e.venue_neighborhood) : ''}
         </div>
         ${e.subtitle ? `<p class="tonight-event-sub">${esc(e.subtitle.slice(0, 200))}${e.subtitle.length > 200 ? '…' : ''}</p>` : ''}
@@ -4941,7 +4969,7 @@ function renderTonight() {
            .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
        }
        function rowHtml(e){
-         var venueLink = '<a class="tonight-event-venue" href="/calendar/venue/' + esc(e.vs) + '/">' + esc(e.v) + '</a>';
+         var venueLink = e.vs ? '<a class="tonight-event-venue" href="/calendar/venue/' + esc(e.vs) + '/">' + esc(e.v) + '</a>' : '<span class="tonight-event-venue">' + esc(e.v) + '</span>';
          var neigh = e.nh ? '<span class="nhood-tag" title="' + esc(e.nh) + '">' + (e.nc ? '<span class="nhood-tag-code">' + esc(e.nc) + '</span>' : '') + '<span class="nhood-tag-name">' + esc(e.nh) + '</span></span>' : '';
          var titleHtml = e.u
            ? '<a href="' + esc(e.u) + '" target="_blank" rel="noopener">' + esc(e.n) + ' <span class="entry-meta-link-icon">↗︎</span></a>'
@@ -5070,6 +5098,20 @@ function renderNear() {
      <section class="near-controls">
        <div class="wrap near-controls-inner">
          <button id="near-locate" class="cover-cta" type="button">Find places near me</button>
+         <p class="near-error" id="near-error" hidden></p>
+         <div class="near-spots" id="near-spots">
+           <span class="near-spots-label">Or start from a spot</span>
+           <button class="cal-chip" type="button" data-spot="44.9762,-93.2758">Downtown Mpls</button>
+           <button class="cal-chip" type="button" data-spot="44.9990,-93.2655">Northeast</button>
+           <button class="cal-chip" type="button" data-spot="44.9873,-93.2790">North Loop</button>
+           <button class="cal-chip" type="button" data-spot="44.9482,-93.2984">Uptown</button>
+           <button class="cal-chip" type="button" data-spot="44.9187,-93.2624">South Mpls</button>
+           <button class="cal-chip" type="button" data-spot="44.9807,-93.2357">Dinkytown</button>
+           <button class="cal-chip" type="button" data-spot="44.9440,-93.0980">Downtown St. Paul</button>
+           <button class="cal-chip" type="button" data-spot="44.9462,-93.1163">Cathedral Hill</button>
+           <button class="cal-chip" type="button" data-spot="44.9399,-93.1360">Grand Ave</button>
+           <button class="cal-chip" type="button" data-spot="44.9557,-93.1667">Midway</button>
+         </div>
          <div id="near-radius-group" class="near-radius-group" style="display:none;">
            <span class="cal-filter-label">Radius:</span>
            <button class="cal-chip" data-radius="0.5" type="button">5 min walk</button>
@@ -5140,22 +5182,45 @@ function renderNear() {
            document.getElementById('near-results').innerHTML = html;
          }
 
+         function showError(msg){
+           var e = document.getElementById('near-error');
+           e.textContent = msg;
+           e.hidden = false;
+         }
+         function activate(lat, lng){
+           state.lat = lat; state.lng = lng;
+           document.getElementById('near-error').hidden = true;
+           document.getElementById('near-locate').style.display = 'none';
+           document.getElementById('near-spots').classList.add('near-spots--compact');
+           document.getElementById('near-radius-group').style.display = 'flex';
+           render();
+         }
          document.getElementById('near-locate').addEventListener('click', function(){
            if (!navigator.geolocation) {
-             alert('Your browser does not support geolocation.');
+             showError('This browser does not support location. Pick a starting spot below instead.');
              return;
            }
            document.getElementById('near-locate').textContent = 'Locating...';
            navigator.geolocation.getCurrentPosition(function(pos){
-             state.lat = pos.coords.latitude;
-             state.lng = pos.coords.longitude;
-             document.getElementById('near-locate').style.display = 'none';
-             document.getElementById('near-radius-group').style.display = 'flex';
-             render();
+             activate(pos.coords.latitude, pos.coords.longitude);
            }, function(err){
              document.getElementById('near-locate').textContent = 'Find places near me';
-             alert('Could not get your location: ' + err.message);
-           }, { enableHighAccuracy: true, timeout: 10000 });
+             // 1 = denied, 2 = position unavailable, 3 = timeout. On iPhone the
+             // installed home-screen app has its own location permission, separate
+             // from Safari, and iOS often reports a silent deny instead of asking.
+             if (err.code === 1) {
+               showError('Your phone is blocking location for this site. On iPhone: Settings, Privacy & Security, Location Services, Safari Websites, set to While Using, then try again. Or just pick a starting spot below.');
+             } else {
+               showError('Could not get a location fix. Try again in a moment, or pick a starting spot below.');
+             }
+           }, { enableHighAccuracy: true, timeout: 10000, maximumAge: 60000 });
+         });
+         document.querySelectorAll('[data-spot]').forEach(function(btn){
+           btn.addEventListener('click', function(){
+             var p = btn.dataset.spot.split(',');
+             document.querySelectorAll('[data-spot]').forEach(function(b){ b.classList.toggle('is-on', b === btn); });
+             activate(parseFloat(p[0]), parseFloat(p[1]));
+           });
          });
 
          document.querySelectorAll('[data-radius]').forEach(function(btn){
@@ -6144,7 +6209,7 @@ function renderScene(s) {
        <ul class="scene-venue-list">
          ${venueDetails.map(v => v.dir ? `
            <li class="scene-venue">
-             <h3 class="scene-venue-name"><a href="/calendar/venue/${esc(entrySlug(v.dir.name))}/">${esc(v.dir.name)}</a></h3>
+             <h3 class="scene-venue-name">${venueLink(v.dir.name)}</h3>
              <div class="scene-venue-meta">${nhoodTag(v.dir.neighborhood)}${v.dir.capacity ? ` · cap. ${esc(v.dir.capacity)}` : ''}</div>
              <p class="scene-venue-desc">${esc(v.dir.description)}</p>
            </li>` : `
@@ -6163,7 +6228,7 @@ function renderScene(s) {
              <div class="scene-show-when">${esc(fmtShortDate(e.date))}${e.time ? ` · ${esc(fmtTime12(e.time))}` : ''}</div>
              <div class="scene-show-body">
                <h3 class="scene-show-title">${e.url ? `<a href="${esc(e.url)}" target="_blank" rel="noopener">${esc(e.title)} <span class="entry-meta-link-icon">↗︎</span></a>` : esc(e.title)}</h3>
-               <div class="scene-show-venue"><a href="/calendar/venue/${esc(entrySlug(e.venue))}/">${esc(e.venue)}</a></div>
+               <div class="scene-show-venue">${venueLink(e.venue)}</div>
              </div>
            </li>`).join('')}
        </ul>
@@ -6552,7 +6617,7 @@ function renderSitemap(neighborhoods, crossPages) {
     { loc: SITE + '/pride/', priority: '0.85' },
     ...(BEST_OF_LIVE ? [{ loc: `${SITE}/best-of-${BEST_OF_YEAR}/`, priority: '0.9' }] : []),
     ...categories.map(c => ({ loc: `${SITE}/${c.slug}/`, priority: '0.9' })),
-    ...resolveVenues().map(v => ({ loc: `${SITE}/calendar/venue/${v.slug}/`, priority: '0.8' })),
+    ...getVenues().map(v => ({ loc: `${SITE}/calendar/venue/${v.slug}/`, priority: '0.8' })),
     ...(neighborhoods || []).map(nb => ({ loc: `${SITE}/neighborhoods/${nb.slug}/`, priority: '0.8' })),
     ...(crossPages || []).map(p => ({ loc: `${SITE}/${p.category.slug}/in-${p.nb.slug}/`, priority: '0.75' })),
     // Per-entry detail pages. The biggest SEO surface on the site.

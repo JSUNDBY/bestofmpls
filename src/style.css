@@ -6638,6 +6638,12 @@ html[data-mode="dark"] .home-board { background: #050505; border-top: 1px solid 
   .rightnow-inner .rightnow-item:nth-child(n+4) { display: none; }
 }
 
+/* Near page — no-permission fallback + inline errors (no alert() boxes) */
+.near-error { font-family: var(--font-body); font-size: 14.5px; color: var(--clay); max-width: 56ch; margin: var(--s3) 0 0; }
+.near-spots { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s2); margin-top: var(--s4); }
+.near-spots-label { font-family: var(--font-label); font-weight: 700; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-faint); margin-right: var(--s2); }
+.near-spots--compact { margin-top: var(--s3); }
+
 /* Live pulse — the one expressive motion. A clay dot that breathes next to
    live data, so the site's "alive" quality is felt. */
 .pulse-dot { display: inline-block; width: 8px; height: 8px; border-radius: 999px; background: var(--clay); vertical-align: middle; margin-right: 7px; position: relative; }
