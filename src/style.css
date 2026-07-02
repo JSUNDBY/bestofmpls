@@ -281,13 +281,16 @@ p { margin: 0 0 1em; }
 .cover-headline {
   font-family: var(--font-marquee);
   font-weight: 700;
-  font-size: clamp(56px, 9vw, 120px);
-  line-height: 0.88;
-  letter-spacing: -0.025em;
+  font-size: clamp(42px, 11vw, 120px);
+  line-height: 0.9;
+  letter-spacing: -0.03em;
   margin: 0 0 clamp(28px, 3.5vw, 44px);
   color: var(--ink);
   max-width: 1000px;
-  overflow-wrap: break-word;
+  /* Never break a city name mid-word; the clamp min is sized so "Minneapolis"
+     fits one line even on a 320px phone. */
+  overflow-wrap: normal;
+  word-break: keep-all;
   text-transform: uppercase;
 }
 .cover-deck {
@@ -6540,8 +6543,10 @@ html[data-mode="dark"] .entry-reserve {
 /* ===== 2026 design pass ===== */
 /* Typographic cover (photo retired — the type is the hero) */
 .cover--type { padding-top: clamp(40px, 7vw, 96px); }
-/* Hero differentiator line — the one-sentence "why this isn't Yelp", right in the fold */
-.cover-promise { font-family: var(--font-body); font-size: 15px; color: var(--ink-soft); margin-top: var(--s3); max-width: 44ch; }
+/* Hero differentiator line — the one-sentence "why this isn't Yelp", right in the
+   fold. Sits tight under the deck; the larger gap goes before the CTA. */
+.cover--type .cover-deck { margin-bottom: var(--s4); }
+.cover-promise { font-family: var(--font-body); font-size: 15px; color: var(--ink-soft); margin: 0 0 clamp(30px, 4vw, 46px); max-width: 46ch; }
 /* Context under the homepage "What locals are loving" rail */
 .loved-rail-context { font-family: var(--font-body); font-size: 13.5px; color: var(--ink-faint); margin: 0 0 var(--s4); max-width: 60ch; }
 .cover--type .cover-headline { margin-top: var(--s3); }

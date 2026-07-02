@@ -870,7 +870,7 @@ ${GSC_VERIFICATION ? `<meta name="google-site-verification" content="${esc(GSC_V
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;600;700;800&family=IBM+Plex+Mono:wght@500;600;700&family=Source+Sans+3:wght@400;600&display=swap">
-<link rel="stylesheet" href="/style.css?v=64">
+<link rel="stylesheet" href="/style.css?v=65">
 <script>
 // Set color mode before paint to avoid flash. Reads localStorage first,
 // falls back to light mode (the new editorial default). mode-ready class
@@ -1593,25 +1593,25 @@ function renderHome() {
   const r = rightnowData;
   let coverDeck = 'Where to eat, drink, see, hear, sleep, and spend a Saturday in two of the best small cities in America. Made for the metro by the people who live here.';
   let coverCta  = { href: '/visit/', label: 'First time visiting? Start here' };
-  let coverIssue = 'Volume 01 · Spring 2026';
+  // The eyebrow is a LIVING marker, never an edition/volume number — this is an
+  // ongoing guide, not a periodical. Default to today's read; fall back to the
+  // positioning line only when there's no weather data.
+  let coverIssue = 'An independent guide to the Twin Cities';
 
   if (r && r.weather) {
+    coverIssue = `Today · ${r.weather.summary}`;
     if (r.weather.mood === 'patio') {
       coverDeck = `${r.weather.temp_max}°F today. The patios are open and the city is outside. Here is where the metro spends a day like this.`;
       coverCta = { href: '/take-them-to/#patio-day', label: 'Take it to a patio →' };
-      coverIssue = `Today · ${r.weather.summary}`;
     } else if (r.weather.mood === 'brutal') {
       coverDeck = `${r.weather.temp_now}°F outside. A short list of the warm, slow rooms the metro relies on for a day like this.`;
       coverCta = { href: '/take-them-to/#snow-day', label: 'Take it indoors →' };
-      coverIssue = `Today · ${r.weather.summary}`;
     } else if (r.weather.mood === 'snow') {
       coverDeck = `Snow on the ground. A short list of the warm rooms, hot dishes, and slow drinks for a day like this.`;
       coverCta = { href: '/take-them-to/#snow-day', label: 'Take it slow →' };
-      coverIssue = `Today · ${r.weather.summary}`;
     } else if (r.weather.mood === 'rain') {
       coverDeck = `Steady rain in the forecast. A short list of the candle-lit tables, basement bars, and second-run cinemas for a day like this.`;
       coverCta = { href: '/take-them-to/#rainy-night', label: 'Take it inside →' };
-      coverIssue = `Today · ${r.weather.summary}`;
     }
   }
 
@@ -2741,7 +2741,7 @@ function renderAdminPicks() {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>${esc(title)}</title>
-<link rel="stylesheet" href="/style.css?v=64">
+<link rel="stylesheet" href="/style.css?v=65">
 <style>
   body { background: var(--paper); }
   .admin-wrap { max-width: 960px; margin: 0 auto; padding: 32px var(--gutter) 96px; }
