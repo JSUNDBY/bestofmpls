@@ -1695,9 +1695,11 @@ function renderHome() {
     </section>` : ''}
     ${(() => {
       // THE BOARD — tonight's answers, right at the top, like a departure board.
-      // Real scraped events only (music, performance, film screenings), venue
-      // forward, time sorted, tickets one tap away. Marquee rooms win inclusion
-      // when there are more events than rows; display order is by time.
+      // Real scraped SHOWS only (music, performance) — no films: movie showtimes
+      // read as clutter next to headliners (a matinee is not "tonight"), and
+      // movies keep their own lane below plus /arthouse-cinemas/. Venue forward,
+      // time sorted, tickets one tap away. Marquee rooms win inclusion when
+      // there are more events than rows; display order is by time.
       //
       // MIDNIGHT ROLLOVER: CI's scheduled rebuild can land hours late (GitHub
       // delays cron 2-4h), so "tonight" must not depend on it. We ship a 3-day
@@ -1706,27 +1708,21 @@ function renderHome() {
       // The server-rendered rows below are the build-time view (SEO + no-JS).
       const isoPlusDays = (iso, n) => { const [y, m, d] = iso.split('-').map(Number); const dt = new Date(y, m - 1, d + n); return `${dt.getFullYear()}-${String(dt.getMonth() + 1).padStart(2, '0')}-${String(dt.getDate()).padStart(2, '0')}`; };
       const HORIZON = [TODAY_ISO, isoPlusDays(TODAY_ISO, 1), isoPlusDays(TODAY_ISO, 2)];
-      const pool = dedupeNonFilms((eventsData.events || []).filter(e => HORIZON.includes(e.date) && e.category !== 'lecture' && e.category !== 'art' && !isNoiseEvent(e)));
+      const pool = dedupeNonFilms((eventsData.events || []).filter(e => HORIZON.includes(e.date) && e.category !== 'lecture' && e.category !== 'art' && e.category !== 'film' && !isNoiseEvent(e)));
       if (!pool.length) return '';
       const todays = pool.filter(e => e.date === TODAY_ISO);
       const fmt12 = t => { if (!t) return ''; const [h, m] = String(t).split(':').map(Number); const ap = h >= 12 ? 'PM' : 'AM'; const hr = h % 12 === 0 ? 12 : h % 12; return `${hr}:${String(m).padStart(2, '0')} ${ap}`; };
       const ROWS = 8;
-      // A little bit of everything: reserve up to two rows for films so "what's
-      // playing" is always answered, then marquee rooms win the remaining slots.
-      const films = todays.filter(e => e.category === 'film');
-      const nonFilms = todays.filter(e => e.category !== 'film');
-      const marquee = nonFilms.filter(e => MARQUEE_VENUES.has(e.venue));
-      const rest = nonFilms.filter(e => !MARQUEE_VENUES.has(e.venue));
-      const filmSlots = Math.min(2, films.length);
-      const picked = marquee.concat(rest).slice(0, ROWS - filmSlots)
-        .concat(films.slice(0, filmSlots))
+      const marquee = todays.filter(e => MARQUEE_VENUES.has(e.venue));
+      const rest = todays.filter(e => !MARQUEE_VENUES.has(e.venue));
+      const picked = marquee.concat(rest).slice(0, ROWS)
         .sort((a, b) => String(a.time || '99').localeCompare(String(b.time || '99')));
       const dayLabel = (function(){ const [y,m,d] = TODAY_ISO.split('-').map(Number); return new Date(y, m-1, d).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' }); })();
       // Compact payload for the client renderer. <-escape so "</script>"
       // inside a title can never break out of the JSON block.
       const payload = JSON.stringify({
         built: TODAY_ISO,
-        rows: pool.map(e => ({ d: e.date, t: e.time || '', n: e.title, v: e.venue || '', nb: e.venue_neighborhood ? String(e.venue_neighborhood).split(',')[0] : '', u: e.url || '', f: e.category === 'film' ? 1 : 0, m: MARQUEE_VENUES.has(e.venue) ? 1 : 0 }))
+        rows: pool.map(e => ({ d: e.date, t: e.time || '', n: e.title, v: e.venue || '', nb: e.venue_neighborhood ? String(e.venue_neighborhood).split(',')[0] : '', u: e.url || '', m: MARQUEE_VENUES.has(e.venue) ? 1 : 0 }))
       }).replace(/</g, '\\u003c');
       return `
     <section class="home-board" aria-label="Tonight's board">
@@ -1790,12 +1786,9 @@ function renderHome() {
         if (!rows.length) {
           listEl.innerHTML = '<li class="home-board-row"><span class="home-board-what"><span class="home-board-title">Quiet night on the scraped calendar.</span><span class="home-board-venue">The board refreshes every morning</span></span><a class="home-board-tix" href="/calendar/">Calendar →</a></li>';
         } else {
-          var films = rows.filter(function(r){ return r.f; });
-          var nonf = rows.filter(function(r){ return !r.f; });
-          var marq = nonf.filter(function(r){ return r.m; });
-          var rest = nonf.filter(function(r){ return !r.m; });
-          var slots = Math.min(2, films.length);
-          var picked = marq.concat(rest).slice(0, 8 - slots).concat(films.slice(0, slots))
+          var marq = rows.filter(function(r){ return r.m; });
+          var rest = rows.filter(function(r){ return !r.m; });
+          var picked = marq.concat(rest).slice(0, 8)
             .sort(function(a, b){ return String(a.t || '99') < String(b.t || '99') ? -1 : 1; });
           listEl.innerHTML = picked.map(function(r){
             return '<li class="home-board-row"><span class="home-board-time">' + fmt12(r.t) + '</span>' +
@@ -1807,8 +1800,7 @@ function renderHome() {
         // Concierge date line + count follow the same clock.
         var ce = document.querySelector('.concierge-eyebrow');
         var ch = document.querySelector('.concierge-headline');
-        var shows = rows.filter(function(r){ return !r.f; }).length;
-        if (ce) ce.textContent = 'Tonight' + (shows > 0 ? ' · ' + shows + ' happening' : '');
+        if (ce) ce.textContent = 'Tonight' + (rows.length > 0 ? ' · ' + rows.length + ' happening' : '');
         if (ch) ch.textContent = dayLabel(today).toUpperCase();
       }
       window.__bomBoard = render;
