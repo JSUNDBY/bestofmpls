@@ -96,6 +96,9 @@ body {
   font-family: var(--font-body);
   font-size: 16.5px;
   line-height: 1.65;
+  /* App feel: never allow sideways page wiggle. clip (not hidden) so no
+     phantom horizontal scroll container is created. */
+  overflow-x: clip;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
@@ -2746,7 +2749,7 @@ html[data-mode="dark"] .tools-index-row a:hover { background: var(--paper-2); }
 }
 .rightnow-inner {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 0;
   align-items: stretch;
   margin-top: 0;
@@ -2821,7 +2824,7 @@ html[data-mode="dark"] .tools-index-row a:hover { background: var(--paper-2); }
 }
 a.rightnow-link:hover { color: var(--clay); border-bottom-color: var(--clay); }
 @media (max-width: 900px) {
-  .rightnow-inner { grid-template-columns: repeat(2, 1fr); gap: 16px 24px; }
+  .rightnow-inner { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 24px; }
   .rightnow-item:nth-child(odd) { border-left: none; padding-left: 0; }
 }
 
@@ -5658,7 +5661,7 @@ html[data-mode="dark"] .venue-dir-info { background: var(--paper-2); }
   body { padding-bottom: calc(64px + env(safe-area-inset-bottom)); }
   .mobile-dock {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(5, minmax(0, 1fr));
     position: fixed;
     bottom: 0;
     left: 0;
@@ -5694,9 +5697,9 @@ html[data-mode="dark"] .venue-dir-info { background: var(--paper-2); }
     opacity: 0.85;
   }
   .mobile-dock-label {
-    font-size: 10px;
+    font-size: 9.5px;
     font-weight: 700;
-    letter-spacing: 0.10em;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
   }
   html[data-mode="dark"] .mobile-dock {
@@ -6570,6 +6573,43 @@ html[data-mode="dark"] .entry-reserve {
 .tonight-fc { font-family: var(--font-body); font-size: 15px; color: var(--ink-soft); }
 .tonight-fc-label { font-family: var(--font-label); font-weight: 700; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--clay); margin-right: 6px; }
 .tonight-fc-val { color: var(--ink); }
+
+/* THE BOARD — tonight's answers as a civic departure board, top of the homepage.
+   Dark slab (footer register), mono times, venue-forward rows, tickets one tap
+   away. This is the "pick up your phone, bam, what's on" surface. */
+.home-board { background: #0A0A0A; color: #F4EEDF; padding: var(--s6) 0 var(--s6); }
+html[data-mode="dark"] .home-board { background: #050505; border-top: 1px solid rgba(255,255,255,0.08); border-bottom: 1px solid rgba(255,255,255,0.08); }
+.home-board-head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--s4); margin-bottom: var(--s4); }
+.home-board-eyebrow { font-family: var(--font-label); font-weight: 700; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--clay); }
+.home-board-count { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #8E8B82; }
+.home-board-rows { list-style: none; margin: 0; padding: 0; }
+.home-board-row { display: flex; align-items: baseline; gap: var(--s4); padding: var(--s3) 0; min-height: 44px; border-top: 1px solid rgba(244,238,223,0.14); }
+.home-board-row:last-child { border-bottom: 1px solid rgba(244,238,223,0.14); }
+.home-board-time { font-family: var(--font-mono); font-weight: 600; font-size: 13px; color: #F4EEDF; flex: none; width: 72px; white-space: nowrap; }
+.home-board-what { min-width: 0; flex: 1; display: flex; flex-direction: column; gap: 2px; }
+.home-board-title { font-family: var(--font-body); font-weight: 600; font-size: 15.5px; color: #F4EEDF; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.home-board-venue { font-family: var(--font-label); font-weight: 700; font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: #8E8B82; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.home-board-tix { flex: none; font-family: var(--font-label); font-weight: 700; font-size: 12px; letter-spacing: 0.04em; color: var(--clay); text-decoration: none; border: 0; padding: 6px 0 6px 10px; }
+.home-board-tix:hover { color: #F4EEDF; }
+.home-board-tix--none { width: 10px; }
+.home-board-foot { margin-top: var(--s4); }
+.home-board-more { font-family: var(--font-label); font-weight: 700; font-size: 13px; letter-spacing: 0.04em; color: #F4EEDF; text-decoration: none; border-bottom: 1.5px solid var(--clay); padding-bottom: 3px; }
+.home-board-more:hover { color: var(--clay); }
+/* "Down for" lanes — the no-digging jump-offs. Thumb-size pills. */
+.home-lanes { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s2); margin-top: var(--s5); }
+.home-lanes-label { font-family: var(--font-label); font-weight: 700; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #8E8B82; margin-right: var(--s2); }
+.home-lane { font-family: var(--font-label); font-weight: 700; font-size: 13.5px; color: #F4EEDF; text-decoration: none; border: 1px solid rgba(244,238,223,0.35); border-radius: 999px; padding: 10px 16px; min-height: 44px; display: inline-flex; align-items: center; transition: border-color 0.12s, color 0.12s; }
+.home-lane:hover { border-color: var(--clay); color: var(--clay); }
+/* App-feel on phones: compress the hero so the board lands near the first screen. */
+@media (max-width: 640px) {
+  .cover--type { padding-top: 28px; }
+  .cover--type .cover-deck { font-size: 15.5px; margin-bottom: var(--s3); }
+  .cover--type .cover-headline { margin-bottom: var(--s4); }
+  .cover-promise { margin-bottom: var(--s4); }
+  .cover--type .cover-meta { display: none; }
+  .cover--type .cover-actions { margin-bottom: 0; }
+  .home-board-time { width: 64px; font-size: 12px; }
+}
 
 /* Live pulse — the one expressive motion. A clay dot that breathes next to
    live data, so the site's "alive" quality is felt. */

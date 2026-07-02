@@ -870,7 +870,7 @@ ${GSC_VERIFICATION ? `<meta name="google-site-verification" content="${esc(GSC_V
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;600;700;800&family=IBM+Plex+Mono:wght@500;600;700&family=Source+Sans+3:wght@400;600&display=swap">
-<link rel="stylesheet" href="/style.css?v=65">
+<link rel="stylesheet" href="/style.css?v=66">
 <script>
 // Set color mode before paint to avoid flash. Reads localStorage first,
 // falls back to light mode (the new editorial default). mode-ready class
@@ -1676,6 +1676,59 @@ function renderHome() {
         </div>
       </div>
     </section>` : ''}
+    ${(() => {
+      // THE BOARD — tonight's answers, right at the top, like a departure board.
+      // Real scraped events only (music, performance, film screenings), venue
+      // forward, time sorted, tickets one tap away. Marquee rooms win inclusion
+      // when there are more events than rows; display order is by time.
+      const todays = dedupeNonFilms((eventsData.events || []).filter(e => e.date === TODAY_ISO && e.category !== 'lecture' && e.category !== 'art' && !isNoiseEvent(e)));
+      if (!todays.length) return '';
+      const fmt12 = t => { if (!t) return ''; const [h, m] = String(t).split(':').map(Number); const ap = h >= 12 ? 'PM' : 'AM'; const hr = h % 12 === 0 ? 12 : h % 12; return `${hr}:${String(m).padStart(2, '0')} ${ap}`; };
+      const ROWS = 8;
+      // A little bit of everything: reserve up to two rows for films so "what's
+      // playing" is always answered, then marquee rooms win the remaining slots.
+      const films = todays.filter(e => e.category === 'film');
+      const nonFilms = todays.filter(e => e.category !== 'film');
+      const marquee = nonFilms.filter(e => MARQUEE_VENUES.has(e.venue));
+      const rest = nonFilms.filter(e => !MARQUEE_VENUES.has(e.venue));
+      const filmSlots = Math.min(2, films.length);
+      const picked = marquee.concat(rest).slice(0, ROWS - filmSlots)
+        .concat(films.slice(0, filmSlots))
+        .sort((a, b) => String(a.time || '99').localeCompare(String(b.time || '99')));
+      const dayLabel = (function(){ const [y,m,d] = TODAY_ISO.split('-').map(Number); return new Date(y, m-1, d).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' }); })();
+      return `
+    <section class="home-board" aria-label="Tonight's board">
+      <div class="wrap">
+        <div class="home-board-head">
+          <span class="home-board-eyebrow"><span class="pulse-dot" aria-hidden="true"></span>Tonight · ${esc(dayLabel)}</span>
+          <span class="home-board-count">${todays.length} on the board</span>
+        </div>
+        <ol class="home-board-rows">
+          ${picked.map(e => `
+          <li class="home-board-row">
+            <span class="home-board-time">${esc(fmt12(e.time)) || 'TBA'}</span>
+            <span class="home-board-what">
+              <span class="home-board-title">${esc(e.title)}</span>
+              <span class="home-board-venue">${esc(e.venue || '')}${e.venue_neighborhood ? ' · ' + esc(String(e.venue_neighborhood).split(',')[0]) : ''}</span>
+            </span>
+            ${e.url ? `<a class="home-board-tix" href="${esc(e.url)}" target="_blank" rel="noopener">Tickets →</a>` : '<span class="home-board-tix home-board-tix--none"></span>'}
+          </li>`).join('')}
+        </ol>
+        <div class="home-board-foot">
+          <a class="home-board-more" href="/tonight/">The full board →</a>
+        </div>
+        <nav class="home-lanes" aria-label="What are you up to?">
+          <span class="home-lanes-label">Down for</span>
+          <a class="home-lane" href="/tonight/">A show</a>
+          <a class="home-lane" href="/arthouse-cinemas/">A movie</a>
+          <a class="home-lane" href="/late-night/">A late bite</a>
+          <a class="home-lane" href="/sports/">A game</a>
+          <a class="home-lane" href="/best-patios/">A patio</a>
+          <a class="home-lane" href="/surprise/">Surprise me</a>
+        </nav>
+      </div>
+    </section>`;
+    })()}
     ${LIVING_TOP.length ? `
     <section class="loved-rail" aria-label="What locals are loving">
       <div class="wrap">
@@ -2741,7 +2794,7 @@ function renderAdminPicks() {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>${esc(title)}</title>
-<link rel="stylesheet" href="/style.css?v=65">
+<link rel="stylesheet" href="/style.css?v=66">
 <style>
   body { background: var(--paper); }
   .admin-wrap { max-width: 960px; margin: 0 auto; padding: 32px var(--gutter) 96px; }
