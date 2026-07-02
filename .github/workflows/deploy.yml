@@ -4,12 +4,16 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
-  # Refresh scraped events, weather, and horoscope four times a day so the
-  # "Tonight" page and the calendar never sit on stale data for more than
-  # six hours. 11 UTC (6 AM CT), 17 UTC (noon CT), 23 UTC (6 PM CT),
-  # 5 UTC (midnight CT — catches the day rollover for /tonight/).
+  # Refresh scraped events, weather, and horoscope through the day. GitHub
+  # delays :00-:15 crons on busy hours by 2-4h, so run at :47 (off-peak) to
+  # land closer to target. 5:47 UTC = 12:47 AM CDT (midnight rollover in
+  # summer); the extra 6:47 UTC run covers the rollover in winter (CST) and
+  # is a harmless second refresh in summer. The homepage board and /tonight/
+  # also roll over client-side at midnight Central, so the site never says
+  # "tonight" about yesterday even when these runs are delayed.
   schedule:
-    - cron: '5 5,11,17,23 * * *'
+    - cron: '47 5,11,17,23 * * *'
+    - cron: '47 6 * * *'
 
 permissions:
   contents: write
@@ -55,7 +59,7 @@ jobs:
         run: npm run build
 
       - name: Send weekly newsletter (Mondays only)
-        if: github.event_name == 'schedule' && startsWith(github.event.schedule, '5 5') && startsWith(toJSON(github.event), '{}')
+        if: github.event_name == 'schedule' && startsWith(github.event.schedule, '47 5') && startsWith(toJSON(github.event), '{}')
         run: |
           DAY=$(date -u +%u)
           if [ "$DAY" = "1" ]; then

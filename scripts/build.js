@@ -1688,8 +1688,17 @@ function renderHome() {
       // Real scraped events only (music, performance, film screenings), venue
       // forward, time sorted, tickets one tap away. Marquee rooms win inclusion
       // when there are more events than rows; display order is by time.
-      const todays = dedupeNonFilms((eventsData.events || []).filter(e => e.date === TODAY_ISO && e.category !== 'lecture' && e.category !== 'art' && !isNoiseEvent(e)));
-      if (!todays.length) return '';
+      //
+      // MIDNIGHT ROLLOVER: CI's scheduled rebuild can land hours late (GitHub
+      // delays cron 2-4h), so "tonight" must not depend on it. We ship a 3-day
+      // payload of board-eligible events and a client script that re-renders
+      // the board against the browser's CENTRAL date on load and every minute.
+      // The server-rendered rows below are the build-time view (SEO + no-JS).
+      const isoPlusDays = (iso, n) => { const [y, m, d] = iso.split('-').map(Number); const dt = new Date(y, m - 1, d + n); return `${dt.getFullYear()}-${String(dt.getMonth() + 1).padStart(2, '0')}-${String(dt.getDate()).padStart(2, '0')}`; };
+      const HORIZON = [TODAY_ISO, isoPlusDays(TODAY_ISO, 1), isoPlusDays(TODAY_ISO, 2)];
+      const pool = dedupeNonFilms((eventsData.events || []).filter(e => HORIZON.includes(e.date) && e.category !== 'lecture' && e.category !== 'art' && !isNoiseEvent(e)));
+      if (!pool.length) return '';
+      const todays = pool.filter(e => e.date === TODAY_ISO);
       const fmt12 = t => { if (!t) return ''; const [h, m] = String(t).split(':').map(Number); const ap = h >= 12 ? 'PM' : 'AM'; const hr = h % 12 === 0 ? 12 : h % 12; return `${hr}:${String(m).padStart(2, '0')} ${ap}`; };
       const ROWS = 8;
       // A little bit of everything: reserve up to two rows for films so "what's
@@ -1703,12 +1712,18 @@ function renderHome() {
         .concat(films.slice(0, filmSlots))
         .sort((a, b) => String(a.time || '99').localeCompare(String(b.time || '99')));
       const dayLabel = (function(){ const [y,m,d] = TODAY_ISO.split('-').map(Number); return new Date(y, m-1, d).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' }); })();
+      // Compact payload for the client renderer. <-escape so "</script>"
+      // inside a title can never break out of the JSON block.
+      const payload = JSON.stringify({
+        built: TODAY_ISO,
+        rows: pool.map(e => ({ d: e.date, t: e.time || '', n: e.title, v: e.venue || '', nb: e.venue_neighborhood ? String(e.venue_neighborhood).split(',')[0] : '', u: e.url || '', f: e.category === 'film' ? 1 : 0, m: MARQUEE_VENUES.has(e.venue) ? 1 : 0 }))
+      }).replace(/</g, '\\u003c');
       return `
     <section class="home-board" aria-label="Tonight's board">
       <div class="wrap">
         <div class="home-board-head">
-          <span class="home-board-eyebrow"><span class="pulse-dot" aria-hidden="true"></span>Tonight · ${esc(dayLabel)}</span>
-          <span class="home-board-count">${todays.length} on the board</span>
+          <span class="home-board-eyebrow"><span class="pulse-dot" aria-hidden="true"></span>Tonight · <span data-board-day>${esc(dayLabel)}</span></span>
+          <span class="home-board-count" data-board-count>${todays.length} on the board</span>
         </div>
         <ol class="home-board-rows">
           ${picked.map(e => `
@@ -1734,7 +1749,63 @@ function renderHome() {
           <a class="home-lane" href="/surprise/">Surprise me</a>
         </nav>
       </div>
-    </section>`;
+    </section>
+    <script type="application/json" id="home-board-data">${payload}</script>
+    <script>
+    // Midnight rollover for the board + concierge date line. "Tonight" is
+    // computed from the browser clock in America/Chicago, so the moment the
+    // Central date changes the board re-renders itself from the shipped
+    // payload — no rebuild required. Runs on load and once a minute.
+    (function(){
+      var el = document.getElementById('home-board-data');
+      if (!el) return;
+      var data; try { data = JSON.parse(el.textContent); } catch (_) { return; }
+      function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+      function centralIso(d){ return new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Chicago', year: 'numeric', month: '2-digit', day: '2-digit' }).format(d); }
+      function dayLabel(iso){ var p = iso.split('-').map(Number); return new Date(p[0], p[1]-1, p[2]).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' }); }
+      function fmt12(t){ if (!t) return 'TBA'; var p = t.split(':').map(Number); var ap = p[0] >= 12 ? 'PM' : 'AM'; var hr = p[0] % 12 === 0 ? 12 : p[0] % 12; return hr + ':' + String(p[1]).padStart(2, '0') + ' ' + ap; }
+      var lastDay = null;
+      function render(now){
+        var today = centralIso(now);
+        if (today === lastDay) return;               // nothing changed
+        var rows = data.rows.filter(function(r){ return r.d === today; });
+        if (!rows.length && today === data.built) { lastDay = today; return; }  // fresh page, server view stands
+        var listEl = document.querySelector('.home-board-rows');
+        var dayEl = document.querySelector('[data-board-day]');
+        var countEl = document.querySelector('[data-board-count]');
+        if (!listEl) return;
+        lastDay = today;
+        if (dayEl) dayEl.textContent = dayLabel(today);
+        if (countEl) countEl.textContent = rows.length + ' on the board';
+        if (!rows.length) {
+          listEl.innerHTML = '<li class="home-board-row"><span class="home-board-what"><span class="home-board-title">Quiet night on the scraped calendar.</span><span class="home-board-venue">The board refreshes every morning</span></span><a class="home-board-tix" href="/calendar/">Calendar →</a></li>';
+        } else {
+          var films = rows.filter(function(r){ return r.f; });
+          var nonf = rows.filter(function(r){ return !r.f; });
+          var marq = nonf.filter(function(r){ return r.m; });
+          var rest = nonf.filter(function(r){ return !r.m; });
+          var slots = Math.min(2, films.length);
+          var picked = marq.concat(rest).slice(0, 8 - slots).concat(films.slice(0, slots))
+            .sort(function(a, b){ return String(a.t || '99') < String(b.t || '99') ? -1 : 1; });
+          listEl.innerHTML = picked.map(function(r){
+            return '<li class="home-board-row"><span class="home-board-time">' + fmt12(r.t) + '</span>' +
+              '<span class="home-board-what"><span class="home-board-title">' + esc(r.n) + '</span>' +
+              '<span class="home-board-venue">' + esc(r.v) + (r.nb ? ' · ' + esc(r.nb) : '') + '</span></span>' +
+              (r.u ? '<a class="home-board-tix" href="' + esc(r.u) + '" target="_blank" rel="noopener">Tickets →</a>' : '<span class="home-board-tix home-board-tix--none"></span>');
+          }).join('');
+        }
+        // Concierge date line + count follow the same clock.
+        var ce = document.querySelector('.concierge-eyebrow');
+        var ch = document.querySelector('.concierge-headline');
+        var shows = rows.filter(function(r){ return !r.f; }).length;
+        if (ce) ce.textContent = 'Tonight' + (shows > 0 ? ' · ' + shows + ' happening' : '');
+        if (ch) ch.textContent = dayLabel(today).toUpperCase();
+      }
+      window.__bomBoard = render;
+      render(new Date());
+      setInterval(function(){ render(new Date()); }, 60000);
+    })();
+    </script>`;
     })()}
     ${LIVING_TOP.length ? `
     <section class="loved-rail" aria-label="What locals are loving">
