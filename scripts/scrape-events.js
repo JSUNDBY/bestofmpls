@@ -49,7 +49,10 @@ const SCRAPERS = [
   require('./scrapers/mnhs.js'),
   // More music venues
   require('./scrapers/whitesquirrel.js'),
-  require('./scrapers/crooners.js')
+  require('./scrapers/crooners.js'),
+  // Classical — the symphonies
+  require('./scrapers/mnorch.js'),
+  require('./scrapers/spco.js')
 ];
 
 function parseArgs() {

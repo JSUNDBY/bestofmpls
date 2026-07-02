@@ -58,6 +58,10 @@ jobs:
       - name: Build
         run: npm run build
 
+      # Broken internal links fail the deploy. Every href must land somewhere.
+      - name: Check internal links
+        run: node scripts/check-links.js
+
       - name: Send weekly newsletter (Mondays only)
         if: github.event_name == 'schedule' && startsWith(github.event.schedule, '47 5') && startsWith(toJSON(github.event), '{}')
         run: |
