@@ -6648,6 +6648,25 @@ html[data-mode="dark"] .home-board { background: #050505; border-top: 1px solid 
 .near-spots-label { font-family: var(--font-label); font-weight: 700; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-faint); margin-right: var(--s2); }
 .near-spots--compact { margin-top: var(--s3); }
 
+/* Five Today — exactly five, decided for you. Big mono numerals, one item per
+   rule-separated row, tags carry the free/paid honesty. */
+.five-list { max-width: 760px; padding-bottom: var(--sec-y); }
+.five-item { display: flex; gap: var(--s5); padding: var(--s5) 0; border-top: 1px solid var(--rule); }
+.five-item:first-of-type { border-top: 2px solid var(--ink); }
+.five-num { font-family: var(--font-mono); font-weight: 700; font-size: 28px; color: var(--clay); flex: none; line-height: 1; padding-top: 2px; }
+.five-body { min-width: 0; }
+.five-tags { display: flex; flex-wrap: wrap; gap: var(--s2); margin-bottom: var(--s2); }
+.five-tag { font-family: var(--font-label); font-weight: 700; font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-soft); border: 1px solid var(--rule-soft); border-radius: 999px; padding: 3px 10px; }
+.five-tag--free { color: var(--paper); background: var(--clay); border-color: var(--clay); }
+.five-tag--time { font-family: var(--font-mono); letter-spacing: 0.04em; }
+.five-name { font-family: var(--font-display); font-weight: 700; font-size: clamp(20px, 2.6vw, 26px); line-height: 1.15; margin: 0 0 var(--s1); }
+.five-name a { color: var(--ink); text-decoration: none; border-bottom: 2px solid var(--clay); }
+.five-name a:hover { color: var(--clay); }
+.five-where { font-family: var(--font-label); font-weight: 700; font-size: 11.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-faint); }
+.five-sub { font-family: var(--font-body); font-size: 14.5px; color: var(--ink-soft); margin: var(--s2) 0 0; max-width: 56ch; }
+.five-foot { font-family: var(--font-body); font-size: 14px; color: var(--ink-faint); border-top: 1px solid var(--rule); padding-top: var(--s4); margin-top: var(--s2); }
+@media (max-width: 640px) { .five-item { gap: var(--s4); } .five-num { font-size: 22px; } }
+
 /* Live pulse — the one expressive motion. A clay dot that breathes next to
    live data, so the site's "alive" quality is felt. */
 .pulse-dot { display: inline-block; width: 8px; height: 8px; border-radius: 999px; background: var(--clay); vertical-align: middle; margin-right: 7px; position: relative; }

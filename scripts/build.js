@@ -887,7 +887,7 @@ ${GSC_VERIFICATION ? `<meta name="google-site-verification" content="${esc(GSC_V
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;600;700;800&family=IBM+Plex+Mono:wght@500;600;700&family=Source+Sans+3:wght@400;600&display=swap">
-<link rel="stylesheet" href="/style.css?v=69">
+<link rel="stylesheet" href="/style.css?v=70">
 <script>
 // Set color mode before paint to avoid flash. Reads localStorage first,
 // falls back to light mode (the new editorial default). mode-ready class
@@ -1766,6 +1766,7 @@ function renderHome() {
           <a class="home-lane" href="/late-night/">A late bite</a>
           <a class="home-lane" href="/sports/">A game</a>
           <a class="home-lane" href="/best-patios/">A patio</a>
+          <a class="home-lane" href="/five/">Just give me five</a>
           <a class="home-lane" href="/surprise/">Surprise me</a>
         </nav>
       </div>
@@ -1856,6 +1857,7 @@ function renderHome() {
           <li><a href="/skyway/"><span class="mtools-code">S</span> Skyway <em>${skyway.nodes.length} downtown nodes</em></a></li>
           <li><a href="/quiz/"><span class="mtools-code">Q</span> Quiz <em>where to be tonight</em></a></li>
           <li><a href="/horoscope/"><span class="mtools-code">H</span> Horoscope <em>for the metro</em></a></li>
+          <li><a href="/five/"><span class="mtools-code">5</span> Five Today <em>exactly five, decided for you</em></a></li>
           <li><a href="/surprise/"><span class="mtools-code">R</span> Surprise <em>a random pick</em></a></li>
           <li><a href="/mystery/"><span class="mtools-code">Y</span> Mystery <em>sealed-envelope nights</em></a></li>
           <li><a href="/departed/"><span class="mtools-code">D</span> Departed <em>places we lost</em></a></li>
@@ -2907,7 +2909,7 @@ function renderAdminPicks() {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>${esc(title)}</title>
-<link rel="stylesheet" href="/style.css?v=69">
+<link rel="stylesheet" href="/style.css?v=70">
 <style>
   body { background: var(--paper); }
   .admin-wrap { max-width: 960px; margin: 0 auto; padding: 32px var(--gutter) 96px; }
@@ -4615,6 +4617,77 @@ function renderToday() {
 }
 
 // ---------- Surprise — random place ----------
+// ---------- Five Today ----------
+// The 5-Every-Day pattern (reader idea via Erika): exactly five things for
+// today, some free, some worth the ticket, no scrolling. Date-seeded so the
+// five are stable all day and roll over with the daily rebuild. Free tags only
+// on real evidence (a Free price or "free"/"no cover" in the listing itself).
+function renderFive() {
+  const title = 'Five Today · things to do in the Twin Cities';
+  const description = 'Exactly five things worth leaving the house for today in Minneapolis and Saint Paul. Some free, some worth the ticket. A new five every day.';
+
+  const seedNum = Number(TODAY_ISO.replace(/-/g, ''));
+  const rng = (function(a){ return function(){ a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; })(seedNum);
+
+  const isFree = e => /\bfree\b|no cover|^\$0$/i.test(String(e.price || '')) || /\bfree\b|no cover/i.test(`${e.title || ''} ${e.subtitle || ''}`);
+  const CAT_LABEL = { music: 'Music', film: 'On screen', lecture: 'A talk', performance: 'On stage', art: 'Art' };
+
+  const pool = dedupeNonFilms((eventsData.events || []).filter(e => e.date === TODAY_ISO && !isNoiseEvent(e)));
+  // Seeded shuffle, then a greedy pass with variety rules: one per venue, at
+  // most two per category, and the first free-evidence event is guaranteed a
+  // slot when one exists.
+  const shuffled = pool.map(e => ({ e, r: rng() })).sort((a, b) => a.r - b.r).map(x => x.e);
+  const picked = [];
+  const perCat = {}, venues = new Set();
+  const take = e => { picked.push(e); perCat[e.category] = (perCat[e.category] || 0) + 1; venues.add(e.venue); };
+  const firstFree = shuffled.find(isFree);
+  if (firstFree) take(firstFree);
+  for (const e of shuffled) {
+    if (picked.length >= 5) break;
+    if (picked.includes(e) || venues.has(e.venue) || (perCat[e.category] || 0) >= 2) continue;
+    take(e);
+  }
+  // Thin days: round out with a current exhibition ("on view" is date-safe).
+  if (picked.length < 5) {
+    for (const x of (exhibitions.exhibitions || [])) {
+      if (picked.length >= 5) break;
+      picked.push({ title: x.name || x.title, venue: x.venue || x.museum || '', time: null, category: 'art', url: x.url || null, subtitle: x.blurb || x.description || null, onView: true });
+    }
+  }
+  picked.sort((a, b) => String(a.time || '99').localeCompare(String(b.time || '99')));
+
+  const fmt12 = t => { if (!t) return ''; const [h, m] = String(t).split(':').map(Number); const ap = h >= 12 ? 'PM' : 'AM'; const hr = h % 12 === 0 ? 12 : h % 12; return `${hr}:${String(m).padStart(2, '0')} ${ap}`; };
+  const dayLabel = (function(){ const [y,m,d] = TODAY_ISO.split('-').map(Number); return new Date(y, m-1, d).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' }); })();
+
+  return head({ title, description, slug: 'five', theme: 'default' }) +
+    header({ activeSlug: '' }) +
+    `<section class="section-head">
+       <div class="wrap">
+         <div class="section-eyebrow"><span class="pulse-dot" aria-hidden="true"></span>${esc(dayLabel)}</div>
+         <h1 class="section-title">Five today.</h1>
+         <p class="section-deck">Exactly five. Some free, some worth the ticket. For the nights you want to go out but do not want to decide. A new five every morning.</p>
+       </div>
+     </section>
+     <section class="wrap five-list">
+       ${picked.map((e, i) => `
+       <article class="five-item">
+         <span class="five-num">0${i + 1}</span>
+         <div class="five-body">
+           <div class="five-tags">
+             ${isFree(e) ? '<span class="five-tag five-tag--free">Free</span>' : ''}
+             <span class="five-tag">${esc(e.onView ? 'On view' : (CAT_LABEL[e.category] || 'Out'))}</span>
+             ${e.time ? `<span class="five-tag five-tag--time">${esc(fmt12(e.time))}</span>` : ''}
+           </div>
+           <h2 class="five-name">${e.url ? `<a href="${esc(e.url)}" target="_blank" rel="noopener">${esc(e.title)}</a>` : esc(e.title)}</h2>
+           <div class="five-where">${esc(e.venue || '')}${e.venue_neighborhood ? ' · ' + esc(String(e.venue_neighborhood).split(',')[0]) : ''}</div>
+           ${e.subtitle ? `<p class="five-sub">${esc(String(e.subtitle).slice(0, 160))}</p>` : ''}
+         </div>
+       </article>`).join('')}
+       <p class="five-foot">That is the whole list, on purpose. Want more anyway? <a href="/tonight/">Tonight</a> has the full board and <a href="/calendar/">the calendar</a> has the week.</p>
+     </section>` +
+    footer();
+}
+
 function renderSurprise() {
   const title = 'Surprise me';
   const description = 'A random place from the directory, picked fresh on every visit. A small antidote to overthinking your Saturday.';
@@ -6629,6 +6702,7 @@ function renderSitemap(neighborhoods, crossPages) {
     { loc: SITE + '/horoscope/', priority: '0.7' },
     { loc: SITE + '/departed/', priority: '0.7' },
     { loc: SITE + '/surprise/', priority: '0.7' },
+    { loc: SITE + '/five/', priority: '0.8' },
     { loc: SITE + '/neighborhoods/', priority: '0.8' },
     { loc: SITE + '/glossary/', priority: '0.6' },
     { loc: SITE + '/search/', priority: '0.5' },
@@ -6800,6 +6874,7 @@ function build() {
 
   // Surprise — random place
   writeFile('surprise/index.html', renderSurprise());
+  writeFile('five/index.html', renderFive());
 
   // Loon's Nest slang glossary
   writeFile('glossary/index.html', renderSlang());
