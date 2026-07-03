@@ -23,6 +23,15 @@ module.exports = {
       price: '$$'
     },
     {
+      name: 'Earl Giles',
+      neighborhood: 'Northeast Minneapolis',
+      style: 'Distillery, restaurant + bar',
+      description: 'A huge Logan Park operation where everything behind the bar is made in the building: the spirits, the syrups and elixirs from their own flavor lab, even the sodas. The kitchen is the sleeper. Hand-tossed pizzas that hold their own against the neighborhood pizzerias and a shareable-apps list built for a long table of friends.',
+      address: '1325 Quincy St NE, Minneapolis',
+      website: 'https://earlgiles.com',
+      price: '$$'
+    },
+    {
       name: 'Bar at Spoon and Stable',
       neighborhood: 'North Loop, Minneapolis',
       style: 'Fine-dining bar',

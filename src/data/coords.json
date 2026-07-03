@@ -1857,5 +1857,81 @@
   "315 W 48th St, Minneapolis": {
     "lat": 44.9158727,
     "lng": -93.2840316
+  },
+  "1325 Quincy St NE, Minneapolis": {
+    "lat": 45.0013483,
+    "lng": -93.2511032
+  },
+  "807 Broadway St NE, Minneapolis": {
+    "lat": 44.9994231,
+    "lng": -93.2501182
+  },
+  "18 W 26th St, Minneapolis, MN 55404": {
+    "lat": 44.9556155,
+    "lng": -93.2782868
+  },
+  "219 3rd Ave N, Minneapolis, MN 55401": {
+    "lat": 44.9850864,
+    "lng": -93.2715531
+  },
+  "374 Selby Ave, Saint Paul, MN 55102": {
+    "lat": 44.9464528,
+    "lng": -93.1159404
+  },
+  "125 SE Main St, Minneapolis, MN 55414": {
+    "lat": 44.9844954,
+    "lng": -93.2550643
+  },
+  "4810 Chicago Ave S, Minneapolis, MN 55417": {
+    "lat": 44.8934181,
+    "lng": -93.2628817
+  },
+  "2501 NE Marshall St, Minneapolis, MN 55418": {
+    "lat": 45.013296,
+    "lng": -93.271577
+  },
+  "3501 Nicollet Ave, Minneapolis, MN 55408": {
+    "lat": 44.939409,
+    "lng": -93.277809
+  },
+  "401 E Hennepin Ave, Minneapolis, MN 55414": {
+    "lat": 44.9889786,
+    "lng": -93.2549498
+  },
+  "956 Payne Ave, Saint Paul, MN 55130": {
+    "lat": 44.9700841,
+    "lng": -93.0733739
+  },
+  "989 Payne Ave, Saint Paul, MN 55130": {
+    "lat": 44.9710175,
+    "lng": -93.0737095
+  },
+  "3120 Excelsior Blvd, Minneapolis, MN 55416": {
+    "lat": 44.9462693,
+    "lng": -93.3224792
+  },
+  "811 SE 9th St, Minneapolis, MN 55414": {
+    "lat": 44.9887692,
+    "lng": -93.2398889
+  },
+  "245 Hennepin Ave, Minneapolis, MN 55401": {
+    "lat": 44.9818598,
+    "lng": -93.2693033
+  },
+  "1221 Theodore Wirth Pkwy, Minneapolis, MN 55422": {
+    "lat": 44.9917478,
+    "lng": -93.3263241
+  },
+  "3425 Ihduhapi Trail, Independence, MN 55357": {
+    "lat": 45.0434675,
+    "lng": -93.6488999
+  },
+  "1209 Tyler St NE, Minneapolis, MN 55413": {
+    "lat": 45.0416217,
+    "lng": -93.2377828
+  },
+  "4355 Nicollet Ave, Minneapolis, MN 55409": {
+    "lat": 44.9240839,
+    "lng": -93.277815
   }
 }

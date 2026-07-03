@@ -39,7 +39,8 @@ function collectAddresses() {
   for (const f of fs.readdirSync(dataDir)) {
     if (!f.endsWith('.js')) continue;
     const mod = require(path.join(dataDir, f));
-    const entries = mod.entries || mod.exhibitions || [];
+    let entries = mod.entries || mod.exhibitions || [];
+    if (!Array.isArray(entries)) entries = [];
     for (const e of entries) {
       if (e.address && typeof e.address === 'string' && e.address.length > 5) {
         seen.add(e.address.trim());
