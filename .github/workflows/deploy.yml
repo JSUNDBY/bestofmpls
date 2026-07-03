@@ -121,6 +121,20 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
+      # Pages' backend intermittently rejects deployments with an opaque
+      # "Deployment failed, try again later" (seen 2026-07-03: four consecutive
+      # rejects with a clean artifact and green status page). Take its advice
+      # literally: wait 90s and try once more before failing the run.
       - name: Deploy to GitHub Pages
         id: deployment
+        uses: actions/deploy-pages@v4
+        continue-on-error: true
+
+      - name: Wait before retry (Pages flake)
+        if: steps.deployment.outcome == 'failure'
+        run: sleep 90
+
+      - name: Deploy to GitHub Pages (retry)
+        id: deployment_retry
+        if: steps.deployment.outcome == 'failure'
         uses: actions/deploy-pages@v4
