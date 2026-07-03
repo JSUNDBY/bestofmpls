@@ -887,7 +887,7 @@ ${GSC_VERIFICATION ? `<meta name="google-site-verification" content="${esc(GSC_V
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;600;700;800&family=IBM+Plex+Mono:wght@500;600;700&family=Source+Sans+3:wght@400;600&display=swap">
-<link rel="stylesheet" href="/style.css?v=70">
+<link rel="stylesheet" href="/style.css?v=71">
 <script>
 // Set color mode before paint to avoid flash. Reads localStorage first,
 // falls back to light mode (the new editorial default). mode-ready class
@@ -2909,7 +2909,7 @@ function renderAdminPicks() {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>${esc(title)}</title>
-<link rel="stylesheet" href="/style.css?v=70">
+<link rel="stylesheet" href="/style.css?v=71">
 <style>
   body { background: var(--paper); }
   .admin-wrap { max-width: 960px; margin: 0 auto; padding: 32px var(--gutter) 96px; }
@@ -3610,6 +3610,27 @@ function renderExhibitions() {
       </div>`);
   }
 
+  // In the galleries — scraped daily from the independent galleries and the M
+  // (date-range art events). Split on today: on view now vs opening soon.
+  const fmtMD = iso => { const [y, m, d] = iso.split('-').map(Number); return new Date(y, m - 1, d).toLocaleDateString('en-US', { month: 'long', day: 'numeric' }); };
+  const galleryShows = (eventsData.events || []).filter(e => e.category === 'art' && e.end_date && e.end_date >= TODAY_ISO);
+  const galShow = e => ({
+    dates: e.date <= TODAY_ISO ? `Through ${fmtMD(e.end_date)}` : `Opens ${fmtMD(e.date)}`,
+    venue: e.venue, title: e.title, url: e.url, artist: null,
+    subtitle: e.venue_neighborhood ? String(e.venue_neighborhood).split(',')[0] : null,
+    description: e.subtitle || ''
+  });
+  const galCurrent = galleryShows.filter(e => e.date <= TODAY_ISO).map(galShow);
+  const galUpcoming = galleryShows.filter(e => e.date > TODAY_ISO).map(galShow);
+  if (galCurrent.length || galUpcoming.length) {
+    sections.push(`
+      <div class="exhibition-section">
+        <div class="wrap"><h2 class="exhibition-section-title">In the galleries</h2>
+        <p class="exhibition-section-note">Pulled daily from the independent galleries. Openings land on <a href="/calendar/">the calendar</a>.</p></div>
+        <div class="exhibition-list">${galCurrent.concat(galUpcoming).map(renderShow).join('')}</div>
+      </div>`);
+  }
+
   const lastUpdated = ex.last_updated
     ? `<p style="font-family: var(--font-label); font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-faint); margin-top: 16px;">Last updated ${esc(ex.last_updated)}</p>`
     : '';
@@ -3618,7 +3639,7 @@ function renderExhibitions() {
     header({ activeSlug: 'now-showing' }) +
     `<section class="section-head">
       <div class="wrap">
-        <div class="section-eyebrow">${ex.exhibitions.length} on view</div>
+        <div class="section-eyebrow">${ex.exhibitions.length + galCurrent.length + galUpcoming.length} shows tracked</div>
         <h1 class="section-title">${esc(ex.title)} <em>across the Twin Cities</em></h1>
         <p class="section-deck">${esc(ex.intro)}</p>
         ${lastUpdated}
@@ -4647,8 +4668,18 @@ function renderFive() {
     if (picked.includes(e) || venues.has(e.venue) || (perCat[e.category] || 0) >= 2) continue;
     take(e);
   }
-  // Thin days: round out with a current exhibition ("on view" is date-safe).
+  // Thin days: round out with what's on view — scraped gallery shows first
+  // (indie, freshest), then the curated museum exhibitions.
   if (picked.length < 5) {
+    const onView = (eventsData.events || [])
+      .filter(e => e.category === 'art' && e.end_date && e.date <= TODAY_ISO && e.end_date >= TODAY_ISO)
+      .map(e => ({ e, r: rng() })).sort((a, b) => a.r - b.r).map(x => x.e);
+    for (const g of onView) {
+      if (picked.length >= 5) break;
+      if (venues.has(g.venue)) continue;
+      picked.push({ title: g.title, venue: g.venue, venue_neighborhood: g.venue_neighborhood, time: null, category: 'art', url: g.url, subtitle: g.subtitle, onView: true });
+      venues.add(g.venue);
+    }
     for (const x of (exhibitions.exhibitions || [])) {
       if (picked.length >= 5) break;
       picked.push({ title: x.name || x.title, venue: x.venue || x.museum || '', time: null, category: 'art', url: x.url || null, subtitle: x.blurb || x.description || null, onView: true });

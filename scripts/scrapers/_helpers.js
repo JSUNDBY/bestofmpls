@@ -165,7 +165,47 @@ function decodeEntities(s) {
     .trim();
 }
 
+// Parse an exhibition-style date RANGE into { start, end } ISO dates.
+// Handles the formats the gallery sites actually use:
+//   "May 26 – Jul 11, 2026"            (year only at the end)
+//   "July 25 - August 30, 2026"
+//   "September 18, 2025–August 16, 2026"
+//   "October 17, 2024–2030"            (end is a bare year → Dec 31)
+//   "May 29 - July 18"                 (no years → inferred, end rolls a year
+//                                       forward if it lands before the start)
+function parseDateRange(text, now = new Date()) {
+  const t = String(text || '').replace(/–|—/g, '-').replace(/\s+/g, ' ');
+  const m = t.match(/([A-Za-z]{3,9})\.?\s+(\d{1,2}),?\s*(\d{4})?\s*-\s*(?:([A-Za-z]{3,9})\.?\s+(\d{1,2}),?\s*(\d{4})?|(\d{4})(?!\d)|(\d{1,2})(?!\d),?\s*(\d{4})?)/);
+  if (!m) return null;
+  const [, m1, d1, y1, m2, d2, y2, bareYear, dOnly, yAfterDOnly] = m;
+  const mo1 = MONTHS[m1.toLowerCase()];
+  if (!mo1) return null;
+  let start, end;
+  if (bareYear) {
+    // "October 17, 2024–2030"
+    const sy = y1 ? +y1 : now.getFullYear();
+    start = `${sy}-${pad2(mo1)}-${pad2(+d1)}`;
+    end = `${+bareYear}-12-31`;
+  } else if (dOnly) {
+    // "May 29 - 31" (same month)
+    const sy = y1 ? +y1 : (+yAfterDOnly || now.getFullYear());
+    start = `${sy}-${pad2(mo1)}-${pad2(+d1)}`;
+    end = `${+yAfterDOnly || sy}-${pad2(mo1)}-${pad2(+dOnly)}`;
+  } else {
+    const mo2 = MONTHS[(m2 || '').toLowerCase()];
+    if (!mo2) return null;
+    const endYear = y2 ? +y2 : (y1 ? +y1 : now.getFullYear());
+    const startYear = y1 ? +y1 : (mo1 > mo2 ? endYear - 1 : endYear);
+    start = `${startYear}-${pad2(mo1)}-${pad2(+d1)}`;
+    let ey = endYear;
+    if (!y2 && !y1 && `${ey}-${pad2(mo2)}-${pad2(+d2)}` < start) ey += 1;
+    end = `${ey}-${pad2(mo2)}-${pad2(+d2)}`;
+  }
+  return start <= end ? { start, end } : null;
+}
+
 module.exports = {
   fetchHtml, slugify, inferIsoDate, parseDateString, clean, pad2, MONTHS,
-  extractJsonLdEvents, isoFromStartDate, hmFromStartDate, decodeEntities
+  extractJsonLdEvents, isoFromStartDate, hmFromStartDate, decodeEntities,
+  parseDateRange
 };

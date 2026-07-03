@@ -52,7 +52,12 @@ const SCRAPERS = [
   require('./scrapers/crooners.js'),
   // Classical — the symphonies
   require('./scrapers/mnorch.js'),
-  require('./scrapers/spco.js')
+  require('./scrapers/spco.js'),
+  // Galleries — indie + museum art shows (date ranges, category 'art')
+  require('./scrapers/dreamsong.js'),
+  require('./scrapers/soovac.js'),
+  require('./scrapers/highpoint.js'),
+  require('./scrapers/mmaa.js')
 ];
 
 function parseArgs() {
@@ -100,10 +105,12 @@ async function main() {
     return a.title.localeCompare(b.title);
   });
 
-  // Filter out anything older than yesterday.
+  // Filter out anything already over. Single-date events go by their date;
+  // range events (exhibitions) stay as long as their end_date is ahead, so an
+  // art show that opened months ago is still "on view".
   const cutoff = new Date(); cutoff.setDate(cutoff.getDate() - 1);
   const cutoffIso = cutoff.toISOString().slice(0, 10);
-  const fresh = events.filter(e => e.date >= cutoffIso);
+  const fresh = events.filter(e => (e.end_date || e.date) >= cutoffIso);
 
   const output = {
     generated_at: new Date().toISOString(),

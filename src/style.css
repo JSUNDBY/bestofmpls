@@ -1187,6 +1187,8 @@ body[data-theme="default"] {
   color: var(--clay);
   margin: clamp(48px, 6vw, 80px) 0 12px;
 }
+.exhibition-section-note { font-family: var(--font-body); font-size: 14px; color: var(--ink-faint); margin: 0 0 var(--s4); max-width: 56ch; }
+.exhibition-section-note a { color: var(--ink-soft); }
 .exhibition-list {
   border-top: 1px solid var(--rule-soft);
 }
