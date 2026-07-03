@@ -6243,7 +6243,11 @@ html[data-mode="dark"] .entry-reserve {
 .nb-nav { margin: 4px auto 8px; }
 .nb-nav-label { margin-bottom: 10px; }
 .nb-nav-chips { display: flex; flex-wrap: wrap; gap: 10px; }
+.nb-nav-chips button.cal-chip { cursor: pointer; }
 .nb-nav-count { opacity: 0.55; font-variant-numeric: tabular-nums; }
+.nb-nav-guides { font-family: var(--font-body); font-size: 13px; color: var(--ink-faint); margin: 12px 0 0; }
+.nb-nav-guides a { color: var(--ink-soft); }
+.nb-nav-guides a:hover { color: var(--clay); }
 
 /* ===== Print ===== */
 @media print {

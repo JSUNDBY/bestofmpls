@@ -887,7 +887,7 @@ ${GSC_VERIFICATION ? `<meta name="google-site-verification" content="${esc(GSC_V
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;600;700;800&family=IBM+Plex+Mono:wght@500;600;700&family=Source+Sans+3:wght@400;600&display=swap">
-<link rel="stylesheet" href="/style.css?v=68">
+<link rel="stylesheet" href="/style.css?v=69">
 <script>
 // Set color mode before paint to avoid flash. Reads localStorage first,
 // falls back to light mode (the new editorial default). mode-ready class
@@ -1441,19 +1441,33 @@ function footer() {
     } catch (e) {}
   });
 
-  // Open Now filter on category pages
+  // Category-page list filters. Open-now and neighborhood COMPOSE: one shared
+  // state, one pass over the entries, so "Northeast + open right now" works.
+  var listFilter = { open: false, nb: '' };
+  function applyListFilter(){
+    document.querySelectorAll('.entry').forEach(function(en){
+      var okOpen = !listFilter.open || en.classList.contains('is-open-now');
+      var okNb = !listFilter.nb || en.getAttribute('data-nb') === listFilter.nb;
+      en.style.display = (okOpen && okNb) ? '' : 'none';
+    });
+  }
   document.querySelectorAll('.opennow-bar [data-opennow]').forEach(function(btn){
     btn.addEventListener('click', function(){
       var mode = btn.dataset.opennow;
+      listFilter.open = mode === 'open';
       document.querySelectorAll('.opennow-bar [data-opennow]').forEach(function(b){
         b.classList.toggle('is-on', b.dataset.opennow === mode);
       });
-      document.querySelectorAll('.entry').forEach(function(en){
-        if (mode === 'all') { en.style.display = ''; return; }
-        // mode === 'open': hide entries that don't have hours OR are closed
-        if (en.classList.contains('is-open-now')) en.style.display = '';
-        else en.style.display = 'none';
+      applyListFilter();
+    });
+  });
+  document.querySelectorAll('.nb-nav [data-nb-filter]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      listFilter.nb = btn.dataset.nbFilter || '';
+      document.querySelectorAll('.nb-nav [data-nb-filter]').forEach(function(b){
+        b.classList.toggle('is-on', b === btn);
       });
+      applyListFilter();
     });
   });
 })();
@@ -2049,7 +2063,10 @@ function renderCategory(c) {
       : '';
     const detailSlug = entrySlug(e.name);
     const detailUrl = `/${c.slug}/${detailSlug}/`;
-    return `<article class="entry${featured}" id="${esc(detailSlug)}"${hoursAttr}>
+    // First segment of the neighborhood ("Northeast, Minneapolis" -> Northeast)
+    // keys the client-side neighborhood filter chips.
+    const nbKey = e.neighborhood ? entrySlug(String(e.neighborhood).split(',')[0]) : '';
+    return `<article class="entry${featured}" id="${esc(detailSlug)}"${hoursAttr}${nbKey ? ` data-nb="${esc(nbKey)}"` : ''}>
       ${rankBlock}
       <div class="entry-body">
         <div class="entry-meta">${meta.join('')}${pickBadge}${livingBadge}<span class="entry-status" data-entry-status></span></div>
@@ -2166,15 +2183,31 @@ function renderCategory(c) {
 
   // "By neighborhood" nav links down into the category×neighborhood pages.
   const nbCross = (crossByCategory[c.slug] || []).slice().sort((a, b) => b.count - a.count);
-  // Only show the "by neighborhood" nav when there are at least two chips —
-  // a single lonely chip reads as broken/incomplete (e.g. lectures, spread
-  // thin across many neighborhoods, only clears the threshold in one).
-  const nbNav = nbCross.length >= 2 ? `
+  // "By neighborhood" is a complete in-place FILTER over the list below — every
+  // neighborhood with even one entry gets a chip (the old version linked only
+  // the >=MIN_CROSS SEO pages, which read as "we only cover North Loop and
+  // Northeast"). The deep guide pages still exist and are linked on the line
+  // beneath, so no SEO link equity is lost.
+  const nbGroups = (() => {
+    const m = new Map();
+    for (const e of c.entries) {
+      if (!e.neighborhood) continue;
+      const label = String(e.neighborhood).split(',')[0].trim();
+      const key = entrySlug(label);
+      if (!key) continue;
+      if (!m.has(key)) m.set(key, { key, label, count: 0 });
+      m.get(key).count++;
+    }
+    return [...m.values()].sort((a, b) => b.count - a.count || a.label.localeCompare(b.label));
+  })();
+  const nbNav = nbGroups.length >= 2 ? `
     <section class="wrap nb-nav">
       <div class="cluster-eyebrow nb-nav-label">${esc(c.title)} by neighborhood</div>
       <div class="nb-nav-chips">
-        ${nbCross.map(x => `<a class="cal-chip" href="/${c.slug}/in-${x.nb.slug}/">${esc(x.nb.short || x.nb.name)} <span class="nb-nav-count">${x.count}</span></a>`).join('')}
+        <button class="cal-chip is-on" data-nb-filter="" type="button">All ${c.entries.length}</button>
+        ${nbGroups.map(g => `<button class="cal-chip" data-nb-filter="${esc(g.key)}" type="button">${esc(g.label)} <span class="nb-nav-count">${g.count}</span></button>`).join('')}
       </div>
+      ${nbCross.length ? `<p class="nb-nav-guides">Neighborhood guides: ${nbCross.map(x => `<a href="/${c.slug}/in-${x.nb.slug}/">${esc(x.nb.short || x.nb.name)}</a>`).join(' · ')}</p>` : ''}
     </section>` : '';
 
   // Lectures page only: a live "upcoming talks" rail above the directory,
@@ -2874,7 +2907,7 @@ function renderAdminPicks() {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>${esc(title)}</title>
-<link rel="stylesheet" href="/style.css?v=68">
+<link rel="stylesheet" href="/style.css?v=69">
 <style>
   body { background: var(--paper); }
   .admin-wrap { max-width: 960px; margin: 0 auto; padding: 32px var(--gutter) 96px; }
