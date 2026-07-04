@@ -307,6 +307,7 @@ function buildCountdowns(now = centralNow()) {
     { name: 'May Day Parade in Powderhorn',runDays: 1,  dateRule: y => nthDowOf(y, 4, 0, 1), blurb: "In the Heart of the Beast's annual procession through Powderhorn, on the first Sunday in May." },
     { name: 'Art-A-Whirl',                 runDays: 3,  dateRule: y => nthDowOf(y, 4, 5, 3), blurb: 'Northeast Minneapolis opens nearly every artist studio at once, on the third weekend in May.' },
     { name: 'Twin Cities Pride',           runDays: 2,  dateRule: y => lastDowOf(y, 5, 6),   blurb: 'One of the largest Pride festivals in the country, last full weekend of June.' },
+    { name: 'Fourth of July fireworks',    runDays: 1,  dateRule: y => new Date(y, 6, 4),    blurb: 'Red, White and Boom on the Minneapolis riverfront, fireworks at 10 PM.' },
     { name: 'Aquatennial',                 runDays: 11, dateRule: y => new Date(y, 6, 16),   blurb: "Minneapolis's eleven-day midsummer festival." },
     { name: 'Minnesota State Fair',        runDays: 12, dateRule: y => stateFairStart(y),    blurb: 'Twelve days ending Labor Day. The largest state fair by daily attendance.' },
     { name: 'Twin Cities Marathon',        runDays: 1,  dateRule: y => nthDowOf(y, 9, 0, 1), blurb: 'Twenty-six miles from downtown Minneapolis to the State Capitol.' },

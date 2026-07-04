@@ -417,6 +417,7 @@ function featureDaysLabel(ev) {
   if (!ev) return '';
   const today = TODAY_ISO;
   if (today >= ev.starts && today <= ev.ends) {
+    if (ev.starts === ev.ends) return 'Today';
     if (today === ev.ends) return 'Final day';
     if (today === ev.starts) return 'Opens today';
     return 'Happening now';
@@ -4828,8 +4829,8 @@ function renderFeaturedEvent(ev) {
      </section>
 
      <section class="event-anchors wrap">
-       <h2 class="event-section-title">Anchor buildings</h2>
-       <p class="event-section-deck">Six places to start. You will not see them all, and that is fine. Pick two, walk slow, talk to the people behind the work.</p>
+       <h2 class="event-section-title">${esc(ev.anchors_title || 'Where to go')}</h2>
+       <p class="event-section-deck">${esc(ev.anchors_deck || 'The places that anchor the day. Pick what fits and take it slow.')}</p>
        <ul class="event-anchors-list">
          ${ev.anchors.map(a => `
            <li class="event-anchor">
@@ -4852,7 +4853,7 @@ function renderFeaturedEvent(ev) {
 
      ${ev.pairings && ev.pairings.length ? `
      <section class="event-pairings wrap">
-       <h2 class="event-section-title">Eat and drink while you're up there</h2>
+       <h2 class="event-section-title">${esc(ev.pairings_title || 'Eat and drink nearby')}</h2>
        <ul class="event-pairings-list">
          ${ev.pairings.map(p => `
            <li class="event-pairing">

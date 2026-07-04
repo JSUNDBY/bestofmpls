@@ -1,82 +1,82 @@
 {
-  "generated_at": "2026-07-02T03:30:03.501Z",
-  "today": "2026-07-01",
+  "generated_at": "2026-07-04T07:36:38.682Z",
+  "today": "2026-07-04",
   "sun": {
-    "rise": "5:05 AM",
-    "set": "8:38 PM",
-    "rise_24": "05:05",
-    "set_24": "20:38",
-    "daylight_min": 934
+    "rise": "5:06 AM",
+    "set": "8:37 PM",
+    "rise_24": "05:06",
+    "set_24": "20:37",
+    "daylight_min": 931
   },
   "weather": {
-    "temp_now": 76,
-    "temp_max": 90,
-    "feels_like": 79,
+    "temp_now": 69,
+    "temp_max": 85,
+    "feels_like": 72,
     "condition": "Partly Cloudy",
-    "is_patio": false,
+    "is_patio": true,
     "is_brutal": false,
     "is_snowing": false,
     "is_rainy": false,
-    "mood": "normal",
-    "summary": "76°F · Partly Cloudy",
+    "mood": "patio",
+    "summary": "85°F high · patio weather",
     "forecast": {
-      "tonight_low": 68,
-      "tonight_cond": "Cloudy",
-      "tomorrow_name": "Thursday",
-      "tomorrow_high": 90,
-      "tomorrow_low": 68,
-      "tomorrow_cond": "Mostly sunny"
+      "tonight_low": 69,
+      "tonight_cond": "Storms possible",
+      "tomorrow_name": "Independence Day",
+      "tomorrow_high": 85,
+      "tomorrow_low": 65,
+      "tomorrow_cond": "Storms likely"
     },
     "source": "nws"
   },
   "countdowns": [
     {
+      "name": "Fourth of July fireworks",
+      "date": "2026-07-04",
+      "days": 0,
+      "now": true,
+      "blurb": "Red, White and Boom on the Minneapolis riverfront, fireworks at 10 PM."
+    },
+    {
       "name": "Aquatennial",
       "date": "2026-07-16",
-      "days": 15,
+      "days": 12,
       "now": false,
       "blurb": "Minneapolis's eleven-day midsummer festival."
     },
     {
       "name": "Minnesota State Fair",
       "date": "2026-08-27",
-      "days": 57,
+      "days": 54,
       "now": false,
       "blurb": "Twelve days ending Labor Day. The largest state fair by daily attendance."
     },
     {
       "name": "Twin Cities Marathon",
       "date": "2026-10-04",
-      "days": 95,
+      "days": 92,
       "now": false,
       "blurb": "Twenty-six miles from downtown Minneapolis to the State Capitol."
     },
     {
       "name": "Twin Cities Book Festival",
       "date": "2026-10-17",
-      "days": 108,
+      "days": 105,
       "now": false,
       "blurb": "The metro's largest free book festival, at the State Fairgrounds."
     },
     {
       "name": "Saint Paul Winter Carnival",
       "date": "2027-01-22",
-      "days": 205,
+      "days": 202,
       "now": false,
       "blurb": "The oldest winter festival in the country opens."
-    },
-    {
-      "name": "The Great Northern",
-      "date": "2027-01-22",
-      "days": 205,
-      "now": false,
-      "blurb": "A ten-day cultural festival celebrating winter and climate."
     }
   ],
   "sunset_pick": {
-    "name": "Stone Arch Bridge",
-    "neighborhood": "Mill District, Minneapolis",
-    "why": "Skyline behind, falls below, the canonical Minneapolis sunset."
+    "name": "Indian Mounds Park",
+    "neighborhood": "Dayton's Bluff, St. Paul",
+    "why": "Bluff overlook above the Mississippi. Quiet. Historical. The light is long."
   },
   "sunset_picks": [
     {
