@@ -888,7 +888,7 @@ ${GSC_VERIFICATION ? `<meta name="google-site-verification" content="${esc(GSC_V
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;600;700;800&family=IBM+Plex+Mono:wght@500;600;700&family=Source+Sans+3:wght@400;600&display=swap">
-<link rel="stylesheet" href="/style.css?v=71">
+<link rel="stylesheet" href="/style.css?v=72">
 <script>
 // Set color mode before paint to avoid flash. Reads localStorage first,
 // falls back to light mode (the new editorial default). mode-ready class
@@ -1873,6 +1873,7 @@ function renderHome() {
           <li><a href="/quiz/"><span class="mtools-code">Q</span> Quiz <em>where to be tonight</em></a></li>
           <li><a href="/horoscope/"><span class="mtools-code">H</span> Horoscope <em>for the metro</em></a></li>
           <li><a href="/five/"><span class="mtools-code">5</span> Five Today <em>exactly five, decided for you</em></a></li>
+          <li><a href="/notes/"><span class="mtools-code">O</span> Notes <em>how the cities got this way</em></a></li>
           <li><a href="/surprise/"><span class="mtools-code">R</span> Surprise <em>a random pick</em></a></li>
           <li><a href="/mystery/"><span class="mtools-code">Y</span> Mystery <em>sealed-envelope nights</em></a></li>
           <li><a href="/departed/"><span class="mtools-code">D</span> Departed <em>places we lost</em></a></li>
@@ -2925,7 +2926,7 @@ function renderAdminPicks() {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>${esc(title)}</title>
-<link rel="stylesheet" href="/style.css?v=71">
+<link rel="stylesheet" href="/style.css?v=72">
 <style>
   body { background: var(--paper); }
   .admin-wrap { max-width: 960px; margin: 0 auto; padding: 32px var(--gutter) 96px; }
@@ -4656,6 +4657,77 @@ function renderToday() {
 }
 
 // ---------- Surprise — random place ----------
+// ---------- Notes — evergreen essays ----------
+// A small shelf, not a blog: each note answers a question people actually ask
+// about the Twin Cities, cites sources, and carries honest dates (published =
+// real publish date, modified = latest build). Article schema for AEO.
+const notesData = require(path.join(SRC, 'data/notes.js'));
+
+function renderNotesIndex() {
+  const description = 'Short, sourced essays on how the Twin Cities got this way: the Jucy Lucy feud, the skyways, First Avenue, and more.';
+  return head({ title: 'Notes on the Twin Cities', description, slug: 'notes', theme: 'default' }) +
+    header({ activeSlug: '' }) +
+    `<section class="section-head">
+       <div class="wrap">
+         <div class="section-eyebrow">${notesData.notes.length} essays</div>
+         <h1 class="section-title">Notes.</h1>
+         <p class="section-deck">${esc(notesData.intro)}</p>
+       </div>
+     </section>
+     <section class="wrap notes-list">
+       ${notesData.notes.map(n => `
+       <a class="notes-item" href="/notes/${esc(n.slug)}/">
+         <div class="notes-item-date">${esc(fmtLongDate(n.date))}</div>
+         <h2 class="notes-item-title">${esc(n.title)}</h2>
+         <p class="notes-item-deck">${esc(n.deck)}</p>
+         <span class="notes-item-arrow">Read →</span>
+       </a>`).join('')}
+     </section>` +
+    footer();
+}
+
+function fmtLongDate(iso) {
+  const [y, m, d] = iso.split('-').map(Number);
+  return new Date(y, m - 1, d).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+}
+
+function renderNote(n) {
+  const url = `${SITE}/notes/${n.slug}/`;
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: n.title,
+    description: n.deck,
+    datePublished: n.date,
+    dateModified: TODAY_ISO,
+    mainEntityOfPage: url,
+    author: { '@type': 'Organization', name: 'bestofmpls', url: `${SITE}/` },
+    publisher: { '@type': 'Organization', name: 'bestofmpls', url: `${SITE}/` }
+  };
+  const body = n.body.map(b => b.h ? `<h2 class="note-h">${esc(b.h)}</h2>` : `<p class="note-p">${b.p}</p>`).join('');
+  return head({ title: `${n.title} · Notes`, description: n.deck, slug: `notes/${n.slug}`, theme: 'default' }) +
+    `<script type="application/ld+json">${JSON.stringify(schema)}</script>` +
+    header({ activeSlug: '' }) +
+    `<article class="wrap note">
+       <header class="note-head">
+         <div class="section-eyebrow"><a href="/notes/" style="color: inherit;">Notes</a> · ${esc(fmtLongDate(n.date))}</div>
+         <h1 class="section-title">${esc(n.title)}</h1>
+         <p class="section-deck">${esc(n.deck)}</p>
+       </header>
+       <div class="note-body">${body}</div>
+       ${n.related && n.related.length ? `
+       <nav class="note-related" aria-label="Related guides">
+         ${n.related.map(r => `<a class="cal-chip" href="${esc(r.href)}">${esc(r.label)}</a>`).join('')}
+       </nav>` : ''}
+       ${n.sources && n.sources.length ? `
+       <div class="note-sources">
+         <h2 class="note-sources-title">Sources</h2>
+         <ul>${n.sources.map(s => `<li><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.label)}</a></li>`).join('')}</ul>
+       </div>` : ''}
+     </article>` +
+    footer();
+}
+
 // ---------- Five Today ----------
 // The 5-Every-Day pattern (reader idea via Erika): exactly five things for
 // today, some free, some worth the ticket, no scrolling. Date-seeded so the
@@ -6753,6 +6825,8 @@ function renderSitemap(neighborhoods, crossPages) {
     { loc: SITE + '/departed/', priority: '0.7' },
     { loc: SITE + '/surprise/', priority: '0.7' },
     { loc: SITE + '/five/', priority: '0.8' },
+    { loc: SITE + '/notes/', priority: '0.7' },
+    ...notesData.notes.map(n => ({ loc: SITE + '/notes/' + n.slug + '/', priority: '0.7' })),
     { loc: SITE + '/neighborhoods/', priority: '0.8' },
     { loc: SITE + '/glossary/', priority: '0.6' },
     { loc: SITE + '/search/', priority: '0.5' },
@@ -6856,6 +6930,10 @@ ${guideLines}
 ## Neighborhoods
 
 - [All neighborhood guides](${SITE}/neighborhoods/): ${neighborhoods.length} walkable guides across both cities
+
+## Essays
+
+- [Notes](${SITE}/notes/): short, sourced essays on how the Twin Cities got this way (the Jucy Lucy feud, the skyways, First Avenue)
 
 ## About
 
@@ -6997,6 +7075,8 @@ function build() {
   // Surprise — random place
   writeFile('surprise/index.html', renderSurprise());
   writeFile('five/index.html', renderFive());
+  writeFile('notes/index.html', renderNotesIndex());
+  for (const n of notesData.notes) writeFile(`notes/${n.slug}/index.html`, renderNote(n));
 
   // Loon's Nest slang glossary
   writeFile('glossary/index.html', renderSlang());
