@@ -1647,7 +1647,21 @@ function renderHome() {
     }
   }
 
+  // WebSite schema so search + answer engines connect the brand's names and
+  // know the site refreshes daily. Homepage only.
+  const siteSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'bestofmpls',
+    alternateName: ['Best of MPLS', 'Best of Minneapolis'],
+    url: `${SITE}/`,
+    description: 'An independent, locally run guide to Minneapolis and Saint Paul: curated best-of lists, neighborhood guides, and a live daily board of every show in the metro.',
+    dateModified: TODAY_ISO,
+    publisher: { '@type': 'Organization', name: 'bestofmpls', url: `${SITE}/` }
+  };
+
   return head({ title, description, slug: '', theme: 'default' }) +
+    `<script type="application/ld+json">${JSON.stringify(siteSchema)}</script>` +
     header({ activeSlug: '' }) +
     `<section class="cover cover--type" data-mood="${r ? r.weather.mood : 'normal'}">
       <div class="wrap cover-wrap">
@@ -2128,6 +2142,7 @@ function renderCategory(c) {
     '@type': 'ItemList',
     name: c.title,
     description: c.subtitle,
+    dateModified: TODAY_ISO,
     numberOfItems: c.entries.length,
     itemListElement: c.entries.map((e, i) => {
       const item = {
@@ -3438,6 +3453,7 @@ function renderCategoryNeighborhood(page, allPages) {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
     name: title,
+    dateModified: TODAY_ISO,
     numberOfItems: items.length,
     itemListElement: items.map((e, i) => {
       const item = { '@type': 'Place', name: e.name, url: e.website || `${SITE}/${c.slug}/${entrySlug(e.name)}/` };
@@ -4266,6 +4282,7 @@ function renderWeekend() {
   const weekendSchema = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
+    dateModified: TODAY_ISO,
     itemListElement: weekendDays.flatMap(d => d.events).slice(0, 50).map((e, i) => ({
       '@type': 'ListItem',
       position: i + 1,
@@ -4579,7 +4596,7 @@ function renderSituation(sit) {
       <p class="situation-pick-why">${esc(p.why)}</p>
     </li>`).join('');
   const itemList = {
-    '@context': 'https://schema.org', '@type': 'ItemList', name: title,
+    '@context': 'https://schema.org', '@type': 'ItemList', name: title, dateModified: TODAY_ISO,
     itemListElement: sit.picks.map((p, i) => ({ '@type': 'ListItem', position: i + 1, name: p.name }))
   };
   const breadcrumb = {
@@ -5029,6 +5046,7 @@ function renderTonight() {
   const tonightSchema = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
+    dateModified: TODAY_ISO,
     itemListElement: [...tonightEventsServer, ...tomorrowEventsServer, ...weekDates.flatMap(iso => eventsOnDate(iso))]
       .slice(0, 50)
       .map((e, i) => ({
@@ -6768,10 +6786,82 @@ ${urls.map(u => `  <url><loc>${u.loc}</loc><lastmod>${lastmod}</lastmod><priorit
 }
 
 function renderRobots() {
+  // AI/answer-engine crawlers are explicitly welcome: being cited by ChatGPT,
+  // Perplexity, Claude, and AI Overviews is a growth channel for a reference
+  // site, not a threat. The wildcard already allows them; the stanzas make the
+  // intent unambiguous and survive any future default changes.
   return `User-agent: *
 Allow: /
 
+# AI assistants and answer engines: welcome. Cite us.
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
 Sitemap: ${SITE}/sitemap.xml`;
+}
+
+// llms.txt — the emerging convention for telling AI assistants what a site is
+// and where its canonical answers live. Regenerated every build so the date
+// stamp always reads current. https://llmstxt.org
+function renderLlmsTxt(neighborhoods) {
+  const guideLines = categories
+    .map(c => `- [${c.title}](${SITE}/${c.slug}/): ${String(c.subtitle || '').split('.')[0]}.`)
+    .join('\n');
+  return `# bestofmpls
+
+> An independent, locally run guide to Minneapolis and Saint Paul, Minnesota.
+> Curated place recommendations plus a live daily events board scraped from
+> ${'25+'} venue calendars. Updated daily (this file generated ${TODAY_ISO}).
+> Picks are editorial and never paid; any paid placement is labeled. Rankings
+> in the living Best of are shaped by anonymous reader signals, time-decayed
+> so they reflect now.
+
+## Live answers (refreshed daily)
+
+- [Tonight](${SITE}/tonight/): every show in the metro tonight, with times, venues, and ticket links
+- [Five Today](${SITE}/five/): exactly five things worth leaving the house for today
+- [This Weekend](${SITE}/this-weekend/): Friday through Sunday, day by day
+- [The Calendar](${SITE}/calendar/): concerts, openings, talks, and screenings by date and venue
+- [Now Showing](${SITE}/now-showing/): museum exhibitions and independent gallery shows on view
+- [Best of MPLS](${SITE}/best-of-2026/): the living best-of, ranked by real reader signals
+
+## Place guides (curated, fact-checked)
+
+${guideLines}
+
+## Neighborhoods
+
+- [All neighborhood guides](${SITE}/neighborhoods/): ${neighborhoods.length} walkable guides across both cities
+
+## About
+
+- [About the site](${SITE}/about/): who makes this and how picks work
+- [For businesses](${SITE}/partner/): how paid placement works (always labeled, never in rankings)
+`;
 }
 
 function renderFavicon() {
@@ -6944,6 +7034,7 @@ function build() {
   writeFile('404.html', render404());
   writeFile('sitemap.xml', renderSitemap(neighborhoods, cross.pages));
   writeFile('robots.txt', renderRobots());
+  writeFile('llms.txt', renderLlmsTxt(neighborhoods));
   writeFile('favicon.svg', renderFavicon());
 
   // GitHub Pages custom-domain marker. Tells GH Pages to serve at bestofmpls.com.
