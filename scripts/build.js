@@ -2918,6 +2918,144 @@ function renderSeasonalCategory(c) {
 // localStorage and sends it as a header on each fetch. Not linked from the
 // site, not in sitemap, has noindex. Anyone can hit the URL but without the
 // admin key the worker returns 401.
+// ---------- /admin/ — the operations dashboard ----------
+// One glance answers: is the machine healthy, is the flywheel turning, what
+// needs my attention. Baked at build: content inventory + per-source scrape
+// health (the silent-scraper-death surface). Live via fetch: Living Best
+// signals. Links out to the picks inbox, Actions, and the worker. noindex +
+// robots-disallowed; the picks inbox keeps its own key gate.
+function renderAdminDash() {
+  const totalPlaces = categories.reduce((n, c) => n + c.entries.length, 0);
+  const evs = eventsData.events || [];
+  const srcRows = (eventsData.sources || []).slice().sort((a, b) => (a.ok === b.ok ? b.count - a.count : a.ok ? 1 : -1));
+  const okCount = srcRows.filter(s => s.ok && s.count > 0).length;
+  const scrapedAt = eventsData.generated_at || null;
+  // placeId → display name so the live signals join reads like English.
+  const nameMap = {};
+  for (const c of categories) for (const e of c.entries) nameMap[`${c.slug}/${entrySlug(e.name)}`] = `${e.name} · ${c.title}`;
+
+  return `<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Operations · bestofmpls</title>
+<link rel="stylesheet" href="/style.css?v=72">
+<style>
+  body { background: var(--paper); }
+  .ops-wrap { max-width: 1020px; margin: 0 auto; padding: 32px var(--gutter) 96px; }
+  .ops-mast { display: flex; align-items: baseline; justify-content: space-between; padding-bottom: 20px; border-bottom: 2px solid var(--ink); margin-bottom: 24px; flex-wrap: wrap; gap: 12px; }
+  .ops-mast h1 { font-family: var(--font-display); font-weight: 800; font-size: clamp(28px, 4vw, 40px); margin: 0; letter-spacing: -0.02em; }
+  .ops-stamp { font-family: var(--font-mono); font-size: 12px; color: var(--ink-faint); }
+  .ops-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 28px; }
+  .ops-stat { padding: 16px 18px; border: 1px solid var(--rule); border-radius: var(--radius); }
+  .ops-stat-label { font-family: var(--font-label); font-weight: 700; font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 6px; }
+  .ops-stat-value { font-family: var(--font-mono); font-weight: 700; font-size: 30px; color: var(--ink); line-height: 1; }
+  .ops-stat-value.is-live { color: var(--clay); }
+  .ops-h2 { font-family: var(--font-display); font-weight: 800; font-size: 20px; margin: 36px 0 6px; }
+  .ops-note { font-family: var(--font-body); font-size: 13px; color: var(--ink-faint); margin: 0 0 14px; }
+  table.ops-table { width: 100%; border-collapse: collapse; font-family: var(--font-body); font-size: 14px; }
+  .ops-table th { font-family: var(--font-label); font-weight: 700; font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-faint); text-align: left; padding: 8px 10px; border-bottom: 2px solid var(--ink); }
+  .ops-table td { padding: 9px 10px; border-bottom: 1px solid var(--rule-soft); vertical-align: baseline; }
+  .ops-table td.num { font-family: var(--font-mono); font-variant-numeric: tabular-nums; text-align: right; }
+  .ops-pip { display: inline-block; width: 9px; height: 9px; border-radius: 999px; margin-right: 8px; vertical-align: middle; }
+  .ops-pip.ok { background: #2E7D32; }
+  .ops-pip.bad { background: var(--clay); animation: bom-pulse-none 0s; }
+  tr.is-bad td { color: var(--clay); font-weight: 600; }
+  .ops-links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+  .ops-links a { font-family: var(--font-label); font-weight: 700; font-size: 12px; letter-spacing: 0.06em; color: var(--ink); text-decoration: none; border: 1px solid var(--rule); border-radius: 999px; padding: 10px 16px; }
+  .ops-links a:hover { border-color: var(--clay); color: var(--clay); }
+  .ops-badge { height: 20px; vertical-align: middle; }
+  .ops-empty { font-family: var(--font-body); font-size: 14px; color: var(--ink-faint); padding: 14px 0; }
+</style>
+</head>
+<body>
+${header({ activeSlug: '' })}
+<main class="ops-wrap">
+  <div class="ops-mast">
+    <h1>Operations</h1>
+    <span class="ops-stamp">built ${esc(TODAY_ISO)}${scrapedAt ? ` · scraped ${esc(String(scrapedAt).slice(0, 16).replace('T', ' '))} UTC` : ''}</span>
+  </div>
+
+  <div class="ops-grid">
+    <div class="ops-stat"><div class="ops-stat-label">Places</div><div class="ops-stat-value">${totalPlaces}</div></div>
+    <div class="ops-stat"><div class="ops-stat-label">Guides</div><div class="ops-stat-value">${categories.length}</div></div>
+    <div class="ops-stat"><div class="ops-stat-label">Events live</div><div class="ops-stat-value">${evs.length}</div></div>
+    <div class="ops-stat"><div class="ops-stat-label">Scrapers healthy</div><div class="ops-stat-value">${okCount}/${srcRows.length}</div></div>
+    <div class="ops-stat"><div class="ops-stat-label">Local voices</div><div class="ops-stat-value is-live" id="ops-voices">…</div></div>
+  </div>
+
+  <h2 class="ops-h2">Deploy</h2>
+  <p class="ops-note">The badge is live from GitHub. A red badge or a stale "scraped" stamp above means the pipeline needs a look.</p>
+  <a href="https://github.com/JSUNDBY/bestofmpls/actions/workflows/deploy.yml"><img class="ops-badge" src="https://github.com/JSUNDBY/bestofmpls/actions/workflows/deploy.yml/badge.svg" alt="deploy status"></a>
+
+  <h2 class="ops-h2">Scrape health</h2>
+  <p class="ops-note">Per-source results from the last run. A dead source fails soft (site keeps working) but its venue goes quiet on the board, so red rows are the thing to catch here.</p>
+  <table class="ops-table">
+    <thead><tr><th>Source</th><th style="text-align:right;">Events</th><th>Status</th></tr></thead>
+    <tbody>
+      ${srcRows.map(s => {
+        const bad = !s.ok || s.count === 0;
+        return `<tr${bad ? ' class="is-bad"' : ''}><td><span class="ops-pip ${bad ? 'bad' : 'ok'}"></span>${esc(s.label)}</td><td class="num">${s.count}</td><td>${s.ok ? (s.count === 0 ? 'ok but zero — check markup' : 'ok') : esc(s.error || 'failed')}</td></tr>`;
+      }).join('')}
+    </tbody>
+  </table>
+
+  <h2 class="ops-h2">The Living Best, live</h2>
+  <p class="ops-note">Straight from the worker, refreshed every minute. Every row is a real anonymous tap.</p>
+  <div id="ops-signals"><div class="ops-empty">Loading signals…</div></div>
+
+  <h2 class="ops-h2">Doors</h2>
+  <div class="ops-links">
+    <a href="/admin/picks/">Reader picks inbox →</a>
+    <a href="https://github.com/JSUNDBY/bestofmpls">Repo</a>
+    <a href="https://github.com/JSUNDBY/bestofmpls/actions">Actions</a>
+    <a href="https://dash.cloudflare.com/">Worker (Cloudflare)</a>
+    <a href="https://app.beehiiv.com/">Newsletter (Beehiiv)</a>
+    <a href="/llms.txt">llms.txt</a>
+    <a href="/best-of-${BEST_OF_YEAR}/">The living Best of</a>
+  </div>
+</main>
+<script>
+(function(){
+  var WORKER = ${JSON.stringify(POLL_WORKER_URL)};
+  var NAMES = ${JSON.stringify(nameMap)};
+  function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  function load(){
+    fetch(WORKER + '/signals').then(function(r){ return r.json(); }).then(function(d){
+      var places = d.places || {};
+      var rows = [];
+      var voices = new Set();
+      Object.keys(places).forEach(function(pid){
+        if (pid.indexOf('smoke-test') === 0) return;
+        var p = places[pid];
+        var n = { pid: pid, saves: (p.saves||[]).length, regulars: (p.regulars||[]).length, directions: (p.directions||[]).length, stories: (p.stories||[]).length };
+        n.total = n.saves + n.regulars + n.directions + n.stories;
+        if (n.total > 0) rows.push(n);
+      });
+      rows.sort(function(a,b){ return (b.regulars*3 + b.saves + b.directions + b.stories*5) - (a.regulars*3 + a.saves + a.directions + a.stories*5); });
+      var voiceCount = rows.reduce(function(n,r){ return n + r.total; }, 0);
+      var el = document.getElementById('ops-voices');
+      if (el) el.textContent = voiceCount;
+      var out = document.getElementById('ops-signals');
+      if (!rows.length) { out.innerHTML = '<div class="ops-empty">No signals yet. The flywheel starts with the first tap.</div>'; return; }
+      out.innerHTML = '<table class="ops-table"><thead><tr><th>Place</th><th style="text-align:right;">Saves</th><th style="text-align:right;">Regulars</th><th style="text-align:right;">Directions</th><th style="text-align:right;">Moments</th></tr></thead><tbody>' +
+        rows.map(function(r){
+          var label = NAMES[r.pid] || r.pid;
+          return '<tr><td>' + esc(label) + '</td><td class="num">' + r.saves + '</td><td class="num">' + r.regulars + '</td><td class="num">' + r.directions + '</td><td class="num">' + r.stories + '</td></tr>';
+        }).join('') + '</tbody></table>';
+    }).catch(function(){
+      var out = document.getElementById('ops-signals');
+      if (out) out.innerHTML = '<div class="ops-empty">Could not reach the worker.</div>';
+    });
+  }
+  load();
+  setInterval(load, 60000);
+})();
+</script>
+</body></html>`;
+}
+
 function renderAdminPicks() {
   const title = 'Reader Picks · Admin';
   return `<!DOCTYPE html>
@@ -6866,6 +7004,7 @@ function renderRobots() {
   // intent unambiguous and survive any future default changes.
   return `User-agent: *
 Allow: /
+Disallow: /admin/
 
 # AI assistants and answer engines: welcome. Cite us.
 User-agent: GPTBot
@@ -7102,6 +7241,7 @@ function build() {
 
   // Private admin dashboard for reader poll submissions. Not in sitemap,
   // marked noindex. Anyone can hit the URL but the worker enforces auth.
+  writeFile('admin/index.html', renderAdminDash());
   writeFile('admin/picks/index.html', renderAdminPicks());
   writeFile('contribute/index.html', renderContribute());
   writeFile('partner/index.html', renderPartner());
