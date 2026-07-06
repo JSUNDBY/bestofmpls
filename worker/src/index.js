@@ -24,7 +24,8 @@ import { EmailMessage } from 'cloudflare:email';
 const ALLOWED_ORIGINS = [
   'https://bestofmpls.com',
   'https://www.bestofmpls.com',
-  'http://localhost:47823'
+  'http://localhost:47823',
+  'http://localhost:47905'
 ];
 
 // Notification email. NOTIFY_TO must match the send_email binding's
@@ -397,6 +398,57 @@ export default {
     }
 
     // ===== GET /admin/recent (board only) =====
+    // ===== GET /admin/stories — every story with its moderation state =====
+    if (request.method === 'GET' && url.pathname === '/admin/stories') {
+      const adminKey = request.headers.get('X-Admin-Key');
+      if (!env.ADMIN_KEY || adminKey !== env.ADMIN_KEY) {
+        return json({ error: 'unauthorized' }, 401, origin);
+      }
+      const out = [];
+      let cursor;
+      do {
+        const page = await env.POLLS.list({ prefix: 'lb:', cursor });
+        for (const k of page.keys) {
+          const v = await env.POLLS.get(k.name);
+          if (!v) continue;
+          try {
+            const rec = JSON.parse(v);
+            const place = k.name.slice(3);
+            for (const s of rec.stories || []) out.push({ place, ts: s.ts, text: s.text, ok: !!s.ok });
+          } catch (_) {}
+        }
+        cursor = page.list_complete ? null : page.cursor;
+      } while (cursor);
+      out.sort((a, b) => b.ts - a.ts);
+      return json({ count: out.length, stories: out }, 200, origin);
+    }
+
+    // ===== POST /admin/story — publish (ok:true), unpublish (ok:false), or
+    // remove a story, identified by (place, ts) =====
+    if (request.method === 'POST' && url.pathname === '/admin/story') {
+      const adminKey = request.headers.get('X-Admin-Key');
+      if (!env.ADMIN_KEY || adminKey !== env.ADMIN_KEY) {
+        return json({ error: 'unauthorized' }, 401, origin);
+      }
+      let body;
+      try { body = await request.json(); }
+      catch (_) { return json({ error: 'invalid json' }, 400, origin); }
+      const place = clean(body.place, 120).toLowerCase().replace(/[^a-z0-9/_-]/g, '');
+      const ts = Number(body.ts);
+      if (!place || !ts) return json({ error: 'bad place/ts' }, 400, origin);
+      const key = `lb:${place}`;
+      const v = await env.POLLS.get(key);
+      if (!v) return json({ error: 'no such place' }, 404, origin);
+      let rec;
+      try { rec = JSON.parse(v); } catch (_) { return json({ error: 'corrupt record' }, 500, origin); }
+      const idx = (rec.stories || []).findIndex(s => s.ts === ts);
+      if (idx < 0) return json({ error: 'no such story' }, 404, origin);
+      if (body.remove) rec.stories.splice(idx, 1);
+      else rec.stories[idx].ok = !!body.ok;
+      await env.POLLS.put(key, JSON.stringify(rec));
+      return json({ ok: true, place, ts, action: body.remove ? 'removed' : (body.ok ? 'published' : 'unpublished') }, 200, origin);
+    }
+
     if (request.method === 'GET' && url.pathname === '/admin/recent') {
       const adminKey = request.headers.get('X-Admin-Key');
       if (!env.ADMIN_KEY || adminKey !== env.ADMIN_KEY) {

@@ -2929,10 +2929,31 @@ function renderAdminDash() {
   const evs = eventsData.events || [];
   const srcRows = (eventsData.sources || []).slice().sort((a, b) => (a.ok === b.ok ? b.count - a.count : a.ok ? 1 : -1));
   const okCount = srcRows.filter(s => s.ok && s.count > 0).length;
+  const badCount = srcRows.length - okCount;
   const scrapedAt = eventsData.generated_at || null;
-  // placeId → display name so the live signals join reads like English.
+  // placeId -> display name so live tables read like English.
   const nameMap = {};
   for (const c of categories) for (const e of c.entries) nameMap[`${c.slug}/${entrySlug(e.name)}`] = `${e.name} · ${c.title}`;
+  // Latest AEO tracking section, baked in so the answer-engine scoreboard
+  // lives where the decisions get made.
+  let aeoBlock = '';
+  try {
+    const md = fs.readFileSync(path.join(ROOT, 'growth/AEO-TRACKING.md'), 'utf8');
+    const sections = md.split(/^## /m).slice(1);
+    if (sections.length) {
+      const latest = sections[sections.length - 1];
+      const title = latest.split('\n')[0].trim();
+      const tableLines = latest.split('\n').filter(l => l.trim().startsWith('|'));
+      const rows = tableLines.filter(l => !/^\|\s*-/.test(l.trim())).map(l => l.split('|').slice(1, -1).map(c => c.trim()));
+      if (rows.length > 1) {
+        aeoBlock = `
+  <h2 class="ops-h2">Answer engines · ${esc(title)}</h2>
+  <p class="ops-note">From growth/AEO-TRACKING.md. Re-checked on the 5th of each month.</p>
+  <table class="ops-table"><thead><tr>${rows[0].map(h => `<th>${esc(h)}</th>`).join('')}</tr></thead>
+  <tbody>${rows.slice(1).map(r => `<tr>${r.map(c => `<td>${esc(c)}</td>`).join('')}</tr>`).join('')}</tbody></table>`;
+      }
+    }
+  } catch (_) { /* file optional */ }
 
   return `<!DOCTYPE html>
 <html lang="en"><head>
@@ -2947,10 +2968,31 @@ function renderAdminDash() {
   .ops-mast { display: flex; align-items: baseline; justify-content: space-between; padding-bottom: 20px; border-bottom: 2px solid var(--ink); margin-bottom: 24px; flex-wrap: wrap; gap: 12px; }
   .ops-mast h1 { font-family: var(--font-display); font-weight: 800; font-size: clamp(28px, 4vw, 40px); margin: 0; letter-spacing: -0.02em; }
   .ops-stamp { font-family: var(--font-mono); font-size: 12px; color: var(--ink-faint); }
-  .ops-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 28px; }
+  .ops-signout { appearance: none; background: transparent; border: 1px solid var(--rule); border-radius: 999px; padding: 6px 14px; font-family: var(--font-label); font-weight: 700; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-soft); cursor: pointer; }
+  .ops-signout:hover { border-color: var(--clay); color: var(--clay); }
+  /* Login gate */
+  .ops-gate { min-height: 70vh; display: flex; align-items: center; justify-content: center; }
+  .ops-gate-card { width: 100%; max-width: 400px; padding: 40px 36px; border: 1px solid var(--rule); border-radius: var(--radius); }
+  .ops-gate-mark { width: 52px; height: 52px; border-radius: 12px; background: var(--clay); color: #F4EEDF; display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-weight: 800; font-size: 32px; margin-bottom: 20px; }
+  .ops-gate-card h1 { font-family: var(--font-display); font-weight: 800; font-size: 26px; margin: 0 0 4px; }
+  .ops-gate-card p { font-family: var(--font-body); font-size: 14px; color: var(--ink-faint); margin: 0 0 20px; }
+  .ops-gate-card label { display: block; font-family: var(--font-label); font-weight: 700; font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 8px; }
+  .ops-gate-card input { width: 100%; box-sizing: border-box; padding: 13px 14px; border: 1px solid var(--rule); border-radius: var(--radius); font-family: var(--font-mono); font-size: 15px; background: transparent; color: var(--ink); }
+  .ops-gate-card input:focus { outline: none; border-color: var(--clay); }
+  .ops-gate-btn { margin-top: 16px; width: 100%; appearance: none; background: var(--ink); color: var(--paper); border: 0; border-radius: var(--radius); padding: 13px; font-family: var(--font-label); font-weight: 700; font-size: 13px; letter-spacing: 0.06em; cursor: pointer; }
+  .ops-gate-btn:hover { background: var(--clay); }
+  .ops-gate-err { color: var(--clay); font-family: var(--font-body); font-size: 13.5px; margin-top: 12px; min-height: 18px; }
+  /* Attention strip */
+  .ops-attn { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-bottom: 24px; }
+  .ops-attn-card { padding: 14px 16px; border-radius: var(--radius); border: 1px solid var(--rule); text-decoration: none; display: block; color: inherit; }
+  .ops-attn-card.is-hot { border-color: var(--clay); background: rgba(200,32,15,0.05); }
+  .ops-attn-num { font-family: var(--font-mono); font-weight: 700; font-size: 24px; line-height: 1; }
+  .ops-attn-card.is-hot .ops-attn-num { color: var(--clay); }
+  .ops-attn-label { font-family: var(--font-label); font-weight: 700; font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-faint); margin-top: 6px; }
+  .ops-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-bottom: 28px; }
   .ops-stat { padding: 16px 18px; border: 1px solid var(--rule); border-radius: var(--radius); }
   .ops-stat-label { font-family: var(--font-label); font-weight: 700; font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 6px; }
-  .ops-stat-value { font-family: var(--font-mono); font-weight: 700; font-size: 30px; color: var(--ink); line-height: 1; }
+  .ops-stat-value { font-family: var(--font-mono); font-weight: 700; font-size: 28px; color: var(--ink); line-height: 1; }
   .ops-stat-value.is-live { color: var(--clay); }
   .ops-h2 { font-family: var(--font-display); font-weight: 800; font-size: 20px; margin: 36px 0 6px; }
   .ops-note { font-family: var(--font-body); font-size: 13px; color: var(--ink-faint); margin: 0 0 14px; }
@@ -2960,37 +3002,75 @@ function renderAdminDash() {
   .ops-table td.num { font-family: var(--font-mono); font-variant-numeric: tabular-nums; text-align: right; }
   .ops-pip { display: inline-block; width: 9px; height: 9px; border-radius: 999px; margin-right: 8px; vertical-align: middle; }
   .ops-pip.ok { background: #2E7D32; }
-  .ops-pip.bad { background: var(--clay); animation: bom-pulse-none 0s; }
+  .ops-pip.bad { background: var(--clay); }
   tr.is-bad td { color: var(--clay); font-weight: 600; }
   .ops-links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
   .ops-links a { font-family: var(--font-label); font-weight: 700; font-size: 12px; letter-spacing: 0.06em; color: var(--ink); text-decoration: none; border: 1px solid var(--rule); border-radius: 999px; padding: 10px 16px; }
   .ops-links a:hover { border-color: var(--clay); color: var(--clay); }
   .ops-badge { height: 20px; vertical-align: middle; }
   .ops-empty { font-family: var(--font-body); font-size: 14px; color: var(--ink-faint); padding: 14px 0; }
+  .ops-inbox-item { display: flex; gap: 12px; align-items: baseline; padding: 10px 0; border-bottom: 1px solid var(--rule-soft); font-family: var(--font-body); font-size: 14px; flex-wrap: wrap; }
+  .ops-kind { font-family: var(--font-label); font-weight: 700; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--clay); border: 1px solid currentColor; border-radius: 999px; padding: 2px 8px; flex: none; }
+  .ops-when { font-family: var(--font-mono); font-size: 11.5px; color: var(--ink-faint); margin-left: auto; }
+  .ops-story { padding: 14px 16px; border: 1px solid var(--rule); border-radius: var(--radius); margin-bottom: 12px; }
+  .ops-story.is-published { border-color: #2E7D32; }
+  .ops-story-place { font-family: var(--font-label); font-weight: 700; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--clay); margin-bottom: 6px; }
+  .ops-story-text { font-family: var(--font-body); font-size: 14.5px; color: var(--ink); margin: 0 0 10px; }
+  .ops-story-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+  .ops-story-actions button { appearance: none; background: transparent; border: 1px solid var(--rule); border-radius: 999px; padding: 6px 14px; font-family: var(--font-label); font-weight: 700; font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); cursor: pointer; }
+  .ops-story-actions button:hover { background: var(--ink); color: var(--paper); }
+  .ops-story-actions button.pub:hover { background: #2E7D32; border-color: #2E7D32; }
+  .ops-story-actions button.rm:hover { background: var(--clay); border-color: var(--clay); }
+  .ops-story-state { font-family: var(--font-mono); font-size: 11px; color: var(--ink-faint); margin-left: auto; }
 </style>
 </head>
 <body>
 ${header({ activeSlug: '' })}
-<main class="ops-wrap">
+
+<div class="ops-gate" id="gate">
+  <div class="ops-gate-card">
+    <div class="ops-gate-mark">b</div>
+    <h1>Operations</h1>
+    <p>The back room. One key opens everything, including the picks inbox.</p>
+    <label for="ops-key">Admin key</label>
+    <input type="password" id="ops-key" autocomplete="current-password" placeholder="paste your key">
+    <button class="ops-gate-btn" id="ops-unlock" type="button">Unlock</button>
+    <div class="ops-gate-err" id="ops-err"></div>
+  </div>
+</div>
+
+<main class="ops-wrap" id="ops" style="display:none;">
   <div class="ops-mast">
     <h1>Operations</h1>
     <span class="ops-stamp">built ${esc(TODAY_ISO)}${scrapedAt ? ` · scraped ${esc(String(scrapedAt).slice(0, 16).replace('T', ' '))} UTC` : ''}</span>
+    <button class="ops-signout" id="ops-signout" type="button">Sign out</button>
   </div>
+
+  <div class="ops-attn" id="ops-attn"></div>
 
   <div class="ops-grid">
     <div class="ops-stat"><div class="ops-stat-label">Places</div><div class="ops-stat-value">${totalPlaces}</div></div>
     <div class="ops-stat"><div class="ops-stat-label">Guides</div><div class="ops-stat-value">${categories.length}</div></div>
     <div class="ops-stat"><div class="ops-stat-label">Events live</div><div class="ops-stat-value">${evs.length}</div></div>
-    <div class="ops-stat"><div class="ops-stat-label">Scrapers healthy</div><div class="ops-stat-value">${okCount}/${srcRows.length}</div></div>
+    <div class="ops-stat"><div class="ops-stat-label">Scrapers</div><div class="ops-stat-value">${okCount}/${srcRows.length}</div></div>
     <div class="ops-stat"><div class="ops-stat-label">Local voices</div><div class="ops-stat-value is-live" id="ops-voices">…</div></div>
+    <div class="ops-stat"><div class="ops-stat-label">Newsletter (recent)</div><div class="ops-stat-value is-live" id="ops-news">…</div></div>
   </div>
 
   <h2 class="ops-h2">Deploy</h2>
-  <p class="ops-note">The badge is live from GitHub. A red badge or a stale "scraped" stamp above means the pipeline needs a look.</p>
+  <p class="ops-note">Live from GitHub. Red badge or a stale scraped stamp above means the pipeline needs a look. <a href="https://github.com/JSUNDBY/bestofmpls/actions/workflows/deploy.yml">Open Actions →</a></p>
   <a href="https://github.com/JSUNDBY/bestofmpls/actions/workflows/deploy.yml"><img class="ops-badge" src="https://github.com/JSUNDBY/bestofmpls/actions/workflows/deploy.yml/badge.svg" alt="deploy status"></a>
 
-  <h2 class="ops-h2">Scrape health</h2>
-  <p class="ops-note">Per-source results from the last run. A dead source fails soft (site keeps working) but its venue goes quiet on the board, so red rows are the thing to catch here.</p>
+  <h2 class="ops-h2" id="inbox">Inbox</h2>
+  <p class="ops-note">Latest reader submissions. The <a href="/admin/picks/">full inbox</a> has filters, tallies, and handled-tracking.</p>
+  <div id="ops-inbox"><div class="ops-empty">Loading…</div></div>
+
+  <h2 class="ops-h2" id="stories">Moments to moderate</h2>
+  <p class="ops-note">Reader stories publish to the Best of pages only after you approve them here.</p>
+  <div id="ops-stories"><div class="ops-empty">Loading…</div></div>
+
+  <h2 class="ops-h2" id="scrape">Scrape health</h2>
+  <p class="ops-note">Per-source results from the last run. A dead source fails soft, but its venue goes quiet on the board.</p>
   <table class="ops-table">
     <thead><tr><th>Source</th><th style="text-align:right;">Events</th><th>Status</th></tr></thead>
     <tbody>
@@ -3003,11 +3083,11 @@ ${header({ activeSlug: '' })}
 
   <h2 class="ops-h2">The Living Best, live</h2>
   <p class="ops-note">Straight from the worker, refreshed every minute. Every row is a real anonymous tap.</p>
-  <div id="ops-signals"><div class="ops-empty">Loading signals…</div></div>
-
+  <div id="ops-signals"><div class="ops-empty">Loading…</div></div>
+${aeoBlock}
   <h2 class="ops-h2">Doors</h2>
   <div class="ops-links">
-    <a href="/admin/picks/">Reader picks inbox →</a>
+    <a href="/admin/picks/">Full picks inbox →</a>
     <a href="https://github.com/JSUNDBY/bestofmpls">Repo</a>
     <a href="https://github.com/JSUNDBY/bestofmpls/actions">Actions</a>
     <a href="https://dash.cloudflare.com/">Worker (Cloudflare)</a>
@@ -3016,16 +3096,106 @@ ${header({ activeSlug: '' })}
     <a href="/best-of-${BEST_OF_YEAR}/">The living Best of</a>
   </div>
 </main>
+
 <script>
 (function(){
   var WORKER = ${JSON.stringify(POLL_WORKER_URL)};
   var NAMES = ${JSON.stringify(nameMap)};
+  var BAD_SCRAPERS = ${badCount};
+  var SCRAPED_AT = ${JSON.stringify(scrapedAt)};
+  var KEY_STORAGE = 'bom-admin-key';
+  var HANDLED_STORAGE = 'bom-handled-ids';
+
   function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-  function load(){
+  function getKey(){ return localStorage.getItem(KEY_STORAGE) || ''; }
+  function handled(){ try { return new Set(JSON.parse(localStorage.getItem(HANDLED_STORAGE) || '[]')); } catch(_) { return new Set(); } }
+  function ago(ts){ var m = Math.round((Date.now() - ts) / 60000); if (m < 60) return m + 'm ago'; var h = Math.round(m / 60); if (h < 48) return h + 'h ago'; return Math.round(h / 24) + 'd ago'; }
+
+  function show(id){ document.getElementById(id).style.display = ''; }
+  function hide(id){ document.getElementById(id).style.display = 'none'; }
+
+  function authFetch(path, opts){
+    opts = opts || {};
+    opts.headers = Object.assign({}, opts.headers, { 'X-Admin-Key': getKey() });
+    return fetch(WORKER + path, opts);
+  }
+
+  // ---- Attention strip ----
+  var ATTN = { tips: null, stories: null };
+  function renderAttn(){
+    var cards = [];
+    var stale = SCRAPED_AT ? (Date.now() - new Date(SCRAPED_AT).getTime()) > 36 * 3600 * 1000 : false;
+    cards.push({ n: BAD_SCRAPERS, label: 'scrapers need a look', href: '#scrape', hot: BAD_SCRAPERS > 0 });
+    if (ATTN.tips !== null) cards.push({ n: ATTN.tips, label: 'new submissions', href: '#inbox', hot: ATTN.tips > 0 });
+    if (ATTN.stories !== null) cards.push({ n: ATTN.stories, label: 'moments awaiting review', href: '#stories', hot: ATTN.stories > 0 });
+    if (stale) cards.push({ n: '!', label: 'scrape is stale (36h+)', href: 'https://github.com/JSUNDBY/bestofmpls/actions', hot: true });
+    document.getElementById('ops-attn').innerHTML = cards.map(function(c){
+      return '<a class="ops-attn-card' + (c.hot ? ' is-hot' : '') + '" href="' + c.href + '"><div class="ops-attn-num">' + c.n + '</div><div class="ops-attn-label">' + esc(c.label) + '</div></a>';
+    }).join('');
+  }
+
+  // ---- Inbox preview ----
+  function loadInbox(data){
+    var subs = (data && data.submissions) || [];
+    var done = handled();
+    var fresh = subs.filter(function(s){ return !done.has(s.id); });
+    ATTN.tips = fresh.filter(function(s){ return s.kind !== 'newsletter'; }).length;
+    var news = subs.filter(function(s){ return s.kind === 'newsletter'; }).length;
+    var el = document.getElementById('ops-news');
+    if (el) el.textContent = news;
+    var out = document.getElementById('ops-inbox');
+    if (!subs.length) { out.innerHTML = '<div class="ops-empty">Nothing yet.</div>'; renderAttn(); return; }
+    out.innerHTML = subs.slice(0, 6).map(function(s){
+      var what = s.place || s.category || (s.email ? 'newsletter signup' : '');
+      return '<div class="ops-inbox-item"><span class="ops-kind">' + esc(s.kind || '?') + '</span><span>' + esc(String(what).slice(0, 70)) + '</span><span class="ops-when">' + (s.ts ? ago(s.ts) : '') + '</span></div>';
+    }).join('');
+    renderAttn();
+  }
+
+  // ---- Stories moderation ----
+  function loadStories(){
+    authFetch('/admin/stories').then(function(r){
+      if (r.status === 404) { document.getElementById('ops-stories').innerHTML = '<div class="ops-empty">Worker update not deployed yet. Run: cd worker && npx wrangler deploy</div>'; ATTN.stories = null; renderAttn(); return null; }
+      if (!r.ok) throw new Error(r.status);
+      return r.json();
+    }).then(function(d){
+      if (!d) return;
+      var out = document.getElementById('ops-stories');
+      var stories = d.stories || [];
+      ATTN.stories = stories.filter(function(s){ return !s.ok; }).length;
+      renderAttn();
+      if (!stories.length) { out.innerHTML = '<div class="ops-empty">No reader moments yet.</div>'; return; }
+      out.innerHTML = stories.map(function(s){
+        return '<div class="ops-story' + (s.ok ? ' is-published' : '') + '" data-place="' + esc(s.place) + '" data-ts="' + s.ts + '">' +
+          '<div class="ops-story-place">' + esc(NAMES[s.place] || s.place) + '</div>' +
+          '<p class="ops-story-text">' + esc(s.text) + '</p>' +
+          '<div class="ops-story-actions">' +
+            (s.ok ? '<button type="button" data-act="unpub">Unpublish</button>' : '<button type="button" class="pub" data-act="pub">Publish</button>') +
+            '<button type="button" class="rm" data-act="rm">Remove</button>' +
+            '<span class="ops-story-state">' + (s.ok ? 'live on the site' : 'awaiting review') + ' · ' + ago(s.ts) + '</span>' +
+          '</div></div>';
+      }).join('');
+      out.querySelectorAll('button[data-act]').forEach(function(btn){
+        btn.addEventListener('click', function(){
+          var card = btn.closest('.ops-story');
+          var act = btn.dataset.act;
+          var body = { place: card.dataset.place, ts: Number(card.dataset.ts) };
+          if (act === 'rm') { if (!confirm('Remove this moment for good?')) return; body.remove = true; }
+          else body.ok = act === 'pub';
+          authFetch('/admin/story', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) })
+            .then(function(r){ if (r.ok) loadStories(); });
+        });
+      });
+    }).catch(function(){
+      document.getElementById('ops-stories').innerHTML = '<div class="ops-empty">Could not load stories.</div>';
+    });
+  }
+
+  // ---- Living Best signals (public) ----
+  function loadSignals(){
     fetch(WORKER + '/signals').then(function(r){ return r.json(); }).then(function(d){
       var places = d.places || {};
       var rows = [];
-      var voices = new Set();
       Object.keys(places).forEach(function(pid){
         if (pid.indexOf('smoke-test') === 0) return;
         var p = places[pid];
@@ -3034,23 +3204,53 @@ ${header({ activeSlug: '' })}
         if (n.total > 0) rows.push(n);
       });
       rows.sort(function(a,b){ return (b.regulars*3 + b.saves + b.directions + b.stories*5) - (a.regulars*3 + a.saves + a.directions + a.stories*5); });
-      var voiceCount = rows.reduce(function(n,r){ return n + r.total; }, 0);
       var el = document.getElementById('ops-voices');
-      if (el) el.textContent = voiceCount;
+      if (el) el.textContent = rows.reduce(function(n,r){ return n + r.total; }, 0);
       var out = document.getElementById('ops-signals');
       if (!rows.length) { out.innerHTML = '<div class="ops-empty">No signals yet. The flywheel starts with the first tap.</div>'; return; }
       out.innerHTML = '<table class="ops-table"><thead><tr><th>Place</th><th style="text-align:right;">Saves</th><th style="text-align:right;">Regulars</th><th style="text-align:right;">Directions</th><th style="text-align:right;">Moments</th></tr></thead><tbody>' +
         rows.map(function(r){
-          var label = NAMES[r.pid] || r.pid;
-          return '<tr><td>' + esc(label) + '</td><td class="num">' + r.saves + '</td><td class="num">' + r.regulars + '</td><td class="num">' + r.directions + '</td><td class="num">' + r.stories + '</td></tr>';
+          return '<tr><td>' + esc(NAMES[r.pid] || r.pid) + '</td><td class="num">' + r.saves + '</td><td class="num">' + r.regulars + '</td><td class="num">' + r.directions + '</td><td class="num">' + r.stories + '</td></tr>';
         }).join('') + '</tbody></table>';
     }).catch(function(){
-      var out = document.getElementById('ops-signals');
-      if (out) out.innerHTML = '<div class="ops-empty">Could not reach the worker.</div>';
+      document.getElementById('ops-signals').innerHTML = '<div class="ops-empty">Could not reach the worker.</div>';
     });
   }
-  load();
-  setInterval(load, 60000);
+
+  // ---- Auth flow ----
+  function enter(data){
+    hide('gate'); show('ops');
+    loadInbox(data);
+    loadStories();
+    loadSignals();
+    setInterval(loadSignals, 60000);
+  }
+  function tryKey(key, fromGate){
+    return fetch(WORKER + '/admin/recent', { headers: { 'X-Admin-Key': key } }).then(function(r){
+      if (r.status === 401) throw new Error('That key is not right.');
+      if (!r.ok) throw new Error('Worker error (' + r.status + '). Try again.');
+      return r.json();
+    }).then(function(data){
+      localStorage.setItem(KEY_STORAGE, key);
+      enter(data);
+    }).catch(function(e){
+      if (fromGate) document.getElementById('ops-err').textContent = e.message;
+      else { show('gate'); }
+    });
+  }
+  document.getElementById('ops-unlock').addEventListener('click', function(){
+    var k = document.getElementById('ops-key').value.trim();
+    if (k) tryKey(k, true);
+  });
+  document.getElementById('ops-key').addEventListener('keydown', function(e){ if (e.key === 'Enter') document.getElementById('ops-unlock').click(); });
+  document.getElementById('ops-signout').addEventListener('click', function(){
+    localStorage.removeItem(KEY_STORAGE);
+    location.reload();
+  });
+
+  // Boot: silent sign-in when the key is already on this device.
+  var existing = getKey();
+  if (existing) { hide('gate'); tryKey(existing, false); }
 })();
 </script>
 </body></html>`;
