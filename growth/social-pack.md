@@ -11,12 +11,12 @@
 
 **Shot list:**
 - Jacob Cloutier w. Lexie Modica at White Squirrel Bar (18:00) — b-roll of the venue or a poster
+- Roe Family Singers at The 331 Club (18:00) — b-roll of the venue or a poster
 - Sounds of Santana at Dakota Jazz Club (19:00) — b-roll of the venue or a poster
 - L.A.'s Monday Nights at Icehouse (20:00) — b-roll of the venue or a poster
 - Metal Mondays at White Squirrel Bar (21:00) — b-roll of the venue or a poster
-- Thomas Sticha at White Squirrel Bar (18:00) — b-roll of the venue or a poster
 
-**Caption:** Five ways to spend the weekend, no scrolling six apps required. Full calendar and more at the link. White Squirrel Bar, Dakota Jazz Club, Icehouse and more.
+**Caption:** Five ways to spend the weekend, no scrolling six apps required. Full calendar and more at the link. White Squirrel Bar, The 331 Club, Dakota Jazz Club and more.
 
 **Tags:** #minneapolis #saintpaul #twincities #onlyinmn #mnpls #mplsevents #twincitieslife #thingstodomn
 
