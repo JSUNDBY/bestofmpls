@@ -10,13 +10,13 @@
 **Hook:** On screen, frame 1: "5 things to do this weekend in Minneapolis"
 
 **Shot list:**
-- Brass Messengers at The 331 Club (17:00) — b-roll of the venue or a poster
-- Natania & Ticket to Brasil at Dakota Jazz Club (19:00) — b-roll of the venue or a poster
 - Jacob Cloutier w. Lexie Modica at White Squirrel Bar (18:00) — b-roll of the venue or a poster
 - Roe Family Singers at The 331 Club (18:00) — b-roll of the venue or a poster
 - Sounds of Santana at Dakota Jazz Club (19:00) — b-roll of the venue or a poster
+- L.A.'s Monday Nights at Icehouse (20:00) — b-roll of the venue or a poster
+- Metal Mondays at White Squirrel Bar (21:00) — b-roll of the venue or a poster
 
-**Caption:** Five ways to spend the weekend, no scrolling six apps required. Full calendar and more at the link. The 331 Club, Dakota Jazz Club, White Squirrel Bar and more.
+**Caption:** Five ways to spend the weekend, no scrolling six apps required. Full calendar and more at the link. White Squirrel Bar, The 331 Club, Dakota Jazz Club and more.
 
 **Tags:** #minneapolis #saintpaul #twincities #onlyinmn #mnpls #mplsevents #twincitieslife #thingstodomn
 
@@ -60,9 +60,9 @@
 **Hook:** Slide 1: "Your Minneapolis horoscope this week"
 
 **Shot list:**
-- Gemini: "Words come easy. The right ones arrive first. A long-stalled conversation finally moves fo..."
-- Cancer: "A quiet kind of confidence arrives without being asked. A long conversation in the kitchen..."
-- Leo: "The light is on you today. You are ready for it. A small generosity comes back bigger than..."
+- Gemini: "You finish a sentence someone else started, correctly. A question you asked in March gets ..."
+- Cancer: "The weather and your mood are in easy agreement. The afternoon has more warmth in it than ..."
+- Leo: "A small audience finds you and you are generous with them. A meeting you were uncertain ab..."
 
 **Caption:** A weekly reading written for the metro. All twelve signs at the link. Which one are you.
 
