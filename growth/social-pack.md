@@ -1,6 +1,6 @@
-# Best of MPLS — Content Plan (week of June 29)
+# Best of MPLS — Content Plan (week of July 6)
 
-8 post concepts from live site data. Faceless-friendly: each is a shot list, not an on-camera script. Shoot 2-3 in one outing, let the repurposer fan them across IG / TikTok / Reels / Threads. The Post slot is a suggested time to queue it.
+7 post concepts from live site data. Faceless-friendly: each is a shot list, not an on-camera script. Shoot 2-3 in one outing, let the repurposer fan them across IG / TikTok / Reels / Threads. The Post slot is a suggested time to queue it.
 
 ---
 
@@ -10,77 +10,59 @@
 **Hook:** On screen, frame 1: "5 things to do this weekend in Minneapolis"
 
 **Shot list:**
-- Erin Livingston and Adi Yeshaya at Crooners Supper Club (17:00) — b-roll of the venue or a poster
-- Volunteer Orientation at The Cedar Cultural Center (17:30) — b-roll of the venue or a poster
-- Kate Beahen and Friends Sing Broadway and More at Crooners Supper Club (18:00) — b-roll of the venue or a poster
-- Pop Wagner at White Squirrel Bar (18:00) — b-roll of the venue or a poster
-- Anders Osborne at Dakota Jazz Club (19:00) — b-roll of the venue or a poster
+- Brass Messengers at The 331 Club (17:00) — b-roll of the venue or a poster
+- Natania & Ticket to Brasil at Dakota Jazz Club (19:00) — b-roll of the venue or a poster
+- Jacob Cloutier w. Lexie Modica at White Squirrel Bar (18:00) — b-roll of the venue or a poster
+- Roe Family Singers at The 331 Club (18:00) — b-roll of the venue or a poster
+- Sounds of Santana at Dakota Jazz Club (19:00) — b-roll of the venue or a poster
 
-**Caption:** Five ways to spend the weekend, no scrolling six apps required. Full calendar and more at the link. Crooners Supper Club, The Cedar Cultural Center, Crooners Supper Club and more.
+**Caption:** Five ways to spend the weekend, no scrolling six apps required. Full calendar and more at the link. The 331 Club, Dakota Jazz Club, White Squirrel Bar and more.
 
 **Tags:** #minneapolis #saintpaul #twincities #onlyinmn #mnpls #mplsevents #twincitieslife #thingstodomn
 
 ---
 
-## 2. Happy Hour Pick: Restaurant Alma
+## 2. Happy Hour Pick: Kincaid's Fish, Chop & Steak
 **Format:** Reel (10-15s)  ·  **Post:** Tue 11:30 AM
 
 **Hook:** On screen: "The happy hour locals actually go to"
 
 **Shot list:**
-- Exterior of Restaurant Alma (Como, Minneapolis)
+- Exterior of Kincaid's Fish, Chop & Steak (Downtown St. Paul)
 - The drink and a snack, close up
-- Text overlay: Tue–Sat 4–5:30pm cafe side
+- Text overlay: Mon–Fri 4–6pm, bar & lounge only
 
-**Caption:** Restaurant Alma in Como, Minneapolis. Alma's cafe-side happy hour is the move for the budget-conscious fine-diner. Cheese boards, charcuterie, wines by the glass at prices that feel like a small mistake on the restaurant's end. More happy hours at the link.
+**Caption:** Kincaid's Fish, Chop & Steak in Downtown St. Paul. The bar at the downtown St. Paul power-lunch steakhouse runs one of the best-priced menus in the city from four to six: prime rib sliders for thirteen dollars, coconut shrimp for nine, fried deviled eggs for seven, drafts from five to six-fifty and cocktails from eight to eleven. The kind of bar food that makes you skip the dining room on purpose. More happy hours at the link.
 
 **Tags:** #minneapolis #saintpaul #twincities #onlyinmn #mnpls #mplsbars #twincitiescocktails #mnbeer
 
 ---
 
-## 3. A Perfect Day in North Loop
-**Format:** Reel or carousel  ·  **Post:** Wed 5:30 PM
-
-**Hook:** On screen: "Where to eat and drink in North Loop, ranked by a local"
-
-**Shot list:**
-- Fairgrounds Coffee and Tea (Coffee Shops) — quick exterior + one signature shot
-- Bar at Spoon and Stable (Cocktail Bars) — quick exterior + one signature shot
-- Char Bar (Cocktail Bars) — quick exterior + one signature shot
-- Public Domain (Cocktail Bars) — quick exterior + one signature shot
-- Parlour (Cocktail Bars) — quick exterior + one signature shot
-
-**Caption:** One neighborhood, a whole day. North Loop done right. Full neighborhood guide at the link.
-
-**Tags:** #minneapolis #saintpaul #twincities #onlyinmn #mnpls #mplsfood #twincitieseats #mnfood #eatlocalmn
-
----
-
-## 4. Chase This Truck: Que Chula Es Puebla
-**Format:** Reel (10-15s)  ·  **Post:** Thu 11:30 AM
+## 3. Chase This Truck: Gino's South Philly
+**Format:** Reel (10-15s)  ·  **Post:** Wed 5:30 PM
 
 **Hook:** On screen: "The food truck worth tracking down"
 
 **Shot list:**
-- Que Chula Es Puebla truck, wide
+- Gino's South Philly truck, wide
 - The food, hero shot
-- Text overlay: Pueblan Mexican
+- Text overlay: Philly cheesesteaks
 
-**Caption:** Que Chula Es Puebla. Cemitas, tacos, huaraches, burritos, and quesadillas from a truck that parks daily on Bloomington Ave and E Lake St in Minneapolis. Open long hours, seven days a week. The cemitas are the signature. We keep a running map of where the trucks are, link in bio.
+**Caption:** Gino's South Philly. A truly authentic Philly cheesesteak with ingredients sourced straight from Philadelphia, so every bite tastes like home. Catch it at metro breweries and distilleries like Trove and Angry Inch. The cheesesteak is the whole reason they exist. We keep a running map of where the trucks are, link in bio.
 
 **Tags:** #minneapolis #saintpaul #twincities #onlyinmn #mnpls #mplsfood #twincitieseats #mnfood #eatlocalmn #foodtruck
 
 ---
 
-## 5. Twin Cities Horoscope
-**Format:** Carousel (3-4 slides)  ·  **Post:** Fri 4:00 PM
+## 4. Twin Cities Horoscope
+**Format:** Carousel (3-4 slides)  ·  **Post:** Thu 11:30 AM
 
 **Hook:** Slide 1: "Your Minneapolis horoscope this week"
 
 **Shot list:**
-- Taurus: "The radio plays the song you needed to hear. A gift you did not ask for arrives. Somewhere..."
 - Gemini: "Words come easy. The right ones arrive first. A long-stalled conversation finally moves fo..."
 - Cancer: "A quiet kind of confidence arrives without being asked. A long conversation in the kitchen..."
+- Leo: "The light is on you today. You are ready for it. A small generosity comes back bigger than..."
 
 **Caption:** A weekly reading written for the metro. All twelve signs at the link. Which one are you.
 
@@ -88,35 +70,17 @@
 
 ---
 
-## 6. Pizza
-**Format:** Reel or carousel  ·  **Post:** Sat 10:00 AM
-
-**Hook:** On screen: "Best pizza in the Twin Cities, no chains"
-
-**Shot list:**
-- Tono Pizzeria + Cheesesteaks (50th & France) — signature shot
-- Pizzeria Lola (Armatage) — signature shot
-- Black Sheep Coal-Fired Pizza (North Loop) — signature shot
-- Punch Pizza (Multiple locations) — signature shot
-- Wrecktangle Pizza (Multiple Twin Cities locations) — signature shot
-
-**Caption:** Where to get a real slice. Full list at the link.
-
-**Tags:** #minneapolis #saintpaul #twincities #onlyinmn #mnpls #mplsfood #twincitieseats #mnfood #eatlocalmn
-
----
-
-## 7. Coffee Shops
-**Format:** Reel or carousel  ·  **Post:** Sun 11:00 AM
+## 5. Coffee Shops
+**Format:** Reel or carousel  ·  **Post:** Fri 4:00 PM
 
 **Hook:** On screen: "Coffee shops worth leaving the house for"
 
 **Shot list:**
-- Nina’s Coffee Cafe (Cathedral Hill) — signature shot
 - Penny’s Coffee (North Loop and downtown) — signature shot
 - Backstory Coffee Roasters (North Loop) — signature shot
 - Fairgrounds Coffee and Tea (North Loop) — signature shot
 - Càphin (Linden Hills) — signature shot
+- Caffetto (Lyn-Lake) — signature shot
 
 **Caption:** The metro's best roasters and rooms. Full guide at the link.
 
@@ -124,16 +88,34 @@
 
 ---
 
-## 8. New and Worth the Table
-**Format:** Carousel  ·  **Post:** Mon 12:00 PM
+## 6. Cocktail Bars
+**Format:** Reel or carousel  ·  **Post:** Sat 10:00 AM
+
+**Hook:** On screen: "Where to actually get a good cocktail"
+
+**Shot list:**
+- Du Nord Cocktail Room (Longfellow) — signature shot
+- The Dampfwerk Distillery (St. Louis Park) — signature shot
+- Volstead’s Emporium (Lyn-Lake) — signature shot
+- Norseman Distillery (Northeast Minneapolis) — signature shot
+- Earl Giles (Northeast Minneapolis) — signature shot
+
+**Caption:** The bars that take the drink seriously. Full list at the link.
+
+**Tags:** #minneapolis #saintpaul #twincities #onlyinmn #mnpls #mplsfood #twincitieseats #mnfood #eatlocalmn
+
+---
+
+## 7. New and Worth the Table
+**Format:** Carousel  ·  **Post:** Sun 11:00 AM
 
 **Hook:** Slide 1: "New Twin Cities restaurants people are actually talking about"
 
 **Shot list:**
-- St. Genevieve — French, Steven Brown
 - Cafe Yoto — Japanese
 - Šhotá — Indigenous BBQ, Sean Sherman
 - Mestiizo — Mexican-Asian, cocktail bar
+- Bar Oscar — Cocktail and wine bar
 
 **Caption:** The openings worth your next reservation. More at the link.
 
