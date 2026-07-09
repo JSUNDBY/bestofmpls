@@ -1933,5 +1933,9 @@
   "4355 Nicollet Ave, Minneapolis, MN 55409": {
     "lat": 44.9240839,
     "lng": -93.277815
+  },
+  "400 Selby Ave, St. Paul": {
+    "lat": 44.9461617,
+    "lng": -93.1177421
   }
 }

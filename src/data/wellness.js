@@ -7,6 +7,15 @@ module.exports = {
   needs_verification: true,
   entries: [
     {
+      name: 'ONX + Amelia',
+      neighborhood: 'Cathedral Hill, St. Paul',
+      style: 'Heated yoga + strength studio',
+      description: 'A yoga and strength studio built on the idea that movement is community, a collaboration between ONX and Amelia Ruth Yoga. The Cathedral Hill original opened in 2021; a second studio took over the old Alchemy 365 space near St. Anthony Main in Northeast Minneapolis in late 2024, and picked up several of those coaches when the chain folded. Heated classes, a mix of yoga, strength, and conditioning, and a room that regulars describe as a genuinely safe place to sweat.',
+      address: '400 Selby Ave, St. Paul',
+      website: 'https://www.onxandamelia.com',
+      price: '$$'
+    },
+    {
       name: 'Watershed Spa',
       neighborhood: 'Northeast Minneapolis',
       style: 'Nordic-style sauna and cold plunge',
