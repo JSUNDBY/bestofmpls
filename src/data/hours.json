@@ -3197,62 +3197,6 @@
     "hours": [],
     "fetched_at": "2026-05-07T16:51:40.481Z"
   },
-  "best-dive-bars:CC Club": {
-    "place_id": "ChIJUwd2ms0ys1IREKoGY8iIkMw",
-    "matched_name": "CC Club",
-    "matched_address": "2600 Lyndale Ave S, Minneapolis, MN 55408, USA",
-    "location": {
-      "latitude": 44.955388,
-      "longitude": -93.288444
-    },
-    "business_status": "OPERATIONAL",
-    "types": [
-      "bar",
-      "american_restaurant",
-      "restaurant",
-      "food",
-      "point_of_interest",
-      "establishment"
-    ],
-    "hours": [
-      {
-        "day": 0,
-        "open": "11:00",
-        "close": "02:00"
-      },
-      {
-        "day": 1,
-        "open": "15:00",
-        "close": "02:00"
-      },
-      {
-        "day": 2,
-        "open": "15:00",
-        "close": "02:00"
-      },
-      {
-        "day": 3,
-        "open": "15:00",
-        "close": "02:00"
-      },
-      {
-        "day": 4,
-        "open": "11:00",
-        "close": "02:00"
-      },
-      {
-        "day": 5,
-        "open": "11:00",
-        "close": "02:00"
-      },
-      {
-        "day": 6,
-        "open": "11:00",
-        "close": "02:00"
-      }
-    ],
-    "fetched_at": "2026-05-07T16:51:40.957Z"
-  },
   "best-dive-bars:Mortimer\u2019s": {
     "place_id": "ChIJ7fYSZcUys1IR1PRcjN-kMw0",
     "matched_name": "Mortimer's Bar and Restaurant",

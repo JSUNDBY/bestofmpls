@@ -88,7 +88,7 @@ module.exports = {
       title: 'A rainy night',
       deck: 'Steady rain, low ceiling, the kind of evening that is improved by a candlelit table and someone you like.',
       picks: [
-        { kind: 'A short walk in', name: 'The CC Club', neighborhood: 'Lyn-Lake, Minneapolis', why: 'A neighborhood bar that has not changed in any way that matters since the Replacements drank here in the eighties. Order a beer, slide into a booth, watch the windows fog. Stay an hour.' },
+        { kind: 'A short walk in', name: "Mortimer's", neighborhood: 'Lyn-Lake, Minneapolis', why: 'A Lyn-Lake dive a couple blocks up Lyndale with strong pours, a jukebox, and low-lit booths a rainy night is made for. Slide in, watch the windows fog, stay an hour.' },
         { kind: 'Dinner', name: 'Khâluna', neighborhood: 'Lyn-Lake, Minneapolis', why: "Ann Ahmed's Lao restaurant in the room that used to be Heyday. The room glows, the green-curry-and-coconut air does what no jacket can, the cocktails are built around the food. Worth the rain." },
         { kind: 'A late drink', name: "Volstead's Emporium", neighborhood: 'Uptown, Minneapolis', why: 'A speakeasy three blocks from Khâluna with an unmarked door on Lake Street. Live jazz on weekends, leather booths, low light, and the rain keeps the crowd manageable.' },
         { kind: 'A movie if you want one', name: 'Trylon Cinema', neighborhood: 'Longfellow, Minneapolis', why: 'A 50-seat second-run cinema in a converted brick building. The popcorn is good, the projectionist cares, the rain on the way in becomes part of the night.' }

@@ -116,14 +116,6 @@ module.exports = {
       description: 'Open since 1932 and arguably the oldest pub house in Minneapolis. Pool tables, daily specials, and live music five nights a week with never a cover. A genuine Longfellow neighborhood relic that has outlasted nearly everything around it by simply refusing to change.',
       address: '2901 27th Ave S, Minneapolis',
       price: '$'
-    },
-    {
-      name: 'CC Club',
-      neighborhood: 'Lyn-Lake, Minneapolis',
-      style: 'Vinyl jukebox, Replacements memorabilia',
-      description: 'Paul Westerberg drank here. The Replacements wrote about it. The vinyl jukebox is real and the cheeseburgers are better than they should be. Come early on weekends or come on a Tuesday.',
-      address: '2600 Lyndale Ave S, Minneapolis',
-      price: '$'
     }
   ]
 };
