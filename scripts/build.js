@@ -321,7 +321,7 @@ function isNoiseEvent(e) { return NOISE_RE.test(e.title || ''); }
 
 // The marquee rooms — used to prefer a real headliner when picking the night's
 // anchor show.
-const MARQUEE_VENUES = new Set(['First Avenue', '7th St Entry', 'Fine Line', 'Turf Club', 'Palace Theatre', 'The Cedar Cultural Center', 'Dakota Jazz Club', 'Varsity Theater', 'Walker Art Center', 'Amsterdam Bar & Hall', 'The Armory', 'Icehouse', 'Crooners Supper Club', 'Berlin', 'The Parkway Theater', 'Orchestra Hall', 'Ordway Concert Hall']);
+const MARQUEE_VENUES = new Set(['First Avenue', '7th St Entry', 'Fine Line', 'Turf Club', 'Palace Theatre', 'The Cedar Cultural Center', 'Dakota Jazz Club', 'Varsity Theater', 'Walker Art Center', 'Amsterdam Bar & Hall', 'The Armory', 'Icehouse', 'Crooners Supper Club', 'Berlin', 'The Parkway Theater', 'Orchestra Hall', 'Ordway Concert Hall', 'Lake Harriet Bandshell']);
 
 function collapseFilms(events) {
   // Returns { films: [{title, venue, venue_neighborhood, url, image, first_date,

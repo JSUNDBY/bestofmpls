@@ -57,7 +57,9 @@ const SCRAPERS = [
   require('./scrapers/dreamsong.js'),
   require('./scrapers/soovac.js'),
   require('./scrapers/highpoint.js'),
-  require('./scrapers/mmaa.js')
+  require('./scrapers/mmaa.js'),
+  // Free outdoor
+  require('./scrapers/lakeharriet.js')
 ];
 
 function parseArgs() {
