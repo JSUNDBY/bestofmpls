@@ -1160,6 +1160,7 @@ function footer() {
       <div class="colophon-meta">
         <span>© ${new Date().getFullYear()} bestofmpls.</span>
         <span>Made in Minneapolis.</span>
+        <span>Site by <a href="https://joshsundby.com/ai-consulting/">Josh Sundby</a>.</span>
       </div>
     </div>
   </div>
