@@ -13,8 +13,8 @@
 - Maryann Sullivan and Ted Godbout at Crooners Supper Club (17:00) — b-roll of the venue or a poster
 - Bastille My Heart at Crooners Supper Club (18:00) — b-roll of the venue or a poster
 - Mumblin’ Drew’s Oldfangled Orchestrators at White Squirrel Bar (18:00) — b-roll of the venue or a poster
-- Roe Family Singers at The 331 Club (18:00) — b-roll of the venue or a poster
 - Jennifers Rule the World! at Crooners Supper Club (19:00) — b-roll of the venue or a poster
+- Our House: Tribute to Crosby, Stills, Nash & Young at Dakota Jazz Club (19:00) — b-roll of the venue or a poster
 
 **Caption:** Five ways to spend the weekend, no scrolling six apps required. Full calendar and more at the link. Crooners Supper Club, Crooners Supper Club, White Squirrel Bar and more.
 
