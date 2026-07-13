@@ -10,13 +10,13 @@
 **Hook:** On screen, frame 1: "5 things to do this weekend in Minneapolis"
 
 **Shot list:**
-- Emmy Woods and friends at The 331 Club (16:00) — b-roll of the venue or a poster
-- Curated by Aida Shahghasemi: feat. Christopher Rochester & Kavyesh Kaviraj at Berlin (19:00) — b-roll of the venue or a poster
-- Lucius Arthur at 7th St Entry — b-roll of the venue or a poster
-- Paul Oakenfold and The Crystal Method at First Avenue — b-roll of the venue or a poster
 - Maryann Sullivan and Ted Godbout at Crooners Supper Club (17:00) — b-roll of the venue or a poster
+- Bastille My Heart at Crooners Supper Club (18:00) — b-roll of the venue or a poster
+- Mumblin’ Drew’s Oldfangled Orchestrators at White Squirrel Bar (18:00) — b-roll of the venue or a poster
+- Roe Family Singers at The 331 Club (18:00) — b-roll of the venue or a poster
+- Jennifers Rule the World! at Crooners Supper Club (19:00) — b-roll of the venue or a poster
 
-**Caption:** Five ways to spend the weekend, no scrolling six apps required. Full calendar and more at the link. The 331 Club, Berlin, 7th St Entry and more.
+**Caption:** Five ways to spend the weekend, no scrolling six apps required. Full calendar and more at the link. Crooners Supper Club, Crooners Supper Club, White Squirrel Bar and more.
 
 **Tags:** #minneapolis #saintpaul #twincities #onlyinmn #mnpls #mplsevents #twincitieslife #thingstodomn
 
@@ -77,9 +77,9 @@
 **Hook:** Slide 1: "Your Minneapolis horoscope this week"
 
 **Shot list:**
-- Cancer: "The weather and your mood are in easy agreement. The afternoon has more warmth in it than ..."
-- Leo: "A small audience finds you and you are generous with them. A meeting you were uncertain ab..."
-- Virgo: "Everything runs on time today and you made that happen. You catch a price drop. Small win,..."
+- Cancer: "The first hour belongs to whoever you live with, and it is warm. A gift you forgot you sen..."
+- Leo: "Someone you hoped would notice you, notices. You apologize for a small thing and it clears..."
+- Virgo: "A small repair, twenty minutes, large and satisfying gain. A long email gets a short, kind..."
 
 **Caption:** A weekly reading written for the metro. All twelve signs at the link. Which one are you.
 
