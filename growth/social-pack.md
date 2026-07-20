@@ -1,4 +1,4 @@
-# Best of MPLS — Content Plan (week of July 13)
+# Best of MPLS — Content Plan (week of July 20)
 
 8 post concepts from live site data. Faceless-friendly: each is a shot list, not an on-camera script. Shoot 2-3 in one outing, let the repurposer fan them across IG / TikTok / Reels / Threads. The Post slot is a suggested time to queue it.
 
@@ -10,62 +10,63 @@
 **Hook:** On screen, frame 1: "5 things to do this weekend in Minneapolis"
 
 **Shot list:**
-- Maryann Sullivan and Ted Godbout at Crooners Supper Club (17:00) — b-roll of the venue or a poster
-- Bastille My Heart at Crooners Supper Club (18:00) — b-roll of the venue or a poster
-- Mumblin’ Drew’s Oldfangled Orchestrators at White Squirrel Bar (18:00) — b-roll of the venue or a poster
-- Roe Family Singers at The 331 Club (18:00) — b-roll of the venue or a poster
-- Jennifers Rule the World! at Crooners Supper Club (19:00) — b-roll of the venue or a poster
+- Latin Dance MN presents Aurora do Samba at The Cedar Cultural Center (16:00) — b-roll of the venue or a poster
+- Switchyard at The 331 Club (17:00) — b-roll of the venue or a poster
+- Curated by Aida Shahghasemi: feat. Niloofar Sohi, Niyayesh Shababi, & Niloufar Shiri at Berlin (19:00) — b-roll of the venue or a poster
+- Cabaret: Aitkin at General Admission (19:30) — b-roll of the venue or a poster
+- Billy Allen + The Pollies at Turf Club — b-roll of the venue or a poster
 
-**Caption:** Five ways to spend the weekend, no scrolling six apps required. Full calendar and more at the link. Crooners Supper Club, Crooners Supper Club, White Squirrel Bar and more.
+**Caption:** Five ways to spend the weekend, no scrolling six apps required. Full calendar and more at the link. The Cedar Cultural Center, The 331 Club, Berlin and more.
 
 **Tags:** #minneapolis #saintpaul #twincities #onlyinmn #mnpls #mplsevents #twincitieslife #thingstodomn
 
 ---
 
-## 2. Happy Hour Pick: Dark Horse Bar & Eatery
+## 2. Happy Hour Pick: Alary's Kitchen + Bar
 **Format:** Reel (10-15s)  ·  **Post:** Tue 11:30 AM
 
 **Hook:** On screen: "The happy hour locals actually go to"
 
 **Shot list:**
-- Exterior of Dark Horse Bar & Eatery (Lowertown, St. Paul)
+- Exterior of Alary's Kitchen + Bar (Lowertown, St. Paul)
 - The drink and a snack, close up
-- Text overlay: Tue–Fri 3–5:30pm
+- Text overlay: Daily 3–6pm (not on event days)
 
-**Caption:** Dark Horse Bar & Eatery in Lowertown, St. Paul. Back from the dead and better for it. Dark Horse ran a happy hour that Lowertown regulars planned around, closed during the rough stretch, and reopened with the dill wings, house-made hummus, discounted drinks, and rotating specials still intact. The move before a Wild game or anything at the Palace Theatre. More happy hours at the link.
+**Caption:** Alary's Kitchen + Bar in Lowertown, St. Paul. A St. Paul bar that has been on 7th Street long enough to have an opinion about the Xcel Energy Center being built. The daily happy hour from three to six is simple: two dollars off all taps, liquor, and appetizers including the pretzels. Every day except event blackouts near the arena. More happy hours at the link.
 
 **Tags:** #minneapolis #saintpaul #twincities #onlyinmn #mnpls #mplsbars #twincitiescocktails #mnbeer
 
 ---
 
-## 3. A Perfect Day in Cathedral Hill
+## 3. A Perfect Day in Linden Hills
 **Format:** Reel or carousel  ·  **Post:** Wed 5:30 PM
 
-**Hook:** On screen: "Where to eat and drink in Cathedral Hill, ranked by a local"
+**Hook:** On screen: "Where to eat and drink in Linden Hills, ranked by a local"
 
 **Shot list:**
-- Aubergine (Burgers & Juicy Lucys) — quick exterior + one signature shot
-- Hyacinth (Restaurants) — quick exterior + one signature shot
-- Moscow on the Hill (Restaurants) — quick exterior + one signature shot
-- Nina’s Coffee Cafe (Coffee Shops) — quick exterior + one signature shot
+- Cardamom (Pastries & Bakeries) — quick exterior + one signature shot
+- Le Burger 4304 (Burgers & Juicy Lucys) — quick exterior + one signature shot
+- Martina (Restaurants) — quick exterior + one signature shot
+- Picnic (Restaurants) — quick exterior + one signature shot
+- Càphin (Coffee Shops) — quick exterior + one signature shot
 
-**Caption:** One neighborhood, a whole day. Cathedral Hill done right. Full neighborhood guide at the link.
+**Caption:** One neighborhood, a whole day. Linden Hills done right. Full neighborhood guide at the link.
 
 **Tags:** #minneapolis #saintpaul #twincities #onlyinmn #mnpls #mplsfood #twincitieseats #mnfood #eatlocalmn
 
 ---
 
-## 4. Chase This Truck: Best Steak & Gyros House
+## 4. Chase This Truck: Kabomelette
 **Format:** Reel (10-15s)  ·  **Post:** Thu 11:30 AM
 
 **Hook:** On screen: "The food truck worth tracking down"
 
 **Shot list:**
-- Best Steak & Gyros House truck, wide
+- Kabomelette truck, wide
 - The food, hero shot
-- Text overlay: Mediterranean
+- Text overlay: Gluten-free brunch
 
-**Caption:** Best Steak & Gyros House. A downtown Minneapolis lunch staple on Portland Ave, open weekday late mornings into early afternoon. Gyros done right and fast. Easy weekday fix when you need something quick and filling. We keep a running map of where the trucks are, link in bio.
+**Caption:** Kabomelette. Healthy, affordable, fast brunch with signature gluten-free dishes you will find at farmers markets, breweries, and festivals. A regular Saturday fixture at the Midtown Farmers Market in Minneapolis. Great for a veggie-friendly morning bite. We keep a running map of where the trucks are, link in bio.
 
 **Tags:** #minneapolis #saintpaul #twincities #onlyinmn #mnpls #mplsfood #twincitieseats #mnfood #eatlocalmn #foodtruck
 
@@ -77,9 +78,9 @@
 **Hook:** Slide 1: "Your Minneapolis horoscope this week"
 
 **Shot list:**
-- Cancer: "The first hour belongs to whoever you live with, and it is warm. A gift you forgot you sen..."
 - Leo: "Someone you hoped would notice you, notices. You apologize for a small thing and it clears..."
 - Virgo: "A small repair, twenty minutes, large and satisfying gain. A long email gets a short, kind..."
+- Libra: "Light through curtains. The day announces itself softly and well. You extend grace to your..."
 
 **Caption:** A weekly reading written for the metro. All twelve signs at the link. Which one are you.
 
@@ -87,37 +88,37 @@
 
 ---
 
-## 6. Cocktail Bars
+## 6. Burgers & Juicy Lucys
 **Format:** Reel or carousel  ·  **Post:** Sat 10:00 AM
 
-**Hook:** On screen: "Where to actually get a good cocktail"
+**Hook:** On screen: "The burger Minneapolis invented and will fight you about"
 
 **Shot list:**
-- The Dampfwerk Distillery (St. Louis Park) — signature shot
-- Volstead’s Emporium (Lyn-Lake) — signature shot
-- Norseman Distillery (Northeast Minneapolis) — signature shot
-- Earl Giles (Northeast Minneapolis) — signature shot
-- Bar at Spoon and Stable (North Loop) — signature shot
+- Red Cow (Multiple Twin Cities locations) — signature shot
+- Citizen Supper Club (St. Paul) — signature shot
+- Parlour Bar St. Paul (West Seventh) — signature shot
+- Gus Gus (Merriam Park) — signature shot
+- Aubergine (Cathedral Hill) — signature shot
 
-**Caption:** The bars that take the drink seriously. Full list at the link.
+**Caption:** The Juicy Lucy and the best burgers in the metro. Full ranking at the link.
 
 **Tags:** #minneapolis #saintpaul #twincities #onlyinmn #mnpls #mplsfood #twincitieseats #mnfood #eatlocalmn
 
 ---
 
-## 7. Burgers & Juicy Lucys
+## 7. Pizza
 **Format:** Reel or carousel  ·  **Post:** Sun 11:00 AM
 
-**Hook:** On screen: "The burger Minneapolis invented and will fight you about"
+**Hook:** On screen: "Best pizza in the Twin Cities, no chains"
 
 **Shot list:**
-- Brunson’s Pub (Payne-Phalen) — signature shot
-- Red Cow (Multiple Twin Cities locations) — signature shot
-- Citizen Supper Club (St. Paul) — signature shot
-- Parlour Bar St. Paul (West Seventh) — signature shot
-- Gus Gus (Merriam Park) — signature shot
+- Punch Pizza (Multiple locations) — signature shot
+- Wrecktangle Pizza (Multiple Twin Cities locations) — signature shot
+- Cossetta’s (West Seventh) — signature shot
+- Boludo (St. Paul) — signature shot
+- Pig Ate My Pizza (Robbinsdale (and Bloomington)) — signature shot
 
-**Caption:** The Juicy Lucy and the best burgers in the metro. Full ranking at the link.
+**Caption:** Where to get a real slice. Full list at the link.
 
 **Tags:** #minneapolis #saintpaul #twincities #onlyinmn #mnpls #mplsfood #twincitieseats #mnfood #eatlocalmn
 
@@ -129,10 +130,10 @@
 **Hook:** Slide 1: "New Twin Cities restaurants people are actually talking about"
 
 **Shot list:**
-- Šhotá — Indigenous BBQ, Sean Sherman
 - Mestiizo — Mexican-Asian, cocktail bar
 - Bar Oscar — Cocktail and wine bar
 - Jook Sing — Cantonese American, Mike Yuen + Tony Gao
+- Oro by Nixta — Mexican, masa-driven
 
 **Caption:** The openings worth your next reservation. More at the link.
 
