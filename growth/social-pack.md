@@ -10,13 +10,13 @@
 **Hook:** On screen, frame 1: "5 things to do this weekend in Minneapolis"
 
 **Shot list:**
-- Latin Dance MN presents Aurora do Samba at The Cedar Cultural Center (16:00) — b-roll of the venue or a poster
-- Switchyard at The 331 Club (17:00) — b-roll of the venue or a poster
-- Curated by Aida Shahghasemi: feat. Niloofar Sohi, Niyayesh Shababi, & Niloufar Shiri at Berlin (19:00) — b-roll of the venue or a poster
-- Cabaret: Aitkin at General Admission (19:30) — b-roll of the venue or a poster
-- Billy Allen + The Pollies at Turf Club — b-roll of the venue or a poster
+- Cindi Scheffler at Crooners Supper Club (17:00) — b-roll of the venue or a poster
+- Club Day Monday Cabaret at Crooners Supper Club (18:00) — b-roll of the venue or a poster
+- Devil Dodger at White Squirrel Bar (18:00) — b-roll of the venue or a poster
+- Roe Family Singers at The 331 Club (18:00) — b-roll of the venue or a poster
+- Tim Sparks & Tom Lieberman at Dakota Jazz Club (19:00) — b-roll of the venue or a poster
 
-**Caption:** Five ways to spend the weekend, no scrolling six apps required. Full calendar and more at the link. The Cedar Cultural Center, The 331 Club, Berlin and more.
+**Caption:** Five ways to spend the weekend, no scrolling six apps required. Full calendar and more at the link. Crooners Supper Club, Crooners Supper Club, White Squirrel Bar and more.
 
 **Tags:** #minneapolis #saintpaul #twincities #onlyinmn #mnpls #mplsevents #twincitieslife #thingstodomn
 
@@ -78,9 +78,9 @@
 **Hook:** Slide 1: "Your Minneapolis horoscope this week"
 
 **Shot list:**
-- Leo: "Someone you hoped would notice you, notices. You apologize for a small thing and it clears..."
-- Virgo: "A small repair, twenty minutes, large and satisfying gain. A long email gets a short, kind..."
-- Libra: "Light through curtains. The day announces itself softly and well. You extend grace to your..."
+- Leo: "A small audience finds you and you are generous with them. A friend asks for advice and yo..."
+- Virgo: "Today you are exceptionally good at the parts that matter. You write clearly and the writi..."
+- Libra: "You are kind to a stranger and it ripples outward. You eat something good and take a momen..."
 
 **Caption:** A weekly reading written for the metro. All twelve signs at the link. Which one are you.
 
