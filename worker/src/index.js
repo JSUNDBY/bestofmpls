@@ -454,13 +454,22 @@ export default {
       if (!env.ADMIN_KEY || adminKey !== env.ADMIN_KEY) {
         return json({ error: 'unauthorized' }, 401, origin);
       }
-      const list = await env.POLLS.list({ prefix: 'submission:', limit: 50 });
+      // KV lists keys in ascending (oldest-first) order, so a plain limit:50
+      // returns the FIRST 50 ever and silently hides everything newer. Walk the
+      // whole prefix, then keep the newest 50.
+      let cursor;
+      const names = [];
+      do {
+        const page = await env.POLLS.list({ prefix: 'submission:', cursor, limit: 1000 });
+        names.push(...page.keys.map((k) => k.name));
+        cursor = page.list_complete ? null : page.cursor;
+      } while (cursor);
       const out = [];
-      for (const k of list.keys.reverse()) {
-        const v = await env.POLLS.get(k.name);
+      for (const name of names.slice(-50).reverse()) {
+        const v = await env.POLLS.get(name);
         if (v) out.push(JSON.parse(v));
       }
-      return json({ count: out.length, submissions: out }, 200, origin);
+      return json({ count: out.length, total: names.length, submissions: out }, 200, origin);
     }
 
     return json({ error: 'not found' }, 404, origin);
