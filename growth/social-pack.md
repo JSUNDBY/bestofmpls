@@ -10,13 +10,13 @@
 **Hook:** On screen, frame 1: "5 things to do this weekend in Minneapolis"
 
 **Shot list:**
-- A Night in the Tropics at Orchestra Hall (14:00) — b-roll of the venue or a poster
-- Dakota Dave Hull at The 331 Club (17:00) — b-roll of the venue or a poster
-- Curated by Aida Shahghasemi: feat. Jeremy Ylvisaker, Max Ylvisaker, & Joey Hays at Berlin (19:00) — b-roll of the venue or a poster
-- Keiko Matsui at Dakota Jazz Club (19:00) — b-roll of the venue or a poster
-- Rx Bandits - And The Battle Begun 20th Anniversary Tour with Catbite at Varsity Theater (19:00) — b-roll of the venue or a poster
+- Jennifer Eckes and Kevin Werner-Hohlstein at Crooners Supper Club (17:00) — b-roll of the venue or a poster
+- Roe Family Singers at The 331 Club (18:00) — b-roll of the venue or a poster
+- The Midnight Movers at White Squirrel Bar (18:00) — b-roll of the venue or a poster
+- Deradoorian w/ Greg Fox at Berlin (19:00) — b-roll of the venue or a poster
+- Kavyesh Kaviraj & Omar Abdulkarim at Dakota Jazz Club (19:00) — b-roll of the venue or a poster
 
-**Caption:** Five ways to spend the weekend, no scrolling six apps required. Full calendar and more at the link. Orchestra Hall, The 331 Club, Berlin and more.
+**Caption:** Five ways to spend the weekend, no scrolling six apps required. Full calendar and more at the link. Crooners Supper Club, The 331 Club, White Squirrel Bar and more.
 
 **Tags:** #minneapolis #saintpaul #twincities #onlyinmn #mnpls #mplsevents #twincitieslife #thingstodomn
 
@@ -60,9 +60,9 @@
 **Hook:** Slide 1: "Your Minneapolis horoscope this week"
 
 **Shot list:**
-- Virgo: "Today you are exceptionally good at the parts that matter. You write clearly and the writi..."
-- Libra: "You are kind to a stranger and it ripples outward. You eat something good and take a momen..."
-- Scorpio: "You understand people clearly and use that understanding with care. A long silence breaks ..."
+- Virgo: "A small repair, twenty minutes, large and satisfying gain. A meeting ends early because yo..."
+- Libra: "A morning that flatters everyone in it, including you. The afternoon finds a beautiful equ..."
+- Scorpio: "Something you committed to a long time ago is about to pay off. You are right about the th..."
 
 **Caption:** A weekly reading written for the metro. All twelve signs at the link. Which one are you.
 
