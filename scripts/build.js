@@ -3998,7 +3998,12 @@ function renderExhibitions() {
   // In the galleries — scraped daily from the independent galleries and the M
   // (date-range art events). Split on today: on view now vs opening soon.
   const fmtMD = iso => { const [y, m, d] = iso.split('-').map(Number); return new Date(y, m - 1, d).toLocaleDateString('en-US', { month: 'long', day: 'numeric' }); };
-  const galleryShows = (eventsData.events || []).filter(e => e.category === 'art' && e.end_date && e.end_date >= TODAY_ISO);
+  // Skip scraped shows already in the curated list above ("Indulgences by
+  // James Ostrander" vs curated "Indulgences"), so nothing renders twice.
+  const normTitle = s => String(s).toLowerCase().replace(/[^a-z0-9]+/g, '');
+  const curatedTitles = ex.exhibitions.map(e => normTitle(e.title));
+  const galleryShows = (eventsData.events || []).filter(e => e.category === 'art' && e.end_date && e.end_date >= TODAY_ISO)
+    .filter(e => { const t = normTitle(e.title); return !curatedTitles.some(k => t.includes(k) || k.includes(t)); });
   const galShow = e => ({
     dates: e.date <= TODAY_ISO ? `Through ${fmtMD(e.end_date)}` : `Opens ${fmtMD(e.date)}`,
     venue: e.venue, title: e.title, url: e.url, artist: null,

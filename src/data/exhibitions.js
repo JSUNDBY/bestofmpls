@@ -5,6 +5,10 @@
  * research pass (or eventually scrape museum calendar APIs).
  *
  * Each entry is a single exhibition with venue, dates, and optional URL.
+ * Every title, date, and URL below was verified against the venue's own
+ * website on the last_updated date. Closed shows are also auto-filtered
+ * at build time (scripts/build.js), so keep end dates machine-readable:
+ * "... to Month D, YYYY".
  */
 module.exports = {
   slug: 'now-showing',
@@ -13,7 +17,7 @@ module.exports = {
   intro: 'A rolling list of what is on view at the museums, galleries, and project spaces across Minneapolis and Saint Paul. Refreshed monthly. If we missed an opening you care about, send us a tip.',
   hero_color: 'forest',
   needs_verification: true,
-  last_updated: 'May 3, 2026',
+  last_updated: 'July 26, 2026',
 
   exhibitions: [
     // ==================== WALKER ART CENTER ====================
@@ -21,294 +25,379 @@ module.exports = {
       venue: 'Walker Art Center',
       title: 'Christine Sun Kim: All Day All Night',
       subtitle: 'Mid-career survey',
-      description: 'First mid-career survey of the Berlin-based Deaf artist, gathering drawings, video, performance, and large-scale installations that probe sound, language, and access.',
+      description: 'A survey of Kim’s work from 2011 to today — drawings, videos, sculptures, and installations that examine sound’s nonauditory and political dimensions through American Sign Language, musical notation, and visual forms.',
       dates: 'March 28 to August 30, 2026',
-      url: 'https://walkerart.org/calendar/2026/christine-sun-kim-all-day-all-night/',
+      url: 'https://www.walkerart.org/whats-on/christine-sun-kim-all-day-all-night/',
       type: 'current'
     },
     {
       venue: 'Walker Art Center',
-      title: 'Rosy Simas: A:gajë:gwah dësa’nigöëwë:nye:’ (i hope it will stir your mind)',
-      subtitle: 'Multimedia installation by Seneca artist',
-      description: 'A multimedia installation by the Minneapolis-based Seneca choreographer and artist exploring memory, kinship, and Indigenous presence.',
-      dates: 'February 12 to July 5, 2026',
-      url: 'https://walkerart.org/calendar/2026/rosy-simas/',
+      title: 'Suzanne Jackson: What Is Love',
+      subtitle: 'Retrospective spanning six decades',
+      description: 'A retrospective tracing Jackson’s dedication to beauty as a political force and her engagement with poetry, dance, and theater, with love’s earthly and spiritual dimensions at the center of her practice.',
+      dates: 'May 14 to August 23, 2026',
+      url: 'https://www.walkerart.org/whats-on/suzanne-jackson-what-is-love/',
       type: 'current'
     },
     {
       venue: 'Walker Art Center',
-      title: 'Trisha Brown and Robert Rauschenberg: Glacial Decoy',
-      subtitle: 'Dance and design collaboration',
-      description: 'A focused look at the landmark 1979 collaboration between choreographer Trisha Brown and artist Robert Rauschenberg, who designed sets, costumes, and projections for the dance.',
-      dates: 'June 26, 2025 to May 24, 2026',
-      url: 'https://walkerart.org/calendar/2025/trisha-brown-robert-rauschenberg-glacial-decoy/',
+      title: 'Sculpture Court',
+      subtitle: 'The human form, from surrealist to contemporary',
+      description: 'Reimagines the centuries-old sculpture court tradition with works depicting the human form in diverse materials, from Joan Miró to Mona Hatoum and Rona Pondick, and invites visitors to sketch in the gallery.',
+      dates: 'October 18, 2025 to August 30, 2026',
+      url: 'https://www.walkerart.org/whats-on/sculpture-court/',
       type: 'current'
     },
     {
       venue: 'Walker Art Center',
       title: 'This Must Be the Place: Inside the Walker’s Collection',
       subtitle: 'Long-running collection rehang',
-      description: 'An evolving installation drawing from the Walker’s permanent collection that traces how artists shape and respond to place.',
-      dates: 'June 20, 2024 to April 29, 2029',
-      url: 'https://walkerart.org/calendar/2024/this-must-be-the-place/',
+      description: 'Works from the Walker’s collection organized around the idea of home, spanning three galleries with sections on community, urban environments, and natural landscapes — Edward Hopper to Julie Mehretu and Mark Bradford.',
+      dates: 'June 20, 2024 to March 12, 2028',
+      url: 'https://www.walkerart.org/whats-on/this-must-be-the-place-inside-the-walkers-collection/',
       type: 'current'
     },
     {
       venue: 'Walker Art Center',
-      title: 'Suzanne Jackson: What Is Love',
-      subtitle: 'First career retrospective',
-      description: 'Co-organized with SFMOMA, this retrospective presents more than eighty paintings and drawings from the 1960s to today, tracing Jackson’s innovative use of color, light, and structure.',
-      dates: 'May 14 to August 23, 2026',
-      url: 'https://walkerart.org/calendar/2026/suzanne-jackson-what-is-love/',
+      title: 'Olalekan Jeyifous: Hydricosmic Litanies',
+      subtitle: 'First solo museum exhibition',
+      description: 'An installation of milled-wood reliefs and carved sculptures presented as an archive from a speculative river enclave, blending African diasporic cosmologies and Indigenous water knowledge across river systems from the Niger to the Mississippi.',
+      dates: 'August 6, 2026 to January 3, 2027',
+      url: 'https://www.walkerart.org/whats-on/olalekan-jeyifous-hydricosmic-litanies/',
+      type: 'upcoming'
+    },
+    {
+      venue: 'Walker Art Center',
+      title: 'Walker Design Triennial: Beyond Materialism',
+      subtitle: 'The Walker’s first design triennial',
+      description: 'Contemporary designers from around the world who engage societal challenges — technology, environment, community building, and social justice — through design innovation.',
+      dates: 'October 17, 2026 to February 14, 2027',
+      url: 'https://www.walkerart.org/whats-on/walker-design-triennial-beyond-materialism/',
       type: 'upcoming'
     },
 
     // ==================== MIA ====================
     {
       venue: 'Minneapolis Institute of Art',
-      title: 'Gifts of Japanese and Korean Art from the Mary Griggs Burke Collection',
-      subtitle: 'Highlights from a landmark bequest',
-      description: 'More than 170 masterpieces from the renowned Burke Collection, ranging from prehistoric works through the late 1800s, installed across the Burke and Hill galleries.',
-      dates: 'December 20, 2025 to August 23, 2026',
-      url: 'https://new.artsmia.org/exhibition/gifts-of-japanese-and-korean-art-from-the-mary-griggs-burke-collection',
-      type: 'current'
-    },
-    {
-      venue: 'Minneapolis Institute of Art',
-      title: 'Art in Bloom 2026',
-      subtitle: 'Floral interpretations of the collection',
-      description: 'More than 160 floral arrangements throughout the museum’s galleries, paired with works of art. For 2026, programming extends across the full month of April.',
-      dates: 'April 23 to 26, 2026, with month-long April programming',
-      url: 'https://new.artsmia.org/art-in-bloom/art-in-bloom-2026',
-      type: 'current'
-    },
-    {
-      venue: 'Minneapolis Institute of Art',
-      title: 'Works on Paper in the Winton Jones Gallery',
-      subtitle: 'Rotating prints and drawings installation',
-      description: 'A rotating selection from Mia’s prints and drawings collection presented in Gallery 344.',
-      dates: 'December 6, 2025 to June 7, 2026',
-      url: 'https://new.artsmia.org/exhibitions',
+      title: 'Ziba Rajabi: Belly Laugh at a Funeral',
+      subtitle: 'Textile works in the U.S. Bank Gallery',
+      description: 'Textile works by the Tehran-born artist drawing on ancient practices of the Iranian plateau and Mesopotamia, exploring the emotions that follow grief, with a soundtrack and cushions inviting collective reflection.',
+      dates: 'July 18 to October 25, 2026',
+      url: 'https://new.artsmia.org/exhibition/ziba-rajabi-belly-laugh-funeral',
       type: 'current'
     },
     {
       venue: 'Minneapolis Institute of Art',
       title: 'Back from the Underworld: Mia’s Dante Tapestry Restored',
-      subtitle: 'Renaissance tapestry returns to view',
-      description: 'Following major conservation work supported by a 2026 TEFAF Museum Restoration Fund grant, Mia’s monumental Renaissance tapestry depicting Dante returns to the galleries.',
+      subtitle: 'Renaissance tapestry back on view',
+      description: 'Francesco Salviati’s monumental 1540s tapestry of Dante and Virgil at the start of the Inferno, in storage at Mia for nearly 70 years and newly conserved through a TEFAF Museum Restoration Fund grant.',
       dates: 'July 11, 2026 to January 31, 2027',
-      url: 'https://new.artsmia.org/exhibitions/upcoming-exhibitions',
+      url: 'https://new.artsmia.org/exhibition/back-from-the-underworld-mias-dante-tapestry-restored',
+      type: 'current'
+    },
+    {
+      venue: 'Minneapolis Institute of Art',
+      title: 'Meeting Point: The Mary Ingebrand-Pohlad Collection of Latin American Art',
+      subtitle: 'Rivera, Ramos Martínez, Covarrubias',
+      description: 'Paintings, sculptures, and religious images framing California as a meeting point of American and Latin American cultures, with artists such as Diego Rivera, Alfredo Ramos Martínez, and Miguel Covarrubias.',
+      dates: 'June 27 to October 4, 2026',
+      url: 'https://new.artsmia.org/exhibition/meeting-point-mary-ingebrand-pohlad-collection-latin-american-art',
+      type: 'current'
+    },
+    {
+      venue: 'Minneapolis Institute of Art',
+      title: 'Hiroshige’s 100 Views of Edo x Emily Allchurch',
+      subtitle: 'Woodblock classics meet digital collage',
+      description: 'Pairs Utagawa Hiroshige’s celebrated 1850s woodblock series One Hundred Famous Views of Edo with British artist Emily Allchurch’s Tokyo Story digital-collage responses.',
+      dates: 'December 20, 2025 to August 23, 2026',
+      url: 'https://new.artsmia.org/exhibition/hiroshige-100-views-edo-emily-allchurch',
+      type: 'current'
+    },
+    {
+      venue: 'Minneapolis Institute of Art',
+      title: 'Year of the Horse: Hoofbeats through Time',
+      subtitle: 'Closing August 9',
+      description: 'The horse in Chinese art and culture — chariot puller, zodiac sign, companion, and poetic metaphor — from ritual bronzes to imperial scrolls, timed to the new Year of the Horse.',
+      dates: 'February 18 to August 9, 2026',
+      url: 'https://new.artsmia.org/exhibition/year-of-the-horse',
+      type: 'current'
+    },
+    {
+      venue: 'Minneapolis Institute of Art',
+      title: 'María Berrío: Songlines',
+      subtitle: 'Monumental layered-paper scenes',
+      description: 'Close to 20 works from the past decade by the Colombian artist, who builds monumental scenes by layering hand-cut Japanese paper onto canvas. Organized by Mia and the San José Museum of Art.',
+      dates: 'September 12, 2026 to January 10, 2027',
+      url: 'https://new.artsmia.org/exhibition/maria-berrio-songlines',
+      type: 'upcoming'
+    },
+    {
+      venue: 'Minneapolis Institute of Art',
+      title: 'Exhibiting Forgiveness',
+      subtitle: 'Paintings by Titus Kaphar',
+      description: 'Paintings Kaphar made for his feature film Exhibiting Forgiveness, a deeply personal exploration of healing from generational trauma through art.',
+      dates: 'September 12, 2026 to January 3, 2027',
+      url: 'https://new.artsmia.org/exhibition/exhibiting-forgiveness',
+      type: 'upcoming'
+    },
+    {
+      venue: 'Minneapolis Institute of Art',
+      title: 'Cream of the Crop: The Second Harvest',
+      subtitle: 'State Fair crop art at the museum',
+      description: 'Mia’s curators again select standouts from the Minnesota State Fair’s crop art showcase — more than 20 works, including the five Best in Show ribbon winners.',
+      dates: 'September 19 to November 29, 2026',
+      url: 'https://new.artsmia.org/exhibition/cream-of-the-crop-the-second-harvest',
+      type: 'upcoming'
+    },
+    {
+      venue: 'Minneapolis Institute of Art',
+      title: 'Paris Couture',
+      subtitle: 'The fall blockbuster, and Mia’s only ticketed show',
+      description: 'More than 80 haute couture masterpieces from the Palais Galliera in Paris, spanning the late 19th century to today, with icons like Dior, Balenciaga, Schiaparelli, and Grès.',
+      dates: 'October 4, 2026 to January 17, 2027',
+      url: 'https://new.artsmia.org/exhibition/paris-couture',
       type: 'upcoming'
     },
 
     // ==================== WEISMAN ====================
     {
       venue: 'Weisman Art Museum',
-      title: 'More Various, More Beautiful, and More Terrible',
-      subtitle: 'Selections from the WAM collection',
-      description: 'A long-running installation of works by American artists drawn from the Weisman’s collection that probe the contradictions of American experience.',
-      dates: 'November 12, 2022 to May 24, 2026',
-      url: 'https://wam.umn.edu/more-various-more-beautiful-and-more-terrible',
-      type: 'current'
-    },
-    {
-      venue: 'Weisman Art Museum',
       title: 'The Portfolio’s Purpose',
       subtitle: 'Print portfolios from the collection',
-      description: 'An exhibition examining how artists have used the print portfolio as a form for sequencing ideas, themes, and collaborative projects.',
-      dates: 'March 21 to July 19, 2026',
-      url: 'https://wam.umn.edu/onview',
+      description: 'Examines print portfolios from the New World/Old World exchange at the 2010 Mid-America Print Council conference, spanning screenprints, lithographs, pressure prints, and mezzotints.',
+      dates: 'March 21 to August 23, 2026',
+      url: 'https://wam.umn.edu/portfolios-purpose',
       type: 'current'
     },
     {
       venue: 'Weisman Art Museum',
-      title: 'Imagining Future Cities',
-      subtitle: 'Architecture and urban futures',
-      description: 'Drawing on works from the WAM collection alongside design objects, the exhibition asks how artists envision the cities of tomorrow.',
-      dates: 'On view through 2026',
-      url: 'https://wam.umn.edu/imagining-future-cities',
+      title: 'Tiffany Chung: indelible traces',
+      subtitle: 'Survey of the research-driven cartographer of memory',
+      description: 'A comprehensive survey of Chung’s embroidered and drawn maps plus sculptures, videos, and installations examining landscapes shaped by climate change, war, colonialism, and migration.',
+      dates: 'September 19 to December 6, 2026',
+      url: 'https://wam.umn.edu/tiffany-chung-indelible-traces',
+      type: 'upcoming'
+    },
+    {
+      venue: 'Weisman Art Museum',
+      title: '‘Merciless’: Indigenous Lands Since 1776',
+      subtitle: 'Natchez Beaulieu, Marlena Myles, Missy Whiteman',
+      description: 'Honors Indigenous resistance across indoor and outdoor installations, re-examining 250 years of Indigenous history and emphasizing community resilience and connection to Minneapolis (Bde Óta Othúŋwe).',
+      dates: 'September 26, 2026 to May 23, 2027',
+      url: 'https://wam.umn.edu/merciless-indigenous-lands-1776',
+      type: 'upcoming'
+    },
+
+    // ==================== MCAD ====================
+    {
+      venue: 'MCAD Main Gallery',
+      title: 'Fragments Reimagined',
+      subtitle: 'Over 35 artists respond to gun violence',
+      description: 'An exhibition responding to gun violence, following the Guns in the Hands of Artists model of transforming weapons into art to spark dialogue about reform and healing through creative activism.',
+      dates: 'May 30 to August 8, 2026',
+      url: 'https://www.mcad.edu/events/fragments-reimagined',
       type: 'current'
+    },
+
+    // ==================== NORTHERN CLAY CENTER ====================
+    {
+      venue: 'Northern Clay Center',
+      title: 'Eight McKnight Artists',
+      subtitle: 'McKnight ceramic fellows and residents',
+      description: 'The annual exhibition of work by the most recent McKnight Fellowship and Residency awardees for ceramic artists, including Birdie Boone, Sana Musasama, Elizabeth Coleman, and Peter Jadoonath.',
+      dates: 'June 20 to August 9, 2026',
+      url: 'https://northernclaycenter.org/2026/04/15/eight-mcknight-artists/',
+      type: 'current'
+    },
+    {
+      venue: 'Northern Clay Center',
+      title: 'American Pottery Festival',
+      subtitle: 'NCC’s biggest annual event',
+      description: 'Ceramic artists from across the country fill the Main and Galusha galleries, with an opening night party August 28 and in-person and online sales running through early September.',
+      dates: 'August 28 to 30, 2026',
+      url: 'https://northernclaycenter.org/2026/06/29/american-pottery-festival-11/',
+      type: 'upcoming'
     },
 
     // ==================== AMERICAN SWEDISH INSTITUTE ====================
     {
       venue: 'American Swedish Institute',
-      title: 'Handwoven: Between Chaos and Order',
-      subtitle: 'Textile work by Emelie Rondahl',
-      description: 'Contemporary textile work by Swedish artist Emelie Rondahl, rooted in the Scandinavian rya tradition and exploring themes of grief, labor, and slowness.',
-      dates: 'February 14 to June 7, 2026',
-      url: 'https://asimn.org/experience/exhibitions/',
-      type: 'current'
-    },
-    {
-      venue: 'American Swedish Institute',
-      title: 'Nordic Echoes: Tradition in Contemporary Art',
-      subtitle: 'Touring exhibition from the American-Scandinavian Foundation',
-      description: 'A traveling exhibition of 44 works by 24 contemporary artists from the Upper Midwest working in wood, textile, clay, metal, and mixed media that draw on Nordic heritage.',
-      dates: 'February 14 to June 7, 2026',
-      url: 'https://asimn.org/experience/exhibitions/',
-      type: 'current'
-    },
-    {
-      venue: 'American Swedish Institute',
       title: 'Eyes as Big as Plates',
       subtitle: 'Photography by Riitta Ikonen and Karoline Hjorth',
-      description: 'More than thirty portraits from the long-running collaborative photography series by Finnish-Norwegian artists Riitta Ikonen and Karoline Hjorth, picturing elders camouflaged in landscape.',
+      description: 'More than thirty surreal portraits from the duo’s long-running series: everyday people — farmers, scientists, surfers, philosophers — camouflaged in organic materials sourced from each location, shot on analog cameras.',
       dates: 'June 20 to October 25, 2026',
-      url: 'https://asimn.org/experience/exhibitions/',
-      type: 'upcoming'
+      url: 'https://asimn.org/exhibition/eyes-as-big-as-plates/',
+      type: 'current'
+    },
+    {
+      venue: 'American Swedish Institute',
+      title: 'Presley Martin',
+      subtitle: 'Installation and drawings on the Mississippi',
+      description: 'Hundreds of polystyrene foam pieces collected from the Mississippi River address plastic pollution, alongside drawings made with mushroom markers on beaver-chewed wood handles.',
+      dates: 'June 20 to October 25, 2026',
+      url: 'https://asimn.org/exhibition/presley-martin/',
+      type: 'current'
     },
 
-    // ==================== MMAA (Minnesota Museum of American Art) ====================
+    // ==================== THE M (Minnesota Museum of American Art) ====================
     {
       venue: 'Minnesota Museum of American Art',
-      title: 'What Holds and What Breaks: 2024 McKnight Visual Artist Fellows',
-      subtitle: 'McKnight Fellowship cohort show',
-      description: 'Recent work by the 2024 McKnight Visual Artist Fellows, with an opening reception May 8.',
-      dates: 'May 8 to July 18, 2026',
-      url: 'https://mmaa.org/',
-      type: 'upcoming'
+      title: 'Queering Indigeneity',
+      subtitle: 'Closing August 16',
+      description: 'A celebration of 2-Spirit, Native queer, and gender-expansive artists of the Upper Midwest — 16 artists including Sharon Day, Ryan Young, and Delia Touché — emphasizing intergenerational knowledge and cultural reclamation.',
+      dates: 'September 18, 2025 to August 16, 2026',
+      url: 'https://mmaa.org/queering-indigeneity/',
+      type: 'current'
     },
     {
       venue: 'Minnesota Museum of American Art',
-      title: 'Gordon Coons: Gidibaajimomin / We Tell Stories',
-      subtitle: 'Solo presentation by Lac Courte Oreilles Ojibwe artist',
-      description: 'A focused presentation of work by Gordon Coons that draws on Ojibwe storytelling, language, and printmaking traditions.',
-      dates: 'May 9 to May 31, 2026',
-      url: 'https://mmaa.org/',
+      title: 'HERE, NOW',
+      subtitle: 'The permanent collection in the renovated galleries',
+      description: 'The M’s long-term installation of its permanent collection, arranged around human connection, with George Morrison, Louise Nevelson, Jim Denomie, Jacob Lawrence, Cara Romero, and more.',
+      dates: 'Long-term installation, opened October 17, 2024',
+      url: 'https://mmaa.org/here-now/',
+      type: 'current'
+    },
+    {
+      venue: 'Minnesota Museum of American Art',
+      title: 'The Smell of Earth: Seitu K. Jones Working in the Elements',
+      subtitle: 'Four-decade survey of the St. Paul artist',
+      description: 'Drawings, paintings, sculpture, and design plus archival material on Jones’s life as a Black artist in Minnesota, centered on community and placemaking.',
+      dates: 'October 22, 2026 to July 25, 2027',
+      url: 'https://mmaa.org/the-smell-of-earth-the-work-of-seitu-k-jones/',
       type: 'upcoming'
     },
 
     // ==================== TMORA ====================
     {
       venue: 'The Museum of Russian Art',
-      title: 'Spies and Space: Cold War Artifacts from Both Sides of the Iron Curtain',
+      title: 'Poster Art of the Soviet Era',
       subtitle: 'Main Gallery exhibition',
-      description: 'More than 200 toys, games, posters, comic books, and cultural artifacts from the 1950s to 1980s, drawn from collections on both sides of the Iron Curtain.',
-      dates: 'February 7 to May 10, 2026',
-      url: 'https://tmora.org/2026/01/05/spies-and-space-cold-war-artifacts-from-both-sides-of-the-iron-curtain/',
+      description: 'The paradox of the Soviet poster — breathtakingly artistic yet unapologetically ideological — traced from the experimental early years through Stalin-era formula to later modernist aesthetics.',
+      dates: 'May 22 to September 27, 2026',
+      url: 'https://tmora.org/2026/04/07/poster-art-of-the-soviet-era/',
       type: 'current'
     },
     {
       venue: 'The Museum of Russian Art',
-      title: 'Poster Art from the Soviet Era',
-      subtitle: 'Graphic design from the TMORA collection',
-      description: 'A selection of Soviet-era posters from TMORA’s permanent collection, tracing visual propaganda, advertising, and public art across the twentieth century.',
-      dates: 'Spring 2026, ongoing',
-      url: 'https://tmora.org/2026/04/07/poster-art-from-the-soviet-era/',
+      title: 'Mark Mednikov: Artist and Architect',
+      subtitle: 'Solo show from the artist’s studio',
+      description: 'About thirty works spanning early Soviet-era drawings to recent oil paintings and photos of buildings Mednikov designed, where architectural precision blends with the freedom of fine art.',
+      dates: 'July 5 to September 27, 2026',
+      url: 'https://tmora.org/2026/06/12/mark-mednikov-artist-and-architect/',
       type: 'current'
     },
     {
       venue: 'The Museum of Russian Art',
-      title: 'Cats and Dogs in Soviet Art: Workers, Teachers, Friends',
-      subtitle: 'Companion animals in Soviet visual culture',
-      description: 'Paintings, prints, and decorative objects depicting cats and dogs as workers, companions, and cultural figures across Soviet visual culture.',
-      dates: 'On view spring 2026',
-      url: 'https://tmora.org/currentexhibitions/',
+      title: 'Paintings by Elena Kalman: Catastrophe and What Survives',
+      subtitle: 'Recent work by the Ukrainian-born artist',
+      description: 'Landscapes, roads, and imagined environments marked by instability, reflecting on moments of disruption and what endures beyond them.',
+      dates: 'July 18 to November 1, 2026',
+      url: 'https://tmora.org/2026/04/19/paintings-by-elena-kalman-catastrophe-and-what-survives/',
       type: 'current'
-    },
-    {
-      venue: 'The Museum of Russian Art',
-      title: 'Violins of Hope: Honoring Memory Through Music',
-      subtitle: 'Restored instruments from the Holocaust',
-      description: 'An exhibition of violins recovered and restored from the Holocaust, presented in the Robert J. Brokop Gallery and accompanied by a June 7 concert.',
-      dates: 'May 9 to June 28, 2026',
-      url: 'https://tmora.org/2026/02/20/violins-of-hope-honoring-memory-through-music/',
-      type: 'upcoming'
     },
 
     // ==================== MILL CITY MUSEUM ====================
     {
       venue: 'Mill City Museum',
-      title: 'Women with Taste: Culinary Visionaries of the Twin Cities',
-      subtitle: 'Eight women who shaped Twin Cities food',
-      description: 'Profiles of eight women, including Marjorie Child Husted of Betty Crocker, Reiko Weston, Leeann Chin, Rose Totino, and others, whose work as chefs, writers, and entrepreneurs reshaped local dining.',
-      dates: 'September 27, 2025 to May 31, 2026',
+      title: 'soulforce: the movements of memory',
+      subtitle: 'Free special exhibit',
+      description: 'Explores collaboration and connection between Black, Indigenous, and Chicano communities and their movements for autonomy, self-determination, and liberation in the post-civil-rights era.',
+      dates: 'June 18 to October 4, 2026',
       url: 'https://www.mnhs.org/millcity/activities/exhibits',
       type: 'current'
     },
 
     // ==================== INDIE GALLERIES ====================
     {
-      venue: 'Bockley Gallery',
-      title: 'Kite, Matthew Kirk, Grace Rosario Perkins',
-      artist: 'Kite (Oglala Lakota), Matthew Kirk (Navajo), Grace Rosario Perkins (Dine/Akimel O’odham)',
-      description: 'A three-artist presentation pairing Kite’s beaded deer-hide wall works that double as scores for sonic performance with new paintings and sculpture by Matthew Kirk and recent work by Grace Rosario Perkins.',
-      dates: 'Spring 2026, on view through late May',
-      url: 'https://bockleygallery.com/exhibitions/',
+      venue: 'Highpoint Center for Printmaking',
+      title: 'Homeward: Relief Prints by Matt Otero',
+      artist: 'Matt Otero',
+      description: 'Woodcut and linocut prints about returning home, which Otero frames as a return to one’s essence rather than a physical place; the crow recurs as a navigational and reflective motif. Threshold Gallery.',
+      dates: 'July 2 to September 30, 2026',
+      url: 'https://www.highpointprintmaking.org/calendar/2026/thresholdotero',
       type: 'current'
     },
     {
       venue: 'Highpoint Center for Printmaking',
-      title: 'Resilience',
-      artist: 'Curated by Maria Cristina Tavera. Featuring Jamaal Barber, Eric J. Garcia, Ruthann Godollei, Ricardo Levins Morales, Narsiso Martinez, Piotr Szyhalski, Ericka Walker, and Justseeds Artists’ Cooperative',
-      description: 'A group print exhibition exploring how artists use woodcut, screenprint, letterpress, lithography, and stenciling to circulate radical ideas, including protest posters made in response to the ICE occupation in Minnesota.',
-      dates: 'April 3 to May 16, 2026',
-      url: 'https://www.highpointprintmaking.org/calendar/2026/resilience',
-      type: 'current'
-    },
-    {
-      venue: 'Form+Content Gallery',
-      title: 'Open Loop 2026: Among and Between',
-      artist: '32 Minnesota artists, juried by Kylie Linh Hoang',
-      description: 'An annual juried survey of Minnesota artists working across media, with a juror’s talk and closing reception on Saturday, May 9, from 4 to 6 pm.',
-      dates: 'On view through May 9, 2026',
-      url: 'https://www.formandcontent.org/2026',
-      type: 'current'
-    },
-    {
-      venue: 'Rosalux Gallery',
-      title: 'What’s Your Favorite Color?',
-      artist: 'Daniel Buettner',
-      description: 'New paintings from Buettner described as a nod to one of the most basic forms of human happiness, the experience of tints, shades, and tones. Reception Saturday, May 2, from 7 to 10 pm.',
-      dates: 'May 2 to May 31, 2026',
-      url: 'https://www.rosaluxgallery.com/post/what-s-your-favorite-color',
-      type: 'current'
-    },
-    {
-      venue: 'Form+Content Gallery',
-      title: 'WARM Connections: 50th Affiliates Exhibition',
-      artist: '33 women artists from the Women’s Art Registry of Minnesota, 1970s to present',
-      description: 'Marks 50 years of WARM, the pioneering Minneapolis feminist art collective, with new and recent work by artists who have shaped the local and national scene.',
-      dates: 'May 14 to June 20, 2026',
-      url: 'https://www.formandcontent.org/2026',
+      title: '2025–2026 Jerome Early Career Printmakers Residency Exhibition',
+      artist: 'Edson Rosas, Dalton Carlson, Gabi Estrada',
+      description: 'The three Jerome residents present prints, objects, and assembled environments made during their year-long residency, spanning screenprint, litho, relief, intaglio, and installation. Opening reception Friday, July 31, 6:30 to 9 pm.',
+      dates: 'July 31 to September 12, 2026',
+      url: 'https://www.highpointprintmaking.org/calendar/2026/jeromeexhbition',
       type: 'upcoming'
     },
     {
       venue: 'SooVAC',
-      title: 'Collect Call 5',
-      artist: 'Multiple Minnesota collectors, group presentation',
-      description: 'Recurring exhibition where Minnesota collectors share a portion of their personal collections with the public. Opens after the Spring Fling fundraiser concludes the gallery’s 25th-anniversary kickoff.',
-      dates: 'Spring 2026, closing June 22, 2026',
-      url: 'https://www.soovac.org/exhibitions',
+      title: 'Indulgences',
+      artist: 'James Ostrander',
+      description: 'Densely detailed, absurdist atelier-style oil painting that playfully scrutinizes the Western canon; Ostrander’s painterly persona moves through imagined landscapes engaging Romantic, Rococo, and Surrealist traditions.',
+      dates: 'July 25 to August 30, 2026',
+      url: 'https://www.soovac.org/james-ostrander',
+      type: 'current'
+    },
+    {
+      venue: 'SooVAC',
+      title: 'Sway',
+      artist: 'Alexandra Beaumont',
+      description: 'Large-scale sheer cloth banners with painted, embroidered, and beaded silhouettes of friends and neighbors, celebrating movement and stepping in rhythm as a vehicle for collective power and community.',
+      dates: 'July 25 to August 30, 2026',
+      url: 'https://www.soovac.org/alexandra-beaumont',
+      type: 'current'
+    },
+    {
+      venue: 'SooVAC',
+      title: 'Little Black Book',
+      artist: 'Marcus Rothering',
+      description: 'Ceramics and fiber exploring Black queer intimacy and humor, part of SooVAC’s Front Space Residency pilot where the work evolves on-site during the run. Rug-tufting demo August 16, closing reception August 29.',
+      dates: 'July 25 to August 30, 2026',
+      url: 'https://www.soovac.org/marcus-rothering',
+      type: 'current'
+    },
+    {
+      venue: 'Form+Content Gallery',
+      title: 'Memory Against Forgetting: FotoMatter Collective',
+      artist: '18 artists including Melissa Borman, Priscilla Briggs, Xavier Tavera, Paul Shambroom',
+      description: 'A photographic group show spanning lens-based work, alternative process, installation, book arts, and time-based media, framed around remembrance as resistance to erasure. Curator and artists’ talk Saturday, August 1, 4 to 6 pm.',
+      dates: 'June 25 to August 1, 2026',
+      url: 'https://www.formandcontent.org/exhibits/fotomatter-2026',
+      type: 'current'
+    },
+    {
+      venue: 'Form+Content Gallery',
+      title: 'Tending Disorder: New Cyanotype Works by Michelle Westmark Wingard',
+      artist: 'Michelle Westmark Wingard',
+      description: 'Cyanotype prints, textile, and installation exploring perceived control, the reordering of broken systems, and the elevation of care. Reception Sunday, August 9, 2 to 5 pm.',
+      dates: 'August 6 to September 12, 2026',
+      url: 'https://www.formandcontent.org/exhibits/wingard-tending-disorder',
+      type: 'upcoming'
+    },
+    {
+      venue: 'Bockley Gallery',
+      title: 'Encounters',
+      artist: 'Maggie Thompson (Fond du Lac Ojibwe)',
+      description: 'Centers the transformative role of adornment in resistance, solidarity, and healing, in critical dialogue with notions of Native authenticity.',
+      dates: 'June 25 to August 15, 2026',
+      url: 'https://bockleygallery.com/exhibition/encounters/',
+      type: 'current'
+    },
+    {
+      venue: 'Rosalux Gallery',
+      title: 'Living Threads: An Immersive Installation by Hend Al-Mansour',
+      artist: 'Hend Al-Mansour',
+      description: 'An immersive installation about a Palestinian American woman in Minnesota, holding architecture, poetry, embroidery, and sign language in one field of vision, with screen-printed Palestinian textile patterns and ASL signage. Reception Friday, August 7, 7 to 10 pm.',
+      dates: 'August 7 to August 30, 2026',
+      url: 'https://www.rosaluxgallery.com/post/living-threads-an-immersive-installation-by-hend-al-mansour',
       type: 'upcoming'
     },
     {
       venue: 'Northrup King Building',
-      title: 'Art-A-Whirl 2026',
-      artist: '300+ studio artists across the building',
-      description: 'Anchor venue for the 31st annual Art-A-Whirl, the nation’s largest open-studio crawl. Over 1,600 NEMAA artists open their doors across Northeast Minneapolis with hundreds concentrated at NKB.',
-      dates: 'May 15 to 17, 2026',
-      url: 'https://www.northrupkingbuilding.com/events/art-a-whirl',
-      type: 'upcoming'
-    },
-    {
-      venue: 'Public Functionary',
-      title: 'Art-A-Whirl Open Studios at PF Studios',
-      artist: 'PF Studios artists in residence and main gallery programming',
-      description: 'Public Functionary opens its main gallery (144) and upstairs gallery (247) at the Northrup King Building for Art-A-Whirl, with new work from PF Studios resident artists.',
-      dates: 'May 15 to 17, 2026',
-      url: 'https://publicfunctionary.org/exhibits',
-      type: 'upcoming'
-    },
-    {
-      venue: 'Northrup King Building',
-      title: 'First Thursday Open Studios',
+      title: 'Open Saturdays',
       artist: 'Resident NKB artists',
-      description: 'Monthly evening open studios with hundreds of artists welcoming visitors. Next dates fall on May 7 and June 4, 2026, from 5 to 9 pm.',
-      dates: 'First Thursday of each month, 5 to 9 pm',
+      description: 'Many of the building’s studio artists open their doors every Saturday afternoon — stop by and stroll through. Fall brings Summer Sizzle (August 15), Northrup King Nights (September 26), and Art Attack (November 13 to 15).',
+      dates: 'Every Saturday through November 21, 2026, 12 to 4 pm',
       url: 'https://www.northrupkingbuilding.com/events',
-      type: 'upcoming'
+      type: 'current'
     }
   ]
 };
