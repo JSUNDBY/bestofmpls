@@ -14,7 +14,7 @@
 - Roe Family Singers at The 331 Club (18:00) — b-roll of the venue or a poster
 - The Midnight Movers at White Squirrel Bar (18:00) — b-roll of the venue or a poster
 - Deradoorian w/ Greg Fox at Berlin (19:00) — b-roll of the venue or a poster
-- Kavyesh Kaviraj & Omar Abdulkarim at Dakota Jazz Club (19:00) — b-roll of the venue or a poster
+- The Singer’s Voice hosted by Dan Chouinard featuring Ann Reed at Crooners Supper Club (19:00) — b-roll of the venue or a poster
 
 **Caption:** Five ways to spend the weekend, no scrolling six apps required. Full calendar and more at the link. Crooners Supper Club, The 331 Club, White Squirrel Bar and more.
 
