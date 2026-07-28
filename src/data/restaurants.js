@@ -303,6 +303,15 @@ module.exports = {
       address: '1222 NE 2nd St, Minneapolis',
       website: 'https://www.nixtampls.com/oro',
       price: '$$$'
+    },
+    {
+      name: 'Estelle',
+      neighborhood: 'Mac-Groveland, St. Paul',
+      style: 'Southern European, Jason Hansen',
+      description: 'Chef and co-owner Jason Hansen built the menu out of an extended backpacking trip through Spain, Portugal and Italy, and it still reads that way. Tapas and pintxos up front, a short list of pastas and large plates behind them, patatas bravas that regulars order without looking at the menu. A neighborhood room on St. Clair since 2019, with port and madeira kept on the drinks list. Hansen and Peter Sebastian have since opened Mario’s and Liliana.',
+      address: '1806 St. Clair Ave, St. Paul',
+      website: 'https://www.estellestp.com',
+      price: '$$$'
     }
   ]
 };
