@@ -5255,7 +5255,7 @@ function renderFeaturedEvent(ev) {
       address: { '@type': 'PostalAddress', addressLocality: 'Minneapolis', addressRegion: 'MN' },
       geo: ev.coords ? { '@type': 'GeoCoordinates', latitude: ev.coords.lat, longitude: ev.coords.lng } : undefined
     },
-    organizer: { '@type': 'Organization', name: 'Northeast Minneapolis Arts Association (NEMAA)', url: 'https://nemaa.org' },
+    organizer: ev.organizer_name ? { '@type': 'Organization', name: ev.organizer_name, url: ev.organizer_url || undefined } : undefined,
     url: `${SITE}/${ev.slug}/`,
     isAccessibleForFree: true,
     offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD', availability: 'https://schema.org/InStock', url: ev.official_url || `${SITE}/${ev.slug}/` }

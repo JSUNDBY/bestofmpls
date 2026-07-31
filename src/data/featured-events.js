@@ -29,6 +29,8 @@ module.exports = {
       dates_display: 'May 15–17, 2026',
       hours_display: 'Friday 5–10 PM · Saturday 12–8 PM · Sunday 12–5 PM',
       official_url: 'https://nemaa.org/art-a-whirl/',
+      organizer_name: 'Northeast Minneapolis Arts Association (NEMAA)',
+      organizer_url: 'https://nemaa.org',
       location: 'Northeast Minneapolis',
       coords: { lat: 45.0085, lng: -93.2580 }, // Northrup King Building
 
@@ -142,6 +144,60 @@ module.exports = {
         'Transit beats parking for the Minneapolis show. Metro Transit runs free rides all day on the Fourth; downtown lots fill early.',
         'The Minneapolis fireworks go at 10 PM sharp. Staked-out blanket spots along West River Parkway start disappearing around 8.',
         'Sunset is about 9 PM, so the St. Paul dusk shows start earlier than the Minneapolis one. Ambitious night: Cathedral Hill at dusk, then across the river for the 10 PM finale.'
+      ]
+    },
+    {
+      slug: 'food-truck-festival',
+      name: 'Minneapolis Food Truck Festival',
+      year: 2026,
+      starts: '2026-08-01',
+      ends:   '2026-08-01',
+      window_before_days: 4,
+
+      eyebrow: 'Saturday on the riverfront',
+      teaser:  'Over 40 food trucks take over Father Hennepin Bluff Park, with local beer, live music all day, and lawn games. Free, and dogs are welcome.',
+      cta_label: 'The full rundown →',
+
+      tagline: 'Over 40 trucks, one riverfront park, one Saturday. Free.',
+      dates_display: 'Saturday, August 1, 2026',
+      hours_display: '11 AM to 9 PM',
+      official_url: 'https://mnfoodtruckfestival.com/minneapolis',
+      location: 'Father Hennepin Bluff Park, St. Anthony Main',
+
+      anchors_title: 'The setup',
+      anchors_deck: 'One park, three things going on. Come hungry and settle in.',
+      pairings_title: 'When the truck lines get long',
+      intro: 'The Minneapolis Food Truck Festival is back at Father Hennepin Bluff Park for its second year: over 40 food trucks lined up along the Mississippi in the St. Anthony Main district, plus local craft beer, ciders, cocktails, seltzers, and non-alcoholic options to wash it down. Admission is free, and the free wristband does real work — each one provides three meals to people in need through Feed My Starving Children. Bring the dog.',
+
+      anchors: [
+        {
+          name: 'The trucks',
+          address: 'Father Hennepin Bluff Park, 420 Main St SE',
+          why: 'Over 40 food trucks in one place, which is the point. Go early with a plan to graze — split everything, share tables, and treat the second lap as the real order.'
+        },
+        {
+          name: 'MN Lottery Stage',
+          address: 'In the park',
+          why: 'Live music the whole day: Whiskey Stone from 11 AM to 2 PM, Tyte Phitt from 2:30 to 5:30, and Alex Rossi closing it out from 6 to 9 PM.'
+        },
+        {
+          name: 'Games and giveaways',
+          address: 'In the park',
+          why: 'Giant Connect 4, bags, and hammerschlagen — the Minnesota festival triathlon. Family-friendly, and there are giveaways running through the day.'
+        }
+      ],
+
+      pairings: [
+        { name: 'Aster Cafe', why: 'Two blocks down Main Street on the cobblestones. A patio drink with the river view while your group holds a spot in a truck line.' },
+        { name: 'Alma', why: 'A short walk up University Ave. The move if the festival was lunch and you want a real dinner after.' },
+        { name: 'Dangerous Man Brewing', why: 'A fifteen-minute walk into Northeast for a taproom pint when you\'ve eaten your way through the park.' }
+      ],
+
+      tips: [
+        'It\'s free, but grab the wristband — each free wristband provides three meals through Feed My Starving Children.',
+        'Walk or bike if you can. St. Anthony Main parking fills fast on event weekends; the Stone Arch Bridge drops you a block from the park if you\'re coming from downtown.',
+        'Lines peak at lunch. Go at 11 AM sharp, or make it an evening: shorter waits and Alex Rossi plays until 9.',
+        'Dogs are welcome, and the park is grass and river bluff — bring a blanket, claim shade early on a hot day.'
       ]
     }
   ]
