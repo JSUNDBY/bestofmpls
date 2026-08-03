@@ -10,13 +10,13 @@
 **Hook:** On screen, frame 1: "5 things to do this weekend in Minneapolis"
 
 **Shot list:**
-- Brass Messengers at The 331 Club (17:00) — b-roll of the venue or a poster
-- Curated by Laeton Olaleye: Cannonball Adderley Tribute at Berlin (19:00) — b-roll of the venue or a poster
-- Brotherkenzie at 7th St Entry — b-roll of the venue or a poster
-- Chuck Prophet at The Parkway Theater — b-roll of the venue or a poster
-- GCW vs. F1rst Wrestling at First Avenue — b-roll of the venue or a poster
+- Andy Fleser at Crooners Supper Club (17:00) — b-roll of the venue or a poster
+- Roe Family Singers at The 331 Club (18:00) — b-roll of the venue or a poster
+- Spiked Improv! presents: BEAT THE HEAT! at Crooners Supper Club (18:00) — b-roll of the venue or a poster
+- The Harlow Pennies w. Tarias And The Sound at White Squirrel Bar (18:00) — b-roll of the venue or a poster
+- Selwyn Birchwood at Dakota Jazz Club (19:00) — b-roll of the venue or a poster
 
-**Caption:** Five ways to spend the weekend, no scrolling six apps required. Full calendar and more at the link. The 331 Club, Berlin, 7th St Entry and more.
+**Caption:** Five ways to spend the weekend, no scrolling six apps required. Full calendar and more at the link. Crooners Supper Club, The 331 Club, Crooners Supper Club and more.
 
 **Tags:** #minneapolis #saintpaul #twincities #onlyinmn #mnpls #mplsevents #twincitieslife #thingstodomn
 
@@ -78,9 +78,9 @@
 **Hook:** Slide 1: "Your Minneapolis horoscope this week"
 
 **Shot list:**
-- Libra: "A morning that flatters everyone in it, including you. The afternoon finds a beautiful equ..."
-- Scorpio: "Something you committed to a long time ago is about to pay off. You are right about the th..."
-- Sagittarius: "You strike up a conversation with someone you did not need to and it is the best part of t..."
+- Libra: "A morning that flatters everyone in it, including you. You decline an invitation gracefull..."
+- Scorpio: "You see what other people miss this morning. You use it well. A long silence breaks in you..."
+- Sagittarius: "You wake up curious about something and it turns out to be worth it. Someone gives you a r..."
 
 **Caption:** A weekly reading written for the metro. All twelve signs at the link. Which one are you.
 
