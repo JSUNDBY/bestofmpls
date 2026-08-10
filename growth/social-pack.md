@@ -10,13 +10,13 @@
 **Hook:** On screen, frame 1: "5 things to do this weekend in Minneapolis"
 
 **Shot list:**
-- Emmy Woods and friends at The 331 Club (16:00) — b-roll of the venue or a poster
-- Curated by Laeton Olaleye: Around the World at Berlin (19:00) — b-roll of the venue or a poster
-- DWLLRS at 7th St Entry — b-roll of the venue or a poster
-- Jerry Day ⏤ Celebrating The Grateful Dead at Turf Club — b-roll of the venue or a poster
-- Juvenile at First Avenue — b-roll of the venue or a poster
+- Jacy Smith at Crooners Supper Club (17:00) — b-roll of the venue or a poster
+- Improv! Improv! at Crooners Supper Club (18:00) — b-roll of the venue or a poster
+- Mumblin’ Drew’s Oldfangled Orchestrators at White Squirrel Bar (18:00) — b-roll of the venue or a poster
+- Roe Family Singers at The 331 Club (18:00) — b-roll of the venue or a poster
+- Percolators Band at Lake Harriet Bandshell (19:30) — b-roll of the venue or a poster
 
-**Caption:** Five ways to spend the weekend, no scrolling six apps required. Full calendar and more at the link. The 331 Club, Berlin, 7th St Entry and more.
+**Caption:** Five ways to spend the weekend, no scrolling six apps required. Full calendar and more at the link. Crooners Supper Club, Crooners Supper Club, White Squirrel Bar and more.
 
 **Tags:** #minneapolis #saintpaul #twincities #onlyinmn #mnpls #mplsevents #twincitieslife #thingstodomn
 
@@ -78,9 +78,9 @@
 **Hook:** Slide 1: "Your Minneapolis horoscope this week"
 
 **Shot list:**
-- Scorpio: "You see what other people miss this morning. You use it well. A long silence breaks in you..."
-- Sagittarius: "You wake up curious about something and it turns out to be worth it. Someone gives you a r..."
-- Capricorn: "Patient work is compounding. Today you see some of the interest. A long-deferred conversat..."
+- Scorpio: "Something you committed to a long time ago is about to pay off. A boundary you held quietl..."
+- Sagittarius: "A small detour pays out better than the direct route. You realize you have outgrown someth..."
+- Capricorn: "You started the year quietly. Today the foundation shows and it is solid. A small structur..."
 
 **Caption:** A weekly reading written for the metro. All twelve signs at the link. Which one are you.
 
