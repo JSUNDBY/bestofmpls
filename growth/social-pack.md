@@ -14,7 +14,7 @@
 - Improv! Improv! at Crooners Supper Club (18:00) — b-roll of the venue or a poster
 - Mumblin’ Drew’s Oldfangled Orchestrators at White Squirrel Bar (18:00) — b-roll of the venue or a poster
 - Roe Family Singers at The 331 Club (18:00) — b-roll of the venue or a poster
-- Percolators Band at Lake Harriet Bandshell (19:30) — b-roll of the venue or a poster
+- Django Festival Allstars at Dakota Jazz Club (19:00) — b-roll of the venue or a poster
 
 **Caption:** Five ways to spend the weekend, no scrolling six apps required. Full calendar and more at the link. Crooners Supper Club, Crooners Supper Club, White Squirrel Bar and more.
 
