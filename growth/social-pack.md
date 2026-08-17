@@ -10,13 +10,13 @@
 **Hook:** On screen, frame 1: "5 things to do this weekend in Minneapolis"
 
 **Shot list:**
-- Brooklyn Rider: Complete Glass String Quartets at Walker Art Center (03:01) — b-roll of the venue or a poster
-- Choreographers’ Evening Curated by Ashwini Ramaswamy at Walker Art Center (03:01) — b-roll of the venue or a poster
-- Sandbox Percussion with Matthew Aucoin and Conor Hanick: Canto Ostinato by Simeon ten Holt at Walker Art Center (03:01) — b-roll of the venue or a poster
-- sweat variant,Okwui Okpokwasili and Peter Born: adaku, part 2 at Walker Art Center (03:01) — b-roll of the venue or a poster
+- Jay Fuchs at Crooners Supper Club (17:00) — b-roll of the venue or a poster
 - Volunteer Orientation at The Cedar Cultural Center (17:30) — b-roll of the venue or a poster
+- Club Day Monday Cabaret at Crooners Supper Club (18:00) — b-roll of the venue or a poster
+- The Cottonwood Shivers w. Nat Harriet at White Squirrel Bar (18:00) — b-roll of the venue or a poster
+- Ben Sidran at Dakota Jazz Club (19:00) — b-roll of the venue or a poster
 
-**Caption:** Five ways to spend the weekend, no scrolling six apps required. Full calendar and more at the link. Walker Art Center, Walker Art Center, Walker Art Center and more.
+**Caption:** Five ways to spend the weekend, no scrolling six apps required. Full calendar and more at the link. Crooners Supper Club, The Cedar Cultural Center, Crooners Supper Club and more.
 
 **Tags:** #minneapolis #saintpaul #twincities #onlyinmn #mnpls #mplsevents #twincitieslife #thingstodomn
 
