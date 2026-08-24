@@ -11,12 +11,12 @@
 
 **Shot list:**
 - Cindi Scheffler at Crooners Supper Club (17:00) — b-roll of the venue or a poster
+- Roe Family Singers at The 331 Club (18:00) — b-roll of the venue or a poster
 - The Midnight Movers at White Squirrel Bar (18:00) — b-roll of the venue or a poster
 - The New Bluebloods at Dakota Jazz Club (19:00) — b-roll of the venue or a poster
 - The Singer’s Voice, hosted by Dan Chouinard featuring Patty Peterson at Crooners Supper Club (19:00) — b-roll of the venue or a poster
-- Choro Borealis at Lake Harriet Bandshell (19:30) — b-roll of the venue or a poster
 
-**Caption:** Five ways to spend the weekend, no scrolling six apps required. Full calendar and more at the link. Crooners Supper Club, White Squirrel Bar, Dakota Jazz Club and more.
+**Caption:** Five ways to spend the weekend, no scrolling six apps required. Full calendar and more at the link. Crooners Supper Club, The 331 Club, White Squirrel Bar and more.
 
 **Tags:** #minneapolis #saintpaul #twincities #onlyinmn #mnpls #mplsevents #twincitieslife #thingstodomn
 
