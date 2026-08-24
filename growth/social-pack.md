@@ -10,13 +10,13 @@
 **Hook:** On screen, frame 1: "5 things to do this weekend in Minneapolis"
 
 **Shot list:**
-- Dances of Passion at Gichi-Ziibi Center for Arts (15:00) — b-roll of the venue or a poster
-- Matty Harris Quintet at The 331 Club (17:00) — b-roll of the venue or a poster
-- Curated by Laeton Olaleye: Laeton Olaleye Quartet at Berlin (19:00) — b-roll of the venue or a poster
-- The Devon Allman Project: at Dakota Jazz Club (19:00) — b-roll of the venue or a poster
-- Jason Carter Band at The Parkway Theater — b-roll of the venue or a poster
+- Cindi Scheffler at Crooners Supper Club (17:00) — b-roll of the venue or a poster
+- The Midnight Movers at White Squirrel Bar (18:00) — b-roll of the venue or a poster
+- The New Bluebloods at Dakota Jazz Club (19:00) — b-roll of the venue or a poster
+- The Singer’s Voice, hosted by Dan Chouinard featuring Patty Peterson at Crooners Supper Club (19:00) — b-roll of the venue or a poster
+- Choro Borealis at Lake Harriet Bandshell (19:30) — b-roll of the venue or a poster
 
-**Caption:** Five ways to spend the weekend, no scrolling six apps required. Full calendar and more at the link. Gichi-Ziibi Center for Arts, The 331 Club, Berlin and more.
+**Caption:** Five ways to spend the weekend, no scrolling six apps required. Full calendar and more at the link. Crooners Supper Club, White Squirrel Bar, Dakota Jazz Club and more.
 
 **Tags:** #minneapolis #saintpaul #twincities #onlyinmn #mnpls #mplsevents #twincitieslife #thingstodomn
 
@@ -77,9 +77,9 @@
 **Hook:** Slide 1: "Your Minneapolis horoscope this week"
 
 **Shot list:**
-- Capricorn: "Something you invested in a long time ago is paying off now. You hold steady and the situa..."
-- Aquarius: "A connection between two old ideas finally clicks into place. You hold an unpopular positi..."
-- Pisces: "You wake up with the right song already in your head. You see a stranger do something kind..."
+- Capricorn: "You answer the email you had been sitting on. Easier than expected, better too. You are re..."
+- Aquarius: "A connection between two old ideas finally clicks into place. You meet someone doing somet..."
+- Pisces: "You hear an old song and remember a good year. You feel everything at the right volume tod..."
 
 **Caption:** A weekly reading written for the metro. All twelve signs at the link. Which one are you.
 
