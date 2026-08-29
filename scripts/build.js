@@ -876,6 +876,24 @@ const writeFile = (rel, content) => {
 };
 
 // ---------- Components ----------
+// ---------- Basemap (2026-08-29) ----------
+// CARTO shut off keyless raster basemaps (every tile now carries an "API KEY
+// REQUIRED" watermark), so all maps keep their Leaflet code but render the
+// basemap as MapLibre GL vector tiles from OpenFreeMap (keyless, no limits)
+// through the maplibre-gl-leaflet adapter. OpenFreeMap's `positron` style is
+// the same design the CARTO light tiles carried; `dark` replaces dark_all.
+// Versions pinned with SRI hashes; maplibre-gl stays on 5.x (last UMD build).
+const MAP_LIBS = `
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" integrity="sha256-V2sIX92Uh6ZaGSFTKMHghsB85b9toJtmazgG09AI2uk=" crossorigin="">
+    <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js" integrity="sha256-vpYzxNhw4m+zfxz+XFp3GBZnEUAD6hYgeseFDY2ordE=" crossorigin=""></script>
+    <script src="https://unpkg.com/@maplibre/maplibre-gl-leaflet@0.0.22/leaflet-maplibre-gl.js" integrity="sha256-WezY0rMnedJPG9Jrh8iJDyfkpueFjZk70X5Nh45tJnc=" crossorigin=""></script>`;
+function basemapJs(style, extraAttribution) {
+  const attr = '© OpenStreetMap contributors © OpenFreeMap' + (extraAttribution || '');
+  return `L.maplibreGL({ style: 'https://tiles.openfreemap.org/styles/${style}', attribution: '${attr}' })`;
+}
+
 function head({ title, description, slug, theme }) {
   const url = slug ? `${SITE}/${slug}/` : `${SITE}/`;
   // Homepage gets its full keyword title with no brand suffix (the brand is
@@ -2730,16 +2748,12 @@ function renderEntry(c, e, allCategories) {
     : '';
 
   // Mini-map (Leaflet) if we have coords
-  const miniMap = coords ? `
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  const miniMap = coords ? `${MAP_LIBS}
     <div id="entry-mini-map" class="entry-detail-map"></div>
     <script>
       (function(){
         var map = L.map('entry-mini-map', { scrollWheelZoom: false, zoomControl: false, dragging: false }).setView([${coords.lat}, ${coords.lng}], 15);
-        L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-          attribution: '© OpenStreetMap contributors © CARTO', subdomains: 'abcd', maxZoom: 19
-        }).addTo(map);
+        ${basemapJs('positron')}.addTo(map);
         L.marker([${coords.lat}, ${coords.lng}], {
           icon: L.divIcon({ className: 'bom-marker', html: '<span style="background:#E11900"></span>', iconSize: [16, 16], iconAnchor: [8, 8] })
         }).addTo(map);
@@ -5018,8 +5032,7 @@ function renderMap() {
 
   return head({ title, description, slug: 'map', theme: 'forest' }) +
     header({ activeSlug: 'map' }) +
-    `<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
-     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    `${MAP_LIBS}
      <section class="section-head">
        <div class="wrap">
          <div class="section-eyebrow">${points.length} places mapped</div>
@@ -5041,10 +5054,7 @@ function renderMap() {
          var POINTS = ${pointsJson};
          var COLORS = ${colorsJson};
          var map = L.map('bom-map', { scrollWheelZoom: true }).setView([44.96, -93.18], 11);
-         L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-           attribution: '© OpenStreetMap contributors © CARTO',
-           subdomains: 'abcd', maxZoom: 19
-         }).addTo(map);
+         ${basemapJs('positron')}.addTo(map);
 
          var markers = POINTS.map(function(p){
            var color = COLORS[p.cluster] || '#666';
@@ -6244,8 +6254,7 @@ function renderSkyway() {
 
   return head({ title: s.title, description, slug: 'skyway', theme: 'midnight' }) +
     header({ activeSlug: 'skyway' }) +
-    `<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
-     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    `${MAP_LIBS}
      <section class="section-head">
        <div class="wrap">
          <div class="section-eyebrow">${mplsMiles} mi Minneapolis · ${stpMiles} mi Saint Paul · ${mplsSegs.length + stpSegs.length} segments mapped</div>
@@ -6300,10 +6309,7 @@ function renderSkyway() {
 
          var map = L.map('skyway-map', { scrollWheelZoom: true });
          map.fitBounds(BOUNDS.both, { padding: [20, 20] });
-         L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-           attribution: '© OpenStreetMap contributors © CARTO · Skyway geometry © OSM (ODbL)',
-           subdomains: 'abcd', maxZoom: 19
-         }).addTo(map);
+         ${basemapJs('dark', ' · Skyway geometry © OSM (ODbL)')}.addTo(map);
 
          // Render the actual OSM segment polylines per city as Leaflet
          // layer groups so the toggle can show/hide them cleanly.
@@ -7282,14 +7288,12 @@ function renderGuide(g) {
   // Pinned map of the picks that have verified coords — Eater's spatial UX, but
   // auto-updating. Numbered to match the list below.
   const mapPts = picks.map((p, i) => p.coords ? { lat: p.coords.lat, lng: p.coords.lng, name: p.e.name, href: p.href, n: i + 1 } : null).filter(Boolean);
-  const guideMap = mapPts.length >= 2 ? `
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  const guideMap = mapPts.length >= 2 ? `${MAP_LIBS}
     <section class="wrap"><div id="guide-map" class="guide-map"></div></section>
     <script>(function(){
       var pts=${JSON.stringify(mapPts)};
       var map=L.map('guide-map',{scrollWheelZoom:false}).setView([44.97,-93.24],11);
-      L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{attribution:'© OpenStreetMap contributors © CARTO',subdomains:'abcd',maxZoom:19}).addTo(map);
+      ${basemapJs('positron')}.addTo(map);
       var b=[];
       pts.forEach(function(p){
         var m=L.marker([p.lat,p.lng],{icon:L.divIcon({className:'bom-marker',html:'<span style="background:#E11900"></span>',iconSize:[16,16],iconAnchor:[8,8]})}).addTo(map);
