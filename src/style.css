@@ -6780,3 +6780,31 @@ html[data-mode="dark"] .home-board { background: #050505; border-top: 1px solid 
 .pp-card-block { margin-top: 36px; }
 .pp-privacy { font-family: var(--font-body); font-size: 12.5px; line-height: 1.55; color: var(--ink-faint); margin-top: 32px; max-width: 560px; }
 .pp-privacy a { color: inherit; }
+
+/* ===== Live-music answer pages (/live-music/tonight/, /live-music/free/) ===== */
+.mt { padding-bottom: var(--sec-y); }
+.mt-chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+.mt-chips .pulse-dot { margin-right: 4px; }
+.mt-day { font-family: var(--font-display); font-weight: 800; font-size: clamp(20px, 3.4vw, 28px); letter-spacing: -0.02em; color: var(--ink); border-top: 2px solid var(--rule); padding-top: 18px; margin: 34px 0 4px; }
+.mt-day:first-child { margin-top: 0; }
+.mt-subday { font-family: var(--font-mono); font-weight: 600; font-size: 12.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--clay); margin: 26px 0 2px; }
+.mt-list { list-style: none; padding: 0; margin: 8px 0 0; }
+.mt-show { display: grid; grid-template-columns: 64px 1fr auto; gap: 14px; align-items: baseline; padding: 12px 0; border-bottom: 1px solid var(--rule); }
+.mt-list--compact .mt-show { padding: 8px 0; }
+.mt-show-time { font-family: var(--font-mono); font-weight: 600; font-size: 13.5px; color: var(--ink-faint); font-variant-numeric: tabular-nums; }
+.mt-show-what { font-family: var(--font-body); font-size: 15.5px; color: var(--ink); min-width: 0; }
+.mt-show-what > a { font-weight: 600; color: var(--ink); text-decoration: none; }
+.mt-show-what > a:hover { color: var(--clay); }
+.mt-show-venue { display: block; font-size: 13px; color: var(--ink-soft); margin-top: 2px; }
+.mt-show-venue a, .mt-show-venue-link { color: var(--ink-soft); }
+.mt-show-price { font-family: var(--font-mono); font-weight: 600; font-size: 12.5px; color: var(--ink-faint); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.mt-show-price.is-free { color: var(--clay); }
+.mt-empty { font-family: var(--font-body); font-size: 15px; color: var(--ink-soft); margin: 12px 0 0; }
+.mt-standing { border: 1px solid var(--rule); border-left: 3px solid var(--clay); border-radius: var(--radius); padding: 18px 20px; margin-bottom: 8px; }
+.mt-standing .mt-day { border-top: none; padding-top: 0; margin: 0 0 6px; font-size: 20px; }
+.mt-standing-body { font-family: var(--font-body); font-size: 15px; line-height: 1.6; color: var(--ink-soft); margin: 0; }
+.mt-standing-body a { color: var(--clay); font-weight: 600; text-decoration: none; }
+.mt-faq { margin-top: 44px; border-top: 2px solid var(--rule); padding-top: 10px; }
+.mt-faq-item { padding: 16px 0; border-bottom: 1px solid var(--rule); }
+.mt-faq-q { font-family: var(--font-display); font-weight: 700; font-size: 17px; letter-spacing: -0.01em; color: var(--ink); margin: 0; }
+.mt-faq-a { font-family: var(--font-body); font-size: 14.5px; line-height: 1.6; color: var(--ink-soft); margin: 8px 0 0; max-width: 640px; }

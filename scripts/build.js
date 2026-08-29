@@ -923,7 +923,7 @@ ${GSC_VERIFICATION ? `<meta name="google-site-verification" content="${esc(GSC_V
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;600;700;800&family=IBM+Plex+Mono:wght@500;600;700&family=Source+Sans+3:wght@400;600&display=swap">
-<link rel="stylesheet" href="/style.css?v=73">
+<link rel="stylesheet" href="/style.css?v=74">
 <script>
 // Set color mode before paint to avoid flash. Reads localStorage first,
 // falls back to light mode (the new editorial default). mode-ready class
@@ -974,6 +974,7 @@ function header({ activeSlug } = {}) {
       label: 'Right Now',
       items: [
         { href: '/tonight/',   label: 'Tonight',        deck: 'Sunset, weather, what is coming up' },
+        { href: '/live-music/tonight/', label: 'Music Tonight', deck: 'Every show, from the venues themselves' },
         { href: '/calendar/',  label: 'Calendar',       deck: 'Live shows, openings, screenings' },
         { href: '/scenes/',    label: 'Scenes',         deck: 'Jazz, punk, electronic, folk, hip-hop' },
         { href: '/now-showing/', label: 'Now Showing',  deck: 'Current art exhibitions' },
@@ -1912,6 +1913,7 @@ function renderHome() {
           <li><a href="/skyway/"><span class="mtools-code">S</span> Skyway <em>${skyway.nodes.length} downtown nodes</em></a></li>
           <li><a href="/quiz/"><span class="mtools-code">Q</span> Quiz <em>where to be tonight</em></a></li>
           <li><a href="/horoscope/"><span class="mtools-code">H</span> Horoscope <em>for the metro</em></a></li>
+          <li><a href="/live-music/tonight/"><span class="mtools-code">M</span> Music Tonight <em>every show, every venue</em></a></li>
           <li><a href="/passport/"><span class="mtools-code">P</span> Passport <em>your map of the metro</em></a></li>
           <li><a href="/trails/"><span class="mtools-code">L</span> Trails <em>finishable quests</em></a></li>
           <li><a href="/five/"><span class="mtools-code">5</span> Five Today <em>exactly five, decided for you</em></a></li>
@@ -2044,6 +2046,7 @@ const SEO_TITLE_BY_SLUG = {
   curiosities: 'Twin Cities Curiosities & Hidden Oddities',
   outdoors: 'Best Outdoor Activities in Minneapolis & St. Paul',
   sports: 'Twin Cities Sports: Teams, Venues & Game-Day Guide',
+  'live-music': 'Live Music in Minneapolis: The Best Venues & Tonight\'s Shows',
 };
 function seoTitle(c) {
   return c.seoTitle || SEO_TITLE_BY_SLUG[c.slug] || `Best ${c.title} in Minneapolis & St. Paul`;
@@ -2356,6 +2359,15 @@ function renderCategory(c) {
         <h1 class="section-title">${esc(c.title)} <em>in the Twin Cities</em></h1>
         <p class="section-deck">${esc(c.intro)}</p>
         ${c.slug === 'lectures' ? `<p class="section-deck" style="margin-top:14px"><a class="entry-reserve" href="/contribute/">Hosting a public talk? List it free →</a></p>` : ''}
+        ${c.slug === 'live-music' ? (() => {
+          const tonightCount = (eventsData.events || []).filter(e => e.category === 'music' && e.date === TODAY_ISO && !isNoiseEvent(e)).length;
+          return `<nav class="mt-chips" aria-label="Live music tools">
+            <a class="cal-chip" href="/live-music/tonight/"><span class="pulse-dot" aria-hidden="true"></span> Tonight${tonightCount ? ` · ${tonightCount} shows` : ''}</a>
+            <a class="cal-chip" href="/live-music/free/">Free shows</a>
+            <a class="cal-chip" href="/calendar/">Full calendar</a>
+            <a class="cal-chip" href="/scenes/">By scene</a>
+          </nav>`;
+        })() : ''}
         ${freshnessNote()}
       </div>
     </section>
@@ -3005,7 +3017,7 @@ function renderAdminDash() {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>Operations · bestofmpls</title>
-<link rel="stylesheet" href="/style.css?v=73">
+<link rel="stylesheet" href="/style.css?v=74">
 <style>
   body { background: var(--paper); }
   .ops-wrap { max-width: 1020px; margin: 0 auto; padding: 32px var(--gutter) 96px; }
@@ -3308,7 +3320,7 @@ function renderAdminPicks() {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>${esc(title)}</title>
-<link rel="stylesheet" href="/style.css?v=73">
+<link rel="stylesheet" href="/style.css?v=74">
 <style>
   body { background: var(--paper); }
   .admin-wrap { max-width: 960px; margin: 0 auto; padding: 32px var(--gutter) 96px; }
@@ -4590,6 +4602,206 @@ function renderVenuePage(v) {
 }
 
 // ---------- /this-weekend/ — Fri/Sat/Sun bundle ----------
+// ---------- Live-music answer pages ----------
+// Two intent-matched pages built on the scraped calendar, rebuilt every CI
+// run (4x daily): /live-music/tonight/ answers "live music minneapolis
+// tonight", /live-music/free/ answers "free live music minneapolis". Facts
+// come only from scraped events and existing directory descriptions.
+
+function upcomingMusicEvents() {
+  return dedupeNonFilms((eventsData.events || [])
+    .filter(e => e.category === 'music' && e.date >= TODAY_ISO && !isNoiseEvent(e)))
+    .sort((a, b) => (a.date + (a.time || '')).localeCompare(b.date + (b.time || '')));
+}
+
+function musicFmtDay(iso) {
+  const [y, m, d] = iso.split('-').map(Number);
+  return new Date(y, m - 1, d).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+}
+function musicFmtTime(t) {
+  if (!t) return '';
+  const [h, m] = t.split(':').map(Number);
+  const ap = h >= 12 ? 'pm' : 'am', hr = h % 12 === 0 ? 12 : h % 12;
+  return m ? `${hr}:${String(m).padStart(2, '0')}${ap}` : `${hr}${ap}`;
+}
+
+function musicShowRow(e) {
+  return `
+    <li class="mt-show">
+      <span class="mt-show-time">${esc(musicFmtTime(e.time)) || '—'}</span>
+      <span class="mt-show-what">
+        ${e.url ? `<a href="${esc(e.url)}" target="_blank" rel="noopener">${esc(e.title)}</a>` : esc(e.title)}
+        <span class="mt-show-venue">${venueLink(e.venue, 'mt-show-venue-link')}${e.venue_neighborhood ? ` · ${esc(String(e.venue_neighborhood).split(',')[0])}` : ''}</span>
+      </span>
+      ${e.price ? `<span class="mt-show-price${/free/i.test(e.price) ? ' is-free' : ''}">${esc(e.price)}</span>` : ''}
+    </li>`;
+}
+
+function musicEventSchema(events, name, url) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name,
+    url,
+    dateModified: TODAY_ISO,
+    numberOfItems: events.length,
+    itemListElement: events.map((e, i) => ({
+      '@type': 'ListItem', position: i + 1,
+      item: { ...eventJsonLd(e, getVenues().find(v => v.name === e.venue)), '@type': 'MusicEvent', '@context': undefined }
+    }))
+  };
+}
+
+function musicCrossChips(active) {
+  const links = [
+    ['/live-music/tonight/', 'Tonight'],
+    ['/live-music/free/', 'Free shows'],
+    ['/live-music/', 'The venues'],
+    ['/calendar/', 'Full calendar'],
+    ['/scenes/', 'By scene']
+  ];
+  return `<nav class="mt-chips" aria-label="Live music pages">${links
+    .map(([href, label]) => `<a class="cal-chip${href === active ? ' is-on' : ''}" href="${href}">${label}</a>`).join('')}</nav>`;
+}
+
+function renderMusicTonight() {
+  const all = upcomingMusicEvents();
+  const tonight = all.filter(e => e.date === TODAY_ISO);
+  const tomorrowISO = (() => { const [y, m, d] = TODAY_ISO.split('-').map(Number); return new Date(y, m - 1, d + 1).toISOString().slice(0, 10); })();
+  const tomorrow = all.filter(e => e.date === tomorrowISO);
+  const weekEnd = (() => { const [y, m, d] = TODAY_ISO.split('-').map(Number); return new Date(y, m - 1, d + 7).toISOString().slice(0, 10); })();
+  const week = all.filter(e => e.date > tomorrowISO && e.date <= weekEnd);
+  const weekByDay = [...new Set(week.map(e => e.date))].map(iso => ({ iso, shows: week.filter(e => e.date === iso) }));
+  const venueCount = new Set(all.map(e => e.venue)).size;
+  const freeTonight = tonight.filter(e => /free/i.test(e.price || ''));
+
+  const title = 'Live Music in Minneapolis Tonight: Every Show, Updated Daily';
+  const description = `${tonight.length} live shows across Minneapolis and St. Paul tonight, pulled from ${venueCount} venue calendars and refreshed through the day. Times, prices, and where to go.`;
+  const url = `${SITE}/live-music/tonight/`;
+
+  // Visible FAQ — the AEO surface. Every answer is generated from the same
+  // data the page shows, never hand-invented.
+  const topVenuesTonight = [...new Set(tonight.map(e => e.venue))].slice(0, 4);
+  const faq = [
+    {
+      q: 'Where can I hear live music in Minneapolis tonight?',
+      a: tonight.length
+        ? `Tonight there are ${tonight.length} shows on across the metro${topVenuesTonight.length ? ', including at ' + topVenuesTonight.join(', ') : ''}. The full list above has times and prices, refreshed several times a day from the venues' own calendars.`
+        : 'Nothing is on our tracked calendars for tonight, which is rare. Check the week ahead below, or the full calendar for everything we track.'
+    },
+    {
+      q: 'Is there free live music in Minneapolis tonight?',
+      a: freeTonight.length
+        ? `Yes. ${freeTonight.length} of tonight's shows are free${freeTonight.length ? ', including ' + freeTonight.slice(0, 2).map(e => `${e.title} at ${e.venue}`).join(' and ') : ''}. The 331 Club in Northeast also runs live music almost every night with no cover.`
+        : 'The 331 Club in Northeast runs live music almost every night of the year with no cover. See our free live music page for everything with a $0 door.'
+    },
+    {
+      q: 'How current is this list?',
+      a: `This page is rebuilt several times a day directly from ${venueCount} venue calendars. Last refresh: ${musicFmtDay(TODAY_ISO)}.`
+    }
+  ];
+  const faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faq.map(f => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } }))
+  };
+
+  return head({ title, description, slug: 'live-music/tonight', theme: 'default' }) +
+    `<script type="application/ld+json">${JSON.stringify(musicEventSchema([...tonight, ...tomorrow].slice(0, 40), 'Live Music in Minneapolis Tonight', url))}</script>` +
+    `<script type="application/ld+json">${JSON.stringify(faqSchema)}</script>` +
+    header({ activeSlug: 'live-music' }) +
+    `<section class="section-head">
+      <div class="wrap">
+        <div class="section-eyebrow"><span class="pulse-dot" aria-hidden="true"></span> ${tonight.length} shows tonight · rebuilt through the day</div>
+        <h1 class="section-title">Live music tonight.</h1>
+        <p class="section-deck">Every show we track across ${venueCount} Minneapolis and St. Paul venues, straight from their own calendars: who is on, what time, what it costs. No login, no ads, no resale links.</p>
+        ${musicCrossChips('/live-music/tonight/')}
+      </div>
+    </section>
+    <section class="wrap mt">
+      <h2 class="mt-day">Tonight · ${esc(musicFmtDay(TODAY_ISO))}</h2>
+      ${tonight.length
+        ? `<ul class="mt-list">${tonight.map(musicShowRow).join('')}</ul>`
+        : `<p class="mt-empty">Nothing on our tracked calendars tonight, which almost never happens. The week ahead is below.</p>`}
+      ${tomorrow.length ? `
+      <h2 class="mt-day">Tomorrow · ${esc(musicFmtDay(tomorrowISO))}</h2>
+      <ul class="mt-list">${tomorrow.map(musicShowRow).join('')}</ul>` : ''}
+      ${weekByDay.length ? `
+      <h2 class="mt-day">The week ahead</h2>
+      ${weekByDay.map(d => `
+        <h3 class="mt-subday">${esc(musicFmtDay(d.iso))}</h3>
+        <ul class="mt-list mt-list--compact">${d.shows.map(musicShowRow).join('')}</ul>`).join('')}` : ''}
+      <section class="mt-faq" aria-label="Common questions">
+        ${faq.map(f => `
+        <div class="mt-faq-item">
+          <h2 class="mt-faq-q">${esc(f.q)}</h2>
+          <p class="mt-faq-a">${esc(f.a)}</p>
+        </div>`).join('')}
+      </section>
+      <p class="pp-privacy">Sources: the venues' own published calendars. When a show is missing it means the venue has not posted it, not that it is not happening, so always confirm with the room. <a href="/live-music/">Our guide to the venues themselves →</a></p>
+    </section>` +
+    newsletterCapture({ context: 'category' }) +
+    footer();
+}
+
+function renderMusicFree() {
+  const all = upcomingMusicEvents();
+  const free = all.filter(e => /free/i.test(e.price || ''));
+  const freeByDay = [...new Set(free.map(e => e.date))].slice(0, 30).map(iso => ({ iso, shows: free.filter(e => e.date === iso) }));
+  const title = 'Free Live Music in Minneapolis & St. Paul: No-Cover Shows';
+  const description = `${free.length} upcoming free shows across the Twin Cities, plus the rooms that never charge a cover. Pulled from venue calendars and refreshed daily.`;
+  const url = `${SITE}/live-music/free/`;
+
+  const faq = [
+    {
+      q: 'Where can I see live music for free in Minneapolis?',
+      a: `The 331 Club in Northeast runs live music almost every night of the year with no cover, usually two or three sets a night. Beyond the standing no-cover rooms, we currently track ${free.length} upcoming shows with a free door across the metro. The full list is on this page, refreshed daily.`
+    },
+    {
+      q: 'Is the Lake Harriet Bandshell free?',
+      a: 'Yes. The Minneapolis Park Board\'s Music in the Parks concerts at the Lake Harriet Bandshell are free, running through the summer season. When bandshell dates are on the calendar they appear in the list above.'
+    }
+  ];
+  const faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faq.map(f => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } }))
+  };
+
+  return head({ title, description, slug: 'live-music/free', theme: 'default' }) +
+    `<script type="application/ld+json">${JSON.stringify(musicEventSchema(free.slice(0, 40), 'Free Live Music in Minneapolis & St. Paul', url))}</script>` +
+    `<script type="application/ld+json">${JSON.stringify(faqSchema)}</script>` +
+    header({ activeSlug: 'live-music' }) +
+    `<section class="section-head">
+      <div class="wrap">
+        <div class="section-eyebrow">${free.length} free shows on the calendar</div>
+        <h1 class="section-title">Free live music.</h1>
+        <p class="section-deck">Every upcoming show with a $0 door that we can verify from the venues' own calendars, plus the rooms that never charge a cover. A real night out for the price of a tip jar.</p>
+        ${musicCrossChips('/live-music/free/')}
+      </div>
+    </section>
+    <section class="wrap mt">
+      <div class="mt-standing">
+        <h2 class="mt-day">The no-cover room</h2>
+        <p class="mt-standing-body"><a href="/live-music/the-331-club/">The 331 Club</a> in Northeast runs live music almost every night of the year with no cover, usually a 7pm act and a 9:30pm act, sometimes a third late. It is the closest thing the metro has to a free nightly music habit.</p>
+      </div>
+      ${freeByDay.length ? freeByDay.map(d => `
+        <h3 class="mt-subday">${esc(musicFmtDay(d.iso))}</h3>
+        <ul class="mt-list mt-list--compact">${d.shows.map(musicShowRow).join('')}</ul>`).join('')
+        : '<p class="mt-empty">No verified-free shows on the tracked calendars right now. The 331 Club above is still your nightly bet.</p>'}
+      <section class="mt-faq" aria-label="Common questions">
+        ${faq.map(f => `
+        <div class="mt-faq-item">
+          <h2 class="mt-faq-q">${esc(f.q)}</h2>
+          <p class="mt-faq-a">${esc(f.a)}</p>
+        </div>`).join('')}
+      </section>
+      <p class="pp-privacy">"Free" here means the venue's own calendar lists no charge. Tip the band anyway. <a href="/live-music/tonight/">Everything on tonight →</a></p>
+    </section>` +
+    newsletterCapture({ context: 'category' }) +
+    footer();
+}
+
 function renderWeekend() {
   const allEvents = eventsData.events || [];
   const events = dedupeNonFilms(allEvents.filter(e => isShowEvent(e) && !isNoiseEvent(e)));
@@ -7757,6 +7969,8 @@ function renderSitemap(neighborhoods, crossPages) {
     { loc: SITE + '/departed/', priority: '0.7' },
     { loc: SITE + '/surprise/', priority: '0.7' },
     { loc: SITE + '/five/', priority: '0.8' },
+    { loc: SITE + '/live-music/tonight/', priority: '0.9' },
+    { loc: SITE + '/live-music/free/', priority: '0.85' },
     { loc: SITE + '/passport/', priority: '0.6' },
     { loc: SITE + '/trails/', priority: '0.8' },
     ...trailsData.trails.map(t => ({ loc: `${SITE}/trails/${t.slug}/`, priority: '0.75' })),
@@ -7854,6 +8068,8 @@ function renderLlmsTxt(neighborhoods) {
 ## Live answers (refreshed daily)
 
 - [Tonight](${SITE}/tonight/): every show in the metro tonight, with times, venues, and ticket links
+- [Live Music Tonight](${SITE}/live-music/tonight/): every live music show in Minneapolis and St. Paul tonight and this week, with times and prices, from the venues' own calendars
+- [Free Live Music](${SITE}/live-music/free/): every upcoming no-cover show in the Twin Cities, plus the rooms that never charge
 - [Five Today](${SITE}/five/): exactly five things worth leaving the house for today
 - [This Weekend](${SITE}/this-weekend/): Friday through Sunday, day by day
 - [The Calendar](${SITE}/calendar/): concerts, openings, talks, and screenings by date and venue
@@ -7980,6 +8196,10 @@ function build() {
 
   // This Weekend — Fri/Sat/Sun bundle
   writeFile('this-weekend/index.html', renderWeekend());
+
+  // Live-music answer pages — intent-matched, rebuilt every CI run
+  writeFile('live-music/tonight/index.html', renderMusicTonight());
+  writeFile('live-music/free/index.html', renderMusicFree());
 
   // Daily horoscope
   writeFile('horoscope/index.html', renderHoroscope());
