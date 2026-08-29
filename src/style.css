@@ -6699,3 +6699,84 @@ html[data-mode="dark"] .home-board { background: #050505; border-top: 1px solid 
 .pulse-dot::after { content: ''; position: absolute; inset: 0; border-radius: 999px; background: var(--clay); animation: bom-pulse 2.4s ease-out infinite; }
 @keyframes bom-pulse { 0% { transform: scale(1); opacity: 0.55; } 70%, 100% { transform: scale(2.6); opacity: 0; } }
 @media (prefers-reduced-motion: reduce) { .pulse-dot::after { animation: none; } }
+
+/* ===== Passport + Trails — the collection layer ===== */
+/* "I've been here" shares the clay-tinted invitation with Save. */
+.lb-btn--been { border-color: var(--clay); color: var(--clay); }
+
+/* Trails index */
+.trails-list { padding-bottom: var(--sec-y); }
+.trail-card { display: block; padding: 26px 0; border-bottom: 1px solid var(--rule); text-decoration: none; }
+.trail-card:first-child { border-top: 2px solid var(--rule); }
+.trail-card-eyebrow { font-family: var(--font-mono); font-weight: 600; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--clay); }
+.trail-card-title { font-family: var(--font-display); font-weight: 800; font-size: clamp(24px, 4vw, 34px); letter-spacing: -0.02em; color: var(--ink); margin: 6px 0 0; }
+.trail-card:hover .trail-card-title { color: var(--clay); }
+.trail-card-deck { font-family: var(--font-body); font-size: 15.5px; line-height: 1.55; color: var(--ink-soft); margin: 8px 0 0; max-width: 640px; }
+.trail-card-foot { display: flex; align-items: baseline; gap: 16px; margin-top: 12px; }
+.trail-card-count { font-family: var(--font-mono); font-weight: 600; font-size: 13px; color: var(--ink-faint); font-variant-numeric: tabular-nums; }
+.trail-card-progress { font-family: var(--font-mono); font-weight: 600; font-size: 13px; color: var(--clay); font-variant-numeric: tabular-nums; }
+.trail-card-done { font-family: var(--font-mono); font-weight: 600; font-size: 13px; color: var(--clay); }
+
+/* Trail page */
+.trail { padding-bottom: var(--sec-y); }
+.trail-progress { border-top: 2px solid var(--rule); padding-top: 18px; }
+.trail-progress-line { font-family: var(--font-mono); font-weight: 600; font-size: 14px; color: var(--ink); font-variant-numeric: tabular-nums; }
+.trail-progress-count { font-size: 22px; color: var(--clay); }
+.pp-bar { height: 4px; background: var(--paper-3); border-radius: 2px; margin-top: 10px; overflow: hidden; }
+.pp-bar span { display: block; height: 100%; background: var(--clay); border-radius: 2px; transition: width 0.3s ease; }
+.trail-pace { font-family: var(--font-body); font-size: 13.5px; color: var(--ink-faint); margin: 12px 0 0; }
+.trail-stops { list-style: none; padding: 0; margin: 28px 0 0; }
+.trail-stop { display: grid; grid-template-columns: auto 1fr auto; gap: 16px; align-items: start; padding: 20px 0; border-bottom: 1px solid var(--rule); }
+.trail-stop-num { font-family: var(--font-mono); font-weight: 600; font-size: 14px; color: var(--ink-faint); padding-top: 4px; font-variant-numeric: tabular-nums; }
+.trail-stop.is-been .trail-stop-num { color: var(--clay); }
+.trail-stop-name { font-family: var(--font-display); font-weight: 700; font-size: 19px; color: var(--ink); text-decoration: none; }
+.trail-stop-name:hover { color: var(--clay); }
+.trail-stop-nb { display: inline-block; margin-left: 10px; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink-faint); }
+.trail-stop-why { font-family: var(--font-body); font-size: 14.5px; line-height: 1.5; color: var(--ink-soft); margin: 5px 0 0; max-width: 560px; }
+.trail-mark { display: flex; flex-direction: column; align-items: center; gap: 5px; background: transparent; border: none; cursor: pointer; padding: 2px 6px; }
+.trail-mark-dot { width: 26px; height: 26px; border-radius: 50%; border: 2px solid var(--rule-strong, var(--ink)); transition: background 0.15s, border-color 0.15s, box-shadow 0.15s; }
+.trail-mark-label { font-family: var(--font-mono); font-weight: 600; font-size: 10.5px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-faint); }
+.trail-mark:hover .trail-mark-dot { border-color: var(--clay); }
+.trail-stop.is-been .trail-mark-dot { background: var(--clay); border-color: var(--clay); box-shadow: 0 0 0 3px color-mix(in srgb, var(--clay) 18%, transparent); }
+.trail-stop.is-been .trail-mark-label { color: var(--clay); }
+.trail-done-panel { margin-top: 36px; border: 2px solid var(--clay); border-radius: var(--radius); padding: 26px; }
+.trail-done-head { font-family: var(--font-display); font-weight: 800; font-size: 26px; letter-spacing: -0.02em; color: var(--clay); }
+.trail-done-line { font-family: var(--font-body); font-size: 16px; line-height: 1.55; color: var(--ink); margin: 8px 0 18px; max-width: 560px; }
+
+/* Cards (canvas renders at 1080×1350, displayed small) */
+.pp-card-canvas { display: block; width: 100%; max-width: 340px; height: auto; border: 1px solid var(--rule); border-radius: var(--radius); }
+.pp-card-actions { display: flex; gap: 10px; margin-top: 14px; flex-wrap: wrap; }
+
+/* Passport page */
+.pp { padding-bottom: var(--sec-y); }
+.pp-empty { border-top: 2px solid var(--rule); padding-top: 24px; max-width: 640px; }
+.pp-empty-lede { font-family: var(--font-display); font-weight: 700; font-size: 22px; letter-spacing: -0.01em; color: var(--ink); margin: 0; }
+.pp-empty-body { font-family: var(--font-body); font-size: 15.5px; line-height: 1.6; color: var(--ink-soft); margin: 12px 0 0; }
+.pp-empty-trails { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+.pp-count-row { display: flex; align-items: baseline; gap: 14px; border-top: 2px solid var(--rule); padding-top: 20px; flex-wrap: wrap; }
+.pp-count { font-family: var(--font-mono); font-weight: 700; font-size: clamp(48px, 9vw, 84px); line-height: 1; color: var(--clay); font-variant-numeric: tabular-nums; }
+.pp-count-label { font-family: var(--font-body); font-size: 15px; color: var(--ink-soft); max-width: 300px; }
+.pp-map { margin-top: 28px; border: 1px solid var(--rule); border-radius: var(--radius); background: var(--paper-2); }
+.pp-map svg { display: block; width: 100%; height: auto; }
+.pp-dot { fill: var(--ink); opacity: 0.13; }
+.pp-dot-met { fill: var(--clay); }
+.pp-map-label { font-family: var(--font-mono); font-weight: 600; font-size: 13px; letter-spacing: 0.18em; fill: var(--ink-faint); opacity: 0.7; }
+.pp-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 36px; }
+@media (max-width: 640px) { .pp-cols { grid-template-columns: 1fr; } }
+.pp-col-title { font-family: var(--font-mono); font-weight: 600; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--clay); margin: 0 0 14px; }
+.pp-group { margin-bottom: 16px; }
+.pp-group-line { display: flex; justify-content: space-between; font-family: var(--font-body); font-weight: 600; font-size: 14.5px; color: var(--ink); }
+.pp-group-n { font-family: var(--font-mono); font-weight: 600; font-size: 13px; color: var(--ink-faint); font-variant-numeric: tabular-nums; }
+.pp-nbs { list-style: none; padding: 0; margin: 0; }
+.pp-nbs li { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--rule); }
+.pp-nb-name { font-family: var(--font-body); font-weight: 600; font-size: 14.5px; color: var(--ink); }
+.pp-nb-n { font-family: var(--font-mono); font-weight: 600; font-size: 13px; color: var(--clay); font-variant-numeric: tabular-nums; }
+.pp-nb-nudge { font-family: var(--font-body); font-size: 13.5px; line-height: 1.5; color: var(--ink-soft); margin-top: 14px; padding: 12px 14px; background: var(--paper-2); border-radius: var(--radius); }
+.pp-trails { margin-top: 36px; }
+.pp-trail { display: flex; justify-content: space-between; align-items: baseline; padding: 12px 0; border-bottom: 1px solid var(--rule); text-decoration: none; }
+.pp-trail-name { font-family: var(--font-display); font-weight: 700; font-size: 17px; color: var(--ink); }
+.pp-trail:hover .pp-trail-name { color: var(--clay); }
+.pp-trail-n { font-family: var(--font-mono); font-weight: 600; font-size: 13px; color: var(--clay); font-variant-numeric: tabular-nums; }
+.pp-card-block { margin-top: 36px; }
+.pp-privacy { font-family: var(--font-body); font-size: 12.5px; line-height: 1.55; color: var(--ink-faint); margin-top: 32px; max-width: 560px; }
+.pp-privacy a { color: inherit; }

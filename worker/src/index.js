@@ -210,7 +210,7 @@ export default {
       catch (_) { return json({ error: 'invalid json' }, 400, origin); }
       if (body.hp) return json({ ok: true }, 200, origin);
 
-      const TYPES = ['save', 'regular', 'directions', 'story'];
+      const TYPES = ['save', 'regular', 'been', 'directions', 'story'];
       const type = clean(body.type, 16);
       const place = clean(body.place, 120).toLowerCase().replace(/[^a-z0-9/_-]/g, '');
       const device = clean(body.device, 64).replace(/[^a-zA-Z0-9_-]/g, '');
@@ -228,9 +228,10 @@ export default {
       let rec = null;
       try { const ex = await env.POLLS.get(key); rec = ex ? JSON.parse(ex) : null; } catch (_) {}
       if (!rec) rec = { saves: {}, regulars: {}, directions: [], stories: [] };
+      if (!rec.beens) rec.beens = {};   // added with the Passport; older records lack it
 
-      if (type === 'save' || type === 'regular') {
-        const map = type === 'save' ? rec.saves : rec.regulars;
+      if (type === 'save' || type === 'regular' || type === 'been') {
+        const map = type === 'save' ? rec.saves : type === 'been' ? rec.beens : rec.regulars;
         if (body.remove) delete map[device];        // toggle off
         else map[device] = ts;                       // dedupes by device
       } else if (type === 'directions') {
@@ -264,6 +265,7 @@ export default {
             out[k.name.slice(3)] = {
               saves: Object.values(rec.saves || {}),
               regulars: Object.values(rec.regulars || {}),
+              beens: Object.values(rec.beens || {}),
               directions: rec.directions || [],
               stories: (rec.stories || []).filter(s => s.ok).map(s => ({ ts: s.ts, text: s.text }))
             };

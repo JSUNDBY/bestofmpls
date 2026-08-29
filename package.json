@@ -13,7 +13,10 @@
     "build": "node scripts/build.js",
     "build:full": "node scripts/scrape-events.js && node scripts/build-horoscope.js && node scripts/build-rightnow.js && node scripts/livingbest.js && node scripts/build.js",
     "serve": "npx serve dist -p 47823",
-    "dev": "node scripts/build.js && npx serve dist -p 47823"
+    "dev": "node scripts/build.js && npx serve dist -p 47823",
+    "shorts": "node scripts/build-shorts.js",
+    "shorts:auth": "node scripts/upload-short.js --auth",
+    "shorts:upload": "node scripts/upload-short.js"
   },
   "engines": {
     "node": ">=18"

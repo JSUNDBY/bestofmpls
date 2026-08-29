@@ -116,7 +116,8 @@ module.exports = {
       month: 'Late August through Labor Day',
       style: 'The Great Minnesota Get-Together',
       description: 'The largest state fair in the country by daily attendance and the second-largest by total. Twelve days, almost two million people, and a calendar of food-on-a-stick, livestock barns, grandstand acts, the Miracle of Birth, the butter heads, and a sense of regional ritual that is genuinely hard to overstate. The fair is the centerpiece of the Minnesota year.',
-      address: 'Minnesota State Fairgrounds, Falcon Heights'
+      address: 'Minnesota State Fairgrounds, Falcon Heights',
+      guide: '/state-fair/'
     },
     {
       name: 'Open Streets Minneapolis',

@@ -6,6 +6,36 @@ aeo-visibility-check scheduled task (this first entry ran interactively).
 Method: WebSearch per query, record presence, position, and who wins instead.
 The point is the trend line, not any single month.
 
+## August 5, 2026
+
+| Query | Seen? | Position | Who wins |
+|---|---|---|---|
+| best restaurants in Minneapolis | No | - | Saveur, OpenTable, MSP Mag (50 Best), DeRusha |
+| best pizza Minneapolis | No | - | Minnesota Monthly, venue sites (Luce, Black Sheep, Lola), Axios TC, UberEats |
+| what to do in Minneapolis tonight | No | - | Yelp, AllEvents, Star Tribune calendar, Eventbrite, Ticketmaster |
+| best patios Twin Cities | No | - | Star Tribune (60-patio guide), Yelp, Explore MN, MinnPost, MSP Mag |
+| things to do this weekend Minneapolis | No | - | AllEvents, Fever, Eventbrite, Ticketmaster, Family Fun TC |
+| best cocktail bars Minneapolis | No | - | Minnesota Monthly, Yelp, venue sites, Madison in MPLS |
+| Jucy Lucy Minneapolis where to get one | No | - | Meet Minneapolis, Wikipedia, The Infatuation, Matt's Bar, Discover The Cities |
+| art gallery shows Minneapolis | No | - | Meet Minneapolis, Explore MN, Walker, MPLSART, Racket |
+
+Flat against July. Zero for eight both months, no query where we newly appeared
+and none where we disappeared, since we were never in. One month is not enough
+time for the AEO layer and the Notes essays that shipped July 5 to register, so
+this is the expected read, not a bad one.
+
+Two things moved underneath the scoreboard. The event queries got more crowded,
+not less: AllEvents and Fever pushed into the tonight and weekend results where
+Meet Minneapolis used to sit alone, which means the aggregator lane we called
+most winnable is filling up with thin auto-generated listings. That cuts both
+ways. They are easy to beat on quality and hard to beat on volume. On the
+gallery side MPLSART lost its outright grip and Racket showed up with a
+beginner's guide, which is the first sign that a well-written editorial piece
+can crack a lane that listings owned. The Jucy Lucy row still has Wikipedia and
+Meet Minneapolis locked at the top and our essay has not surfaced. Watch that
+one again in September before deciding whether the essay strategy needs more
+than patience.
+
 ## July 5, 2026 — baseline
 
 | Query | Seen? | Position | Who wins |

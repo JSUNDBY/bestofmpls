@@ -71,13 +71,18 @@ function zodiacSvg(name) { return ZODIAC_SVG[name] || ''; }
 // in a safe "coming soon" state instead of trying to submit.
 const POLL_WORKER_URL = 'https://bestofmpls-poll.j-sundby.workers.dev';
 
-// OpenTable affiliate ref. Once approved through OpenTable's Impact
-// (impact.com) affiliate program, set this to your unique ref ID. Every
-// entry with `reservation:` pointing at opentable.com gets the ?ref=
-// param appended at build time. Empty = no tracking, links still work.
-// Resy/Tock have no public affiliate program — those URLs pass through
-// untouched.
-const OPENTABLE_AFFILIATE_REF = '';
+// OpenTable affiliate ref. Once approved through OpenTable's affiliate
+// program, set OPENTABLE_AFFILIATE_REF in the Cloudflare Pages build env
+// (Settings → Environment variables) — no code commit, no ref in git. Every
+// entry with `reservation:` pointing at opentable.com gets the ?ref= param
+// appended at build time. Empty = no tracking, links still work. Resy/Tock
+// have no public affiliate program; those URLs pass through untouched.
+// NOTE: confirm the exact link format at approval. OpenTable's program now
+// runs mostly through their direct partner portal, and Impact-style links use
+// a redirect gateway with a `u=` deep-link param rather than a bare ?ref=. If
+// approval hands you an Impact tracking-link format instead of a ref id, this
+// append logic needs updating to build the gateway URL. See docs/OPENTABLE.md.
+const OPENTABLE_AFFILIATE_REF = process.env.OPENTABLE_AFFILIATE_REF || '';
 
 // One-line traffic proof for the /partner/ page, e.g.
 // '12,400 pageviews · 4,100 readers last month (GA4)'. Update monthly from
@@ -617,8 +622,10 @@ const closures     = require(path.join(SRC, 'data/closures.js'));
 const situations   = require(path.join(SRC, 'data/situations.js'));
 const skyway       = require(path.join(SRC, 'data/skyway.js'));
 const history      = require(path.join(SRC, 'data/history.js'));
+const stateFair    = require(path.join(SRC, 'data/state-fair.js'));
 const mystery      = require(path.join(SRC, 'data/mystery.js'));
 const scenes       = require(path.join(SRC, 'data/scenes.js'));
+const trailsData   = require(path.join(SRC, 'data/trails.js'));
 
 // Editorial clusters drive the homepage layout. With 28 categories, the
 // homepage now reads like a real city magazine: Culture, Eat, Drink, Shop,
@@ -916,7 +923,7 @@ ${GSC_VERIFICATION ? `<meta name="google-site-verification" content="${esc(GSC_V
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;600;700;800&family=IBM+Plex+Mono:wght@500;600;700&family=Source+Sans+3:wght@400;600&display=swap">
-<link rel="stylesheet" href="/style.css?v=72">
+<link rel="stylesheet" href="/style.css?v=73">
 <script>
 // Set color mode before paint to avoid flash. Reads localStorage first,
 // falls back to light mode (the new editorial default). mode-ready class
@@ -991,7 +998,9 @@ function header({ activeSlug } = {}) {
         { href: '/take-them-to/', label: 'Take Them To', deck: 'For specific people, specific nights' },
         { href: '/visit/',     label: 'First Time?',    deck: 'A weekend in the metro' },
         { href: '/neighborhoods/', label: 'Neighborhoods', deck: 'Sixteen guides, by area' },
-        { href: '/festivals/', label: 'Festivals',      deck: 'The annual calendar' }
+        { href: '/festivals/', label: 'Festivals',      deck: 'The annual calendar' },
+        { href: '/passport/',  label: 'Your Passport',  deck: 'The city, as you have met it' },
+        { href: '/trails/',    label: 'Trails',         deck: 'Finite quests. The Jucy Lucy feud, settled' }
       ]
     },
     {
@@ -1532,13 +1541,15 @@ function footer() {
   var box = document.querySelector('.lb-actions');
   if (box) {
     var place = box.getAttribute('data-lb-place');
-    var bSave = box.querySelector('[data-lb="save"]'), bReg = box.querySelector('[data-lb="regular"]');
+    var bSave = box.querySelector('[data-lb="save"]'), bReg = box.querySelector('[data-lb="regular"]'), bBeen = box.querySelector('[data-lb="been"]');
     if (place) {
       if (getMap('bom_saved')[place] && bSave) bSave.classList.add('is-on');
       if (getMap('bom_regular')[place] && bReg) bReg.classList.add('is-on');
-      function toggle(btn, key, type){ var m = getMap(key); if (m[place]) { delete m[place]; btn.classList.remove('is-on'); send(place, type, { remove: true }); } else { m[place] = 1; btn.classList.add('is-on'); send(place, type); } setMap(key, m); }
+      if (getMap('bom_been')[place] && bBeen) bBeen.classList.add('is-on');
+      function toggle(btn, key, type){ var m = getMap(key); if (m[place]) { delete m[place]; btn.classList.remove('is-on'); send(place, type, { remove: true }); } else { m[place] = 1; btn.classList.add('is-on'); send(place, type); if (type === 'been' && typeof gtag === 'function') gtag('event', 'passport_mark', { place: place }); } setMap(key, m); }
       if (bSave) bSave.addEventListener('click', function(){ toggle(bSave, 'bom_saved', 'save'); });
       if (bReg) bReg.addEventListener('click', function(){ toggle(bReg, 'bom_regular', 'regular'); });
+      if (bBeen) bBeen.addEventListener('click', function(){ toggle(bBeen, 'bom_been', 'been'); });
       var bOpen = box.querySelector('[data-lb="story-open"]'), form = box.querySelector('[data-lb-story]'), thanks = box.querySelector('[data-lb-thanks]');
       if (bOpen && form) bOpen.addEventListener('click', function(){ form.hidden = !form.hidden; if (!form.hidden) { var t = form.querySelector('textarea'); if (t) t.focus(); } });
       if (form) form.addEventListener('submit', function(e){ e.preventDefault(); var t = form.querySelector('textarea'), msg = form.querySelector('[data-lb-msg]'); var text = (t && t.value || '').trim(); if (text.length < 10) { if (msg) msg.textContent = 'A little more, please.'; return; } send(place, 'story', { text: text }); form.hidden = true; if (thanks) thanks.hidden = false; });
@@ -1901,6 +1912,8 @@ function renderHome() {
           <li><a href="/skyway/"><span class="mtools-code">S</span> Skyway <em>${skyway.nodes.length} downtown nodes</em></a></li>
           <li><a href="/quiz/"><span class="mtools-code">Q</span> Quiz <em>where to be tonight</em></a></li>
           <li><a href="/horoscope/"><span class="mtools-code">H</span> Horoscope <em>for the metro</em></a></li>
+          <li><a href="/passport/"><span class="mtools-code">P</span> Passport <em>your map of the metro</em></a></li>
+          <li><a href="/trails/"><span class="mtools-code">L</span> Trails <em>finishable quests</em></a></li>
           <li><a href="/five/"><span class="mtools-code">5</span> Five Today <em>exactly five, decided for you</em></a></li>
           <li><a href="/notes/"><span class="mtools-code">O</span> Notes <em>how the cities got this way</em></a></li>
           <li><a href="/surprise/"><span class="mtools-code">R</span> Surprise <em>a random pick</em></a></li>
@@ -2665,6 +2678,7 @@ function renderEntry(c, e, allCategories) {
     <div class="lb-actions" data-lb-place="${c.slug}/${slug}">
       ${lbStanding}
       <div class="lb-actions-row">
+        <button class="lb-btn lb-btn--been" data-lb="been" type="button">I've been here</button>
         <button class="lb-btn" data-lb="save" type="button">Save</button>
         <button class="lb-btn" data-lb="regular" type="button">I'm a regular</button>
         <button class="lb-btn" data-lb="story-open" type="button">Share a moment</button>
@@ -2674,7 +2688,7 @@ function renderEntry(c, e, allCategories) {
         <div class="lb-story-foot"><button class="lb-btn lb-btn--send" data-lb="story-send" type="submit">Share</button><span class="lb-story-msg" data-lb-msg></span></div>
       </form>
       <div class="lb-thanks" data-lb-thanks hidden>Thanks — that shapes the read.</div>
-      <p class="lb-note">Saves, regulars, and moments shape the Best of MPLS. Anonymous, never sold.</p>
+      <p class="lb-note">Saves, regulars, and moments shape the Best of MPLS. Been-heres fill <a href="/passport/">your Passport</a>. Anonymous, never sold.</p>
     </div>` : '';
 
   // Full week of hours, rendered server-side (the header already carries the live
@@ -2918,6 +2932,7 @@ function renderSeasonalCategory(c) {
           <h3 class="festival-name">${esc(e.name)}</h3>
           <p class="festival-description">${esc(e.description)}</p>
           ${e.address ? `<div class="festival-where">${esc(e.address)}</div>` : ''}
+          ${e.guide ? `<div class="festival-where"><a href="${esc(e.guide)}" style="color:var(--clay);font-weight:600">Read the full guide →</a></div>` : ''}
           ${e.website ? `<div class="festival-where"><a href="${esc(e.website)}" target="_blank" rel="noopener">${esc(e.website.replace(/^https?:\/\//, '').replace(/\/$/, ''))} →</a></div>` : ''}
         </div>
       </article>`).join('');
@@ -2990,7 +3005,7 @@ function renderAdminDash() {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>Operations · bestofmpls</title>
-<link rel="stylesheet" href="/style.css?v=72">
+<link rel="stylesheet" href="/style.css?v=73">
 <style>
   body { background: var(--paper); }
   .ops-wrap { max-width: 1020px; margin: 0 auto; padding: 32px var(--gutter) 96px; }
@@ -3293,7 +3308,7 @@ function renderAdminPicks() {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>${esc(title)}</title>
-<link rel="stylesheet" href="/style.css?v=72">
+<link rel="stylesheet" href="/style.css?v=73">
 <style>
   body { background: var(--paper); }
   .admin-wrap { max-width: 960px; margin: 0 auto; padding: 32px var(--gutter) 96px; }
@@ -6188,6 +6203,162 @@ function renderSkyway() {
     footer();
 }
 
+// ---------- /state-fair/ — the Great Minnesota Get-Together ----------
+function renderStateFair() {
+  const f = stateFair;
+  const factRow = (label, val) => `<div class="fair-fact"><dt>${esc(label)}</dt><dd>${val}</dd></div>`;
+  const priceRows = f.facts.prices.map(([label, val]) => `
+      <div class="fair-price"><span class="fair-price-label">${esc(label)}</span><span class="fair-price-val">${esc(val)}</span></div>`).join('');
+
+  const newFoodCards = f.newFoods.map(n => `
+    <li class="fair-card">
+      <div class="fair-card-name">${esc(n.name)}</div>
+      <div class="fair-card-vendor">${esc(n.vendor)}</div>
+      <p class="fair-card-note">${esc(n.note)}</p>
+    </li>`).join('');
+
+  const classicRows = f.classics.map(c => `
+    <li class="fair-row"><span class="fair-row-name">${esc(c.name)}</span><span class="fair-row-note">${esc(c.note)}</span></li>`).join('');
+
+  const beyondRows = f.beyond.map(b => `
+    <li class="fair-row"><span class="fair-row-name">${esc(b.name)}</span><span class="fair-row-note">${esc(b.note)}</span></li>`).join('');
+
+  const tipCards = f.tips.map(t => `
+    <li class="fair-tip"><h3 class="fair-tip-head">${esc(t.head)}</h3><p class="fair-tip-body">${esc(t.body)}</p></li>`).join('');
+
+  const event = {
+    '@context': 'https://schema.org', '@type': 'Festival',
+    name: 'Minnesota State Fair ' + f.year,
+    startDate: '2026-08-27', endDate: '2026-09-07',
+    eventStatus: 'https://schema.org/EventScheduled',
+    eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+    location: { '@type': 'Place', name: 'Minnesota State Fairgrounds',
+      address: { '@type': 'PostalAddress', streetAddress: '1265 Snelling Ave. N.', addressLocality: 'Falcon Heights', addressRegion: 'MN', postalCode: '55108', addressCountry: 'US' } },
+    offers: { '@type': 'Offer', price: '20', priceCurrency: 'USD', url: 'https://www.mnstatefair.org/tickets/admission-tickets/' },
+    description: f.seoDescription,
+    url: `${SITE}/state-fair/`
+  };
+  const breadcrumb = {
+    '@context': 'https://schema.org', '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Best of MPLS', item: SITE },
+      { '@type': 'ListItem', position: 2, name: 'Festivals', item: `${SITE}/festivals/` },
+      { '@type': 'ListItem', position: 3, name: 'Minnesota State Fair', item: `${SITE}/state-fair/` }
+    ]
+  };
+
+  const css = `<style>
+    .fair-hero-meta{display:flex;flex-wrap:wrap;gap:10px 22px;font-family:var(--font-mono);font-size:13px;color:var(--ink-soft);margin-top:16px}
+    .fair-hero-meta b{color:var(--clay)}
+    .fair-block{border-top:1px solid var(--ink);padding:var(--sec-y) 0}
+    .fair-block .wrap{max-width:var(--max-w)}
+    .fair-kicker{font-family:var(--font-label);font-weight:700;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:var(--clay);margin:0 0 10px}
+    .fair-h2{font-family:var(--font-display);font-weight:800;font-size:clamp(26px,4vw,40px);line-height:1.02;letter-spacing:-0.02em;margin:0 0 8px}
+    .fair-lede{font-family:var(--font-body);font-size:17px;line-height:1.6;color:var(--ink-soft);max-width:60ch;margin:0 0 28px}
+    .fair-facts{display:grid;grid-template-columns:repeat(2,1fr);gap:0;border:1px solid var(--rule-soft)}
+    .fair-fact{padding:20px 22px;border-right:1px solid var(--rule-soft);border-bottom:1px solid var(--rule-soft)}
+    .fair-fact:nth-child(2n){border-right:0}
+    .fair-fact dt{font-family:var(--font-label);font-weight:700;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:6px}
+    .fair-fact dd{margin:0;font-family:var(--font-body);font-size:16px;line-height:1.45;color:var(--ink)}
+    .fair-prices{margin-top:24px;border-top:1px solid var(--rule-soft)}
+    .fair-price{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:12px 4px;border-bottom:1px solid var(--rule-soft)}
+    .fair-price-label{font-family:var(--font-body);font-size:15px;color:var(--ink)}
+    .fair-price-val{font-family:var(--font-mono);font-weight:700;font-size:16px;color:var(--clay);white-space:nowrap}
+    .fair-note{font-family:var(--font-body);font-size:13.5px;color:var(--ink-faint);margin:12px 0 0}
+    .fair-cards{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--rule-soft);border:1px solid var(--rule-soft)}
+    .fair-card{background:var(--paper);padding:22px}
+    .fair-card-name{font-family:var(--font-display);font-weight:700;font-size:19px;line-height:1.1;margin-bottom:2px}
+    .fair-card-vendor{font-family:var(--font-mono);font-size:12px;color:var(--clay);margin-bottom:10px}
+    .fair-card-note{font-family:var(--font-body);font-size:14.5px;line-height:1.5;color:var(--ink-soft);margin:0}
+    .fair-rows{list-style:none;margin:0;padding:0;border-top:1px solid var(--rule-soft)}
+    .fair-row{display:grid;grid-template-columns:220px 1fr;gap:24px;padding:18px 4px;border-bottom:1px solid var(--rule-soft)}
+    .fair-row-name{font-family:var(--font-display);font-weight:700;font-size:18px;line-height:1.15}
+    .fair-row-note{font-family:var(--font-body);font-size:15.5px;line-height:1.55;color:var(--ink-soft)}
+    .fair-tips{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+    .fair-tip-head{font-family:var(--font-display);font-weight:700;font-size:18px;margin:0 0 6px}
+    .fair-tip-body{font-family:var(--font-body);font-size:15px;line-height:1.55;color:var(--ink-soft);margin:0}
+    .fair-out{font-family:var(--font-body);font-size:15px;color:var(--ink-soft);margin-top:22px}
+    .fair-out a{color:var(--clay);font-weight:600}
+    @media(max-width:720px){
+      .fair-facts,.fair-cards,.fair-tips{grid-template-columns:1fr}
+      .fair-fact{border-right:0}
+      .fair-row{grid-template-columns:1fr;gap:4px}
+    }
+  </style>`;
+
+  return head({ title: f.title, description: f.seoDescription, slug: 'state-fair', theme: 'clay' }) +
+    header({ activeSlug: '' }) + css +
+    `<section class="section-head">
+      <div class="wrap">
+        <div class="section-eyebrow">Seasonal guide · verified Aug 2026</div>
+        <h1 class="section-title">${esc(f.h1)}</h1>
+        <p class="section-deck">${esc(f.intro)}</p>
+        <div class="fair-hero-meta">
+          <span><b>${esc(f.facts.dates)}</b></span>
+          <span>${esc(f.facts.days)}</span>
+          <span>${esc(f.facts.location)}</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="fair-block" id="know-before">
+      <div class="wrap">
+        <p class="fair-kicker">Know before you go</p>
+        <h2 class="fair-h2">The practical stuff, first</h2>
+        <dl class="fair-facts">
+          ${factRow('Dates', esc(f.facts.dates))}
+          ${factRow('Hours', esc(f.facts.hours))}
+          ${factRow('Where', esc(f.facts.location))}
+          ${factRow('New this year', esc(f.facts.newFoodCount) + '. <a href="https://www.mnstatefair.org/new/food" rel="noopener" target="_blank" style="color:var(--clay);font-weight:600">the full food list</a> lives on the fair’s site.')}
+        </dl>
+        <div class="fair-prices">
+          ${priceRows}
+        </div>
+        <p class="fair-note">Buy the pre-fair ticket online before Aug. 26 and you save on every gate. Prices verified against mnstatefair.org.</p>
+      </div>
+    </section>
+
+    <section class="fair-block" id="new-food">
+      <div class="wrap">
+        <p class="fair-kicker">New in ${esc(f.year)}</p>
+        <h2 class="fair-h2">This year’s new foods</h2>
+        <p class="fair-lede">The fair drops its new-food list in July and the internet loses its mind. These are the ones worth planning a lap around. The rest, and a map of where to find them, is on the fair’s site.</p>
+        <ul class="fair-cards">${newFoodCards}</ul>
+      </div>
+    </section>
+
+    <section class="fair-block" id="classics">
+      <div class="wrap">
+        <p class="fair-kicker">Don’t skip these</p>
+        <h2 class="fair-h2">The classics worth the line</h2>
+        <p class="fair-lede">New foods get the headlines. These get the muscle memory. If it is your first fair, this is the non-negotiable list.</p>
+        <ul class="fair-rows">${classicRows}</ul>
+      </div>
+    </section>
+
+    <section class="fair-block" id="beyond">
+      <div class="wrap">
+        <p class="fair-kicker">Beyond the food</p>
+        <h2 class="fair-h2">What else the fair actually is</h2>
+        <p class="fair-lede">You could go for the food alone and leave happy. But the fair is also the biggest art show, farm, concert venue, and county-fair-writ-enormous in the state. Budget an afternoon for the parts that aren’t deep-fried.</p>
+        <ul class="fair-rows">${beyondRows}</ul>
+      </div>
+    </section>
+
+    <section class="fair-block" id="strategy">
+      <div class="wrap">
+        <p class="fair-kicker">A local’s strategy</p>
+        <h2 class="fair-h2">How to do it without hating it</h2>
+        <ul class="fair-tips">${tipCards}</ul>
+        <p class="fair-out">Hours, the Grandstand lineup, and the daily schedule change year to year, so for the live details, go straight to <a href="https://www.mnstatefair.org/" rel="noopener" target="_blank">mnstatefair.org</a>. For the rest of the year, see <a href="/festivals/">the full Twin Cities festival calendar</a>.</p>
+      </div>
+    </section>
+
+    <script type="application/ld+json">${JSON.stringify(event)}</script>
+    <script type="application/ld+json">${JSON.stringify(breadcrumb)}</script>` +
+    footer();
+}
+
 // ---------- /history/ — On This Day in the metro ----------
 function renderHistory() {
   const h = history;
@@ -7178,6 +7349,395 @@ function renderICS(events) {
   return out.join('\r\n') + '\r\n';
 }
 
+// ---------- Passport + Trails ----------
+// The adult gamification layer: collection, not casino. "Been here" marks live
+// in localStorage on the reader's device (key bom_been, same place keys as the
+// Living Best signals). No accounts, no streaks, no points. Trails are finite
+// quests defined in src/data/trails.js; the Passport is the personal map.
+
+const PASSPORT_GROUPS = ['Culture', 'Eat', 'Drink', 'Shop', 'Stay & Do'];
+const PASSPORT_GROUP_BY_CAT = (() => {
+  const m = {};
+  clusters.forEach((cl, i) => cl.categories.forEach(c => { m[c.slug] = i; }));
+  return m;
+})();
+
+// One row per unique place NAME (a venue listed in two categories is one
+// place). Row: [name, groupIdx, neighborhoodShort, lat, lng, [placeKeys...]]
+// — a mark on any of its keys counts the place as met.
+function buildPassportManifest() {
+  const byName = new Map();
+  for (const c of categories) {
+    if (c.layout === 'seasonal') continue;
+    for (const e of c.entries) {
+      const slug = entrySlug(e.name);
+      if (!slug) continue;
+      const key = `${c.slug}/${slug}`;
+      if (byName.has(e.name)) { byName.get(e.name)[5].push(key); continue; }
+      const coords = lookupCoords(c.slug, e);
+      const nbNorm = normalizeNeighborhood(e.neighborhood);
+      const nbObj = nbNorm ? NEIGHBORHOODS.find(n => n.slug === nbNorm) : null;
+      // Non-geographic "neighborhoods" (chains, food trucks) stay off the
+      // passport's neighborhood ledger.
+      const rawNb = e.neighborhood ? String(e.neighborhood).split(',')[0].trim() : '';
+      const nb = nbObj ? nbObj.short : (/multiple|citywide|roving|various|food truck/i.test(rawNb) ? '' : rawNb);
+      const gi = PASSPORT_GROUP_BY_CAT[c.slug];
+      byName.set(e.name, [e.name, gi === undefined ? -1 : gi, nb,
+        coords ? +coords.lat.toFixed(4) : null, coords ? +coords.lng.toFixed(4) : null, [key]]);
+    }
+  }
+  return [...byName.values()];
+}
+
+function resolveTrails() {
+  return trailsData.trails.map(t => ({
+    ...t,
+    stops: t.stops.map(s => {
+      const c = categories.find(x => x.slug === s.cat);
+      const e = c && c.entries.find(x => x.name === s.name);
+      if (!e) { console.warn(`  ! trail ${t.slug}: no entry "${s.name}" in ${s.cat} — stop dropped`); return null; }
+      const slug = entrySlug(e.name);
+      return { why: s.why, name: e.name, key: `${c.slug}/${slug}`, href: `/${c.slug}/${slug}/`,
+        nb: e.neighborhood ? String(e.neighborhood).split(',')[0].trim() : '' };
+    }).filter(Boolean)
+  }));
+}
+let TRAILS_MEMO = null;
+function getTrails() { if (!TRAILS_MEMO) TRAILS_MEMO = resolveTrails(); return TRAILS_MEMO; }
+
+// Shared client helpers for passport/trail pages: mark storage, signal sender,
+// and the completion/passport card drawn on canvas (fixed light palette — a
+// card is a card in either mode).
+function passportClientLib() {
+  return `
+  function ppMarks(){ try { return JSON.parse(localStorage.getItem('bom_been') || '{}'); } catch (e) { return {}; } }
+  function ppSetMarks(m){ try { localStorage.setItem('bom_been', JSON.stringify(m)); } catch (e) {} }
+  function ppDev(){ try { var d = localStorage.getItem('bom_dev'); if (!d) { d = Date.now().toString(36) + Math.random().toString(36).slice(2, 10); localStorage.setItem('bom_dev', d); } return d; } catch (e) { return 'anon'; } }
+  var PP_WORKER = ${JSON.stringify(POLL_WORKER_URL || '')};
+  function ppSend(place, remove){ if (!PP_WORKER) return; try { fetch(PP_WORKER + '/signal', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(remove ? { type: 'been', place: place, device: ppDev(), remove: true } : { type: 'been', place: place, device: ppDev() }), keepalive: true }).catch(function(){}); } catch (e) {} }
+  function ppToggle(place){ var m = ppMarks(); var on; if (m[place]) { delete m[place]; on = false; } else { m[place] = 1; on = true; if (typeof gtag === 'function') gtag('event', 'passport_mark', { place: place }); } ppSetMarks(m); ppSend(place, !on); return on; }
+  function ppWrap(ctx, text, x, y, maxW, lh){ var words = text.split(' '), line = '', yy = y; for (var i = 0; i < words.length; i++) { var t = line ? line + ' ' + words[i] : words[i]; if (ctx.measureText(t).width > maxW && line) { ctx.fillText(line, x, yy); line = words[i]; yy += lh; } else { line = t; } } if (line) ctx.fillText(line, x, yy); return yy; }
+  function ppDrawCard(opts){
+    var cv = opts.canvas, ctx = cv.getContext('2d');
+    cv.width = 1080; cv.height = 1350;
+    ctx.fillStyle = '#F4F2EC'; ctx.fillRect(0, 0, 1080, 1350);
+    ctx.fillStyle = '#C8200F'; ctx.fillRect(0, 0, 1080, 18);
+    ctx.fillStyle = '#141414';
+    ctx.font = '600 34px "IBM Plex Mono", monospace';
+    ctx.fillText(opts.eyebrow, 84, 150);
+    ctx.fillStyle = '#C8200F'; ctx.fillRect(84, 186, 132, 8);
+    ctx.fillStyle = '#141414';
+    if (opts.big) {
+      ctx.font = '800 340px "Schibsted Grotesk", "Helvetica Neue", sans-serif';
+      ctx.fillText(String(opts.big), 76, 560);
+      ctx.font = '800 64px "Schibsted Grotesk", "Helvetica Neue", sans-serif';
+      ppWrap(ctx, opts.title, 84, 660, 912, 76);
+    } else {
+      ctx.font = '800 96px "Schibsted Grotesk", "Helvetica Neue", sans-serif';
+      ppWrap(ctx, opts.title, 84, 360, 912, 104);
+    }
+    ctx.font = '400 40px "Source Sans 3", sans-serif';
+    ctx.fillStyle = '#4A4A48';
+    ppWrap(ctx, opts.body, 84, opts.big ? 760 : 640, 912, 56);
+    if (opts.lines && opts.lines.length) {
+      ctx.font = '600 36px "IBM Plex Mono", monospace';
+      ctx.fillStyle = '#141414';
+      for (var i = 0; i < opts.lines.length; i++) ctx.fillText(opts.lines[i], 84, (opts.big ? 900 : 830) + i * 58);
+    }
+    ctx.fillStyle = '#141414'; ctx.fillRect(84, 1180, 912, 3);
+    ctx.font = '600 34px "IBM Plex Mono", monospace';
+    ctx.fillText('bestofmpls.com', 84, 1252);
+    ctx.textAlign = 'right';
+    ctx.fillText(opts.stamp, 996, 1252);
+    ctx.textAlign = 'left';
+  }
+  function ppCardButtons(cv, name, shareText){
+    function blob(cb){ cv.toBlob(cb, 'image/png'); }
+    return {
+      save: function(){ blob(function(b){ if (!b) return; var a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = name + '.png'; a.click(); setTimeout(function(){ URL.revokeObjectURL(a.href); }, 4000); }); },
+      share: function(){ blob(function(b){
+        var f = b ? new File([b], name + '.png', { type: 'image/png' }) : null;
+        if (f && navigator.canShare && navigator.canShare({ files: [f] })) { navigator.share({ files: [f], text: shareText }).catch(function(){}); }
+        else if (navigator.share) { navigator.share({ text: shareText, url: 'https://bestofmpls.com/trails/' }).catch(function(){}); }
+        else { window.location.href = 'https://bestofmpls.com/trails/'; }
+        if (typeof gtag === 'function') gtag('event', 'passport_share');
+      }); }
+    };
+  }`;
+}
+
+function renderTrailsIndex() {
+  const trails = getTrails();
+  const description = 'Finite, finishable routes through the Twin Cities: the Jucy Lucy feud, the Northeast taprooms, the eight essentials. Check places off as you actually go.';
+  return head({ title: 'Trails — finishable Twin Cities quests', description, slug: 'trails', theme: 'default' }) +
+    header({ activeSlug: '' }) +
+    `<section class="section-head">
+       <div class="wrap">
+         <div class="section-eyebrow">${trails.length} routes · no clock, no streaks</div>
+         <h1 class="section-title">Trails.</h1>
+         <p class="section-deck">${esc(trailsData.intro)}</p>
+       </div>
+     </section>
+     <section class="wrap trails-list">
+       ${trails.map(t => `
+       <a class="trail-card" href="/trails/${esc(t.slug)}/" data-trail="${esc(t.slug)}" data-trail-keys="${esc(t.stops.map(s => s.key).join('|'))}">
+         <div class="trail-card-eyebrow">${esc(t.eyebrow)}</div>
+         <h2 class="trail-card-title">${esc(t.title)}</h2>
+         <p class="trail-card-deck">${esc(t.deck)}</p>
+         <div class="trail-card-foot">
+           <span class="trail-card-count">${t.stops.length} stops</span>
+           <span class="trail-card-progress" data-trail-progress hidden></span>
+           <span class="trail-card-done" data-trail-done hidden>Finished ✓</span>
+         </div>
+       </a>`).join('')}
+       <p class="pp-privacy">Your progress is stored in this browser only. No account, nothing leaves your device except the same anonymous tap every Best of MPLS reader signal sends.</p>
+     </section>
+     <script>
+     (function(){
+       ${passportClientLib()}
+       var m = ppMarks();
+       document.querySelectorAll('[data-trail-keys]').forEach(function(card){
+         var keys = card.getAttribute('data-trail-keys').split('|');
+         var n = keys.filter(function(k){ return m[k]; }).length;
+         if (!n) return;
+         if (n === keys.length) { card.querySelector('[data-trail-done]').hidden = false; }
+         else { var p = card.querySelector('[data-trail-progress]'); p.textContent = n + ' of ' + keys.length; p.hidden = false; }
+       });
+     })();
+     </script>` +
+    footer();
+}
+
+function renderTrail(t) {
+  const url = `${SITE}/trails/${t.slug}/`;
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: t.title,
+    description: t.deck,
+    url,
+    numberOfItems: t.stops.length,
+    itemListElement: t.stops.map((s, i) => ({
+      '@type': 'ListItem', position: i + 1, name: s.name, url: `${SITE}${s.href}`
+    }))
+  };
+  return head({ title: `${t.title} · Trails`, description: t.deck, slug: `trails/${t.slug}`, theme: 'default' }) +
+    `<script type="application/ld+json">${JSON.stringify(schema)}</script>` +
+    header({ activeSlug: '' }) +
+    `<section class="section-head">
+       <div class="wrap">
+         <div class="section-eyebrow"><a href="/trails/" style="color: inherit;">Trails</a> · ${esc(t.eyebrow)}</div>
+         <h1 class="section-title">${esc(t.title)}</h1>
+         <p class="section-deck">${esc(t.deck)}</p>
+       </div>
+     </section>
+     <section class="wrap trail">
+       <div class="trail-progress">
+         <div class="trail-progress-line"><span class="trail-progress-count" data-tp-count>0</span> of ${t.stops.length} stops</div>
+         <div class="pp-bar"><span data-tp-bar style="width:0%"></span></div>
+         <p class="trail-pace">${esc(t.pace_note)}</p>
+       </div>
+       <ol class="trail-stops">
+         ${t.stops.map((s, i) => `
+         <li class="trail-stop" data-stop-key="${esc(s.key)}">
+           <span class="trail-stop-num">${String(i + 1).padStart(2, '0')}</span>
+           <div class="trail-stop-body">
+             <a class="trail-stop-name" href="${esc(s.href)}">${esc(s.name)}</a>
+             ${s.nb ? `<span class="trail-stop-nb">${esc(s.nb)}</span>` : ''}
+             <p class="trail-stop-why">${esc(s.why)}</p>
+           </div>
+           <button class="trail-mark" type="button" data-stop-mark aria-label="Mark ${esc(s.name)} as visited"><span class="trail-mark-dot" aria-hidden="true"></span><span class="trail-mark-label">Been</span></button>
+         </li>`).join('')}
+       </ol>
+       <div class="trail-done-panel" data-trail-done-panel hidden>
+         <div class="trail-done-head">Trail complete.</div>
+         <p class="trail-done-line">${esc(t.done_line)}</p>
+         <canvas class="pp-card-canvas" data-done-canvas></canvas>
+         <div class="pp-card-actions">
+           <button class="lb-btn" type="button" data-done-save>Save the card</button>
+           <button class="lb-btn" type="button" data-done-share>Share it</button>
+         </div>
+       </div>
+       <p class="pp-privacy">Marks live in this browser and in <a href="/passport/">your Passport</a>. No account, no streaks, no deadline.</p>
+     </section>
+     <script>
+     (function(){
+       ${passportClientLib()}
+       var KEYS = ${JSON.stringify(t.stops.map(s => s.key))};
+       var TITLE = ${JSON.stringify(t.title)};
+       var DONE_LINE = ${JSON.stringify(t.done_line)};
+       var wasDone = false;
+       function refresh(first){
+         var m = ppMarks();
+         var n = 0;
+         document.querySelectorAll('[data-stop-key]').forEach(function(li){
+           var on = !!m[li.getAttribute('data-stop-key')];
+           li.classList.toggle('is-been', on);
+           if (on) n++;
+         });
+         document.querySelector('[data-tp-count]').textContent = n;
+         document.querySelector('[data-tp-bar]').style.width = Math.round(n / KEYS.length * 100) + '%';
+         var done = n === KEYS.length;
+         var panel = document.querySelector('[data-trail-done-panel]');
+         panel.hidden = !done;
+         if (done && (!wasDone || first)) {
+           var cv = panel.querySelector('[data-done-canvas]');
+           var when = new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+           var draw = function(){ ppDrawCard({ canvas: cv, eyebrow: 'BEST OF MPLS · TRAIL COMPLETE', title: TITLE, body: DONE_LINE, lines: [KEYS.length + ' stops · finished ' + when], stamp: 'MPLS/STP' }); };
+           if (document.fonts && document.fonts.ready) document.fonts.ready.then(draw); else draw();
+           if (!first && typeof gtag === 'function') gtag('event', 'trail_complete', { trail: ${JSON.stringify(t.slug)} });
+         }
+         wasDone = done;
+       }
+       document.querySelectorAll('[data-stop-key]').forEach(function(li){
+         li.querySelector('[data-stop-mark]').addEventListener('click', function(){
+           ppToggle(li.getAttribute('data-stop-key'));
+           refresh(false);
+         });
+       });
+       var cv = document.querySelector('[data-done-canvas]');
+       var btns = ppCardButtons(cv, ${JSON.stringify('bestofmpls-' + t.slug)}, TITLE + ' — finished on bestofmpls.com');
+       document.querySelector('[data-done-save]').addEventListener('click', btns.save);
+       document.querySelector('[data-done-share]').addEventListener('click', btns.share);
+       refresh(true);
+     })();
+     </script>` +
+    footer();
+}
+
+function renderPassport(manifest) {
+  const total = manifest.length;
+  const groupTotals = PASSPORT_GROUPS.map((_, i) => manifest.filter(r => r[1] === i).length);
+  const trails = getTrails();
+  const description = 'Your personal map of the Twin Cities: every place in the guide you have actually been, by neighborhood and by kind. Lives on your device, no account.';
+  return head({ title: 'Your Twin Cities Passport', description, slug: 'passport', theme: 'default' }) +
+    header({ activeSlug: '' }) +
+    `<section class="section-head">
+       <div class="wrap">
+         <div class="section-eyebrow">The metro, as you have met it</div>
+         <h1 class="section-title">Passport.</h1>
+         <p class="section-deck">Mark the places you have actually been, from any entry page or trail, and this page becomes your map of the Twin Cities: what you know, what you have been meaning to get to, and the neighborhoods you have barely met. No account, no streaks. It lives in this browser and belongs to you.</p>
+       </div>
+     </section>
+     <section class="wrap pp" data-pp>
+       <div class="pp-empty" data-pp-empty hidden>
+         <p class="pp-empty-lede">Your passport is blank, which is the correct way to receive one.</p>
+         <p class="pp-empty-body">Every place page has an <strong>I've been here</strong> button. Tap it wherever you have actually been and this page starts filling in. Or start with a finite quest:</p>
+         <div class="pp-empty-trails">
+           ${trails.map(t => `<a class="cal-chip" href="/trails/${esc(t.slug)}/">${esc(t.title)} · ${t.stops.length} stops</a>`).join('')}
+         </div>
+       </div>
+       <div class="pp-stats" data-pp-stats hidden>
+         <div class="pp-count-row">
+           <span class="pp-count" data-pp-count>0</span>
+           <span class="pp-count-label">of ${total} places in the guide, met in person</span>
+         </div>
+         <div class="pp-map" data-pp-map aria-label="Map of places you have visited"></div>
+         <div class="pp-cols">
+           <div class="pp-col">
+             <h2 class="pp-col-title">By kind</h2>
+             ${PASSPORT_GROUPS.map((g, i) => `
+             <div class="pp-group" data-pp-group="${i}">
+               <div class="pp-group-line"><span>${esc(g)}</span><span class="pp-group-n" data-pp-group-n>0 of ${groupTotals[i]}</span></div>
+               <div class="pp-bar"><span data-pp-group-bar style="width:0%"></span></div>
+             </div>`).join('')}
+           </div>
+           <div class="pp-col">
+             <h2 class="pp-col-title">Neighborhoods you know</h2>
+             <ul class="pp-nbs" data-pp-nbs></ul>
+             <p class="pp-nb-nudge" data-pp-nudge hidden></p>
+           </div>
+         </div>
+         <div class="pp-trails">
+           <h2 class="pp-col-title">Trails</h2>
+           ${trails.map(t => `
+           <a class="pp-trail" href="/trails/${esc(t.slug)}/" data-pp-trail-keys="${esc(t.stops.map(s => s.key).join('|'))}">
+             <span class="pp-trail-name">${esc(t.title)}</span>
+             <span class="pp-trail-n" data-pp-trail-n></span>
+           </a>`).join('')}
+         </div>
+         <div class="pp-card-block">
+           <h2 class="pp-col-title">Your card</h2>
+           <canvas class="pp-card-canvas" data-pp-canvas></canvas>
+           <div class="pp-card-actions">
+             <button class="lb-btn" type="button" data-pp-save>Save the card</button>
+             <button class="lb-btn" type="button" data-pp-share>Share it</button>
+           </div>
+         </div>
+       </div>
+       <p class="pp-privacy">All of this lives in this browser only. Clearing site data clears it. Nothing here is tied to your name, and taps feed the same anonymous Living Best signals as everyone else's.</p>
+     </section>
+     <script>
+     (function(){
+       ${passportClientLib()}
+       fetch('/passport/manifest.json').then(function(r){ return r.json(); }).then(function(rows){
+         var m = ppMarks();
+         var met = rows.filter(function(r){ return r[5].some(function(k){ return m[k]; }); });
+         var empty = document.querySelector('[data-pp-empty]'), stats = document.querySelector('[data-pp-stats]');
+         if (!met.length) { empty.hidden = false; return; }
+         stats.hidden = false;
+         document.querySelector('[data-pp-count]').textContent = met.length;
+         // By kind
+         document.querySelectorAll('[data-pp-group]').forEach(function(el){
+           var gi = +el.getAttribute('data-pp-group');
+           var tot = rows.filter(function(r){ return r[1] === gi; }).length;
+           var n = met.filter(function(r){ return r[1] === gi; }).length;
+           el.querySelector('[data-pp-group-n]').textContent = n + ' of ' + tot;
+           el.querySelector('[data-pp-group-bar]').style.width = (tot ? Math.round(n / tot * 100) : 0) + '%';
+         });
+         // Neighborhoods
+         var nbs = {};
+         met.forEach(function(r){ if (r[2]) nbs[r[2]] = (nbs[r[2]] || 0) + 1; });
+         var top = Object.entries(nbs).sort(function(a, b){ return b[1] - a[1]; });
+         document.querySelector('[data-pp-nbs]').innerHTML = top.slice(0, 8).map(function(p){
+           return '<li><span class="pp-nb-name">' + p[0] + '</span><span class="pp-nb-n">' + p[1] + '</span></li>';
+         }).join('');
+         // The gentle nudge: the biggest neighborhood you have not touched.
+         var allNbs = {};
+         rows.forEach(function(r){ if (r[2]) allNbs[r[2]] = (allNbs[r[2]] || 0) + 1; });
+         var untouched = Object.entries(allNbs).filter(function(p){ return !nbs[p[0]]; }).sort(function(a, b){ return b[1] - a[1]; })[0];
+         if (untouched) { var nd = document.querySelector('[data-pp-nudge]'); nd.textContent = 'You have not met ' + untouched[0] + ' yet. ' + untouched[1] + ' places in the guide are waiting there.'; nd.hidden = false; }
+         // Trails
+         document.querySelectorAll('[data-pp-trail-keys]').forEach(function(a){
+           var keys = a.getAttribute('data-pp-trail-keys').split('|');
+           var n = keys.filter(function(k){ return m[k]; }).length;
+           a.querySelector('[data-pp-trail-n]').textContent = n === keys.length ? 'Finished ✓' : n + ' of ' + keys.length;
+         });
+         // The dot map: every place faint, your places in clay.
+         var MINLNG = -93.55, MAXLNG = -92.92, MINLAT = 44.76, MAXLAT = 45.10, W = 660, H = 460;
+         function xy(r){ return [ (r[4] - MINLNG) / (MAXLNG - MINLNG) * W, (MAXLAT - r[3]) / (MAXLAT - MINLAT) * H ]; }
+         var dots = '', mine = '';
+         rows.forEach(function(r){
+           if (r[3] == null || r[4] == null) return;
+           if (r[3] < MINLAT || r[3] > MAXLAT || r[4] < MINLNG || r[4] > MAXLNG) return;
+           var p = xy(r);
+           var isMet = r[5].some(function(k){ return m[k]; });
+           if (isMet) mine += '<circle cx="' + p[0].toFixed(1) + '" cy="' + p[1].toFixed(1) + '" r="4" class="pp-dot-met"><title>' + r[0].replace(/&/g, '&amp;').replace(/</g, '&lt;') + '</title></circle>';
+           else dots += '<circle cx="' + p[0].toFixed(1) + '" cy="' + p[1].toFixed(1) + '" r="1.8" class="pp-dot"/>';
+         });
+         document.querySelector('[data-pp-map]').innerHTML =
+           '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img">' +
+           '<text x="150" y="130" class="pp-map-label">MINNEAPOLIS</text>' +
+           '<text x="480" y="235" class="pp-map-label">SAINT PAUL</text>' +
+           dots + mine + '</svg>';
+         // The card
+         var when = new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+         var topLines = top.slice(0, 3).map(function(p){ return p[0] + ' · ' + p[1]; });
+         var cv = document.querySelector('[data-pp-canvas]');
+         var draw = function(){ ppDrawCard({ canvas: cv, eyebrow: 'BEST OF MPLS · PASSPORT', big: met.length, title: met.length === 1 ? 'place in the metro, met in person' : 'places in the metro, met in person', body: 'Out of ' + rows.length + ' in the guide, as of ' + when + '.', lines: topLines, stamp: 'MPLS/STP' }); };
+         if (document.fonts && document.fonts.ready) document.fonts.ready.then(draw); else draw();
+         var btns = ppCardButtons(cv, 'bestofmpls-passport', 'My Twin Cities passport: ' + met.length + ' places met. bestofmpls.com/passport/');
+         document.querySelector('[data-pp-save]').addEventListener('click', btns.save);
+         document.querySelector('[data-pp-share]').addEventListener('click', btns.share);
+       }).catch(function(){
+         var empty = document.querySelector('[data-pp-empty]');
+         empty.hidden = false;
+       });
+     })();
+     </script>` +
+    footer();
+}
+
 function renderSitemap(neighborhoods, crossPages) {
   const urls = [
     { loc: SITE + '/', priority: '1.0' },
@@ -7197,6 +7757,9 @@ function renderSitemap(neighborhoods, crossPages) {
     { loc: SITE + '/departed/', priority: '0.7' },
     { loc: SITE + '/surprise/', priority: '0.7' },
     { loc: SITE + '/five/', priority: '0.8' },
+    { loc: SITE + '/passport/', priority: '0.6' },
+    { loc: SITE + '/trails/', priority: '0.8' },
+    ...trailsData.trails.map(t => ({ loc: `${SITE}/trails/${t.slug}/`, priority: '0.75' })),
     { loc: SITE + '/notes/', priority: '0.7' },
     ...notesData.notes.map(n => ({ loc: SITE + '/notes/' + n.slug + '/', priority: '0.7' })),
     { loc: SITE + '/neighborhoods/', priority: '0.8' },
@@ -7209,6 +7772,7 @@ function renderSitemap(neighborhoods, crossPages) {
     ...(scenes.scenes || []).map(s => ({ loc: `${SITE}/scenes/${s.slug}/`, priority: '0.7' })),
     ...(featuredEvts.events || []).map(ev => ({ loc: `${SITE}/${ev.slug}/`, priority: '0.95' })),
     ...guides.map(g => ({ loc: `${SITE}/${g.slug}/`, priority: '0.85' })),
+    { loc: SITE + '/state-fair/', priority: '0.9' },
     { loc: SITE + '/pride/', priority: '0.85' },
     ...(BEST_OF_LIVE ? [{ loc: `${SITE}/best-of-${BEST_OF_YEAR}/`, priority: '0.9' }] : []),
     ...categories.map(c => ({ loc: `${SITE}/${c.slug}/`, priority: '0.9' })),
@@ -7308,6 +7872,10 @@ ${guideLines}
 
 - [Notes](${SITE}/notes/): short, sourced essays on how the Twin Cities got this way (the Jucy Lucy feud, the skyways, First Avenue)
 
+## Trails
+
+- [Trails](${SITE}/trails/): finite, finishable routes through the guide, including the Jucy Lucy Trail (all four canonical stuffed-burger spots), the Northeast Taproom Ramble, and Meet the City (the eight essentials)
+
 ## About
 
 - [About the site](${SITE}/about/): who makes this and how picks work
@@ -7356,6 +7924,7 @@ function build() {
   for (const g of guides) writeFile(`${g.slug}/index.html`, renderGuide(g));
   console.log(`  → ${guides.length} guide pages`);
   writeFile('pride/index.html', renderPride());
+  writeFile('state-fair/index.html', renderStateFair());
   if (BEST_OF_LIVE) writeFile(`best-of-${BEST_OF_YEAR}/index.html`, renderBestOf());
 
   // Subscribable iCal feed: upcoming creative events (no film showtime spam, no
@@ -7448,6 +8017,15 @@ function build() {
   // Surprise — random place
   writeFile('surprise/index.html', renderSurprise());
   writeFile('five/index.html', renderFive());
+
+  // Passport + Trails — the collection layer. Manifest first (the passport
+  // page fetches it), then the pages.
+  const ppManifest = buildPassportManifest();
+  writeFile('passport/manifest.json', JSON.stringify(ppManifest));
+  writeFile('passport/index.html', renderPassport(ppManifest));
+  writeFile('trails/index.html', renderTrailsIndex());
+  for (const t of getTrails()) writeFile(`trails/${t.slug}/index.html`, renderTrail(t));
+  console.log(`  → passport (${ppManifest.length} places) + ${getTrails().length} trails`);
   writeFile('notes/index.html', renderNotesIndex());
   for (const n of notesData.notes) writeFile(`notes/${n.slug}/index.html`, renderNote(n));
 

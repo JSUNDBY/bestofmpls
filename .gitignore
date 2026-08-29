@@ -19,3 +19,6 @@ worker/.wrangler/
 social-plan.md
 growth/newsletter-preview.html
 src/data/livingbest.json
+
+# Shorts renderer scratch
+.shorts-work/
