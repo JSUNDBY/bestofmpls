@@ -49,6 +49,8 @@ const SCRAPERS = [
   require('./scrapers/mnhs.js'),
   // More music venues
   require('./scrapers/whitesquirrel.js'),
+  // The Hennepin Avenue houses — Orpheum, State, Pantages
+  require('./scrapers/hennepinarts.js'),
   require('./scrapers/crooners.js'),
   // Classical — the symphonies
   require('./scrapers/mnorch.js'),
