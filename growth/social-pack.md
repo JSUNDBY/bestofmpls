@@ -10,13 +10,13 @@
 **Hook:** On screen, frame 1: "5 things to do this weekend in Minneapolis"
 
 **Shot list:**
-- David Huckfelt at The 331 Club (17:00) — b-roll of the venue or a poster
-- Ambient Living Room w/ Mary Hanson Scott at Berlin (19:00) — b-roll of the venue or a poster
-- Paris Nights at Dakota Jazz Club (19:00) — b-roll of the venue or a poster
 - Dorothy Doring and Ted Godbout at Crooners Supper Club (17:00) — b-roll of the venue or a poster
 - Pop Wagner at White Squirrel Bar (18:00) — b-roll of the venue or a poster
+- Chopin’s Heart at Dakota Jazz Club (19:00) — b-roll of the venue or a poster
+- Jennifers Rule the World! at Crooners Supper Club (19:00) — b-roll of the venue or a poster
+- Johnny Table All-Stars at Lake Harriet Bandshell (19:30) — b-roll of the venue or a poster
 
-**Caption:** Five ways to spend the weekend, no scrolling six apps required. Full calendar and more at the link. The 331 Club, Berlin, Dakota Jazz Club and more.
+**Caption:** Five ways to spend the weekend, no scrolling six apps required. Full calendar and more at the link. Crooners Supper Club, White Squirrel Bar, Dakota Jazz Club and more.
 
 **Tags:** #minneapolis #saintpaul #twincities #onlyinmn #mnpls #mplsevents #twincitieslife #thingstodomn
 
@@ -78,9 +78,9 @@
 **Hook:** Slide 1: "Your Minneapolis horoscope this week"
 
 **Shot list:**
-- Aquarius: "A connection between two old ideas finally clicks into place. You meet someone doing somet..."
-- Pisces: "You hear an old song and remember a good year. You feel everything at the right volume tod..."
-- Aries: "A good morning and a better afternoon, in that order. You change your mind about something..."
+- Aquarius: "A morning that rewards working alone for an hour first. You are reminded that a strong net..."
+- Pisces: "You are generous today in a way that feels completely natural. You take the long way home ..."
+- Aries: "Energy you usually save for Thursday shows up early. You hear yourself laugh and it sounds..."
 
 **Caption:** A weekly reading written for the metro. All twelve signs at the link. Which one are you.
 
