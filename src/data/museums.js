@@ -210,6 +210,43 @@ module.exports = {
       price: 'Free'
     },
     {
+      name: 'Midway Contemporary Art',
+      neighborhood: 'Sheridan, Northeast Minneapolis',
+      style: 'Nonprofit gallery and art library',
+      description: 'A nonprofit exhibition space on Marshall Street with a serious contemporary program and a research library of art books and journals, both free and open to the public. One of the few galleries in the country where you can see the show, then sit down and read everything about the artist. Wednesday through Saturday.',
+      address: '1509 Marshall St NE, Minneapolis',
+      website: 'https://midwayart.org',
+      price: 'Free'
+    },
+    {
+      name: 'TOA Presents (The Orange Advisory)',
+      neighborhood: 'Northeast Minneapolis',
+      style: 'Contemporary, visiting galleries',
+      description: 'Art advisor Rob Sherer’s exhibition space in the back of the old Carter-Day building, built on a smart idea: invite galleries from New York, Los Angeles, San Francisco, and Chicago to mount shows here. Since 2021 that has meant dozens of exhibitions you would otherwise have to fly to see, with collaborators at the level of Perrotin and Jessica Silverman.',
+      address: '655 19th Ave NE, Minneapolis',
+      website: 'https://www.theorangeadvisory.com/toa-presents',
+      access: 'The entrance is at the back of the building; check @toapresents for current show hours.',
+      price: 'Free'
+    },
+    {
+      name: 'David Petersen Gallery',
+      neighborhood: 'Standish, Minneapolis',
+      style: 'Contemporary',
+      description: 'A quietly serious contemporary gallery on Cedar Avenue showing emerging artists who exhibit internationally. A member of the New Art Dealers Alliance that has shown at the Independent art fair in New York, which tells you the level. Weekend hours, appointments encouraged.',
+      address: '4116 Cedar Ave S, Minneapolis',
+      website: 'https://davidpetersengallery.com',
+      price: 'Free'
+    },
+    {
+      name: 'Weinstein Hammons Gallery',
+      neighborhood: 'South Minneapolis',
+      style: 'Photography',
+      description: 'The Twin Cities’ destination gallery for fine-art photography, working with internationally recognized artists since 1996. Museum-grade prints in an intimate room: past shows include August Sander, Gordon Parks, W. Eugene Smith, and Robert Mapplethorpe. A member of the Art Dealers Association of America.',
+      address: '908 W 46th St, Minneapolis',
+      website: 'https://www.weinsteinhammons.com',
+      price: 'Free'
+    },
+    {
       name: 'Groveland Gallery',
       neighborhood: 'Loring Park, Minneapolis',
       style: 'Representational painting, regional',

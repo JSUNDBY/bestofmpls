@@ -1937,5 +1937,25 @@
   "400 Selby Ave, St. Paul": {
     "lat": 44.9461617,
     "lng": -93.1177421
+  },
+  "1509 Marshall St NE, Minneapolis": {
+    "lat": 45.0031049,
+    "lng": -93.2710275
+  },
+  "655 19th Ave NE, Minneapolis": {
+    "lat": 45.0078905,
+    "lng": -93.2551447
+  },
+  "4116 Cedar Ave S, Minneapolis": {
+    "lat": 44.9282748,
+    "lng": -93.2474474
+  },
+  "908 W 46th St, Minneapolis": {
+    "lat": 44.9197136,
+    "lng": -93.2913152
+  },
+  "1806 St. Clair Ave, St. Paul": {
+    "lat": 44.9341675,
+    "lng": -93.1767194
   }
 }
