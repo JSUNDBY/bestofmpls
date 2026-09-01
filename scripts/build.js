@@ -2819,6 +2819,41 @@ function renderEntry(c, e, allCategories) {
     </section>`;
   })();
 
+  // Galleries and museums with a scraped exhibitions source get an
+  // "On view" block from the art-category event feed. Venue strings in
+  // scrapers mostly equal entry names; the alias map covers the rest.
+  const galleryShowsBlock = (() => {
+    if (c.slug !== 'museums-and-galleries') return '';
+    const GALLERY_ALIAS = {
+      'TOA Presents': 'TOA Presents (The Orange Advisory)',
+      'SooVAC': 'Soo Visual Arts Center',
+      'The M (Minnesota Museum of American Art)': 'Minnesota Museum of American Art'
+    };
+    const shows = (eventsData.events || [])
+      .filter(ev => ev.category === 'art' && (GALLERY_ALIAS[ev.venue] || ev.venue) === e.name)
+      .filter(ev => (ev.end_date || ev.date) >= TODAY_ISO)
+      .sort((a, b) => a.date.localeCompare(b.date))
+      .slice(0, 4);
+    if (!shows.length) return '';
+    const fmtMD = iso => { const [y, m, d] = iso.split('-').map(Number); return new Date(y, m - 1, d).toLocaleDateString('en-US', { month: 'long', day: 'numeric' }); };
+    return `
+      <section class="entry-upcoming-shows wrap" aria-label="On view">
+        <h2 class="entry-upcoming-title">On view</h2>
+        <ul class="entry-upcoming-list">
+          ${shows.map(s => {
+            const when = s.end_date
+              ? (s.date <= TODAY_ISO ? `Through ${fmtMD(s.end_date)}` : `${fmtMD(s.date)} – ${fmtMD(s.end_date)}`)
+              : (s.date <= TODAY_ISO ? 'On view now' : `Opens ${fmtMD(s.date)}`);
+            return `
+            <li class="entry-upcoming-show">
+              <span class="entry-upcoming-when">${esc(when)}</span>
+              <span class="entry-upcoming-what">${s.url ? `<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.title)}</a>` : esc(s.title)}</span>
+            </li>`;
+          }).join('')}
+        </ul>
+      </section>`;
+  })();
+
   return head({ title: `${e.name} · ${e.neighborhood || 'Minneapolis'} · ${c.title}`, description, slug: `${c.slug}/${slug}`, theme: c.hero_color }) +
     header({ activeSlug: c.slug }) +
     `<nav class="breadcrumb wrap">
@@ -2889,6 +2924,7 @@ function renderEntry(c, e, allCategories) {
        </section>` : ''}
 
        ${upcomingShowsBlock}
+       ${galleryShowsBlock}
      </article>
 ` +
     newsletterCapture({ context: 'entry', compact: true }) +

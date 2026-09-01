@@ -60,6 +60,10 @@ const SCRAPERS = [
   require('./scrapers/soovac.js'),
   require('./scrapers/highpoint.js'),
   require('./scrapers/mmaa.js'),
+  require('./scrapers/midway.js'),
+  require('./scrapers/davidpetersen.js'),
+  require('./scrapers/toapresents.js'),
+  require('./scrapers/weinsteinhammons.js'),
   // Free outdoor
   require('./scrapers/lakeharriet.js')
 ];
