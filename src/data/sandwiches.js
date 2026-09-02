@@ -6,6 +6,15 @@ module.exports = {
   hero_color: 'clay',
   entries: [
     {
+      name: 'All Square',
+      neighborhood: 'Longfellow, Minneapolis',
+      style: 'Craft grilled cheese, nonprofit',
+      description: 'A craft grilled cheese counter on Minnehaha Avenue that is also a nonprofit. Founded in 2018 by civil rights attorney Emily Hunt Turner, the restaurant anchors a paid fellowship for formerly incarcerated Minnesotans, with business coursework and mental health support built in, and the same organization runs the nation\'s first prison-to-law pipeline. The sandwiches hold their own without the backstory. Closed Mondays.',
+      address: '4047 Minnehaha Ave, Minneapolis',
+      website: 'https://www.allsquarempls.com',
+      price: '$$'
+    },
+    {
       name: 'Little Bird Delicatessen',
       neighborhood: 'Kingfield, Minneapolis',
       style: 'Slow-roasted meats, modern deli',

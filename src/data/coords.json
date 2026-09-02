@@ -1957,5 +1957,9 @@
   "1806 St. Clair Ave, St. Paul": {
     "lat": 44.9341675,
     "lng": -93.1767194
+  },
+  "4047 Minnehaha Ave, Minneapolis": {
+    "lat": 44.928884,
+    "lng": -93.2196464
   }
 }
