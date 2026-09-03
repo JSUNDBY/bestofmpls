@@ -17,9 +17,9 @@ screenshot (MINNEAPOLIS & SAINT PAUL.), slide 2 = the Tonight board with the
 skyline, slide 3 = a category page (Burgers), slide 4 = the clay "b" mark on
 paper (brand kit).
 
-**Caption:** This is Best of MPLS. One person, 639 places, 47 guides to
-Minneapolis and St. Paul: where to eat, what's on tonight, which gallery
-show closes this week. Updated four times a day from the venues' own
+**Caption:** This is Best of MPLS. 639 places, 47 guides to Minneapolis
+and St. Paul: where to eat, what's on tonight, which gallery show closes
+this week. Updated four times a day from the venues' own
 calendars. No paid rankings, no ads pretending to be picks, no login. It is
 a guide, not a feed. The whole thing is at the link.
 
