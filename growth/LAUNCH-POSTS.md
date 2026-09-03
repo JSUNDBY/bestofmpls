@@ -78,7 +78,7 @@ have been meaning to get to, the neighborhood you have never touched. No
 account, no streaks, lives on your phone. How much of your city have you
 met? Link in bio.
 
-**Tags:** #minneapolis #saintpaul #twincities #onlyinmn #explisoremn #twincitieslife
+**Tags:** #minneapolis #saintpaul #twincities #onlyinmn #exploremn #twincitieslife
 
 ---
 
