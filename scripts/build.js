@@ -941,7 +941,7 @@ ${GSC_VERIFICATION ? `<meta name="google-site-verification" content="${esc(GSC_V
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;600;700;800&family=IBM+Plex+Mono:wght@500;600;700&family=Source+Sans+3:wght@400;600&display=swap">
-<link rel="stylesheet" href="/style.css?v=75">
+<link rel="stylesheet" href="/style.css?v=76">
 <script>
 // Set color mode before paint to avoid flash. Reads localStorage first,
 // falls back to light mode (the new editorial default). mode-ready class
@@ -1670,6 +1670,77 @@ function renderHome() {
     return new Date(y,m-1,d).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
   }
 
+  // ---- The horizon: openings, closings, and big rooms worth planning around.
+  // The anticipation layer under the Tonight board: a reason to come back
+  // BEFORE the day of. Every card is assembled from verified data (curated
+  // exhibitions, scraped art ranges, the marquee-venue calendar, and the
+  // Sunday editorial notes) — nothing invented.
+  const horizonSection = (() => {
+    const addDays = (iso, n) => { const [y, m, d] = iso.split('-').map(Number); return new Date(Date.UTC(y, m - 1, d + n)).toISOString().slice(0, 10); };
+    const fmtMD = iso => { const [y, m, d] = iso.split('-').map(Number); return new Date(y, m - 1, d).toLocaleDateString('en-US', { month: 'long', day: 'numeric' }); };
+    const fmtWD = iso => { const [y, m, d] = iso.split('-').map(Number); return new Date(y, m - 1, d).toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' }); };
+    const firstSentence = s => { const m = String(s || '').match(/^.*?[.!?](?=\s|$)/); return m ? m[0] : String(s || '').slice(0, 140); };
+    // A body line that is just a date range ("On view July 31 – September 12")
+    // duplicates the card's chip — drop it.
+    const usefulLine = s => (/^\s*(on view|through|opens)\b/i.test(String(s || '')) ? '' : String(s || ''));
+    const editorialNotes = loadJsonOptional(path.join(SRC, 'data/editorial-notes.json')) || {};
+    const notesMap = editorialNotes.notes || editorialNotes;
+    const cards = [];
+
+    // 1. Closing soon — the honest deadline. Curated museum shows first.
+    const in21 = addDays(TODAY_ISO, 21);
+    const closingPool = [
+      ...exhibitions.exhibitions.map(x => ({ title: x.title, venue: x.venue, line: usefulLine(firstSentence(x.description || x.subtitle)), end: exhibitionEndDate(x.dates) })),
+      ...(eventsData.events || []).filter(e => e.category === 'art' && e.end_date && e.date <= TODAY_ISO).map(e => ({ title: e.title, venue: e.venue, line: usefulLine(e.subtitle), end: e.end_date }))
+    ].filter(x => x.end && x.end >= TODAY_ISO && x.end <= in21).sort((a, b) => a.end.localeCompare(b.end));
+    if (closingPool.length) {
+      const c = closingPool[0];
+      cards.push({ kind: 'Exhibition', when: `Closes ${fmtMD(c.end)}`, title: c.title, venue: c.venue, line: c.line, href: '/now-showing/' });
+    }
+
+    // 2. Opening — a gallery or museum show about to start.
+    // Only real runs (has an end date) — a one-day art event is not an "opening".
+    const openingPool = (eventsData.events || [])
+      .filter(e => e.category === 'art' && e.end_date && e.date > TODAY_ISO && e.date <= addDays(TODAY_ISO, 14))
+      .sort((a, b) => a.date.localeCompare(b.date));
+    if (openingPool.length) {
+      const o = openingPool[0];
+      cards.push({ kind: 'Opening', when: `Opens ${fmtMD(o.date)}`, title: o.title, venue: o.venue, line: usefulLine(o.subtitle), href: '/now-showing/' });
+    }
+
+    // 3+4. The big rooms — marquee shows in the next ten days (not tonight;
+    // tonight has its own board). Editorial notes win the tiebreak.
+    const BIG_ROOMS = new Set([...MARQUEE_VENUES, 'Orpheum Theatre', 'State Theatre', 'Pantages Theatre', 'Fitzgerald Theater']);
+    const upcoming = collapseRuns(dedupeNonFilms((eventsData.events || [])
+      .filter(e => isShowEvent(e) && !isNoiseEvent(e) && e.date > TODAY_ISO && e.date <= addDays(TODAY_ISO, 10) && BIG_ROOMS.has(e.venue))))
+      .map(e => ({ ...e, note: (notesMap[e.id] && (notesMap[e.id].note || notesMap[e.id])) || null }))
+      .sort((a, b) => ((b.note ? 1 : 0) - (a.note ? 1 : 0)) || a.date.localeCompare(b.date));
+    for (const s of upcoming.slice(0, 4 - cards.length)) {
+      cards.push({ kind: 'On stage', when: fmtWD(s.date), title: s.title, venue: s.venue, line: typeof s.note === 'string' ? s.note : (s.subtitle || ''), href: venueHref(s.venue) || '/calendar/' });
+    }
+
+    if (cards.length < 2) return '';
+    return `
+    <section class="hz" aria-label="Worth planning around">
+      <div class="wrap">
+        <div class="hz-head">
+          <span class="hz-eyebrow">The horizon</span>
+          <h2 class="hz-title">Worth planning around.</h2>
+          <div class="hz-links"><a href="/now-showing/">Everything on view →</a><a href="/calendar/">The full calendar →</a></div>
+        </div>
+        <div class="hz-grid">
+          ${cards.map(c => `
+          <a class="hz-card" href="${esc(c.href)}">
+            <span class="hz-card-when">${esc(c.kind)} · ${esc(c.when)}</span>
+            <span class="hz-card-title">${esc(c.title)}</span>
+            <span class="hz-card-venue">${esc(c.venue)}</span>
+            ${c.line ? `<span class="hz-card-line">${esc(c.line)}</span>` : ''}
+          </a>`).join('')}
+        </div>
+      </div>
+    </section>`;
+  })();
+
   // Today's horoscope teaser — pick 3 signs deterministically by date so the
   // teaser changes daily without showing the same sign on the cover twice.
   const todayKey = (horoscopeData.date || TODAY_ISO).split('-').reduce((a,c) => a + parseInt(c,10), 0);
@@ -1900,6 +1971,7 @@ function renderHome() {
     })();
     </script>`;
     })()}
+    ${horizonSection}
     ${LIVING_TOP.length ? `
     <section class="loved-rail" aria-label="What locals are loving">
       <div class="wrap">
@@ -3070,7 +3142,7 @@ function renderAdminDash() {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>Operations · bestofmpls</title>
-<link rel="stylesheet" href="/style.css?v=75">
+<link rel="stylesheet" href="/style.css?v=76">
 <style>
   body { background: var(--paper); }
   .ops-wrap { max-width: 1020px; margin: 0 auto; padding: 32px var(--gutter) 96px; }
@@ -3373,7 +3445,7 @@ function renderAdminPicks() {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>${esc(title)}</title>
-<link rel="stylesheet" href="/style.css?v=75">
+<link rel="stylesheet" href="/style.css?v=76">
 <style>
   body { background: var(--paper); }
   .admin-wrap { max-width: 960px; margin: 0 auto; padding: 32px var(--gutter) 96px; }
