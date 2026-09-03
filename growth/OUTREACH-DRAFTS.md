@@ -106,3 +106,36 @@ Josh Sundby · bestofmpls.com · [phone]
 - Fill every [bracket]. The Racket data nugget is the difference between a yes and a delete; make it genuinely surprising and true.
 - Send from your own address, one at a time, personalized.
 - For media: one polite follow-up after ~4 days, then let it go.
+
+## 7. Restaurant / bar pitch  [TEMPLATE — pair with growth/PITCH-LIST.md]
+
+Fill [EVIDENCE] from the pitch list's evidence column. Email their contact
+address or Instagram DM; owner-operators answer DMs faster than email.
+
+> Subject: Your listing on Best of MPLS, plus one thing I noticed
+>
+> Hi, I'm Josh. I run bestofmpls.com, an independent guide to the Twin
+> Cities. [BUSINESS] is in the guide as a real editorial pick, not a paid
+> one: [ENTRY LINK].
+>
+> Two things, take either or neither:
+>
+> 1. I noticed [EVIDENCE — e.g. "your website doesn't load on a phone,"
+>    "your domain isn't resolving"]. I build clean, fast sites for local
+>    restaurants, $1,500-2,500, done in about a week, photos included.
+>    The proof is the guide itself; I built all 640 pages of it.
+>
+> 2. If you'd rather just be seen more: a featured spot at the top of
+>    your category is $49/month for the first five founding partners,
+>    locked for 12 months, clearly labeled as paid.
+>
+> Either way, your listing stays. It was never for sale.
+> Worth a ten-minute call? [PHONE]
+
+### What to ask businesses for (and what not to)
+- NOT photos for the guide. The site is text-forward by design; that is
+  the brand. Never let outreach turn into collecting snapshots.
+- DO confirm: hours, menu link, reservation link, anything stale in the
+  entry. That favor builds the relationship even on a "no."
+- Photos only matter inside a SERVICES build (their own site), where a
+  20-photo shoot is part of the package and Josh shoots it.
