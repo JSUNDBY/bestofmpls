@@ -22,3 +22,8 @@ src/data/livingbest.json
 
 # Shorts renderer scratch
 .shorts-work/
+
+# Prospect data stays OFF the public repo (businesses are named as weak)
+growth/PITCH-LIST.md
+growth/pitch-list.json
+growth/outbox/

@@ -48,6 +48,7 @@ function loadEntries() {
 
 async function checkSite(url) {
   const signals = [];
+  const contact = {};
   let score = 0;
   const isHttp = /^http:\/\//.test(url);
   try {
@@ -63,9 +64,9 @@ async function checkSite(url) {
       // hand check, never auto-rank it as weak.
       signals.push(`returns ${res.status} to bots — VERIFY IN A BROWSER before pitching`);
       score += 5;
-      return { score, signals };
+      return { score, signals, contact };
     }
-    if (!res.ok) { signals.push(`site returns ${res.status}`); score += 40; return { score, signals }; }
+    if (!res.ok) { signals.push(`site returns ${res.status}`); score += 40; return { score, signals, contact }; }
     if (SOCIAL_RE.test(finalUrl)) { signals.push(`"website" is actually ${finalUrl.match(SOCIAL_RE)[0].split('.')[0]}`); score += 35; }
     const html = (await res.text()).slice(0, 200000);
     if (PARKED_RE.test(html) && html.length < 20000) { signals.push('domain appears parked'); score += 40; }
@@ -73,11 +74,16 @@ async function checkSite(url) {
     if (isHttp && /^http:\/\//.test(finalUrl)) { signals.push('plain http, no SSL'); score += 15; }
     if (ms > 6000) { signals.push(`slow (${(ms / 1000).toFixed(1)}s to load)`); score += 5; }
     if (html.length < 4000 && !SOCIAL_RE.test(finalUrl)) { signals.push('near-empty page'); score += 10; }
+    // Contact capture for the outreach drafts (their own published contacts).
+    const mail = html.match(/mailto:([^"'?\s>]+)/i);
+    if (mail) contact.email = mail[1];
+    const ig = html.match(/instagram\.com\/([A-Za-z0-9_.]{2,30})/);
+    if (ig && !/^(p|reel|explore|accounts)$/.test(ig[1])) contact.instagram = ig[1];
   } catch (err) {
     signals.push(`site unreachable (${String(err.cause && err.cause.code || err.name).slice(0, 30)})`);
     score += 40;
   }
-  return { score, signals };
+  return { score, signals, contact };
 }
 
 async function run() {
@@ -90,8 +96,8 @@ async function run() {
     while (queue.length) {
       const e = queue.shift();
       if (!e.website) { noSite.push(e); continue; }
-      const { score, signals } = await checkSite(e.website);
-      if (score > 0) results.push({ ...e, score, signals });
+      const { score, signals, contact } = await checkSite(e.website);
+      if (score > 0) results.push({ ...e, score, signals, contact: contact || {} });
       process.stdout.write('.');
     }
   });
@@ -124,8 +130,9 @@ async function run() {
     ''
   ];
   fs.writeFileSync(OUT, lines.join('\n'));
+  fs.writeFileSync(path.join(ROOT, 'growth/pitch-list.json'), JSON.stringify({ generated: today, prospects: results, no_site: noSite }, null, 1));
   console.log(`→ ${results.length} scored prospects, ${noSite.length} with no site on file`);
-  console.log(`→ wrote growth/PITCH-LIST.md (top 40 shown)`);
+  console.log(`→ wrote growth/PITCH-LIST.md (top 40 shown) + growth/pitch-list.json`);
   console.log('\nTop 10:');
   results.slice(0, 10).forEach((r, i) => console.log(`  ${i + 1}. ${r.name} [${r.score}] — ${r.signals.join('; ')}`));
 }

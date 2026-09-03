@@ -941,7 +941,7 @@ ${GSC_VERIFICATION ? `<meta name="google-site-verification" content="${esc(GSC_V
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;600;700;800&family=IBM+Plex+Mono:wght@500;600;700&family=Source+Sans+3:wght@400;600&display=swap">
-<link rel="stylesheet" href="/style.css?v=74">
+<link rel="stylesheet" href="/style.css?v=75">
 <script>
 // Set color mode before paint to avoid flash. Reads localStorage first,
 // falls back to light mode (the new editorial default). mode-ready class
@@ -1008,7 +1008,8 @@ function header({ activeSlug } = {}) {
         { href: '/near/',      label: 'Near You',       deck: 'Walking radius search' },
         { href: '/quiz/',      label: 'Quiz',           deck: 'Where to be tonight' },
         { href: '/skyway/',    label: 'Skyway',         deck: 'Downtown indoor router' },
-        { href: '/surprise/',  label: 'Surprise me',    deck: 'A random pick' }
+        { href: '/surprise/',  label: 'Surprise me',    deck: 'A random pick' },
+        { href: '/saved/',     label: 'Saved',          deck: 'Your shortlist, on this device' }
       ]
     },
     {
@@ -1814,6 +1815,7 @@ function renderHome() {
       }).replace(/</g, '\\u003c');
       return `
     <section class="home-board" aria-label="Tonight's board">
+      <div class="home-board-sky" aria-hidden="true"></div>
       <div class="wrap">
         <div class="home-board-head">
           <span class="home-board-eyebrow"><span class="pulse-dot" aria-hidden="true"></span>Tonight · <span data-board-day>${esc(dayLabel)}</span></span>
@@ -1933,6 +1935,7 @@ function renderHome() {
           <li><a href="/horoscope/"><span class="mtools-code">H</span> Horoscope <em>for the metro</em></a></li>
           <li><a href="/live-music/tonight/"><span class="mtools-code">M</span> Music Tonight <em>every show, every venue</em></a></li>
           <li><a href="/passport/"><span class="mtools-code">P</span> Passport <em>your map of the metro</em></a></li>
+          <li><a href="/saved/"><span class="mtools-code">K</span> Saved <em>your shortlist</em></a></li>
           <li><a href="/trails/"><span class="mtools-code">L</span> Trails <em>finishable quests</em></a></li>
           <li><a href="/five/"><span class="mtools-code">5</span> Five Today <em>exactly five, decided for you</em></a></li>
           <li><a href="/notes/"><span class="mtools-code">O</span> Notes <em>how the cities got this way</em></a></li>
@@ -2718,7 +2721,7 @@ function renderEntry(c, e, allCategories) {
         <div class="lb-story-foot"><button class="lb-btn lb-btn--send" data-lb="story-send" type="submit">Share</button><span class="lb-story-msg" data-lb-msg></span></div>
       </form>
       <div class="lb-thanks" data-lb-thanks hidden>Thanks — that shapes the read.</div>
-      <p class="lb-note">Saves, regulars, and moments shape the Best of MPLS. Been-heres fill <a href="/passport/">your Passport</a>. Anonymous, never sold.</p>
+      <p class="lb-note">Saves land in <a href="/saved/">your shortlist</a>; been-heres fill <a href="/passport/">your Passport</a>. Both shape the Best of MPLS. Anonymous, never sold.</p>
     </div>` : '';
 
   // Full week of hours, rendered server-side (the header already carries the live
@@ -3067,7 +3070,7 @@ function renderAdminDash() {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>Operations · bestofmpls</title>
-<link rel="stylesheet" href="/style.css?v=74">
+<link rel="stylesheet" href="/style.css?v=75">
 <style>
   body { background: var(--paper); }
   .ops-wrap { max-width: 1020px; margin: 0 auto; padding: 32px var(--gutter) 96px; }
@@ -3370,7 +3373,7 @@ function renderAdminPicks() {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>${esc(title)}</title>
-<link rel="stylesheet" href="/style.css?v=74">
+<link rel="stylesheet" href="/style.css?v=75">
 <style>
   body { background: var(--paper); }
   .admin-wrap { max-width: 960px; margin: 0 auto; padding: 32px var(--gutter) 96px; }
@@ -7990,6 +7993,71 @@ function renderPassport(manifest) {
     footer();
 }
 
+// The Saved shelf — every entry page has had a Save button since June; this
+// gives the saves a home. Same localStorage map (bom_saved), same manifest
+// the Passport uses. Device-local, no accounts.
+function renderSaved() {
+  const description = 'Your shortlist of Twin Cities places, saved from anywhere in the guide. Lives on your device, no account.';
+  return head({ title: 'Saved — your shortlist', description, slug: 'saved', theme: 'default' }) +
+    header({ activeSlug: '' }) +
+    `<section class="section-head">
+       <div class="wrap">
+         <div class="section-eyebrow">Your shortlist</div>
+         <h1 class="section-title">Saved.</h1>
+         <p class="section-deck">Every place you have saved, from anywhere in the guide. The next time someone asks "where should we go," the answer is already here. Saved on this device only, no account.</p>
+       </div>
+     </section>
+     <section class="wrap pp" data-sv>
+       <div class="pp-empty" data-sv-empty hidden>
+         <p class="pp-empty-lede">Nothing saved yet.</p>
+         <p class="pp-empty-body">Every place page has a <strong>Save</strong> button. Tap it on anything that sounds like your kind of night and it lands here. A good place to start: <a href="/five/">Five Today</a> or <a href="/restaurants/">the restaurant list</a>.</p>
+       </div>
+       <ul class="sv-list" data-sv-list hidden></ul>
+       <p class="pp-privacy">Saves live in this browser only and shape the <a href="/best-of-${BEST_OF_YEAR}/">living Best of</a> anonymously. Been somewhere already? Mark it in <a href="/passport/">your Passport</a>.</p>
+     </section>
+     <script>
+     (function(){
+       ${passportClientLib()}
+       function savedMap(){ try { return JSON.parse(localStorage.getItem('bom_saved') || '{}'); } catch (e) { return {}; } }
+       function setSaved(m){ try { localStorage.setItem('bom_saved', JSON.stringify(m)); } catch (e) {} }
+       var GROUPS = ${JSON.stringify(PASSPORT_GROUPS)};
+       fetch('/passport/manifest.json').then(function(r){ return r.json(); }).then(function(rows){
+         var m = savedMap();
+         var been = ppMarks();
+         var saved = rows.filter(function(r){ return r[5].some(function(k){ return m[k]; }); });
+         var empty = document.querySelector('[data-sv-empty]'), list = document.querySelector('[data-sv-list]');
+         function render(){
+           m = savedMap();
+           saved = rows.filter(function(r){ return r[5].some(function(k){ return m[k]; }); });
+           if (!saved.length) { empty.hidden = false; list.hidden = true; return; }
+           empty.hidden = true; list.hidden = false;
+           list.innerHTML = saved.map(function(r){
+             var href = '/' + r[5][0] + '/';
+             var meta = [GROUPS[r[1]] || '', r[2]].filter(Boolean).join(' · ');
+             var visited = r[5].some(function(k){ return been[k]; });
+             return '<li class="sv-item">' +
+               '<div class="sv-item-body"><a class="sv-item-name" href="' + href + '">' + r[0].replace(/&/g,'&amp;').replace(/</g,'&lt;') + '</a>' +
+               (meta ? '<span class="sv-item-meta">' + meta + (visited ? ' · been ✓' : '') + '</span>' : '') + '</div>' +
+               '<button class="sv-unsave" type="button" data-sv-keys="' + r[5].join('|') + '" aria-label="Remove from saved">Remove</button>' +
+               '</li>';
+           }).join('');
+           list.querySelectorAll('[data-sv-keys]').forEach(function(btn){
+             btn.addEventListener('click', function(){
+               var mm = savedMap();
+               btn.getAttribute('data-sv-keys').split('|').forEach(function(k){
+                 if (mm[k]) { delete mm[k]; if (PP_WORKER) { try { fetch(PP_WORKER + '/signal', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'save', place: k, device: ppDev(), remove: true }), keepalive: true }).catch(function(){}); } catch (e) {} } }
+               });
+               setSaved(mm); render();
+             });
+           });
+         }
+         render();
+       }).catch(function(){ document.querySelector('[data-sv-empty]').hidden = false; });
+     })();
+     </script>` +
+    footer();
+}
+
 function renderSitemap(neighborhoods, crossPages) {
   const urls = [
     { loc: SITE + '/', priority: '1.0' },
@@ -8012,6 +8080,7 @@ function renderSitemap(neighborhoods, crossPages) {
     { loc: SITE + '/live-music/tonight/', priority: '0.9' },
     { loc: SITE + '/live-music/free/', priority: '0.85' },
     { loc: SITE + '/passport/', priority: '0.6' },
+    { loc: SITE + '/saved/', priority: '0.5' },
     { loc: SITE + '/trails/', priority: '0.8' },
     ...trailsData.trails.map(t => ({ loc: `${SITE}/trails/${t.slug}/`, priority: '0.75' })),
     { loc: SITE + '/notes/', priority: '0.7' },
@@ -8283,6 +8352,7 @@ function build() {
   const ppManifest = buildPassportManifest();
   writeFile('passport/manifest.json', JSON.stringify(ppManifest));
   writeFile('passport/index.html', renderPassport(ppManifest));
+  writeFile('saved/index.html', renderSaved());
   writeFile('trails/index.html', renderTrailsIndex());
   for (const t of getTrails()) writeFile(`trails/${t.slug}/index.html`, renderTrail(t));
   console.log(`  → passport (${ppManifest.length} places) + ${getTrails().length} trails`);
