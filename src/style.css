@@ -6849,3 +6849,15 @@ html[data-mode="dark"] .home-board { background: #050505; border-top: 1px solid 
 .hz-card:hover .hz-card-title { color: var(--clay); }
 .hz-card-venue { font-family: var(--font-label); font-weight: 700; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-faint); }
 .hz-card-line { font-family: var(--font-body); font-size: 14px; line-height: 1.5; color: var(--ink-soft); }
+
+/* ===== Partner menu + video profiles ===== */
+.partner-menu { border-top: 2px solid var(--rule); margin-top: 20px; }
+.partner-option { padding: 18px 0; border-bottom: 1px solid var(--rule); }
+.partner-option-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.partner-option-name { font-family: var(--font-display); font-weight: 800; font-size: 20px; letter-spacing: -0.01em; color: var(--ink); }
+.partner-option-price { font-family: var(--font-mono); font-weight: 600; font-size: 14px; color: var(--clay); font-variant-numeric: tabular-nums; }
+.partner-option-body { font-family: var(--font-body); font-size: 15px; line-height: 1.6; color: var(--ink-soft); margin: 8px 0 0; max-width: 620px; }
+.partner-select { width: 100%; box-sizing: border-box; font-family: var(--font-body); font-size: 15px; padding: 10px 12px; border: 1px solid var(--rule-strong, var(--ink)); border-radius: 8px; background: var(--paper); color: var(--ink); }
+.entry-video { margin: 20px 0 0; }
+.entry-video video { display: block; width: 100%; border-radius: var(--radius); border: 1px solid var(--rule); background: #0A0A0A; }
+.entry-video-cap { font-family: var(--font-mono); font-weight: 600; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-faint); margin-top: 8px; }

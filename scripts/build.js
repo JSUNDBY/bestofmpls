@@ -941,7 +941,7 @@ ${GSC_VERIFICATION ? `<meta name="google-site-verification" content="${esc(GSC_V
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;600;700;800&family=IBM+Plex+Mono:wght@500;600;700&family=Source+Sans+3:wght@400;600&display=swap">
-<link rel="stylesheet" href="/style.css?v=76">
+<link rel="stylesheet" href="/style.css?v=77">
 <script>
 // Set color mode before paint to avoid flash. Reads localStorage first,
 // falls back to light mode (the new editorial default). mode-ready class
@@ -1102,7 +1102,7 @@ function header({ activeSlug } = {}) {
     <div class="nav-overlay-foot">
       <a href="/contribute/">Send us a tip →</a>
       <a href="/about/">About</a>
-      <a href="mailto:hello@bestofmpls.com">hello@bestofmpls.com</a>
+      <a href="/contribute/">Send us a note &rarr;</a>
     </div>
   </div>
 </div>`;
@@ -1211,7 +1211,7 @@ function footer() {
         <a href="/about/">About</a>
         <a href="/contribute/">Send a tip</a>
         <a href="/partner/">For business</a>
-        <a href="mailto:hello@bestofmpls.com">Contact</a>
+        <a href="/contribute/">Contact</a>
         <a href="/search/">Search</a>
       </div>
       <div class="colophon-meta">
@@ -2952,6 +2952,11 @@ function renderEntry(c, e, allCategories) {
 
        <section class="entry-detail-body">
          <p class="entry-detail-description">${esc(e.description)}</p>
+         ${e.video ? `
+         <figure class="entry-video">
+           <video controls playsinline preload="metadata"${e.videoPoster ? ` poster="${esc(e.videoPoster)}"` : ''} src="${esc(e.video)}"></video>
+           <figcaption class="entry-video-cap">Filmed for the guide${e.videoCredit ? ` · ${esc(e.videoCredit)}` : ''}</figcaption>
+         </figure>` : ''}
        </section>
 
        ${lbActionsBlock}
@@ -3142,7 +3147,7 @@ function renderAdminDash() {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>Operations · bestofmpls</title>
-<link rel="stylesheet" href="/style.css?v=76">
+<link rel="stylesheet" href="/style.css?v=77">
 <style>
   body { background: var(--paper); }
   .ops-wrap { max-width: 1020px; margin: 0 auto; padding: 32px var(--gutter) 96px; }
@@ -3445,7 +3450,7 @@ function renderAdminPicks() {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>${esc(title)}</title>
-<link rel="stylesheet" href="/style.css?v=76">
+<link rel="stylesheet" href="/style.css?v=77">
 <style>
   body { background: var(--paper); }
   .admin-wrap { max-width: 960px; margin: 0 auto; padding: 32px var(--gutter) 96px; }
@@ -7070,7 +7075,7 @@ function renderContribute() {
         <button class="poll-thanks-again" type="button" data-tip-again>Send another →</button>
       </div>
       <div class="about-body" style="padding-top: 24px;">
-        <p style="font-style: italic; color: var(--ink-soft);">Prefer email? Write to <a href="mailto:hello@bestofmpls.com">hello@bestofmpls.com</a> directly.</p>
+        <p style="font-style: italic; color: var(--ink-soft);">This form comes straight to us. For business and partnership notes, use <a href="/partner/#inquiry">the partner page</a>.</p>
       </div>
     </section>
     ${enabled ? `<script>
@@ -7168,12 +7173,27 @@ function renderPartner() {
       </article>
       <p style="font-family: var(--font-body); font-size: 14px; line-height: 1.5; color: var(--ink-faint); margin-top: 8px;">Rendered above with the exact styling a featured listing gets on its category page.</p>
 
-      <h2 class="tonight-section-title" style="margin-top: 48px;">Pricing</h2>
-      <p style="font-family: var(--font-body); font-size: 17px; line-height: 1.6; color: var(--ink); max-width: 640px;">Starts at <b>$200 / month</b> per featured category. Quarterly and seasonal packages available. We try to match the rate to the business — a neighborhood bakery and a downtown hotel are not the same conversation.</p>
-      <p style="font-family: var(--font-body); font-size: 17px; line-height: 1.6; color: var(--ink-soft); max-width: 640px; margin-top: 12px;">If you run a Twin Cities venue, restaurant, or shop and the rate works, we want to talk. If the rate doesn't, tell us what does — small operators we already cover get genuine consideration.</p>
+      <h2 class="tonight-section-title" style="margin-top: 48px;">The menu</h2>
+      <div class="partner-menu">
+        <div class="partner-option">
+          <div class="partner-option-head"><span class="partner-option-name">Featured listing</span><span class="partner-option-price">$99 / month</span></div>
+          <p class="partner-option-body">Top of your category with the Featured mark, for the term. <b>Founding rate: $49 / month for the first five partners</b>, locked for twelve months, in exchange for an honest testimonial.</p>
+        </div>
+        <div class="partner-option">
+          <div class="partner-option-head"><span class="partner-option-name">Video profile</span><span class="partner-option-price">$750, one time</span></div>
+          <p class="partner-option-body">A 60&ndash;90 second filmed profile of your place: the room, the hands, the thing you do best. Shot and edited by us, embedded on your page in the guide, and yours to run on your own channels forever. Founding price while we build the first set.</p>
+        </div>
+        <div class="partner-option">
+          <div class="partner-option-head"><span class="partner-option-name">The full build</span><span class="partner-option-price">$1,500&ndash;2,500</span></div>
+          <p class="partner-option-body">Your own website, built the way this guide is built: fast, mobile-first, menu and hours and reservations wired in, photos included. Live in about a week.</p>
+        </div>
+        <div class="partner-option">
+          <div class="partner-option-head"><span class="partner-option-name">Homepage takeover</span><span class="partner-option-price">$350&ndash;500 / week</span></div>
+          <p class="partner-option-body">For a festival, anniversary, or one-off run: the homepage feature banner plus a dedicated landing page, date-windowed to your event. One at a time, clearly labeled.</p>
+        </div>
+      </div>
+      <p style="font-family: var(--font-body); font-size: 15px; line-height: 1.6; color: var(--ink-soft); max-width: 640px; margin-top: 14px;">We try to match the rate to the business &mdash; a neighborhood bakery and a downtown hotel are not the same conversation. If a rate doesn't work, tell us what does; small operators we already cover get genuine consideration.</p>
 
-      <h2 class="tonight-section-title" style="margin-top: 48px;">Homepage takeover</h2>
-      <p style="font-family: var(--font-body); font-size: 17px; line-height: 1.6; color: var(--ink); max-width: 640px;">For a festival, venue anniversary, or one-off event: the homepage feature banner plus a dedicated landing page on the site, date-windowed to your run. <b>$350–500 / week</b>, one at a time, same editorial rules, clearly labeled "Paid partner placement." Ask about it in the same email.</p>
 
       <h2 class="tonight-section-title" style="margin-top: 48px;">Cannabis brands</h2>
       <p style="font-family: var(--font-body); font-size: 17px; line-height: 1.6; color: var(--ink); max-width: 640px;">Minnesota dispensaries are largely shut out of advertising on Google and Meta. bestofmpls is a brand-safe, local, opt-in audience already deciding where to go and spend. Licensed operators can take a featured listing, a spot in the dispensary guide, or a newsletter sponsorship.</p>
@@ -7188,8 +7208,74 @@ function renderPartner() {
         <li>Native ad networks, programmatic anything, or "content amplification."</li>
       </ul>
 
-      <h2 class="tonight-section-title" style="margin-top: 48px;">To start</h2>
-      <p style="font-family: var(--font-body); font-size: 17px; line-height: 1.6; color: var(--ink); max-width: 640px;">Email <a href="mailto:hello@bestofmpls.com?subject=Featured%20partner%20interest&body=Business%20name%3A%20%0ACategory%20(Cocktail%20Bars%2C%20Pizza%2C%20Breweries%2C%20etc.)%3A%20%0AStart%20month%3A%20%0AA%20few%20sentences%20about%20the%20business%3A%20%0AAny%20seasonality%20we%20should%20time%20around%3A%20" style="color: var(--clay); border-bottom: 1px solid var(--clay);">hello@bestofmpls.com</a> with: which category, a few sentences about the business, what month you want to start, and any timing around your own seasonality (a patio in May; a soup-and-bourbon room in January). We will write back within a week.</p>
+      <h2 class="tonight-section-title" style="margin-top: 48px;" id="inquiry">To start</h2>
+      <p style="font-family: var(--font-body); font-size: 17px; line-height: 1.6; color: var(--ink); max-width: 640px;">Tell us who you are and which option you are curious about. It lands directly with us &mdash; no mail app, no form service. We write back within a week.</p>
+      <form class="contribute-form" data-partner-form style="margin-top: 20px;">
+        <div>
+          <label for="p-biz">Business name</label>
+          <input id="p-biz" name="place" type="text" required maxlength="200" placeholder="e.g. Your bar, bakery, venue, or shop">
+        </div>
+        <div>
+          <label for="p-email">Your email</label>
+          <input id="p-email" name="email" type="email" required maxlength="200" placeholder="So we can write back">
+        </div>
+        <div>
+          <label for="p-opt">What are you curious about?</label>
+          <select id="p-opt" name="option" class="partner-select">
+            <option>Featured listing</option>
+            <option>Video profile</option>
+            <option>The full build</option>
+            <option>Homepage takeover</option>
+            <option>Best of MPLS badge file</option>
+            <option>Not sure yet</option>
+          </select>
+        </div>
+        <div>
+          <label for="p-msg">Anything we should know</label>
+          <textarea id="p-msg" name="message" maxlength="2000" placeholder="Which category you are in, timing, seasonality (a patio in May; a soup room in January)."></textarea>
+        </div>
+        <input type="text" name="hp" tabindex="-1" autocomplete="off" class="poll-hp" aria-hidden="true">
+        <div class="poll-actions">
+          <button class="cover-cta" type="submit">Send it &rarr;</button>
+          <span class="poll-status" data-partner-status></span>
+        </div>
+      </form>
+      <div class="poll-thanks" data-partner-thanks hidden>
+        <h3 class="poll-thanks-title">Got it.</h3>
+        <p class="poll-thanks-body">Your note is in. We write back within a week, usually sooner.</p>
+      </div>
+      ${POLL_WORKER_URL ? `<script>
+      (function(){
+        var form = document.querySelector('[data-partner-form]');
+        if (!form) return;
+        var status = document.querySelector('[data-partner-status]');
+        var thanks = document.querySelector('[data-partner-thanks]');
+        form.addEventListener('submit', async function(e){
+          e.preventDefault();
+          var fd = new FormData(form);
+          status.textContent = 'Sending...';
+          form.querySelector('button[type="submit"]').disabled = true;
+          try {
+            var res = await fetch(${JSON.stringify(POLL_WORKER_URL + '/tip')}, {
+              method: 'POST', headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                name: 'PARTNER INQUIRY',
+                email: fd.get('email'),
+                place: fd.get('place'),
+                message: '[' + fd.get('option') + '] ' + (fd.get('message') || '(no details given)'),
+                hp: fd.get('hp')
+              })
+            });
+            var data = await res.json();
+            if (!res.ok) throw new Error(data.error || 'something broke');
+            form.style.display = 'none'; thanks.hidden = false;
+          } catch (err) {
+            status.textContent = 'That did not send \u2014 try once more?';
+            form.querySelector('button[type="submit"]').disabled = false;
+          }
+        });
+      })();
+      </script>` : ''}
 
       <p style="font-family: var(--font-body); font-style: italic; font-size: 15px; line-height: 1.6; color: var(--ink-soft); margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--rule-soft); max-width: 640px;">bestofmpls.com is an independent, locally-owned editorial guide. The site exists because the metro deserves a recommendation surface that is not owned by a publishing conglomerate or a tourism board. Featured partnerships are how it stays that way.</p>
     </section>` +
@@ -7609,7 +7695,7 @@ function renderBestOf() {
        <h2 class="bestof-about-title">How this works</h2>
        <p>This isn't handed down. Every <strong>save</strong>, every <strong>"I'm a regular,"</strong> and every <strong>moment</strong> you leave on a place shapes it, weighted toward recent activity so it reads the city as it is now. Real honors (a James Beard, a decades-long run) give a place a small starting nudge; the people who actually go decide the rest.</p>
        <p><strong>No business can pay to win, and paid placements are always labeled.</strong> Editorial sets which places are eligible and may add a note; the ranking itself is yours. It's anonymous, and the signal is never sold.</p>
-       <p class="bestof-badge-note">Leading your category? The badge is yours to show, <a href="mailto:hello@bestofmpls.com?subject=Best%20of%20MPLS%20badge">ask for the file</a>.</p>
+       <p class="bestof-badge-note">Leading your category? The badge is yours to show, <a href="/partner/#inquiry">ask for the file</a>.</p>
      </section>
      <script type="application/ld+json">${JSON.stringify(itemList)}</script>` +
     footer();
