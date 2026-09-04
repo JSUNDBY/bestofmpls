@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-04T00:24:05.811Z",
+  "generated_at": "2026-09-04T22:20:59.043Z",
   "sources": [
     {
       "source": "first-avenue",
@@ -22,19 +22,19 @@
     {
       "source": "riverview",
       "label": "Riverview Theater",
-      "count": 36,
+      "count": 33,
       "ok": true
     },
     {
       "source": "parkway",
       "label": "The Parkway Theater",
-      "count": 63,
+      "count": 64,
       "ok": true
     },
     {
       "source": "trylon",
       "label": "Trylon Cinema",
-      "count": 121,
+      "count": 120,
       "ok": true
     },
     {
@@ -52,7 +52,7 @@
     {
       "source": "berlin",
       "label": "Berlin",
-      "count": 67,
+      "count": 65,
       "ok": true
     },
     {
@@ -76,7 +76,7 @@
     {
       "source": "amsterdam",
       "label": "Amsterdam Bar & Hall",
-      "count": 39,
+      "count": 40,
       "ok": true
     },
     {
@@ -146,9 +146,15 @@
       "ok": true
     },
     {
+      "source": "fillmore",
+      "label": "The Fillmore Minneapolis",
+      "count": 28,
+      "ok": true
+    },
+    {
       "source": "crooners",
       "label": "Crooners Supper Club",
-      "count": 154,
+      "count": 163,
       "ok": true
     },
     {
@@ -288,40 +294,6 @@
       "source": "walker"
     },
     {
-      "id": "varsity:2026-09-03:chad-gray-30-years-of-madnesss",
-      "date": "2026-09-03",
-      "time": "18:00",
-      "end_date": null,
-      "title": "Chad Gray: 30 Years of Madnesss",
-      "venue": "Varsity Theater",
-      "venue_neighborhood": "Dinkytown, Minneapolis",
-      "city": "Minneapolis",
-      "category": "music",
-      "subtitle": null,
-      "url": "https://www.ticketmaster.com/chad-gray-30-years-of-madnesss-minneapolis-minnesota-09-03-2026/event/060064C2D007C978",
-      "image": "https://s1.ticketm.net/dam/a/02c/1335986a-f703-4e6b-a5b5-2be317bdf02c_TABLET_LANDSCAPE_LARGE_16_9.jpg",
-      "price": null,
-      "age": null,
-      "source": "varsity"
-    },
-    {
-      "id": "berlin:2026-09-03:eliana-glass-w-dj-cgw",
-      "date": "2026-09-03",
-      "time": "19:00",
-      "end_date": null,
-      "title": "Eliana Glass w/ DJ CGW",
-      "venue": "Berlin",
-      "venue_neighborhood": "Downtown Minneapolis",
-      "city": "Minneapolis",
-      "category": "music",
-      "subtitle": "$22 ADV / $25 DOSGET TICKETS7:00pm Show",
-      "url": "https://berlinmpls.com/calendar/eliana-glass-september-2026",
-      "image": "https://images.squarespace-cdn.com/content/v1/658316152e826a3bbbfc0aef/1783806580455-MYV69MO5D9LIPATDLP9A/Still_Jules+Muir_2025_4.JPG",
-      "price": null,
-      "age": "21+",
-      "source": "berlin"
-    },
-    {
       "id": "walker:2026-09-03:mysterious-skin-by-gregg-araki",
       "date": "2026-09-03",
       "time": "19:00",
@@ -339,23 +311,6 @@
       "source": "walker"
     },
     {
-      "id": "trylon:2026-09-03:19:00:psycho-iii",
-      "date": "2026-09-03",
-      "time": "19:00",
-      "end_date": null,
-      "title": "Psycho III",
-      "venue": "Trylon Cinema",
-      "venue_neighborhood": "Longfellow, Minneapolis",
-      "city": "Minneapolis",
-      "category": "film",
-      "subtitle": "(1986, 93m) dir Anthony Perkins w/Anthony Perkins, Diana Scarwid, Jeff Fahey. “As a huge Anthony Perkins fan, I appreciate that he got the chance to take control of his iconic role Norman Bates, serving as director of th",
-      "url": "https://www.trylon.org/film/psycho-iii/",
-      "image": "https://www.trylon.org/wp-content/uploads/2026/05/PSYCHO-III_individual_film.jpg",
-      "price": null,
-      "age": null,
-      "source": "trylon"
-    },
-    {
       "id": "cedar:2026-09-03:the-global-get-together-with-sababa-5",
       "date": "2026-09-03",
       "time": "20:00",
@@ -371,23 +326,6 @@
       "price": null,
       "age": "All ages",
       "source": "cedar"
-    },
-    {
-      "id": "berlin:2026-09-03:crates-of-earth-and-wires-by-dua-saleh",
-      "date": "2026-09-03",
-      "time": "22:00",
-      "end_date": null,
-      "title": "Crates: Of Earth & Wires by Dua Saleh",
-      "venue": "Berlin",
-      "venue_neighborhood": "Downtown Minneapolis",
-      "city": "Minneapolis",
-      "category": "music",
-      "subtitle": "NO COVER10:00pm Listening Party",
-      "url": "https://berlinmpls.com/calendar/crates-listening-party-of-earth-and-wires",
-      "image": "https://images.squarespace-cdn.com/content/v1/658316152e826a3bbbfc0aef/1787691919366-TFOAPQL6DJ4BKVXYC215/Of+Earth+and+Wires-3.png",
-      "price": null,
-      "age": "21+",
-      "source": "berlin"
     },
     {
       "id": "first-avenue:2026-09-03:7th-st-entry:clovers-daughter",
@@ -424,57 +362,6 @@
       "source": "first-avenue"
     },
     {
-      "id": "parkway:2026-09-03:slippery-people-music-of-talking-heads-with-revo-music-of-devo",
-      "date": "2026-09-03",
-      "time": null,
-      "end_date": null,
-      "title": "Slippery People: Music of Talking Heads with REVO: Music of DEVO",
-      "venue": "The Parkway Theater",
-      "venue_neighborhood": "Standish, Minneapolis",
-      "city": "Minneapolis",
-      "category": "performance",
-      "subtitle": "Two of Minneapolis’ best-loved tributes team up for an evening of music celebrating the infectious energy of Talking Heads and DEVO!",
-      "url": "https://theparkwaytheater.com/all-events/slippery-people-revo",
-      "image": null,
-      "price": null,
-      "age": null,
-      "source": "parkway"
-    },
-    {
-      "id": "riverview:2026-09-04:12:30:minions-and-monsters",
-      "date": "2026-09-04",
-      "time": "12:30",
-      "end_date": null,
-      "title": "Minions & Monsters",
-      "venue": "Riverview Theater",
-      "venue_neighborhood": "Standish-Ericsson, Minneapolis",
-      "city": "Minneapolis",
-      "category": "film",
-      "subtitle": null,
-      "url": "https://ticketing.useast.veezi.com/purchase/8172?siteToken=3taz3vkks7e11yj7r5dft9pq30",
-      "image": "https://ticketing.useast.veezi.com/Media/Poster?siteToken=3taz3vkks7e11yj7r5dft9pq30&code=0000001389",
-      "price": null,
-      "age": null,
-      "source": "riverview"
-    },
-    {
-      "id": "riverview:2026-09-04:14:15:cars-20th-anniversary",
-      "date": "2026-09-04",
-      "time": "14:15",
-      "end_date": null,
-      "title": "Cars (20th Anniversary)",
-      "venue": "Riverview Theater",
-      "venue_neighborhood": "Standish-Ericsson, Minneapolis",
-      "city": "Minneapolis",
-      "category": "film",
-      "subtitle": null,
-      "url": "https://ticketing.useast.veezi.com/purchase/8168?siteToken=3taz3vkks7e11yj7r5dft9pq30",
-      "image": "https://ticketing.useast.veezi.com/Media/Poster?siteToken=3taz3vkks7e11yj7r5dft9pq30&code=0000001404",
-      "price": null,
-      "age": null,
-      "source": "riverview"
-    },
-    {
       "id": "berlin:2026-09-04:early-evening-jazz-dale-alexander",
       "date": "2026-09-04",
       "time": "16:30",
@@ -490,23 +377,6 @@
       "price": null,
       "age": "21+",
       "source": "berlin"
-    },
-    {
-      "id": "riverview:2026-09-04:16:30:hadestown-the-musical",
-      "date": "2026-09-04",
-      "time": "16:30",
-      "end_date": null,
-      "title": "Hadestown: The Musical",
-      "venue": "Riverview Theater",
-      "venue_neighborhood": "Standish-Ericsson, Minneapolis",
-      "city": "Minneapolis",
-      "category": "film",
-      "subtitle": null,
-      "url": "https://ticketing.useast.veezi.com/purchase/8176?siteToken=3taz3vkks7e11yj7r5dft9pq30",
-      "image": "https://ticketing.useast.veezi.com/Media/Poster?siteToken=3taz3vkks7e11yj7r5dft9pq30&code=0000001396",
-      "price": null,
-      "age": null,
-      "source": "riverview"
     },
     {
       "id": "crooners:2026-09-04:happy-birthday-larry-mcdonough",
@@ -558,6 +428,23 @@
       "price": null,
       "age": null,
       "source": "whitesquirrel"
+    },
+    {
+      "id": "fillmore:2026-09-04:isaiah-rashad-lil-sunnys-awful-road-trip",
+      "date": "2026-09-04",
+      "time": "18:30",
+      "end_date": null,
+      "title": "ISAIAH RASHAD: Lil Sunny's Awful Road Trip",
+      "venue": "The Fillmore Minneapolis",
+      "venue_neighborhood": "North Loop, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://www.ticketmaster.com/isaiah-rashad-lil-sunnys-awful-road-minneapolis-minnesota-09-04-2026/event/060064CCA3ABE619",
+      "image": "https://s1.ticketm.net/dam/a/2b3/d3c09135-2615-4cde-a37a-743ac37c42b3_TABLET_LANDSCAPE_LARGE_16_9.jpg",
+      "price": null,
+      "age": null,
+      "source": "fillmore"
     },
     {
       "id": "berlin:2026-09-04:lucia-sarmiento-quintet",
@@ -1153,6 +1040,23 @@
       "price": null,
       "age": "21+",
       "source": "331"
+    },
+    {
+      "id": "fillmore:2026-09-05:masego-fix-your-face-tour",
+      "date": "2026-09-05",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Masego: Fix Your Face Tour",
+      "venue": "The Fillmore Minneapolis",
+      "venue_neighborhood": "North Loop, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://www.ticketmaster.com/masego-fix-your-face-tour-minneapolis-minnesota-09-05-2026/event/060064C2FD3EFA62",
+      "image": "https://s1.ticketm.net/dam/a/d9a/e6741dda-ce27-417a-aeb7-cb2553cb4d9a_TABLET_LANDSCAPE_LARGE_16_9.jpg",
+      "price": null,
+      "age": null,
+      "source": "fillmore"
     },
     {
       "id": "riverview:2026-09-05:19:10:tony",
@@ -1903,11 +1807,11 @@
       "source": "whitesquirrel"
     },
     {
-      "id": "crooners:2026-09-07:soap-prov-show-of-10-000-secrets",
+      "id": "crooners:2026-09-07:canceled-soap-prov-show-of-10-000-secrets",
       "date": "2026-09-07",
       "time": "18:30",
       "end_date": null,
-      "title": "Soap Prov: Show of 10,000 Secrets",
+      "title": "*CANCELED* Soap Prov: Show of 10,000 Secrets",
       "venue": "Crooners Supper Club",
       "venue_neighborhood": "Dunsmore Jazz Room",
       "city": "Minneapolis",
@@ -2730,7 +2634,7 @@
       "category": "music",
       "subtitle": null,
       "url": "https://whitesquirrelbar.com/event/jeff-becker/",
-      "image": null,
+      "image": "https://whitesquirrelbar.com/wp-content/uploads/jb-910.jpg",
       "price": null,
       "age": null,
       "source": "whitesquirrel"
@@ -3110,6 +3014,23 @@
       "source": "trylon"
     },
     {
+      "id": "fillmore:2026-09-11:lp-all-is-not-lost-tour",
+      "date": "2026-09-11",
+      "time": "19:00",
+      "end_date": null,
+      "title": "LP - All Is Not Lost Tour",
+      "venue": "The Fillmore Minneapolis",
+      "venue_neighborhood": "North Loop, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://www.ticketmaster.com/lp-all-is-not-lost-tour-minneapolis-minnesota-09-11-2026/event/0600649BE96AADF6",
+      "image": "https://s1.ticketm.net/dam/a/6ef/67eeb68d-efaf-46d8-9e34-02502489b6ef_TABLET_LANDSCAPE_LARGE_16_9.jpg",
+      "price": null,
+      "age": null,
+      "source": "fillmore"
+    },
+    {
       "id": "331:2026-09-11:the-havana-sleeve",
       "date": "2026-09-11",
       "time": "19:00",
@@ -3119,7 +3040,7 @@
       "venue_neighborhood": "Northeast Minneapolis",
       "city": "Minneapolis",
       "category": "music",
-      "subtitle": "Sets at 10:00pm, 7pm",
+      "subtitle": "With Valors · 10:00pm, 7pm",
       "url": "https://www.331club.com/",
       "image": null,
       "price": null,
@@ -3545,7 +3466,7 @@
       "city": "Minneapolis",
       "category": "lecture",
       "subtitle": "The Fire is Here event series opens with Hieu Minh Nguyen and his new book, a Top Ten Most Anticipated Poetry Collection, per Publishers Weekly.",
-      "url": "https://loft.org/events/fire-here-staying-still-hieu-minh-nguyen",
+      "url": "https://loft.org/upcoming-events",
       "image": null,
       "price": null,
       "age": null,
@@ -3722,18 +3643,18 @@
       "source": "cedar"
     },
     {
-      "id": "whitesquirrel:2026-09-12:paper-beast-w-a-blind-history",
+      "id": "whitesquirrel:2026-09-12:a-blind-history-w-paper-beast-marty-foul",
       "date": "2026-09-12",
       "time": "21:00",
       "end_date": null,
-      "title": "Paper Beast w. A Blind History",
+      "title": "A Blind History w. Paper Beast, Marty Foul",
       "venue": "White Squirrel Bar",
       "venue_neighborhood": "West End, St. Paul",
       "city": "St. Paul",
       "category": "music",
       "subtitle": null,
       "url": "https://whitesquirrelbar.com/event/paper-beast/",
-      "image": "https://whitesquirrelbar.com/wp-content/uploads/Show_20Poster_20-_20Sept-Oct_202026_20White_20Squirrel-pdf.jpg",
+      "image": "https://whitesquirrelbar.com/wp-content/uploads/a-blind-history-scaled.png",
       "price": null,
       "age": null,
       "source": "whitesquirrel"
@@ -4502,6 +4423,23 @@
       "price": null,
       "age": null,
       "source": "whitesquirrel"
+    },
+    {
+      "id": "fillmore:2026-09-15:jane-remover-live-exhibit",
+      "date": "2026-09-15",
+      "time": "18:30",
+      "end_date": null,
+      "title": "Jane Remover: Live Exhibit",
+      "venue": "The Fillmore Minneapolis",
+      "venue_neighborhood": "North Loop, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://www.ticketmaster.com/jane-remover-live-exhibit-minneapolis-minnesota-09-15-2026/event/06006497A941F18C",
+      "image": "https://s1.ticketm.net/dam/a/e1c/a4b656a9-3f89-4f7f-bb44-981173629e1c_TABLET_LANDSCAPE_LARGE_16_9.jpg",
+      "price": null,
+      "age": null,
+      "source": "fillmore"
     },
     {
       "id": "berlin:2026-09-15:adam-o-farrill-s-elephant",
@@ -5992,9 +5930,9 @@
       "venue_neighborhood": "West End, St. Paul",
       "city": "St. Paul",
       "category": "music",
-      "subtitle": null,
+      "subtitle": "Floryence is the indie rock solo project of Milwaukee-based songwriter, producer, and performer, Jared Gibson. Featuring raw, introspective lyrics and an eclectic sound, Floryence draws inspiration fr",
       "url": "https://whitesquirrelbar.com/event/floryence-w-isssy-blimey/",
-      "image": null,
+      "image": "https://whitesquirrelbar.com/wp-content/uploads/floryence-poster.jpg",
       "price": null,
       "age": null,
       "source": "whitesquirrel"
@@ -6519,7 +6457,7 @@
       "venue_neighborhood": "Downtown Minneapolis",
       "city": "Minneapolis",
       "category": "music",
-      "subtitle": "Stella and Hey, ily!",
+      "subtitle": "septemberistheonlytimeidontthinkofyou and Hey, ily!",
       "url": "https://first-avenue.com/event/2026-09-your-arms-are-my-cocoon/",
       "image": null,
       "price": null,
@@ -8261,6 +8199,23 @@
       "source": "crooners"
     },
     {
+      "id": "fillmore:2026-09-25:kylie-cantrall-presents-the-valley-girl-problems-tour",
+      "date": "2026-09-25",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Kylie Cantrall Presents: The Valley Girl Problems Tour",
+      "venue": "The Fillmore Minneapolis",
+      "venue_neighborhood": "North Loop, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://www.ticketmaster.com/kylie-cantrall-presents-the-valley-girl-minneapolis-minnesota-09-25-2026/event/060064FD7D2B4BDD",
+      "image": "https://s1.ticketm.net/dam/a/982/1d5881c9-02d2-4405-8523-50d7f3ec4982_TABLET_LANDSCAPE_LARGE_16_9.jpg",
+      "price": null,
+      "age": null,
+      "source": "fillmore"
+    },
+    {
       "id": "amsterdam:2026-09-25:l-l",
       "date": "2026-09-25",
       "time": "19:00",
@@ -9706,6 +9661,23 @@
       "source": "whitesquirrel"
     },
     {
+      "id": "fillmore:2026-09-28:the-garden",
+      "date": "2026-09-28",
+      "time": "18:00",
+      "end_date": null,
+      "title": "The Garden",
+      "venue": "The Fillmore Minneapolis",
+      "venue_neighborhood": "North Loop, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://www.ticketmaster.com/the-garden-minneapolis-minnesota-09-28-2026/event/060064CA9AF8A83F",
+      "image": "https://s1.ticketm.net/dam/a/f6a/30579354-6abe-4c0b-93fc-7f93c61d8f6a_TABLET_LANDSCAPE_LARGE_16_9.jpg",
+      "price": null,
+      "age": null,
+      "source": "fillmore"
+    },
+    {
       "id": "trylon:2026-09-28:19:00:je-tu-il-elle",
       "date": "2026-09-28",
       "time": "19:00",
@@ -9835,7 +9807,7 @@
       "city": "Minneapolis",
       "category": "lecture",
       "subtitle": "Come together as one big friend group at our end of summer gathering for Friends of the Loft! Meet fellow wordsmiths and bibliophiles, enjoy some refreshments, and participate in the open mic at this free donor social.",
-      "url": "https://loft.org/events/friend-fete-september-2026",
+      "url": "https://loft.org/upcoming-events",
       "image": null,
       "price": null,
       "age": null,
@@ -9857,6 +9829,23 @@
       "price": null,
       "age": null,
       "source": "whitesquirrel"
+    },
+    {
+      "id": "fillmore:2026-09-29:artemas-lovercore-getting-up-to-no-good-tour",
+      "date": "2026-09-29",
+      "time": "18:30",
+      "end_date": null,
+      "title": "Artemas - LOVERCORE / GETTING UP TO NO GOOD Tour",
+      "venue": "The Fillmore Minneapolis",
+      "venue_neighborhood": "North Loop, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://www.ticketmaster.com/artemas-lovercore-getting-up-to-no-minneapolis-minnesota-09-29-2026/event/0600647ECCF5BAC1",
+      "image": "https://s1.ticketm.net/dam/a/2ec/1db3f5b8-3900-4c18-a2c1-25feeb1d42ec_TABLET_LANDSCAPE_LARGE_16_9.jpg",
+      "price": null,
+      "age": null,
+      "source": "fillmore"
     },
     {
       "id": "amsterdam:2026-09-29:whiskey-ginger-with-josiah-shipp-lucky-crayfish-and-aeris-and-the-piggies",
@@ -10129,6 +10118,23 @@
       "price": null,
       "age": "21+",
       "source": "berlin"
+    },
+    {
+      "id": "fillmore:2026-09-30:domi-and-jd-beck-who-asked-tour",
+      "date": "2026-09-30",
+      "time": "19:00",
+      "end_date": null,
+      "title": "DOMi & JD Beck - WHO ASKED? Tour",
+      "venue": "The Fillmore Minneapolis",
+      "venue_neighborhood": "North Loop, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://www.ticketmaster.com/domi-jd-beck-who-asked-tour-minneapolis-minnesota-09-30-2026/event/060064EDDEF5F723",
+      "image": "https://s1.ticketm.net/dam/a/d72/716be6ed-b61f-4bf4-bc30-d91c212c6d72_TABLET_LANDSCAPE_LARGE_16_9.jpg",
+      "price": null,
+      "age": null,
+      "source": "fillmore"
     },
     {
       "id": "331:2026-09-30:lenz-and-frenz",
@@ -10605,6 +10611,23 @@
       "price": null,
       "age": null,
       "source": "guthrie"
+    },
+    {
+      "id": "crooners:2026-10-01:get-down-rhythm-street-movement",
+      "date": "2026-10-01",
+      "time": "20:00",
+      "end_date": null,
+      "title": "GET DOWN: Rhythm Street Movement",
+      "venue": "Crooners Supper Club",
+      "venue_neighborhood": "The Belvedere at Crooners",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Doors open at 6:45 PM for Dinner and Drink service. GET DOWN to the energy, rhythm, and sensational statement of this Minnesota original. This show, this team of artists, and this collection of conten",
+      "url": "https://www.croonersmn.com/event/get-down-rhythm-street-movement/",
+      "image": "https://www.croonersmn.com/wp-content/uploads/eventbrite-logos/d9991efd053977853bf0bfef330bec6d.jpg",
+      "price": "$25–$35",
+      "age": null,
+      "source": "crooners"
     },
     {
       "id": "amsterdam:2026-10-01:king-mala",
@@ -11372,6 +11395,23 @@
       "source": "hennepinarts"
     },
     {
+      "id": "parkway:2026-10-03:the-cactus-blossoms-with-special-guest-thomas-sticha",
+      "date": "2026-10-03",
+      "time": null,
+      "end_date": null,
+      "title": "The Cactus Blossoms with special guest Thomas Sticha",
+      "venue": "The Parkway Theater",
+      "venue_neighborhood": "Standish, Minneapolis",
+      "city": "Minneapolis",
+      "category": "performance",
+      "subtitle": "The Cactus Blossoms return to The Parkway, bringing their signature harmonies to the stage for two very special evenings of songs, plus a few surprises! Country-folk artist Thomas Sticha sets the stage with an opening se",
+      "url": "https://theparkwaytheater.com/all-events/cactus-night-one",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "parkway"
+    },
+    {
       "id": "hennepinarts:2026-10-03:the-running-game-show",
       "date": "2026-10-03",
       "time": null,
@@ -11678,6 +11718,23 @@
       "source": "whitesquirrel"
     },
     {
+      "id": "parkway:2026-10-04:the-cactus-blossoms-with-special-guests-hilary-thavis-and-doug-otto",
+      "date": "2026-10-04",
+      "time": null,
+      "end_date": null,
+      "title": "The Cactus Blossoms with special guests Hilary Thavis & Doug Otto",
+      "venue": "The Parkway Theater",
+      "venue_neighborhood": "Standish, Minneapolis",
+      "city": "Minneapolis",
+      "category": "performance",
+      "subtitle": "The Cactus Blossoms return to The Parkway, bringing their signature harmonies to the stage for two very special evenings of songs, plus a few surprises! Twin Cities musician Doug Otto along with A Prairie Home Companion ",
+      "url": "https://theparkwaytheater.com/all-events/blossoms-night-two",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "parkway"
+    },
+    {
       "id": "hclib:2026-10-05:voting-and-election-resources-with-hennepin-county-elections",
       "date": "2026-10-05",
       "time": "15:00",
@@ -11846,6 +11903,23 @@
       "price": null,
       "age": null,
       "source": "varsity"
+    },
+    {
+      "id": "fillmore:2026-10-06:sex-pistols-steve-jones-paul-cook-glen-matlock-feat-frank-carter",
+      "date": "2026-10-06",
+      "time": "19:00",
+      "end_date": null,
+      "title": "SEX PISTOLS (Steve Jones, Paul Cook, Glen Matlock) feat. Frank Carter",
+      "venue": "The Fillmore Minneapolis",
+      "venue_neighborhood": "North Loop, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://www.ticketmaster.com/sex-pistols-steve-jones-paul-cook-minneapolis-minnesota-10-06-2026/event/0600627A09987A9D",
+      "image": "https://s1.ticketm.net/dam/a/6e7/48330409-0d19-4228-af7f-df52749866e7_TABLET_LANDSCAPE_LARGE_16_9.jpg",
+      "price": null,
+      "age": null,
+      "source": "fillmore"
     },
     {
       "id": "trylon:2026-10-06:19:00:suspiria-in-4k",
@@ -12120,11 +12194,11 @@
       "source": "guthrie"
     },
     {
-      "id": "crooners:2026-10-07:cornbread-99",
+      "id": "crooners:2026-10-07:cornbread-99-live-recording",
       "date": "2026-10-07",
       "time": "19:30",
       "end_date": null,
-      "title": "Cornbread 99",
+      "title": "Cornbread 99 – Live Recording!",
       "venue": "Crooners Supper Club",
       "venue_neighborhood": "Main Stage Showroom",
       "city": "Minneapolis",
@@ -12390,6 +12464,23 @@
       "price": null,
       "age": null,
       "source": "varsity"
+    },
+    {
+      "id": "fillmore:2026-10-08:jpegmafia-the-experimental-rap-tour",
+      "date": "2026-10-08",
+      "time": "18:30",
+      "end_date": null,
+      "title": "JPEGMAFIA: the Experimental Rap Tour",
+      "venue": "The Fillmore Minneapolis",
+      "venue_neighborhood": "North Loop, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://www.ticketmaster.com/jpegmafia-the-experimental-rap-tour-minneapolis-minnesota-10-08-2026/event/0600648AACD02598",
+      "image": "https://s1.ticketm.net/dam/a/0ad/2715f828-d867-417d-a621-9226eeed80ad_TABLET_LANDSCAPE_LARGE_16_9.jpg",
+      "price": null,
+      "age": null,
+      "source": "fillmore"
     },
     {
       "id": "hclib:2026-10-08:halcyon-days-book-club-the-three-body-problem",
@@ -12902,6 +12993,23 @@
       "source": "hclib"
     },
     {
+      "id": "crooners:2026-10-10:an-evening-with-patty-and-ricky-peterson",
+      "date": "2026-10-10",
+      "time": "18:30",
+      "end_date": null,
+      "title": "AN EVENING WITH PATTY AND RICKY PETERSON",
+      "venue": "Crooners Supper Club",
+      "venue_neighborhood": "Main Stage Showroom",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Doors open at 5:30 PM for Dinner and Drink Service. Featuring: Jason Peterson DeLaire, Bobby Vandell, Tony Axtel and Joe Elliott. Patty and Ricky Peterson blend decades of sibling musical partnership ",
+      "url": "https://www.croonersmn.com/event/an-evening-with-patty-and-ricky-peterson/",
+      "image": "https://www.croonersmn.com/wp-content/uploads/eventbrite-logos/44a330c2c33118bf4c2f822dee4c9d94.jpg",
+      "price": "$30–$40",
+      "age": null,
+      "source": "crooners"
+    },
+    {
       "id": "varsity:2026-10-10:emei-night-at-the-opera-tour",
       "date": "2026-10-10",
       "time": "19:00",
@@ -13087,6 +13195,23 @@
       "price": "$15",
       "age": null,
       "source": "icehouse"
+    },
+    {
+      "id": "fillmore:2026-10-10:punchis-punchis-banda-rave-experience",
+      "date": "2026-10-10",
+      "time": "21:00",
+      "end_date": null,
+      "title": "Punchis Punchis: Banda Rave Experience",
+      "venue": "The Fillmore Minneapolis",
+      "venue_neighborhood": "North Loop, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://www.ticketmaster.com/punchis-punchis-banda-rave-experience-minneapolis-minnesota-10-10-2026/event/0600650EC7BC23E0",
+      "image": "https://s1.ticketm.net/dam/a/6a2/4888f9e6-832c-40ec-a01b-218780dfc6a2_TABLET_LANDSCAPE_LARGE_16_9.jpg",
+      "price": null,
+      "age": null,
+      "source": "fillmore"
     },
     {
       "id": "parkway:2026-10-10:2026-hump-film-festival-all-new-fall-lineup",
@@ -13786,6 +13911,23 @@
       "source": "crooners"
     },
     {
+      "id": "varsity:2026-10-14:castle-rat-summon-the-beasts-tour-2026",
+      "date": "2026-10-14",
+      "time": "18:30",
+      "end_date": null,
+      "title": "Castle Rat: Summon The Beasts Tour 2026",
+      "venue": "Varsity Theater",
+      "venue_neighborhood": "Dinkytown, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://www.ticketmaster.com/castle-rat-summon-the-beasts-tour-minneapolis-minnesota-10-14-2026/event/060064BD2A129290",
+      "image": "https://s1.ticketm.net/dam/a/23d/f306c3ac-ca95-461a-95f0-acf8105e623d_TABLET_LANDSCAPE_LARGE_16_9.jpg",
+      "price": null,
+      "age": null,
+      "source": "varsity"
+    },
+    {
       "id": "berlin:2026-10-14:dpad",
       "date": "2026-10-14",
       "time": "19:00",
@@ -14005,6 +14147,23 @@
       "price": "Free",
       "age": "Adults",
       "source": "hclib"
+    },
+    {
+      "id": "crooners:2026-10-15:erica-west-and-phil-kadidlo",
+      "date": "2026-10-15",
+      "time": "17:00",
+      "end_date": null,
+      "title": "Erica West and Phil Kadidlo",
+      "venue": "Crooners Supper Club",
+      "venue_neighborhood": "Maggie’s Piano Lounge",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "No cover. Bar and table seating offered – NO RESERVATIONS. Erica West : Vocals Phil Kadidlo : Piano Erica West is strong, confident, and sultry right out of the box. Her striking looks and mesmerizing",
+      "url": "https://www.croonersmn.com/event/erica-west-and-phil-kadidlo/",
+      "image": "https://www.croonersmn.com/wp-content/uploads/eventbrite-logos/a4bab68fa8ba9618c72f14a13eaa392b.jpg",
+      "price": "Free",
+      "age": null,
+      "source": "crooners"
     },
     {
       "id": "crooners:2026-10-15:jon-sullivan-band",
@@ -14245,6 +14404,23 @@
       "source": "trylon"
     },
     {
+      "id": "fillmore:2026-10-16:toad-the-wet-sprocket-rings-the-acoustic-tour",
+      "date": "2026-10-16",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Toad The Wet Sprocket - Rings: The Acoustic Tour",
+      "venue": "The Fillmore Minneapolis",
+      "venue_neighborhood": "North Loop, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://www.ticketmaster.com/toad-the-wet-sprocket-rings-the-minneapolis-minnesota-10-16-2026/event/060064BCCC53B7A4",
+      "image": "https://s1.ticketm.net/dam/a/f52/f771cbe4-8697-4e07-b14c-bd645c8b8f52_TABLET_LANDSCAPE_LARGE_16_9.jpg",
+      "price": null,
+      "age": null,
+      "source": "fillmore"
+    },
+    {
       "id": "331:2026-10-16:wish-wash",
       "date": "2026-10-16",
       "time": "19:00",
@@ -14464,6 +14640,23 @@
       "price": null,
       "age": "21+",
       "source": "331"
+    },
+    {
+      "id": "fillmore:2026-10-17:digable-planets-celebrating-30-years-of-blow-out-comb",
+      "date": "2026-10-17",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Digable Planets - Celebrating 30 years of Blow Out Comb",
+      "venue": "The Fillmore Minneapolis",
+      "venue_neighborhood": "North Loop, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://www.ticketmaster.com/digable-planets-celebrating-30-years-of-minneapolis-minnesota-10-17-2026/event/060064BCA4367591",
+      "image": "https://s1.ticketm.net/dam/a/b66/2f6f040b-b135-478f-b002-b8f932d57b66_TABLET_LANDSCAPE_LARGE_16_9.jpg",
+      "price": null,
+      "age": null,
+      "source": "fillmore"
     },
     {
       "id": "mnorch:11912",
@@ -14704,6 +14897,23 @@
       "source": "331"
     },
     {
+      "id": "fillmore:2026-10-18:catch-your-breath-not-broken-enough-tour",
+      "date": "2026-10-18",
+      "time": "18:00",
+      "end_date": null,
+      "title": "Catch Your Breath - Not Broken Enough Tour",
+      "venue": "The Fillmore Minneapolis",
+      "venue_neighborhood": "North Loop, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://www.ticketmaster.com/catch-your-breath-not-broken-enough-minneapolis-minnesota-10-18-2026/event/060064B4D6512689",
+      "image": "https://s1.ticketm.net/dam/a/b79/fad89e83-5f7e-4a7f-9319-052c08101b79_TABLET_LANDSCAPE_LARGE_16_9.jpg",
+      "price": null,
+      "age": null,
+      "source": "fillmore"
+    },
+    {
       "id": "crooners:2026-10-18:mick-sterling-presents-heart-and-soul",
       "date": "2026-10-18",
       "time": "18:00",
@@ -14719,6 +14929,23 @@
       "price": "$35–$45",
       "age": null,
       "source": "crooners"
+    },
+    {
+      "id": "amsterdam:2026-10-18:rock-out-with-witchybois-and-friends",
+      "date": "2026-10-18",
+      "time": "18:30",
+      "end_date": null,
+      "title": "Rock Out with Witchybois & Friends",
+      "venue": "Amsterdam Bar & Hall",
+      "venue_neighborhood": "Downtown, Saint Paul",
+      "city": "Saint Paul",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://events.amsterdambarandhall.com/event/rock-out-with-witchybois-friends/amsterdam-bar-hall/saint-paul-minnesota/",
+      "image": null,
+      "price": null,
+      "age": "All ages",
+      "source": "amsterdam"
     },
     {
       "id": "crooners:2026-10-18:antrio",
@@ -15095,6 +15322,23 @@
       "source": "berlin"
     },
     {
+      "id": "crooners:2026-10-21:dancing-queen-tribute-to-disco",
+      "date": "2026-10-21",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Dancing Queen – Tribute to Disco",
+      "venue": "Crooners Supper Club",
+      "venue_neighborhood": "Main Stage Showroom",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Doors open at 6:00 PM for Dinner and Drink Service. Get ready to groove with Dancing Queen, the ultimate tribute band celebrating the disco era! Step back into the vibrant 1970’s, where glitz and glam",
+      "url": "https://www.croonersmn.com/event/dancing-queen-tribute-to-disco-2/",
+      "image": "https://www.croonersmn.com/wp-content/uploads/eventbrite-logos/e2b7b9e2fb76438ee1844cfed0325032.jpg",
+      "price": "$30–$40",
+      "age": null,
+      "source": "crooners"
+    },
+    {
       "id": "guthrie:2026-10-21:19:00:kunene-and-the-king",
       "date": "2026-10-21",
       "time": "19:00",
@@ -15121,7 +15365,7 @@
       "venue_neighborhood": "Northeast Minneapolis",
       "city": "Minneapolis",
       "category": "music",
-      "subtitle": "With Harold’s House Party on KFAI · 9:30pm, 7:00pm",
+      "subtitle": "With Sammie Jean Cohen, Aly Dyg, Harold’s House Party on KFAI · 9:30pm, 7:00pm",
       "url": "https://www.331club.com/",
       "image": null,
       "price": null,
@@ -15263,6 +15507,23 @@
       "price": "Free",
       "age": "Adults",
       "source": "hclib"
+    },
+    {
+      "id": "crooners:2026-10-22:songs-and-stories-of-immigration-with-the-cafe-accordion-orchestra",
+      "date": "2026-10-22",
+      "time": "18:30",
+      "end_date": null,
+      "title": "Songs and Stories of Immigration with the Cafe Accordion Orchestra",
+      "venue": "Crooners Supper Club",
+      "venue_neighborhood": "Main Stage Showroom",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Doors open at 5:30 PM for Dinner and Drink Service. Join Cafe Accordion as we celebrate our nation’s 250th anniversary through stories of musical migration. From the dance halls of Paris through the M",
+      "url": "https://www.croonersmn.com/event/songs-and-stories-of-immigration-with-the-cafe-accordion-orchestra-2/",
+      "image": "https://www.croonersmn.com/wp-content/uploads/eventbrite-logos/e5388dde51932f42a5502a1e7bf3fe30.jpg",
+      "price": "$30–$40",
+      "age": null,
+      "source": "crooners"
     },
     {
       "id": "trylon:2026-10-22:19:00:dracula-in-istanbul",
@@ -15758,6 +16019,23 @@
       "source": "trylon"
     },
     {
+      "id": "crooners:2026-10-24:bennett-evans-1975-album",
+      "date": "2026-10-24",
+      "time": "17:30",
+      "end_date": null,
+      "title": "Bennett / Evans 1975 Album",
+      "venue": "Crooners Supper Club",
+      "venue_neighborhood": "Dunsmore Jazz Room",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Doors open at 4:30 PM for Dinner and Drink Service. Craig T. covers these tunes in a timeless manner, weaving stories and letting these players fill the beautiful spaces. Featuring classics such as Yo",
+      "url": "https://www.croonersmn.com/event/bennett-evans-1975-album/",
+      "image": "https://www.croonersmn.com/wp-content/uploads/eventbrite-logos/38e756e6c4185cf4f49646122ab180c8.jpg",
+      "price": "$30–$40",
+      "age": null,
+      "source": "crooners"
+    },
+    {
       "id": "trylon:2026-10-24:19:00:alucarda",
       "date": "2026-10-24",
       "time": "19:00",
@@ -15790,6 +16068,23 @@
       "price": null,
       "age": "All ages",
       "source": "mnorch"
+    },
+    {
+      "id": "fillmore:2026-10-24:buena-vista-orchestra",
+      "date": "2026-10-24",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Buena Vista Orchestra",
+      "venue": "The Fillmore Minneapolis",
+      "venue_neighborhood": "North Loop, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://www.ticketmaster.com/buena-vista-orchestra-minneapolis-minnesota-10-24-2026/event/060064633203AFEF",
+      "image": "https://s1.ticketm.net/dam/a/fd6/a4a8431d-f2a0-4756-8ff7-adbeee16bfd6_TABLET_LANDSCAPE_LARGE_16_9.jpg",
+      "price": null,
+      "age": null,
+      "source": "fillmore"
     },
     {
       "id": "331:2026-10-24:grand-lilac",
@@ -16370,6 +16665,23 @@
       "source": "trylon"
     },
     {
+      "id": "fillmore:2026-10-27:thundercat-distracted-af-tour",
+      "date": "2026-10-27",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Thundercat: Distracted AF Tour",
+      "venue": "The Fillmore Minneapolis",
+      "venue_neighborhood": "North Loop, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://www.ticketmaster.com/thundercat-distracted-af-tour-minneapolis-minnesota-10-27-2026/event/060064E7B0D5A19B",
+      "image": "https://s1.ticketm.net/dam/a/f36/ba98d2e4-ecf5-4c6b-be55-981f01dfcf36_TABLET_LANDSCAPE_LARGE_16_9.jpg",
+      "price": null,
+      "age": null,
+      "source": "fillmore"
+    },
+    {
       "id": "331:2026-10-27:ditch-pigeon",
       "date": "2026-10-27",
       "time": "20:00",
@@ -16897,6 +17209,23 @@
       "source": "trylon"
     },
     {
+      "id": "fillmore:2026-10-30:reventon-latin-halloween-party",
+      "date": "2026-10-30",
+      "time": "21:00",
+      "end_date": null,
+      "title": "Reventón: Latin Halloween Party",
+      "venue": "The Fillmore Minneapolis",
+      "venue_neighborhood": "North Loop, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://www.ticketmaster.com/reventon-latin-halloween-party-minneapolis-minnesota-10-30-2026/event/06006506B86AC68E",
+      "image": "https://s1.ticketm.net/dam/c/f50/96fa13be-e395-429b-8558-a51bb9054f50_105951_TABLET_LANDSCAPE_LARGE_16_9.jpg",
+      "price": null,
+      "age": null,
+      "source": "fillmore"
+    },
+    {
       "id": "hennepinarts:2026-10-30:charlie-parr-featuring-dave-king-rooming-house-release-show",
       "date": "2026-10-30",
       "time": null,
@@ -16963,6 +17292,23 @@
       "price": null,
       "age": null,
       "source": "guthrie"
+    },
+    {
+      "id": "fillmore:2026-10-31:periphery-a-pale-white-dot-us-tour",
+      "date": "2026-10-31",
+      "time": "17:30",
+      "end_date": null,
+      "title": "Periphery - A Pale White Dot US Tour",
+      "venue": "The Fillmore Minneapolis",
+      "venue_neighborhood": "North Loop, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://www.ticketmaster.com/periphery-a-pale-white-dot-us-minneapolis-minnesota-10-31-2026/event/060064B3DF873EFC",
+      "image": "https://s1.ticketm.net/dam/a/d9b/330d6d55-fc37-46ac-b875-0e17346f4d9b_TABLET_LANDSCAPE_LARGE_16_9.jpg",
+      "price": null,
+      "age": null,
+      "source": "fillmore"
     },
     {
       "id": "331:2026-10-31:crash-cuddle",
@@ -17422,6 +17768,23 @@
       "price": "$45–$55",
       "age": null,
       "source": "crooners"
+    },
+    {
+      "id": "fillmore:2026-11-03:pouya-the-forever-glades-tour",
+      "date": "2026-11-03",
+      "time": "18:00",
+      "end_date": null,
+      "title": "Pouya - The Forever Glades Tour",
+      "venue": "The Fillmore Minneapolis",
+      "venue_neighborhood": "North Loop, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://www.ticketmaster.com/pouya-the-forever-glades-tour-minneapolis-minnesota-11-03-2026/event/060064C8FA64292F",
+      "image": "https://s1.ticketm.net/dam/a/9fd/12d38709-d7b1-4f7b-9a55-a583f16c99fd_TABLET_LANDSCAPE_LARGE_16_9.jpg",
+      "price": null,
+      "age": null,
+      "source": "fillmore"
     },
     {
       "id": "cedar:2026-11-03:jeremiah-chiu-and-josh-johnson",
@@ -17932,6 +18295,23 @@
       "price": null,
       "age": null,
       "source": "whitesquirrel"
+    },
+    {
+      "id": "fillmore:2026-11-07:arch-enemy-and-the-black-dahlia-murder-wrath-across-north-america-2026",
+      "date": "2026-11-07",
+      "time": "17:00",
+      "end_date": null,
+      "title": "Arch Enemy & The Black Dahlia Murder - Wrath Across North America 2026",
+      "venue": "The Fillmore Minneapolis",
+      "venue_neighborhood": "North Loop, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://www.ticketmaster.com/arch-enemy-the-black-dahlia-murder-minneapolis-minnesota-11-07-2026/event/060064B1E7F4E383",
+      "image": "https://s1.ticketm.net/dam/a/3b5/08cefbd6-5bc5-4252-bd8b-f3e0e8ba33b5_TABLET_LANDSCAPE_LARGE_16_9.jpg",
+      "price": null,
+      "age": null,
+      "source": "fillmore"
     },
     {
       "id": "crooners:2026-11-07:joel-shapira-s-maggie-s-maison-with-donnie-lamarca",
@@ -18648,6 +19028,23 @@
       "source": "hclib"
     },
     {
+      "id": "crooners:2026-11-12:erica-west-and-phil-kadidlo",
+      "date": "2026-11-12",
+      "time": "17:00",
+      "end_date": null,
+      "title": "Erica West and Phil Kadidlo",
+      "venue": "Crooners Supper Club",
+      "venue_neighborhood": "Maggie’s Piano Lounge",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "No cover. Bar and table seating offered – NO RESERVATIONS. Erica West : Vocals Phil Kadidlo : Piano Erica West is strong, confident, and sultry right out of the box. Her striking looks and mesmerizing",
+      "url": "https://www.croonersmn.com/event/erica-west-and-phil-kadidlo-2/",
+      "image": "https://www.croonersmn.com/wp-content/uploads/eventbrite-logos/a04caf3e3bbe00bf68fad1fcc9d629ff.jpg",
+      "price": "Free",
+      "age": null,
+      "source": "crooners"
+    },
+    {
       "id": "whitesquirrel:2026-11-12:fuzzy-math",
       "date": "2026-11-12",
       "time": "18:00",
@@ -18680,6 +19077,23 @@
       "price": "$30–$40",
       "age": null,
       "source": "crooners"
+    },
+    {
+      "id": "fillmore:2026-11-12:clara-la-san-chosen-silences-tour-fall-2026",
+      "date": "2026-11-12",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Clara La San - Chosen Silences Tour Fall 2026",
+      "venue": "The Fillmore Minneapolis",
+      "venue_neighborhood": "North Loop, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://www.ticketmaster.com/clara-la-san-chosen-silences-tour-minneapolis-minnesota-11-12-2026/event/0600650BB5C69CAD",
+      "image": "https://s1.ticketm.net/dam/a/ae3/a22eaa07-1a54-4a0c-9662-2bfa99c8bae3_TABLET_LANDSCAPE_LARGE_16_9.jpg",
+      "price": null,
+      "age": null,
+      "source": "fillmore"
     },
     {
       "id": "hclib:2026-11-12:club-book-with-valeria-luiselli",
@@ -19260,6 +19674,23 @@
       "source": "hennepinarts"
     },
     {
+      "id": "fillmore:2026-11-18:saosin-20-years-of-self-titled",
+      "date": "2026-11-18",
+      "time": "18:00",
+      "end_date": null,
+      "title": "Saosin: 20 Years of Self-Titled",
+      "venue": "The Fillmore Minneapolis",
+      "venue_neighborhood": "North Loop, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://www.ticketmaster.com/saosin-20-years-of-selftitled-minneapolis-minnesota-11-18-2026/event/060064A49AA4AD20",
+      "image": "https://s1.ticketm.net/dam/a/4ea/3585b221-3e42-4f12-8eaf-1ebe054e84ea_TABLET_LANDSCAPE_LARGE_16_9.jpg",
+      "price": null,
+      "age": null,
+      "source": "fillmore"
+    },
+    {
       "id": "crooners:2026-11-18:the-music-of-clifford-brown-and-max-roach-with-steve-wagner-and-phil-hey",
       "date": "2026-11-18",
       "time": "18:00",
@@ -19649,6 +20080,23 @@
       "price": null,
       "age": null,
       "source": "loft"
+    },
+    {
+      "id": "fillmore:2026-11-21:fetty-wap-nostalgia-tour",
+      "date": "2026-11-21",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Fetty Wap: Nostalgia Tour",
+      "venue": "The Fillmore Minneapolis",
+      "venue_neighborhood": "North Loop, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://www.ticketmaster.com/fetty-wap-nostalgia-tour-minneapolis-minnesota-11-21-2026/event/060064ABC4911EC3",
+      "image": "https://s1.ticketm.net/dam/a/26d/064fcb36-4986-40ee-97cd-0931e9ecc26d_TABLET_LANDSCAPE_LARGE_16_9.jpg",
+      "price": null,
+      "age": null,
+      "source": "fillmore"
     },
     {
       "id": "331:2026-11-21:noslo",
@@ -20263,6 +20711,23 @@
       "source": "crooners"
     },
     {
+      "id": "fillmore:2026-11-29:whitechapel-20th-anniversary-tour",
+      "date": "2026-11-29",
+      "time": "17:00",
+      "end_date": null,
+      "title": "Whitechapel - 20th Anniversary Tour",
+      "venue": "The Fillmore Minneapolis",
+      "venue_neighborhood": "North Loop, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://www.ticketmaster.com/whitechapel-20th-anniversary-tour-minneapolis-minnesota-11-29-2026/event/060064C4A3F1924C",
+      "image": "https://s1.ticketm.net/dam/a/b22/3a50641f-eeba-49df-847a-f236023aab22_TABLET_LANDSCAPE_LARGE_16_9.jpg",
+      "price": null,
+      "age": null,
+      "source": "fillmore"
+    },
+    {
       "id": "guthrie:2026-11-29:18:00:a-christmas-carol",
       "date": "2026-11-29",
       "time": "18:00",
@@ -20484,6 +20949,40 @@
       "source": "hclib"
     },
     {
+      "id": "crooners:2026-12-03:a-mid-century-modern-holiday-with-retrofizz",
+      "date": "2026-12-03",
+      "time": "18:00",
+      "end_date": null,
+      "title": "A Mid-Century Modern Holiday with RetroFizz!",
+      "venue": "Crooners Supper Club",
+      "venue_neighborhood": "Dunsmore Jazz Room",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Doors will open at 5:00 PM for Dinner and Drink Service. 60s Lounge Jazz and Pop Join RetroFizz for an evening of groovy Elevator Pop (think Mancini, Bacharach, Bossa Nova, etc.) as well as some hip h",
+      "url": "https://www.croonersmn.com/event/a-mid-century-modern-holiday-with-retrofizz/",
+      "image": "https://www.croonersmn.com/wp-content/uploads/eventbrite-logos/acd0ef6374aa632a33f70b0b23c27d1d.jpg",
+      "price": "$25–$35",
+      "age": null,
+      "source": "crooners"
+    },
+    {
+      "id": "crooners:2026-12-03:wayne-anthony-presents-celebrate-me-home-a-holiday-tapestry",
+      "date": "2026-12-03",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Wayne Anthony Presents CELEBRATE ME HOME – A Holiday Tapestry",
+      "venue": "Crooners Supper Club",
+      "venue_neighborhood": "Main Stage Showroom",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Doors will open at 6:00 PM for Dinner and Drink Service. Seasonal Standards / Jazz / Pop / R&B / Original Works This incredible 7-piece ensemble will take you on a journey from beloved Holiday Classic",
+      "url": "https://www.croonersmn.com/event/wayne-anthony-presents-celebrate-me-home-a-holiday-tapestry/",
+      "image": "https://www.croonersmn.com/wp-content/uploads/eventbrite-logos/9eac2a78f84e9b28175ebd896b087471.jpg",
+      "price": "$40–$50",
+      "age": null,
+      "source": "crooners"
+    },
+    {
       "id": "guthrie:2026-12-03:19:30:a-christmas-carol",
       "date": "2026-12-03",
       "time": "19:30",
@@ -20499,6 +20998,23 @@
       "price": null,
       "age": null,
       "source": "guthrie"
+    },
+    {
+      "id": "fillmore:2026-12-04:blue-october-foiled-20th-anniversary-world-tour",
+      "date": "2026-12-04",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Blue October: Foiled 20th Anniversary World Tour",
+      "venue": "The Fillmore Minneapolis",
+      "venue_neighborhood": "North Loop, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://www.ticketmaster.com/blue-october-foiled-20th-anniversary-world-minneapolis-minnesota-12-04-2026/event/06006472DC001BE4",
+      "image": "https://s1.ticketm.net/dam/a/472/1426901f-6f24-44ff-986e-54c2f1743472_TABLET_LANDSCAPE_LARGE_16_9.jpg",
+      "price": null,
+      "age": null,
+      "source": "fillmore"
     },
     {
       "id": "guthrie:2026-12-04:19:30:a-christmas-carol",
@@ -20550,6 +21066,23 @@
       "price": null,
       "age": null,
       "source": "guthrie"
+    },
+    {
+      "id": "fillmore:2026-12-05:martin-amini",
+      "date": "2026-12-05",
+      "time": "18:00",
+      "end_date": null,
+      "title": "Martin Amini",
+      "venue": "The Fillmore Minneapolis",
+      "venue_neighborhood": "North Loop, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://www.ticketmaster.com/martin-amini-minneapolis-minnesota-12-05-2026/event/060064878510588A",
+      "image": "https://s1.ticketm.net/dam/a/d35/942690b6-50b2-4028-9530-65dbd2e40d35_TABLET_LANDSCAPE_LARGE_16_9.jpg",
+      "price": null,
+      "age": null,
+      "source": "fillmore"
     },
     {
       "id": "guthrie:2026-12-05:19:30:a-christmas-carol",
@@ -20618,6 +21151,40 @@
       "price": null,
       "age": null,
       "source": "guthrie"
+    },
+    {
+      "id": "fillmore:2026-12-06:dragonforce-inhuman-rampage-20th-anniversary",
+      "date": "2026-12-06",
+      "time": "17:30",
+      "end_date": null,
+      "title": "DragonForce: Inhuman Rampage 20th Anniversary",
+      "venue": "The Fillmore Minneapolis",
+      "venue_neighborhood": "North Loop, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://www.ticketmaster.com/dragonforce-inhuman-rampage-20th-anniversary-minneapolis-minnesota-12-06-2026/event/060064B3C859F67F",
+      "image": "https://s1.ticketm.net/dam/a/b68/e0fc74ad-fecb-4e22-aca7-5656f4882b68_TABLET_LANDSCAPE_LARGE_16_9.jpg",
+      "price": null,
+      "age": null,
+      "source": "fillmore"
+    },
+    {
+      "id": "fillmore:2026-12-07:imminence-axis-mundi-tour-north-america-2026",
+      "date": "2026-12-07",
+      "time": "17:30",
+      "end_date": null,
+      "title": "Imminence - Axis Mundi Tour: North America 2026",
+      "venue": "The Fillmore Minneapolis",
+      "venue_neighborhood": "North Loop, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://www.ticketmaster.com/imminence-axis-mundi-tour-north-america-minneapolis-minnesota-12-07-2026/event/060064CBD3AA28FD",
+      "image": "https://s1.ticketm.net/dam/a/516/cd386496-e3e1-4219-8dd3-4761d3e20516_TABLET_LANDSCAPE_LARGE_16_9.jpg",
+      "price": null,
+      "age": null,
+      "source": "fillmore"
     },
     {
       "id": "mnorch:12068",

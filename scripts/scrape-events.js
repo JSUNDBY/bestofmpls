@@ -53,6 +53,8 @@ const SCRAPERS = [
   require('./scrapers/hennepinarts.js'),
   // The Guthrie (needs headless Chrome; fails soft where none exists)
   require('./scrapers/guthrie.js'),
+  // The Fillmore (Live Nation, plain JSON-LD)
+  require('./scrapers/fillmore.js'),
   require('./scrapers/crooners.js'),
   // Classical — the symphonies
   require('./scrapers/mnorch.js'),

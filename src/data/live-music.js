@@ -23,6 +23,15 @@ module.exports = {
       }
     },
     {
+      name: 'The Fillmore Minneapolis',
+      neighborhood: 'North Loop, Minneapolis',
+      style: 'Mid-size touring room',
+      description: 'Live Nation\'s roughly 1,800-capacity room steps from Target Field, booking national touring acts across hip-hop, rock, country, and comedy. Newer and shinier than the metro\'s beloved independents, with the sightlines and sound you would expect from a purpose-built 2020s venue. Check the calendar; the bookings move fast.',
+      address: '525 N 5th St, Minneapolis',
+      website: 'https://www.fillmoreminneapolis.com',
+      capacity: '1,800'
+    },
+    {
       name: 'The Fine Line Music Cafe',
       neighborhood: 'Warehouse District, Minneapolis',
       style: 'Mid-sized club, full-service kitchen',

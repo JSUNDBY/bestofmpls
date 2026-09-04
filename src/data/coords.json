@@ -1969,5 +1969,9 @@
   "173 Western Ave N, St. Paul": {
     "lat": 44.9467782,
     "lng": -93.1163934
+  },
+  "525 N 5th St, Minneapolis": {
+    "lat": 44.9811945,
+    "lng": -93.2747038
   }
 }
