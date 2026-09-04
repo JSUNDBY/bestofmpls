@@ -51,6 +51,8 @@ const SCRAPERS = [
   require('./scrapers/whitesquirrel.js'),
   // The Hennepin Avenue houses — Orpheum, State, Pantages
   require('./scrapers/hennepinarts.js'),
+  // The Guthrie (needs headless Chrome; fails soft where none exists)
+  require('./scrapers/guthrie.js'),
   require('./scrapers/crooners.js'),
   // Classical — the symphonies
   require('./scrapers/mnorch.js'),
