@@ -1961,5 +1961,13 @@
   "4047 Minnehaha Ave, Minneapolis": {
     "lat": 44.928884,
     "lng": -93.2196464
+  },
+  "704 Minnehaha Ave E, St. Paul": {
+    "lat": 44.9623793,
+    "lng": -93.0706699
+  },
+  "173 Western Ave N, St. Paul": {
+    "lat": 44.9467782,
+    "lng": -93.1163934
   }
 }

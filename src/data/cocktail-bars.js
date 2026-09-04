@@ -7,6 +7,15 @@ module.exports = {
   needs_verification: true,
   entries: [
     {
+      name: 'CrowBar',
+      neighborhood: 'East Side, St. Paul',
+      style: 'Cocktail bar, distillery tasting room',
+      description: 'The cocktail bar and tasting room for Volière Spirits, an all women owned distillery making small-batch spirits inside the historic Hamm\'s Brewery complex. Creative cocktails, mocktails that get equal care, and records on the turntable. The best reason yet to see what is stirring in the old Hamm\'s buildings. Closed Sunday and Monday.',
+      address: '704 Minnehaha Ave E, St. Paul',
+      website: 'https://www.volierespirits.com',
+      price: '$$'
+    },
+    {
       name: 'Volstead’s Emporium',
       neighborhood: 'Lyn-Lake, Minneapolis',
       style: 'Speakeasy',

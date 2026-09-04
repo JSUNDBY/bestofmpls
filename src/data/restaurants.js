@@ -7,6 +7,15 @@ module.exports = {
   needs_verification: true,
   entries: [
     {
+      name: 'Tasca Madrid',
+      neighborhood: 'Cathedral Hill, St. Paul',
+      style: 'Spanish, tapas and paella',
+      description: 'Spanish tapas, grilled meats, and paella in the former Handsome Hog space on Cathedral Hill, with the attached San Román bakery and deli covering the daytime. Opened in 2026 and immediately gave the Selby and Western corner a reason to linger over a bottle of something Spanish. There is a patio.',
+      address: '173 Western Ave N, St. Paul',
+      website: 'https://tascamadrid.com',
+      price: '$$$'
+    },
+    {
       name: '112 Eatery',
       neighborhood: 'North Loop, Minneapolis',
       style: 'New American, James Beard',
