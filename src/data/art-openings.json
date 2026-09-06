@@ -1,0 +1,13 @@
+{
+ "_doc": "Curated opening receptions \u2014 the social events, not just the on-view ranges. Every entry must be VERIFIED against the gallery's own announcement (or a direct submission from the gallery via /submit-opening/, checked before it lands here). Fields: title, artist (optional), venue, date (ISO), time (24h, optional but preferred \u2014 it IS the reception), end_time (optional), on_view_through (ISO, optional), url (the gallery's page for the show), source: 'gallery-submitted' | 'verified'. Submissions arrive in the admin inbox tagged OPENING SUBMISSION.",
+ "openings": [
+  {
+   "title": "Kim Benson: New Paintings",
+   "venue": "TOA Presents",
+   "date": "2026-10-01",
+   "url": "https://www.theorangeadvisory.com/toa-presents",
+   "on_view_through": null,
+   "source": "verified"
+  }
+ ]
+}

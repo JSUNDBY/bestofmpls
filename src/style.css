@@ -6861,3 +6861,21 @@ html[data-mode="dark"] .home-board { background: #050505; border-top: 1px solid 
 .entry-video { margin: 20px 0 0; }
 .entry-video video { display: block; width: 100%; border-radius: var(--radius); border: 1px solid var(--rule); background: #0A0A0A; }
 .entry-video-cap { font-family: var(--font-mono); font-weight: 600; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-faint); margin-top: 8px; }
+
+/* ===== Openings — the social calendar ===== */
+.openings-deck { font-family: var(--font-body); font-size: 15.5px; line-height: 1.55; color: var(--ink-soft); margin: 6px 0 0; max-width: 560px; }
+.openings-list { margin-top: 18px; }
+.opening-row { display: flex; gap: 28px; padding: 18px 0; border-bottom: 1px solid var(--rule); }
+.opening-row:first-child { border-top: 2px solid var(--rule); }
+.opening-when { flex: none; width: 240px; display: flex; flex-direction: column; gap: 4px; }
+.opening-date { font-family: var(--font-mono); font-weight: 600; font-size: 13.5px; color: var(--clay); text-transform: uppercase; letter-spacing: 0.06em; }
+.opening-time { font-family: var(--font-mono); font-weight: 600; font-size: 12px; color: var(--ink); letter-spacing: 0.04em; }
+.opening-time--day { color: var(--ink-faint); }
+.opening-title { font-family: var(--font-display); font-weight: 800; font-size: 19px; letter-spacing: -0.01em; margin: 0; }
+.opening-title a { color: var(--ink); text-decoration: none; }
+.opening-title a:hover { color: var(--clay); }
+.opening-venue { font-family: var(--font-label); font-weight: 700; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-faint); margin-top: 5px; }
+@media (max-width: 640px) { .opening-row { flex-direction: column; gap: 6px; } .opening-when { width: auto; flex-direction: row; gap: 14px; } }
+.openings-cta { border: 2px solid var(--clay); border-radius: var(--radius); padding: 24px 26px; margin: 26px 0 6px; }
+.openings-cta-title { font-family: var(--font-display); font-weight: 800; font-size: 22px; letter-spacing: -0.01em; margin: 0; color: var(--ink); }
+.openings-cta-body { font-family: var(--font-body); font-size: 15px; line-height: 1.55; color: var(--ink-soft); margin: 8px 0 16px; max-width: 560px; }
