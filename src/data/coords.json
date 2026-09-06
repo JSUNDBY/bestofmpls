@@ -1973,5 +1973,57 @@
   "525 N 5th St, Minneapolis": {
     "lat": 44.9811945,
     "lng": -93.2747038
+  },
+  "5033 France Ave S, Edina": {
+    "lat": 44.9115475,
+    "lng": -93.328911
+  },
+  "357 13th Ave NE, Minneapolis": {
+    "lat": 45.0009809,
+    "lng": -93.2624626
+  },
+  "345 W Kellogg Blvd, St. Paul": {
+    "lat": 44.9471086,
+    "lng": -93.1043001
+  },
+  "6009 Portland Ave S, Minneapolis": {
+    "lat": 44.9095177,
+    "lng": -93.2671466
+  },
+  "3535 E Lake St, Minneapolis": {
+    "lat": 44.9482813,
+    "lng": -93.2211624
+  },
+  "2557 Lyndale Ave S, Minneapolis": {
+    "lat": 44.9556988,
+    "lng": -93.2877848
+  },
+  "721 W 26th St, Minneapolis": {
+    "lat": 44.9554341,
+    "lng": -93.2889073
+  },
+  "783 Raymond Ave, St. Paul": {
+    "lat": 44.9650893,
+    "lng": -93.1977816
+  },
+  "2512 University Ave W, St. Paul": {
+    "lat": 44.9650961,
+    "lng": -93.2011581
+  },
+  "419 Wabasha St N, St. Paul": {
+    "lat": 44.9468376,
+    "lng": -93.0957133
+  },
+  "302 13th Ave NE, Minneapolis": {
+    "lat": 45.0007585,
+    "lng": -93.2643528
+  },
+  "164 Snelling Ave N, St. Paul": {
+    "lat": 44.9852202,
+    "lng": -93.1669176
+  },
+  "13 5th St NE, Minneapolis": {
+    "lat": 44.989213,
+    "lng": -93.2535318
   }
 }

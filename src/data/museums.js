@@ -247,6 +247,25 @@ module.exports = {
       price: 'Free'
     },
     {
+      name: 'Rogue Buddha Gallery',
+      neighborhood: 'Northeast Minneapolis',
+      style: 'Pop surrealism and magical realism',
+      description: 'Painter Nicholas Harper\u2019s gallery since 1999, now on 13th Avenue in the Arts District after years on East Hennepin. Harper\u2019s own gilded, long-necked figures hang alongside local and international artists working the wondrously dark end of the spectrum, and the gallery hosts the Twin Cities Death Cafe on the last Sunday of each month.',
+      address: '357 13th Ave NE, Minneapolis',
+      website: 'https://www.roguebuddha.com',
+      access: 'Currently open by appointment; check the site before visiting.',
+      price: 'Free'
+    },
+    {
+      name: 'Minnesota History Center',
+      neighborhood: 'Downtown St. Paul',
+      style: 'History museum',
+      description: 'The Minnesota Historical Society\u2019s flagship museum on Kellogg Boulevard: real artifacts, hands-on galleries, and exhibits ranging from Our Home: Native Minnesota to the long-running family favorite Then Now Wow. Free on Thursday evenings from 4 to 8pm, parking included, which is the local move.',
+      address: '345 W Kellogg Blvd, St. Paul',
+      website: 'https://www.mnhs.org/historycenter',
+      price: '$15, free Thursday evenings'
+    },
+    {
       name: 'Groveland Gallery',
       neighborhood: 'Loring Park, Minneapolis',
       style: 'Representational painting, regional',

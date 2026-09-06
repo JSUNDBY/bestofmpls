@@ -7,6 +7,22 @@ module.exports = {
   needs_verification: true,
   entries: [
     {
+      name: 'The Anchor Fish & Chips',
+      neighborhood: 'Northeast Minneapolis',
+      style: 'Irish chipper',
+      description: 'A proper Irish chipper on 13th Avenue since 2009, opened by owners from Tipperary and Belfast and named for a construction business, not a boat. Beef-tallow-fried fish with hand-cut chips, shepherd\u2019s pie, and pasties, in a room that fills fast on weekends. They run a food truck for events, but the shop is the point.',
+      address: '302 13th Ave NE, Minneapolis',
+      website: 'https://theanchorfishandchips.com'
+    },
+    {
+      name: 'yum! Kitchen and Bakery',
+      neighborhood: 'Multiple Twin Cities locations',
+      style: 'Scratch cafe and bakery',
+      description: 'Patti Soskin\u2019s made-from-scratch cafe, in St. Louis Park since 2005 with newer rooms on Snelling in St. Paul and in the suburbs. Part bakery, part deli-leaning kitchen, and home of the patticake: the triple-layer chocolate cake with vanilla buttercream that has its own local following.',
+      address: '164 Snelling Ave N, St. Paul',
+      website: 'https://yumkitchen.com'
+    },
+    {
       name: 'Tasca Madrid',
       neighborhood: 'Cathedral Hill, St. Paul',
       style: 'Spanish, tapas and paella',

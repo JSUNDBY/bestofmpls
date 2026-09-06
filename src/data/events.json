@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T15:41:09.995Z",
+  "generated_at": "2026-09-06T17:14:27.965Z",
   "sources": [
     {
       "source": "first-avenue",
@@ -22,7 +22,7 @@
     {
       "source": "riverview",
       "label": "Riverview Theater",
-      "count": 25,
+      "count": 24,
       "ok": true
     },
     {
@@ -146,6 +146,18 @@
       "ok": true
     },
     {
+      "source": "mysticlake",
+      "label": "Mystic Lake (Amphitheater + Showroom)",
+      "count": 28,
+      "ok": true
+    },
+    {
+      "source": "manual",
+      "label": "Hand-added events",
+      "count": 1,
+      "ok": true
+    },
+    {
       "source": "fillmore",
       "label": "The Fillmore Minneapolis",
       "count": 26,
@@ -178,8 +190,9 @@
     {
       "source": "soovac",
       "label": "SooVAC",
-      "count": 2,
-      "ok": true
+      "count": 0,
+      "ok": false,
+      "error": "fetch failed"
     },
     {
       "source": "highpoint",
@@ -411,23 +424,6 @@
       "price": null,
       "age": null,
       "source": "first-avenue"
-    },
-    {
-      "id": "riverview:2026-09-06:11:00:catvideofest-2026",
-      "date": "2026-09-06",
-      "time": "11:00",
-      "end_date": null,
-      "title": "CatVideoFest 2026",
-      "venue": "Riverview Theater",
-      "venue_neighborhood": "Standish-Ericsson, Minneapolis",
-      "city": "Minneapolis",
-      "category": "film",
-      "subtitle": null,
-      "url": "https://ticketing.useast.veezi.com/purchase/8193?siteToken=3taz3vkks7e11yj7r5dft9pq30",
-      "image": "https://ticketing.useast.veezi.com/Media/Poster?siteToken=3taz3vkks7e11yj7r5dft9pq30&code=0000001343",
-      "price": null,
-      "age": null,
-      "source": "riverview"
     },
     {
       "id": "riverview:2026-09-06:12:30:minions-and-monsters",
@@ -2419,6 +2415,23 @@
       "source": "hclib"
     },
     {
+      "id": "mysticlake:2026-09-12:hop-house-ppv-watch-party-fight-night-silva-vs-delgado",
+      "date": "2026-09-12",
+      "time": "11:00",
+      "end_date": null,
+      "title": "Hop House PPV Watch Party Fight Night Silva Vs Delgado",
+      "venue": "Mystic Showroom",
+      "venue_neighborhood": "Mystic Lake, Prior Lake",
+      "city": "Prior Lake",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://mysticlake.com/shows-and-events/hop-house-fight-night",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "mysticlake"
+    },
+    {
       "id": "whitesquirrel:2026-09-12:lucinda-williams-tribute",
       "date": "2026-09-12",
       "time": "13:00",
@@ -2946,6 +2959,23 @@
       "source": "trylon"
     },
     {
+      "id": "manual:2026-09-13:mni-house-picnic-with-tricky-miki",
+      "end_date": null,
+      "image": null,
+      "price": null,
+      "age": "All ages",
+      "subtitle": "House music all day long, rain or shine. A community picnic from Voice of Culture with KRSM and Minneapolis Arts & Cultural Affairs.",
+      "source": "manual",
+      "date": "2026-09-13",
+      "time": "11:00",
+      "title": "MNI House Picnic with Tricky Miki",
+      "venue": "Lowry & Aldrich Ave",
+      "venue_neighborhood": "North Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "url": "https://www.voiceofculture.org/"
+    },
+    {
       "id": "cedar:2026-09-13:summer-cypher-presents-cedar-cypher",
       "date": "2026-09-13",
       "time": "11:00",
@@ -3012,6 +3042,23 @@
       "price": null,
       "age": null,
       "source": "trylon"
+    },
+    {
+      "id": "mysticlake:2026-09-13:vikings-watch-parties",
+      "date": "2026-09-13",
+      "time": "15:25",
+      "end_date": null,
+      "title": "Vikings Watch Parties",
+      "venue": "Mystic Showroom",
+      "venue_neighborhood": "Mystic Lake, Prior Lake",
+      "city": "Prior Lake",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://mysticlake.com/shows-and-events/vikings-watch-parties",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "mysticlake"
     },
     {
       "id": "331:2026-09-13:emmy-woods-and-friends",
@@ -3131,6 +3178,23 @@
       "price": null,
       "age": "18+",
       "source": "amsterdam"
+    },
+    {
+      "id": "mysticlake:2026-09-13:dan-shay-the-young-tour",
+      "date": "2026-09-13",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Dan + Shay: The Young Tour",
+      "venue": "Mystic Lake",
+      "venue_neighborhood": "Mystic Lake, Prior Lake",
+      "city": "Prior Lake",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://mysticlake.com/shows-and-events/dan-and-shay",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "mysticlake"
     },
     {
       "id": "dakota:2026-09-13:dominique-fils-aime",
@@ -4646,6 +4710,23 @@
       "source": "berlin"
     },
     {
+      "id": "mysticlake:2026-09-18:lfa-242",
+      "date": "2026-09-18",
+      "time": "16:45",
+      "end_date": null,
+      "title": "LFA 242",
+      "venue": "Mystic Showroom",
+      "venue_neighborhood": "Mystic Lake, Prior Lake",
+      "city": "Prior Lake",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://mysticlake.com/shows-and-events/lfa-242",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "mysticlake"
+    },
+    {
       "id": "crooners:2026-09-18:van-and-kathy-nixon",
       "date": "2026-09-18",
       "time": "17:00",
@@ -4780,6 +4861,23 @@
       "price": null,
       "age": "21+",
       "source": "berlin"
+    },
+    {
+      "id": "mysticlake:2026-09-18:logic-and-g-eazy-the-endless-summer",
+      "date": "2026-09-18",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Logic & G-Eazy: The Endless Summer",
+      "venue": "Mystic Lake",
+      "venue_neighborhood": "Mystic Lake, Prior Lake",
+      "city": "Prior Lake",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://mysticlake.com/shows-and-events/logic-and-geazy",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "mysticlake"
     },
     {
       "id": "dakota:2026-09-18:mac-mcanally",
@@ -5205,6 +5303,23 @@
       "price": null,
       "age": "All ages",
       "source": "mnorch"
+    },
+    {
+      "id": "mysticlake:2026-09-19:iron-maiden-run-for-your-lives-with-megadeth",
+      "date": "2026-09-19",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Iron Maiden: Run For Your Lives with Megadeth",
+      "venue": "Mystic Lake",
+      "venue_neighborhood": "Mystic Lake, Prior Lake",
+      "city": "Prior Lake",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://mysticlake.com/shows-and-events/iron-maiden",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "mysticlake"
     },
     {
       "id": "spco:2026-09-19:19:00:opening-weekend-beethoven-s-second-symphony-with-gabor-takacs-nagy",
@@ -5836,6 +5951,23 @@
       "source": "dakota"
     },
     {
+      "id": "mysticlake:2026-09-20:the-b-52s-devo-cosmic-de-evolution-tour",
+      "date": "2026-09-20",
+      "time": "19:00",
+      "end_date": null,
+      "title": "THE B-52s * DEVO: COSMIC DE-EVOLUTION TOUR",
+      "venue": "Mystic Lake",
+      "venue_neighborhood": "Mystic Lake, Prior Lake",
+      "city": "Prior Lake",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://mysticlake.com/shows-and-events/b-52",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "mysticlake"
+    },
+    {
       "id": "berlin:2026-09-20:the-wozniak-weekly-brandon-wozniak-zacc-harris",
       "date": "2026-09-20",
       "time": "19:00",
@@ -6225,6 +6357,23 @@
       "price": null,
       "age": null,
       "source": "whitesquirrel"
+    },
+    {
+      "id": "mysticlake:2026-09-22:breaking-benjamin-fall-tour-2026",
+      "date": "2026-09-22",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Breaking Benjamin: Fall Tour 2026",
+      "venue": "Mystic Lake",
+      "venue_neighborhood": "Mystic Lake, Prior Lake",
+      "city": "Prior Lake",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://mysticlake.com/shows-and-events/breaking-benjamin",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "mysticlake"
     },
     {
       "id": "varsity:2026-09-22:brian-fallon-and-the-painkillers",
@@ -6907,6 +7056,23 @@
       "source": "berlin"
     },
     {
+      "id": "mysticlake:2026-09-24:staind-break-the-cycle-25th-anniversary-tour",
+      "date": "2026-09-24",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Staind: Break The Cycle 25th Anniversary Tour",
+      "venue": "Mystic Lake",
+      "venue_neighborhood": "Mystic Lake, Prior Lake",
+      "city": "Prior Lake",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://mysticlake.com/shows-and-events/staind",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "mysticlake"
+    },
+    {
       "id": "crooners:2026-09-24:urban-classic-presents-natural-mystic-the-music-of-bob-marley",
       "date": "2026-09-24",
       "time": "19:00",
@@ -7077,23 +7243,6 @@
       "source": "first-avenue"
     },
     {
-      "id": "soovac:2026-09-24:catch-all-by-erika-terwilliger",
-      "date": "2026-09-24",
-      "time": null,
-      "end_date": "2026-11-08",
-      "title": "Catch-All by Erika Terwilliger",
-      "venue": "SooVAC",
-      "venue_neighborhood": "Lyn-Lake, Minneapolis",
-      "city": "Minneapolis",
-      "category": "art",
-      "subtitle": "On view September 24 - November 8, 2026",
-      "url": "https://www.soovac.org/exhibitions",
-      "image": null,
-      "price": null,
-      "age": "All ages",
-      "source": "soovac"
-    },
-    {
       "id": "first-avenue:2026-09-24:first-avenue:cortex",
       "date": "2026-09-24",
       "time": null,
@@ -7160,23 +7309,6 @@
       "price": null,
       "age": null,
       "source": "first-avenue"
-    },
-    {
-      "id": "soovac:2026-09-24:soovac-s-front-space-residency-presents-new-experimental-work-by-sarah-abdel-jel",
-      "date": "2026-09-24",
-      "time": null,
-      "end_date": "2026-11-08",
-      "title": "SooVAC’s Front Space Residency Presents: New Experimental Work by Sarah Abdel-Jelil",
-      "venue": "SooVAC",
-      "venue_neighborhood": "Lyn-Lake, Minneapolis",
-      "city": "Minneapolis",
-      "category": "art",
-      "subtitle": "On view September 24 - November 8, 2026",
-      "url": "https://www.soovac.org/exhibitions",
-      "image": null,
-      "price": null,
-      "age": "All ages",
-      "source": "soovac"
     },
     {
       "id": "hennepinarts:2026-09-24:the-basement-yard-live",
@@ -7944,6 +8076,23 @@
       "source": "spco"
     },
     {
+      "id": "mysticlake:2026-09-26:pitbull-im-back",
+      "date": "2026-09-26",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Pitbull: I'M BACK",
+      "venue": "Mystic Lake",
+      "venue_neighborhood": "Mystic Lake, Prior Lake",
+      "city": "Prior Lake",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://mysticlake.com/shows-and-events/pitbull",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "mysticlake"
+    },
+    {
       "id": "mnorch:11903",
       "date": "2026-09-26",
       "time": "19:00",
@@ -8027,6 +8176,23 @@
       "price": "$25–$35",
       "age": null,
       "source": "crooners"
+    },
+    {
+      "id": "mysticlake:2026-09-26:kathleen-madigan",
+      "date": "2026-09-26",
+      "time": "20:00",
+      "end_date": null,
+      "title": "Kathleen Madigan",
+      "venue": "Mystic Showroom",
+      "venue_neighborhood": "Mystic Lake, Prior Lake",
+      "city": "Prior Lake",
+      "category": "performance",
+      "subtitle": null,
+      "url": "https://mysticlake.com/shows-and-events/kathleen-madigan",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "mysticlake"
     },
     {
       "id": "cedar:2026-09-26:willi-carlisle-the-universal-bubba-tour-with-william-matheny",
@@ -9253,6 +9419,23 @@
       "source": "berlin"
     },
     {
+      "id": "mysticlake:2026-09-30:bryson-tiller-the-neotrapsoul-tour",
+      "date": "2026-09-30",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Bryson Tiller: The Neotrapsoul Tour",
+      "venue": "Mystic Lake",
+      "venue_neighborhood": "Mystic Lake, Prior Lake",
+      "city": "Prior Lake",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://mysticlake.com/shows-and-events/bryson-tiller",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "mysticlake"
+    },
+    {
       "id": "fillmore:2026-09-30:domi-and-jd-beck-who-asked-tour",
       "date": "2026-09-30",
       "time": "19:00",
@@ -10120,6 +10303,23 @@
       "source": "cedar"
     },
     {
+      "id": "mysticlake:2026-10-02:justin-moore",
+      "date": "2026-10-02",
+      "time": "20:00",
+      "end_date": null,
+      "title": "Justin Moore",
+      "venue": "Mystic Showroom",
+      "venue_neighborhood": "Mystic Lake, Prior Lake",
+      "city": "Prior Lake",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://mysticlake.com/shows-and-events/justin-moore",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "mysticlake"
+    },
+    {
       "id": "mnorch:11907",
       "date": "2026-10-02",
       "time": "20:00",
@@ -10407,6 +10607,23 @@
       "price": "$35–$45",
       "age": null,
       "source": "crooners"
+    },
+    {
+      "id": "mysticlake:2026-10-03:tim-lai-bau-troi",
+      "date": "2026-10-03",
+      "time": "19:30",
+      "end_date": null,
+      "title": "Tìm Lại Bầu Trời",
+      "venue": "Mystic Showroom",
+      "venue_neighborhood": "Mystic Lake, Prior Lake",
+      "city": "Prior Lake",
+      "category": "performance",
+      "subtitle": null,
+      "url": "https://mysticlake.com/shows-and-events/tim-lai-bau-troi",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "mysticlake"
     },
     {
       "id": "guthrie:2026-10-03:19:30:waiting-for-godot",
@@ -13605,6 +13822,23 @@
       "source": "berlin"
     },
     {
+      "id": "mysticlake:2026-10-16:lonestar-keeps-getting-better-tour",
+      "date": "2026-10-16",
+      "time": "20:00",
+      "end_date": null,
+      "title": "LONESTAR – KEEPS GETTING BETTER TOUR",
+      "venue": "Mystic Showroom",
+      "venue_neighborhood": "Mystic Lake, Prior Lake",
+      "city": "Prior Lake",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://mysticlake.com/shows-and-events/lonestar",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "mysticlake"
+    },
+    {
       "id": "mnorch:11911",
       "date": "2026-10-16",
       "time": "20:00",
@@ -13858,6 +14092,23 @@
       "price": null,
       "age": null,
       "source": "guthrie"
+    },
+    {
+      "id": "mysticlake:2026-10-17:kenny-wayne-shepherd-band-ledbetter-heights-30th-anniversary-tour",
+      "date": "2026-10-17",
+      "time": "20:00",
+      "end_date": null,
+      "title": "KENNY WAYNE SHEPHERD BAND: LEDBETTER HEIGHTS 30TH ANNIVERSARY TOUR",
+      "venue": "Mystic Showroom",
+      "venue_neighborhood": "Mystic Lake, Prior Lake",
+      "city": "Prior Lake",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://mysticlake.com/shows-and-events/kenny-wayne-shepherd-band",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "mysticlake"
     },
     {
       "id": "cedar:2026-10-17:laura-veirs-with-karl-blau",
@@ -15271,6 +15522,23 @@
       "source": "guthrie"
     },
     {
+      "id": "mysticlake:2026-10-24:beat-belew-vai-levin-bozzio-performing-the-music-of-king-crimson",
+      "date": "2026-10-24",
+      "time": "20:00",
+      "end_date": null,
+      "title": "BEAT: BELEW/VAI/ LEVIN/BOZZIO PERFORMING THE MUSIC OF KING CRIMSON",
+      "venue": "Mystic Showroom",
+      "venue_neighborhood": "Mystic Lake, Prior Lake",
+      "city": "Prior Lake",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://mysticlake.com/shows-and-events/beat",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "mysticlake"
+    },
+    {
       "id": "trylon:2026-10-24:20:45:viy",
       "date": "2026-10-24",
       "time": "20:45",
@@ -16393,6 +16661,23 @@
       "source": "parkway"
     },
     {
+      "id": "mysticlake:2026-10-31:follow-the-frights",
+      "date": "2026-10-31",
+      "time": "01:00",
+      "end_date": null,
+      "title": "Follow the Frights",
+      "venue": "Mystic Showroom",
+      "venue_neighborhood": "Mystic Lake, Prior Lake",
+      "city": "Prior Lake",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://mysticlake.com/shows-and-events/halloween",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "mysticlake"
+    },
+    {
       "id": "whitesquirrel:2026-10-31:chicky-rooster",
       "date": "2026-10-31",
       "time": "13:00",
@@ -17328,6 +17613,23 @@
       "source": "guthrie"
     },
     {
+      "id": "mysticlake:2026-11-06:imomsohard-the-crashing-out-tour",
+      "date": "2026-11-06",
+      "time": "20:00",
+      "end_date": null,
+      "title": "#IMOMSOHARD: The Crashing Out Tour",
+      "venue": "Mystic Showroom",
+      "venue_neighborhood": "Mystic Lake, Prior Lake",
+      "city": "Prior Lake",
+      "category": "performance",
+      "subtitle": null,
+      "url": "https://mysticlake.com/shows-and-events/i-mom-so-hard",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "mysticlake"
+    },
+    {
       "id": "cedar:2026-11-06:sold-out-bill-callahan",
       "date": "2026-11-06",
       "time": "20:00",
@@ -17547,6 +17849,23 @@
       "price": null,
       "age": null,
       "source": "guthrie"
+    },
+    {
+      "id": "mysticlake:2026-11-07:kem",
+      "date": "2026-11-07",
+      "time": "20:00",
+      "end_date": null,
+      "title": "KEM",
+      "venue": "Mystic Showroom",
+      "venue_neighborhood": "Mystic Lake, Prior Lake",
+      "city": "Prior Lake",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://mysticlake.com/shows-and-events/kem",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "mysticlake"
     },
     {
       "id": "icehouse:2026-11-07:the-90s-rewind",
@@ -18399,6 +18718,23 @@
       "source": "amsterdam"
     },
     {
+      "id": "mysticlake:2026-11-13:josh-turner-this-country-music-thing-tour-with-will-jones",
+      "date": "2026-11-13",
+      "time": "20:00",
+      "end_date": null,
+      "title": "JOSH TURNER – THIS COUNTRY MUSIC THING TOUR WITH WILL JONES",
+      "venue": "Mystic Showroom",
+      "venue_neighborhood": "Mystic Lake, Prior Lake",
+      "city": "Prior Lake",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://mysticlake.com/shows-and-events/josh-turner",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "mysticlake"
+    },
+    {
       "id": "cedar:2026-11-13:too-big-burlesque",
       "date": "2026-11-13",
       "time": "20:00",
@@ -18499,6 +18835,23 @@
       "price": "Free",
       "age": "Adults",
       "source": "hclib"
+    },
+    {
+      "id": "mysticlake:2026-11-14:alter-bridge-what-lies-within-tour",
+      "date": "2026-11-14",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Alter Bridge – What Lies Within Tour",
+      "venue": "Mystic Showroom",
+      "venue_neighborhood": "Mystic Lake, Prior Lake",
+      "city": "Prior Lake",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://mysticlake.com/shows-and-events/alter-bridge",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "mysticlake"
     },
     {
       "id": "mnorch:11927",
@@ -18703,6 +19056,23 @@
       "price": null,
       "age": "21+",
       "source": "331"
+    },
+    {
+      "id": "mysticlake:2026-11-15:everclear-lucky-7-tour-with-american-hi-fi",
+      "date": "2026-11-15",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Everclear – Lucky 7 Tour with American Hi-Fi",
+      "venue": "Mystic Showroom",
+      "venue_neighborhood": "Mystic Lake, Prior Lake",
+      "city": "Prior Lake",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://mysticlake.com/shows-and-events/everclear",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "mysticlake"
     },
     {
       "id": "amsterdam:2026-11-15:vaultboy",
@@ -19810,6 +20180,23 @@
       "source": "guthrie"
     },
     {
+      "id": "mysticlake:2026-11-28:hanson",
+      "date": "2026-11-28",
+      "time": "20:00",
+      "end_date": null,
+      "title": "Hanson",
+      "venue": "Mystic Showroom",
+      "venue_neighborhood": "Mystic Lake, Prior Lake",
+      "city": "Prior Lake",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://mysticlake.com/shows-and-events/hanson",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "mysticlake"
+    },
+    {
       "id": "whitesquirrel:2026-11-28:prophets-of-mothra",
       "date": "2026-11-28",
       "time": "21:00",
@@ -19944,6 +20331,23 @@
       "price": "$30–$40",
       "age": null,
       "source": "crooners"
+    },
+    {
+      "id": "mysticlake:2026-11-29:celtic-woman-silver-bells-christmas-tour-2026",
+      "date": "2026-11-29",
+      "time": "20:00",
+      "end_date": null,
+      "title": "Celtic Woman: Silver Bells Christmas Tour 2026",
+      "venue": "Mystic Showroom",
+      "venue_neighborhood": "Mystic Lake, Prior Lake",
+      "city": "Prior Lake",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://mysticlake.com/shows-and-events/celtic-woman",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "mysticlake"
     },
     {
       "id": "crooners:2026-11-30:a-very-good-christmas-carol",
@@ -20609,6 +21013,23 @@
       "source": "mnorch"
     },
     {
+      "id": "mysticlake:2026-12-12:mannheim-steamroller-christmas-by-chip-davis",
+      "date": "2026-12-12",
+      "time": "15:00",
+      "end_date": null,
+      "title": "MANNHEIM STEAMROLLER CHRISTMAS BY CHIP DAVIS",
+      "venue": "Mystic Showroom",
+      "venue_neighborhood": "Mystic Lake, Prior Lake",
+      "city": "Prior Lake",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://mysticlake.com/shows-and-events/mannheim-steamroller",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "mysticlake"
+    },
+    {
       "id": "mnorch:12147",
       "date": "2026-12-12",
       "time": "19:00",
@@ -20981,6 +21402,23 @@
       "price": null,
       "age": null,
       "source": "guthrie"
+    },
+    {
+      "id": "mysticlake:2026-12-17:sara-evans-holiday-road-tour",
+      "date": "2026-12-17",
+      "time": "20:00",
+      "end_date": null,
+      "title": "Sara Evans: Holiday Road Tour",
+      "venue": "Mystic Showroom",
+      "venue_neighborhood": "Mystic Lake, Prior Lake",
+      "city": "Prior Lake",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://mysticlake.com/shows-and-events/sara-evans",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "mysticlake"
     },
     {
       "id": "hennepinarts:2026-12-17:loyce-houlton-s-nutcracker-fantasy",
@@ -23344,6 +23782,23 @@
       "price": null,
       "age": "All ages",
       "source": "mnorch"
+    },
+    {
+      "id": "mysticlake:2027-06-09:stick-figure-enjoy-the-ride-tour-2027",
+      "date": "2027-06-09",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Stick Figure: Enjoy The Ride Tour 2027",
+      "venue": "Mystic Lake",
+      "venue_neighborhood": "Mystic Lake, Prior Lake",
+      "city": "Prior Lake",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://mysticlake.com/shows-and-events/stick-figure",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "mysticlake"
     },
     {
       "id": "mnorch:11996",

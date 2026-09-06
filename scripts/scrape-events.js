@@ -53,6 +53,10 @@ const SCRAPERS = [
   require('./scrapers/hennepinarts.js'),
   // The Guthrie (needs headless Chrome; fails soft where none exists)
   require('./scrapers/guthrie.js'),
+  // Mystic Lake — the Amphitheater and Showroom out in Prior Lake
+  require('./scrapers/mysticlake.js'),
+  // Hand-added events from src/data/manual-events.json (the flyer channel)
+  require('./scrapers/manual.js'),
   // The Fillmore (Live Nation, plain JSON-LD)
   require('./scrapers/fillmore.js'),
   require('./scrapers/crooners.js'),

@@ -7,6 +7,14 @@ module.exports = {
   needs_verification: true,
   entries: [
     {
+      name: 'The Rooftop at Hewing Hotel',
+      neighborhood: 'North Loop, Minneapolis',
+      style: 'Rooftop bar',
+      description: 'The North Loop\u2019s skyline rooftop, and here is the part people get wrong: the bar and lounge are open to the public, 21 and up, first come first served \u2014 only the spa pool and sauna are reserved for hotel guests. Go for the view at golden hour and let everyone else think they needed a room key.',
+      address: '300 N Washington Ave, Minneapolis',
+      website: 'https://hewinghotel.com/dining/the-rooftop/'
+    },
+    {
       name: 'CrowBar',
       neighborhood: 'East Side, St. Paul',
       style: 'Cocktail bar, distillery tasting room',

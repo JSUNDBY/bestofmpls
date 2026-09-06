@@ -7,6 +7,14 @@ module.exports = {
   needs_verification: true,
   entries: [
     {
+      name: 'Ama Sushi',
+      neighborhood: '50th & France, Edina',
+      style: 'Sushi and Tibetan',
+      description: 'Sushi from the Tibetan brothers behind Momo Sushi in Northeast, with made-to-order poke bowls and handmade Tibetan momos sharing the menu with the rolls. The beef-and-onion momos next to a rainbow roll is a Twin Cities sentence, and it works.',
+      address: '5033 France Ave S, Edina',
+      website: 'https://www.instagram.com/amasushiedina/'
+    },
+    {
       name: 'Kado no Mise',
       neighborhood: 'North Loop, Minneapolis',
       style: 'Edomae sushi and Japanese tasting',

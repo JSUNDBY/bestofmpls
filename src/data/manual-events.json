@@ -1,0 +1,18 @@
+{
+  "_doc": "Hand-added events — the flyer channel. These merge into the scraped feed on every scrape via scrapers/manual.js, so they survive rebuilds. Verify against the organizer's own announcement before adding (never from a flyer alone unless the flyer IS the organizer's). Same fields as scraped events; id auto-built from date+title. Past events are dropped automatically; prune this file occasionally.",
+  "events": [
+    {
+      "date": "2026-09-13",
+      "time": "11:00",
+      "title": "MNI House Picnic with Tricky Miki",
+      "venue": "Lowry & Aldrich Ave",
+      "venue_neighborhood": "North Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "House music all day long, rain or shine. A community picnic from Voice of Culture with KRSM and Minneapolis Arts & Cultural Affairs.",
+      "url": "https://www.voiceofculture.org/",
+      "price": null,
+      "age": "All ages"
+    }
+  ]
+}

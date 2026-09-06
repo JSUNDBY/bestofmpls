@@ -6,6 +6,14 @@ module.exports = {
   hero_color: 'clay',
   entries: [
     {
+      name: 'Moth Oddities',
+      neighborhood: 'Northeast Minneapolis',
+      style: 'Vintage and oddities',
+      description: 'Vintage clothing, accessories, and strange beautiful objects handpicked across the country and Italy by the couple who started selling out of a 1986 Jeep Grand Wagoneer in 2014 and opened their first storefront in 2021. Now near St. Anthony Main with goods from local independent makers mixed into the racks.',
+      address: '13 5th St NE, Minneapolis',
+      website: 'https://www.mothoddities.com'
+    },
+    {
       name: 'Magers & Quinn Booksellers',
       neighborhood: 'Uptown, Minneapolis',
       style: 'Independent bookstore',
