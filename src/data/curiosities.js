@@ -7,6 +7,22 @@ module.exports = {
   needs_verification: true,
   entries: [
     {
+      name: 'Can Can Wonderland',
+      neighborhood: 'Como / Midway, St. Paul',
+      style: 'Artist-designed mini golf and boozy arcade',
+      description: 'Eighteen holes of mini golf, every one designed and built by local artists, engineers, and fabricators inside an old canning factory. Around it: more than a hundred arcade games, two stages, milkshakes, and a full bar, which is the correct list of amenities for adult mini golf. Closed Mondays.',
+      address: '755 Prior Ave N, St. Paul',
+      website: 'https://www.cancanwonderland.com'
+    },
+    {
+      name: 'Lucky Shots Pickleball Club',
+      neighborhood: 'Northeast Minneapolis',
+      style: 'Indoor pickleball, 18 courts',
+      description: 'Eighteen indoor courts of the sport Minnesota decided to take personally, with pro-cushioned surfaces, lessons, leagues, and open play a few minutes from downtown. When the wind chill makes the outdoor courts theoretical, this is where the metro keeps its paddle habit alive.',
+      address: '3300 5th St NE, Minneapolis',
+      website: 'https://luckyshotspickleball.com'
+    },
+    {
       name: 'Orfield Laboratories Anechoic Chamber',
       neighborhood: 'Seward, Minneapolis',
       style: 'The quietest room on Earth',

@@ -7,6 +7,14 @@ module.exports = {
   needs_verification: true,
   entries: [
     {
+      name: 'Broders\u2019 Cucina Italiana',
+      neighborhood: 'Fulton, Minneapolis',
+      style: 'Italian deli and grocer',
+      description: 'Where the Broder family\u2019s corner of 50th and Penn started in 1982: an Italian deli, grocer, and bakery doing fresh pasta, stromboli, deli sandwiches, and lasagna, still run by Molly Broder and her sons. The Pasta Bar across the street gets the reservations; the Cucina gets the neighborhood, daily.',
+      address: '2308 W 50th St, Minneapolis',
+      website: 'https://broders.com'
+    },
+    {
       name: 'The Anchor Fish & Chips',
       neighborhood: 'Northeast Minneapolis',
       style: 'Irish chipper',

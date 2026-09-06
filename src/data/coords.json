@@ -2025,5 +2025,17 @@
   "13 5th St NE, Minneapolis": {
     "lat": 44.989213,
     "lng": -93.2535318
+  },
+  "755 Prior Ave N, St. Paul": {
+    "lat": 44.9651035,
+    "lng": -93.183117
+  },
+  "3300 5th St NE, Minneapolis": {
+    "lat": 45.0284611,
+    "lng": -93.261446
+  },
+  "2308 W 50th St, Minneapolis": {
+    "lat": 44.9125515,
+    "lng": -93.309182
   }
 }
