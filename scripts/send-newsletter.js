@@ -593,6 +593,15 @@ async function main() {
 
   const result = await postToBeehiiv(subject, html);
   console.log(`  ✓ Posted to Beehiiv — post ID: ${result.data?.id || JSON.stringify(result)}\n`);
+
+  // Log the list size so every Monday run records who this went to.
+  try {
+    const r = await fetch(`https://api.beehiiv.com/v2/publications/${PUB_ID}/subscriptions?limit=1&status=active`, {
+      headers: { 'Authorization': `Bearer ${API_KEY}`, 'Accept': 'application/json' }
+    });
+    const d = await r.json();
+    if (d.total_results !== undefined) console.log(`  Active subscribers: ${d.total_results}\n`);
+  } catch (_) { /* count is informational only */ }
 }
 
 if (require.main === module) main().catch(e => {
