@@ -62,8 +62,11 @@ jobs:
       - name: Check internal links
         run: node scripts/check-links.js
 
+      # Any Monday scheduled run may attempt the send (GitHub drops crons
+      # sometimes — 2026-08-31 the 5:47 run never fired); the script's
+      # already-sent-this-week check makes only the first attempt post.
       - name: Send weekly newsletter (Mondays only)
-        if: github.event_name == 'schedule' && startsWith(github.event.schedule, '47 5') && startsWith(toJSON(github.event), '{}')
+        if: github.event_name == 'schedule'
         run: |
           DAY=$(date -u +%u)
           if [ "$DAY" = "1" ]; then

@@ -52,8 +52,15 @@ if (!API_KEY && !PREVIEW) {
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
 
+// NEWSLETTER_TODAY=YYYY-MM-DD lets a preview render as if run on that date
+// (e.g. next Monday), so a mid-week preview shows the real upcoming send.
+const FAKE_TODAY = process.env.NEWSLETTER_TODAY;
+function now() {
+  return FAKE_TODAY ? new Date(FAKE_TODAY + 'T12:00:00Z') : new Date();
+}
+
 function todayISO() {
-  return new Date().toISOString().slice(0, 10);
+  return now().toISOString().slice(0, 10);
 }
 
 function fmtDate(iso) {
@@ -73,7 +80,7 @@ function fmtTime(t) {
 
 // Monday of the current week (ISO date string)
 function thisMonday() {
-  const d = new Date();
+  const d = now();
   const day = d.getDay() || 7;
   d.setDate(d.getDate() - day + 1);
   return d.toISOString().slice(0, 10);
@@ -81,7 +88,7 @@ function thisMonday() {
 
 // Sunday of the current week
 function thisSunday() {
-  const d = new Date();
+  const d = now();
   const day = d.getDay() || 7;
   d.setDate(d.getDate() - day + 7);
   return d.toISOString().slice(0, 10);
@@ -100,19 +107,19 @@ function weekLabel() {
 // ── Data loading ──────────────────────────────────────────────────────────────
 
 // Titles that aren't "shows" you'd put on a what's-on onesheet.
-const NOISE = /\b(yoga|trivia|bingo|karaoke|open mic|open-mic|happy hour|brunch|story ?time|book club|class|workshop|market|paint|craft night|meeting|networking|drag brunch)\b/i;
+const NOISE = /\b(yoga|trivia|bingo|karaoke|open mic|open-mic|happy hour|brunch|story ?time|book club|class|workshop|market|paint|craft night|meeting|networking|drag brunch|senior center|dial-a-story|fraud and scams)\b/i;
 
 // Venue → music scene. Accurate at the venue level (these rooms book this way),
 // which is what lets the newsletter read as an overview "by type" without
 // guessing each act's exact genre. Anything unmapped falls to "Around the clubs".
 const SCENES = [
   { key: 'jazz',  label: 'Jazz & supper clubs',     venues: ['Dakota Jazz Club', 'Crooners Supper Club', 'Berlin'] },
-  { key: 'rock',  label: 'Rock, indie & touring',   venues: ['First Avenue', '7th St Entry', 'Fine Line', 'Turf Club', 'Palace Theatre', 'Varsity Theater', 'Amsterdam Bar & Hall', 'The Armory'] },
+  { key: 'rock',  label: 'Rock, indie & touring',   venues: ['First Avenue', '7th St Entry', 'Fine Line', 'Turf Club', 'Palace Theatre', 'Varsity Theater', 'Amsterdam Bar & Hall', 'The Armory', 'The Fillmore Minneapolis'] },
   { key: 'folk',  label: 'Folk, world & roots',     venues: ['The Cedar Cultural Center'] },
   { key: 'clubs', label: 'Around the clubs',        venues: ['Icehouse', 'White Squirrel Bar', 'The 331 Club', 'Hook & Ladder', 'The Hook and Ladder Theater', 'The Parkway Theater', 'Parkway Theater', 'Hexagon Bar', 'Mortimer\'s', 'Green Room'] },
 ];
 // The marquee rooms — their bookings lead the week.
-const MARQUEE = new Set(['First Avenue', '7th St Entry', 'Fine Line', 'Turf Club', 'Palace Theatre', 'The Cedar Cultural Center', 'Dakota Jazz Club', 'Varsity Theater', 'Walker Art Center', 'Amsterdam Bar & Hall', 'The Armory', 'Icehouse']);
+const MARQUEE = new Set(['First Avenue', '7th St Entry', 'Fine Line', 'Turf Club', 'Palace Theatre', 'The Cedar Cultural Center', 'Dakota Jazz Club', 'Varsity Theater', 'Walker Art Center', 'Amsterdam Bar & Hall', 'The Armory', 'Icehouse', 'The Fillmore Minneapolis']);
 
 function sceneKey(venue) {
   for (const s of SCENES) if (s.venues.includes(venue)) return s.key;
@@ -161,6 +168,7 @@ function loadEvents() {
     if (e.date < today || e.date > sunday) continue;
     if (e.category === 'film') continue;          // movie showtimes aren't shows
     if (NOISE.test(e.title)) continue;            // yoga, trivia, brunch, etc.
+    if (/cancel+ed|postponed/i.test(e.title)) continue;   // never list a dead show
     const t = norm(e.title);
     if (seen.has(t)) continue;                    // collapse repeated titles
     seen.add(t);
@@ -178,7 +186,7 @@ function loadHappyHours() {
   const hh = require(path.join(ROOT, 'src/data/happy-hours.js'));
   const entries = hh.entries || [];
   // Pick one at random-ish using day of year as seed
-  const d = new Date();
+  const d = now();
   const doy = Math.floor((d - new Date(d.getFullYear(), 0, 0)) / 86400000);
   return entries[doy % entries.length];
 }
@@ -268,9 +276,11 @@ function spread(events, perVenue, max) {
   const count = new Map();
   const out = [];
   for (const e of events) {
-    const c = count.get(e.venue) || 0;
+    // "Hennepin County Library, Nokomis" and ", Central" are one venue here.
+    const vkey = String(e.venue || '').split(',')[0];
+    const c = count.get(vkey) || 0;
     if (c >= perVenue) continue;
-    count.set(e.venue, c + 1);
+    count.set(vkey, c + 1);
     out.push(e);
     if (out.length >= max) break;
   }
@@ -315,10 +325,76 @@ function showsHtml(events) {
     </td></tr>` + headliners.map(s => showRow(s, true)).join('');
   }
   html += sceneRows;
-  html += groupBlock('Comedy & stage', spread(stage, 3, 5));
+  html += groupBlock('Theater & the big stages', spread(stage, 2, 6));
   html += groupBlock('Arts & talks', spread(arts, 3, 5));
   html += `<tr><td style="padding:24px 32px 0 32px;">${button('See the full calendar', SITE + '/calendar/')}</td></tr>`;
   return html;
+}
+
+// ── Art: openings this week + last-chance closings ──────────────────────────
+
+const ART_OPENINGS_FILE = path.join(ROOT, 'src/data/art-openings.json');
+function loadArtWeek() {
+  const today = todayISO();
+  const sunday = thisSunday();
+  let curated = [];
+  try { curated = (JSON.parse(fs.readFileSync(ART_OPENINGS_FILE, 'utf8')).openings || []); } catch (_) {}
+  const cur = curated.filter(o => o.date && o.date >= today && o.date <= sunday).map(o => ({ ...o, reception: true }));
+  const keys = new Set(cur.map(o => `${o.venue}::${o.date}`));
+  let scraped = [];
+  try {
+    const data = JSON.parse(fs.readFileSync(EVENTS_FILE, 'utf8'));
+    scraped = (data.events || [])
+      .filter(e => e.category === 'art' && e.end_date && e.date >= today && e.date <= sunday)
+      .filter(e => !keys.has(`${e.venue}::${e.date}`))
+      .map(e => ({ title: e.title, venue: e.venue, date: e.date, url: e.url, reception: false }));
+    var closing = (data.events || [])
+      .filter(e => e.category === 'art' && e.end_date && e.date <= today && e.end_date >= today && e.end_date <= sunday)
+      .map(e => ({ title: e.title, venue: e.venue, end: e.end_date, url: e.url }));
+  } catch (_) { var closing = []; }
+  const openings = [...cur, ...scraped].sort((a, b) => a.date.localeCompare(b.date)).slice(0, 6);
+  return { openings, closing: (closing || []).slice(0, 4) };
+}
+
+function fmt12hMail(t) {
+  if (!t) return '';
+  const [h, mm] = t.split(':').map(Number);
+  const ap = h >= 12 ? 'pm' : 'am';
+  const hr = h % 12 === 0 ? 12 : h % 12;
+  return mm ? `${hr}:${String(mm).padStart(2, '0')}${ap}` : `${hr}${ap}`;
+}
+
+function artHtml({ openings, closing }) {
+  if (!openings.length && !closing.length) return '';
+  let rows = '';
+  if (openings.length) {
+    rows += `<tr><td style="padding:14px 32px 0 32px;font:400 15px/1.55 ${FONT};color:${C.soft};">The nights the art world is in the room. Nobody checks credentials at a gallery door.</td></tr>`;
+    for (const o of openings) {
+      const title = o.url ? `<a href="${o.url}" style="color:${C.ink};text-decoration:none;">${o.title}</a>` : o.title;
+      const when = fmtDay(o.date) + (o.time ? ` · ${fmt12hMail(o.time)}${o.end_time ? '–' + fmt12hMail(o.end_time) : ''} reception` : (o.reception ? ' · opening reception' : ' · first day on view'));
+      rows += `<tr><td style="padding:13px 32px 0 32px;">
+        <div style="font:600 16px/1.35 ${FONT};color:${C.ink};">${title}</div>
+        <div style="font:400 13px/1.4 ${FONT};color:${C.clay};margin-top:3px;">${o.venue}  ·  ${when}</div>
+      </td></tr>`;
+    }
+  }
+  if (closing.length) {
+    rows += `<tr><td style="padding:22px 32px 0 32px;">
+      <div style="font:700 13px/1 ${FONT};letter-spacing:0.06em;text-transform:uppercase;color:${C.ink};border-bottom:2px solid ${C.clay};padding-bottom:6px;display:inline-block;">Last chance</div>
+    </td></tr>`;
+    for (const c of closing) {
+      const title = c.url ? `<a href="${c.url}" style="color:${C.ink};text-decoration:none;">${c.title}</a>` : c.title;
+      rows += `<tr><td style="padding:12px 32px 0 32px;">
+        <div style="font:600 15px/1.35 ${FONT};color:${C.ink};">${title}</div>
+        <div style="font:400 13px/1.4 ${FONT};color:${C.soft};margin-top:2px;">${c.venue}  ·  closes ${fmtDay(c.end)}</div>
+      </td></tr>`;
+    }
+  }
+  rows += `<tr><td style="padding:20px 32px 0 32px;">
+    <a href="${SITE}/now-showing/#openings" style="font:700 14px/1 ${FONT};color:${C.clay};text-decoration:none;">All openings and exhibitions &rarr;</a>
+    <div style="font:400 12.5px/1.5 ${FONT};color:${C.faint};margin-top:10px;">Run a gallery? <a href="${SITE}/submit-opening/" style="color:${C.soft};text-decoration:underline;">Send us your openings</a> and we will list them here.</div>
+  </td></tr>`;
+  return rows;
 }
 
 function happyHourHtml(pick) {
@@ -370,7 +446,7 @@ function sponsorHtml() {
   </td></tr>`;
 }
 
-function buildHtml(events, happyHour, horoscope) {
+function buildHtml(events, happyHour, horoscope, artWeek) {
   const label = weekLabel();
   const count = events.length;
   const preheader = count
@@ -397,6 +473,10 @@ function buildHtml(events, happyHour, horoscope) {
 
       ${sectionHead('The week ahead', 'What\'s on, by scene')}
       ${showsHtml(events)}
+
+      ${artWeek.openings.length || artWeek.closing.length ? `${divider()}
+      ${sectionHead('The art week', 'Openings & last chances')}
+      ${artHtml(artWeek)}` : ''}
 
       ${divider()}
       ${sectionHead('Where to post up', 'Happy hour pick')}
@@ -483,7 +563,8 @@ async function main() {
   console.log(`  Horoscope:          ${horoscope ? horoscope.week : 'none'}`);
 
   const subject = buildSubject();
-  const html    = buildHtml(events, happyHour, horoscope);
+  const artWeek = loadArtWeek();
+  const html    = buildHtml(events, happyHour, horoscope, artWeek);
 
   console.log(`\n  Subject: ${subject}`);
   console.log(`  HTML length: ${html.length} chars\n`);

@@ -1,92 +1,92 @@
 {
-  "date": "2026-06-08",
-  "week": "2026-W24",
-  "week_label": "Week of June 8, 2026",
-  "generated_at": "2026-06-11T07:53:20.228Z",
+  "date": "2026-08-31",
+  "week": "2026-W36",
+  "week_label": "Week of August 31, 2026",
+  "generated_at": "2026-09-06T15:41:10.082Z",
   "intro": "A weekly reading for the Twin Cities — grounded, kind, and written for where you actually live.",
   "horoscopes": [
     {
       "sign": "Aries",
       "symbol": "♈",
       "dates": "Mar 21 to Apr 19",
-      "text": "You start the day with a clear head and the rest follows. Patience pays out at a rate you would not have predicted. Outside, the kind of warmth you don't notice you needed. Rest comes easily to someone who worked well.",
+      "text": "Energy you usually save for Thursday shows up early. You hear yourself laugh and it sounds easy. Outside, an early haze that burns off by ten. Leave one thing for tomorrow. The world will hold.",
       "slug": "aries"
     },
     {
       "sign": "Taurus",
       "symbol": "♉",
       "dates": "Apr 20 to May 20",
-      "text": "You move through the day like someone who knows where the shortcuts are. You take a longer route home and notice three good things. Open the windows. You will sleep well.",
+      "text": "The morning tastes like the coffee you made carefully. You decide a thing is good enough and move on with confidence. A pot of tea, a quilt, a closed door.",
       "slug": "taurus"
     },
     {
       "sign": "Gemini",
       "symbol": "♊",
       "dates": "May 21 to Jun 20",
-      "text": "Today, the small talk is genuinely good. You tell a story better than you have ever told it. Somewhere near a back booth at Barbette. You did enough. Let the day close.",
+      "text": "Today, the small talk is genuinely good. A text thread comes back to life with good news. Somewhere near the line for the Juicy Lucy at Matt's. You did enough. Let the day close.",
       "slug": "gemini"
     },
     {
       "sign": "Cancer",
       "symbol": "♋",
       "dates": "Jun 21 to Jul 22",
-      "text": "The weather and your mood are in easy agreement. A meal with one other person does most of the good this week. Outside, an east wind off the river. You did beautifully today. Rest in that.",
+      "text": "The right voice on the phone first thing sets the whole day. You say the thing out loud and it loses its weight entirely. Outside, the kind of warmth you don't notice you needed. Open the window an inch. The night air is kind.",
       "slug": "cancer"
     },
     {
       "sign": "Leo",
       "symbol": "♌",
       "dates": "Jul 23 to Aug 22",
-      "text": "You walk into the room and the room lifts. People say kind things about you when you are not in the room. A glass of water. A long sleep. You earned both.",
+      "text": "Compliments arrive. Receive them gracefully. A meeting you were uncertain about ends with you being thanked. The day was full. Sleep is the best encore.",
       "slug": "leo"
     },
     {
       "sign": "Virgo",
       "symbol": "♍",
       "dates": "Aug 23 to Sep 22",
-      "text": "A small repair, twenty minutes, large and satisfying gain. You solve the thing you have been thinking about and the answer is elegant. Outside, one of those days where the light does most of the work. Fold the laundry, then close the day with satisfaction.",
+      "text": "Order, today, is its own reward and it arrives early. Something you put in place quietly starts paying dividends. Somewhere near an empty Tuesday at Spyhouse. Set the alarm slightly later than you think. You earned it.",
       "slug": "virgo"
     },
     {
       "sign": "Libra",
       "symbol": "♎",
       "dates": "Sep 23 to Oct 22",
-      "text": "A flower in a window catches you off guard and you stop to look. A small change to the space makes everything feel better. Set the table for tomorrow's breakfast. A small act of care.",
+      "text": "You are fair with yourself first thing. The rest of the day follows. You extend grace to yourself for something old and it feels right. A bath, then bed. The ideal sequence.",
       "slug": "libra"
     },
     {
       "sign": "Scorpio",
       "symbol": "♏",
       "dates": "Oct 23 to Nov 21",
-      "text": "A long game you have been playing moves forward today. You finish something that was years in the making. It is good. The work was deep. The sleep will be too.",
+      "text": "You arrive somewhere with exactly the perspective the room needs. Something underneath the surface comes up into the light, gently. You carried things well today. Put them down for the night.",
       "slug": "scorpio"
     },
     {
       "sign": "Sagittarius",
       "symbol": "♐",
       "dates": "Nov 22 to Dec 21",
-      "text": "A book in a free library on a corner you do not usually walk. Take it. A friend you have not talked to in a while reaches out and the conversation is real. Outside, a heavy late-afternoon stillness. A long exhale. The day delivered. Lights out.",
+      "text": "You wake up curious about something and it turns out to be worth it. A conversation in line that goes somewhere genuinely good. You went somewhere today, even staying in one place. Sleep well.",
       "slug": "sagittarius"
     },
     {
       "sign": "Capricorn",
       "symbol": "♑",
       "dates": "Dec 22 to Jan 19",
-      "text": "You answer the email you had been sitting on. Easier than expected, better too. You are recognized for something real. Receive it fully. Somewhere near the booth nearest the door at Mickey's Diner. A small private celebration of something only you know you accomplished.",
+      "text": "You started the year quietly. Today the foundation shows and it is solid. You are reminded why you do the work that does not show. Somewhere near an empty Tuesday at Spyhouse. Set the alarm a little later than usual.",
       "slug": "capricorn"
     },
     {
       "sign": "Aquarius",
       "symbol": "♒",
       "dates": "Jan 20 to Feb 18",
-      "text": "A morning that rewards working alone for an hour first. A friend takes your strange idea seriously and it turns out to be a good one. Somewhere near a bench at Loring Park. The next experiment will be there in the morning.",
+      "text": "A morning that rewards working alone for an hour first. You are reminded that a strong network is just years of showing up. Quiet now. The work continues tomorrow and it will be good.",
       "slug": "aquarius"
     },
     {
       "sign": "Pisces",
       "symbol": "♓",
       "dates": "Feb 19 to Mar 20",
-      "text": "A poem you half-remember comes back with what you needed. A friend shares something real with you. You hold the room perfectly. Outside, the kind of warmth you don't notice you needed. Sleep finds the people who lived the day fully.",
+      "text": "You are generous today in a way that feels completely natural. You take the long way home and the river was absolutely the right call. A quiet close to a full and feeling day.",
       "slug": "pisces"
     }
   ]
