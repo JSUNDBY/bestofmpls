@@ -1,18 +1,122 @@
 {
-  "_doc": "Hand-added events — the flyer channel. These merge into the scraped feed on every scrape via scrapers/manual.js, so they survive rebuilds. Verify against the organizer's own announcement before adding (never from a flyer alone unless the flyer IS the organizer's). Same fields as scraped events; id auto-built from date+title. Past events are dropped automatically; prune this file occasionally.",
-  "events": [
-    {
-      "date": "2026-09-13",
-      "time": "11:00",
-      "title": "MNI House Picnic with Tricky Miki",
-      "venue": "Lowry & Aldrich Ave",
-      "venue_neighborhood": "North Minneapolis",
-      "city": "Minneapolis",
-      "category": "music",
-      "subtitle": "House music all day long, rain or shine. A community picnic from Voice of Culture with KRSM and Minneapolis Arts & Cultural Affairs.",
-      "url": "https://www.voiceofculture.org/",
-      "price": null,
-      "age": "All ages"
-    }
-  ]
+ "_doc": "Hand-added events \u2014 the flyer channel. These merge into the scraped feed on every scrape via scrapers/manual.js, so they survive rebuilds. Verify against the organizer's own announcement before adding (never from a flyer alone unless the flyer IS the organizer's). Same fields as scraped events; id auto-built from date+title. Past events are dropped automatically; prune this file occasionally.",
+ "events": [
+  {
+   "date": "2026-09-13",
+   "time": "11:00",
+   "title": "MNI House Picnic with Tricky Miki",
+   "venue": "Lowry & Aldrich Ave",
+   "venue_neighborhood": "North Minneapolis",
+   "city": "Minneapolis",
+   "category": "music",
+   "subtitle": "House music all day long, rain or shine. A community picnic from Voice of Culture with KRSM and Minneapolis Arts & Cultural Affairs.",
+   "url": "https://www.voiceofculture.org/",
+   "price": null,
+   "age": "All ages"
+  },
+  {
+   "date": "2026-09-11",
+   "time": "16:00",
+   "title": "St. Paul Oktoberfest",
+   "venue": "Germanic-American Institute",
+   "venue_neighborhood": "Summit Hill, St. Paul",
+   "city": "St. Paul",
+   "category": "festival",
+   "subtitle": "The Institute's grounds turn into a German festival, timed to the Munich original. Fest beers, music, and the real thing.",
+   "url": "https://gai-mn.org/events",
+   "price": null,
+   "age": "All ages"
+  },
+  {
+   "date": "2026-09-12",
+   "time": null,
+   "title": "St. Paul Oktoberfest",
+   "venue": "Germanic-American Institute",
+   "venue_neighborhood": "Summit Hill, St. Paul",
+   "city": "St. Paul",
+   "category": "festival",
+   "subtitle": "Day two on the Institute's grounds, through 10pm.",
+   "url": "https://gai-mn.org/events",
+   "price": null,
+   "age": "All ages"
+  },
+  {
+   "date": "2026-09-18",
+   "time": "16:00",
+   "title": "Fulton Oktoberfest",
+   "venue": "Fulton Brewing (NE brewery)",
+   "venue_neighborhood": "Northeast Minneapolis",
+   "city": "Minneapolis",
+   "category": "festival",
+   "subtitle": "At the NE production brewery, not the taproom. Bring your own half-liter or liter stein or buy one on site.",
+   "url": "https://www.fultonbeer.com/events/fulton-oktoberfest",
+   "price": null,
+   "age": "All ages"
+  },
+  {
+   "date": "2026-09-19",
+   "time": "12:00",
+   "title": "Fulton Oktoberfest",
+   "venue": "Fulton Brewing (NE brewery)",
+   "venue_neighborhood": "Northeast Minneapolis",
+   "city": "Minneapolis",
+   "category": "festival",
+   "subtitle": "Weekend one, day two, noon to 10.",
+   "url": "https://www.fultonbeer.com/events/fulton-oktoberfest",
+   "price": null,
+   "age": "All ages"
+  },
+  {
+   "date": "2026-09-25",
+   "time": "16:00",
+   "title": "Fulton Oktoberfest",
+   "venue": "Fulton Brewing (NE brewery)",
+   "venue_neighborhood": "Northeast Minneapolis",
+   "city": "Minneapolis",
+   "category": "festival",
+   "subtitle": "Weekend two at the NE production brewery.",
+   "url": "https://www.fultonbeer.com/events/fulton-oktoberfest",
+   "price": null,
+   "age": "All ages"
+  },
+  {
+   "date": "2026-09-26",
+   "time": "12:00",
+   "title": "Fulton Oktoberfest",
+   "venue": "Fulton Brewing (NE brewery)",
+   "venue_neighborhood": "Northeast Minneapolis",
+   "city": "Minneapolis",
+   "category": "festival",
+   "subtitle": "The closing day, noon to 10.",
+   "url": "https://www.fultonbeer.com/events/fulton-oktoberfest",
+   "price": null,
+   "age": "All ages"
+  },
+  {
+   "date": "2026-10-09",
+   "time": "17:00",
+   "title": "Twin Cities Oktoberfest",
+   "venue": "Progress Center, State Fairgrounds",
+   "venue_neighborhood": "Falcon Heights",
+   "city": "St. Paul",
+   "category": "festival",
+   "subtitle": "Twenty-plus fest beers and ciders from Utepils, Pryes, Dangerous Man and more, with brats, pretzels, and spaetzle at the fairgrounds.",
+   "url": "https://tcoktoberfest.com/",
+   "price": null,
+   "age": null
+  },
+  {
+   "date": "2026-10-10",
+   "time": "12:00",
+   "title": "Twin Cities Oktoberfest",
+   "venue": "Progress Center, State Fairgrounds",
+   "venue_neighborhood": "Falcon Heights",
+   "city": "St. Paul",
+   "category": "festival",
+   "subtitle": "Day two at the fairgrounds, noon to 10.",
+   "url": "https://tcoktoberfest.com/",
+   "price": null,
+   "age": null
+  }
+ ]
 }

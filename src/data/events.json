@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-06T17:14:27.965Z",
+  "generated_at": "2026-09-06T18:18:43.998Z",
   "sources": [
     {
       "source": "first-avenue",
@@ -22,7 +22,7 @@
     {
       "source": "riverview",
       "label": "Riverview Theater",
-      "count": 24,
+      "count": 23,
       "ok": true
     },
     {
@@ -154,7 +154,7 @@
     {
       "source": "manual",
       "label": "Hand-added events",
-      "count": 1,
+      "count": 9,
       "ok": true
     },
     {
@@ -190,9 +190,8 @@
     {
       "source": "soovac",
       "label": "SooVAC",
-      "count": 0,
-      "ok": false,
-      "error": "fetch failed"
+      "count": 2,
+      "ok": true
     },
     {
       "source": "highpoint",
@@ -424,23 +423,6 @@
       "price": null,
       "age": null,
       "source": "first-avenue"
-    },
-    {
-      "id": "riverview:2026-09-06:12:30:minions-and-monsters",
-      "date": "2026-09-06",
-      "time": "12:30",
-      "end_date": null,
-      "title": "Minions & Monsters",
-      "venue": "Riverview Theater",
-      "venue_neighborhood": "Standish-Ericsson, Minneapolis",
-      "city": "Minneapolis",
-      "category": "film",
-      "subtitle": null,
-      "url": "https://ticketing.useast.veezi.com/purchase/8189?siteToken=3taz3vkks7e11yj7r5dft9pq30",
-      "image": "https://ticketing.useast.veezi.com/Media/Poster?siteToken=3taz3vkks7e11yj7r5dft9pq30&code=0000001389",
-      "price": null,
-      "age": null,
-      "source": "riverview"
     },
     {
       "id": "trylon:2026-09-06:13:00:illustrious-corpses-in-4k",
@@ -2007,6 +1989,23 @@
       "source": "first-avenue"
     },
     {
+      "id": "manual:2026-09-11:st-paul-oktoberfest",
+      "end_date": null,
+      "image": null,
+      "price": null,
+      "age": "All ages",
+      "subtitle": "The Institute's grounds turn into a German festival, timed to the Munich original. Fest beers, music, and the real thing.",
+      "source": "manual",
+      "date": "2026-09-11",
+      "time": "16:00",
+      "title": "St. Paul Oktoberfest",
+      "venue": "Germanic-American Institute",
+      "venue_neighborhood": "Summit Hill, St. Paul",
+      "city": "St. Paul",
+      "category": "festival",
+      "url": "https://gai-mn.org/events"
+    },
+    {
       "id": "berlin:2026-09-11:early-evening-jazz-park-evans-trio",
       "date": "2026-09-11",
       "time": "16:30",
@@ -2906,6 +2905,23 @@
       "price": null,
       "age": null,
       "source": "first-avenue"
+    },
+    {
+      "id": "manual:2026-09-12:st-paul-oktoberfest",
+      "end_date": null,
+      "image": null,
+      "price": null,
+      "age": "All ages",
+      "subtitle": "Day two on the Institute's grounds, through 10pm.",
+      "source": "manual",
+      "date": "2026-09-12",
+      "time": null,
+      "title": "St. Paul Oktoberfest",
+      "venue": "Germanic-American Institute",
+      "venue_neighborhood": "Summit Hill, St. Paul",
+      "city": "St. Paul",
+      "category": "festival",
+      "url": "https://gai-mn.org/events"
     },
     {
       "id": "first-avenue:2026-09-12:first-avenue:sugar",
@@ -4693,6 +4709,23 @@
       "source": "spco"
     },
     {
+      "id": "manual:2026-09-18:fulton-oktoberfest",
+      "end_date": null,
+      "image": null,
+      "price": null,
+      "age": "All ages",
+      "subtitle": "At the NE production brewery, not the taproom. Bring your own half-liter or liter stein or buy one on site.",
+      "source": "manual",
+      "date": "2026-09-18",
+      "time": "16:00",
+      "title": "Fulton Oktoberfest",
+      "venue": "Fulton Brewing (NE brewery)",
+      "venue_neighborhood": "Northeast Minneapolis",
+      "city": "Minneapolis",
+      "category": "festival",
+      "url": "https://www.fultonbeer.com/events/fulton-oktoberfest"
+    },
+    {
       "id": "berlin:2026-09-18:early-evening-jazz-ethan-ostrow-dakota-andersen",
       "date": "2026-09-18",
       "time": "16:15",
@@ -5150,6 +5183,23 @@
       "price": null,
       "age": null,
       "source": "loft"
+    },
+    {
+      "id": "manual:2026-09-19:fulton-oktoberfest",
+      "end_date": null,
+      "image": null,
+      "price": null,
+      "age": "All ages",
+      "subtitle": "Weekend one, day two, noon to 10.",
+      "source": "manual",
+      "date": "2026-09-19",
+      "time": "12:00",
+      "title": "Fulton Oktoberfest",
+      "venue": "Fulton Brewing (NE brewery)",
+      "venue_neighborhood": "Northeast Minneapolis",
+      "city": "Minneapolis",
+      "category": "festival",
+      "url": "https://www.fultonbeer.com/events/fulton-oktoberfest"
     },
     {
       "id": "whitesquirrel:2026-09-19:floryence-w-isssy-blimey",
@@ -7243,6 +7293,23 @@
       "source": "first-avenue"
     },
     {
+      "id": "soovac:2026-09-24:catch-all-by-erika-terwilliger",
+      "date": "2026-09-24",
+      "time": null,
+      "end_date": "2026-11-08",
+      "title": "Catch-All by Erika Terwilliger",
+      "venue": "SooVAC",
+      "venue_neighborhood": "Lyn-Lake, Minneapolis",
+      "city": "Minneapolis",
+      "category": "art",
+      "subtitle": "On view September 24 - November 8, 2026",
+      "url": "https://www.soovac.org/exhibitions",
+      "image": null,
+      "price": null,
+      "age": "All ages",
+      "source": "soovac"
+    },
+    {
       "id": "first-avenue:2026-09-24:first-avenue:cortex",
       "date": "2026-09-24",
       "time": null,
@@ -7311,6 +7378,23 @@
       "source": "first-avenue"
     },
     {
+      "id": "soovac:2026-09-24:soovac-s-front-space-residency-presents-new-experimental-work-by-sarah-abdel-jel",
+      "date": "2026-09-24",
+      "time": null,
+      "end_date": "2026-11-08",
+      "title": "SooVAC’s Front Space Residency Presents: New Experimental Work by Sarah Abdel-Jelil",
+      "venue": "SooVAC",
+      "venue_neighborhood": "Lyn-Lake, Minneapolis",
+      "city": "Minneapolis",
+      "category": "art",
+      "subtitle": "On view September 24 - November 8, 2026",
+      "url": "https://www.soovac.org/exhibitions",
+      "image": null,
+      "price": null,
+      "age": "All ages",
+      "source": "soovac"
+    },
+    {
       "id": "hennepinarts:2026-09-24:the-basement-yard-live",
       "date": "2026-09-24",
       "time": null,
@@ -7360,6 +7444,23 @@
       "price": null,
       "age": "All ages",
       "source": "spco"
+    },
+    {
+      "id": "manual:2026-09-25:fulton-oktoberfest",
+      "end_date": null,
+      "image": null,
+      "price": null,
+      "age": "All ages",
+      "subtitle": "Weekend two at the NE production brewery.",
+      "source": "manual",
+      "date": "2026-09-25",
+      "time": "16:00",
+      "title": "Fulton Oktoberfest",
+      "venue": "Fulton Brewing (NE brewery)",
+      "venue_neighborhood": "Northeast Minneapolis",
+      "city": "Minneapolis",
+      "category": "festival",
+      "url": "https://www.fultonbeer.com/events/fulton-oktoberfest"
     },
     {
       "id": "berlin:2026-09-25:early-evening-jazz-jovon-williams-and-marvelous",
@@ -7887,6 +7988,23 @@
       "price": null,
       "age": null,
       "source": "trylon"
+    },
+    {
+      "id": "manual:2026-09-26:fulton-oktoberfest",
+      "end_date": null,
+      "image": null,
+      "price": null,
+      "age": "All ages",
+      "subtitle": "The closing day, noon to 10.",
+      "source": "manual",
+      "date": "2026-09-26",
+      "time": "12:00",
+      "title": "Fulton Oktoberfest",
+      "venue": "Fulton Brewing (NE brewery)",
+      "venue_neighborhood": "Northeast Minneapolis",
+      "city": "Minneapolis",
+      "category": "festival",
+      "url": "https://www.fultonbeer.com/events/fulton-oktoberfest"
     },
     {
       "id": "guthrie:2026-09-26:13:00:waiting-for-godot",
@@ -11986,6 +12104,23 @@
       "source": "trylon"
     },
     {
+      "id": "manual:2026-10-09:twin-cities-oktoberfest",
+      "end_date": null,
+      "image": null,
+      "price": null,
+      "age": null,
+      "subtitle": "Twenty-plus fest beers and ciders from Utepils, Pryes, Dangerous Man and more, with brats, pretzels, and spaetzle at the fairgrounds.",
+      "source": "manual",
+      "date": "2026-10-09",
+      "time": "17:00",
+      "title": "Twin Cities Oktoberfest",
+      "venue": "Progress Center, State Fairgrounds",
+      "venue_neighborhood": "Falcon Heights",
+      "city": "St. Paul",
+      "category": "festival",
+      "url": "https://tcoktoberfest.com/"
+    },
+    {
       "id": "whitesquirrel:2026-10-09:the-new-riverboat-ramblers",
       "date": "2026-10-09",
       "time": "18:00",
@@ -12290,6 +12425,23 @@
       "price": null,
       "age": null,
       "source": "trylon"
+    },
+    {
+      "id": "manual:2026-10-10:twin-cities-oktoberfest",
+      "end_date": null,
+      "image": null,
+      "price": null,
+      "age": null,
+      "subtitle": "Day two at the fairgrounds, noon to 10.",
+      "source": "manual",
+      "date": "2026-10-10",
+      "time": "12:00",
+      "title": "Twin Cities Oktoberfest",
+      "venue": "Progress Center, State Fairgrounds",
+      "venue_neighborhood": "Falcon Heights",
+      "city": "St. Paul",
+      "category": "festival",
+      "url": "https://tcoktoberfest.com/"
     },
     {
       "id": "whitesquirrel:2026-10-10:catfish-troy",
