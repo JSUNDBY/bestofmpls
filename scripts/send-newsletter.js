@@ -296,6 +296,9 @@ function showsHtml(events) {
   // Venue character beats the scraper's category: a concert at a music room is
   // music even if the venue tags it "performance". Only genuine non-music stays
   // in the stage bucket.
+  // Hand-added events (source 'manual') are curated by definition — they go
+  // to the front of their group so section caps never squeeze them out.
+  events = [...events].sort((a, b) => ((b.source === 'manual') ? 1 : 0) - ((a.source === 'manual') ? 1 : 0));
   const inScene = e => SCENES.some(s => s.venues.includes(e.venue));
   const music = events.filter(e => e.category === 'music' || inScene(e));
   const stage = events.filter(e => e.category === 'performance' && !inScene(e));
