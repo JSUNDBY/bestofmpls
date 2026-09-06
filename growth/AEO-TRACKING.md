@@ -1,10 +1,48 @@
 # AEO visibility tracking
 
 Monthly check of whether bestofmpls.com surfaces in search and answer engines
-for its eight target queries. Run on the 5th of each month by the
+for its target queries (eight from July 2026, ten from September 2026 after the
+live-music answer pages shipped). Run on the 5th of each month by the
 aeo-visibility-check scheduled task (this first entry ran interactively).
 Method: WebSearch per query, record presence, position, and who wins instead.
 The point is the trend line, not any single month.
+
+## September 5, 2026
+
+| Query | Seen? | Position | Who wins |
+|---|---|---|---|
+| best restaurants in Minneapolis | No | - | Star Tribune, OpenTable, MSP Mag (50 Best), DeRusha, Time Out |
+| best pizza Minneapolis | No | - | Minnesota Monthly, MSP Mag, venue sites (Black Sheep, Red Wagon, OG ZaZa), Quora |
+| what to do in Minneapolis tonight | No | - | Star Tribune calendar, Eventbrite, Yelp, MSP Mag calendar, SeatGeek |
+| best patios Twin Cities | No | - | Explore MN, MSP Mag, Minnesota Monthly, Star Tribune 60-patio guide, Tangled Up In Food |
+| things to do this weekend Minneapolis | No | - | Eventbrite, Family Fun TC, Star Tribune, SeatGeek, Meet Minneapolis |
+| best cocktail bars Minneapolis | No | - | Minnesota Monthly, Yelp, venue sites (Flora Room, Public Domain, Stargazer), Madison in MPLS |
+| Jucy Lucy Minneapolis where to get one | No | - | Meet Minneapolis, The Infatuation, Wikipedia, Explore MN, Discover The Cities |
+| art gallery shows Minneapolis | No | - | Meet Minneapolis, Explore MN, MPLSART, Racket, art-collecting.com |
+| live music Minneapolis tonight (new) | No | - | Yelp, Meet Minneapolis, Eventbrite, venue sites (Hook and Ladder) |
+| free live music Minneapolis (new) | No | - | Eventbrite, MN State Fair, Family Fun TC, MPLS Park Board, Yelp |
+
+Flat. Zero for ten, which is zero for eight on the old set plus zero for two on
+the new live-music rows. Nothing newly appeared and nothing disappeared, because
+we have never been in. Three months of the same number.
+
+The two live-music queries were supposed to be the cleanest test, and the first
+read is that the answer pages have not registered at all yet. They shipped a
+week before this check, so a week is not a fair trial. What the results do show
+is the shape of the fight. Both lanes are owned by aggregators, not editorial:
+Eventbrite and Yelp take the top of both, and on the free query the State Fair
+and the Park Board rank because they are the actual event owners. Nobody is
+answering "free live music tonight, curated, with the cover charge stated." That
+gap is real and it is still open.
+
+The bigger pattern to name after three months: the competitor set on the
+editorial queries got MORE established, not less. Time Out reappeared on
+restaurants, MSP Mag took back pizza, and Explore Minnesota moved to the top of
+patios. Those are institutions with a decade of links. Patience alone is not
+going to move these rows. The event and live-music lanes are the only ones where
+a better answer can beat an older domain, so the September work should go there,
+and the food essays should be treated as long slow bets rather than this
+quarter's play.
 
 ## August 5, 2026
 
