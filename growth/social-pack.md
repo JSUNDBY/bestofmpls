@@ -10,13 +10,13 @@
 **Hook:** On screen, frame 1: "5 things to do this weekend in Minneapolis"
 
 **Shot list:**
-- Brass Messengers at The 331 Club (17:00) — b-roll of the venue or a poster
-- The Wozniak Weekly: Brandon Wozniak Trio Ft. Dave King and Bryan Nichols at Berlin (19:00) — b-roll of the venue or a poster
-- Tyreek McDole at Dakota Jazz Club (19:00) — b-roll of the venue or a poster
-- Honest 2 Betsy // Live and Uncensored at The Parkway Theater — b-roll of the venue or a poster
-- Mustard Service at Fine Line — b-roll of the venue or a poster
+- The Riff Rangers at Lake Harriet Bandshell (17:30) — b-roll of the venue or a poster
+- David Robinson & the Dedicated Friends at The 331 Club (18:00) — b-roll of the venue or a poster
+- Nancy Olson w. Joe Carey at White Squirrel Bar (18:00) — b-roll of the venue or a poster
+- *CANCELED* Soap Prov: Show of 10,000 Secrets at Crooners Supper Club (18:30) — b-roll of the venue or a poster
+- A Night for Nina: The Cast of Nina Simone: Four Women at Dakota Jazz Club (19:00) — b-roll of the venue or a poster
 
-**Caption:** Five ways to spend the weekend, no scrolling six apps required. Full calendar and more at the link. The 331 Club, Berlin, Dakota Jazz Club and more.
+**Caption:** Five ways to spend the weekend, no scrolling six apps required. Full calendar and more at the link. Lake Harriet Bandshell, The 331 Club, White Squirrel Bar and more.
 
 **Tags:** #minneapolis #saintpaul #twincities #onlyinmn #mnpls #mplsevents #twincitieslife #thingstodomn
 
@@ -60,9 +60,9 @@
 **Hook:** Slide 1: "Your Minneapolis horoscope this week"
 
 **Shot list:**
-- Pisces: "You are generous today in a way that feels completely natural. You take the long way home ..."
-- Aries: "Energy you usually save for Thursday shows up early. You hear yourself laugh and it sounds..."
-- Taurus: "The morning tastes like the coffee you made carefully. You decide a thing is good enough a..."
+- Pisces: "The light in the kitchen is doing something remarkable. You make something that is only fo..."
+- Aries: "You are, today, the most useful person within a one-block radius. A favor offered freely c..."
+- Taurus: "A familiar room becomes interesting again. You realize you have grown past something you u..."
 
 **Caption:** A weekly reading written for the metro. All twelve signs at the link. Which one are you.
 
