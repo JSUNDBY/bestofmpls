@@ -29,3 +29,5 @@ growth/pitch-list.json
 growth/outbox/
 .tm-api-key
 .dev.vars
+.youtube-client.json
+.youtube-token.json
