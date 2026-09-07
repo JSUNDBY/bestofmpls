@@ -67,8 +67,10 @@ jobs:
       # Any Monday scheduled run may attempt the send (GitHub drops crons
       # sometimes — 2026-08-31 the 5:47 run never fired); the script's
       # already-sent-this-week check makes only the first attempt post.
+      # workflow_dispatch also allowed: the manual send-now lever (the
+      # already-sent check makes it safe to fire any time).
       - name: Send weekly newsletter (Mondays only)
-        if: github.event_name == 'schedule'
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
         run: |
           DAY=$(date -u +%u)
           if [ "$DAY" = "1" ]; then

@@ -524,16 +524,21 @@ async function alreadySentThisWeek(subject) {
   if (!res.ok) return false; // if the check fails, let the post attempt proceed
   const data = await res.json();
   const posts = data.data || [];
-  return posts.some(p => p.subject === subject);
+  return posts.some(p => (p.title || p.subject) === subject);
 }
 
 async function postToBeehiiv(subject, html) {
   const url = `https://api.beehiiv.com/v2/publications/${PUB_ID}/posts`;
+  // Beehiiv v2 create-post schema (verified 2026-09-07 after four 400s on
+  // the first-ever live send): `title` is required, HTML goes in
+  // `body_content`, the subject line lives in email_settings, and
+  // status 'confirmed' with no scheduled_at means send now.
   const body = {
-    subject,
-    content: { html },
-    status: 'confirmed',   // confirmed = send immediately to all subscribers
-    send_at: null,         // null = send now
+    title: subject,
+    body_content: html,
+    status: 'confirmed',
+    email_settings: { email_subject_line: subject },
+    recipients: { email: { tier_ids: ['free'] } },
   };
 
   const res = await fetch(url, {
