@@ -945,7 +945,7 @@ ${GSC_VERIFICATION ? `<meta name="google-site-verification" content="${esc(GSC_V
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;600;700;800&family=IBM+Plex+Mono:wght@500;600;700&family=Source+Sans+3:wght@400;600&display=swap">
-<link rel="stylesheet" href="/style.css?v=78">
+<link rel="stylesheet" href="/style.css?v=79">
 <script>
 // Set color mode before paint to avoid flash. Reads localStorage first,
 // falls back to light mode (the new editorial default). mode-ready class
@@ -3152,7 +3152,7 @@ function renderAdminDash() {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>Operations · bestofmpls</title>
-<link rel="stylesheet" href="/style.css?v=78">
+<link rel="stylesheet" href="/style.css?v=79">
 <style>
   body { background: var(--paper); }
   .ops-wrap { max-width: 1020px; margin: 0 auto; padding: 32px var(--gutter) 96px; }
@@ -3455,7 +3455,7 @@ function renderAdminPicks() {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>${esc(title)}</title>
-<link rel="stylesheet" href="/style.css?v=78">
+<link rel="stylesheet" href="/style.css?v=79">
 <style>
   body { background: var(--paper); }
   .admin-wrap { max-width: 960px; margin: 0 auto; padding: 32px var(--gutter) 96px; }
@@ -3864,8 +3864,8 @@ function renderNeighborhoodIndex(neighborhoods) {
 }
 
 function renderNeighborhoodPage(nb) {
-  const title = `${nb.name} guide`;
-  const description = `Every place on bestofmpls in ${nb.name}, from food to music to shops.`;
+  const title = `${nb.name}: Best Restaurants, Bars & Things to Do`;
+  const description = `A local's guide to ${nb.name}: where to eat, drink, see music, and spend a day, chosen and written by people who live here.`;
 
   // Group this neighborhood's entries by category for clean section breaks
   const byCategory = {};
@@ -3887,7 +3887,7 @@ function renderNeighborhoodPage(nb) {
               ${e.style ? `<span class="entry-meta-style">${esc(e.style)}</span>` : ''}
               ${e.price ? `<span class="entry-footer-price">${esc(e.price)}</span>` : ''}
             </div>
-            <h3 class="nb-entry-name">${esc(e.name)}</h3>
+            <h3 class="nb-entry-name"><a href="/${group.category.slug}/${entrySlug(e.name)}/">${esc(e.name)}</a></h3>
             <p class="nb-entry-description">${esc(e.description)}</p>
             <div class="entry-footer">
               ${e.address ? `<span>${esc(e.address)}</span>` : ''}
@@ -3969,9 +3969,12 @@ function renderCategoryNeighborhood(page, allPages) {
   const { category: c, nb, items } = page;
   const where = nb.short || nb.name;
   const noun = categoryNoun(c);
-  const title = `Best ${noun} in ${where}`;
   const locality = /st\.? paul/i.test(nb.name) ? 'St. Paul' : 'Minneapolis';
-  const description = `Where to find the best ${noun.toLowerCase()} in ${where}, ${locality}. ${items.length} local picks, chosen and written by people who live here.`;
+  // The title carries the city — these pages target "{noun} {neighborhood}
+  // minneapolis" queries and the short name alone drops the money word.
+  const whereFull = new RegExp(locality.replace('.', '\\.?'), 'i').test(where) ? where : `${where}, ${locality}`;
+  const title = `Best ${noun} in ${whereFull}`;
+  const description = `Where to find the best ${noun.toLowerCase()} in ${whereFull}. ${items.length} local picks, chosen and written by people who live here.`;
   const slug = `${c.slug}/in-${nb.slug}`;
 
   // Sibling neighborhoods with the same category, for internal linking.
@@ -4011,7 +4014,7 @@ function renderCategoryNeighborhood(page, allPages) {
         ${e.style ? `<span class="entry-meta-style">${esc(e.style)}</span>` : ''}
         ${e.price ? `<span class="entry-footer-price">${esc(e.price)}</span>` : ''}
       </div>
-      <h3 class="nb-entry-name">${esc(e.name)}</h3>
+      <h3 class="nb-entry-name"><a href="/${c.slug}/${entrySlug(e.name)}/">${esc(e.name)}</a></h3>
       <p class="nb-entry-description">${esc(e.description)}</p>
       <div class="entry-footer">
         ${e.address ? `<span>${esc(e.address)}</span>` : ''}

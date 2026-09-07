@@ -6879,3 +6879,7 @@ html[data-mode="dark"] .home-board { background: #050505; border-top: 1px solid 
 .openings-cta { border: 2px solid var(--clay); border-radius: var(--radius); padding: 24px 26px; margin: 26px 0 6px; }
 .openings-cta-title { font-family: var(--font-display); font-weight: 800; font-size: 22px; letter-spacing: -0.01em; margin: 0; color: var(--ink); }
 .openings-cta-body { font-family: var(--font-body); font-size: 15px; line-height: 1.55; color: var(--ink-soft); margin: 8px 0 16px; max-width: 560px; }
+
+/* Neighborhood/combo entry names now link to entry pages */
+.nb-entry-name a { color: var(--ink); text-decoration: none; }
+.nb-entry-name a:hover { color: var(--clay); }
