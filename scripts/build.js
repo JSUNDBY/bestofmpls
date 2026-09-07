@@ -898,7 +898,7 @@ function basemapJs(style, extraAttribution) {
   return `L.maplibreGL({ style: 'https://tiles.openfreemap.org/styles/${style}', attribution: '${attr}' })`;
 }
 
-function head({ title, description, slug, theme }) {
+function head({ title, description, slug, theme, noindex }) {
   const url = slug ? `${SITE}/${slug}/` : `${SITE}/`;
   // Homepage gets its full keyword title with no brand suffix (the brand is
   // already in the domain); every other page gets the ' · bestofmpls' suffix.
@@ -917,6 +917,7 @@ function head({ title, description, slug, theme }) {
 <title>${fullTitle}</title>
 <meta name="description" content="${esc(description)}">
 <link rel="canonical" href="${url}">
+${noindex ? '<meta name="robots" content="noindex, follow">\n' : ''}
 ${GSC_VERIFICATION ? `<meta name="google-site-verification" content="${esc(GSC_VERIFICATION)}">\n` : ''}
 
 <meta property="og:type" content="website">
@@ -2014,6 +2015,7 @@ function renderHome() {
           <li><a href="/saved/"><span class="mtools-code">K</span> Saved <em>your shortlist</em></a></li>
           <li><a href="/trails/"><span class="mtools-code">L</span> Trails <em>finishable quests</em></a></li>
           <li><a href="/five/"><span class="mtools-code">5</span> Five Today <em>exactly five, decided for you</em></a></li>
+          <li><a href="/free/"><span class="mtools-code">0</span> Free This Week <em>a week out, $0</em></a></li>
           <li><a href="/notes/"><span class="mtools-code">O</span> Notes <em>how the cities got this way</em></a></li>
           <li><a href="/surprise/"><span class="mtools-code">R</span> Surprise <em>a random pick</em></a></li>
           <li><a href="/mystery/"><span class="mtools-code">Y</span> Mystery <em>sealed-envelope nights</em></a></li>
@@ -2725,6 +2727,10 @@ function renderEntry(c, e, allCategories) {
   const relatedHeading = sameNeighborhood.length >= 2
     ? `More in ${(nbGroup && nbGroup.name) || e.neighborhood}`
     : `More ${c.title.toLowerCase()}`;
+  // Combo-page link when this (category, neighborhood) pair has one — feeds
+  // the long-tail pages the audit found starved of inbound links.
+  const comboHere = nbGroup && (crossByCategory[c.slug] || []).some(x => x.nb.slug === nbGroup.slug)
+    ? `<a class="cal-chip" href="/${c.slug}/in-${nbGroup.slug}/">Best ${esc(categoryNoun(c))} in ${esc(nbGroup.short || nbGroup.name)}</a>` : '';
 
   // Cross-category "Within a short walk" — the nearest entries by straight-
   // line distance, any category, excluding this entry and anything already
@@ -2799,6 +2805,7 @@ function renderEntry(c, e, allCategories) {
       </form>
       <div class="lb-thanks" data-lb-thanks hidden>Thanks — that shapes the read.</div>
       <p class="lb-note">Saves land in <a href="/saved/">your shortlist</a>; been-heres fill <a href="/passport/">your Passport</a>. Both shape the Best of MPLS. Anonymous, never sold.</p>
+      ${comboHere ? `<div style="margin-top:14px;">${comboHere}</div>` : ''}
     </div>` : '';
 
   // Full week of hours, rendered server-side (the header already carries the live
@@ -3282,7 +3289,7 @@ ${aeoBlock}
     <a href="https://github.com/JSUNDBY/bestofmpls">Repo</a>
     <a href="https://github.com/JSUNDBY/bestofmpls/actions">Actions</a>
     <a href="https://dash.cloudflare.com/">Worker (Cloudflare)</a>
-    <a href="https://app.beehiiv.com/">Newsletter (Beehiiv)</a>
+    <a href="https://app.kit.com/">Newsletter (Kit)</a>
     <a href="/llms.txt">llms.txt</a>
     <a href="/best-of-${BEST_OF_YEAR}/">The living Best of</a>
   </div>
@@ -3899,7 +3906,22 @@ function renderNeighborhoodPage(nb) {
     </section>
   `).join('');
 
-  const exploreByCat = `
+  // Link this neighborhood's category-x-neighborhood pages (the long-tail
+  // money pages) — the audit found they had exactly one inbound link each.
+  const comboLinks = Object.entries(crossByCategory)
+    .filter(([, nbs]) => nbs.some(x => x.nb.slug === nb.slug))
+    .map(([catSlug]) => catSlug);
+  const comboBlock = comboLinks.length ? `
+    <section class="nb-explore-cats">
+      <div class="wrap">
+        <div class="cluster-eyebrow" style="margin-bottom: 16px;">The best of ${esc(nb.short || nb.name)}</div>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;">
+          ${comboLinks.map(cs => { const cc = categories.find(x => x.slug === cs); return cc ? `<a class="cal-chip" href="/${cs}/in-${nb.slug}/">Best ${esc(categoryNoun(cc))}</a>` : ''; }).join('')}
+        </div>
+      </div>
+    </section>` : '';
+
+  const exploreByCat = `${comboBlock}
     <section class="nb-explore-cats">
       <div class="wrap">
         <div class="cluster-eyebrow" style="margin-bottom: 16px;">Explore ${esc(nb.short || nb.name)} by category</div>
@@ -5119,7 +5141,7 @@ function renderHoroscope() {
     : null);
 
   if (!data.horoscopes || data.horoscopes.length === 0) {
-    return head({ title, description, slug: 'horoscope', theme: 'midnight' }) +
+    return head({ title, description, slug: 'horoscope', theme: 'midnight' , noindex: true }) +
       header({ activeSlug: 'horoscope' }) +
       `<section class="section-head"><div class="wrap"><h1 class="section-title">${esc(title)}</h1><p class="section-deck">Coming back tomorrow morning.</p></div></section>` +
       footer();
@@ -5135,7 +5157,7 @@ function renderHoroscope() {
       <p class="horoscope-text">${esc(h.text)}</p>
     </article>`).join('');
 
-  return head({ title, description, slug: 'horoscope', theme: 'midnight' }) +
+  return head({ title, description, slug: 'horoscope', theme: 'midnight' , noindex: true }) +
     header({ activeSlug: 'horoscope' }) +
     `<section class="section-head">
        <div class="wrap">
@@ -5610,7 +5632,7 @@ function renderSurprise() {
     }
   }
 
-  return head({ title, description, slug: 'surprise', theme: 'forest' }) +
+  return head({ title, description, slug: 'surprise', theme: 'forest' , noindex: true }) +
     header({ activeSlug: 'surprise' }) +
     `<section class="surprise-page">
        <div class="wrap surprise-inner">
@@ -6086,7 +6108,7 @@ function renderNear() {
     }
   }
 
-  return head({ title, description, slug: 'near', theme: 'forest' }) +
+  return head({ title, description, slug: 'near', theme: 'forest' , noindex: true }) +
     header({ activeSlug: 'near' }) +
     `<section class="section-head">
        <div class="wrap">
@@ -6308,7 +6330,7 @@ function renderQuiz() {
     }
   ];
 
-  return head({ title, description, slug: 'quiz', theme: 'forest' }) +
+  return head({ title, description, slug: 'quiz', theme: 'forest' , noindex: true }) +
     header({ activeSlug: 'quiz' }) +
     `<section class="section-head">
        <div class="wrap">
@@ -6849,7 +6871,7 @@ function renderMystery() {
   // on a hidden cold-season envelope.
   const itinJson = JSON.stringify(visible);
 
-  return head({ title: m.title, description, slug: 'mystery', theme: 'midnight' }) +
+  return head({ title: m.title, description, slug: 'mystery', theme: 'midnight' , noindex: true }) +
     header({ activeSlug: 'mystery' }) +
     `<section class="section-head">
        <div class="wrap">
@@ -7017,7 +7039,7 @@ function renderSlang() {
 function renderSearch(searchIndex) {
   const title = 'Search bestofmpls';
   const description = 'Search every entry on bestofmpls. Restaurants, music, museums, neighborhoods.';
-  return head({ title, description, slug: 'search', theme: 'default' }) +
+  return head({ title, description, slug: 'search', theme: 'default' , noindex: true }) +
     header({ activeSlug: 'search' }) +
     `<section class="section-head">
       <div class="wrap">
@@ -8078,7 +8100,7 @@ function renderPassport(manifest) {
   const groupTotals = PASSPORT_GROUPS.map((_, i) => manifest.filter(r => r[1] === i).length);
   const trails = getTrails();
   const description = 'Your personal map of the Twin Cities: every place in the guide you have actually been, by neighborhood and by kind. Lives on your device, no account.';
-  return head({ title: 'Your Twin Cities Passport', description, slug: 'passport', theme: 'default' }) +
+  return head({ title: 'Your Twin Cities Passport', description, slug: 'passport', theme: 'default' , noindex: true }) +
     header({ activeSlug: '' }) +
     `<section class="section-head">
        <div class="wrap">
@@ -8211,7 +8233,7 @@ function renderPassport(manifest) {
 // the Passport uses. Device-local, no accounts.
 function renderSaved() {
   const description = 'Your shortlist of Twin Cities places, saved from anywhere in the guide. Lives on your device, no account.';
-  return head({ title: 'Saved — your shortlist', description, slug: 'saved', theme: 'default' }) +
+  return head({ title: 'Saved — your shortlist', description, slug: 'saved', theme: 'default' , noindex: true }) +
     header({ activeSlug: '' }) +
     `<section class="section-head">
        <div class="wrap">
@@ -8363,6 +8385,68 @@ function renderSubmitOpening() {
 }
 
 
+// /free/ — every verified free thing this week, one evergreen URL rebuilt
+// 4x daily. The competitor analysis found the "free things this weekend"
+// SERP won by Eventbrite noise and dated weekly URLs that never compound;
+// this page compounds. Events with a free price + the always-free museums.
+function renderFreeWeek() {
+  const description = 'Every free show and event in Minneapolis and St. Paul this week, verified from the venues\u2019 own calendars, plus the museums that never charge. Updated through the day.';
+  const addDays = (iso, n) => { const [y, m, d] = iso.split('-').map(Number); return new Date(Date.UTC(y, m - 1, d + n)).toISOString().slice(0, 10); };
+  const weekEnd = addDays(TODAY_ISO, 7);
+  const freeEvents = dedupeNonFilms((eventsData.events || [])
+    .filter(e => e.date >= TODAY_ISO && e.date <= weekEnd && !isNoiseEvent(e) && e.category !== 'sports')
+    .filter(e => /free/i.test(e.price || '')))
+    .sort((a, b) => (a.date + (a.time || '')).localeCompare(b.date + (b.time || '')));
+  const byDay = new Map();
+  for (const e of freeEvents) { if (!byDay.has(e.date)) byDay.set(e.date, []); byDay.get(e.date).push(e); }
+  const fmtDayLong = iso => { const [y, m, d] = iso.split('-').map(Number); return new Date(y, m - 1, d).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' }); };
+  const fmt12 = t => { if (!t) return ''; const [h, mm] = t.split(':').map(Number); const ap = h >= 12 ? 'pm' : 'am'; const hr = h % 12 === 0 ? 12 : h % 12; return `${hr}${mm ? ':' + String(mm).padStart(2, '0') : ''}${ap}`; };
+  const freeMuseums = museums.entries.filter(e => /^free/i.test(e.price || ''));
+  return head({ title: 'Free Things to Do in Minneapolis & St. Paul This Week', description, slug: 'free', theme: 'default' }) +
+    header({ activeSlug: '' }) +
+    `<section class="section-head">
+      <div class="wrap">
+        <div class="section-eyebrow">${freeEvents.length} free things this week \u00b7 updated through the day</div>
+        <h1 class="section-title">Free this week.</h1>
+        <p class="section-deck">Every verified $0 show and event in the metro for the next seven days, straight from the venues\u2019 own calendars, plus the museums that never charge. A real week out for the price of a tip jar.</p>
+      </div>
+    </section>
+    <section class="wrap" style="padding-bottom: var(--sec-y);">
+      ${[...byDay.entries()].map(([day, evs]) => `
+        <div class="exhibition-section">
+          <div class="wrap"><h2 class="exhibition-section-title">${esc(fmtDayLong(day))}</h2></div>
+          ${evs.slice(0, 14).map(e => `
+          <article class="opening-row">
+            <div class="opening-when">
+              <span class="opening-date">${e.time ? esc(fmt12(e.time)) : 'time tba'}</span>
+              <span class="opening-time opening-time--day">free</span>
+            </div>
+            <div class="opening-body">
+              <h3 class="opening-title">${e.url ? `<a href="${esc(e.url)}" target="_blank" rel="noopener">${esc(e.title)}</a>` : esc(e.title)}</h3>
+              <div class="opening-venue">${esc(e.venue || '')}${e.venue_neighborhood ? ' \u00b7 ' + esc(String(e.venue_neighborhood).split(',')[0]) : ''}</div>
+            </div>
+          </article>`).join('')}
+        </div>`).join('')}
+      <div class="exhibition-section">
+        <div class="wrap"><h2 class="exhibition-section-title">Always free</h2></div>
+        ${freeMuseums.map(m => `
+        <article class="opening-row">
+          <div class="opening-when"><span class="opening-time opening-time--day">every open day</span></div>
+          <div class="opening-body">
+            <h3 class="opening-title"><a href="/museums-and-galleries/${entrySlug(m.name)}/">${esc(m.name)}</a></h3>
+            <div class="opening-venue">${esc((m.neighborhood || '').split(',')[0])}${/thursday/i.test(m.price) ? ' \u00b7 free Thursday evenings' : ''}</div>
+          </div>
+        </article>`).join('')}
+      </div>
+      <div style="margin-top:28px; display:flex; gap:14px; flex-wrap:wrap;">
+        <a class="cal-chip" href="/live-music/free/">Free live music, the full list</a>
+        <a class="cal-chip" href="/calendar/">The whole calendar</a>
+      </div>
+    </section>` +
+    footer();
+}
+
+
 function renderSitemap(neighborhoods, crossPages) {
   const urls = [
     { loc: SITE + '/', priority: '1.0' },
@@ -8371,21 +8455,15 @@ function renderSitemap(neighborhoods, crossPages) {
     { loc: SITE + '/calendar/', priority: '0.9' },
     { loc: SITE + '/this-weekend/', priority: '0.9' },
     { loc: SITE + '/map/', priority: '0.9' },
-    { loc: SITE + '/near/', priority: '0.8' },
-    { loc: SITE + '/quiz/', priority: '0.8' },
     { loc: SITE + '/skyway/', priority: '0.8' },
-    { loc: SITE + '/mystery/', priority: '0.8' },
     { loc: SITE + '/take-them-to/', priority: '0.8' },
     ...(situations.situations || []).map(s => ({ loc: `${SITE}/take-them-to/${s.slug}/`, priority: '0.75' })),
     { loc: SITE + '/now-showing/', priority: '0.8' },
-    { loc: SITE + '/horoscope/', priority: '0.7' },
     { loc: SITE + '/departed/', priority: '0.7' },
-    { loc: SITE + '/surprise/', priority: '0.7' },
     { loc: SITE + '/five/', priority: '0.8' },
+    { loc: SITE + '/free/', priority: '0.85' },
     { loc: SITE + '/live-music/tonight/', priority: '0.9' },
     { loc: SITE + '/live-music/free/', priority: '0.85' },
-    { loc: SITE + '/passport/', priority: '0.6' },
-    { loc: SITE + '/saved/', priority: '0.5' },
     { loc: SITE + '/submit-opening/', priority: '0.5' },
     { loc: SITE + '/trails/', priority: '0.8' },
     ...trailsData.trails.map(t => ({ loc: `${SITE}/trails/${t.slug}/`, priority: '0.75' })),
@@ -8393,7 +8471,6 @@ function renderSitemap(neighborhoods, crossPages) {
     ...notesData.notes.map(n => ({ loc: SITE + '/notes/' + n.slug + '/', priority: '0.7' })),
     { loc: SITE + '/neighborhoods/', priority: '0.8' },
     { loc: SITE + '/glossary/', priority: '0.6' },
-    { loc: SITE + '/search/', priority: '0.5' },
     { loc: SITE + '/about/', priority: '0.6' },
     { loc: SITE + '/contribute/', priority: '0.5' },
     { loc: SITE + '/partner/', priority: '0.5' },
@@ -8417,10 +8494,14 @@ function renderSitemap(neighborhoods, crossPages) {
       }));
     })
   ];
+  // Honest lastmod: only pages that genuinely change every build carry a
+  // date. Everything else omits lastmod entirely — a sitemap that stamps 846
+  // URLs "today" every day teaches Google to ignore the signal.
   const lastmod = new Date().toISOString().slice(0, 10);
+  const DAILY = new Set([SITE + '/', SITE + '/tonight/', SITE + '/calendar/', SITE + '/this-weekend/', SITE + '/now-showing/', SITE + '/five/', SITE + '/live-music/tonight/', SITE + '/live-music/free/']);
   return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${urls.map(u => `  <url><loc>${u.loc}</loc><lastmod>${lastmod}</lastmod><priority>${u.priority}</priority></url>`).join('\n')}
+${urls.map(u => `  <url><loc>${u.loc}</loc>${DAILY.has(u.loc) ? `<lastmod>${lastmod}</lastmod>` : ''}<priority>${u.priority}</priority></url>`).join('\n')}
 </urlset>`;
 }
 
@@ -8653,6 +8734,7 @@ function build() {
   // Surprise — random place
   writeFile('surprise/index.html', renderSurprise());
   writeFile('five/index.html', renderFive());
+  writeFile('free/index.html', renderFreeWeek());
 
   // Passport + Trails — the collection layer. Manifest first (the passport
   // page fetches it), then the pages.

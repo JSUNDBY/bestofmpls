@@ -70,7 +70,7 @@ module.exports = [
   },
   {
     "slug": "best-cocktail-bars",
-    "title": "Best Cocktail Bars in Minneapolis & St. Paul",
+    "title": "The Cocktail Bars Worth Dressing Up For: A Twin Cities Guide",
     "h1": "The Best Cocktail Bars in the Twin Cities",
     "intro": "The Twin Cities craft cocktail scene grew up in the early 2010s and never sat back down. These are the rooms where the bartender has an opinion about your order: hidden speakeasies, distillery lounges, jazz-bar perches, and fine-dining counters you can drink at without committing to dinner. Our editorial cut of the ones worth the trip.",
     "seoDescription": "The best cocktail bars in Minneapolis and St. Paul: speakeasies, distillery lounges, and serious craft rooms. A curated best-of cut with why-lines.",

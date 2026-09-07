@@ -200,27 +200,6 @@ export default {
       return json({ ok: true, place, category, total_for_place: (entry ? entry.count : 1) }, 200, origin);
     }
 
-    // ===== GET /admin/export-subs — TEMPORARY Beehiiv subscriber export =====
-    // Admin-key gated; used once for the 2026-09 Kit migration, then removable.
-    if (request.method === 'GET' && url.pathname === '/admin/export-subs') {
-      const key = request.headers.get('X-Admin-Key') || url.searchParams.get('key');
-      if (!env.ADMIN_KEY || key !== env.ADMIN_KEY) return json({ error: 'nope' }, 401, origin);
-      if (!env.BEEHIIV_API_KEY || !env.BEEHIIV_PUB_ID) return json({ error: 'no beehiiv creds' }, 500, origin);
-      const emails = [];
-      let bpage = 1;
-      while (bpage <= 20) {
-        const r = await fetch(`https://api.beehiiv.com/v2/publications/${env.BEEHIIV_PUB_ID}/subscriptions?limit=100&page=${bpage}&status=active`, {
-          headers: { 'Authorization': `Bearer ${env.BEEHIIV_API_KEY}` }
-        });
-        if (!r.ok) break;
-        const d = await r.json();
-        for (const sub of d.data || []) if (sub.email) emails.push(sub.email);
-        if (!d.total_pages || bpage >= d.total_pages) break;
-        bpage++;
-      }
-      return json({ count: emails.length, emails }, 200, origin);
-    }
-
     // ===== POST /signal — The Living Best of engine =====
     // A reader action on a place: save, regular, directions-tap, or a story.
     // Stored per place; save/regular dedupe per device. The build reads the
