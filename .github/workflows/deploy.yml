@@ -42,6 +42,8 @@ jobs:
 
       - name: Scrape events
         run: node scripts/scrape-events.js
+        env:
+          TM_API_KEY: ${{ secrets.TM_API_KEY }}
         continue-on-error: true
 
       - name: Generate horoscope
