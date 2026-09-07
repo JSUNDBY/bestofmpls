@@ -35,8 +35,8 @@ async function scrape() {
     let page = 0;
     while (page < 4) {
       const url = `https://app.ticketmaster.com/discovery/v2/events.json?apikey=${KEY}&dmaId=${DMA_ID}&segmentName=${encodeURIComponent(seg)}&size=100&page=${page}&sort=date,asc&startDateTime=${todayISO}T00:00:00Z`;
-      const res = await fetch(url);
-      if (!res.ok) break;
+      const res = await fetch(url, { headers: { 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36' } });
+      if (!res.ok) { console.log(`    (ticketmaster ${seg} p${page}: HTTP ${res.status})`); break; }
       const data = await res.json();
       const list = (data._embedded || {}).events || [];
       for (const e of list) {
