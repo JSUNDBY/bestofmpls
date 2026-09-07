@@ -317,7 +317,7 @@ function isFilmEvent(e) { return e.category === 'film'; }
 // A "show" is a concert or performance. Museum programming (Walker art-making
 // workshops, tours, sensory-friendly hours — all category 'art') and films are
 // real events but not shows, so they stay out of the concert/tonight listings.
-function isShowEvent(e) { return e.category !== 'film' && e.category !== 'art' && e.category !== 'lecture'; }
+function isShowEvent(e) { return e.category !== 'film' && e.category !== 'art' && e.category !== 'lecture' && e.category !== 'sports'; }
 
 // Recurring/class-type listings that aren't "shows" worth featuring (a venue's
 // morning yoga or weekly trivia shouldn't be the night's headline pick).
@@ -4255,7 +4255,9 @@ function renderCalendar() {
   // Films stay out of the calendar entirely. Concerts, talks, openings,
   // performances only. Dedupe on (title, venue, date) to drop occasional
   // same-night double bookings.
-  const allShows = dedupeNonFilms(allEvents.filter(e => isShowEvent(e)));
+  // Sports stay ON the calendar (their one general surface) while isShowEvent
+  // keeps them off the board, concierge, and picks.
+  const allShows = dedupeNonFilms(allEvents.filter(e => isShowEvent(e) || e.category === 'sports'));
 
   // Window the calendar to roughly the next three weeks. A scrollable forever
   // list is not a calendar — readers want "what's on this week and next."

@@ -57,6 +57,10 @@ const SCRAPERS = [
   require('./scrapers/mysticlake.js'),
   // Hand-added events from src/data/manual-events.json (the flyer channel)
   require('./scrapers/manual.js'),
+  // Pro sports home games (deliberately unfeatured; calendar + venue pages)
+  require('./scrapers/sports.js'),
+  // Arena concerts via Ticketmaster Discovery (dark until TM_API_KEY exists)
+  require('./scrapers/ticketmaster.js'),
   // The Fillmore (Live Nation, plain JSON-LD)
   require('./scrapers/fillmore.js'),
   require('./scrapers/crooners.js'),

@@ -169,6 +169,7 @@ function loadEvents() {
     if (e.category === 'film') continue;          // movie showtimes aren't shows
     if (NOISE.test(e.title)) continue;            // yoga, trivia, brunch, etc.
     if (/cancel+ed|postponed/i.test(e.title)) continue;   // never list a dead show
+    if (e.category === 'sports') continue;        // games live on the site calendar, not the show list
     const t = norm(e.title);
     if (seen.has(t)) continue;                    // collapse repeated titles
     seen.add(t);
