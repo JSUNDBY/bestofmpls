@@ -6883,3 +6883,26 @@ html[data-mode="dark"] .home-board { background: #050505; border-top: 1px solid 
 /* Neighborhood/combo entry names now link to entry pages */
 .nb-entry-name a { color: var(--ink); text-decoration: none; }
 .nb-entry-name a:hover { color: var(--clay); }
+
+/* ---------- Data essay (longform, /90-shows-a-week/) ---------- */
+.essay { max-width: 720px; margin: 0 auto; padding: 0 var(--gutter) var(--sec-y); }
+.essay p { font-family: var(--font-body); font-size: 18px; line-height: 1.7; color: var(--ink); margin: 0 0 22px; }
+.essay h2 { font-family: var(--font-display); font-size: clamp(24px, 3vw, 32px); font-weight: 800; letter-spacing: -0.01em; margin: 48px 0 16px; }
+.essay .essay-kicker { font-family: var(--font-mono); font-size: 13px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); margin-bottom: 8px; }
+.essay figure { margin: 32px 0; }
+.essay figcaption { font-family: var(--font-mono); font-size: 12.5px; color: var(--ink-faint); margin-top: 10px; line-height: 1.5; }
+.essay-table-wrap { overflow-x: auto; margin: 32px 0; }
+.essay table { border-collapse: collapse; width: 100%; font-family: var(--font-body); font-size: 15.5px; }
+.essay th { font-family: var(--font-mono); font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; text-align: left; color: var(--ink-faint); padding: 8px 14px 8px 0; border-bottom: 2px solid var(--rule); }
+.essay td { padding: 9px 14px 9px 0; border-bottom: 1px solid var(--rule-soft); }
+.essay td.num, .essay th.num { text-align: right; font-variant-numeric: tabular-nums; }
+.essay .bar-row { display: grid; grid-template-columns: 44px 1fr 44px; gap: 12px; align-items: center; margin: 6px 0; }
+.essay .bar-label { font-family: var(--font-mono); font-size: 13px; color: var(--ink-soft); }
+.essay .bar-val { font-family: var(--font-mono); font-size: 13px; text-align: right; font-variant-numeric: tabular-nums; }
+.essay .bar-track { background: var(--paper-2); border-radius: 3px; height: 22px; }
+.essay .bar-fill { background: var(--accent); height: 100%; border-radius: 3px; min-width: 2px; }
+.essay .bar-fill--muted { background: var(--ink-faint); }
+.essay .essay-note { background: var(--paper-2); border-left: 3px solid var(--accent); padding: 18px 22px; margin: 32px 0; }
+.essay .essay-note p { font-size: 15.5px; margin: 0 0 10px; color: var(--ink-soft); }
+.essay .essay-note p:last-child { margin-bottom: 0; }
+.essay .stat-callout { font-family: var(--font-display); font-size: clamp(20px, 2.6vw, 26px); font-weight: 800; line-height: 1.35; border-top: 2px solid var(--rule); border-bottom: 2px solid var(--rule); padding: 22px 0; margin: 36px 0; }

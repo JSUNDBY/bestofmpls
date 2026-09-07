@@ -1196,6 +1196,7 @@ function footer() {
       <nav class="footer-daily-nav">
         ${BEST_OF_LIVE ? `<a href="/best-of-${BEST_OF_YEAR}/">Best of MPLS ${BEST_OF_YEAR}</a>` : ''}
         <a href="/new/">New &amp; Notable</a>
+        <a href="/90-shows-a-week/">90 Shows a Week: The Data</a>
         ${guides.map(g => `<a href="/${g.slug}/">${esc(g.h1.replace(/^The /, '').replace(/ in the Twin Cities$/, ''))}</a>`).join('')}
       </nav>
     </div>
@@ -8443,6 +8444,106 @@ function renderFreeWeek() {
         <a class="cal-chip" href="/calendar/">The whole calendar</a>
       </div>
     </section>` +
+    newsletterCapture({ context: 'calendar', compact: true }) +
+    footer();
+}
+
+
+// ---------- The data essay: /90-shows-a-week/ ----------
+// The first piece from our own event corpus: dated journalism (Sept 2026
+// snapshot, workings in growth/essay-data-findings.md), written to earn
+// links, not to rank. Stats are baked in on purpose; when the corpus
+// changes we write the next essay rather than silently mutating this one.
+const dataEssay = require(path.join(SRC, 'data', 'essay-90-shows.js'));
+function renderDataEssay() {
+  const g = dataEssay;
+  const nights = [
+    ['Mon', 7.2], ['Tue', 9.2], ['Wed', 11.7], ['Thu', 14.1],
+    ['Fri', 15.0], ['Sat', 18.8], ['Sun', 14.4],
+  ];
+  const maxN = 18.8;
+  const bars = nights.map(([d, v]) => `
+    <div class="bar-row">
+      <span class="bar-label">${d}</span>
+      <div class="bar-track"><div class="bar-fill${(d === 'Mon' || d === 'Tue') ? ' bar-fill--muted' : ''}" style="width:${Math.round(v / maxN * 100)}%"></div></div>
+      <span class="bar-val">${v.toFixed(1)}</span>
+    </div>`).join('');
+
+  const venues = [
+    ['Crooners Supper Club', 'Fridley', 155],
+    ['Guthrie Theater', 'Mill District', 136],
+    ['Orchestra Hall', 'Downtown Minneapolis', 120],
+    ['Trylon Cinema', 'Longfellow', 114],
+    ['White Squirrel Bar', 'West End, St. Paul', 112],
+    ['The 331 Club', 'Northeast', 74],
+    ['The Parkway Theater', 'Standish', 62],
+    ['Orpheum Theatre', 'Downtown Minneapolis', 61],
+    ['Berlin', 'North Loop', 58],
+    ['State Theatre', 'Downtown Minneapolis', 43],
+  ];
+  const venueRows = venues.map(([n, hood, c], i) => `
+    <tr><td class="num">${i + 1}</td><td>${esc(n)}</td><td>${esc(hood)}</td><td class="num">${c}</td></tr>`).join('');
+
+  const articleSchema = {
+    '@context': 'https://schema.org', '@type': 'Article',
+    headline: g.title,
+    description: g.seoDescription,
+    datePublished: '2026-09-07',
+    author: { '@type': 'Organization', name: 'Best of MPLS', url: SITE },
+    publisher: { '@type': 'Organization', name: 'Best of MPLS', url: SITE },
+    mainEntityOfPage: `${SITE}/${g.slug}/`,
+  };
+
+  return head({ title: g.title, description: g.seoDescription, slug: g.slug, theme: 'default' }) +
+    header({ activeSlug: '' }) +
+    `<script type="application/ld+json">${JSON.stringify(articleSchema)}</script>
+    <section class="section-head">
+      <div class="wrap">
+        <div class="section-eyebrow">From the data desk · ${esc(g.dateline)}</div>
+        <h1 class="section-title">${esc(g.h1)}</h1>
+        <p class="section-deck">${esc(g.deck)}</p>
+      </div>
+    </section>
+    <article class="essay">
+      <p>This site runs on scrapers. Several times a day, they read the public calendars of 68 venues across Minneapolis, St. Paul, and the near suburbs, from First Avenue's rooms to the Hennepin County libraries, and pour everything into one feed. That feed is how the <a href="/tonight/">Tonight board</a> knows what's on. In early September it held about 1,400 upcoming listings, and after setting aside 48 pro sports home games, we were left with something we had never seen in one place: the metro's whole cultural calendar, countable.</p>
+      <p>Over the next 90 days, the venues we track have 1,175 shows scheduled. That is 90 a week, every week, in one metro. Here is what else the calendar says.</p>
+
+      <h2>The weekend is three days long, and one of them is Sunday</h2>
+      <p>Ask anyone which nights this town goes out and you will hear Friday and Saturday. The calendar mostly agrees about Saturday, which averages 18.8 shows a night, far ahead of everything else. Then it surprises you.</p>
+      <figure>
+        ${bars}
+        <figcaption>Average shows per night, next 90 days (Sept 7 to Dec 6, 2026), sports excluded. Each weekday occurs exactly 13 times in the window, so nights are directly comparable.</figcaption>
+      </figure>
+      <p>Sunday averages 14.4 shows a night. That beats Thursday, and it lands within one show of Friday. The programming week in the Twin Cities does not wind down after Saturday, it keeps going: Trylon Cinema's biggest day is Sunday, and so is Crooners'. The actual quiet nights are Monday and Tuesday, which together barely match Saturday alone.</p>
+      <div class="stat-callout">The busiest single night on the books this fall is Saturday, September 26: 37 shows across the metro.</div>
+
+      <h2>The busiest stage in the Twin Cities is a supper club in Fridley</h2>
+      <p>Rank the venues we track by how many shows they have on the calendar and the top of the table is not a downtown room.</p>
+      <div class="essay-table-wrap"><table>
+        <tr><th class="num">#</th><th>Venue</th><th>Where</th><th class="num">Shows</th></tr>
+        ${venueRows}
+      </table></div>
+      <p>Crooners, a supper club on Central Avenue in Fridley, has 155 shows listed across its four rooms. That is more than the Guthrie, more than Orchestra Hall, more than any single First Avenue stage. A suburb that appears on nobody's "music city" map out-programs every marquee downtown, one night at a time, mostly jazz and cabaret, often two or three rooms running at once.</p>
+      <p>First Avenue still runs the biggest empire in town: its family of stages accounts for 315 listings in our feed. But the empire is spread across the Mainroom, 7th St Entry, Fine Line, Turf Club, Palace, and the Fitzgerald, and no single one of those rooms cracks the top 15. Concentration is the other story here: the five busiest venues hold nearly half of every listing in the corpus.</p>
+
+      <h2>A 90-seat volunteer-run cinema is the fourth-busiest venue in the metro</h2>
+      <p>Trylon Cinema in Longfellow holds about 90 seats and is largely staffed by volunteers. It is also, by programming volume, the fourth-busiest venue we track: 114 screenings on the calendar, ahead of the Orpheum, the State, the Fillmore, and every rock club in town. Repertory cinema at that pace also single-handedly puts Longfellow fourth among neighborhoods, which is what happens when one small room simply refuses to go dark.</p>
+
+      <h2>Monday belongs to the regulars</h2>
+      <p>Monday has the fewest events of any night, 101 on the whole forward calendar. But look inside that number and Monday is not dead, it is specific. It is the 331 Club's single busiest night, anchored by the Roe Family Singers' long-running residency. One in five Monday events is a film, nearly double the calendar-wide share, thanks to Trylon and Parkway repertory programming. And theater almost vanishes: three performances, the industry's dark night, visible in the data.</p>
+      <p>The rest of the week has rhythms too. Thursday is lecture night: 44 percent of every talk and reading in the corpus lands there, while Friday hosts exactly one. And if you are wondering when to show up: 7pm is the start time for 28 percent of everything.</p>
+
+      <h2>What a ticket costs, where anyone will tell you</h2>
+      <p>Here the data gets honest about its limits: only 17 percent of listings advertise a price at all, and most of those come from a handful of venues that post prices consistently. Among those venues, the median advertised ticket is $25. Icehouse charges a flat $15 for nearly everything. Crooners' median is $30, though 31 of its 155 shows, mostly piano-lounge sets, are free. And every one of the 51 events across the Hennepin County libraries' 18 branches costs nothing. For the verified $0 list this week, we keep <a href="/free/">a running page</a>.</p>
+
+      <div class="essay-note">
+        <p><strong>How we counted.</strong> Numbers come from a September 7, 2026 snapshot of the Best of MPLS events feed: 1,421 listings scraped from the public calendars of 68 venues, sports excluded from all show counts. This is a census of the venues we track, not of every stage in the metro; we add scrapers constantly (9 venues in May, 68 today), and some calendars, like the Cedar's, were unreachable on pull day. Counts are performances, not productions: a matinee and an evening show count twice, because you can only be at one. Prices use the low end of advertised ranges. The full workings, with every underlying count, are public in <a href="https://github.com/JSUNDBY/bestofmpls/blob/main/growth/essay-data-findings.md" target="_blank" rel="noopener">the repo</a>.</p>
+        <p>Questions, corrections, or a venue we should be tracking: <a href="/submit-opening/">tell us</a>.</p>
+      </div>
+
+      <p>The calendar this essay describes is alive on this site: <a href="/tonight/">what's on tonight</a>, <a href="/calendar/">the whole thing</a>, and <a href="/free/">the free list</a>, rebuilt through the day, every day.</p>
+    </article>` +
+    newsletterCapture({ context: 'home' }) +
     footer();
 }
 
@@ -8462,6 +8563,7 @@ function renderSitemap(neighborhoods, crossPages) {
     { loc: SITE + '/departed/', priority: '0.7' },
     { loc: SITE + '/five/', priority: '0.8' },
     { loc: SITE + '/free/', priority: '0.85' },
+    { loc: SITE + '/' + dataEssay.slug + '/', priority: '0.8' },
     { loc: SITE + '/live-music/tonight/', priority: '0.9' },
     { loc: SITE + '/live-music/free/', priority: '0.85' },
     { loc: SITE + '/submit-opening/', priority: '0.5' },
@@ -8735,6 +8837,7 @@ function build() {
   writeFile('surprise/index.html', renderSurprise());
   writeFile('five/index.html', renderFive());
   writeFile('free/index.html', renderFreeWeek());
+  writeFile(dataEssay.slug + '/index.html', renderDataEssay());
 
   // Passport + Trails — the collection layer. Manifest first (the passport
   // page fetches it), then the pages.
