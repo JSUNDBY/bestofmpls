@@ -200,6 +200,27 @@ export default {
       return json({ ok: true, place, category, total_for_place: (entry ? entry.count : 1) }, 200, origin);
     }
 
+    // ===== GET /admin/export-subs — TEMPORARY Beehiiv subscriber export =====
+    // Admin-key gated; used once for the 2026-09 Kit migration, then removable.
+    if (request.method === 'GET' && url.pathname === '/admin/export-subs') {
+      const key = request.headers.get('X-Admin-Key') || url.searchParams.get('key');
+      if (!env.ADMIN_KEY || key !== env.ADMIN_KEY) return json({ error: 'nope' }, 401, origin);
+      if (!env.BEEHIIV_API_KEY || !env.BEEHIIV_PUB_ID) return json({ error: 'no beehiiv creds' }, 500, origin);
+      const emails = [];
+      let bpage = 1;
+      while (bpage <= 20) {
+        const r = await fetch(`https://api.beehiiv.com/v2/publications/${env.BEEHIIV_PUB_ID}/subscriptions?limit=100&page=${bpage}&status=active`, {
+          headers: { 'Authorization': `Bearer ${env.BEEHIIV_API_KEY}` }
+        });
+        if (!r.ok) break;
+        const d = await r.json();
+        for (const sub of d.data || []) if (sub.email) emails.push(sub.email);
+        if (!d.total_pages || bpage >= d.total_pages) break;
+        bpage++;
+      }
+      return json({ count: emails.length, emails }, 200, origin);
+    }
+
     // ===== POST /signal — The Living Best of engine =====
     // A reader action on a place: save, regular, directions-tap, or a story.
     // Stored per place; save/regular dedupe per device. The build reads the
@@ -338,23 +359,27 @@ export default {
       }
       ctx.waitUntil(env.POLLS.put(rlKey, '1', { expirationTtl: 30 }));
 
-      // Forward to Beehiiv. BEEHIIV_API_KEY and BEEHIIV_PUB_ID are worker secrets.
-      if (env.BEEHIIV_API_KEY && env.BEEHIIV_PUB_ID) {
+      // Forward to Kit (migrated from Beehiiv 2026-09-07 — Beehiiv's send API
+      // is Max-plan-only, so the Monday email now lives in Kit). Two calls:
+      // create/refresh the subscriber, then apply the bestofmpls-monday tag.
+      if (env.KIT_API_KEY && env.KIT_TAG_ID) {
         try {
-          const bhRes = await fetch(
-            `https://api.beehiiv.com/v2/publications/${env.BEEHIIV_PUB_ID}/subscriptions`,
-            {
-              method: 'POST',
-              headers: {
-                'Authorization': `Bearer ${env.BEEHIIV_API_KEY}`,
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify({ email, utm_source: 'website', utm_medium: 'organic' })
-            }
-          );
-          if (!bhRes.ok) {
-            const err = await bhRes.json().catch(() => ({}));
-            return json({ error: err.message || 'subscription failed' }, 502, origin);
+          const kitHeaders = { 'X-Kit-Api-Key': env.KIT_API_KEY, 'Content-Type': 'application/json' };
+          const subRes = await fetch('https://api.kit.com/v4/subscribers', {
+            method: 'POST', headers: kitHeaders,
+            body: JSON.stringify({ email_address: email })
+          });
+          if (!subRes.ok && subRes.status !== 409) {
+            const err = await subRes.json().catch(() => ({}));
+            return json({ error: (err.errors && err.errors[0]) || 'subscription failed' }, 502, origin);
+          }
+          const tagRes = await fetch(`https://api.kit.com/v4/tags/${env.KIT_TAG_ID}/subscribers`, {
+            method: 'POST', headers: kitHeaders,
+            body: JSON.stringify({ email_address: email })
+          });
+          if (!tagRes.ok) {
+            const err = await tagRes.json().catch(() => ({}));
+            return json({ error: (err.errors && err.errors[0]) || 'subscription failed' }, 502, origin);
           }
         } catch (e) {
           return json({ error: 'could not reach Beehiiv' }, 502, origin);

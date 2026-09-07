@@ -34,8 +34,12 @@ const EVENTS_FILE  = path.join(ROOT, 'src/data/events.json');
 const HOROSCOPE_FILE = path.join(ROOT, 'src/data/horoscope.json');
 const SITE         = 'https://bestofmpls.com';
 
-const API_KEY = process.env.BEEHIIV_API_KEY;
-const PUB_ID  = process.env.BEEHIIV_PUB_ID || 'pub_c1d001ef-b72b-46b4-ab41-efad0f2f2f88';
+// Kit (ConvertKit) v4 since 2026-09-07 — Beehiiv's send API turned out to be
+// Max-plan-only (403 SEND_API_NOT_ENTERPRISE_PLAN on the first live Monday),
+// so the list and the send moved to Kit, where the account already lives.
+const API_KEY = process.env.KIT_API_KEY;
+const KIT_TAG_ID = Number(process.env.KIT_TAG_ID || 23166339);   // bestofmpls-monday
+const FROM_ADDRESS = process.env.KIT_FROM || 'hello@bestofmpls.com';  // must be a verified sender in Kit
 
 const SPONSOR_NAME    = process.env.SPONSOR_NAME;
 const SPONSOR_TAGLINE = process.env.SPONSOR_TAGLINE;
@@ -46,7 +50,7 @@ const SPONSOR_URL     = process.env.SPONSOR_URL;
 const PREVIEW = process.argv.includes('--preview') || process.argv.includes('--dry-run');
 
 if (!API_KEY && !PREVIEW) {
-  console.error('Missing BEEHIIV_API_KEY');
+  console.error('Missing KIT_API_KEY');
   process.exit(1);
 }
 
@@ -511,52 +515,47 @@ function buildSubject() {
   return `Best of MPLS · ${label}: what's on this week`;
 }
 
-// ── Beehiiv API ───────────────────────────────────────────────────────────────
+// ── Kit API ──────────────────────────────────────────────────────────────────
+
+const KIT_HEADERS = { 'X-Kit-Api-Key': API_KEY, 'Content-Type': 'application/json', 'Accept': 'application/json' };
 
 async function alreadySentThisWeek(subject) {
-  const url = `https://api.beehiiv.com/v2/publications/${PUB_ID}/posts`;
-  const res = await fetch(url, {
-    headers: {
-      'Authorization': `Bearer ${API_KEY}`,
-      'Accept': 'application/json'
-    }
-  });
-  if (!res.ok) return false; // if the check fails, let the post attempt proceed
+  const res = await fetch('https://api.kit.com/v4/broadcasts?per_page=15', { headers: KIT_HEADERS });
+  if (!res.ok) return false; // if the check fails, let the send attempt proceed
   const data = await res.json();
-  const posts = data.data || [];
-  return posts.some(p => (p.title || p.subject) === subject);
+  return (data.broadcasts || []).some(b => b.subject === subject);
 }
 
-async function postToBeehiiv(subject, html) {
-  const url = `https://api.beehiiv.com/v2/publications/${PUB_ID}/posts`;
-  // Beehiiv v2 create-post schema (verified 2026-09-07 after four 400s on
-  // the first-ever live send): `title` is required, HTML goes in
-  // `body_content`, the subject line lives in email_settings, and
-  // status 'confirmed' with no scheduled_at means send now.
+async function postToKit(subject, html, preheader) {
+  // send_at a couple of minutes out = Kit dispatches automatically, no
+  // dashboard step. subscriber_filter pins it to the bestofmpls-monday tag
+  // so nothing ever leaks to the other brands' audiences on this account.
   const body = {
-    title: subject,
-    body_content: html,
-    status: 'confirmed',
-    email_settings: { email_subject_line: subject },
-    // recipients omitted on purpose: their schema demands web+email tier
-    // blocks when present; omitted, it defaults to everyone.
+    subject,
+    preview_text: preheader,
+    description: subject,
+    content: html,
+    public: false,
+    email_address: FROM_ADDRESS,
+    subscriber_filter: [{ all: [{ type: 'tag', ids: [KIT_TAG_ID] }] }],
+    send_at: new Date(Date.now() + 3 * 60 * 1000).toISOString(),
   };
-
-  const res = await fetch(url, {
+  const res = await fetch('https://api.kit.com/v4/broadcasts', {
     method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${API_KEY}`,
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-    },
-    body: JSON.stringify(body)
+    headers: KIT_HEADERS,
+    body: JSON.stringify(body),
   });
-
-  const data = await res.json();
-  if (!res.ok) {
-    throw new Error(`Beehiiv API error ${res.status}: ${JSON.stringify(data)}`);
-  }
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(`Kit API error ${res.status}: ${JSON.stringify(data)}`);
   return data;
+}
+
+async function tagSubscriberCount() {
+  try {
+    const res = await fetch(`https://api.kit.com/v4/tags/${KIT_TAG_ID}/subscribers?per_page=100`, { headers: KIT_HEADERS });
+    const data = await res.json();
+    return (data.subscribers || []).length || (data.pagination && data.pagination.total_count);
+  } catch (_) { return undefined; }
 }
 
 // ── Main ──────────────────────────────────────────────────────────────────────
@@ -598,17 +597,12 @@ async function main() {
     return;
   }
 
-  const result = await postToBeehiiv(subject, html);
-  console.log(`  ✓ Posted to Beehiiv — post ID: ${result.data?.id || JSON.stringify(result)}\n`);
-
-  // Log the list size so every Monday run records who this went to.
-  try {
-    const r = await fetch(`https://api.beehiiv.com/v2/publications/${PUB_ID}/subscriptions?limit=1&status=active`, {
-      headers: { 'Authorization': `Bearer ${API_KEY}`, 'Accept': 'application/json' }
-    });
-    const d = await r.json();
-    if (d.total_results !== undefined) console.log(`  Active subscribers: ${d.total_results}\n`);
-  } catch (_) { /* count is informational only */ }
+  const preheader = `${events.length} things to do in the Twin Cities this week, plus openings, a happy hour pick, and your horoscope.`;
+  const result = await postToKit(subject, html, preheader);
+  const b = result.broadcast || result;
+  console.log(`  ✓ Posted to Kit — broadcast ${b.id}, sends at ${b.send_at}\n`);
+  const n = await tagSubscriberCount();
+  if (n !== undefined) console.log(`  Active subscribers (bestofmpls-monday tag): ${n}\n`);
 }
 
 if (require.main === module) main().catch(e => {
