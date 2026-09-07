@@ -538,7 +538,8 @@ async function postToBeehiiv(subject, html) {
     body_content: html,
     status: 'confirmed',
     email_settings: { email_subject_line: subject },
-    recipients: { email: { tier_ids: ['free'] } },
+    // recipients omitted on purpose: their schema demands web+email tier
+    // blocks when present; omitted, it defaults to everyone.
   };
 
   const res = await fetch(url, {
