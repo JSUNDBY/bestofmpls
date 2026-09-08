@@ -1224,6 +1224,7 @@ function footer() {
         <span>© ${new Date().getFullYear()} bestofmpls.</span>
         <span>Made in Minneapolis.</span>
         <span>Site by <a href="https://joshsundby.com/ai-consulting/">Josh Sundby</a>.</span>
+        <span><a href="/privacy/">Privacy</a> · <a href="/terms/">Terms</a></span>
       </div>
     </div>
   </div>
@@ -8548,6 +8549,51 @@ function renderDataEssay() {
 }
 
 
+// ---------- Legal pages: /privacy/ and /terms/ ----------
+// Required by affiliate programs (Ticketmaster/Impact) and honest to have
+// anyway. Written to describe what the site actually does; update these if
+// the data practices change, not the other way around.
+function renderLegal(slug, title, bodyHtml) {
+  return head({ title: `${title} · Best of MPLS`, description: `${title} for bestofmpls.com.`, slug, theme: 'default' }) +
+    header({ activeSlug: '' }) +
+    `<section class="section-head">
+      <div class="wrap">
+        <div class="section-eyebrow">Updated September 2026</div>
+        <h1 class="section-title">${esc(title)}</h1>
+      </div>
+    </section>
+    <article class="essay">${bodyHtml}</article>` +
+    footer();
+}
+
+const PRIVACY_HTML = `
+  <p>Best of MPLS is an independent guide to Minneapolis and St. Paul, run from Minneapolis. This page describes what data the site handles, in plain language.</p>
+  <h2>What we collect</h2>
+  <p><strong>Newsletter email addresses.</strong> If you sign up for the Monday newsletter, your email address is stored with Kit (kit.com), the service that sends it. We use it to send the newsletter and for nothing else. Every issue includes an unsubscribe link, and unsubscribing removes you.</p>
+  <p><strong>Reader signals.</strong> Features like votes, saves, and "been here" marks send anonymous counts to our server. They are not tied to your name or email. Your personal lists (saved places, passport marks) live in your own browser's storage and never leave your device.</p>
+  <p><strong>Usage analytics.</strong> We use Google Analytics to understand which pages people read. It sets cookies and collects standard usage data (pages visited, approximate location, device type). See Google's privacy policy for how Google handles it.</p>
+  <p><strong>Tips and submissions.</strong> If you send us a tip or an event through a form, we keep what you wrote so we can act on it.</p>
+  <h2>What we don't do</h2>
+  <p>We don't sell or share your personal information. We don't run third-party ad trackers. We don't collect anything beyond what's listed above.</p>
+  <h2>Outbound links</h2>
+  <p>The site links to venues, restaurants, and ticket sellers. Some outbound links may be affiliate links, which means we can earn a small commission if you buy tickets after clicking, at no extra cost to you. Those sites have their own privacy policies.</p>
+  <h2>Contact</h2>
+  <p>Questions or removal requests: <a href="mailto:hello@bestofmpls.com">hello@bestofmpls.com</a>.</p>`;
+
+const TERMS_HTML = `
+  <p>Welcome to Best of MPLS, an independent editorial guide to Minneapolis and St. Paul. Using the site means you accept these terms.</p>
+  <h2>Editorial content</h2>
+  <p>Everything on this site is editorial opinion, offered in good faith. Picks are never paid for. Featured placements, where they exist, are labeled.</p>
+  <h2>Accuracy</h2>
+  <p>Event listings are pulled from venues' public calendars several times a day, and hours, prices, and schedules change without notice. Confirm details with the venue before you go. We are not responsible for canceled shows, changed hours, or a bad night out.</p>
+  <h2>Outbound links and affiliates</h2>
+  <p>We link to venues and ticket sellers we don't control, and some links may be affiliate links that earn us a commission on purchases. Buying tickets happens on those sites under their terms, not ours.</p>
+  <h2>Our content</h2>
+  <p>The writing, guides, and data presentations on this site belong to Best of MPLS. Quote us with a link and we'll be flattered. Wholesale republishing is not okay.</p>
+  <h2>Contact</h2>
+  <p><a href="mailto:hello@bestofmpls.com">hello@bestofmpls.com</a></p>`;
+
+
 function renderSitemap(neighborhoods, crossPages) {
   const urls = [
     { loc: SITE + '/', priority: '1.0' },
@@ -8564,6 +8610,8 @@ function renderSitemap(neighborhoods, crossPages) {
     { loc: SITE + '/five/', priority: '0.8' },
     { loc: SITE + '/free/', priority: '0.85' },
     { loc: SITE + '/' + dataEssay.slug + '/', priority: '0.8' },
+    { loc: SITE + '/privacy/', priority: '0.1' },
+    { loc: SITE + '/terms/', priority: '0.1' },
     { loc: SITE + '/live-music/tonight/', priority: '0.9' },
     { loc: SITE + '/live-music/free/', priority: '0.85' },
     { loc: SITE + '/submit-opening/', priority: '0.5' },
@@ -8838,6 +8886,8 @@ function build() {
   writeFile('five/index.html', renderFive());
   writeFile('free/index.html', renderFreeWeek());
   writeFile(dataEssay.slug + '/index.html', renderDataEssay());
+  writeFile('privacy/index.html', renderLegal('privacy', 'Privacy Policy', PRIVACY_HTML));
+  writeFile('terms/index.html', renderLegal('terms', 'Terms of Use', TERMS_HTML));
 
   // Passport + Trails — the collection layer. Manifest first (the passport
   // page fetches it), then the pages.
