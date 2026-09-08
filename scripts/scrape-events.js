@@ -49,6 +49,7 @@ const SCRAPERS = [
   require('./scrapers/mnhs.js'),
   // More music venues
   require('./scrapers/whitesquirrel.js'),
+  require('./scrapers/greenroom.js'),
   // The Hennepin Avenue houses — Orpheum, State, Pantages
   require('./scrapers/hennepinarts.js'),
   // The Guthrie (needs headless Chrome; fails soft where none exists)

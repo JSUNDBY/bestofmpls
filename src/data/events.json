@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-07T17:42:30.026Z",
+  "generated_at": "2026-09-08T18:46:31.417Z",
   "sources": [
     {
       "source": "first-avenue",
@@ -10,9 +10,8 @@
     {
       "source": "cedar",
       "label": "The Cedar Cultural Center",
-      "count": 0,
-      "ok": false,
-      "error": "503 Service Unavailable for https://www.thecedar.org/events"
+      "count": 48,
+      "ok": true
     },
     {
       "source": "walker",
@@ -23,25 +22,25 @@
     {
       "source": "riverview",
       "label": "Riverview Theater",
-      "count": 18,
+      "count": 13,
       "ok": true
     },
     {
       "source": "parkway",
       "label": "The Parkway Theater",
-      "count": 62,
+      "count": 63,
       "ok": true
     },
     {
       "source": "trylon",
       "label": "Trylon Cinema",
-      "count": 114,
+      "count": 115,
       "ok": true
     },
     {
       "source": "dakota",
       "label": "Dakota Jazz Club",
-      "count": 25,
+      "count": 27,
       "ok": true
     },
     {
@@ -53,13 +52,13 @@
     {
       "source": "berlin",
       "label": "Berlin",
-      "count": 62,
+      "count": 61,
       "ok": true
     },
     {
       "source": "331",
       "label": "The 331 Club",
-      "count": 75,
+      "count": 74,
       "ok": true
     },
     {
@@ -71,7 +70,7 @@
     {
       "source": "icehouse",
       "label": "Icehouse",
-      "count": 27,
+      "count": 28,
       "ok": true
     },
     {
@@ -131,19 +130,25 @@
     {
       "source": "whitesquirrel",
       "label": "White Squirrel Bar",
-      "count": 112,
+      "count": 113,
+      "ok": true
+    },
+    {
+      "source": "greenroom",
+      "label": "Green Room",
+      "count": 28,
       "ok": true
     },
     {
       "source": "hennepinarts",
       "label": "Hennepin Arts (Orpheum/State/Pantages)",
-      "count": 136,
+      "count": 137,
       "ok": true
     },
     {
       "source": "guthrie",
       "label": "Guthrie Theater",
-      "count": 136,
+      "count": 137,
       "ok": true
     },
     {
@@ -173,13 +178,13 @@
     {
       "source": "fillmore",
       "label": "The Fillmore Minneapolis",
-      "count": 26,
+      "count": 27,
       "ok": true
     },
     {
       "source": "crooners",
       "label": "Crooners Supper Club",
-      "count": 155,
+      "count": 159,
       "ok": true
     },
     {
@@ -245,7 +250,7 @@
     {
       "source": "lakeharriet",
       "label": "Lake Harriet Bandshell",
-      "count": 2,
+      "count": 0,
       "ok": true
     }
   ],
@@ -302,159 +307,6 @@
       "source": "highpoint"
     },
     {
-      "id": "berlin:2026-09-06:the-wozniak-weekly-brandon-wozniak-trio-ft-dave-king-and-bryan-nichols",
-      "date": "2026-09-06",
-      "time": "19:00",
-      "end_date": null,
-      "title": "The Wozniak Weekly: Brandon Wozniak Trio Ft. Dave King and Bryan Nichols",
-      "venue": "Berlin",
-      "venue_neighborhood": "Downtown Minneapolis",
-      "city": "Minneapolis",
-      "category": "music",
-      "subtitle": "$15 DOS / $20 ADVGET TICKETS7:00pm Show",
-      "url": "https://berlinmpls.com/calendar/brandon-wozniak-residency-week-1",
-      "image": "https://images.squarespace-cdn.com/content/v1/658316152e826a3bbbfc0aef/1786908980008-IN255XKTVZ72WMA8B0CW/Brandon+Wozniak.jpg",
-      "price": null,
-      "age": "21+",
-      "source": "berlin"
-    },
-    {
-      "id": "dakota:2026-09-06:tyreek-mcdole",
-      "date": "2026-09-06",
-      "time": "19:00",
-      "end_date": "2026-09-06",
-      "title": "Tyreek McDole",
-      "venue": "Dakota Jazz Club",
-      "venue_neighborhood": "Downtown Minneapolis",
-      "city": "Minneapolis",
-      "category": "music",
-      "subtitle": "\"vocal maturity... recalled the romantic styles of Johnny Hartman and Billy Eckstine” - DownBeat Tyreek McDole is a multi-award-winning Haitian... Read More",
-      "url": "https://www.dakotacooks.com/event/tyreek-mcdole-sep6-2026/",
-      "image": "https://www.dakotacooks.com/wp-content/uploads/2026/08/700x400-TyreekMcDole.jpg",
-      "price": null,
-      "age": "All ages",
-      "source": "dakota"
-    },
-    {
-      "id": "first-avenue:2026-09-06:fine-line:mustard-service",
-      "date": "2026-09-06",
-      "time": null,
-      "end_date": null,
-      "title": "Mustard Service",
-      "venue": "Fine Line",
-      "venue_neighborhood": "Warehouse District, Minneapolis",
-      "city": "Minneapolis",
-      "category": "music",
-      "subtitle": "Pity Party (Girls Club), Manwolves and Chicano Mosh",
-      "url": "https://first-avenue.com/event/2026-09-mustard-service/",
-      "image": null,
-      "price": null,
-      "age": null,
-      "source": "first-avenue"
-    },
-    {
-      "id": "riverview:2026-09-07:14:15:cars-20th-anniversary",
-      "date": "2026-09-07",
-      "time": "14:15",
-      "end_date": null,
-      "title": "Cars (20th Anniversary)",
-      "venue": "Riverview Theater",
-      "venue_neighborhood": "Standish-Ericsson, Minneapolis",
-      "city": "Minneapolis",
-      "category": "film",
-      "subtitle": null,
-      "url": "https://ticketing.useast.veezi.com/purchase/8194?siteToken=3taz3vkks7e11yj7r5dft9pq30",
-      "image": "https://ticketing.useast.veezi.com/Media/Poster?siteToken=3taz3vkks7e11yj7r5dft9pq30&code=0000001404",
-      "price": null,
-      "age": null,
-      "source": "riverview"
-    },
-    {
-      "id": "riverview:2026-09-07:16:30:hadestown-the-musical",
-      "date": "2026-09-07",
-      "time": "16:30",
-      "end_date": null,
-      "title": "Hadestown: The Musical",
-      "venue": "Riverview Theater",
-      "venue_neighborhood": "Standish-Ericsson, Minneapolis",
-      "city": "Minneapolis",
-      "category": "film",
-      "subtitle": null,
-      "url": "https://ticketing.useast.veezi.com/purchase/8196?siteToken=3taz3vkks7e11yj7r5dft9pq30",
-      "image": "https://ticketing.useast.veezi.com/Media/Poster?siteToken=3taz3vkks7e11yj7r5dft9pq30&code=0000001396",
-      "price": null,
-      "age": null,
-      "source": "riverview"
-    },
-    {
-      "id": "lakeharriet:2026-09-07:17:30",
-      "date": "2026-09-07",
-      "time": "17:30",
-      "end_date": null,
-      "title": "The Riff Rangers",
-      "venue": "Lake Harriet Bandshell",
-      "venue_neighborhood": "Lake Harriet, Minneapolis",
-      "city": "Minneapolis",
-      "category": "music",
-      "subtitle": "Free Music in the Parks concert at the Lake Harriet Bandshell.",
-      "url": "https://www.minneapolisparks.org/event-calendar/the-riff-rangers/",
-      "image": null,
-      "price": "Free",
-      "age": "All ages",
-      "source": "lakeharriet"
-    },
-    {
-      "id": "331:2026-09-07:david-robinson-and-the-dedicated-friends",
-      "date": "2026-09-07",
-      "time": "18:00",
-      "end_date": null,
-      "title": "David Robinson & the Dedicated Friends",
-      "venue": "The 331 Club",
-      "venue_neighborhood": "Northeast Minneapolis",
-      "city": "Minneapolis",
-      "category": "music",
-      "subtitle": "With Soul Trouvère · 8pm, 6pm",
-      "url": "https://www.331club.com/",
-      "image": null,
-      "price": null,
-      "age": "21+",
-      "source": "331"
-    },
-    {
-      "id": "whitesquirrel:2026-09-07:nancy-olson-w-joe-carey",
-      "date": "2026-09-07",
-      "time": "18:00",
-      "end_date": null,
-      "title": "Nancy Olson w. Joe Carey",
-      "venue": "White Squirrel Bar",
-      "venue_neighborhood": "West End, St. Paul",
-      "city": "St. Paul",
-      "category": "music",
-      "subtitle": null,
-      "url": "https://whitesquirrelbar.com/event/nancy-olson-w-joe-carey/",
-      "image": "https://whitesquirrelbar.com/wp-content/uploads/WS-9-7.jpg",
-      "price": null,
-      "age": null,
-      "source": "whitesquirrel"
-    },
-    {
-      "id": "crooners:2026-09-07:canceled-soap-prov-show-of-10-000-secrets",
-      "date": "2026-09-07",
-      "time": "18:30",
-      "end_date": null,
-      "title": "*CANCELED* Soap Prov: Show of 10,000 Secrets",
-      "venue": "Crooners Supper Club",
-      "venue_neighborhood": "Dunsmore Jazz Room",
-      "city": "Minneapolis",
-      "category": "music",
-      "subtitle": "Doors open at 5:30 PM for Dinner and Drink Service. An Improvised Soap Opera Soap Prov: Show of 10,000 Secrets , featuring high drama and deliciously over-the-top moments, all made up on the spot. Ins",
-      "url": "https://www.croonersmn.com/event/soap-prov-show-of-10000-secrets/",
-      "image": "https://www.croonersmn.com/wp-content/uploads/eventbrite-logos/43762baf2c3314543187233fec59632c.jpg",
-      "price": null,
-      "age": null,
-      "source": "crooners"
-    },
-    {
       "id": "dakota:2026-09-07:a-night-for-nina-the-cast-of-nina-simone-four-women",
       "date": "2026-09-07",
       "time": "19:00",
@@ -472,125 +324,6 @@
       "source": "dakota"
     },
     {
-      "id": "trylon:2026-09-07:19:00:two-lane-blacktop-in-35mm",
-      "date": "2026-09-07",
-      "time": "19:00",
-      "end_date": null,
-      "title": "Two-Lane Blacktop in 35mm",
-      "venue": "Trylon Cinema",
-      "venue_neighborhood": "Longfellow, Minneapolis",
-      "city": "Minneapolis",
-      "category": "film",
-      "subtitle": "(1971, 102m) dir Monte Hellman w/James Taylor, Warren Oates, Laurie Bird, Dennis Wilson. A driver and a mechanic crisscross America in their souped-up ’55 Chevy, making a living on the underground drag-race circuit. Oate",
-      "url": "https://www.trylon.org/?post_type=film&amp;p=208846",
-      "image": "https://www.trylon.org/wp-content/uploads/2026/05/TWO-LANE-BLACKTOP5_individual_film.jpg",
-      "price": null,
-      "age": null,
-      "source": "trylon"
-    },
-    {
-      "id": "riverview:2026-09-07:19:10:tony",
-      "date": "2026-09-07",
-      "time": "19:10",
-      "end_date": null,
-      "title": "Tony",
-      "venue": "Riverview Theater",
-      "venue_neighborhood": "Standish-Ericsson, Minneapolis",
-      "city": "Minneapolis",
-      "category": "film",
-      "subtitle": null,
-      "url": "https://ticketing.useast.veezi.com/purchase/8197?siteToken=3taz3vkks7e11yj7r5dft9pq30",
-      "image": "https://ticketing.useast.veezi.com/Media/Poster?siteToken=3taz3vkks7e11yj7r5dft9pq30&code=0000001409",
-      "price": null,
-      "age": null,
-      "source": "riverview"
-    },
-    {
-      "id": "lakeharriet:2026-09-07:19:30",
-      "date": "2026-09-07",
-      "time": "19:30",
-      "end_date": null,
-      "title": "Dred I Dread",
-      "venue": "Lake Harriet Bandshell",
-      "venue_neighborhood": "Lake Harriet, Minneapolis",
-      "city": "Minneapolis",
-      "category": "music",
-      "subtitle": "Free Music in the Parks concert at the Lake Harriet Bandshell.",
-      "url": "https://www.minneapolisparks.org/event-calendar/dred-i-dread-5/",
-      "image": null,
-      "price": "Free",
-      "age": "All ages",
-      "source": "lakeharriet"
-    },
-    {
-      "id": "whitesquirrel:2026-09-07:metal-mondays",
-      "date": "2026-09-07",
-      "time": "21:00",
-      "end_date": null,
-      "title": "Metal Mondays",
-      "venue": "White Squirrel Bar",
-      "venue_neighborhood": "West End, St. Paul",
-      "city": "St. Paul",
-      "category": "music",
-      "subtitle": null,
-      "url": "https://whitesquirrelbar.com/event/metal-mondays-2/",
-      "image": null,
-      "price": null,
-      "age": null,
-      "source": "whitesquirrel"
-    },
-    {
-      "id": "riverview:2026-09-07:21:10:the-end-of-oak-street",
-      "date": "2026-09-07",
-      "time": "21:10",
-      "end_date": null,
-      "title": "The End of Oak Street",
-      "venue": "Riverview Theater",
-      "venue_neighborhood": "Standish-Ericsson, Minneapolis",
-      "city": "Minneapolis",
-      "category": "film",
-      "subtitle": null,
-      "url": "https://ticketing.useast.veezi.com/purchase/8198?siteToken=3taz3vkks7e11yj7r5dft9pq30",
-      "image": "https://ticketing.useast.veezi.com/Media/Poster?siteToken=3taz3vkks7e11yj7r5dft9pq30&code=0000001407",
-      "price": null,
-      "age": null,
-      "source": "riverview"
-    },
-    {
-      "id": "trylon:2026-09-07:21:15:two-lane-blacktop-in-35mm",
-      "date": "2026-09-07",
-      "time": "21:15",
-      "end_date": null,
-      "title": "Two-Lane Blacktop in 35mm",
-      "venue": "Trylon Cinema",
-      "venue_neighborhood": "Longfellow, Minneapolis",
-      "city": "Minneapolis",
-      "category": "film",
-      "subtitle": "(1971, 102m) dir Monte Hellman w/James Taylor, Warren Oates, Laurie Bird, Dennis Wilson. A driver and a mechanic crisscross America in their souped-up ’55 Chevy, making a living on the underground drag-race circuit. Oate",
-      "url": "https://www.trylon.org/?post_type=film&amp;p=208846",
-      "image": "https://www.trylon.org/wp-content/uploads/2026/05/TWO-LANE-BLACKTOP5_individual_film.jpg",
-      "price": null,
-      "age": null,
-      "source": "trylon"
-    },
-    {
-      "id": "hennepinarts:2026-09-07:the-algorithm-is-gonna-get-you",
-      "date": "2026-09-07",
-      "time": null,
-      "end_date": "2026-11-07",
-      "title": "The Algorithm is Gonna Get You",
-      "venue": "Dudley Riggs Theatre",
-      "venue_neighborhood": "Downtown Minneapolis",
-      "city": "Minneapolis",
-      "category": "performance",
-      "subtitle": "Comedy",
-      "url": "https://hennepinarts.org/events/the-algorithm-is-gonna-get-you-2026",
-      "image": "https://images.ctfassets.net/sjxdiqjbm079/7nLWk8JzDt97mu1xGlSwjX/2ee75807e81f194dbeaad19e5c7e4e06/BNW_Alg_Email_Image.png",
-      "price": null,
-      "age": null,
-      "source": "hennepinarts"
-    },
-    {
       "id": "walker:2026-09-08:fox-maxy-s-mental-wellness-film-workshop",
       "date": "2026-09-08",
       "time": "10:00",
@@ -606,23 +339,6 @@
       "price": null,
       "age": null,
       "source": "walker"
-    },
-    {
-      "id": "riverview:2026-09-08:12:45:hadestown-the-musical",
-      "date": "2026-09-08",
-      "time": "12:45",
-      "end_date": null,
-      "title": "Hadestown: The Musical",
-      "venue": "Riverview Theater",
-      "venue_neighborhood": "Standish-Ericsson, Minneapolis",
-      "city": "Minneapolis",
-      "category": "film",
-      "subtitle": null,
-      "url": "https://ticketing.useast.veezi.com/purchase/8202?siteToken=3taz3vkks7e11yj7r5dft9pq30",
-      "image": "https://ticketing.useast.veezi.com/Media/Poster?siteToken=3taz3vkks7e11yj7r5dft9pq30&code=0000001396",
-      "price": null,
-      "age": null,
-      "source": "riverview"
     },
     {
       "id": "hclib:2026-09-08:voting-and-election-resources-with-hennepin-county-elections",
@@ -710,6 +426,23 @@
       "source": "berlin"
     },
     {
+      "id": "greenroom:2026-09-08:new-band-night-38",
+      "date": "2026-09-08",
+      "time": "19:00",
+      "end_date": null,
+      "title": "New Band Night #38",
+      "venue": "Green Room",
+      "venue_neighborhood": "Uptown, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Green Room’s New Band Night. This biweekly series showcases newly formed projects and up-and-coming talent in the local music scene, spanning a wide variety of genres. Four fresh bands every other wee",
+      "url": "https://t.venuepilot.com/e/new-band-night-38-2026-09-08-green-room-minneapolis-7dbc9a",
+      "image": null,
+      "price": "$7–$12",
+      "age": null,
+      "source": "greenroom"
+    },
+    {
       "id": "trylon:2026-09-08:19:00:two-lane-blacktop-in-35mm",
       "date": "2026-09-08",
       "time": "19:00",
@@ -725,6 +458,23 @@
       "price": null,
       "age": null,
       "source": "trylon"
+    },
+    {
+      "id": "cedar:2026-09-08:setting-with-keith-fullerton-whitman",
+      "date": "2026-09-08",
+      "time": "19:30",
+      "end_date": null,
+      "title": "SETTING with Keith Fullerton Whitman",
+      "venue": "The Cedar Cultural Center",
+      "venue_neighborhood": "West Bank, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Setting is Nathan Bowles (solo/trio, Pelt, Black Twig Pickers) on strings, keys, tapes, and percussion; Jaime Fennelly (Mind Over Mirrors, Peeesseye) on synthesizers and harmonium; and Joe Westerlund (solo, Califone, Syl",
+      "url": "https://www.thecedar.org/events/the-cedar-presents-setting-with-keithfullertonwhitman",
+      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1782334205031-8DUKU3YWE2P6K72F111D/WWxSETTING-Final-0730.jpg",
+      "price": null,
+      "age": "All ages",
+      "source": "cedar"
     },
     {
       "id": "riverview:2026-09-08:19:30:the-end-of-oak-street",
@@ -846,6 +596,23 @@
       "source": "first-avenue"
     },
     {
+      "id": "hennepinarts:2026-09-08:the-algorithm-is-gonna-get-you",
+      "date": "2026-09-08",
+      "time": null,
+      "end_date": "2026-11-07",
+      "title": "The Algorithm is Gonna Get You",
+      "venue": "Dudley Riggs Theatre",
+      "venue_neighborhood": "Downtown Minneapolis",
+      "city": "Minneapolis",
+      "category": "performance",
+      "subtitle": "Comedy",
+      "url": "https://hennepinarts.org/events/the-algorithm-is-gonna-get-you-2026",
+      "image": "https://images.ctfassets.net/sjxdiqjbm079/7nLWk8JzDt97mu1xGlSwjX/2ee75807e81f194dbeaad19e5c7e4e06/BNW_Alg_Email_Image.png",
+      "price": null,
+      "age": null,
+      "source": "hennepinarts"
+    },
+    {
       "id": "riverview:2026-09-09:12:45:hadestown-the-musical",
       "date": "2026-09-09",
       "time": "12:45",
@@ -948,16 +715,16 @@
       "source": "whitesquirrel"
     },
     {
-      "id": "331:2026-09-09:matt-arthur",
+      "id": "331:2026-09-09:the-matt-arthur-contraption",
       "date": "2026-09-09",
       "time": "19:00",
       "end_date": null,
-      "title": "Matt Arthur",
+      "title": "The Matt Arthur Contraption",
       "venue": "The 331 Club",
       "venue_neighborhood": "Northeast Minneapolis",
       "city": "Minneapolis",
       "category": "music",
-      "subtitle": "With Harold’s House Party on KFAI · 9:30pm, 7:00pm",
+      "subtitle": "With Harold’s House Party on KFAI, Wain Anthony McFarlane · 9:30pm, 7:00pm",
       "url": "https://www.331club.com/",
       "image": null,
       "price": null,
@@ -1247,7 +1014,7 @@
       "city": "Minneapolis",
       "category": "lecture",
       "subtitle": "Interested in applying for to be the next Minneapolis Poet Laureate for 2027-2028? Join this hybrid info session either in-person or online to hear the ins and outs of the program's eligibility!",
-      "url": "https://loft.org/upcoming-events",
+      "url": "https://loft.org/events/info-session-minneapolis-poet-laureate-2027-2028-application",
       "image": null,
       "price": null,
       "age": null,
@@ -1407,6 +1174,23 @@
       "source": "mnorch"
     },
     {
+      "id": "cedar:2026-09-10:jeff-buckley-grace-tribute-featuring-peter-pisano-mei-ling-smith-and-bobby-maher",
+      "date": "2026-09-10",
+      "time": "19:30",
+      "end_date": null,
+      "title": "Jeff Buckley “Grace” Tribute featuring Peter Pisano, Mei-Ling Smith, and Bobby Maher with Colin Bracewell",
+      "venue": "The Cedar Cultural Center",
+      "venue_neighborhood": "West Bank, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Peter Pisano, Mei-ling Smith, and Bobby Maher played their final show together right here at the Cedar on November 6, 2009, a farewell show for their band The Wars of 1812. Now, for the first time since that night, the t",
+      "url": "https://www.thecedar.org/events/jeff-buckley-grace-tribute",
+      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1784818563087-NZSBHLUPEI6BIC5YGQB0/BUCKLEYTRIBUTE_IG_1.jpg",
+      "price": null,
+      "age": "All ages",
+      "source": "cedar"
+    },
+    {
       "id": "walker:2026-09-10:laurie-anderson-republic-of-love-solo",
       "date": "2026-09-10",
       "time": "19:30",
@@ -1473,6 +1257,23 @@
       "price": null,
       "age": "21+",
       "source": "berlin"
+    },
+    {
+      "id": "greenroom:2026-09-10:snapz-live-band-open-mic",
+      "date": "2026-09-10",
+      "time": "20:00",
+      "end_date": null,
+      "title": "Snapz Live Band Open Mic",
+      "venue": "Green Room",
+      "venue_neighborhood": "Uptown, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Every Thursday featuring the Snapz House Band Open Mic list opens 7pm Get here early! Seats/ Tables are First Come First Serve",
+      "url": "https://www.greenroommn.com/events",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "greenroom"
     },
     {
       "id": "whitesquirrel:2026-09-10:half-ivory-w-handsome-midnight-and-ghost-kitchen",
@@ -1832,6 +1633,23 @@
       "source": "berlin"
     },
     {
+      "id": "cedar:2026-09-11:ancient-waves-with-lucy-michelle-and-whispered-the-rabbit",
+      "date": "2026-09-11",
+      "time": "20:00",
+      "end_date": null,
+      "title": "Ancient Waves with Lucy Michelle and Whispered the Rabbit",
+      "venue": "The Cedar Cultural Center",
+      "venue_neighborhood": "West Bank, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "The Minneapolis four-piece Ancient Waves is celebrating their full-length debut album, Dreams I Fly In, Dreams I Die In. Led by South Dakota-born singer-songwriter Jarad Miles, the band formed in 2019 and is known for th",
+      "url": "https://www.thecedar.org/events/ancient-waves",
+      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1785511852413-AQAEP6GVJX84T39PQT1O/Ancient+Waves+-+MS+River.jpg",
+      "price": null,
+      "age": "All ages",
+      "source": "cedar"
+    },
+    {
       "id": "icehouse:2026-09-11:dan-rodriguez-at-icehouse",
       "date": "2026-09-11",
       "time": "20:00",
@@ -1881,6 +1699,23 @@
       "price": null,
       "age": null,
       "source": "whitesquirrel"
+    },
+    {
+      "id": "greenroom:2026-09-11:club-k-pop-k-pop-hits-and-k-edm-all-night-long",
+      "date": "2026-09-11",
+      "time": "22:00",
+      "end_date": null,
+      "title": "CLUB K-POP (K-POP Hits & K-EDM All Night Long!)",
+      "venue": "Green Room",
+      "venue_neighborhood": "Uptown, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Get ready to turn your bias list upside down because you're officially invited to the ULTIMATE K-POP PARTY!! 🎉 Whether you're OT7, a multi-stan, or just here for the bops, this night is for YOU! ⭐️ D",
+      "url": "https://t.venuepilot.com/e/club-k-pop-k-pop-hits-k-edm-all-night-long-2026-09-11-green-room-minneapolis-2279a4",
+      "image": null,
+      "price": "$15–$20",
+      "age": null,
+      "source": "greenroom"
     },
     {
       "id": "berlin:2026-09-11:late-night-lounge-dj-varmint",
@@ -2047,7 +1882,7 @@
       "category": "music",
       "subtitle": "Carolyn Young and West Seventh will be performing a number of popular and deep cuts from the Lucinda Williams catalog. The West Seventh band will feature Mary Cutrefello on guitar, with an opening set",
       "url": "https://whitesquirrelbar.com/event/lucinda-williams-tribute-2/",
-      "image": null,
+      "image": "https://whitesquirrelbar.com/wp-content/uploads/lucinda_williams_september_12_website.webp",
       "price": null,
       "age": null,
       "source": "whitesquirrel"
@@ -2136,6 +1971,23 @@
       "price": null,
       "age": "All ages",
       "source": "sports"
+    },
+    {
+      "id": "greenroom:2026-09-12:nimino-keep-me-awake-tour-uptown-block-party",
+      "date": "2026-09-12",
+      "time": "16:00",
+      "end_date": null,
+      "title": "Nimino - Keep Me Awake Tour UPTOWN BLOCK PARTY",
+      "venue": "Green Room",
+      "venue_neighborhood": "Uptown, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://mydanceagenda.ticketsauce.com/e/uptown-block-party-with-nimino-keep-me-awake-tour/tickets",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "greenroom"
     },
     {
       "id": "berlin:2026-09-12:early-evening-jazz-jon-weber",
@@ -2393,6 +2245,23 @@
       "source": "mnorch"
     },
     {
+      "id": "cedar:2026-09-12:maria-chavez-shahzad-ismaily-and-greg-saunier-and-elori-saxl-and-henry-solomon",
+      "date": "2026-09-12",
+      "time": "20:00",
+      "end_date": null,
+      "title": "MARIA CHÁVEZ, SHAHZAD ISMAILY, & GREG SAUNIER and ELORI SAXL & HENRY SOLOMON",
+      "venue": "The Cedar Cultural Center",
+      "venue_neighborhood": "West Bank, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Maria Chávez, Shahzad Ismaily (Arooj Aftab, Ceramic Dog) and Greg Saunier (Deerhoof) came together as a trio for the first time for a show in Williamsburg, Brooklyn, in May 2025. That debut performance received a glowing",
+      "url": "https://www.thecedar.org/events/the-cedar-presents-mariachaveztrio-and-elorisaxl-and-henrysolomon",
+      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1781807075833-5ZGU1E2YLMZ7WN9I8GH6/Cha%CC%81vez+Ismaily+Saunier+-+LEAD+photo+-+credit+Martyna+Szczesna.jpg",
+      "price": null,
+      "age": "All ages",
+      "source": "cedar"
+    },
+    {
       "id": "whitesquirrel:2026-09-12:a-blind-history-w-paper-beast-marty-foul",
       "date": "2026-09-12",
       "time": "21:00",
@@ -2612,6 +2481,23 @@
       "city": "Minneapolis",
       "category": "music",
       "url": "https://www.voiceofculture.org/"
+    },
+    {
+      "id": "cedar:2026-09-13:summer-cypher-presents-cedar-cypher",
+      "date": "2026-09-13",
+      "time": "11:00",
+      "end_date": null,
+      "title": "Summer Cypher Presents Cedar Cypher",
+      "venue": "The Cedar Cultural Center",
+      "venue_neighborhood": "West Bank, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "We are back on the block for Cedar Cypher!!! Authentic, undiluted Hip-Hop. In collaboration with Open Streets MPLS & Cedar Fest, bringing you a day to remember on the Southside. This activation is funded by the City of M",
+      "url": "https://www.thecedar.org/events/cedar-cypher-2026",
+      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1786996563602-JB018IYHSS9Z1F47UJTY/Cedar+Cypher.png",
+      "price": null,
+      "age": "All ages",
+      "source": "cedar"
     },
     {
       "id": "trylon:2026-09-13:13:00:minnanimate-2026",
@@ -3005,11 +2891,11 @@
       "source": "first-avenue"
     },
     {
-      "id": "parkway:2026-09-13:johnny-pemberton",
+      "id": "parkway:2026-09-13:sold-out-johnny-pemberton",
       "date": "2026-09-13",
       "time": null,
       "end_date": null,
-      "title": "Johnny Pemberton",
+      "title": "SOLD OUT: Johnny Pemberton",
       "venue": "The Parkway Theater",
       "venue_neighborhood": "Standish, Minneapolis",
       "city": "Minneapolis",
@@ -3343,6 +3229,40 @@
       "price": null,
       "age": "21+",
       "source": "berlin"
+    },
+    {
+      "id": "cedar:2026-09-15:bear-ghost-tiny-hitman-tour-with-sarah-and-the-safe-word-and-spaceman-bob",
+      "date": "2026-09-15",
+      "time": "19:00",
+      "end_date": null,
+      "title": "BEAR GHOST , Tiny Hitman Tour with Sarah and the Safe Word and Spaceman Bob",
+      "venue": "The Cedar Cultural Center",
+      "venue_neighborhood": "West Bank, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Bear Ghost is an Adventure Rock band that fuses fun and quirky musicianship with complex melodies, phat harmonies, heavy riffitude, and pop structure to deliver a sound purposely crafted to fill all booties, tall and sma",
+      "url": "https://www.thecedar.org/events/bear-ghost-tiny-hitman-tour",
+      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1779990538445-EP67MSSK9Y1055FSK2RI/BearGhost-JiminyPromo+-+JimHesterman-1201486+copy.jpg",
+      "price": null,
+      "age": "All ages",
+      "source": "cedar"
+    },
+    {
+      "id": "greenroom:2026-09-15:emarosa",
+      "date": "2026-09-15",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Emarosa",
+      "venue": "Green Room",
+      "venue_neighborhood": "Uptown, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://www.ticketmaster.com/event/0600648EF4ED2EBF",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "greenroom"
     },
     {
       "id": "trylon:2026-09-15:19:00:it-happened-one-night-in-35mm",
@@ -3821,6 +3741,23 @@
       "source": "crooners"
     },
     {
+      "id": "cedar:2026-09-16:sondre-lerche-acrobats-tour-26-with-dosh",
+      "date": "2026-09-16",
+      "time": "19:30",
+      "end_date": null,
+      "title": "Sondre Lerche Acrobats Tour ‘26 with Dosh",
+      "venue": "The Cedar Cultural Center",
+      "venue_neighborhood": "West Bank, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Norwegian indie-pop songwriter SONDRE LERCHE celebrates the release of his 11th album at The Cedar.",
+      "url": "https://www.thecedar.org/events/sondre-lerche-acrobats-26-tour",
+      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1778083153711-ZGWSUQWNO9GR253FEJD8/SL5+by+Hilde+Solli.jpg",
+      "price": null,
+      "age": "All ages",
+      "source": "cedar"
+    },
+    {
       "id": "icehouse:2026-09-16:starlight-vinyl-night-makr-spins-the-classic",
       "date": "2026-09-16",
       "time": "20:00",
@@ -3849,7 +3786,7 @@
       "category": "music",
       "subtitle": null,
       "url": "https://whitesquirrelbar.com/event/lord-jeremy-w-enemies-w-mild-mannered-splash/",
-      "image": null,
+      "image": "https://whitesquirrelbar.com/wp-content/uploads/835B6B58-E7C9-48C4-8B5F-FBBE9F7F92A8.png",
       "price": null,
       "age": null,
       "source": "whitesquirrel"
@@ -4053,7 +3990,7 @@
       "category": "music",
       "subtitle": null,
       "url": "https://www.ticketmaster.com/allison-eide-minneapolis-minnesota-09-17-2026/event/060064DEC57DF80D",
-      "image": "https://s1.ticketm.net/dam/c/f6d/6f417e97-2981-4605-a837-a307d33e3f6d_105491_TABLET_LANDSCAPE_LARGE_16_9.jpg",
+      "image": "https://s1.ticketm.net/dam/a/c77/f4400f9e-39af-4755-880e-61ab9e824c77_TABLET_LANDSCAPE_LARGE_16_9.jpg",
       "price": null,
       "age": null,
       "source": "varsity"
@@ -4091,6 +4028,23 @@
       "price": "$25–$35",
       "age": null,
       "source": "crooners"
+    },
+    {
+      "id": "dakota:2026-09-17:a-night-dedicated-to-cassandra-wilson",
+      "date": "2026-09-17",
+      "time": "19:00",
+      "end_date": "2026-09-17",
+      "title": "A Night Dedicated to Cassandra Wilson",
+      "venue": "Dakota Jazz Club",
+      "venue_neighborhood": "Downtown Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "An all-star tribute to one of jazz\\'s most iconic voices. We are sad to hear the news of the... Read More",
+      "url": "https://www.dakotacooks.com/event/a-night-dedicated-to-cassandra-wilson-sep17-2026/",
+      "image": "https://www.dakotacooks.com/wp-content/uploads/2026/09/700x400-CassandraWilson.jpg",
+      "price": null,
+      "age": "All ages",
+      "source": "dakota"
     },
     {
       "id": "berlin:2026-09-17:deep-glens-w-brotherkenzie",
@@ -4210,6 +4164,23 @@
       "price": "$15",
       "age": null,
       "source": "icehouse"
+    },
+    {
+      "id": "greenroom:2026-09-17:snapz-live-band-open-mic",
+      "date": "2026-09-17",
+      "time": "20:00",
+      "end_date": null,
+      "title": "Snapz Live Band Open Mic",
+      "venue": "Green Room",
+      "venue_neighborhood": "Uptown, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Every Thursday featuring the Snapz House Band Open Mic list opens 7pm Get here early! Seats/ Tables are First Come First Serve",
+      "url": "https://www.greenroommn.com/events",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "greenroom"
     },
     {
       "id": "whitesquirrel:2026-09-17:country-oke",
@@ -4688,6 +4659,23 @@
       "source": "guthrie"
     },
     {
+      "id": "cedar:2026-09-18:the-gated-community-and-friends",
+      "date": "2026-09-18",
+      "time": "20:00",
+      "end_date": null,
+      "title": "The Gated Community and Friends",
+      "venue": "The Cedar Cultural Center",
+      "venue_neighborhood": "West Bank, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Minneapolis Americana band The Gated Community is celebrating its 20th anniversary at The Cedar Cultural Center. Bandleader Sumanth Gopinath formed the group in 2006 while living in the Holtzermann building across the st",
+      "url": "https://www.thecedar.org/events/the-gated-community-and-friends",
+      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1785341435102-BLH6QC7Q8W42M45QXT9A/The+Gated+Community_SmouseintheHouse-4+-+photo+by+Tom+Smouse.jpg",
+      "price": null,
+      "age": "All ages",
+      "source": "cedar"
+    },
+    {
       "id": "whitesquirrel:2026-09-18:death-of-the-heron",
       "date": "2026-09-18",
       "time": "21:00",
@@ -4703,6 +4691,23 @@
       "price": null,
       "age": null,
       "source": "whitesquirrel"
+    },
+    {
+      "id": "greenroom:2026-09-18:samambo-feat-mohogany-nyc",
+      "date": "2026-09-18",
+      "time": "21:00",
+      "end_date": null,
+      "title": "SAMAMBO feat. Mohogany (nyc)",
+      "venue": "Green Room",
+      "venue_neighborhood": "Uptown, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://tickets.venuepilot.com/e/samambo-2026-09-18-green-room-minneapolis-313e8a",
+      "image": null,
+      "price": "$20–$30",
+      "age": null,
+      "source": "greenroom"
     },
     {
       "id": "trylon:2026-09-18:21:00:the-long-day-closes",
@@ -4960,6 +4965,23 @@
       "source": "trylon"
     },
     {
+      "id": "crooners:2026-09-19:suzanne-paris-and-adi-yeshaya",
+      "date": "2026-09-19",
+      "time": "17:00",
+      "end_date": null,
+      "title": "Suzanne Paris and Adi Yeshaya",
+      "venue": "Crooners Supper Club",
+      "venue_neighborhood": "Maggie’s Piano Lounge",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "No cover. Bar and table seating offered – NO RESERVATIONS. Suzanne Paris : Vocals Adi Yeshaya : Piano Maggie’s Piano Lounge is a warm, relaxed and inviting space featuring a variety of talented musici",
+      "url": "https://www.croonersmn.com/event/suzanne-paris-and-adi-yeshaya-2/",
+      "image": "https://www.croonersmn.com/wp-content/uploads/eventbrite-logos/4d51c84743a3636b01cf9b1d9773cb1e.jpg",
+      "price": "Free",
+      "age": null,
+      "source": "crooners"
+    },
+    {
       "id": "crooners:2026-09-19:ladies-of-the-80-s-erin-schwab-and-jay-fuchs",
       "date": "2026-09-19",
       "time": "17:30",
@@ -5096,6 +5118,23 @@
       "source": "berlin"
     },
     {
+      "id": "greenroom:2026-09-19:psychostick-w-galactic-empire-in-minneapolis",
+      "date": "2026-09-19",
+      "time": "19:00",
+      "end_date": null,
+      "title": "PSYCHOSTICK w/ GALACTIC EMPIRE in Minneapolis",
+      "venue": "Green Room",
+      "venue_neighborhood": "Uptown, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://www.ticketweb.com/event/psychostick-w-galactic-empire-in-green-room-mpls-tickets/14197334",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "greenroom"
+    },
+    {
       "id": "331:2026-09-19:the-crimson-boys",
       "date": "2026-09-19",
       "time": "19:00",
@@ -5145,6 +5184,23 @@
       "price": null,
       "age": null,
       "source": "guthrie"
+    },
+    {
+      "id": "cedar:2026-09-19:first-avenue-presents-aldous-harding-with-sam-burton",
+      "date": "2026-09-19",
+      "time": "20:00",
+      "end_date": null,
+      "title": "First Avenue presents ALDOUS HARDING with Sam Burton",
+      "venue": "The Cedar Cultural Center",
+      "venue_neighborhood": "West Bank, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "First Avenue presents Aldous Harding",
+      "url": "https://www.thecedar.org/events/first-avenue-presents-aldous-harding",
+      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1768233697914-JE3SR7GDR976S2LGFU21/AldousHarding-1080x1080.jpg",
+      "price": null,
+      "age": "All ages",
+      "source": "cedar"
     },
     {
       "id": "crooners:2026-09-19:the-1920s-songbook-with-maud-hixson-and-rick-carlson",
@@ -5521,6 +5577,23 @@
       "source": "trylon"
     },
     {
+      "id": "cedar:2026-09-20:autumn-equinox-soundbath-with-marc-anderson-and-third-eye-collective",
+      "date": "2026-09-20",
+      "time": "16:00",
+      "end_date": null,
+      "title": "Autumn Equinox Soundbath with Marc Anderson & THird Eye Collective",
+      "venue": "The Cedar Cultural Center",
+      "venue_neighborhood": "West Bank, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Sound artist and percussionist Marc Anderson returns to the Cedar with Natalie Nowytski and Jeremy Ylvisaker to celebrate the Autumn Equinox.",
+      "url": "https://www.thecedar.org/events/autumn-equinox-soundbath",
+      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1786394042526-94YGU0TT6JPXTONY4586/MAsoundbath_092026_socials_v2_IG+main_1080x1080.jpg",
+      "price": null,
+      "age": "All ages",
+      "source": "cedar"
+    },
+    {
       "id": "icehouse:2026-09-20:corcovado-at-midnight-an-astrud-and-joao-gilberto-tribute",
       "date": "2026-09-20",
       "time": "17:00",
@@ -5655,6 +5728,23 @@
       "price": null,
       "age": "All ages",
       "source": "dakota"
+    },
+    {
+      "id": "greenroom:2026-09-20:poison-girl-friend",
+      "date": "2026-09-20",
+      "time": "19:00",
+      "end_date": null,
+      "title": "POiSON GiRL FRiEND",
+      "venue": "Green Room",
+      "venue_neighborhood": "Uptown, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "POiSON GiRL FRiEND, is a musical solo unit by nOrikO who is a singer, songwriter, composer, producer and DJ based mainly in Japan. She was born in Tokyo, raised in Brazil where she was educated in a F",
+      "url": "https://www.ticketmaster.com/event/060064D7C3C9D473",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "greenroom"
     },
     {
       "id": "mysticlake:2026-09-20:the-b-52s-devo-cosmic-de-evolution-tour",
@@ -6116,6 +6206,23 @@
       "source": "varsity"
     },
     {
+      "id": "greenroom:2026-09-22:new-band-night-39",
+      "date": "2026-09-22",
+      "time": "19:00",
+      "end_date": null,
+      "title": "New Band Night #39",
+      "venue": "Green Room",
+      "venue_neighborhood": "Uptown, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Green Room’s New Band Night. This biweekly series showcases newly formed projects and up-and-coming talent in the local music scene, spanning a wide variety of genres. Four fresh bands every other wee",
+      "url": "https://t.venuepilot.com/e/new-band-night-39-2026-09-22-green-room-minneapolis-1a5a93",
+      "image": null,
+      "price": "$7–$12",
+      "age": null,
+      "source": "greenroom"
+    },
+    {
       "id": "trylon:2026-09-22:19:00:paris-texas-in-4k",
       "date": "2026-09-22",
       "time": "19:00",
@@ -6148,6 +6255,23 @@
       "price": null,
       "age": "All ages",
       "source": "dakota"
+    },
+    {
+      "id": "cedar:2026-09-22:first-avenue-presents-croz-boyce-with-powers-rolin-duo",
+      "date": "2026-09-22",
+      "time": "19:30",
+      "end_date": null,
+      "title": "First Avenue presents CROZ BOYCE with Powers/Rolin Duo",
+      "venue": "The Cedar Cultural Center",
+      "venue_neighborhood": "West Bank, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "What if 40 minutes of instrumental music made by two friends passing files across state lines could capture the range of human experience, or at least a disproportionate chunk of it,worry and camaraderie, hope and frustr",
+      "url": "https://www.thecedar.org/events/first-avenue-presents-croz-boyce",
+      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1787149088406-CTM7644C8PXIC1VR1XTK/CrozBoyce-igs-update.jpg",
+      "price": null,
+      "age": "All ages",
+      "source": "cedar"
     },
     {
       "id": "ticketmaster:2026-09-22:kacey-musgraves-w-carter-faith",
@@ -6456,18 +6580,35 @@
       "source": "amsterdam"
     },
     {
-      "id": "crooners:2026-09-23:candi-jenkins",
+      "id": "cedar:2026-09-23:unite-2-fight-paralysis-presents-the-2nd-annual-rock-for-spinal-cord-injury-rese",
+      "date": "2026-09-23",
+      "time": "19:30",
+      "end_date": null,
+      "title": "Unite 2 Fight Paralysis presents the 2nd Annual Rock for Spinal Cord Injury Research featuring Eric Howk (Portugal, The Man), Freaque, and Zoë Says Go",
+      "venue": "The Cedar Cultural Center",
+      "venue_neighborhood": "West Bank, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Seattle-based Eric Howk (of Portugal, The Man) is joining Freaque in support of Unite 2 Fight Paralysis' 2nd Annual Rock for Spinal Cord Injury Research event. Eric is coming off the release of his solo album SKYKING las",
+      "url": "https://www.thecedar.org/events/u2fp-2nd-annual-rock-for-sci-research",
+      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1786459434632-2BR2CQSEPYRVIJVZNOA0/RockForResearch2026_Webgraphic.png",
+      "price": null,
+      "age": "All ages",
+      "source": "cedar"
+    },
+    {
+      "id": "crooners:2026-09-23:candi-jenkins-with-thomas-sticha",
       "date": "2026-09-23",
       "time": "20:00",
       "end_date": null,
-      "title": "Candi Jenkins",
+      "title": "Candi Jenkins with Thomas Sticha",
       "venue": "Crooners Supper Club",
       "venue_neighborhood": "The Belvedere at Crooners",
       "city": "Minneapolis",
       "category": "music",
       "subtitle": "Doors open at 6:45 PM for Dinner and Drink service. Candi Jenkins is an up-and-coming roots artist making a name for herself with classic yet modern songwriting that blends traditional country, Appala",
       "url": "https://www.croonersmn.com/event/candi-jenkins/",
-      "image": "https://www.croonersmn.com/wp-content/uploads/eventbrite-logos/79c8a8de4a1a68f849cf04cb65f2b4c7-scaled.jpg",
+      "image": "https://www.croonersmn.com/wp-content/uploads/eventbrite-logos/f7a7cff2db427b36500ea92770581059.jpg",
       "price": "$25–$35",
       "age": null,
       "source": "crooners"
@@ -6488,6 +6629,23 @@
       "price": "$15",
       "age": null,
       "source": "icehouse"
+    },
+    {
+      "id": "greenroom:2026-09-23:the-tear-garden-the-legendary-pink-dots-and-cevin-key",
+      "date": "2026-09-23",
+      "time": "20:00",
+      "end_date": null,
+      "title": "The Tear Garden (The Legendary Pink Dots & cEvin Key)",
+      "venue": "Green Room",
+      "venue_neighborhood": "Uptown, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "The Tear Garden’s conception can literally be traced back to a seat on an aeroplane high over Greenland in 1986. cEvin Key, composer and instrumentalist of an emerging Skinny Puppy had asked Edward Ka",
+      "url": "https://www.ticketmaster.com/event/060064A186B189C7",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "greenroom"
     },
     {
       "id": "whitesquirrel:2026-09-23:13-howell",
@@ -6830,6 +6988,23 @@
       "source": "riverview"
     },
     {
+      "id": "cedar:2026-09-24:gordi-s-carey-with-gracie-and-rachel",
+      "date": "2026-09-24",
+      "time": "19:30",
+      "end_date": null,
+      "title": "GORDI + S. CAREY with Gracie and Rachel",
+      "venue": "The Cedar Cultural Center",
+      "venue_neighborhood": "West Bank, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Gordi’s trademark is tender, cerebral pop songs full of poignant moments and surprising amounts of joy. Sean Carey’s songs explore themes of nature and sustainability, draw on jazz roots, and feature heartfelt, emotive l",
+      "url": "https://www.thecedar.org/events/the-cedar-presents-gordi-and-s-carey",
+      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1785345177786-23Y5LZ8YB5H5TTK61BCD/Minneapolis%2Bw%2BS%2BCarey%2BPoster%2B%252BG%252BR%2B45..png",
+      "price": null,
+      "age": "All ages",
+      "source": "cedar"
+    },
+    {
       "id": "guthrie:2026-09-24:19:30:waiting-for-godot",
       "date": "2026-09-24",
       "time": "19:30",
@@ -6879,6 +7054,23 @@
       "price": "$25–$35",
       "age": null,
       "source": "crooners"
+    },
+    {
+      "id": "greenroom:2026-09-24:snapz-live-band-open-mic",
+      "date": "2026-09-24",
+      "time": "20:00",
+      "end_date": null,
+      "title": "Snapz Live Band Open Mic",
+      "venue": "Green Room",
+      "venue_neighborhood": "Uptown, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Every Thursday featuring the Snapz House Band Open Mic list opens 7pm Get here early! Seats/ Tables are First Come First Serve",
+      "url": "https://www.greenroommn.com/events",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "greenroom"
     },
     {
       "id": "whitesquirrel:2026-09-24:ruben",
@@ -7289,6 +7481,23 @@
       "source": "berlin"
     },
     {
+      "id": "dakota:2026-09-25:the-belfast-cowboys",
+      "date": "2026-09-25",
+      "time": "19:00",
+      "end_date": "2026-09-25",
+      "title": "The Belfast Cowboys",
+      "venue": "Dakota Jazz Club",
+      "venue_neighborhood": "Downtown Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "“conjures up the spirit and the songs of Ireland’s greatest export” – Chicago Tribune The Belfast Cowboys is a nine-piece, horn-driven... Read More",
+      "url": "https://www.dakotacooks.com/event/the-belfast-cowboys-sep25-2026/",
+      "image": "https://www.dakotacooks.com/wp-content/uploads/2026/09/700x400-TheBelfastCowboys.jpg",
+      "price": null,
+      "age": "All ages",
+      "source": "dakota"
+    },
+    {
       "id": "varsity:2026-09-25:xavier-wulf-presents-the-cool-world-tour",
       "date": "2026-09-25",
       "time": "19:00",
@@ -7338,6 +7547,23 @@
       "price": null,
       "age": null,
       "source": "guthrie"
+    },
+    {
+      "id": "cedar:2026-09-25:first-avenue-presents-perfect-person-live-the-grey-area-tour",
+      "date": "2026-09-25",
+      "time": "20:00",
+      "end_date": null,
+      "title": "First Avenue presents Perfect Person Live: The Grey Area Tour",
+      "venue": "The Cedar Cultural Center",
+      "venue_neighborhood": "West Bank, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "The award-winning call-in advice show Perfect Person is back on tour! Miles Bonsignore expertly solves your morally ambiguous problems live on stage with his special guests, and explores what it means to be a perfect per",
+      "url": "https://www.thecedar.org/events/first-avenue-presents-perfect-person-live-the-grey-area-tour",
+      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1781104327818-G1GRX0DAGIKUL2DMBFL3/PerfectPerson-1080x1080.jpg",
+      "price": null,
+      "age": "All ages",
+      "source": "cedar"
     },
     {
       "id": "icehouse:2026-09-25:public-type-presents-papa-mbye-jakaarlo-with-special-guests-bird-dog-major-sosa-",
@@ -7423,6 +7649,23 @@
       "price": null,
       "age": null,
       "source": "trylon"
+    },
+    {
+      "id": "greenroom:2026-09-25:daft-disko-a-french-house-and-disco-party",
+      "date": "2026-09-25",
+      "time": "22:00",
+      "end_date": null,
+      "title": "Daft Disko [a french house & disco party]",
+      "venue": "Green Room",
+      "venue_neighborhood": "Uptown, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Daft Disko returns to Green Room Join us for a night of French House & Disco inspired by the music of: Daft Punk ⋅ Stardust ⋅ Breakbot ⋅ Flight Facilities ⋅ Giorgio Moroder ⋅ Modjo ⋅ Chic ⋅ Purple Dis",
+      "url": "https://t.venuepilot.com/e/daft-disko-a-french-house-disco-party-2026-09-25-green-room-minneapolis-e61451",
+      "image": null,
+      "price": "$15–$20",
+      "age": null,
+      "source": "greenroom"
     },
     {
       "id": "berlin:2026-09-25:late-night-lounge-dj-blue-funk",
@@ -8003,6 +8246,23 @@
       "source": "mysticlake"
     },
     {
+      "id": "cedar:2026-09-26:willi-carlisle-the-universal-bubba-tour-with-william-matheny",
+      "date": "2026-09-26",
+      "time": "20:00",
+      "end_date": null,
+      "title": "Willi Carlisle , The Universal Bubba Tour with William Matheny",
+      "venue": "The Cedar Cultural Center",
+      "venue_neighborhood": "West Bank, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Folksinger Willi Carlisle holds tight the conviction that love is bigger than hate, and no-one is expendable.",
+      "url": "https://www.thecedar.org/events/willi-carlisle",
+      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1783981130878-NKMXTLZL2Y4O0XNX2DGZ/Credit+Brooke+Cooper+PBT+Photography-6648.jpg",
+      "price": null,
+      "age": "All ages",
+      "source": "cedar"
+    },
+    {
       "id": "whitesquirrel:2026-09-26:one-big-quilt",
       "date": "2026-09-26",
       "time": "21:00",
@@ -8547,6 +8807,23 @@
       "source": "amsterdam"
     },
     {
+      "id": "cedar:2026-09-27:taikoarts-midwest-presents-taikogroove-with-enso-daiko-and-savage-aural-hotbed",
+      "date": "2026-09-27",
+      "time": "19:00",
+      "end_date": null,
+      "title": "TaikoArts Midwest presents TaikoGroove with EnsŌ Daiko and Savage Aural Hotbed",
+      "venue": "The Cedar Cultural Center",
+      "venue_neighborhood": "West Bank, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "TaikoArts Midwest presents TaikoGroove , a genre-defying collision of taiko tradition and industrial power. Ensō Daiko and Savage Aural Hotbed join forces for an electrifying night of high-energy percussion, found-object",
+      "url": "https://www.thecedar.org/events/taikoarts-midwest-presents-taikogroove-2026",
+      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1779991912980-78INNKK4JBNX8ZEIB3YZ/BG+Tour+publicity+photo+7.jpeg",
+      "price": null,
+      "age": "All ages",
+      "source": "cedar"
+    },
+    {
       "id": "icehouse:2026-09-27:the-schizophonics-burning-floor-tour-with-special-guest-fever-dog-and-the-ugly-c",
       "date": "2026-09-27",
       "time": "19:00",
@@ -8632,18 +8909,18 @@
       "source": "crooners"
     },
     {
-      "id": "whitesquirrel:2026-09-27:lilac-fortress",
+      "id": "whitesquirrel:2026-09-27:lilac-fortress-w-pleasure-cube",
       "date": "2026-09-27",
       "time": "21:00",
       "end_date": null,
-      "title": "Lilac Fortress",
+      "title": "Lilac Fortress w. Pleasure Cube",
       "venue": "White Squirrel Bar",
       "venue_neighborhood": "West End, St. Paul",
       "city": "St. Paul",
       "category": "music",
       "subtitle": null,
       "url": "https://whitesquirrelbar.com/event/lilac-fortress/",
-      "image": null,
+      "image": "https://whitesquirrelbar.com/wp-content/uploads/white-squirrel-flyer-92726-scaled.png",
       "price": null,
       "age": null,
       "source": "whitesquirrel"
@@ -9261,6 +9538,23 @@
       "source": "fillmore"
     },
     {
+      "id": "greenroom:2026-09-30:jackson-marshall",
+      "date": "2026-09-30",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Jackson Marshall",
+      "venue": "Green Room",
+      "venue_neighborhood": "Uptown, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Jackson Marshall crafts nostalgic indie-pop built on honesty and emotion. Songs like “Red Car” and “Darling” have introduced listeners to his vivid storytelling and timeless sense of melody, marking h",
+      "url": "https://t.venuepilot.com/e/jackson-marshall-2026-09-30-green-room-minneapolis-dd89b2",
+      "image": null,
+      "price": "$15–$20",
+      "age": null,
+      "source": "greenroom"
+    },
+    {
       "id": "331:2026-09-30:lenz-and-frenz",
       "date": "2026-09-30",
       "time": "19:00",
@@ -9344,6 +9638,23 @@
       "price": null,
       "age": null,
       "source": "guthrie"
+    },
+    {
+      "id": "cedar:2026-09-30:an-evening-with-sangjaru",
+      "date": "2026-09-30",
+      "time": "19:30",
+      "end_date": null,
+      "title": "An Evening with Sangjaru",
+      "venue": "The Cedar Cultural Center",
+      "venue_neighborhood": "West Bank, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Sangjaru is a captivating Korean folk fusion band that merges the energy of traditional Korean music with the infectious rhythms of gypsy swing, funk, rock, and improvisation.",
+      "url": "https://www.thecedar.org/events/an-evening-with-sangjaru",
+      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1785344212135-GBLPMM9DAJS7XX5BIAK0/MAIN-3-sangjaru-photo-by%2BYouseen%2BCheon.jpg",
+      "price": null,
+      "age": "All ages",
+      "source": "cedar"
     },
     {
       "id": "crooners:2026-09-30:leslie-vincent-gatl-ft-kellie-reichert",
@@ -10077,6 +10388,23 @@
       "source": "amsterdam"
     },
     {
+      "id": "cedar:2026-10-02:gyedu-blay-ambolley-with-obi-original-and-the-black-atlantics",
+      "date": "2026-10-02",
+      "time": "20:00",
+      "end_date": null,
+      "title": "Gyedu-Blay Ambolley with Obi Original and the Black Atlantics",
+      "venue": "The Cedar Cultural Center",
+      "venue_neighborhood": "West Bank, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "GYEDU-BLAY AMBOLLEY is a musical luminary hailing from Ghana, West Africa, with a staggering 29 albums under his belt. Known affectionately as the \"Simigwa Do Man,” Ambolley’s musical journey began in the vibrant port ci",
+      "url": "https://www.thecedar.org/events/gyedu-blay-ambolley",
+      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1784580736654-EP6NG3OVDNV5SJZZQP2S/Capture-One-Catalog0039.jpeg",
+      "price": null,
+      "age": "All ages",
+      "source": "cedar"
+    },
+    {
       "id": "mysticlake:2026-10-02:justin-moore",
       "date": "2026-10-02",
       "time": "20:00",
@@ -10451,6 +10779,23 @@
       "source": "amsterdam"
     },
     {
+      "id": "cedar:2026-10-03:iamjoy-with-anna-houston-and-maddie-thies",
+      "date": "2026-10-03",
+      "time": "20:00",
+      "end_date": null,
+      "title": "IAMJOY with Anna Houston and Maddie Thies",
+      "venue": "The Cedar Cultural Center",
+      "venue_neighborhood": "West Bank, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Minneapolis artist IAMJOY will be debuting her album What Is Getting Home? in the intimacy of The Cedar. Immerse yourself in her exploration of genres and introspective lines.",
+      "url": "https://www.thecedar.org/events/iamjoy",
+      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1787089628497-FGQJA0EZF402HFR9C7V9/IAMJOY_TShirt-01300.jpg",
+      "price": null,
+      "age": "All ages",
+      "source": "cedar"
+    },
+    {
       "id": "icehouse:2026-10-03:return-of-the-droppers",
       "date": "2026-10-03",
       "time": "20:00",
@@ -10766,7 +11111,7 @@
       "venue_neighborhood": "Main Stage Showroom",
       "city": "Minneapolis",
       "category": "music",
-      "subtitle": "Doors open at 5:30 PM for Dinner and Drink service. A Brilliant Modern Jazz Orchestra Inatnas Orchestra returns to the Twin Cities after a two-year hiatus! Featuring the music of composers Asuka Kakit",
+      "subtitle": "Doors open at 5:30 PM for Dinner and Drink service. A Brilliant Modern Jazz Orchestra Inatnas Orchestra returns to Crooners! Featuring the music of composers Asuka Kakitani and JC Sanford, the ensembl",
       "url": "https://www.croonersmn.com/event/inatnas-orchestra-the-music-of-asuka-kakitani-and-jc-sanford-2/",
       "image": "https://www.croonersmn.com/wp-content/uploads/eventbrite-logos/1fdd34a1099b8f03fefdc9a8af9d5cc2.jpg",
       "price": "$25–$35",
@@ -10857,6 +11202,40 @@
       "price": "$50–$60",
       "age": null,
       "source": "crooners"
+    },
+    {
+      "id": "cedar:2026-10-04:w-i-t-c-h",
+      "date": "2026-10-04",
+      "time": "19:30",
+      "end_date": null,
+      "title": "W.I.T.C.H.",
+      "venue": "The Cedar Cultural Center",
+      "venue_neighborhood": "West Bank, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "We Intend To Cause Havoc (W.I.T.C.H.) are progenitors of the Zamrock scene. Fusing Western rock and rhythm & blues with traditional African sounds, W.I.T.C.H. were among Zambia's most popular and influential bands in the",
+      "url": "https://www.thecedar.org/events/witch",
+      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1779804331967-3YHS26DJTN9X99MRRVXX/WITCH+2025+2+%28credit+Holly+Whitaker%29.jpg",
+      "price": null,
+      "age": "All ages",
+      "source": "cedar"
+    },
+    {
+      "id": "greenroom:2026-10-04:the-holdup",
+      "date": "2026-10-04",
+      "time": "20:00",
+      "end_date": null,
+      "title": "The Holdup",
+      "venue": "Green Room",
+      "venue_neighborhood": "Uptown, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "The Holdup is the musical project of Michael Garmany. Coming from San Jose, CA, he has built a cult following writing and producing his own brand of groovy, melody driven, pop music, borrowing influen",
+      "url": "https://www.ticketmaster.com/event/060064C4F0150FE3",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "greenroom"
     },
     {
       "id": "whitesquirrel:2026-10-04:sparrowhawk",
@@ -11012,6 +11391,23 @@
       "source": "crooners"
     },
     {
+      "id": "cedar:2026-10-05:ajj-dirty-old-power-tour-with-greet-death",
+      "date": "2026-10-05",
+      "time": "19:30",
+      "end_date": null,
+      "title": "AJJ , Dirty Old Power Tour with Greet Death",
+      "venue": "The Cedar Cultural Center",
+      "venue_neighborhood": "West Bank, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Ever since Sean Bonnette and Ben Gallaty formed AJJ back in 2004, it’s felt like the world has been playing catch-up. That’s because the band has always woven apocalyptic themes and imagery into many of its songs and lyr",
+      "url": "https://www.thecedar.org/events/ajj-with-greet-death",
+      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1785526268416-6FM0WA0MQAVIT2SFD6Y0/AJJ.jpg",
+      "price": null,
+      "age": "All ages",
+      "source": "cedar"
+    },
+    {
       "id": "trylon:2026-10-05:21:00:suspiria-in-4k",
       "date": "2026-10-05",
       "time": "21:00",
@@ -11097,6 +11493,23 @@
       "source": "guthrie"
     },
     {
+      "id": "cedar:2026-10-06:first-avenue-presents-national-park-after-dark-your-neck-of-the-woods-tour",
+      "date": "2026-10-06",
+      "time": "19:30",
+      "end_date": null,
+      "title": "First Avenue presents National Park After Dark: Your Neck of the Woods Tour",
+      "venue": "The Cedar Cultural Center",
+      "venue_neighborhood": "West Bank, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Welcome to National Park After Dark, a podcast for the morbid enthusiast. Hosted by two friends who share a passion for public lands and a fascination with what can go wrong there, each week hosts Danielle and Cassie exp",
+      "url": "https://www.thecedar.org/events/first-avenue-presents-national-park-after-dark",
+      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1785163324665-CTRA49TTGU4KP6JCI07T/NationalParkAfterDark-1080x1080.jpg",
+      "price": null,
+      "age": "All ages",
+      "source": "cedar"
+    },
+    {
       "id": "amsterdam:2026-10-06:gnash",
       "date": "2026-10-06",
       "time": "19:30",
@@ -11129,6 +11542,23 @@
       "price": null,
       "age": "21+",
       "source": "331"
+    },
+    {
+      "id": "greenroom:2026-10-06:pertinence",
+      "date": "2026-10-06",
+      "time": "20:00",
+      "end_date": null,
+      "title": "Pertinence",
+      "venue": "Green Room",
+      "venue_neighborhood": "Uptown, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://www.ticketmaster.com/event/06006426C7DBA083",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "greenroom"
     },
     {
       "id": "whitesquirrel:2026-10-06:main-street-free",
@@ -11335,6 +11765,40 @@
       "source": "crooners"
     },
     {
+      "id": "cedar:2026-10-07:first-avenue-presents-aliza-kelly-s-haunted-tea-party-the-spooky-season-astrolog",
+      "date": "2026-10-07",
+      "time": "19:30",
+      "end_date": null,
+      "title": "First Avenue presents ALIZA KELLY’S HAUNTED TEA PARTY: The Spooky Season Astrology Tour",
+      "venue": "The Cedar Cultural Center",
+      "venue_neighborhood": "West Bank, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Join celebrity astrologer Aliza Kelly for a very eerie brew; the tea is piping hot and anything can (and will) happen. What starts as an astrology experience slips into something stranger, spookier, and far more chaotic ",
+      "url": "https://www.thecedar.org/events/first-avenue-presents-aliza-kelly",
+      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1785871887592-UETUKSY2M294AD6OPQHE/AlizaKelly-1080x1080+%281%29.jpg",
+      "price": null,
+      "age": "All ages",
+      "source": "cedar"
+    },
+    {
+      "id": "greenroom:2026-10-07:red-pk",
+      "date": "2026-10-07",
+      "time": "20:00",
+      "end_date": null,
+      "title": "Red Pk",
+      "venue": "Green Room",
+      "venue_neighborhood": "Uptown, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://tickets.venuepilot.com/e/red-pk-chutes-2026-10-07-green-room-minneapolis-01179f",
+      "image": null,
+      "price": "$12–$18",
+      "age": null,
+      "source": "greenroom"
+    },
+    {
       "id": "icehouse:2026-10-07:wren-wilde-album-release-show-with-haley-e-rydell-trio",
       "date": "2026-10-07",
       "time": "20:00",
@@ -11384,6 +11848,23 @@
       "price": null,
       "age": null,
       "source": "trylon"
+    },
+    {
+      "id": "berlin:2026-10-07:the-cherry-pit-open-jam",
+      "date": "2026-10-07",
+      "time": "22:00",
+      "end_date": null,
+      "title": "The Cherry Pit Open Jam",
+      "venue": "Berlin",
+      "venue_neighborhood": "Downtown Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "NO COVER10:00pm Open Jam",
+      "url": "https://berlinmpls.com/calendar/the-cherry-pit-open-jam-minneapolis-oct-7-2026",
+      "image": "https://images.squarespace-cdn.com/content/v1/658316152e826a3bbbfc0aef/1783605536571-BITJA7BGGW8KL3YIK8AD/The+Cherry+Pit+%5Bcalendar+view%5D+UPDATED.png",
+      "price": null,
+      "age": "21+",
+      "source": "berlin"
     },
     {
       "id": "hennepinarts:2026-10-07:beck-ride-lonesome-tour-with-ioanna-gika",
@@ -11641,6 +12122,23 @@
       "source": "mnorch"
     },
     {
+      "id": "cedar:2026-10-08:anna-johnson-swarm-of-tongues-album-release-with-matthew-rahaim-and-davu-seru-an",
+      "date": "2026-10-08",
+      "time": "19:30",
+      "end_date": null,
+      "title": "Anna Johnson “Swarm of Tongues” Album Release with Matthew Rahaim & Davu Seru and GLASS (Annie Enneking & Kari Tweiten)",
+      "venue": "The Cedar Cultural Center",
+      "venue_neighborhood": "West Bank, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Minnesota-reared and Chicago-based, Anna Johnson celebrates the release of her debut LP Swarm of Tongues with a special hometown concert. She will be accompanied by Ben Baker Billington (percussion), Andrew Scott Young (",
+      "url": "https://www.thecedar.org/events/anna-johnson",
+      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1787672101662-NF6532J11EFQLCBJKUKU/Anna+by+Ricardo+E+Adame.jpg",
+      "price": null,
+      "age": "All ages",
+      "source": "cedar"
+    },
+    {
       "id": "guthrie:2026-10-08:19:30:waiting-for-godot",
       "date": "2026-10-08",
       "time": "19:30",
@@ -11860,6 +12358,23 @@
       "price": null,
       "age": null,
       "source": "guthrie"
+    },
+    {
+      "id": "cedar:2026-10-09:an-intimate-evening-with-copeland-with-special-guest-jenny-dee",
+      "date": "2026-10-09",
+      "time": "20:00",
+      "end_date": null,
+      "title": "An Intimate Evening with COPELAND with special guest Jenny Dee",
+      "venue": "The Cedar Cultural Center",
+      "venue_neighborhood": "West Bank, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Copeland is an American indie rock band formed in 2001 in Lakeland, Florida. Led by singer-songwriter, pianist and producer Aaron Marsh, the group is famous for its lush arrangements, rich keyboard textures, and abstract",
+      "url": "https://www.thecedar.org/events/an-intimate-evening-with-copeland-with-special-guest-jenny-dee",
+      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1781013333073-X3L5PUL4A8CZ87QZ7GEF/Copeland_FallTour_2026_2180x2700.png",
+      "price": null,
+      "age": "All ages",
+      "source": "cedar"
     },
     {
       "id": "amsterdam:2026-10-09:katie-pruitt",
@@ -12270,6 +12785,23 @@
       "source": "amsterdam"
     },
     {
+      "id": "cedar:2026-10-10:first-avenue-presents-syml-solo-in-north-america-with-roger-weeks",
+      "date": "2026-10-10",
+      "time": "20:00",
+      "end_date": null,
+      "title": "First Avenue presents SYML , Solo in North America with roger weeks",
+      "venue": "The Cedar Cultural Center",
+      "venue_neighborhood": "West Bank, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "SYML is the solo venture of Seattle artist Brian Fennell. Welsh for “simple”, he makes music that taps into the instincts that drive us to places of sanctuary, whether that be a place or a person.",
+      "url": "https://www.thecedar.org/events/syml",
+      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1776967776234-QG07FN3MF3WCOJ4L6VS0/SYML-1080x1080.jpg",
+      "price": null,
+      "age": "All ages",
+      "source": "cedar"
+    },
+    {
       "id": "trylon:2026-10-10:20:00:horrorthon-x",
       "date": "2026-10-10",
       "time": "20:00",
@@ -12559,6 +13091,23 @@
       "source": "crooners"
     },
     {
+      "id": "whitesquirrel:2026-10-11:potential-new-boyfriend-w-clawhammer-mike-and-the-old-time-barnstormers",
+      "date": "2026-10-11",
+      "time": "18:00",
+      "end_date": null,
+      "title": "Potential New Boyfriend w. Clawhammer Mike & The Old-Time Barnstormers",
+      "venue": "White Squirrel Bar",
+      "venue_neighborhood": "West End, St. Paul",
+      "city": "St. Paul",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://whitesquirrelbar.com/event/potential-new-boyfriend-w-clawhammer-mike-the-old-time-barnstormers/",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "whitesquirrel"
+    },
+    {
       "id": "crooners:2026-10-11:women-on-the-moon-with-lori-dokken",
       "date": "2026-10-11",
       "time": "18:30",
@@ -12841,7 +13390,7 @@
       "city": "Minneapolis",
       "category": "lecture",
       "subtitle": "If you're curious about the Loft's Year-Long Writing Project in Novel Writing, Creative Nonfiction with Sun Yung Shin, or Memoir with Kelly Sundberg, and which is right for you, come to this informal information session ",
-      "url": "https://loft.org/upcoming-events",
+      "url": "https://loft.org/events/2027-novel-writing-poetry-creative-nonfiction-memoir-and-fiction-writing-project-information",
       "image": null,
       "price": null,
       "age": null,
@@ -12933,6 +13482,23 @@
       "source": "guthrie"
     },
     {
+      "id": "greenroom:2026-10-13:new-band-night-40",
+      "date": "2026-10-13",
+      "time": "19:00",
+      "end_date": null,
+      "title": "New Band Night #40",
+      "venue": "Green Room",
+      "venue_neighborhood": "Uptown, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Green Room’s New Band Night. This biweekly series showcases newly formed projects and up-and-coming talent in the local music scene, spanning a wide variety of genres. Four fresh bands every other wee",
+      "url": "https://tickets.venuepilot.com/e/new-band-night-41-2026-10-13-green-room-minneapolis-c07ed1",
+      "image": null,
+      "price": "$7–$12",
+      "age": null,
+      "source": "greenroom"
+    },
+    {
       "id": "trylon:2026-10-13:19:00:the-conjuring-in-35mm",
       "date": "2026-10-13",
       "time": "19:00",
@@ -12948,6 +13514,23 @@
       "price": null,
       "age": null,
       "source": "trylon"
+    },
+    {
+      "id": "cedar:2026-10-13:jesse-roper-with-mae-simpson",
+      "date": "2026-10-13",
+      "time": "19:30",
+      "end_date": null,
+      "title": "JESSE ROPER with Mae Simpson",
+      "venue": "The Cedar Cultural Center",
+      "venue_neighborhood": "West Bank, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Canadian songwriter Jesse Roper is a master at connecting his personal story and experiences to his songwriting - crafting narratives that hit on life's challenges and eccentricities - but that remain upbeat, engaging an",
+      "url": "https://www.thecedar.org/events/jesse-roper-with-mae-simpson",
+      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1779978204458-8W1AHTHWX3A8KI4YUBCV/Photo+-+Jesse+Roper+-+EthosPhotography_3.jpg",
+      "price": null,
+      "age": "All ages",
+      "source": "cedar"
     },
     {
       "id": "331:2026-10-13:ditch-pigeon",
@@ -13129,7 +13712,7 @@
       "venue_neighborhood": "Longfellow, Minneapolis",
       "city": "Minneapolis",
       "category": "film",
-      "subtitle": "(2016, USA, 87m) dir Jorca Taccone and Akiva Schaffer. Childhood friends Conner (Andy Samberg), Owen (Jorma Taccone) and Lawrence (Akiva Schaffer) found fame and fortune after forming the hip-hop group the Style Boyz. Ow",
+      "subtitle": "(2016, 87m) dir Jorca Taccone and Akiva Schaffer. Childhood friends Conner (Andy Samberg), Owen (Jorma Taccone) and Lawrence (Akiva Schaffer) found fame and fortune after forming the hip-hop group the Style Boyz. Owen an",
       "url": "https://www.trylon.org/film/popstar-never-stop-never-stopping/",
       "image": "https://www.trylon.org/wp-content/uploads/2026/08/PostarStill.jpg",
       "price": null,
@@ -13171,6 +13754,23 @@
       "source": "sports"
     },
     {
+      "id": "cedar:2026-10-14:salin",
+      "date": "2026-10-14",
+      "time": "19:30",
+      "end_date": null,
+      "title": "Salin",
+      "venue": "The Cedar Cultural Center",
+      "venue_neighborhood": "West Bank, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Salin is a Thai-born, Canada-based drummer, Juno nominated producer and composer. Her current music explores the enchanting sounds of Northeast Thailand and marries it with the 70’s psychedelia of West Africa, all throug",
+      "url": "https://www.thecedar.org/events/salin",
+      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1785532753914-TEXERA51DDTMGX3DX769/Salin_USA_Tour_2026_PromoImage_16BIT_FULL.jpg",
+      "price": null,
+      "age": "All ages",
+      "source": "cedar"
+    },
+    {
       "id": "amsterdam:2026-10-14:the-moth-frenemies",
       "date": "2026-10-14",
       "time": "19:30",
@@ -13205,6 +13805,23 @@
       "source": "icehouse"
     },
     {
+      "id": "greenroom:2026-10-14:kels",
+      "date": "2026-10-14",
+      "time": "20:00",
+      "end_date": null,
+      "title": "KELS",
+      "venue": "Green Room",
+      "venue_neighborhood": "Uptown, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Originally from Pittsburgh, KELS built her career from the ground up—she moved to Atlanta and started cleaning houses by day to fund her music career, writing songs between jobs, and playing anywhere ",
+      "url": "https://www.ticketmaster.com/event/0600650EF08B9CFB",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "greenroom"
+    },
+    {
       "id": "whitesquirrel:2026-10-14:cole-diamond-s-whiskey-wednesdays",
       "date": "2026-10-14",
       "time": "21:00",
@@ -13220,6 +13837,23 @@
       "price": null,
       "age": null,
       "source": "whitesquirrel"
+    },
+    {
+      "id": "berlin:2026-10-14:the-cherry-pit-open-jam",
+      "date": "2026-10-14",
+      "time": "22:00",
+      "end_date": null,
+      "title": "The Cherry Pit Open Jam",
+      "venue": "Berlin",
+      "venue_neighborhood": "Downtown Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "NO COVER10:00pm Open Jam",
+      "url": "https://berlinmpls.com/calendar/the-cherry-pit-open-jam-minneapolis-oct-14-2026",
+      "image": "https://images.squarespace-cdn.com/content/v1/658316152e826a3bbbfc0aef/1783605536571-BITJA7BGGW8KL3YIK8AD/The+Cherry+Pit+%5Bcalendar+view%5D+UPDATED.png",
+      "price": null,
+      "age": "21+",
+      "source": "berlin"
     },
     {
       "id": "parkway:2026-10-14:conor-janda",
@@ -13373,6 +14007,23 @@
       "price": null,
       "age": "All ages",
       "source": "sports"
+    },
+    {
+      "id": "cedar:2026-10-15:an-evening-with-joshua-burnside",
+      "date": "2026-10-15",
+      "time": "19:30",
+      "end_date": null,
+      "title": "An Evening with Joshua Burnside",
+      "venue": "The Cedar Cultural Center",
+      "venue_neighborhood": "West Bank, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Joshua Burnside is a Northern Irish folk singer-songwriter based in Belfast. His music incorporates elements of Irish and Scottish folk music, Americana, sound collage and electronica. RIYL: Nick Drake, Tom Waits, Elliot",
+      "url": "https://www.thecedar.org/events/joshua-burnside",
+      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1783613921102-MTSUKD8UVXNYMNLOHQ0P/Joshua+Burnside+1.jpg",
+      "price": null,
+      "age": "All ages",
+      "source": "cedar"
     },
     {
       "id": "guthrie:2026-10-15:19:30:kunene-and-the-king",
@@ -13681,6 +14332,23 @@
       "source": "trylon"
     },
     {
+      "id": "greenroom:2026-10-16:reventon-rave",
+      "date": "2026-10-16",
+      "time": "22:00",
+      "end_date": null,
+      "title": "Reventon RAVE",
+      "venue": "Green Room",
+      "venue_neighborhood": "Uptown, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://tickets.venuepilot.com/e/reventon-perreo-360-2026-10-16-green-room-minneapolis-48a3a3",
+      "image": null,
+      "price": "$10–$20",
+      "age": null,
+      "source": "greenroom"
+    },
+    {
       "id": "parkway:2026-10-16:millsmoke-on-the-skyline-chris-koza-album-release-with-special-guests-dylan-hick",
       "date": "2026-10-16",
       "time": null,
@@ -13885,6 +14553,23 @@
       "source": "guthrie"
     },
     {
+      "id": "greenroom:2026-10-17:backyard-boombox-presents-shee",
+      "date": "2026-10-17",
+      "time": "20:00",
+      "end_date": null,
+      "title": "Backyard Boombox Presents: SHEE",
+      "venue": "Green Room",
+      "venue_neighborhood": "Uptown, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://t.venuepilot.com/e/backyard-boombox-presents-shee-2026-10-17-green-room-minneapolis-cc9909",
+      "image": null,
+      "price": "$10–$20",
+      "age": null,
+      "source": "greenroom"
+    },
+    {
       "id": "mysticlake:2026-10-17:kenny-wayne-shepherd-band-ledbetter-heights-30th-anniversary-tour",
       "date": "2026-10-17",
       "time": "20:00",
@@ -13900,6 +14585,23 @@
       "price": null,
       "age": null,
       "source": "mysticlake"
+    },
+    {
+      "id": "cedar:2026-10-17:laura-veirs-with-karl-blau",
+      "date": "2026-10-17",
+      "time": "20:00",
+      "end_date": null,
+      "title": "LAURA VEIRS with Karl Blau",
+      "venue": "The Cedar Cultural Center",
+      "venue_neighborhood": "West Bank, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Portland, OR-based singer-songwriter Laura Veirs has forged a career singing personal songs of romantic intoxication, everyday vignettes, and social commentary that are often heavy on introspection and intense character ",
+      "url": "https://www.thecedar.org/events/laura-veirs-with-karl-blau",
+      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1778282407874-58R0700DJXK4SPYA5SAF/LauraVeirs-AllShows-1080x1350-INSTAPOSTER-layered.png",
+      "price": null,
+      "age": "All ages",
+      "source": "cedar"
     },
     {
       "id": "trylon:2026-10-17:21:00:race-with-the-devil",
@@ -14191,6 +14893,23 @@
       "source": "guthrie"
     },
     {
+      "id": "cedar:2026-10-18:an-evening-with-richard-shindell-all-acoustic",
+      "date": "2026-10-18",
+      "time": "19:30",
+      "end_date": null,
+      "title": "An Evening with Richard Shindell , All Acoustic",
+      "venue": "The Cedar Cultural Center",
+      "venue_neighborhood": "West Bank, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Richard Shindell is a meticulous craftsman of song whose six studio albums and one live recording have been revered by critics and fans alike. Innovative, original and occasionally spiritual, Shindell's songs weave tales",
+      "url": "https://www.thecedar.org/events/richard-shindell-all-acoustic",
+      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1784039251934-MSBFVD58B32LHVSNV5K3/Richard-Shindell-by-Alejandro-Baccarat+%281%29.jpeg",
+      "price": null,
+      "age": "All ages",
+      "source": "cedar"
+    },
+    {
       "id": "hclib:2026-10-19:french-club",
       "date": "2026-10-19",
       "time": "13:00",
@@ -14359,6 +15078,23 @@
       "price": null,
       "age": null,
       "source": "guthrie"
+    },
+    {
+      "id": "cedar:2026-10-20:an-evening-with-windborne",
+      "date": "2026-10-20",
+      "time": "19:30",
+      "end_date": null,
+      "title": "An Evening with WINDBORNE",
+      "venue": "The Cedar Cultural Center",
+      "venue_neighborhood": "West Bank, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "With a 20-year background studying polyphonic music around the world, the four members of Windborne share a vibrant energy onstage.",
+      "url": "https://www.thecedar.org/events/an-evening-with-windborne",
+      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1780340536639-9IX376LTBDATC7R13U64/Windborne+Standard+Vocal+by+Jake+Jacobson.jpg",
+      "price": null,
+      "age": "All ages",
+      "source": "cedar"
     },
     {
       "id": "331:2026-10-20:ditch-pigeon",
@@ -14546,6 +15282,40 @@
       "price": "$15",
       "age": null,
       "source": "icehouse"
+    },
+    {
+      "id": "whitesquirrel:2026-10-21:lords-of-the-universe-w-thomas-richey-and-the-rowdy-gents",
+      "date": "2026-10-21",
+      "time": "21:00",
+      "end_date": null,
+      "title": "Lords of the Universe w. Thomas Richey & The Rowdy Gents",
+      "venue": "White Squirrel Bar",
+      "venue_neighborhood": "West End, St. Paul",
+      "city": "St. Paul",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://whitesquirrelbar.com/event/lords-of-the-universe-w-thomas-richey-the-rowdy-gents/",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "whitesquirrel"
+    },
+    {
+      "id": "berlin:2026-10-21:the-cherry-pit-open-jam",
+      "date": "2026-10-21",
+      "time": "22:00",
+      "end_date": null,
+      "title": "The Cherry Pit Open Jam",
+      "venue": "Berlin",
+      "venue_neighborhood": "Downtown Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "NO COVER10:00pm Open Jam",
+      "url": "https://berlinmpls.com/calendar/the-cherry-pit-open-jam-minneapolis-oct-21-2026",
+      "image": "https://images.squarespace-cdn.com/content/v1/658316152e826a3bbbfc0aef/1783605536571-BITJA7BGGW8KL3YIK8AD/The+Cherry+Pit+%5Bcalendar+view%5D+UPDATED.png",
+      "price": null,
+      "age": "21+",
+      "source": "berlin"
     },
     {
       "id": "hennepinarts:2026-10-21:indigo-girls-with-special-guest-linda-perry",
@@ -14752,6 +15522,23 @@
       "source": "guthrie"
     },
     {
+      "id": "cedar:2026-10-22:rz-shahid-and-friends-with-jandeltha-rae-righteous-emcee-and-brandyn-lee-tulloch",
+      "date": "2026-10-22",
+      "time": "19:30",
+      "end_date": null,
+      "title": "RZ Shahid & Friends with Jandeltha Rae, Righteous Emcee, and Brandyn Lee Tulloch with Poetic Roots",
+      "venue": "The Cedar Cultural Center",
+      "venue_neighborhood": "West Bank, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Welcome to RZ Shahid & Friends: a night celebrating the music of RZ Shahid and his talented friends. In a lineup built to uplift Black talent and music in Minnesota, expect a blend of Reggae, Hip-Hop & R&B from some of y",
+      "url": "https://www.thecedar.org/events/rz-shahid-and-friends",
+      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1788293781479-NG3FAEDBMUQKPKHMHNU9/RZ+Shahid+photo.jpg",
+      "price": null,
+      "age": "All ages",
+      "source": "cedar"
+    },
+    {
       "id": "icehouse:2026-10-22:ghost-wagon-album-release-party-w-becky-kapell",
       "date": "2026-10-22",
       "time": "20:00",
@@ -14905,6 +15692,23 @@
       "source": "crooners"
     },
     {
+      "id": "fillmore:2026-10-23:dogstar-all-in-now-tour",
+      "date": "2026-10-23",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Dogstar: ALL IN NOW TOUR",
+      "venue": "The Fillmore Minneapolis",
+      "venue_neighborhood": "North Loop, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://www.ticketmaster.com/dogstar-all-in-now-tour-minneapolis-minnesota-10-23-2026/event/06006522E5B3F702",
+      "image": "https://s1.ticketm.net/dam/a/b05/86458cb4-3b36-4038-a164-665231047b05_TABLET_LANDSCAPE_LARGE_16_9.jpg",
+      "price": null,
+      "age": null,
+      "source": "fillmore"
+    },
+    {
       "id": "331:2026-10-23:uspop",
       "date": "2026-10-23",
       "time": "19:00",
@@ -15005,6 +15809,23 @@
       "price": null,
       "age": "All ages",
       "source": "mnorch"
+    },
+    {
+      "id": "cedar:2026-10-23:maggie-koerner-upstate-tour",
+      "date": "2026-10-23",
+      "time": "20:00",
+      "end_date": null,
+      "title": "Maggie Koerner , Upstate Tour",
+      "venue": "The Cedar Cultural Center",
+      "venue_neighborhood": "West Bank, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "New Orleans-based songwriter Maggie Koerner released her debut solo album in 2011. Shortly thereafter, she had the opportunity to take over as the frontwoman for Galactic, gaining international attention for her fiery pe",
+      "url": "https://www.thecedar.org/events/maggie-koerner-upstate-tour",
+      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1787063701409-FCPNK7FG4M03C9L9JCH4/MK%2B2026%2BPRESS%2BPHOTO.jpg",
+      "price": null,
+      "age": "All ages",
+      "source": "cedar"
     },
     {
       "id": "trylon:2026-10-23:20:45:alucarda",
@@ -15109,6 +15930,23 @@
       "source": "hennepinarts"
     },
     {
+      "id": "greenroom:2026-10-24:family-gathering-concert-series-featuring-koo-koo-and-dj-hampster-dance",
+      "date": "2026-10-24",
+      "time": "10:00",
+      "end_date": null,
+      "title": "Family Gathering Concert Series - Featuring Koo Koo & DJ Hampster Dance",
+      "venue": "Green Room",
+      "venue_neighborhood": "Uptown, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Presented by the Minnesota Independent Venue Alliance (MNIVA) in partnership with the City of Minneapolis, the series invites kids, families, and neighbors to experience local music venues in a new wa",
+      "url": "https://app.opendate.io/e/family-gathering-concert-series-october-24-2026-745323",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "greenroom"
+    },
+    {
       "id": "guthrie:2026-10-24:13:00:kunene-and-the-king",
       "date": "2026-10-24",
       "time": "13:00",
@@ -15175,6 +16013,23 @@
       "price": "$30–$40",
       "age": null,
       "source": "crooners"
+    },
+    {
+      "id": "greenroom:2026-10-24:nur-d-hell-album-release-show",
+      "date": "2026-10-24",
+      "time": "18:00",
+      "end_date": null,
+      "title": "Nur-D HELL Album Release Show",
+      "venue": "Green Room",
+      "venue_neighborhood": "Uptown, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://www.greenroommn.com/events",
+      "image": null,
+      "price": "$20–$30",
+      "age": null,
+      "source": "greenroom"
     },
     {
       "id": "trylon:2026-10-24:19:00:alucarda",
@@ -16180,6 +17035,23 @@
       "source": "sports"
     },
     {
+      "id": "cedar:2026-10-29:good-emotional-man-with-dylan-hicks-and-small-screens",
+      "date": "2026-10-29",
+      "time": "19:30",
+      "end_date": null,
+      "title": "Good Emotional Man with Dylan Hicks & Small Screens",
+      "venue": "The Cedar Cultural Center",
+      "venue_neighborhood": "West Bank, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "An evening of guitar music, orchestrated laughtracks, mirth, and lavish songs. Celebrate the release of Laughter Helps with a collection of music that is as tuneful as it is experimental.",
+      "url": "https://www.thecedar.org/events/good-emotional-man",
+      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1788464515320-4JKV47ZJVOARG50PHRMI/GEM+press+photo.JPG",
+      "price": null,
+      "age": "All ages",
+      "source": "cedar"
+    },
+    {
       "id": "guthrie:2026-10-29:19:30:kunene-and-the-king",
       "date": "2026-10-29",
       "time": "19:30",
@@ -16263,6 +17135,23 @@
       "price": null,
       "age": null,
       "source": "parkway"
+    },
+    {
+      "id": "crooners:2026-10-30:suzanne-paris-and-benny-weinbeck",
+      "date": "2026-10-30",
+      "time": "17:00",
+      "end_date": null,
+      "title": "Suzanne Paris and Benny Weinbeck",
+      "venue": "Crooners Supper Club",
+      "venue_neighborhood": "Maggie’s Piano Lounge",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "No cover. Bar and table seating offered – NO RESERVATIONS. Suzanne Paris : Vocals Benny Weinbeck : Piano Maggie’s Piano Lounge is a warm, relaxed and inviting space featuring a variety of talented mus",
+      "url": "https://www.croonersmn.com/event/suzanne-paris-and-benny-weinbeck/",
+      "image": "https://www.croonersmn.com/wp-content/uploads/eventbrite-logos/4d51c84743a3636b01cf9b1d9773cb1e.jpg",
+      "price": "Free",
+      "age": null,
+      "source": "crooners"
     },
     {
       "id": "whitesquirrel:2026-10-30:chris-holm-and-friends",
@@ -16450,6 +17339,23 @@
       "price": null,
       "age": null,
       "source": "fillmore"
+    },
+    {
+      "id": "greenroom:2026-10-30:mi-casa-presents-haunted-disco",
+      "date": "2026-10-30",
+      "time": "22:00",
+      "end_date": null,
+      "title": "Mi Casa Presents HAUNTED DISCO",
+      "venue": "Green Room",
+      "venue_neighborhood": "Uptown, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://t.venuepilot.com/e/mi-casa-presents-haunted-disco-2026-10-30-green-room-minneapolis-60c617",
+      "image": null,
+      "price": "$10–$20",
+      "age": null,
+      "source": "greenroom"
     },
     {
       "id": "hennepinarts:2026-10-30:charlie-parr-featuring-dave-king-rooming-house-release-show",
@@ -16894,6 +17800,23 @@
       "source": "whitesquirrel"
     },
     {
+      "id": "greenroom:2026-11-01:lilyisthatyou",
+      "date": "2026-11-01",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Lilyisthatyou",
+      "venue": "Green Room",
+      "venue_neighborhood": "Uptown, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Hailing from Toronto, Lilyisthatyou is a genre-defying pop provocateur carving out her own lane at the intersection of dark pop, alt-rock, and electronic experimentation. Her music is equal parts sedu",
+      "url": "https://www.ticketmaster.com/event/0600649487745514",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "greenroom"
+    },
+    {
       "id": "ticketmaster:2026-11-01:sombr-you-are-the-reason-tour",
       "date": "2026-11-01",
       "time": "19:00",
@@ -17079,6 +18002,23 @@
       "price": null,
       "age": null,
       "source": "fillmore"
+    },
+    {
+      "id": "cedar:2026-11-03:jeremiah-chiu-and-josh-johnson",
+      "date": "2026-11-03",
+      "time": "19:30",
+      "end_date": null,
+      "title": "Jeremiah Chiu and Josh Johnson",
+      "venue": "The Cedar Cultural Center",
+      "venue_neighborhood": "West Bank, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Jeremiah Chiu is an LA-based synthesist widely recognized for his versatile electronic music as a solo artist, textured recordings in a duo with violist Marta Sofia Honer, and the experimental quintet he co-leads, SML. J",
+      "url": "https://www.thecedar.org/events/jeremiah-chiu-josh-johnson",
+      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1787928414054-0QD2F9C5PSXY0ZSN6D97/Untitled+design+%281%29.png",
+      "price": null,
+      "age": "All ages",
+      "source": "cedar"
     },
     {
       "id": "331:2026-11-03:elour",
@@ -17523,6 +18463,23 @@
       "source": "mysticlake"
     },
     {
+      "id": "cedar:2026-11-06:sold-out-bill-callahan",
+      "date": "2026-11-06",
+      "time": "20:00",
+      "end_date": null,
+      "title": "❗SOLD OUT❗ Bill Callahan",
+      "venue": "The Cedar Cultural Center",
+      "venue_neighborhood": "West Bank, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Inimitable songwriter Bill Callahan returns to The Cedar for an intimate solo performance.",
+      "url": "https://www.thecedar.org/events/bill-callahan",
+      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1786486157864-CIOR9H3GO6B4QHM8LXZ0/Bill+Callahan.jpg",
+      "price": null,
+      "age": "All ages",
+      "source": "cedar"
+    },
+    {
       "id": "berlin:2026-11-06:alex-koi-x-kirin-mcelwain",
       "date": "2026-11-06",
       "time": "20:00",
@@ -17642,6 +18599,23 @@
       "source": "whitesquirrel"
     },
     {
+      "id": "trylon:2026-11-07:16:45:wargames",
+      "date": "2026-11-07",
+      "time": "16:45",
+      "end_date": null,
+      "title": "Wargames",
+      "venue": "Trylon Cinema",
+      "venue_neighborhood": "Longfellow, Minneapolis",
+      "city": "Minneapolis",
+      "category": "film",
+      "subtitle": "(1983, 114m) dir John Badham w/Matthew Broderick, Ally Sheedy, John Wood. David (Broderick) is a precocious high schooler who wants only to use his computer savvy to manipulate his report card and impress his crush. But ",
+      "url": "https://www.trylon.org/film/wargames/",
+      "image": "https://www.trylon.org/wp-content/uploads/2026/08/WarGames_01individual_film.jpg",
+      "price": null,
+      "age": null,
+      "source": "trylon"
+    },
+    {
       "id": "fillmore:2026-11-07:arch-enemy-and-the-black-dahlia-murder-wrath-across-north-america-2026",
       "date": "2026-11-07",
       "time": "17:00",
@@ -17727,6 +18701,23 @@
       "source": "mnorch"
     },
     {
+      "id": "trylon:2026-11-07:19:00:wargames",
+      "date": "2026-11-07",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Wargames",
+      "venue": "Trylon Cinema",
+      "venue_neighborhood": "Longfellow, Minneapolis",
+      "city": "Minneapolis",
+      "category": "film",
+      "subtitle": "(1983, 114m) dir John Badham w/Matthew Broderick, Ally Sheedy, John Wood. David (Broderick) is a precocious high schooler who wants only to use his computer savvy to manipulate his report card and impress his crush. But ",
+      "url": "https://www.trylon.org/film/wargames/",
+      "image": "https://www.trylon.org/wp-content/uploads/2026/08/WarGames_01individual_film.jpg",
+      "price": null,
+      "age": null,
+      "source": "trylon"
+    },
+    {
       "id": "sports:2026-11-07:wild-vs-lightning",
       "date": "2026-11-07",
       "time": "19:00",
@@ -17810,6 +18801,40 @@
       "price": "$0–$40",
       "age": null,
       "source": "icehouse"
+    },
+    {
+      "id": "cedar:2026-11-07:the-cedar-and-walker-art-center-present-leenalchi",
+      "date": "2026-11-07",
+      "time": "20:00",
+      "end_date": null,
+      "title": "The Cedar and Walker Art Center Present LEENALCHI",
+      "venue": "The Cedar Cultural Center",
+      "venue_neighborhood": "West Bank, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Leenalchi is a seven-piece band from Seoul that draws on the folk storytelling tradition of pansori, and will remind you of the Talking Heads.Their line-up is as singular as their sound , featuring two bassists, drums, k",
+      "url": "https://www.thecedar.org/events/the-cedar-and-walker-art-center-present-leenalchi",
+      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1783709596246-DZ037OLIR9IGA8PCM2EQ/2619_glo.jpg",
+      "price": null,
+      "age": "All ages",
+      "source": "cedar"
+    },
+    {
+      "id": "trylon:2026-11-07:21:15:red-dawn",
+      "date": "2026-11-07",
+      "time": "21:15",
+      "end_date": null,
+      "title": "Red Dawn",
+      "venue": "Trylon Cinema",
+      "venue_neighborhood": "Longfellow, Minneapolis",
+      "city": "Minneapolis",
+      "category": "film",
+      "subtitle": "(1984, 114m) dir John Milius w/Patrick Swayze, C. Thomas Howell, Charlie Sheen, Lea Thompson. If Soviet and Latin American militaries invaded your Colorado high school campus during history class, what would you and your",
+      "url": "https://www.trylon.org/film/red-dawn/",
+      "image": "https://www.trylon.org/wp-content/uploads/2026/08/RedDawn_04individual_film.jpg",
+      "price": null,
+      "age": null,
+      "source": "trylon"
     },
     {
       "id": "hennepinarts:2026-11-07:mojo-brookzz-outta-pocket-tour",
@@ -17997,6 +19022,23 @@
       "price": null,
       "age": null,
       "source": "loft"
+    },
+    {
+      "id": "cedar:2026-11-08:teddy-thompson-with-jenna-nicholls",
+      "date": "2026-11-08",
+      "time": "19:30",
+      "end_date": null,
+      "title": "TEDDY THOMPSON with Jenna Nicholls",
+      "venue": "The Cedar Cultural Center",
+      "venue_neighborhood": "West Bank, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Called “one of the most gifted singer-songwriters of his generation” by The New York Times.“Teddy’s glorious tenor is bracing but warm and never showy.” The Associated Press. “Buoyant, soulful.” Billboard",
+      "url": "https://www.thecedar.org/events/teddy-thompson",
+      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1778162985112-0VRT2K99DI8J8ZF8AASH/TeddyThompson202516-scaled.jpg",
+      "price": null,
+      "age": "All ages",
+      "source": "cedar"
     },
     {
       "id": "parkway:2026-11-08:burn-and-bloom-prairie-fire-choir-season-finale-with-the-foxgloves",
@@ -18220,6 +19262,23 @@
       "source": "berlin"
     },
     {
+      "id": "cedar:2026-11-10:great-lake-swimmers-caught-light-tour-2026",
+      "date": "2026-11-10",
+      "time": "19:30",
+      "end_date": null,
+      "title": "Great Lake Swimmers , caught light tour 2026",
+      "venue": "The Cedar Cultural Center",
+      "venue_neighborhood": "West Bank, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Great Lake Swimmers founder Tony Dekker has always been akin to a wildlife photographer, often choosing to make records in unique surroundings with a connection to Ontario history. For the band’s latest album, Caught Lig",
+      "url": "https://www.thecedar.org/events/the-cedar-presents-great-lake-swimmers-caugh-light-tour-2026",
+      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1781639709376-1BGH6FSVQKGPTGVE6Z57/_Preferred_GLS_Trio_RobertGeorgeff.jpg",
+      "price": null,
+      "age": "All ages",
+      "source": "cedar"
+    },
+    {
       "id": "amsterdam:2026-11-10:the-moth-home-for-the-holidays",
       "date": "2026-11-10",
       "time": "19:30",
@@ -18320,6 +19379,23 @@
       "price": null,
       "age": "All ages",
       "source": "amsterdam"
+    },
+    {
+      "id": "greenroom:2026-11-11:dev-lemons",
+      "date": "2026-11-11",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Dev Lemons",
+      "venue": "Green Room",
+      "venue_neighborhood": "Uptown, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Dev Lemons has built a career by refusing to fit neatly into a single lane. Equal parts alt-pop artist, songwriter, comedian, and internet personality, she has cultivated a fiercely loyal audience thr",
+      "url": "https://www.ticketmaster.com/event/060064E7B173A2AC",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "greenroom"
     },
     {
       "id": "berlin:2026-11-11:john-carroll-kirby",
@@ -18645,6 +19721,23 @@
       "source": "mysticlake"
     },
     {
+      "id": "cedar:2026-11-13:too-big-burlesque",
+      "date": "2026-11-13",
+      "time": "20:00",
+      "end_date": null,
+      "title": "Too Big Burlesque",
+      "venue": "The Cedar Cultural Center",
+      "venue_neighborhood": "West Bank, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Too Big Burlesque is a celebration of spectacle, featuring big acts, bold ideas, larger-than-life performances, and unapologetic energy,because sometimes the world asks us to be small, and we dare to take up space.",
+      "url": "https://www.thecedar.org/events/too-big-burlesque",
+      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1788197842648-AVDPEDMD2583GWIORLV8/FB+Banner.png",
+      "price": null,
+      "age": "All ages",
+      "source": "cedar"
+    },
+    {
       "id": "mnorch:11926",
       "date": "2026-11-13",
       "time": "20:00",
@@ -18781,6 +19874,23 @@
       "source": "guthrie"
     },
     {
+      "id": "cedar:2026-11-14:chicago-farmer-and-the-fieldnotes-with-jack-klatt",
+      "date": "2026-11-14",
+      "time": "20:00",
+      "end_date": null,
+      "title": "Chicago Farmer & The Fieldnotes with Jack Klatt",
+      "venue": "The Cedar Cultural Center",
+      "venue_neighborhood": "West Bank, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "“After a few listens to the record it becomes apparent that Chicago Farmer has a refreshingly firm grip on where he comes from. The songs are covered to the elbows in dirt from the fields and smell of the sweaty factory ",
+      "url": "https://www.thecedar.org/events/chicago-farmer",
+      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1784054231507-F5WOGI8Y8XXNLIZQODW6/Chicago+Farmer.jpg",
+      "price": null,
+      "age": "All ages",
+      "source": "cedar"
+    },
+    {
       "id": "whitesquirrel:2026-11-14:clog",
       "date": "2026-11-14",
       "time": "21:00",
@@ -18796,6 +19906,23 @@
       "price": null,
       "age": null,
       "source": "whitesquirrel"
+    },
+    {
+      "id": "greenroom:2026-11-14:post-animal-maybe-you-have-to-tour",
+      "date": "2026-11-14",
+      "time": "22:00",
+      "end_date": null,
+      "title": "Post Animal: Maybe You Have To Tour",
+      "venue": "Green Room",
+      "venue_neighborhood": "Uptown, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Post Animal - Fresh off a breakout year that included 51 sold-out arena and theater shows supporting Djo, a packed Lollapalooza set, and a nearly sold-out U.S. headline tour, Post Animal has re-emerge",
+      "url": "https://t.venuepilot.com/e/post-animal-maybe-you-have-to-tour-2026-11-14-green-room-minneapolis-c675ce",
+      "image": null,
+      "price": "$0–$25",
+      "age": null,
+      "source": "greenroom"
     },
     {
       "id": "parkway:2026-11-14:ana-gasteyer-sugar-and-booze-holiday-spectacular",
@@ -18949,6 +20076,23 @@
       "price": null,
       "age": null,
       "source": "mysticlake"
+    },
+    {
+      "id": "greenroom:2026-11-15:token",
+      "date": "2026-11-15",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Token",
+      "venue": "Green Room",
+      "venue_neighborhood": "Uptown, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Powered by razor sharp wordplay, head-spinning verbal acrobatics, and off-kilter hooks, Token has morphed into an outlier in hip-hop. Growing up north of Boston, he began producing tracks in a rapid-f",
+      "url": "https://www.ticketmaster.com/event/060064EAE6551DFF",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "greenroom"
     },
     {
       "id": "amsterdam:2026-11-15:vaultboy",
@@ -19272,6 +20416,23 @@
       "price": null,
       "age": null,
       "source": "ticketmaster"
+    },
+    {
+      "id": "cedar:2026-11-19:jake-blount-with-sprig-of-that",
+      "date": "2026-11-19",
+      "time": "19:30",
+      "end_date": null,
+      "title": "JAKE BLOUNT with Sprig of That",
+      "venue": "The Cedar Cultural Center",
+      "venue_neighborhood": "West Bank, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Jake Blount is a performer and scholar of Black folk music based in Providence, RI. Initially recognized for his skill as a string-band musician, Blount has synthesized his scholarly and artistic pursuits into a diverse ",
+      "url": "https://www.thecedar.org/events/the-cedar-presents-jake-blount-with-sprig-of-that",
+      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1783955207265-P5HF01X35HA6BXQ1VHF5/Image+7-13-26+at+9.53%E2%80%AFAM.jpeg",
+      "price": null,
+      "age": "All ages",
+      "source": "cedar"
     },
     {
       "id": "parkway:2026-11-19:davide-de-pierro-the-letters-i-never-sent",
@@ -19614,6 +20775,23 @@
       "source": "guthrie"
     },
     {
+      "id": "cedar:2026-11-21:an-evening-with-john-gorka",
+      "date": "2026-11-21",
+      "time": "20:00",
+      "end_date": null,
+      "title": "An Evening with JOHN GORKA",
+      "venue": "The Cedar Cultural Center",
+      "venue_neighborhood": "West Bank, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "\"Rules of art were made to be shattered. When broken by accident, that's gaucheness. When broken on purpose, well, that's style. John Gorka's technique breaks free from the rules of modern music” , Huffington Post.“The l",
+      "url": "https://www.thecedar.org/events/an-evening-with-john-gorka-2026",
+      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1784150166960-CQ33PSGHB804M3GOILCO/gorka2026.jpg",
+      "price": null,
+      "age": "All ages",
+      "source": "cedar"
+    },
+    {
       "id": "crooners:2026-11-21:irving-berlin-i-ve-got-plenty-to-be-thankful-for",
       "date": "2026-11-21",
       "time": "20:00",
@@ -19799,6 +20977,23 @@
       "price": null,
       "age": null,
       "source": "guthrie"
+    },
+    {
+      "id": "cedar:2026-11-22:an-evening-with-alla-boara",
+      "date": "2026-11-22",
+      "time": "19:30",
+      "end_date": null,
+      "title": "An Evening with Alla Boara",
+      "venue": "The Cedar Cultural Center",
+      "venue_neighborhood": "West Bank, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Alla Boara seeks to bring recognition and new life to Italy’s diverse regional folk music. With modern arrangements that are surprising, playful, and tender, Alla Boara’s songs move audiences from all backgrounds to trea",
+      "url": "https://www.thecedar.org/events/the-cedar-presents-an-evening-with-alla-boara",
+      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1784753891270-JA3WC8CJFKN8ZOV85330/B22A4677.jpg",
+      "price": null,
+      "age": "All ages",
+      "source": "cedar"
     },
     {
       "id": "hennepinarts:2026-11-22:maybe-happy-ending",
@@ -20241,23 +21436,6 @@
       "price": null,
       "age": null,
       "source": "fillmore"
-    },
-    {
-      "id": "guthrie:2026-11-29:18:00:a-christmas-carol",
-      "date": "2026-11-29",
-      "time": "18:00",
-      "end_date": null,
-      "title": "A Christmas Carol",
-      "venue": "Guthrie Theater",
-      "venue_neighborhood": "Mill District, Minneapolis",
-      "city": "Minneapolis",
-      "category": "performance",
-      "subtitle": null,
-      "url": "https://www.guthrietheater.org/whats-on/a-christmas-carol-2026/",
-      "image": null,
-      "price": null,
-      "age": null,
-      "source": "guthrie"
     },
     {
       "id": "whitesquirrel:2026-11-29:r-and-r-sundays",
@@ -20787,6 +21965,23 @@
       "source": "crooners"
     },
     {
+      "id": "icehouse:2026-12-06:twin-cities-flamenco-collective",
+      "date": "2026-12-06",
+      "time": "17:00",
+      "end_date": null,
+      "title": "Twin Cities Flamenco Collective",
+      "venue": "Icehouse",
+      "venue_neighborhood": "Whittier, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "4pm Doors",
+      "url": "https://icehouse.turntabletickets.com/p/34640/?utm_source=bestofmpls.com&utm_medium=referral",
+      "image": "https://assets-prod.turntabletickets.com/media/icehouse/show-9411/Icehouse_Static_Flyer.jpg",
+      "price": "$15",
+      "age": null,
+      "source": "icehouse"
+    },
+    {
       "id": "fillmore:2026-12-06:dragonforce-inhuman-rampage-20th-anniversary",
       "date": "2026-12-06",
       "time": "17:30",
@@ -20821,6 +22016,23 @@
       "source": "crooners"
     },
     {
+      "id": "crooners:2026-12-07:lori-dokken",
+      "date": "2026-12-07",
+      "time": "17:00",
+      "end_date": null,
+      "title": "Lori Dokken",
+      "venue": "Crooners Supper Club",
+      "venue_neighborhood": "Maggie’s Piano Lounge",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "No cover. Bar and table seating offered – NO RESERVATIONS. Lori Dokken : Piano and Vocals Maggie’s Piano Lounge is a warm, relaxed and inviting space featuring a variety of seasoned singers and piano ",
+      "url": "https://www.croonersmn.com/event/lori-dokken-10/",
+      "image": "https://www.croonersmn.com/wp-content/uploads/eventbrite-logos/8aaa177f9e60a60ecd0eb907d71d6df4.jpg",
+      "price": "Free",
+      "age": null,
+      "source": "crooners"
+    },
+    {
       "id": "fillmore:2026-12-07:imminence-axis-mundi-tour-north-america-2026",
       "date": "2026-12-07",
       "time": "17:30",
@@ -20836,6 +22048,57 @@
       "price": null,
       "age": null,
       "source": "fillmore"
+    },
+    {
+      "id": "crooners:2026-12-07:a-charlie-brown-christmas-with-the-tanner-taylor-trio",
+      "date": "2026-12-07",
+      "time": "18:00",
+      "end_date": null,
+      "title": "A Charlie Brown Christmas with the Tanner Taylor Trio",
+      "venue": "Crooners Supper Club",
+      "venue_neighborhood": "Dunsmore Jazz Room",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Doors open at 5:00 PM for Dinner and Drink Service. Hear the classic score from composer Vince Guaraldi, performed by one of the region’s finest piano trios. It’s guaranteed to put a smile on your fac",
+      "url": "https://www.croonersmn.com/event/a-charlie-brown-christmas-with-the-tanner-taylor-trio-8/",
+      "image": "https://www.croonersmn.com/wp-content/uploads/eventbrite-logos/343c0794cdca416eeb647c682503ae79.jpg",
+      "price": "$30–$40",
+      "age": null,
+      "source": "crooners"
+    },
+    {
+      "id": "whitesquirrel:2026-12-07:higher-ground-w-noir",
+      "date": "2026-12-07",
+      "time": "18:00",
+      "end_date": null,
+      "title": "Higher Ground w. NOIR",
+      "venue": "White Squirrel Bar",
+      "venue_neighborhood": "West End, St. Paul",
+      "city": "St. Paul",
+      "category": "music",
+      "subtitle": "Higher Ground is a Minneapolis-based Jazz-Funk band playing original music rooted in soul and jazz, with influences ranging from Stevie Wonder to Sade. NOIR is a R&B band with influences of alternativ",
+      "url": "https://whitesquirrelbar.com/event/higher-ground-w-noir/",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "whitesquirrel"
+    },
+    {
+      "id": "crooners:2026-12-07:jennifer-grimm-a-christmas-with-family-and-friends",
+      "date": "2026-12-07",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Jennifer Grimm: A Christmas with Family and Friends",
+      "venue": "Crooners Supper Club",
+      "venue_neighborhood": "Main Stage Showroom",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Doors open at 6:00 PM for Dinner and Drink Service. A Wonderful Night of Holiday Originals and Great Classics Jennifer shares the stage with her friends and family as they celebrate the season with ne",
+      "url": "https://www.croonersmn.com/event/jennifer-grimm-a-christmas-with-family-and-friends-9/",
+      "image": "https://www.croonersmn.com/wp-content/uploads/eventbrite-logos/175fda13d2fd138a9d557a3d1179045d.jpg",
+      "price": "$35–$45",
+      "age": null,
+      "source": "crooners"
     },
     {
       "id": "mnorch:12068",
@@ -21380,6 +22643,23 @@
       "price": null,
       "age": "All ages",
       "source": "sports"
+    },
+    {
+      "id": "parkway:2026-12-15:cyril-neville-with-special-guest-king-youngblood",
+      "date": "2026-12-15",
+      "time": null,
+      "end_date": null,
+      "title": "Cyril Neville with special guest King Youngblood",
+      "venue": "The Parkway Theater",
+      "venue_neighborhood": "Standish, Minneapolis",
+      "city": "Minneapolis",
+      "category": "performance",
+      "subtitle": "One of the founding fathers of the New Orleans sound, Cyril Neville comes to Minneapolis! A not-to-be-missed night for fans of the Wild Tchoupitoulas, the Meters, Uptown Ruler, Neville Brothers, and lovers of New Orleans",
+      "url": "https://theparkwaytheater.com/all-events/cyril-neville",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "parkway"
     },
     {
       "id": "hennepinarts:2026-12-15:loyce-houlton-s-nutcracker-fantasy",
@@ -22538,6 +23818,40 @@
       "source": "guthrie"
     },
     {
+      "id": "guthrie:2027-01-06:13:00:and-then-there-were-none",
+      "date": "2027-01-06",
+      "time": "13:00",
+      "end_date": null,
+      "title": "And Then There Were None",
+      "venue": "Guthrie Theater",
+      "venue_neighborhood": "Mill District, Minneapolis",
+      "city": "Minneapolis",
+      "category": "performance",
+      "subtitle": null,
+      "url": "https://www.guthrietheater.org/whats-on/and-then-there-were-none/",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "guthrie"
+    },
+    {
+      "id": "guthrie:2027-01-06:19:00:and-then-there-were-none",
+      "date": "2027-01-06",
+      "time": "19:00",
+      "end_date": null,
+      "title": "And Then There Were None",
+      "venue": "Guthrie Theater",
+      "venue_neighborhood": "Mill District, Minneapolis",
+      "city": "Minneapolis",
+      "category": "performance",
+      "subtitle": null,
+      "url": "https://www.guthrietheater.org/whats-on/and-then-there-were-none/",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "guthrie"
+    },
+    {
       "id": "mnorch:11942",
       "date": "2027-01-08",
       "time": "20:00",
@@ -23354,6 +24668,23 @@
       "source": "mnorch"
     },
     {
+      "id": "hennepinarts:2027-02-20:kathy-mattea",
+      "date": "2027-02-20",
+      "time": null,
+      "end_date": null,
+      "title": "Kathy Mattea",
+      "venue": "Pantages Theatre",
+      "venue_neighborhood": "Downtown Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://hennepinarts.org/events/kathy-mattea-2027",
+      "image": "https://images.ctfassets.net/sjxdiqjbm079/6Dlz81n8xs4GidpIsegmDl/d9f42cea52bb5b96af6a09bb3e60aaa8/KM1_RetoSterchi.jpg",
+      "price": null,
+      "age": null,
+      "source": "hennepinarts"
+    },
+    {
       "id": "mnorch:12104",
       "date": "2027-02-21",
       "time": "14:00",
@@ -23575,6 +24906,23 @@
       "source": "mnorch"
     },
     {
+      "id": "cedar:2027-03-13:first-avenue-presents-dan-and-peggy-reeder",
+      "date": "2027-03-13",
+      "time": "20:00",
+      "end_date": null,
+      "title": "First Avenue presents DAN AND PEGGY REEDER",
+      "venue": "The Cedar Cultural Center",
+      "venue_neighborhood": "West Bank, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "The cult-favorite-folk songwriter Dan Reeder performs alongside his angelic-voiced daughter, Peggy Reeder, whose voice has brought a fresh spark to his sound in their live shows these past two years.",
+      "url": "https://www.thecedar.org/events/first-avenue-presents-dan-and-peggy-reeder",
+      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1783958636863-5Z33Z320MOIFXFGT6AY9/DanPeggyReeder-1080x1080.jpg",
+      "price": null,
+      "age": "All ages",
+      "source": "cedar"
+    },
+    {
       "id": "mnorch:11963",
       "date": "2027-03-18",
       "time": "11:00",
@@ -23675,6 +25023,23 @@
       "price": null,
       "age": "All ages",
       "source": "mnorch"
+    },
+    {
+      "id": "cedar:2027-04-01:the-cedar-and-walker-art-center-present-sml",
+      "date": "2027-04-01",
+      "time": "19:30",
+      "end_date": null,
+      "title": "The Cedar and Walker Art Center Present SML",
+      "venue": "The Cedar Cultural Center",
+      "venue_neighborhood": "West Bank, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "SML is a quintet composed of luminaries from Los Angeles’s thriving jazz, improvised, and indie music scenes: bassist Anna Butterss (Jeff Parker, Jason Isbell, Phoebe Bridgers, Makaya McCraven), synthesist Jeremiah Chiu ",
+      "url": "https://www.thecedar.org/events/the-cedar-and-walker-art-center-present-sml",
+      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1783703917749-SPOZPS4UCRQTHT1EY93Q/_1_000303070010_CharlieWeinmann_1-SMALLER.jpeg",
+      "price": null,
+      "age": "All ages",
+      "source": "cedar"
     },
     {
       "id": "mnorch:11969",
@@ -23947,6 +25312,23 @@
       "price": null,
       "age": "All ages",
       "source": "mnorch"
+    },
+    {
+      "id": "cedar:2027-05-01:carsie-blanton",
+      "date": "2027-05-01",
+      "time": "20:00",
+      "end_date": null,
+      "title": "Carsie Blanton",
+      "venue": "The Cedar Cultural Center",
+      "venue_neighborhood": "West Bank, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "The Cedar is proud to welcome our friend, the incomparable Carsie Blanton, back to our stage next Summer. Carsie is a songwriter with hooks, chutzpah, and revolutionary optimism. A radical folk artist in the tradition of",
+      "url": "https://www.thecedar.org/events/carsie-blanton-2027",
+      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1788298531111-Y1RDXWNMDTGD3QC3KS7D/BobbyBonsey-3444-6.jpg",
+      "price": null,
+      "age": "All ages",
+      "source": "cedar"
     },
     {
       "id": "mnorch:11983",
