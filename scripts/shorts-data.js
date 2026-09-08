@@ -27,10 +27,20 @@ const dayChip = isoDate => {
 const stripHype = t => t.replace(/^(LATE SHOW ADDED!|JUST ANNOUNCED[:!]?|2ND SHOW ADDED!|SOLD OUT[:!]?)\s*/i, '');
 const clean = e => ({
   chip: dayChip(e.date) + (e.time ? ' · ' + fmt12(e.time) : ''),
-  title: stripHype(e.title).length > 46 ? stripHype(e.title).slice(0, 44).replace(/\s+\S*$/, '') + '…' : stripHype(e.title),
+  title: stripHype(e.title).trim(),
   venue: e.venue || '',
 });
 const noise = e => !e.title || /\*|CANCEL|POSTPONE/i.test(e.title) || e.category === 'sports';
+// Display quality gate: a title either fits the card cleanly or the show is
+// skipped for one that does. Never truncate, never show scraper junk.
+// (Josh, 2026-09-08: "i never want to see a garbage image like this.")
+const displayable = e => {
+  const t = stripHype(e.title).trim();
+  return t.length <= 40
+    && !/[#\/|@~^]|\.{3}|\bannual\b|\bpresents\b|\bfeat\b|\bw\//i.test(t)
+    && t === t.replace(/\s{2,}/g, ' ')
+    && (e.venue || '').length <= 30;
+};
 // Max one pick per venue so five list slots show five rooms, not one venue's week.
 function diversify(list, n) {
   const seen = new Set(); const out = [];
@@ -48,6 +58,7 @@ const SHOWY = new Set(['music', 'performance', 'film', 'art', 'festival']);
 const free = events
   .filter(e => e.date >= todayIso && e.date <= weekEnd && !noise(e) && (/\bfree\b|no cover/i.test(e.price || '') || /\bfree\b|no cover/i.test(e.subtitle || '')))
   .filter(e => SHOWY.has(e.category))
+  .filter(displayable)
   .sort((a, b) => (a.date + (a.time || '')).localeCompare(b.date + (b.time || '')));
 const freePicks = diversify(free, 5);
 
@@ -59,6 +70,7 @@ const sun = iso(addDays(today, daysToFri + 2));
 const MARQUEE = /first avenue|7th st|orpheum|state theatre|pantages|guthrie|orchestra hall|dakota|fillmore|palace|armory|fine line|varsity|turf club|icehouse|cedar|parkway|uptown theater|grand casino|target center/i;
 const wkd = events
   .filter(e => e.date >= fri && e.date <= sun && !noise(e))
+  .filter(displayable)
   .sort((a, b) => (MARQUEE.test(b.venue || '') ? 1 : 0) - (MARQUEE.test(a.venue || '') ? 1 : 0)
     || (a.date + (a.time || '')).localeCompare(b.date + (b.time || '')));
 // Diversify per day (a single dedupe across days spends every slot on Friday).
