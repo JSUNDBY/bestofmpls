@@ -182,6 +182,34 @@ function loadEvents() {
   return out;
 }
 
+// The one human paragraph — Josh's real observation, drafted from his Sunday
+// note and committed to src/data/newsletter-note.json by the Sunday-night
+// task. Only used when fresh (within 7 days); a stale note never repeats and
+// the email degrades gracefully to no note. This paragraph is the whole
+// authenticity budget: never fabricate one.
+function loadNote() {
+  const p = path.join(ROOT, 'src/data/newsletter-note.json');
+  if (!fs.existsSync(p)) return null;
+  try {
+    const n = JSON.parse(fs.readFileSync(p, 'utf8'));
+    if (!n.paragraph || !n.date) return null;
+    const age = (now() - new Date(n.date + 'T12:00:00')) / 86400000;
+    return age >= 0 && age < 7 ? n : null;
+  } catch (_) { return null; }
+}
+
+// Email-only ticket giveaway (src/data/giveaway.json: {show, venue, date,
+// closes, prize}). Reply-to-enter: replies also feed deliverability.
+function loadGiveaway() {
+  const p = path.join(ROOT, 'src/data/giveaway.json');
+  if (!fs.existsSync(p)) return null;
+  try {
+    const g = JSON.parse(fs.readFileSync(p, 'utf8'));
+    if (!g.show || !g.closes) return null;
+    return g.closes >= todayISO() ? g : null;
+  } catch (_) { return null; }
+}
+
 function loadHoroscope() {
   if (!fs.existsSync(HOROSCOPE_FILE)) return null;
   return JSON.parse(fs.readFileSync(HOROSCOPE_FILE, 'utf8'));
@@ -238,6 +266,8 @@ function divider() {
 }
 
 // Short day stamp for the week-overview rows, e.g. "Fri · Jun 27".
+const esc = t => String(t == null ? '' : t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
 function fmtDay(iso) {
   const [y, m, d] = iso.split('-').map(Number);
   return new Date(y, m - 1, d).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
@@ -454,7 +484,57 @@ function sponsorHtml() {
   </td></tr>`;
 }
 
-function buildHtml(events, happyHour, horoscope, artWeek) {
+// The reader's lane leads: Kit Liquid swaps this block per subscriber tag
+// (lane-* tags applied at signup). One broadcast, personalized first card.
+// Verify with Kit's preview-as-subscriber before trusting a template change.
+function laneLeadHtml(events, artWeek) {
+  const first = (list) => list && list.length ? list[0] : null;
+  const card = (label, e) => e ? `
+      <tr><td style="padding:18px 32px 0 32px;">
+        <div style="border-left:3px solid ${C.clay};padding:12px 18px;background:${C.wash};">
+          <div style="font:700 11px/1 ${FONT};letter-spacing:0.08em;text-transform:uppercase;color:${C.clay};">Your lane first · ${label}</div>
+          <div style="font:700 17px/1.35 ${FONT};color:${C.ink};margin-top:6px;">${esc(e.title)}</div>
+          <div style="font:400 13px/1.4 ${FONT};color:${C.soft};margin-top:3px;">${esc(e.venue || '')}${e.date ? ' · ' + fmtDay(e.date) : ''}</div>
+        </div>
+      </td></tr>` : '';
+  const music = first(events.filter(e => e.category === 'music'));
+  const art = first(artWeek && artWeek.openings || []);
+  const stages = first(events.filter(e => e.category === 'performance'));
+  const free = first(events.filter(e => /free|no cover/i.test(e.price || '')));
+  const blocks = [
+    ['lane-music', card('Live music', music)],
+    ['lane-art', card('Art', art)],
+    ['lane-stages', card('Stages', stages)],
+    ['lane-free', card('Free', free)],
+  ].filter(([, html]) => html);
+  if (!blocks.length) return '';
+  return blocks.map(([tag, html], i) =>
+    `{% ${i === 0 ? 'if' : 'elsif'} subscriber.tags contains "${tag}" %}${html}`
+  ).join('') + '{% endif %}';
+}
+
+function noteHtml(note) {
+  if (!note) return '';
+  return `
+      <tr><td style="padding:20px 32px 0 32px;">
+        <div style="font:400 15px/1.65 ${FONT};color:${C.ink};">${note.paragraph}</div>
+        <div style="font:600 13px/1 ${FONT};color:${C.faint};margin-top:8px;">— Josh</div>
+      </td></tr>`;
+}
+
+function giveawayHtml(g) {
+  if (!g) return '';
+  return `
+      <tr><td style="padding:20px 32px 0 32px;">
+        <div style="background:${C.ink};padding:16px 20px;">
+          <div style="font:700 11px/1 ${FONT};letter-spacing:0.08em;text-transform:uppercase;color:${C.clay};">Email-only giveaway</div>
+          <div style="font:700 17px/1.35 ${FONT};color:#F4F2EC;margin-top:6px;">${esc(g.prize || '2 tickets')}: ${esc(g.show)}</div>
+          <div style="font:400 13px/1.5 ${FONT};color:#B8B8B4;margin-top:4px;">${esc(g.venue || '')}${g.date ? ' · ' + fmtDay(g.date) : ''}. Reply to this email to enter; we draw ${fmtDay(g.closes)}.</div>
+        </div>
+      </td></tr>`;
+}
+
+function buildHtml(events, happyHour, horoscope, artWeek, note, giveaway) {
   const label = weekLabel();
   const count = events.length;
   const preheader = count
@@ -478,6 +558,9 @@ function buildHtml(events, happyHour, horoscope, artWeek) {
         <div style="font:400 15px/1.5 ${FONT};color:${C.soft};margin-top:10px;">Everything worth doing in Minneapolis and St. Paul this week, in one place.</div>
       </td></tr>
       ${sponsorHtml()}
+      ${noteHtml(note)}
+      ${laneLeadHtml(events, artWeek)}
+      ${giveawayHtml(giveaway)}
 
       ${sectionHead('The week ahead', 'What\'s on, by scene')}
       ${showsHtml(events)}
@@ -573,7 +656,7 @@ async function main() {
 
   const subject = buildSubject();
   const artWeek = loadArtWeek();
-  const html    = buildHtml(events, happyHour, horoscope, artWeek);
+  const html    = buildHtml(events, happyHour, horoscope, artWeek, loadNote(), loadGiveaway());
 
   console.log(`\n  Subject: ${subject}`);
   console.log(`  HTML length: ${html.length} chars\n`);

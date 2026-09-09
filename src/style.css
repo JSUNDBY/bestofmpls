@@ -6906,3 +6906,12 @@ html[data-mode="dark"] .home-board { background: #050505; border-top: 1px solid 
 .essay .essay-note p { font-size: 15.5px; margin: 0 0 10px; color: var(--ink-soft); }
 .essay .essay-note p:last-child { margin-bottom: 0; }
 .essay .stat-callout { font-family: var(--font-display); font-size: clamp(20px, 2.6vw, 26px); font-weight: 800; line-height: 1.35; border-top: 2px solid var(--rule); border-bottom: 2px solid var(--rule); padding: 22px 0; margin: 36px 0; }
+
+/* Newsletter lane picker: one optional question, chip-styled radios */
+.newsletter-lanes { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 12px; }
+.newsletter-lanes-label { font-family: var(--font-mono); font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-faint); margin-right: 2px; }
+.newsletter-lanes label { cursor: pointer; }
+.newsletter-lanes input { position: absolute; opacity: 0; pointer-events: none; }
+.newsletter-lanes span { display: inline-block; font-family: var(--font-label); font-size: 13px; font-weight: 600; padding: 6px 14px; border: 1px solid var(--rule-soft); border-radius: 999px; color: var(--ink-soft); transition: all 0.15s; }
+.newsletter-lanes input:checked + span { background: var(--accent); border-color: var(--accent); color: #F4F2EC; }
+.newsletter-lanes label:hover span { border-color: var(--ink); }

@@ -360,15 +360,26 @@ export default {
             const err = await tagRes.json().catch(() => ({}));
             return json({ error: (err.errors && err.errors[0]) || 'subscription failed' }, 502, origin);
           }
+          // Lane tag (optional): the signup form's one-question "what's your
+          // lane?" — the Monday email leads with this reader's thing. Tag ids
+          // created 2026-09-08; failure here never blocks the signup.
+          const LANES = { music: 23217674, art: 23217675, food: 23217676, free: 23217677, stages: 23217678 };
+          const lane = LANES[clean(body.lane, 20)];
+          if (lane) {
+            ctx.waitUntil(fetch(`https://api.kit.com/v4/tags/${lane}/subscribers`, {
+              method: 'POST', headers: kitHeaders,
+              body: JSON.stringify({ email_address: email })
+            }));
+          }
         } catch (e) {
-          return json({ error: 'could not reach Beehiiv' }, 502, origin);
+          return json({ error: 'could not reach the list' }, 502, origin);
         }
       }
 
       // Also log to KV for our own records.
       const ts = Date.now();
       const nonce = crypto.randomUUID().slice(0, 8);
-      const submission = { kind: 'newsletter', email, ip_hash: ipHash, ts };
+      const submission = { kind: 'newsletter', email, lane: clean(body.lane, 20) || null, ip_hash: ipHash, ts };
       ctx.waitUntil(env.POLLS.put(`submission:${ts}-${nonce}`, JSON.stringify(submission), {
         expirationTtl: 60 * 60 * 24 * 365 * 2
       }));
@@ -377,7 +388,7 @@ export default {
         '',
         `Email: ${email}`,
         '',
-        '(also forwarded to Beehiiv)'
+        '(forwarded to Kit)'
       ]));
 
       return json({ ok: true }, 200, origin);

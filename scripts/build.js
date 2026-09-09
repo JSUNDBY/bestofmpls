@@ -1141,6 +1141,14 @@ function newsletterCapture({ context = 'home', compact = false } = {}) {
             <input class="newsletter-hp" type="text" name="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
             <button type="submit">Subscribe</button>
           </form>
+          <div class="newsletter-lanes" role="group" aria-label="What should lead your email?">
+            <span class="newsletter-lanes-label">Lead with my thing:</span>
+            <label><input type="radio" name="nl-lane" value="music"><span>Live music</span></label>
+            <label><input type="radio" name="nl-lane" value="art"><span>Art</span></label>
+            <label><input type="radio" name="nl-lane" value="food"><span>Food &amp; drink</span></label>
+            <label><input type="radio" name="nl-lane" value="stages"><span>Stages</span></label>
+            <label><input type="radio" name="nl-lane" value="free"><span>Free stuff</span></label>
+          </div>
           <p class="newsletter-status" data-newsletter-status></p>
           <p class="newsletter-fine">One dispatch a week. Leave whenever you like.</p>
         </div>
@@ -1354,6 +1362,8 @@ function footer() {
       var fd = new FormData(form);
       var email = (fd.get('email') || '').trim();
       var hp = fd.get('hp') || '';
+      var laneEl = form.parentElement.querySelector('input[name="nl-lane"]:checked');
+      var lane = laneEl ? laneEl.value : null;
       if (hp) return; // honeypot — bot submission
       var btn = form.querySelector('button[type="submit"]');
       if (status) { status.textContent = 'Subscribing...'; status.removeAttribute('data-state'); }
@@ -1362,13 +1372,15 @@ function footer() {
         var res = await fetch(endpoint, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email: email, utm_source: utmSource })
+          body: JSON.stringify({ email: email, utm_source: utmSource, lane: lane })
         });
         if (!res.ok) {
           var data = await res.json().catch(function(){ return {}; });
           throw new Error(data.message || 'try again later');
         }
         form.style.display = 'none';
+        var lanesEl = form.parentElement.querySelector('.newsletter-lanes');
+        if (lanesEl) lanesEl.style.display = 'none';
         if (status) { status.textContent = "You're in. Dispatch lands every Monday."; status.setAttribute('data-state', 'ok'); }
         if (typeof gtag === 'function') gtag('event', 'newsletter_signup', { source: utmSource });
       } catch (err) {

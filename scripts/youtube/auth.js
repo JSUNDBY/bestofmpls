@@ -18,6 +18,7 @@ const REDIRECT = `http://127.0.0.1:${PORT}/callback`;
 const SCOPES = [
   'https://www.googleapis.com/auth/youtube',
   'https://www.googleapis.com/auth/youtube.upload',
+  'https://www.googleapis.com/auth/youtube.force-ssl',
 ].join(' ');
 
 const verifier = crypto.randomBytes(32).toString('base64url');
