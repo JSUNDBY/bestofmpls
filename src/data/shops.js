@@ -1,10 +1,19 @@
 module.exports = {
   slug: 'independent-shops',
   title: 'Independent Shops',
-  subtitle: 'Fourteen places to buy something good from someone who actually owns the store.',
+  subtitle: 'Fifteen places to buy something good from someone who actually owns the store.',
   intro: 'Mall of America gets the headlines. The shops on this list get the long-term loyalty. Bookstores with chickens, candy shops with copper pots, record stores that have been here since you were a kid, and a Scandinavian institution that has been salting fish on East Lake Street for over a hundred years.',
   hero_color: 'clay',
   entries: [
+    {
+      name: 'findfurnish',
+      neighborhood: 'Northeast Minneapolis',
+      style: 'Mid-century & vintage furniture',
+      description: 'Mid-century, Danish modern, and vintage industrial furniture, lighting, and art in a 1917 Ford dealership on Central Avenue, run by Marie Zellar and Brian Wilcox since 2011. Four thousand square feet that reads more like a rotating gallery than a furniture store, with records and local artwork mixed through the floor. Wednesday through Sunday only.',
+      address: '2014 Central Ave NE, Minneapolis',
+      website: 'https://www.findfurnish.com',
+      price: '$$$'
+    },
     {
       name: 'France 44',
       neighborhood: 'Linden Hills, Minneapolis',
