@@ -1,10 +1,19 @@
 module.exports = {
   slug: 'independent-shops',
   title: 'Independent Shops',
-  subtitle: 'Twelve places to buy something good from someone who actually owns the store.',
+  subtitle: 'Thirteen places to buy something good from someone who actually owns the store.',
   intro: 'Mall of America gets the headlines. The shops on this list get the long-term loyalty. Bookstores with chickens, candy shops with copper pots, record stores that have been here since you were a kid, and a Scandinavian institution that has been salting fish on East Lake Street for over a hundred years.',
   hero_color: 'clay',
   entries: [
+    {
+      name: 'St. Paul Cheese Shop',
+      neighborhood: 'Mac-Groveland, St. Paul',
+      style: 'Cut-to-order cheese shop',
+      description: 'The Grand-and-Snelling outpost of the France 44 cheese family, cutting everything to order from the wheel. Come for a counter conversation and leave with something you did not know you wanted, or come at lunch for the Melts, grilled cheese sandwiches good enough to plan a Saturday around. Cheese classes and serious gift boxes too.',
+      address: '1573 Grand Ave, St. Paul',
+      website: 'https://www.stpaulcheeseshop.com',
+      price: '$$'
+    },
     {
       name: 'Moth Oddities',
       neighborhood: 'Northeast Minneapolis',
