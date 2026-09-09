@@ -183,6 +183,7 @@ const DAY_MODES = {
     items: spreadAcrossDays(weekAll, 4).map(e => tag(e, null)),
     closeTop: `${countAll(todayIso, weekEnd)} shows this week.\nThese were 4.`,
     closeUrl: 'bestofmpls.com',
+    closeCta: 'free monday email · link in bio',
   }),
   tue: () => {
     const tonight = diversify(tonightPool, 2);
@@ -197,6 +198,7 @@ const DAY_MODES = {
     ],
     closeTop: `${countAll(todayIso, todayIso)} shows tonight.\n${countAll(todayIso, weekEnd)} this week.`,
     closeUrl: 'bestofmpls.com/tonight',
+    closeCta: 'follow for tomorrow\u2019s picks',
   }; },
   wed: () => {
     const tonight = diversify(tonightPool, 1);
@@ -211,6 +213,7 @@ const DAY_MODES = {
     ],
     closeTop: `${countAll(todayIso, todayIso)} shows tonight.\n${countAll(fri, sun)} this weekend.`,
     closeUrl: 'bestofmpls.com/tonight',
+    closeCta: 'new picks every day',
   }; },
   thu: () => ({
     kicker: "It's Thursday in the Twin Cities.",
@@ -223,6 +226,7 @@ const DAY_MODES = {
     })().map(e => tag(e, null)),
     closeTop: `${countAll(fri, sun)} shows this weekend.\nThese were 5.`,
     closeUrl: 'bestofmpls.com',
+    closeCta: 'free monday email · link in bio',
   }),
   fri: () => ({
     kicker: "It's Friday in the Twin Cities.",
@@ -231,6 +235,7 @@ const DAY_MODES = {
     items: diversify(tonightPool, 3).map(e => tag(e, null)),
     closeTop: `${countAll(todayIso, todayIso)} shows tonight.\nThese were ${Math.min(3, diversify(tonightPool, 3).length)}.`,
     closeUrl: 'bestofmpls.com/tonight',
+    closeCta: 'follow for next week\u2019s picks',
   }),
 };
 DAY_MODES.sat = DAY_MODES.fri;
