@@ -14,7 +14,11 @@ const outDir = process.argv[2] || '.';
 const dayArg = (process.argv[3] || '').toLowerCase();
 const events = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'src', 'data', 'events.json'), 'utf8')).events;
 
-const today = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Chicago' }));
+// SHORTS_TODAY=YYYY-MM-DD pre-generates a future day's edition for review
+// (the morning task still regenerates fresh on the day itself).
+const today = process.env.SHORTS_TODAY
+  ? new Date(process.env.SHORTS_TODAY + 'T12:00:00')
+  : new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Chicago' }));
 // Local date parts, never toISOString: UTC rolls over at 7pm Central and
 // made "tonight" mean tomorrow.
 const iso = d => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
