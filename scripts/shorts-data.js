@@ -1,15 +1,23 @@
-// Emit props JSON for the weekly video franchises (Free This Week, Weekend
-// in 30 Seconds). Reads the live events feed; output goes to Remotion's
-// ListShort composition via --props. Run any day; windows are computed from
-// today. Usage: node scripts/shorts-data.js <outdir>
+// Emit props JSON for the daily video formula. Reads the live events feed;
+// output goes to Remotion's ListShort composition via --props.
+//
+//   node scripts/shorts-data.js <outdir> [day]
+//
+// day: mon|tue|wed|thu|fri|free|weekend (default: today's weekday; Sat/Sun
+// fall back to the fri tonight-only recipe). The formula (locked with Josh
+// 2026-09-08): Mon week-ahead, Tue tonight+this-week, Wed pick+weekend
+// tease, Thu weekend-sorted, Fri tonight-go. Every mode writes <day>.json.
 const fs = require('fs');
 const path = require('path');
 
 const outDir = process.argv[2] || '.';
+const dayArg = (process.argv[3] || '').toLowerCase();
 const events = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'src', 'data', 'events.json'), 'utf8')).events;
 
 const today = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Chicago' }));
-const iso = d => d.toISOString().slice(0, 10);
+// Local date parts, never toISOString: UTC rolls over at 7pm Central and
+// made "tonight" mean tomorrow.
+const iso = d => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
 const addDays = (d, n) => { const x = new Date(d); x.setDate(x.getDate() + n); return x; };
 const todayIso = iso(today);
 
@@ -83,11 +91,11 @@ const weekendFinal = [
 ];
 
 fs.writeFileSync(path.join(outDir, 'free-week.json'), JSON.stringify({
-  kicker: 'Everything free',
+  kicker: 'Verified free',
   hook1: 'in Minneapolis',
   hook2: 'this week.',
   items: freePicks.map(clean),
-  closeTop: 'The full list, all week:',
+  closeTop: 'Every free thing we found:',
   closeUrl: 'bestofmpls.com/free',
 }, null, 2));
 
@@ -103,3 +111,100 @@ fs.writeFileSync(path.join(outDir, 'weekend.json'), JSON.stringify({
 console.log(`free picks: ${freePicks.length}, weekend picks: ${weekendFinal.length}`);
 console.log('free:', freePicks.map(e => `${e.date} ${e.title} @ ${e.venue}`).join(' | '));
 console.log('wknd:', weekendFinal.map(e => `${e.date} ${e.title} @ ${e.venue}`).join(' | '));
+
+// ---------- Daily formula modes ----------
+const DOW_NAMES = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
+const mode = dayArg || DOW_NAMES[dow];
+
+// Marquee-first pool for a date range, quality-gated, diversified by venue.
+function pool(startIso, endIso) {
+  return events
+    .filter(e => e.date >= startIso && e.date <= endIso && !noise(e) && SHOWY.has(e.category))
+    .filter(displayable)
+    .sort((a, b) => (MARQUEE.test(b.venue || '') ? 1 : 0) - (MARQUEE.test(a.venue || '') ? 1 : 0)
+      || (a.date + (a.time || '')).localeCompare(b.date + (b.time || '')));
+}
+// Spread picks across distinct days so a week overview isn't one busy night.
+function spreadAcrossDays(list, n) {
+  const seenDay = new Set(); const seenVenue = new Set(); const out = [];
+  for (const e of list) {
+    if (seenDay.has(e.date) || seenVenue.has(e.venue)) continue;
+    seenDay.add(e.date); seenVenue.add(e.venue); out.push(e);
+    if (out.length === n) break;
+  }
+  // Not enough distinct days: fill remaining slots venue-diverse.
+  if (out.length < n) for (const e of list) {
+    if (out.includes(e) || seenVenue.has(e.venue)) continue;
+    seenVenue.add(e.venue); out.push(e);
+    if (out.length === n) break;
+  }
+  return out.sort((a, b) => a.date.localeCompare(b.date));
+}
+const tag = (e, label) => ({ ...clean(e), label });
+const tonightPool = pool(todayIso, todayIso);
+const weekPool = pool(iso(addDays(today, 1)), weekEnd);
+const weekAll = pool(todayIso, weekEnd);
+
+const DAY_MODES = {
+  mon: () => ({
+    kicker: `${weekAll.length} shows this week`,
+    hook1: 'The week',
+    hook2: 'ahead.',
+    items: spreadAcrossDays(weekAll, 4).map(e => tag(e, null)),
+    closeTop: 'The whole week, every Monday:',
+    closeUrl: 'bestofmpls.com',
+  }),
+  tue: () => {
+    const tonight = diversify(tonightPool, 2);
+    const used = new Set(tonight.map(e => e.venue));
+    return {
+    kicker: 'Tuesday in Minneapolis',
+    hook1: 'Tonight, then',
+    hook2: 'this week.',
+    items: [
+      ...tonight.map(e => tag(e, 'TONIGHT')),
+      ...spreadAcrossDays(weekPool.filter(e => !used.has(e.venue)), 3).map(e => tag(e, 'THIS WEEK')),
+    ],
+    closeTop: 'The whole board, all day:',
+    closeUrl: 'bestofmpls.com/tonight',
+  }; },
+  wed: () => {
+    const tonight = diversify(tonightPool, 1);
+    const used = new Set(tonight.map(e => e.venue));
+    return {
+    kicker: 'Wednesday in Minneapolis',
+    hook1: 'Tonight, then',
+    hook2: 'the weekend.',
+    items: [
+      ...tonight.map(e => tag(e, 'TONIGHT')),
+      ...spreadAcrossDays(pool(fri, sun).filter(e => !used.has(e.venue)), 3).map(e => tag(e, 'THE WEEKEND')),
+    ],
+    closeTop: 'The whole board, all day:',
+    closeUrl: 'bestofmpls.com/tonight',
+  }; },
+  thu: () => ({
+    kicker: 'Your Minneapolis',
+    hook1: 'weekend,',
+    hook2: 'sorted.',
+    items: weekendFinal.map(e => tag(e, null)),
+    closeTop: 'The whole calendar:',
+    closeUrl: 'bestofmpls.com',
+  }),
+  fri: () => ({
+    kicker: "It's Friday in Minneapolis",
+    hook1: 'Tonight.',
+    hook2: 'Go.',
+    items: diversify(tonightPool, 3).map(e => tag(e, null)),
+    closeTop: "Tonight's whole board:",
+    closeUrl: 'bestofmpls.com/tonight',
+  }),
+};
+DAY_MODES.sat = DAY_MODES.fri;
+DAY_MODES.sun = DAY_MODES.fri;
+
+if (DAY_MODES[mode]) {
+  const props = DAY_MODES[mode]();
+  fs.writeFileSync(path.join(outDir, `${mode}.json`), JSON.stringify(props, null, 2));
+  console.log(`${mode}: ${props.items.length} items`);
+  console.log(props.items.map(i => `${i.label ? '[' + i.label + '] ' : ''}${i.chip} ${i.title} @ ${i.venue}`).join('\n'));
+}
