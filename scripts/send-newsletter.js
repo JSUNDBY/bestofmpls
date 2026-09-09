@@ -513,6 +513,17 @@ function laneLeadHtml(events, artWeek) {
   ).join('') + '{% endif %}';
 }
 
+// One-time community ask (approved 2026-09-09), gated to the Sep 14 issue.
+// The video version runs Saturday; this closes the loop with the most
+// invested readers. Remove or re-gate after the send.
+function psContributeHtml() {
+  if (todayISO() > '2026-09-15') return '';
+  return `
+      <tr><td style="padding:16px 32px 0 32px;">
+        <div style="font:400 14px/1.6 ${FONT};color:${C.soft};">P.S. Know a spot we don\u2019t? A band, a patio, a kitchen doing something great \u2014 <a href="https://bestofmpls.com/contribute/?utm_source=newsletter" style="color:${C.clay};font-weight:600;">send a tip</a>. We read every note.</div>
+      </td></tr>`;
+}
+
 function noteHtml(note) {
   if (!note) return '';
   return `
@@ -559,6 +570,7 @@ function buildHtml(events, happyHour, horoscope, artWeek, note, giveaway) {
       </td></tr>
       ${sponsorHtml()}
       ${noteHtml(note)}
+      ${psContributeHtml()}
       ${laneLeadHtml(events, artWeek)}
       ${giveawayHtml(giveaway)}
 
