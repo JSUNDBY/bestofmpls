@@ -1,15 +1,24 @@
 module.exports = {
   slug: 'independent-shops',
   title: 'Independent Shops',
-  subtitle: 'Thirteen places to buy something good from someone who actually owns the store.',
+  subtitle: 'Fourteen places to buy something good from someone who actually owns the store.',
   intro: 'Mall of America gets the headlines. The shops on this list get the long-term loyalty. Bookstores with chickens, candy shops with copper pots, record stores that have been here since you were a kid, and a Scandinavian institution that has been salting fish on East Lake Street for over a hundred years.',
   hero_color: 'clay',
   entries: [
     {
+      name: 'France 44',
+      neighborhood: 'Linden Hills, Minneapolis',
+      style: 'Wine, spirits & cheese shop',
+      description: 'Three generations of the Anderson family have grown a 1950s bottle shop into the city\'s best one-stop for a good night: serious wine and spirits on one side, a cut-to-order cheese and charcuterie counter on the other, with made-to-order sandwiches, hand-pulled mozzarella Thursday through Sunday, and rotisserie chickens twice a week. The mothership of the St. Paul Cheese Shop.',
+      address: '4351 France Ave S, Minneapolis',
+      website: 'https://www.france44.com',
+      price: '$$'
+    },
+    {
       name: 'St. Paul Cheese Shop',
       neighborhood: 'Mac-Groveland, St. Paul',
       style: 'Cut-to-order cheese shop',
-      description: 'The Grand-and-Snelling outpost of the France 44 cheese family, cutting everything to order from the wheel. Come for a counter conversation and leave with something you did not know you wanted, or come at lunch for the Melts, grilled cheese sandwiches good enough to plan a Saturday around. Cheese classes and serious gift boxes too.',
+      description: 'The Grand-and-Snelling outpost of the France 44 family, cutting everything to order from the wheel. Come for a counter conversation and leave with something you did not know you wanted, or come at lunch for the Melts, grilled cheese sandwiches good enough to plan a Saturday around. Cheese classes and serious gift boxes too.',
       address: '1573 Grand Ave, St. Paul',
       website: 'https://www.stpaulcheeseshop.com',
       price: '$$'
