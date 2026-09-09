@@ -181,7 +181,7 @@ const DAY_MODES = {
     hook1: 'Make some',
     hook2: 'plans.',
     items: spreadAcrossDays(weekAll, 4).map(e => tag(e, null)),
-    closeTop: `${countAll(todayIso, weekEnd)} shows this week.\nThese were 4.`,
+    closeTop: `${countAll(todayIso, weekEnd)} shows this week.\nWe picked 4.`,
     closeUrl: 'bestofmpls.com',
     closeCta: 'free monday email · link in bio',
   }),
@@ -224,7 +224,7 @@ const DAY_MODES = {
       const day = d => p.filter(e => e.date === d);
       return [...diversify(day(fri), 2), ...diversify(day(sat), 2), ...diversify(day(sun), 1)];
     })().map(e => tag(e, null)),
-    closeTop: `${countAll(fri, sun)} shows this weekend.\nThese were 5.`,
+    closeTop: `${countAll(fri, sun)} shows this weekend.\nWe picked 5.`,
     closeUrl: 'bestofmpls.com',
     closeCta: 'free monday email · link in bio',
   }),
@@ -233,7 +233,7 @@ const DAY_MODES = {
     hook1: 'Go',
     hook2: 'out.',
     items: diversify(tonightPool, 3).map(e => tag(e, null)),
-    closeTop: `${countAll(todayIso, todayIso)} shows tonight.\nThese were ${Math.min(3, diversify(tonightPool, 3).length)}.`,
+    closeTop: `${countAll(todayIso, todayIso)} shows tonight.\nWe picked ${Math.min(3, diversify(tonightPool, 3).length)}.`,
     closeUrl: 'bestofmpls.com/tonight',
     closeCta: 'follow for next week\u2019s picks',
   }),
