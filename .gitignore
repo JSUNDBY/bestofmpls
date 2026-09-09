@@ -31,3 +31,4 @@ growth/outbox/
 .dev.vars
 .youtube-client.json
 .youtube-token.json
+growth/featured-ledger.json

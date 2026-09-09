@@ -149,10 +149,31 @@ function spreadAcrossDays(list, n) {
   }
   return out.sort((a, b) => a.date.localeCompare(b.date));
 }
+// Week-scoped featured ledger: a show featured in any edition this week is
+// deprioritized in every later edition (Josh: "why have Emo night in all of
+// them"). Resets Mondays; regenerating a day replaces only that day's list.
+const LEDGER_PATH = path.join(__dirname, '..', 'growth', 'featured-ledger.json');
+const monday = iso(addDays(today, -((today.getDay() + 6) % 7)));
+let ledger = { weekOf: monday, days: {} };
+try {
+  const l = JSON.parse(fs.readFileSync(LEDGER_PATH, 'utf8'));
+  if (l.weekOf === monday) ledger = l;
+} catch (_) {}
+const keyOf = e => `${stripHype(e.title).trim()}|${e.venue}`;
+const featuredElsewhere = new Set(
+  Object.entries(ledger.days).filter(([d]) => d !== (dayArg || DOW_NAMES[dow]))
+    .flatMap(([, keys]) => keys)
+);
+// Unfeatured shows first; featured ones only as fallback.
+const preferFresh = list => [
+  ...list.filter(e => !featuredElsewhere.has(keyOf(e))),
+  ...list.filter(e => featuredElsewhere.has(keyOf(e))),
+];
+
 const tag = (e, label) => ({ ...clean(e), label });
-const tonightPool = pool(todayIso, todayIso);
-const weekPool = pool(iso(addDays(today, 1)), weekEnd);
-const weekAll = pool(todayIso, weekEnd);
+const tonightPool = preferFresh(pool(todayIso, todayIso));
+const weekPool = preferFresh(pool(iso(addDays(today, 1)), weekEnd));
+const weekAll = preferFresh(pool(todayIso, weekEnd));
 
 const DAY_MODES = {
   mon: () => ({
@@ -195,8 +216,12 @@ const DAY_MODES = {
     kicker: "It's Thursday in the Twin Cities.",
     hook1: 'Your weekend\'s',
     hook2: 'handled.',
-    items: weekendFinal.map(e => tag(e, null)),
-    closeTop: `${countAll(fri, sun)} shows this weekend.\nYou saw ${weekendFinal.length}.`,
+    items: (() => {
+      const p = preferFresh(pool(fri, sun));
+      const day = d => p.filter(e => e.date === d);
+      return [...diversify(day(fri), 2), ...diversify(day(sat), 2), ...diversify(day(sun), 1)];
+    })().map(e => tag(e, null)),
+    closeTop: `${countAll(fri, sun)} shows this weekend.\nYou saw 5.`,
     closeUrl: 'bestofmpls.com',
   }),
   fri: () => ({
@@ -214,6 +239,8 @@ DAY_MODES.sun = DAY_MODES.fri;
 if (DAY_MODES[mode]) {
   const props = DAY_MODES[mode]();
   fs.writeFileSync(path.join(outDir, `${mode}.json`), JSON.stringify(props, null, 2));
+  ledger.days[mode] = props.items.map(i => `${i.title}|${i.venue}`);
+  try { fs.writeFileSync(LEDGER_PATH, JSON.stringify(ledger, null, 2)); } catch (_) {}
   console.log(`${mode}: ${props.items.length} items`);
   console.log(props.items.map(i => `${i.label ? '[' + i.label + '] ' : ''}${i.chip} ${i.title} @ ${i.venue}`).join('\n'));
 }
