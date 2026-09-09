@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-08T18:46:31.417Z",
+  "generated_at": "2026-09-09T05:07:47.356Z",
   "sources": [
     {
       "source": "first-avenue",
@@ -22,19 +22,19 @@
     {
       "source": "riverview",
       "label": "Riverview Theater",
-      "count": 13,
+      "count": 34,
       "ok": true
     },
     {
       "source": "parkway",
       "label": "The Parkway Theater",
-      "count": 63,
+      "count": 64,
       "ok": true
     },
     {
       "source": "trylon",
       "label": "Trylon Cinema",
-      "count": 115,
+      "count": 118,
       "ok": true
     },
     {
@@ -52,13 +52,13 @@
     {
       "source": "berlin",
       "label": "Berlin",
-      "count": 61,
+      "count": 62,
       "ok": true
     },
     {
       "source": "331",
       "label": "The 331 Club",
-      "count": 74,
+      "count": 73,
       "ok": true
     },
     {
@@ -130,13 +130,13 @@
     {
       "source": "whitesquirrel",
       "label": "White Squirrel Bar",
-      "count": 113,
+      "count": 111,
       "ok": true
     },
     {
       "source": "greenroom",
       "label": "Green Room",
-      "count": 28,
+      "count": 27,
       "ok": true
     },
     {
@@ -148,13 +148,13 @@
     {
       "source": "guthrie",
       "label": "Guthrie Theater",
-      "count": 137,
+      "count": 138,
       "ok": true
     },
     {
       "source": "mysticlake",
       "label": "Mystic Lake (Amphitheater + Showroom)",
-      "count": 28,
+      "count": 29,
       "ok": true
     },
     {
@@ -190,7 +190,7 @@
     {
       "source": "mnorch",
       "label": "Minnesota Orchestra",
-      "count": 128,
+      "count": 129,
       "ok": true
     },
     {
@@ -307,23 +307,6 @@
       "source": "highpoint"
     },
     {
-      "id": "dakota:2026-09-07:a-night-for-nina-the-cast-of-nina-simone-four-women",
-      "date": "2026-09-07",
-      "time": "19:00",
-      "end_date": "2026-09-07",
-      "title": "A Night for Nina: The Cast of Nina Simone: Four Women",
-      "venue": "Dakota Jazz Club",
-      "venue_neighborhood": "Downtown Minneapolis",
-      "city": "Minneapolis",
-      "category": "music",
-      "subtitle": "A celebration of Nina Simone\\'s influence from the Pillsbury House Theatre cast of Nina Simone: Four Women. Amid the tumultuous... Read More",
-      "url": "https://www.dakotacooks.com/event/a-night-for-nina-the-cast-of-nina-simone-four-women-sep7-2026/",
-      "image": "https://www.dakotacooks.com/wp-content/uploads/2026/08/700x400-NinaSimone.jpg",
-      "price": null,
-      "age": "All ages",
-      "source": "dakota"
-    },
-    {
       "id": "walker:2026-09-08:fox-maxy-s-mental-wellness-film-workshop",
       "date": "2026-09-08",
       "time": "10:00",
@@ -339,74 +322,6 @@
       "price": null,
       "age": null,
       "source": "walker"
-    },
-    {
-      "id": "hclib:2026-09-08:voting-and-election-resources-with-hennepin-county-elections",
-      "date": "2026-09-08",
-      "time": "15:00",
-      "end_date": null,
-      "title": "Voting and Election Resources With Hennepin County Elections",
-      "venue": "Hennepin County Library, East Lake",
-      "venue_neighborhood": "East Lake, Minneapolis",
-      "city": "Minneapolis",
-      "category": "lecture",
-      "subtitle": "Drop in to learn more about voting and the upcoming midterm elections. Staff from Hennepin County Elections will be on-site to answer questions about voter registration, absentee voting, polling locations, and more! Coll",
-      "url": "https://hclib.bibliocommons.com/events/show/6a5aa3880d65ac36004077f0",
-      "image": "https://hclib.bibliocommons.com/events/uploads/images/full/beb2b02ac8f1dadcd9a79c2b8734e354/760x230HennepinElectionsBanner.jpg",
-      "price": "Free",
-      "age": "Adults",
-      "source": "hclib"
-    },
-    {
-      "id": "riverview:2026-09-08:15:15:cars-20th-anniversary",
-      "date": "2026-09-08",
-      "time": "15:15",
-      "end_date": null,
-      "title": "Cars (20th Anniversary)",
-      "venue": "Riverview Theater",
-      "venue_neighborhood": "Standish-Ericsson, Minneapolis",
-      "city": "Minneapolis",
-      "category": "film",
-      "subtitle": null,
-      "url": "https://ticketing.useast.veezi.com/purchase/8199?siteToken=3taz3vkks7e11yj7r5dft9pq30",
-      "image": "https://ticketing.useast.veezi.com/Media/Poster?siteToken=3taz3vkks7e11yj7r5dft9pq30&code=0000001404",
-      "price": null,
-      "age": null,
-      "source": "riverview"
-    },
-    {
-      "id": "riverview:2026-09-08:17:30:tony",
-      "date": "2026-09-08",
-      "time": "17:30",
-      "end_date": null,
-      "title": "Tony",
-      "venue": "Riverview Theater",
-      "venue_neighborhood": "Standish-Ericsson, Minneapolis",
-      "city": "Minneapolis",
-      "category": "film",
-      "subtitle": null,
-      "url": "https://ticketing.useast.veezi.com/purchase/8205?siteToken=3taz3vkks7e11yj7r5dft9pq30",
-      "image": "https://ticketing.useast.veezi.com/Media/Poster?siteToken=3taz3vkks7e11yj7r5dft9pq30&code=0000001409",
-      "price": null,
-      "age": null,
-      "source": "riverview"
-    },
-    {
-      "id": "whitesquirrel:2026-09-08:dl4",
-      "date": "2026-09-08",
-      "time": "18:00",
-      "end_date": null,
-      "title": "DL4",
-      "venue": "White Squirrel Bar",
-      "venue_neighborhood": "West End, St. Paul",
-      "city": "St. Paul",
-      "category": "music",
-      "subtitle": "Tribute to Waylon Jennings The DL4 is back at the White Squirrel with a tribute to country music legend Waylon Jennings, featuring Cole Diamond!",
-      "url": "https://whitesquirrelbar.com/event/dl4-2/",
-      "image": "https://whitesquirrelbar.com/wp-content/uploads/Waylon-tribute-scaled.jpg",
-      "price": null,
-      "age": null,
-      "source": "whitesquirrel"
     },
     {
       "id": "berlin:2026-09-08:lara-somogyi-and-laurels-string-quartet-w-jacob-pavek",
@@ -426,40 +341,6 @@
       "source": "berlin"
     },
     {
-      "id": "greenroom:2026-09-08:new-band-night-38",
-      "date": "2026-09-08",
-      "time": "19:00",
-      "end_date": null,
-      "title": "New Band Night #38",
-      "venue": "Green Room",
-      "venue_neighborhood": "Uptown, Minneapolis",
-      "city": "Minneapolis",
-      "category": "music",
-      "subtitle": "Green Room’s New Band Night. This biweekly series showcases newly formed projects and up-and-coming talent in the local music scene, spanning a wide variety of genres. Four fresh bands every other wee",
-      "url": "https://t.venuepilot.com/e/new-band-night-38-2026-09-08-green-room-minneapolis-7dbc9a",
-      "image": null,
-      "price": "$7–$12",
-      "age": null,
-      "source": "greenroom"
-    },
-    {
-      "id": "trylon:2026-09-08:19:00:two-lane-blacktop-in-35mm",
-      "date": "2026-09-08",
-      "time": "19:00",
-      "end_date": null,
-      "title": "Two-Lane Blacktop in 35mm",
-      "venue": "Trylon Cinema",
-      "venue_neighborhood": "Longfellow, Minneapolis",
-      "city": "Minneapolis",
-      "category": "film",
-      "subtitle": "(1971, 102m) dir Monte Hellman w/James Taylor, Warren Oates, Laurie Bird, Dennis Wilson. A driver and a mechanic crisscross America in their souped-up ’55 Chevy, making a living on the underground drag-race circuit. Oate",
-      "url": "https://www.trylon.org/?post_type=film&amp;p=208846",
-      "image": "https://www.trylon.org/wp-content/uploads/2026/05/TWO-LANE-BLACKTOP5_individual_film.jpg",
-      "price": null,
-      "age": null,
-      "source": "trylon"
-    },
-    {
       "id": "cedar:2026-09-08:setting-with-keith-fullerton-whitman",
       "date": "2026-09-08",
       "time": "19:30",
@@ -475,74 +356,6 @@
       "price": null,
       "age": "All ages",
       "source": "cedar"
-    },
-    {
-      "id": "riverview:2026-09-08:19:30:the-end-of-oak-street",
-      "date": "2026-09-08",
-      "time": "19:30",
-      "end_date": null,
-      "title": "The End of Oak Street",
-      "venue": "Riverview Theater",
-      "venue_neighborhood": "Standish-Ericsson, Minneapolis",
-      "city": "Minneapolis",
-      "category": "film",
-      "subtitle": null,
-      "url": "https://ticketing.useast.veezi.com/purchase/8208?siteToken=3taz3vkks7e11yj7r5dft9pq30",
-      "image": "https://ticketing.useast.veezi.com/Media/Poster?siteToken=3taz3vkks7e11yj7r5dft9pq30&code=0000001407",
-      "price": null,
-      "age": null,
-      "source": "riverview"
-    },
-    {
-      "id": "331:2026-09-08:brotherhood-of-birds-brotherhood-of-birds",
-      "date": "2026-09-08",
-      "time": "20:00",
-      "end_date": null,
-      "title": "Brotherhood of Birds Brotherhood of Birds",
-      "venue": "The 331 Club",
-      "venue_neighborhood": "Northeast Minneapolis",
-      "city": "Minneapolis",
-      "category": "music",
-      "subtitle": "With Katy Tessman · 9:30pm, 8pm",
-      "url": "https://www.331club.com/",
-      "image": null,
-      "price": null,
-      "age": "21+",
-      "source": "331"
-    },
-    {
-      "id": "whitesquirrel:2026-09-08:piss-with-style-w-ben-vogel-and-the-migration-shotgun-johnny",
-      "date": "2026-09-08",
-      "time": "21:00",
-      "end_date": null,
-      "title": "Piss With Style w. Ben Vogel & the Migration, Shotgun Johnny",
-      "venue": "White Squirrel Bar",
-      "venue_neighborhood": "West End, St. Paul",
-      "city": "St. Paul",
-      "category": "music",
-      "subtitle": null,
-      "url": "https://whitesquirrelbar.com/event/piss-with-style-2/",
-      "image": "https://whitesquirrelbar.com/wp-content/uploads/Untitled-July-30-2026-at-09.54.34-2-2.png",
-      "price": null,
-      "age": null,
-      "source": "whitesquirrel"
-    },
-    {
-      "id": "trylon:2026-09-08:21:15:two-lane-blacktop-in-35mm",
-      "date": "2026-09-08",
-      "time": "21:15",
-      "end_date": null,
-      "title": "Two-Lane Blacktop in 35mm",
-      "venue": "Trylon Cinema",
-      "venue_neighborhood": "Longfellow, Minneapolis",
-      "city": "Minneapolis",
-      "category": "film",
-      "subtitle": "(1971, 102m) dir Monte Hellman w/James Taylor, Warren Oates, Laurie Bird, Dennis Wilson. A driver and a mechanic crisscross America in their souped-up ’55 Chevy, making a living on the underground drag-race circuit. Oate",
-      "url": "https://www.trylon.org/?post_type=film&amp;p=208846",
-      "image": "https://www.trylon.org/wp-content/uploads/2026/05/TWO-LANE-BLACKTOP5_individual_film.jpg",
-      "price": null,
-      "age": null,
-      "source": "trylon"
     },
     {
       "id": "first-avenue:2026-09-08:7th-st-entry:macseal-and-ben-quad",
@@ -594,23 +407,6 @@
       "price": null,
       "age": null,
       "source": "first-avenue"
-    },
-    {
-      "id": "hennepinarts:2026-09-08:the-algorithm-is-gonna-get-you",
-      "date": "2026-09-08",
-      "time": null,
-      "end_date": "2026-11-07",
-      "title": "The Algorithm is Gonna Get You",
-      "venue": "Dudley Riggs Theatre",
-      "venue_neighborhood": "Downtown Minneapolis",
-      "city": "Minneapolis",
-      "category": "performance",
-      "subtitle": "Comedy",
-      "url": "https://hennepinarts.org/events/the-algorithm-is-gonna-get-you-2026",
-      "image": "https://images.ctfassets.net/sjxdiqjbm079/7nLWk8JzDt97mu1xGlSwjX/2ee75807e81f194dbeaad19e5c7e4e06/BNW_Alg_Email_Image.png",
-      "price": null,
-      "age": null,
-      "source": "hennepinarts"
     },
     {
       "id": "riverview:2026-09-09:12:45:hadestown-the-musical",
@@ -902,6 +698,23 @@
       "source": "first-avenue"
     },
     {
+      "id": "hennepinarts:2026-09-09:the-algorithm-is-gonna-get-you",
+      "date": "2026-09-09",
+      "time": null,
+      "end_date": "2026-11-07",
+      "title": "The Algorithm is Gonna Get You",
+      "venue": "Dudley Riggs Theatre",
+      "venue_neighborhood": "Downtown Minneapolis",
+      "city": "Minneapolis",
+      "category": "performance",
+      "subtitle": "Comedy",
+      "url": "https://hennepinarts.org/events/the-algorithm-is-gonna-get-you-2026",
+      "image": "https://images.ctfassets.net/sjxdiqjbm079/7nLWk8JzDt97mu1xGlSwjX/2ee75807e81f194dbeaad19e5c7e4e06/BNW_Alg_Email_Image.png",
+      "price": null,
+      "age": null,
+      "source": "hennepinarts"
+    },
+    {
       "id": "parkway:2026-09-09:the-breakfast-club-1985-w-pre-movie-80s-vj-set-by-transmissions-dj-chrissie-kawa",
       "date": "2026-09-09",
       "time": null,
@@ -1121,6 +934,23 @@
       "price": "$30–$40",
       "age": null,
       "source": "crooners"
+    },
+    {
+      "id": "trylon:2026-09-10:19:00:american-cats-the-good-the-bad-and-the-cuddly",
+      "date": "2026-09-10",
+      "time": "19:00",
+      "end_date": null,
+      "title": "American Cats: The Good, The Bad & The Cuddly",
+      "venue": "Trylon Cinema",
+      "venue_neighborhood": "Longfellow, Minneapolis",
+      "city": "Minneapolis",
+      "category": "film",
+      "subtitle": "(2024, 88m) dir Todd G. Bieber. Ontario is the only province in Canada without a ban on cat declawing. Amy Hoggart, the hilarious correspondent from Full Frontal with Samantha Bee, cracks jokes, cuddles kittens and attac",
+      "url": "https://www.trylon.org/film/american-cats-the-good-the-bad-the-cuddly/",
+      "image": "https://www.trylon.org/wp-content/uploads/2026/09/Screenshot-2026-09-08-175020-scaled.jpg",
+      "price": null,
+      "age": null,
+      "source": "trylon"
     },
     {
       "id": "icehouse:2026-09-10:changling-trio",
@@ -1387,12 +1217,46 @@
       "venue_neighborhood": "Downtown Minneapolis",
       "city": "Minneapolis",
       "category": "music",
-      "subtitle": "J. Robbins (Jawbox)",
+      "subtitle": "J. Robbins (Jawbox) and DJ Jake Rudh",
       "url": "https://first-avenue.com/event/2026-09-sugar-thu/",
       "image": null,
       "price": null,
       "age": null,
       "source": "first-avenue"
+    },
+    {
+      "id": "riverview:2026-09-11:13:15:practical-magic-2",
+      "date": "2026-09-11",
+      "time": "13:15",
+      "end_date": null,
+      "title": "Practical Magic 2",
+      "venue": "Riverview Theater",
+      "venue_neighborhood": "Standish-Ericsson, Minneapolis",
+      "city": "Minneapolis",
+      "category": "film",
+      "subtitle": null,
+      "url": "https://ticketing.useast.veezi.com/purchase/8211?siteToken=3taz3vkks7e11yj7r5dft9pq30",
+      "image": "https://ticketing.useast.veezi.com/Media/Poster?siteToken=3taz3vkks7e11yj7r5dft9pq30&code=0000001411",
+      "price": null,
+      "age": null,
+      "source": "riverview"
+    },
+    {
+      "id": "riverview:2026-09-11:16:00:practical-magic-2",
+      "date": "2026-09-11",
+      "time": "16:00",
+      "end_date": null,
+      "title": "Practical Magic 2",
+      "venue": "Riverview Theater",
+      "venue_neighborhood": "Standish-Ericsson, Minneapolis",
+      "city": "Minneapolis",
+      "category": "film",
+      "subtitle": null,
+      "url": "https://ticketing.useast.veezi.com/purchase/8212?siteToken=3taz3vkks7e11yj7r5dft9pq30",
+      "image": "https://ticketing.useast.veezi.com/Media/Poster?siteToken=3taz3vkks7e11yj7r5dft9pq30&code=0000001411",
+      "price": null,
+      "age": null,
+      "source": "riverview"
     },
     {
       "id": "manual:2026-09-11:st-paul-oktoberfest",
@@ -1512,6 +1376,23 @@
       "price": "$35–$45",
       "age": null,
       "source": "crooners"
+    },
+    {
+      "id": "riverview:2026-09-11:18:45:practical-magic-2",
+      "date": "2026-09-11",
+      "time": "18:45",
+      "end_date": null,
+      "title": "Practical Magic 2",
+      "venue": "Riverview Theater",
+      "venue_neighborhood": "Standish-Ericsson, Minneapolis",
+      "city": "Minneapolis",
+      "category": "film",
+      "subtitle": null,
+      "url": "https://ticketing.useast.veezi.com/purchase/8217?siteToken=3taz3vkks7e11yj7r5dft9pq30",
+      "image": "https://ticketing.useast.veezi.com/Media/Poster?siteToken=3taz3vkks7e11yj7r5dft9pq30&code=0000001411",
+      "price": null,
+      "age": null,
+      "source": "riverview"
     },
     {
       "id": "dakota:2026-09-11:bettye-lavette-duo",
@@ -1701,6 +1582,23 @@
       "source": "whitesquirrel"
     },
     {
+      "id": "riverview:2026-09-11:21:10:practical-magic-2",
+      "date": "2026-09-11",
+      "time": "21:10",
+      "end_date": null,
+      "title": "Practical Magic 2",
+      "venue": "Riverview Theater",
+      "venue_neighborhood": "Standish-Ericsson, Minneapolis",
+      "city": "Minneapolis",
+      "category": "film",
+      "subtitle": null,
+      "url": "https://ticketing.useast.veezi.com/purchase/8233?siteToken=3taz3vkks7e11yj7r5dft9pq30",
+      "image": "https://ticketing.useast.veezi.com/Media/Poster?siteToken=3taz3vkks7e11yj7r5dft9pq30&code=0000001411",
+      "price": null,
+      "age": null,
+      "source": "riverview"
+    },
+    {
       "id": "greenroom:2026-09-11:club-k-pop-k-pop-hits-and-k-edm-all-night-long",
       "date": "2026-09-11",
       "time": "22:00",
@@ -1812,7 +1710,7 @@
       "venue_neighborhood": "Downtown Minneapolis",
       "city": "Minneapolis",
       "category": "music",
-      "subtitle": "J. Robbins (Jawbox)",
+      "subtitle": "J. Robbins (Jawbox) and DJ Jake Rudh",
       "url": "https://first-avenue.com/event/2026-09-sugar-fri/",
       "image": null,
       "price": null,
@@ -1871,6 +1769,23 @@
       "source": "mysticlake"
     },
     {
+      "id": "riverview:2026-09-12:11:30:catvideofest-2026",
+      "date": "2026-09-12",
+      "time": "11:30",
+      "end_date": null,
+      "title": "CatVideoFest 2026",
+      "venue": "Riverview Theater",
+      "venue_neighborhood": "Standish-Ericsson, Minneapolis",
+      "city": "Minneapolis",
+      "category": "film",
+      "subtitle": null,
+      "url": "https://ticketing.useast.veezi.com/purchase/8231?siteToken=3taz3vkks7e11yj7r5dft9pq30",
+      "image": "https://ticketing.useast.veezi.com/Media/Poster?siteToken=3taz3vkks7e11yj7r5dft9pq30&code=0000001343",
+      "price": null,
+      "age": null,
+      "source": "riverview"
+    },
+    {
       "id": "whitesquirrel:2026-09-12:lucinda-williams-tribute",
       "date": "2026-09-12",
       "time": "13:00",
@@ -1920,6 +1835,23 @@
       "price": "Free",
       "age": "Adults",
       "source": "hclib"
+    },
+    {
+      "id": "riverview:2026-09-12:13:15:practical-magic-2",
+      "date": "2026-09-12",
+      "time": "13:15",
+      "end_date": null,
+      "title": "Practical Magic 2",
+      "venue": "Riverview Theater",
+      "venue_neighborhood": "Standish-Ericsson, Minneapolis",
+      "city": "Minneapolis",
+      "category": "film",
+      "subtitle": null,
+      "url": "https://ticketing.useast.veezi.com/purchase/8213?siteToken=3taz3vkks7e11yj7r5dft9pq30",
+      "image": "https://ticketing.useast.veezi.com/Media/Poster?siteToken=3taz3vkks7e11yj7r5dft9pq30&code=0000001411",
+      "price": null,
+      "age": null,
+      "source": "riverview"
     },
     {
       "id": "trylon:2026-09-12:15:00:minnanimate-2026",
@@ -1988,6 +1920,23 @@
       "price": null,
       "age": null,
       "source": "greenroom"
+    },
+    {
+      "id": "riverview:2026-09-12:16:00:practical-magic-2",
+      "date": "2026-09-12",
+      "time": "16:00",
+      "end_date": null,
+      "title": "Practical Magic 2",
+      "venue": "Riverview Theater",
+      "venue_neighborhood": "Standish-Ericsson, Minneapolis",
+      "city": "Minneapolis",
+      "category": "film",
+      "subtitle": null,
+      "url": "https://ticketing.useast.veezi.com/purchase/8214?siteToken=3taz3vkks7e11yj7r5dft9pq30",
+      "image": "https://ticketing.useast.veezi.com/Media/Poster?siteToken=3taz3vkks7e11yj7r5dft9pq30&code=0000001411",
+      "price": null,
+      "age": null,
+      "source": "riverview"
     },
     {
       "id": "berlin:2026-09-12:early-evening-jazz-jon-weber",
@@ -2124,6 +2073,23 @@
       "price": null,
       "age": null,
       "source": "varsity"
+    },
+    {
+      "id": "riverview:2026-09-12:18:45:practical-magic-2",
+      "date": "2026-09-12",
+      "time": "18:45",
+      "end_date": null,
+      "title": "Practical Magic 2",
+      "venue": "Riverview Theater",
+      "venue_neighborhood": "Standish-Ericsson, Minneapolis",
+      "city": "Minneapolis",
+      "category": "film",
+      "subtitle": null,
+      "url": "https://ticketing.useast.veezi.com/purchase/8218?siteToken=3taz3vkks7e11yj7r5dft9pq30",
+      "image": "https://ticketing.useast.veezi.com/Media/Poster?siteToken=3taz3vkks7e11yj7r5dft9pq30&code=0000001411",
+      "price": null,
+      "age": null,
+      "source": "riverview"
     },
     {
       "id": "trylon:2026-09-12:19:00:christ-stopped-at-eboli",
@@ -2279,6 +2245,23 @@
       "source": "whitesquirrel"
     },
     {
+      "id": "riverview:2026-09-12:21:10:practical-magic-2",
+      "date": "2026-09-12",
+      "time": "21:10",
+      "end_date": null,
+      "title": "Practical Magic 2",
+      "venue": "Riverview Theater",
+      "venue_neighborhood": "Standish-Ericsson, Minneapolis",
+      "city": "Minneapolis",
+      "category": "film",
+      "subtitle": null,
+      "url": "https://ticketing.useast.veezi.com/purchase/8234?siteToken=3taz3vkks7e11yj7r5dft9pq30",
+      "image": "https://ticketing.useast.veezi.com/Media/Poster?siteToken=3taz3vkks7e11yj7r5dft9pq30&code=0000001411",
+      "price": null,
+      "age": null,
+      "source": "riverview"
+    },
+    {
       "id": "berlin:2026-09-12:late-night-lounge-dj-kisilea",
       "date": "2026-09-12",
       "time": "22:30",
@@ -2407,7 +2390,7 @@
       "venue_neighborhood": "Downtown Minneapolis",
       "city": "Minneapolis",
       "category": "music",
-      "subtitle": "J. Robbins (Jawbox)",
+      "subtitle": "J. Robbins (Jawbox) and DJ Jake Rudh",
       "url": "https://first-avenue.com/event/2026-09-sugar-sat/",
       "image": null,
       "price": null,
@@ -2500,6 +2483,23 @@
       "source": "cedar"
     },
     {
+      "id": "riverview:2026-09-13:11:30:catvideofest-2026",
+      "date": "2026-09-13",
+      "time": "11:30",
+      "end_date": null,
+      "title": "CatVideoFest 2026",
+      "venue": "Riverview Theater",
+      "venue_neighborhood": "Standish-Ericsson, Minneapolis",
+      "city": "Minneapolis",
+      "category": "film",
+      "subtitle": null,
+      "url": "https://ticketing.useast.veezi.com/purchase/8232?siteToken=3taz3vkks7e11yj7r5dft9pq30",
+      "image": "https://ticketing.useast.veezi.com/Media/Poster?siteToken=3taz3vkks7e11yj7r5dft9pq30&code=0000001343",
+      "price": null,
+      "age": null,
+      "source": "riverview"
+    },
+    {
       "id": "trylon:2026-09-13:13:00:minnanimate-2026",
       "date": "2026-09-13",
       "time": "13:00",
@@ -2549,6 +2549,23 @@
       "price": null,
       "age": "All ages",
       "source": "sports"
+    },
+    {
+      "id": "riverview:2026-09-13:13:15:practical-magic-2",
+      "date": "2026-09-13",
+      "time": "13:15",
+      "end_date": null,
+      "title": "Practical Magic 2",
+      "venue": "Riverview Theater",
+      "venue_neighborhood": "Standish-Ericsson, Minneapolis",
+      "city": "Minneapolis",
+      "category": "film",
+      "subtitle": null,
+      "url": "https://ticketing.useast.veezi.com/purchase/8215?siteToken=3taz3vkks7e11yj7r5dft9pq30",
+      "image": "https://ticketing.useast.veezi.com/Media/Poster?siteToken=3taz3vkks7e11yj7r5dft9pq30&code=0000001411",
+      "price": null,
+      "age": null,
+      "source": "riverview"
     },
     {
       "id": "trylon:2026-09-13:15:00:christ-stopped-at-eboli",
@@ -2636,6 +2653,40 @@
       "source": "icehouse"
     },
     {
+      "id": "riverview:2026-09-13:16:00:practical-magic-2",
+      "date": "2026-09-13",
+      "time": "16:00",
+      "end_date": null,
+      "title": "Practical Magic 2",
+      "venue": "Riverview Theater",
+      "venue_neighborhood": "Standish-Ericsson, Minneapolis",
+      "city": "Minneapolis",
+      "category": "film",
+      "subtitle": null,
+      "url": "https://ticketing.useast.veezi.com/purchase/8216?siteToken=3taz3vkks7e11yj7r5dft9pq30",
+      "image": "https://ticketing.useast.veezi.com/Media/Poster?siteToken=3taz3vkks7e11yj7r5dft9pq30&code=0000001411",
+      "price": null,
+      "age": null,
+      "source": "riverview"
+    },
+    {
+      "id": "mysticlake:2026-09-13:amp-parties-and-park-and-ride",
+      "date": "2026-09-13",
+      "time": "17:00",
+      "end_date": null,
+      "title": "AMP Parties and Park & Ride",
+      "venue": "Mystic Showroom",
+      "venue_neighborhood": "Mystic Lake, Prior Lake",
+      "city": "Prior Lake",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://mysticlake.com/shows-and-events/amp-parties-and-park-and-ride",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "mysticlake"
+    },
+    {
       "id": "crooners:2026-09-13:janelle-burrell",
       "date": "2026-09-13",
       "time": "17:00",
@@ -2702,6 +2753,23 @@
       "price": null,
       "age": null,
       "source": "whitesquirrel"
+    },
+    {
+      "id": "riverview:2026-09-13:18:45:practical-magic-2",
+      "date": "2026-09-13",
+      "time": "18:45",
+      "end_date": null,
+      "title": "Practical Magic 2",
+      "venue": "Riverview Theater",
+      "venue_neighborhood": "Standish-Ericsson, Minneapolis",
+      "city": "Minneapolis",
+      "category": "film",
+      "subtitle": null,
+      "url": "https://ticketing.useast.veezi.com/purchase/8219?siteToken=3taz3vkks7e11yj7r5dft9pq30",
+      "image": "https://ticketing.useast.veezi.com/Media/Poster?siteToken=3taz3vkks7e11yj7r5dft9pq30&code=0000001411",
+      "price": null,
+      "age": null,
+      "source": "riverview"
     },
     {
       "id": "amsterdam:2026-09-13:cherokee-social-w-fmly-frnd-and-soul-flower",
@@ -2925,6 +2993,23 @@
       "source": "first-avenue"
     },
     {
+      "id": "riverview:2026-09-14:13:30:practical-magic-2",
+      "date": "2026-09-14",
+      "time": "13:30",
+      "end_date": null,
+      "title": "Practical Magic 2",
+      "venue": "Riverview Theater",
+      "venue_neighborhood": "Standish-Ericsson, Minneapolis",
+      "city": "Minneapolis",
+      "category": "film",
+      "subtitle": null,
+      "url": "https://ticketing.useast.veezi.com/purchase/8223?siteToken=3taz3vkks7e11yj7r5dft9pq30",
+      "image": "https://ticketing.useast.veezi.com/Media/Poster?siteToken=3taz3vkks7e11yj7r5dft9pq30&code=0000001411",
+      "price": null,
+      "age": null,
+      "source": "riverview"
+    },
+    {
       "id": "hclib:2026-09-14:poetry-lovers-converge",
       "date": "2026-09-14",
       "time": "14:00",
@@ -2940,6 +3025,23 @@
       "price": "Free",
       "age": "Adults",
       "source": "hclib"
+    },
+    {
+      "id": "riverview:2026-09-14:16:15:practical-magic-2",
+      "date": "2026-09-14",
+      "time": "16:15",
+      "end_date": null,
+      "title": "Practical Magic 2",
+      "venue": "Riverview Theater",
+      "venue_neighborhood": "Standish-Ericsson, Minneapolis",
+      "city": "Minneapolis",
+      "category": "film",
+      "subtitle": null,
+      "url": "https://ticketing.useast.veezi.com/purchase/8224?siteToken=3taz3vkks7e11yj7r5dft9pq30",
+      "image": "https://ticketing.useast.veezi.com/Media/Poster?siteToken=3taz3vkks7e11yj7r5dft9pq30&code=0000001411",
+      "price": null,
+      "age": null,
+      "source": "riverview"
     },
     {
       "id": "whitesquirrel:2026-09-14:mumblin-drew-s-oldfangled-orchestrators",
@@ -2991,6 +3093,23 @@
       "price": null,
       "age": "All ages",
       "source": "sports"
+    },
+    {
+      "id": "riverview:2026-09-14:18:45:practical-magic-2",
+      "date": "2026-09-14",
+      "time": "18:45",
+      "end_date": null,
+      "title": "Practical Magic 2",
+      "venue": "Riverview Theater",
+      "venue_neighborhood": "Standish-Ericsson, Minneapolis",
+      "city": "Minneapolis",
+      "category": "film",
+      "subtitle": null,
+      "url": "https://ticketing.useast.veezi.com/purchase/8220?siteToken=3taz3vkks7e11yj7r5dft9pq30",
+      "image": "https://ticketing.useast.veezi.com/Media/Poster?siteToken=3taz3vkks7e11yj7r5dft9pq30&code=0000001411",
+      "price": null,
+      "age": null,
+      "source": "riverview"
     },
     {
       "id": "berlin:2026-09-14:gregory-uhlmann",
@@ -3146,6 +3265,23 @@
       "source": "first-avenue"
     },
     {
+      "id": "riverview:2026-09-15:13:30:practical-magic-2",
+      "date": "2026-09-15",
+      "time": "13:30",
+      "end_date": null,
+      "title": "Practical Magic 2",
+      "venue": "Riverview Theater",
+      "venue_neighborhood": "Standish-Ericsson, Minneapolis",
+      "city": "Minneapolis",
+      "category": "film",
+      "subtitle": null,
+      "url": "https://ticketing.useast.veezi.com/purchase/8225?siteToken=3taz3vkks7e11yj7r5dft9pq30",
+      "image": "https://ticketing.useast.veezi.com/Media/Poster?siteToken=3taz3vkks7e11yj7r5dft9pq30&code=0000001411",
+      "price": null,
+      "age": null,
+      "source": "riverview"
+    },
+    {
       "id": "hclib:2026-09-15:virtual-reality-career-exploration",
       "date": "2026-09-15",
       "time": "14:00",
@@ -3161,6 +3297,23 @@
       "price": "Free",
       "age": "Adults",
       "source": "hclib"
+    },
+    {
+      "id": "riverview:2026-09-15:16:15:practical-magic-2",
+      "date": "2026-09-15",
+      "time": "16:15",
+      "end_date": null,
+      "title": "Practical Magic 2",
+      "venue": "Riverview Theater",
+      "venue_neighborhood": "Standish-Ericsson, Minneapolis",
+      "city": "Minneapolis",
+      "category": "film",
+      "subtitle": null,
+      "url": "https://ticketing.useast.veezi.com/purchase/8226?siteToken=3taz3vkks7e11yj7r5dft9pq30",
+      "image": "https://ticketing.useast.veezi.com/Media/Poster?siteToken=3taz3vkks7e11yj7r5dft9pq30&code=0000001411",
+      "price": null,
+      "age": null,
+      "source": "riverview"
     },
     {
       "id": "whitesquirrel:2026-09-15:the-new-havoline-supremes",
@@ -3212,6 +3365,23 @@
       "price": null,
       "age": "All ages",
       "source": "sports"
+    },
+    {
+      "id": "riverview:2026-09-15:18:45:practical-magic-2",
+      "date": "2026-09-15",
+      "time": "18:45",
+      "end_date": null,
+      "title": "Practical Magic 2",
+      "venue": "Riverview Theater",
+      "venue_neighborhood": "Standish-Ericsson, Minneapolis",
+      "city": "Minneapolis",
+      "category": "film",
+      "subtitle": null,
+      "url": "https://ticketing.useast.veezi.com/purchase/8221?siteToken=3taz3vkks7e11yj7r5dft9pq30",
+      "image": "https://ticketing.useast.veezi.com/Media/Poster?siteToken=3taz3vkks7e11yj7r5dft9pq30&code=0000001411",
+      "price": null,
+      "age": null,
+      "source": "riverview"
     },
     {
       "id": "berlin:2026-09-15:adam-o-farrill-s-elephant",
@@ -3520,6 +3690,40 @@
       "source": "sports"
     },
     {
+      "id": "riverview:2026-09-16:13:30:practical-magic-2",
+      "date": "2026-09-16",
+      "time": "13:30",
+      "end_date": null,
+      "title": "Practical Magic 2",
+      "venue": "Riverview Theater",
+      "venue_neighborhood": "Standish-Ericsson, Minneapolis",
+      "city": "Minneapolis",
+      "category": "film",
+      "subtitle": null,
+      "url": "https://ticketing.useast.veezi.com/purchase/8227?siteToken=3taz3vkks7e11yj7r5dft9pq30",
+      "image": "https://ticketing.useast.veezi.com/Media/Poster?siteToken=3taz3vkks7e11yj7r5dft9pq30&code=0000001411",
+      "price": null,
+      "age": null,
+      "source": "riverview"
+    },
+    {
+      "id": "riverview:2026-09-16:16:15:practical-magic-2",
+      "date": "2026-09-16",
+      "time": "16:15",
+      "end_date": null,
+      "title": "Practical Magic 2",
+      "venue": "Riverview Theater",
+      "venue_neighborhood": "Standish-Ericsson, Minneapolis",
+      "city": "Minneapolis",
+      "category": "film",
+      "subtitle": null,
+      "url": "https://ticketing.useast.veezi.com/purchase/8228?siteToken=3taz3vkks7e11yj7r5dft9pq30",
+      "image": "https://ticketing.useast.veezi.com/Media/Poster?siteToken=3taz3vkks7e11yj7r5dft9pq30&code=0000001411",
+      "price": null,
+      "age": null,
+      "source": "riverview"
+    },
+    {
       "id": "dakota:2026-09-16:vip-event-taj-farrant",
       "date": "2026-09-16",
       "time": "16:30",
@@ -3603,6 +3807,23 @@
       "price": "Free",
       "age": "Adults",
       "source": "hclib"
+    },
+    {
+      "id": "riverview:2026-09-16:18:45:practical-magic-2",
+      "date": "2026-09-16",
+      "time": "18:45",
+      "end_date": null,
+      "title": "Practical Magic 2",
+      "venue": "Riverview Theater",
+      "venue_neighborhood": "Standish-Ericsson, Minneapolis",
+      "city": "Minneapolis",
+      "category": "film",
+      "subtitle": null,
+      "url": "https://ticketing.useast.veezi.com/purchase/8222?siteToken=3taz3vkks7e11yj7r5dft9pq30",
+      "image": "https://ticketing.useast.veezi.com/Media/Poster?siteToken=3taz3vkks7e11yj7r5dft9pq30&code=0000001411",
+      "price": null,
+      "age": null,
+      "source": "riverview"
     },
     {
       "id": "umn-events:2026-09-16:2026-kaufmanis-public-lecture",
@@ -3818,7 +4039,7 @@
       "venue_neighborhood": "Hamline-Midway, St. Paul",
       "city": "St. Paul",
       "category": "music",
-      "subtitle": null,
+      "subtitle": "Quietchild",
       "url": "https://first-avenue.com/event/2026-09-bombargo/",
       "image": null,
       "price": null,
@@ -3943,6 +4164,40 @@
       "price": "Free",
       "age": "Adults",
       "source": "hclib"
+    },
+    {
+      "id": "riverview:2026-09-17:13:30:practical-magic-2",
+      "date": "2026-09-17",
+      "time": "13:30",
+      "end_date": null,
+      "title": "Practical Magic 2",
+      "venue": "Riverview Theater",
+      "venue_neighborhood": "Standish-Ericsson, Minneapolis",
+      "city": "Minneapolis",
+      "category": "film",
+      "subtitle": null,
+      "url": "https://ticketing.useast.veezi.com/purchase/8229?siteToken=3taz3vkks7e11yj7r5dft9pq30",
+      "image": "https://ticketing.useast.veezi.com/Media/Poster?siteToken=3taz3vkks7e11yj7r5dft9pq30&code=0000001411",
+      "price": null,
+      "age": null,
+      "source": "riverview"
+    },
+    {
+      "id": "riverview:2026-09-17:16:15:practical-magic-2",
+      "date": "2026-09-17",
+      "time": "16:15",
+      "end_date": null,
+      "title": "Practical Magic 2",
+      "venue": "Riverview Theater",
+      "venue_neighborhood": "Standish-Ericsson, Minneapolis",
+      "city": "Minneapolis",
+      "category": "film",
+      "subtitle": null,
+      "url": "https://ticketing.useast.veezi.com/purchase/8230?siteToken=3taz3vkks7e11yj7r5dft9pq30",
+      "image": "https://ticketing.useast.veezi.com/Media/Poster?siteToken=3taz3vkks7e11yj7r5dft9pq30&code=0000001411",
+      "price": null,
+      "age": null,
+      "source": "riverview"
     },
     {
       "id": "umn-events:2026-09-17:18th-annual-david-a-rothenberger-lecture",
@@ -10847,6 +11102,23 @@
       "source": "whitesquirrel"
     },
     {
+      "id": "parkway:2026-10-03:family-gathering-concert-featuring-jeremy-messersmith-with-sarah-morris",
+      "date": "2026-10-03",
+      "time": null,
+      "end_date": null,
+      "title": "Family Gathering Concert featuring jeremy messersmith with Sarah Morris",
+      "venue": "The Parkway Theater",
+      "venue_neighborhood": "Standish, Minneapolis",
+      "city": "Minneapolis",
+      "category": "performance",
+      "subtitle": "A nine-part concert series made for the whole family. Family Gathering Concert Series brings kid-friendly programming , family-first sets, interactive moments, and creative stations , to a new independent Minneapolis ven",
+      "url": "https://theparkwaytheater.com/all-events/music-url-7ptn3",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "parkway"
+    },
+    {
       "id": "hennepinarts:2026-10-03:singalong-broadway",
       "date": "2026-10-03",
       "time": null,
@@ -13102,7 +13374,7 @@
       "category": "music",
       "subtitle": null,
       "url": "https://whitesquirrelbar.com/event/potential-new-boyfriend-w-clawhammer-mike-the-old-time-barnstormers/",
-      "image": null,
+      "image": "https://whitesquirrelbar.com/wp-content/uploads/PNB-Clawhammer-Mike-10-11-26.png",
       "price": null,
       "age": null,
       "source": "whitesquirrel"
@@ -13390,7 +13662,7 @@
       "city": "Minneapolis",
       "category": "lecture",
       "subtitle": "If you're curious about the Loft's Year-Long Writing Project in Novel Writing, Creative Nonfiction with Sun Yung Shin, or Memoir with Kelly Sundberg, and which is right for you, come to this informal information session ",
-      "url": "https://loft.org/events/2027-novel-writing-poetry-creative-nonfiction-memoir-and-fiction-writing-project-information",
+      "url": "https://loft.org/upcoming-events",
       "image": null,
       "price": null,
       "age": null,
@@ -14086,7 +14358,7 @@
       "venue_neighborhood": "Northeast Minneapolis",
       "city": "Minneapolis",
       "category": "music",
-      "subtitle": "With Embahn · 9:30pm",
+      "subtitle": "Sets at 9:30pm",
       "url": "https://www.331club.com/",
       "image": null,
       "price": null,
@@ -18871,6 +19143,23 @@
       "source": "hennepinarts"
     },
     {
+      "id": "trylon:2026-11-08:12:30:red-dawn",
+      "date": "2026-11-08",
+      "time": "12:30",
+      "end_date": null,
+      "title": "Red Dawn",
+      "venue": "Trylon Cinema",
+      "venue_neighborhood": "Longfellow, Minneapolis",
+      "city": "Minneapolis",
+      "category": "film",
+      "subtitle": "(1984, 114m) dir John Milius w/Patrick Swayze, C. Thomas Howell, Charlie Sheen, Lea Thompson. If Soviet and Latin American militaries invaded your Colorado high school campus during history class, what would you and your",
+      "url": "https://www.trylon.org/film/red-dawn/",
+      "image": "https://www.trylon.org/wp-content/uploads/2026/08/RedDawn_04individual_film.jpg",
+      "price": null,
+      "age": null,
+      "source": "trylon"
+    },
+    {
       "id": "guthrie:2026-11-08:13:00:kunene-and-the-king",
       "date": "2026-11-08",
       "time": "13:00",
@@ -18922,6 +19211,23 @@
       "source": "mnorch"
     },
     {
+      "id": "trylon:2026-11-08:14:45:wargames",
+      "date": "2026-11-08",
+      "time": "14:45",
+      "end_date": null,
+      "title": "Wargames",
+      "venue": "Trylon Cinema",
+      "venue_neighborhood": "Longfellow, Minneapolis",
+      "city": "Minneapolis",
+      "category": "film",
+      "subtitle": "(1983, 114m) dir John Badham w/Matthew Broderick, Ally Sheedy, John Wood. David (Broderick) is a precocious high schooler who wants only to use his computer savvy to manipulate his report card and impress his crush. But ",
+      "url": "https://www.trylon.org/film/wargames/",
+      "image": "https://www.trylon.org/wp-content/uploads/2026/08/WarGames_01individual_film.jpg",
+      "price": null,
+      "age": null,
+      "source": "trylon"
+    },
+    {
       "id": "331:2026-11-08:emmy-woods-and-friends",
       "date": "2026-11-08",
       "time": "16:00",
@@ -18956,6 +19262,23 @@
       "source": "crooners"
     },
     {
+      "id": "trylon:2026-11-08:17:00:kana",
+      "date": "2026-11-08",
+      "time": "17:00",
+      "end_date": null,
+      "title": "Kanał",
+      "venue": "Trylon Cinema",
+      "venue_neighborhood": "Longfellow, Minneapolis",
+      "city": "Minneapolis",
+      "category": "film",
+      "subtitle": "(1957, 91m, Polish, German w/English subtitles) dir Andrzej Wajda w/Teresa Iżewska, Tadeusz Janczar, Wieńczysław Gliński. The Polish resistance stages a massive uprising against occupying Nazi forces in Warsaw. As they a",
+      "url": "https://www.trylon.org/?post_type=film&amp;p=213659",
+      "image": "https://www.trylon.org/wp-content/uploads/2026/08/KANAL-49individual_film.jpg",
+      "price": null,
+      "age": null,
+      "source": "trylon"
+    },
+    {
       "id": "whitesquirrel:2026-11-08:second-breakfast-string-band-w-borrowed-days-irish-band",
       "date": "2026-11-08",
       "time": "18:00",
@@ -18971,6 +19294,23 @@
       "price": null,
       "age": null,
       "source": "whitesquirrel"
+    },
+    {
+      "id": "trylon:2026-11-08:19:00:kana",
+      "date": "2026-11-08",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Kanał",
+      "venue": "Trylon Cinema",
+      "venue_neighborhood": "Longfellow, Minneapolis",
+      "city": "Minneapolis",
+      "category": "film",
+      "subtitle": "(1957, 91m, Polish, German w/English subtitles) dir Andrzej Wajda w/Teresa Iżewska, Tadeusz Janczar, Wieńczysław Gliński. The Polish resistance stages a massive uprising against occupying Nazi forces in Warsaw. As they a",
+      "url": "https://www.trylon.org/?post_type=film&amp;p=213659",
+      "image": "https://www.trylon.org/wp-content/uploads/2026/08/KANAL-49individual_film.jpg",
+      "price": null,
+      "age": null,
+      "source": "trylon"
     },
     {
       "id": "guthrie:2026-11-08:19:00:kunene-and-the-king",
@@ -19685,6 +20025,23 @@
       "price": null,
       "age": null,
       "source": "guthrie"
+    },
+    {
+      "id": "berlin:2026-11-13:alyssa-allgood-quartet",
+      "date": "2026-11-13",
+      "time": "19:30",
+      "end_date": null,
+      "title": "Alyssa Allgood Quartet",
+      "venue": "Berlin",
+      "venue_neighborhood": "Downtown Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "$25 Seated & $20 Bar/StandingGET TICKETS7:30pm Show",
+      "url": "https://berlinmpls.com/calendar/alyssa-allgood-quartet-november-2026",
+      "image": "https://images.squarespace-cdn.com/content/v1/658316152e826a3bbbfc0aef/1788557813194-7W93WJWV8G27I6JJIZZC/*Alyssa+Allgood_2026_Horizontal+Crop.jpg",
+      "price": null,
+      "age": "21+",
+      "source": "berlin"
     },
     {
       "id": "amsterdam:2026-11-13:improvement-movement-w-jalen-reyes",
@@ -22101,6 +22458,23 @@
       "source": "crooners"
     },
     {
+      "id": "hclib:2026-12-08:queer-book-club",
+      "date": "2026-12-08",
+      "time": "18:30",
+      "end_date": null,
+      "title": "Queer Book Club",
+      "venue": "Hennepin County Library",
+      "venue_neighborhood": "Minneapolis",
+      "city": "Minneapolis",
+      "category": "lecture",
+      "subtitle": "Join our discussion of new and interesting books written by queer authors or on queer topics – LGBTQIA+ centered program. Bring along your book recommendations for future meetings. Hosted by Lynn from East Lake Library a",
+      "url": "https://hclib.bibliocommons.com/events/show/6a39be7a90cc4e3a791001de",
+      "image": "https://hclib.bibliocommons.com/events/uploads/images/full/80f47374dadbab1d3c939e0b4dab9f33/Program_Pride_760x230.jpg",
+      "price": "Free",
+      "age": "Adults",
+      "source": "hclib"
+    },
+    {
       "id": "mnorch:12068",
       "date": "2026-12-08",
       "time": "19:00",
@@ -23852,6 +24226,23 @@
       "source": "guthrie"
     },
     {
+      "id": "guthrie:2027-01-07:19:30:and-then-there-were-none",
+      "date": "2027-01-07",
+      "time": "19:30",
+      "end_date": null,
+      "title": "And Then There Were None",
+      "venue": "Guthrie Theater",
+      "venue_neighborhood": "Mill District, Minneapolis",
+      "city": "Minneapolis",
+      "category": "performance",
+      "subtitle": null,
+      "url": "https://www.guthrietheater.org/whats-on/and-then-there-were-none/",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "guthrie"
+    },
+    {
       "id": "mnorch:11942",
       "date": "2027-01-08",
       "time": "20:00",
@@ -24802,6 +25193,23 @@
       "price": null,
       "age": null,
       "source": "hennepinarts"
+    },
+    {
+      "id": "mnorch:12410",
+      "date": "2027-02-28",
+      "time": "16:00",
+      "end_date": null,
+      "title": "WITNESS: The Poet Sings",
+      "venue": "Orchestra Hall",
+      "venue_neighborhood": "Downtown Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "VocalEssence · WITNESS: The Poet Sings will explore how social change evolves through music and poetry. Minneapolis based hip-hop artist, Nur-D will join forces with the VocalEssence Chorus, Singers Of This Age, and Vintage Voices to t",
+      "url": "https://www.minnesotaorchestra.org/tickets/calendar/rentals/witness-the-poet-sings",
+      "image": "https://res.cloudinary.com/minnesota-orchestral/image/upload/c_fill%2Cg_auto%2Ch_240%2Cw_400/f_auto/q_auto/v1787246737/Uploads/Rentals/Ticketed-Rental-Events/05_WITNESS_A-MOA_1400x1200?_a=BAAAV6DQ",
+      "price": null,
+      "age": "All ages",
+      "source": "mnorch"
     },
     {
       "id": "mnorch:12154",

@@ -1909,7 +1909,7 @@ function renderHome() {
       <div class="wrap">
         <div class="home-board-head">
           <span class="home-board-eyebrow"><span class="pulse-dot" aria-hidden="true"></span>Tonight · <span data-board-day>${esc(dayLabel)}</span></span>
-          <span class="home-board-count" data-board-count>${todays.length} on the board</span>
+          <span class="home-board-count" data-board-count>${todays.length} shows tonight</span>
         </div>
         <ol class="home-board-rows">
           ${picked.map(e => `
@@ -1963,7 +1963,7 @@ function renderHome() {
         if (!listEl) return;
         lastDay = today;
         if (dayEl) dayEl.textContent = dayLabel(today);
-        if (countEl) countEl.textContent = rows.length + ' on the board';
+        if (countEl) countEl.textContent = rows.length + ' shows tonight';
         if (!rows.length) {
           listEl.innerHTML = '<li class="home-board-row"><span class="home-board-what"><span class="home-board-title">Quiet night on the scraped calendar.</span><span class="home-board-venue">The board refreshes every morning</span></span><a class="home-board-tix" href="/calendar/">Calendar →</a></li>';
         } else {
@@ -3282,7 +3282,7 @@ ${header({ activeSlug: '' })}
   <div id="ops-stories"><div class="ops-empty">Loading…</div></div>
 
   <h2 class="ops-h2" id="scrape">Scrape health</h2>
-  <p class="ops-note">Per-source results from the last run. A dead source fails soft, but its venue goes quiet on the board.</p>
+  <p class="ops-note">Per-source results from the last run. A dead source fails soft, but its venue goes quiet shows tonight.</p>
   <table class="ops-table">
     <thead><tr><th>Source</th><th style="text-align:right;">Events</th><th>Status</th></tr></thead>
     <tbody>

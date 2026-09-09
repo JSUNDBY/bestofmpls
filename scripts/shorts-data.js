@@ -95,7 +95,7 @@ fs.writeFileSync(path.join(outDir, 'free-week.json'), JSON.stringify({
   hook1: 'in Minneapolis',
   hook2: 'this week.',
   items: freePicks.map(clean),
-  closeTop: 'Every free thing we found:',
+  closeTop: 'All the free stuff, all week:',
   closeUrl: 'bestofmpls.com/free',
 }, null, 2));
 
@@ -104,7 +104,7 @@ fs.writeFileSync(path.join(outDir, 'weekend.json'), JSON.stringify({
   hook1: 'weekend,',
   hook2: 'sorted.',
   items: weekendFinal.map(clean),
-  closeTop: 'The whole calendar:',
+  closeTop: 'The whole weekend:',
   closeUrl: 'bestofmpls.com',
 }, null, 2));
 
@@ -151,7 +151,7 @@ const DAY_MODES = {
     hook1: 'The week',
     hook2: 'ahead.',
     items: spreadAcrossDays(weekAll, 4).map(e => tag(e, null)),
-    closeTop: 'The whole week, every Monday:',
+    closeTop: 'Everything this week:',
     closeUrl: 'bestofmpls.com',
   }),
   tue: () => {
@@ -165,7 +165,7 @@ const DAY_MODES = {
       ...tonight.map(e => tag(e, 'TONIGHT')),
       ...spreadAcrossDays(weekPool.filter(e => !used.has(e.venue)), 3).map(e => tag(e, 'THIS WEEK')),
     ],
-    closeTop: 'The whole board, all day:',
+    closeTop: 'Everything on tonight:',
     closeUrl: 'bestofmpls.com/tonight',
   }; },
   wed: () => {
@@ -179,7 +179,7 @@ const DAY_MODES = {
       ...tonight.map(e => tag(e, 'TONIGHT')),
       ...spreadAcrossDays(pool(fri, sun).filter(e => !used.has(e.venue)), 3).map(e => tag(e, 'THE WEEKEND')),
     ],
-    closeTop: 'The whole board, all day:',
+    closeTop: 'Everything on tonight:',
     closeUrl: 'bestofmpls.com/tonight',
   }; },
   thu: () => ({
@@ -187,7 +187,7 @@ const DAY_MODES = {
     hook1: 'weekend,',
     hook2: 'sorted.',
     items: weekendFinal.map(e => tag(e, null)),
-    closeTop: 'The whole calendar:',
+    closeTop: 'The whole weekend:',
     closeUrl: 'bestofmpls.com',
   }),
   fri: () => ({
@@ -195,7 +195,7 @@ const DAY_MODES = {
     hook1: 'Tonight.',
     hook2: 'Go.',
     items: diversify(tonightPool, 3).map(e => tag(e, null)),
-    closeTop: "Tonight's whole board:",
+    closeTop: 'Everything on tonight:',
     closeUrl: 'bestofmpls.com/tonight',
   }),
 };
