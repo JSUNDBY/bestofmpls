@@ -165,7 +165,7 @@ const DAY_MODES = {
       ...tonight.map(e => tag(e, 'TONIGHT')),
       ...spreadAcrossDays(weekPool.filter(e => !used.has(e.venue)), 3).map(e => tag(e, 'THIS WEEK')),
     ],
-    closeTop: 'Everything on tonight:',
+    closeTop: 'Everything tonight:',
     closeUrl: 'bestofmpls.com/tonight',
   }; },
   wed: () => {
@@ -179,7 +179,7 @@ const DAY_MODES = {
       ...tonight.map(e => tag(e, 'TONIGHT')),
       ...spreadAcrossDays(pool(fri, sun).filter(e => !used.has(e.venue)), 3).map(e => tag(e, 'THE WEEKEND')),
     ],
-    closeTop: 'Everything on tonight:',
+    closeTop: 'Everything tonight:',
     closeUrl: 'bestofmpls.com/tonight',
   }; },
   thu: () => ({
@@ -195,7 +195,7 @@ const DAY_MODES = {
     hook1: 'Tonight.',
     hook2: 'Go.',
     items: diversify(tonightPool, 3).map(e => tag(e, null)),
-    closeTop: 'Everything on tonight:',
+    closeTop: 'Everything tonight:',
     closeUrl: 'bestofmpls.com/tonight',
   }),
 };
