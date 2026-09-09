@@ -156,7 +156,7 @@ const DAY_MODES = {
     hook1: 'The week',
     hook2: 'ahead.',
     items: spreadAcrossDays(weekAll, 4).map(e => tag(e, null)),
-    closeTop: `${countAll(todayIso, weekEnd)} shows this week. You saw 4.`,
+    closeTop: `${countAll(todayIso, weekEnd)} shows this week.\nYou saw 4.`,
     closeUrl: 'bestofmpls.com',
   }),
   tue: () => {
@@ -170,7 +170,7 @@ const DAY_MODES = {
       ...tonight.map(e => tag(e, 'TONIGHT')),
       ...spreadAcrossDays(weekPool.filter(e => !used.has(e.venue)), 3).map(e => tag(e, 'THIS WEEK')),
     ],
-    closeTop: `${countAll(todayIso, todayIso)} shows tonight. ${countAll(todayIso, weekEnd)} this week.`,
+    closeTop: `${countAll(todayIso, todayIso)} shows tonight.\n${countAll(todayIso, weekEnd)} this week.`,
     closeUrl: 'bestofmpls.com/tonight',
   }; },
   wed: () => {
@@ -184,7 +184,7 @@ const DAY_MODES = {
       ...tonight.map(e => tag(e, 'TONIGHT')),
       ...spreadAcrossDays(pool(fri, sun).filter(e => !used.has(e.venue)), 3).map(e => tag(e, 'THE WEEKEND')),
     ],
-    closeTop: `${countAll(todayIso, todayIso)} shows tonight. ${countAll(fri, sun)} this weekend.`,
+    closeTop: `${countAll(todayIso, todayIso)} shows tonight.\n${countAll(fri, sun)} this weekend.`,
     closeUrl: 'bestofmpls.com/tonight',
   }; },
   thu: () => ({
@@ -192,7 +192,7 @@ const DAY_MODES = {
     hook1: 'weekend,',
     hook2: 'sorted.',
     items: weekendFinal.map(e => tag(e, null)),
-    closeTop: `${countAll(fri, sun)} shows this weekend. You saw ${weekendFinal.length}.`,
+    closeTop: `${countAll(fri, sun)} shows this weekend.\nYou saw ${weekendFinal.length}.`,
     closeUrl: 'bestofmpls.com',
   }),
   fri: () => ({
@@ -200,7 +200,7 @@ const DAY_MODES = {
     hook1: 'Tonight.',
     hook2: 'Go.',
     items: diversify(tonightPool, 3).map(e => tag(e, null)),
-    closeTop: `${countAll(todayIso, todayIso)} shows tonight. You saw ${Math.min(3, diversify(tonightPool, 3).length)}.`,
+    closeTop: `${countAll(todayIso, todayIso)} shows tonight.\nYou saw ${Math.min(3, diversify(tonightPool, 3).length)}.`,
     closeUrl: 'bestofmpls.com/tonight',
   }),
 };
