@@ -41,7 +41,7 @@ export async function uploadVideo(filePath, meta) {
       title: meta.title,
       description: meta.description || '',
       tags: meta.tags || [],
-      categoryId: meta.categoryId || '19', // Travel & Events
+      categoryId: meta.categoryId || '24', // Entertainment — one category, every video (consistency > which)
     },
     status: { privacyStatus: 'private', selfDeclaredMadeForKids: false },
   };
