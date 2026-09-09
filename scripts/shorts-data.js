@@ -152,9 +152,9 @@ const weekAll = pool(todayIso, weekEnd);
 
 const DAY_MODES = {
   mon: () => ({
-    kicker: `${weekAll.length} shows this week`,
-    hook1: 'The week',
-    hook2: 'ahead.',
+    kicker: "It's Monday.",
+    hook1: 'Twin Cities,',
+    hook2: 'here\'s your week.',
     items: spreadAcrossDays(weekAll, 4).map(e => tag(e, null)),
     closeTop: `${countAll(todayIso, weekEnd)} shows this week.\nYou saw 4.`,
     closeUrl: 'bestofmpls.com',
@@ -163,9 +163,9 @@ const DAY_MODES = {
     const tonight = diversify(tonightPool, 2);
     const used = new Set(tonight.map(e => e.venue));
     return {
-    kicker: 'Tuesday in Minneapolis',
-    hook1: 'Tonight, then',
-    hook2: 'this week.',
+    kicker: "It's Tuesday.",
+    hook1: 'Twin Cities,',
+    hook2: 'tonight, then this week.',
     items: [
       ...tonight.map(e => tag(e, 'TONIGHT')),
       ...spreadAcrossDays(weekPool.filter(e => !used.has(e.venue)), 3).map(e => tag(e, 'THIS WEEK')),
@@ -177,9 +177,9 @@ const DAY_MODES = {
     const tonight = diversify(tonightPool, 1);
     const used = new Set(tonight.map(e => e.venue));
     return {
-    kicker: 'Wednesday in Minneapolis',
-    hook1: 'Tonight, then',
-    hook2: 'the weekend.',
+    kicker: "It's Wednesday.",
+    hook1: 'Twin Cities,',
+    hook2: 'tonight, then the weekend.',
     items: [
       ...tonight.map(e => tag(e, 'TONIGHT')),
       ...spreadAcrossDays(pool(fri, sun).filter(e => !used.has(e.venue)), 3).map(e => tag(e, 'THE WEEKEND')),
@@ -188,17 +188,17 @@ const DAY_MODES = {
     closeUrl: 'bestofmpls.com/tonight',
   }; },
   thu: () => ({
-    kicker: 'Your Minneapolis',
-    hook1: 'weekend,',
-    hook2: 'sorted.',
+    kicker: "It's Thursday.",
+    hook1: 'Twin Cities,',
+    hook2: 'your weekend, sorted.',
     items: weekendFinal.map(e => tag(e, null)),
     closeTop: `${countAll(fri, sun)} shows this weekend.\nYou saw ${weekendFinal.length}.`,
     closeUrl: 'bestofmpls.com',
   }),
   fri: () => ({
-    kicker: "It's Friday in Minneapolis",
-    hook1: 'Tonight.',
-    hook2: 'Go.',
+    kicker: "It's Friday.",
+    hook1: 'Twin Cities,',
+    hook2: 'go out.',
     items: diversify(tonightPool, 3).map(e => tag(e, null)),
     closeTop: `${countAll(todayIso, todayIso)} shows tonight.\nYou saw ${Math.min(3, diversify(tonightPool, 3).length)}.`,
     closeUrl: 'bestofmpls.com/tonight',
