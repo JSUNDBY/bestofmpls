@@ -154,7 +154,7 @@ const DAY_MODES = {
   mon: () => ({
     kicker: "It's Monday.",
     hook1: 'Twin Cities,',
-    hook2: 'here\'s your week.',
+    hook2: 'make some plans.',
     items: spreadAcrossDays(weekAll, 4).map(e => tag(e, null)),
     closeTop: `${countAll(todayIso, weekEnd)} shows this week.\nYou saw 4.`,
     closeUrl: 'bestofmpls.com',
@@ -165,7 +165,7 @@ const DAY_MODES = {
     return {
     kicker: "It's Tuesday.",
     hook1: 'Twin Cities,',
-    hook2: 'tonight, then this week.',
+    hook2: 'the week starts tonight.',
     items: [
       ...tonight.map(e => tag(e, 'TONIGHT')),
       ...spreadAcrossDays(weekPool.filter(e => !used.has(e.venue)), 3).map(e => tag(e, 'THIS WEEK')),
@@ -179,7 +179,7 @@ const DAY_MODES = {
     return {
     kicker: "It's Wednesday.",
     hook1: 'Twin Cities,',
-    hook2: 'tonight, then the weekend.',
+    hook2: 'don\'t wait for Friday.',
     items: [
       ...tonight.map(e => tag(e, 'TONIGHT')),
       ...spreadAcrossDays(pool(fri, sun).filter(e => !used.has(e.venue)), 3).map(e => tag(e, 'THE WEEKEND')),
@@ -190,7 +190,7 @@ const DAY_MODES = {
   thu: () => ({
     kicker: "It's Thursday.",
     hook1: 'Twin Cities,',
-    hook2: 'your weekend, sorted.',
+    hook2: 'your weekend\'s handled.',
     items: weekendFinal.map(e => tag(e, null)),
     closeTop: `${countAll(fri, sun)} shows this weekend.\nYou saw ${weekendFinal.length}.`,
     closeUrl: 'bestofmpls.com',
