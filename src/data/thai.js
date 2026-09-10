@@ -7,6 +7,15 @@ module.exports = {
   needs_verification: true,
   entries: [
     {
+      name: 'Coconut Thai',
+      neighborhood: '50th & France, Edina',
+      style: 'Neighborhood Thai',
+      description: 'The 50th & France Thai room, steps off the shopping stretch, doing curries, noodles, and stir-fries generous enough that lunch becomes tomorrow\u2019s lunch too. Family-run warmth, weekday lunch from 11, and reservations \u2014 rare for a neighborhood Thai spot \u2014 make it an easy plan.',
+      address: '3948 W 50th St, Edina',
+      website: 'https://www.coconutthaimn.com',
+      price: '$$'
+    },
+    {
       name: 'HOT GRAINZ Thai Street Food',
       neighborhood: 'West End, St. Paul',
       style: 'Northern Thai street food',
