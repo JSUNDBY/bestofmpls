@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-09T05:07:47.356Z",
+  "generated_at": "2026-09-09T12:33:00.772Z",
   "sources": [
     {
       "source": "first-avenue",
@@ -130,7 +130,7 @@
     {
       "source": "whitesquirrel",
       "label": "White Squirrel Bar",
-      "count": 111,
+      "count": 113,
       "ok": true
     },
     {
@@ -184,7 +184,7 @@
     {
       "source": "crooners",
       "label": "Crooners Supper Club",
-      "count": 159,
+      "count": 161,
       "ok": true
     },
     {
@@ -22458,6 +22458,57 @@
       "source": "crooners"
     },
     {
+      "id": "crooners:2026-12-08:a-charlie-brown-christmas-with-the-tanner-taylor-trio",
+      "date": "2026-12-08",
+      "time": "18:00",
+      "end_date": null,
+      "title": "A Charlie Brown Christmas with the Tanner Taylor Trio",
+      "venue": "Crooners Supper Club",
+      "venue_neighborhood": "Dunsmore Jazz Room",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Doors open at 5:00 PM for Dinner and Drink Service. Hear the classic score from composer Vince Guaraldi, performed by one of the region’s finest piano trios. It’s guaranteed to put a smile on your fac",
+      "url": "https://www.croonersmn.com/event/a-charlie-brown-christmas-with-the-tanner-taylor-trio-9/",
+      "image": "https://www.croonersmn.com/wp-content/uploads/eventbrite-logos/343c0794cdca416eeb647c682503ae79.jpg",
+      "price": "$30–$40",
+      "age": null,
+      "source": "crooners"
+    },
+    {
+      "id": "whitesquirrel:2026-12-08:dl4",
+      "date": "2026-12-08",
+      "time": "18:00",
+      "end_date": null,
+      "title": "DL4",
+      "venue": "White Squirrel Bar",
+      "venue_neighborhood": "West End, St. Paul",
+      "city": "St. Paul",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://whitesquirrelbar.com/event/dl4-7/",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "whitesquirrel"
+    },
+    {
+      "id": "whitesquirrel:2026-12-08:the-dans-w-special-guests",
+      "date": "2026-12-08",
+      "time": "18:00",
+      "end_date": null,
+      "title": "The Dans w. Special Guests",
+      "venue": "White Squirrel Bar",
+      "venue_neighborhood": "West End, St. Paul",
+      "city": "St. Paul",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://whitesquirrelbar.com/event/the-dans-w-special-guests-2/",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "whitesquirrel"
+    },
+    {
       "id": "hclib:2026-12-08:queer-book-club",
       "date": "2026-12-08",
       "time": "18:30",
@@ -22507,6 +22558,23 @@
       "price": null,
       "age": null,
       "source": "guthrie"
+    },
+    {
+      "id": "crooners:2026-12-08:jennifer-grimm-a-christmas-with-family-and-friends",
+      "date": "2026-12-08",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Jennifer Grimm: A Christmas with Family and Friends",
+      "venue": "Crooners Supper Club",
+      "venue_neighborhood": "Main Stage Showroom",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Doors open at 6:00 PM for Dinner and Drink Service. A Wonderful Night of Holiday Originals and Great Classics Jennifer shares the stage with her friends and family as they celebrate the season with ne",
+      "url": "https://www.croonersmn.com/event/jennifer-grimm-a-christmas-with-family-and-friends-10/",
+      "image": "https://www.croonersmn.com/wp-content/uploads/eventbrite-logos/175fda13d2fd138a9d557a3d1179045d.jpg",
+      "price": "$35–$45",
+      "age": null,
+      "source": "crooners"
     },
     {
       "id": "sports:2026-12-08:wild-vs-oilers",

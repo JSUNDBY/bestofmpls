@@ -6915,3 +6915,8 @@ html[data-mode="dark"] .home-board { background: #050505; border-top: 1px solid 
 .newsletter-lanes span { display: inline-block; font-family: var(--font-label); font-size: 13px; font-weight: 600; padding: 6px 14px; border: 1px solid var(--rule-soft); border-radius: 999px; color: var(--ink-soft); transition: all 0.15s; }
 .newsletter-lanes input:checked + span { background: var(--accent); border-color: var(--accent); color: #F4F2EC; }
 .newsletter-lanes label:hover span { border-color: var(--ink); }
+
+/* Lunch guide */
+.lunch-section-blurb { font-family: var(--font-body); font-size: 15.5px; color: var(--ink-soft); margin: -6px 0 10px; max-width: 640px; }
+.opening-note { font-family: var(--font-body); font-size: 14.5px; line-height: 1.55; color: var(--ink-soft); margin: 8px 0 0; max-width: 620px; }
+.lunch-checked { font-family: var(--font-mono); font-size: 13px; color: var(--ink-faint); margin-top: 36px; line-height: 1.6; }

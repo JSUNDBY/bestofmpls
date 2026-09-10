@@ -1205,6 +1205,7 @@ function footer() {
         ${BEST_OF_LIVE ? `<a href="/best-of-${BEST_OF_YEAR}/">Best of MPLS ${BEST_OF_YEAR}</a>` : ''}
         <a href="/new/">New &amp; Notable</a>
         <a href="/90-shows-a-week/">90 Shows a Week: The Data</a>
+        <a href="/lunch/">Where Lunch Survived</a>
         ${guides.map(g => `<a href="/${g.slug}/">${esc(g.h1.replace(/^The /, '').replace(/ in the Twin Cities$/, ''))}</a>`).join('')}
       </nav>
     </div>
@@ -8606,6 +8607,68 @@ const TERMS_HTML = `
   <p><a href="mailto:hello@bestofmpls.com">hello@bestofmpls.com</a></p>`;
 
 
+// /lunch/ — Where Lunch Survived: the lunch-meeting guide. Data in
+// src/data/lunch.js, every pick verified from the restaurant's own posted
+// hours (Sept 2026 research pass; ~75 rooms checked, 26 found closed).
+const lunchGuide = require(path.join(SRC, 'data', 'lunch.js'));
+function renderLunch() {
+  const g = lunchGuide;
+  const pickRow = p => `
+    <article class="opening-row">
+      <div class="opening-when">
+        <span class="opening-time opening-time--day">${esc(p.hours)}</span>
+      </div>
+      <div class="opening-body">
+        <h3 class="opening-title">${esc(p.name)}</h3>
+        <div class="opening-venue">${esc(p.hood)} \u00b7 ${esc(p.address)}</div>
+        <p class="opening-note">${esc(p.why)}</p>
+      </div>
+    </article>`;
+  const sections = g.sections.map(sec => `
+    <div class="exhibition-section">
+      <div class="wrap"><h2 class="exhibition-section-title">${esc(sec.title)}</h2>
+      <p class="lunch-section-blurb">${esc(sec.blurb)}</p></div>
+      ${sec.picks.map(pickRow).join('')}
+    </div>`).join('');
+  const callFirst = `
+    <div class="exhibition-section">
+      <div class="wrap"><h2 class="exhibition-section-title">Worth a call first</h2>
+      <p class="lunch-section-blurb">${esc(g.callFirst.blurb)}</p></div>
+      ${g.callFirst.picks.map(p => `
+      <article class="opening-row">
+        <div class="opening-when"><span class="opening-time opening-time--day">call ahead</span></div>
+        <div class="opening-body">
+          <h3 class="opening-title">${esc(p.name)}</h3>
+          <div class="opening-venue">${esc(p.address)}</div>
+          <p class="opening-note">${esc(p.note)}</p>
+        </div>
+      </article>`).join('')}
+    </div>`;
+  const itemList = {
+    '@context': 'https://schema.org', '@type': 'ItemList',
+    name: g.h1,
+    itemListElement: g.sections.flatMap(s => s.picks).map((p, i) => ({ '@type': 'ListItem', position: i + 1, name: p.name })),
+  };
+  return head({ title: g.title, description: g.seoDescription, slug: g.slug, theme: 'default' }) +
+    header({ activeSlug: '' }) +
+    `<section class="section-head">
+      <div class="wrap">
+        <div class="section-eyebrow">${g.sections.reduce((n, s) => n + s.picks.length, 0)} rooms, verified \u00b7 September 2026</div>
+        <h1 class="section-title">${esc(g.h1)}</h1>
+        <p class="section-deck">${esc(g.intro)}</p>
+      </div>
+    </section>
+    <section class="wrap" style="padding-bottom: var(--sec-y);">
+      ${sections}
+      ${callFirst}
+      <p class="lunch-checked">${esc(g.checked)} Know a lunch room we missed \u2014 or one that just went dark? <a href="/contribute/">Tell us. We read every note.</a></p>
+    </section>
+    <script type="application/ld+json">${JSON.stringify(itemList)}</script>` +
+    newsletterCapture({ context: 'category' }) +
+    footer();
+}
+
+
 function renderSitemap(neighborhoods, crossPages) {
   const urls = [
     { loc: SITE + '/', priority: '1.0' },
@@ -8622,6 +8685,7 @@ function renderSitemap(neighborhoods, crossPages) {
     { loc: SITE + '/five/', priority: '0.8' },
     { loc: SITE + '/free/', priority: '0.85' },
     { loc: SITE + '/' + dataEssay.slug + '/', priority: '0.8' },
+    { loc: SITE + '/lunch/', priority: '0.8' },
     { loc: SITE + '/privacy/', priority: '0.1' },
     { loc: SITE + '/terms/', priority: '0.1' },
     { loc: SITE + '/live-music/tonight/', priority: '0.9' },
@@ -8898,6 +8962,7 @@ function build() {
   writeFile('five/index.html', renderFive());
   writeFile('free/index.html', renderFreeWeek());
   writeFile(dataEssay.slug + '/index.html', renderDataEssay());
+  writeFile('lunch/index.html', renderLunch());
   writeFile('privacy/index.html', renderLegal('privacy', 'Privacy Policy', PRIVACY_HTML));
   writeFile('terms/index.html', renderLegal('terms', 'Terms of Use', TERMS_HTML));
 
