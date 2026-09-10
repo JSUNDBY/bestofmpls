@@ -429,6 +429,72 @@ export default {
       return false;
     }
 
+    // ===== POST /shoot-upload — the Shot Hunt crew's photo drop =====
+    // Body: { code, contributor, slug, cat, filename, image } where image is
+    // a data-URL JPEG the client already compressed (~<=900KB). Guarded by
+    // the SHOOT_CODE crew passphrase + per-IP rate limit. Photos wait in KV
+    // until a session pulls, reviews, and commits them (photo:* keys).
+    if (request.method === 'POST' && url.pathname === '/shoot-upload') {
+      let body;
+      try { body = await request.json(); }
+      catch (_) { return json({ error: 'invalid json' }, 400, origin); }
+      if (!env.SHOOT_CODE || clean(body.code, 60) !== env.SHOOT_CODE) {
+        return json({ error: 'wrong crew code' }, 401, origin);
+      }
+      const ip = request.headers.get('CF-Connecting-IP') || '0.0.0.0';
+      const ipHash = (await sha256Hex(ip)).slice(0, 16);
+      const rlKey = `shootrl:${ipHash}`;
+      const uploads = parseInt(await env.POLLS.get(rlKey) || '0', 10);
+      if (uploads > 120) return json({ error: 'slow down' }, 429, origin);
+      ctx.waitUntil(env.POLLS.put(rlKey, String(uploads + 1), { expirationTtl: 3600 }));
+      const filename = clean(body.filename, 120);
+      const image = String(body.image || '');
+      if (!/^[a-z0-9-]+--[a-z0-9-]+\.jpg$/.test(filename)) return json({ error: 'bad filename' }, 400, origin);
+      if (!image.startsWith('data:image/jpeg;base64,') || image.length > 1400000) {
+        return json({ error: 'bad image (jpeg, under ~1MB after compression)' }, 400, origin);
+      }
+      const record = {
+        filename,
+        slug: clean(body.slug, 80),
+        contributor: clean(body.contributor, 40) || 'anonymous',
+        ts: Date.now(),
+        image,
+      };
+      await env.POLLS.put(`photo:${record.ts}-${filename}`, JSON.stringify(record));
+      // Shared progress: the shot list everyone sees
+      const doneRaw = await env.POLLS.get('shoot:done');
+      const done = doneRaw ? JSON.parse(doneRaw) : {};
+      done[filename] = { by: record.contributor, ts: record.ts };
+      ctx.waitUntil(env.POLLS.put('shoot:done', JSON.stringify(done)));
+      return json({ ok: true, shot: Object.keys(done).length }, 200, origin);
+    }
+
+    // ===== GET /shoot-progress — shared game state (public, no images) =====
+    if (request.method === 'GET' && url.pathname === '/shoot-progress') {
+      const doneRaw = await env.POLLS.get('shoot:done');
+      const done = doneRaw ? JSON.parse(doneRaw) : {};
+      const byContributor = {};
+      for (const v of Object.values(done)) byContributor[v.by] = (byContributor[v.by] || 0) + 1;
+      return json({ done: Object.keys(done), byContributor }, 200, origin);
+    }
+
+    // ===== GET /admin/photos — list waiting photo keys (no blobs) =====
+    if (request.method === 'GET' && url.pathname === '/admin/photos') {
+      if (!(await adminAuthed())) return json({ error: 'unauthorized' }, 401, origin);
+      const list = await env.POLLS.list({ prefix: 'photo:' });
+      return json({ keys: list.keys.map(k => k.name) }, 200, origin);
+    }
+
+    // ===== GET /admin/photo?key=... — one photo record incl. blob =====
+    if (request.method === 'GET' && url.pathname === '/admin/photo') {
+      if (!(await adminAuthed())) return json({ error: 'unauthorized' }, 401, origin);
+      const key = url.searchParams.get('key') || '';
+      if (!key.startsWith('photo:')) return json({ error: 'bad key' }, 400, origin);
+      const rec = await env.POLLS.get(key);
+      if (!rec) return json({ error: 'not found' }, 404, origin);
+      return new Response(rec, { status: 200, headers: { 'Content-Type': 'application/json', ...corsHeaders(origin) } });
+    }
+
     // ===== GET /admin/stories — every story with its moderation state =====
     if (request.method === 'GET' && url.pathname === '/admin/stories') {
       if (!(await adminAuthed())) {

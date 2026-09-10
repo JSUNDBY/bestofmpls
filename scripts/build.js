@@ -8769,6 +8769,183 @@ function renderLunch() {
 }
 
 
+// /shoot/ — the Shot Hunt: the photo shot list as a mobile field game.
+// Unlisted (noindex, no sitemap). Geolocates, sorts targets by distance,
+// opens the camera, compresses client-side, uploads to the worker with the
+// crew code. Shared progress so a crew never double-shoots. Photos wait in
+// KV until a session pulls + reviews + commits ("pull the photos").
+function renderShoot() {
+  // Same pool as the shot list, with coords for distance sorting.
+  const seenPlace = new Set();
+  const targets = [];
+  for (const cat of categories) {
+    (cat.entries || []).forEach((e, idx) => {
+      if (!e.name) return;
+      const slug = entrySlug(e.name);
+      if (seenPlace.has(slug)) return;
+      const coords = lookupCoords(cat.slug, e);
+      if (!coords) return; // no pin, no hunt target
+      seenPlace.add(slug);
+      targets.push({
+        n: e.name,
+        c: cat.title,
+        f: `${cat.slug}--${slug}.jpg`,
+        s: slug,
+        h: (e.neighborhood || '').split(',')[0].trim(),
+        a: e.address || '',
+        lat: coords.lat, lng: coords.lng,
+        w: (idx === 0 || e.featured) ? 3 : (idx < 3 ? 2 : 1),
+      });
+    });
+  }
+  writeFile('shoot/targets.json', JSON.stringify({ targets }));
+
+  return head({ title: 'The Shot Hunt', description: 'Help photograph the Twin Cities for Best of MPLS.', slug: 'shoot', theme: 'default', noindex: true }) +
+    `<style>
+      .sh-wrap { max-width: 560px; margin: 0 auto; padding: 18px 18px 90px; }
+      .sh-title { font-family: var(--font-display); font-weight: 800; font-size: 30px; margin: 8px 0 2px; }
+      .sh-sub { font-family: var(--font-body); font-size: 14px; color: var(--ink-soft); margin: 0 0 14px; }
+      .sh-progress { font-family: var(--font-mono); font-size: 13px; margin: 10px 0; color: var(--ink-soft); }
+      .sh-bar { height: 8px; background: var(--paper-3); border-radius: 99px; overflow: hidden; margin: 6px 0 16px; }
+      .sh-bar span { display: block; height: 100%; background: var(--accent); width: 0; transition: width .4s; }
+      .sh-card { display: flex; gap: 12px; align-items: center; padding: 14px 12px; border-bottom: 1px solid var(--rule-soft); }
+      .sh-card.done { opacity: 0.45; }
+      .sh-info { flex: 1; min-width: 0; }
+      .sh-name { font-family: var(--font-display); font-weight: 800; font-size: 17px; }
+      .sh-meta { font-family: var(--font-mono); font-size: 11.5px; color: var(--ink-faint); margin-top: 3px; }
+      .sh-dist { font-family: var(--font-mono); font-size: 12px; color: var(--accent); white-space: nowrap; }
+      .sh-btn { font-family: var(--font-label); font-weight: 700; font-size: 14px; background: var(--accent); color: #F4F2EC; border: 0; border-radius: 99px; padding: 10px 16px; }
+      .sh-btn[disabled] { background: var(--paper-3); color: var(--ink-faint); }
+      .sh-setup input { width: 100%; font-size: 16px; padding: 12px; margin: 6px 0; border: 1px solid var(--rule-soft); border-radius: 8px; background: var(--paper); color: var(--ink); }
+      .sh-rules { background: var(--paper-2); border-left: 3px solid var(--accent); padding: 12px 16px; font-size: 13.5px; line-height: 1.55; font-family: var(--font-body); color: var(--ink-soft); margin: 12px 0; }
+      .sh-toast { position: fixed; bottom: 18px; left: 50%; transform: translateX(-50%); background: var(--ink); color: #F4F2EC; font-family: var(--font-label); padding: 10px 18px; border-radius: 99px; font-size: 14px; opacity: 0; transition: opacity .3s; pointer-events: none; }
+      .sh-toast.on { opacity: 1; }
+      .sh-board { font-family: var(--font-mono); font-size: 12.5px; margin: 14px 0; color: var(--ink-soft); }
+    </style>
+    <div class="sh-wrap">
+      <div class="sh-title">The Shot Hunt<span style="color:var(--accent)">.</span></div>
+      <p class="sh-sub">Help photograph the Twin Cities for bestofmpls.com. Places near you, one tap, one shot. Your name goes on every photo you land.</p>
+      <div class="sh-setup" id="sh-setup">
+        <input id="sh-name" placeholder="Your name (for credit)" autocomplete="name">
+        <input id="sh-code" placeholder="Crew code">
+        <button class="sh-btn" id="sh-start" style="width:100%; padding:14px;">Start hunting</button>
+      </div>
+      <div id="sh-game" hidden>
+        <div class="sh-rules"><strong>House style:</strong> storefront straight-on from across the sidewalk, or one wide interior. Natural light. No strangers&rsquo; faces. Hold steady, shoot horizontal-ish, done in five seconds.</div>
+        <div class="sh-progress" id="sh-prog"></div>
+        <div class="sh-bar"><span id="sh-barfill"></span></div>
+        <div class="sh-board" id="sh-board"></div>
+        <div id="sh-list"></div>
+      </div>
+      <input type="file" accept="image/*" capture="environment" id="sh-file" hidden>
+      <div class="sh-toast" id="sh-toast"></div>
+    </div>
+    <script>
+    (function(){
+      var WORKER = ${JSON.stringify(POLL_WORKER_URL)};
+      var targets = [], doneSet = {}, board = {}, me = { name: localStorage.getItem('sh-name') || '', code: localStorage.getItem('sh-code') || '' };
+      var current = null, myCount = parseInt(localStorage.getItem('sh-mycount') || '0', 10);
+
+      function toast(t){ var el = document.getElementById('sh-toast'); el.textContent = t; el.classList.add('on'); setTimeout(function(){ el.classList.remove('on'); }, 2600); }
+      function dist(a, b){ var dx = (a.lng - b.lng) * 84000, dy = (a.lat - b.lat) * 111000; return Math.sqrt(dx*dx + dy*dy); }
+      function fmtDist(m){ return m < 950 ? Math.round(m/10)*10 + 'm' : (m/1609).toFixed(1) + ' mi'; }
+
+      function render(pos){
+        var list = document.getElementById('sh-list');
+        var items = targets.slice();
+        if (pos) items.forEach(function(t){ t.d = dist(pos, t); });
+        items.sort(function(a, b){ return (a.d || 9e9) - (b.d || 9e9) || b.w - a.w; });
+        var hood = pos && items[0] && items[0].d < 3000 ? items[0].h : null;
+        var pool = hood ? items.filter(function(t){ return t.h === hood; }) : items;
+        var shotHere = pool.filter(function(t){ return doneSet[t.f]; }).length;
+        document.getElementById('sh-prog').textContent = hood
+          ? ('You\\u2019re in ' + hood + ' \\u00b7 ' + shotHere + ' of ' + pool.length + ' captured \\u00b7 you: ' + myCount)
+          : ('All targets \\u00b7 ' + Object.keys(doneSet).length + ' captured citywide \\u00b7 you: ' + myCount);
+        document.getElementById('sh-barfill').style.width = (pool.length ? Math.round(100*shotHere/pool.length) : 0) + '%';
+        var names = Object.keys(board).sort(function(a,b){ return board[b]-board[a]; }).slice(0,5);
+        document.getElementById('sh-board').textContent = names.length ? ('Crew: ' + names.map(function(n){ return n + ' ' + board[n]; }).join(' \\u00b7 ')) : '';
+        list.innerHTML = items.slice(0, 40).map(function(t, i){
+          var done = doneSet[t.f];
+          return '<div class="sh-card' + (done ? ' done' : '') + '">' +
+            '<div class="sh-info"><div class="sh-name">' + t.n + '</div>' +
+            '<div class="sh-meta">' + t.c + (t.a ? ' \\u00b7 ' + t.a : '') + '</div></div>' +
+            (t.d != null ? '<div class="sh-dist">' + fmtDist(t.d) + '</div>' : '') +
+            (done ? '<button class="sh-btn" disabled>\\u2713 ' + (done.by || '') + '</button>'
+                  : '<button class="sh-btn" data-i="' + targets.indexOf(t) + '">Shoot</button>') +
+            '</div>';
+        }).join('');
+      }
+
+      function locate(){
+        navigator.geolocation.getCurrentPosition(function(p){
+          render({ lat: p.coords.latitude, lng: p.coords.longitude });
+        }, function(){ render(null); }, { enableHighAccuracy: true, timeout: 8000 });
+      }
+
+      function start(){
+        me.name = document.getElementById('sh-name').value.trim() || me.name;
+        me.code = document.getElementById('sh-code').value.trim() || me.code;
+        if (!me.name || !me.code) { toast('Name and crew code first'); return; }
+        localStorage.setItem('sh-name', me.name);
+        localStorage.setItem('sh-code', me.code);
+        document.getElementById('sh-setup').hidden = true;
+        document.getElementById('sh-game').hidden = false;
+        locate();
+        setInterval(locate, 60000);
+      }
+
+      document.getElementById('sh-start').addEventListener('click', start);
+      document.getElementById('sh-list').addEventListener('click', function(ev){
+        var b = ev.target.closest('button[data-i]');
+        if (!b) return;
+        current = targets[parseInt(b.getAttribute('data-i'), 10)];
+        document.getElementById('sh-file').click();
+      });
+
+      document.getElementById('sh-file').addEventListener('change', function(ev){
+        var f = ev.target.files[0];
+        ev.target.value = '';
+        if (!f || !current) return;
+        toast('Sending ' + current.n + '\\u2026');
+        var img = new Image();
+        img.onload = function(){
+          var MAX = 1600;
+          var scale = Math.min(1, MAX / Math.max(img.width, img.height));
+          var cv = document.createElement('canvas');
+          cv.width = Math.round(img.width * scale);
+          cv.height = Math.round(img.height * scale);
+          cv.getContext('2d').drawImage(img, 0, 0, cv.width, cv.height);
+          var data = cv.toDataURL('image/jpeg', 0.82);
+          fetch(WORKER + '/shoot-upload', {
+            method: 'POST', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ code: me.code, contributor: me.name, slug: current.s, filename: current.f, image: data })
+          }).then(function(r){ return r.json(); }).then(function(d){
+            if (d.ok) {
+              doneSet[current.f] = { by: me.name };
+              myCount++; localStorage.setItem('sh-mycount', String(myCount));
+              board[me.name] = (board[me.name] || 0) + 1;
+              toast('\\u2713 ' + current.n + ' captured \\u2014 nice shot');
+              locate();
+            } else { toast(d.error || 'Upload failed'); }
+          }).catch(function(){ toast('No signal \\u2014 try again'); });
+        };
+        img.src = URL.createObjectURL(f);
+      });
+
+      fetch('/shoot/targets.json').then(function(r){ return r.json(); }).then(function(d){
+        targets = d.targets;
+        return fetch(WORKER + '/shoot-progress');
+      }).then(function(r){ return r.json(); }).then(function(d){
+        (d.done || []).forEach(function(f){ doneSet[f] = { by: '' }; });
+        board = d.byContributor || {};
+        if (me.name && me.code) { document.getElementById('sh-name').value = me.name; document.getElementById('sh-code').value = me.code; start(); }
+      }).catch(function(){});
+    })();
+    </script>` +
+    footer();
+}
+
+
 function renderSitemap(neighborhoods, crossPages) {
   const urls = [
     { loc: SITE + '/', priority: '1.0' },
@@ -9065,6 +9242,7 @@ function build() {
   writeFile(dataEssay.slug + '/index.html', renderDataEssay());
   writeFile('lunch/index.html', renderLunch());
   writeFile('openings/index.html', renderOpenings());
+  writeFile('shoot/index.html', renderShoot());
   writeFile('privacy/index.html', renderLegal('privacy', 'Privacy Policy', PRIVACY_HTML));
   writeFile('terms/index.html', renderLegal('terms', 'Terms of Use', TERMS_HTML));
 
