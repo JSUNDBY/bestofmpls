@@ -7,7 +7,16 @@ module.exports = {
   needs_verification: true,
   entries: [
     // ========== MAJOR INSTITUTIONS ==========
-    {
+        {
+      name: 'Hair + Nails',
+      neighborhood: 'Corcoran, Minneapolis',
+      style: 'Artist-run contemporary gallery',
+      description: 'A decade-old artist-run gallery in a converted south Minneapolis house, founded by Ryan Fontaine and Kristin Van Loon, with a second outpost in New York’s Chinatown. Rigorous, strange, and warm at once, with openings that feel like parties because they are. One of the rooms that makes the local scene worth following. Open Thursday through Sunday afternoons.',
+      address: '2222 1/2 E 35th St, Minneapolis',
+      website: 'https://hairandnailsart.com',
+      price: 'Free'
+    },
+{
       name: 'Walker Art Center',
       neighborhood: 'Lowry Hill, Minneapolis',
       style: 'Contemporary art, Beard-honored garden',

@@ -576,6 +576,23 @@ function placePhoto(catSlug, slug) {
   const any = _placePhotoIndex.get(slug);
   return any ? `/img/places/${any}` : null;
 }
+// All photos of a place, hero first: base file, then labeled angles
+// (--interior, --food...), then the rest alphabetically.
+function placePhotos(catSlug, slug) {
+  let files = [];
+  try { files = fs.readdirSync(PLACE_PHOTO_DIR); } catch (_) { return []; }
+  const mine = files.filter(f => {
+    const m = f.match(/^(.+?)--(.+?)(--[a-z0-9]{1,12})?\.(jpe?g|webp|png)$/);
+    return m && m[2] === slug;
+  });
+  const rank = f => {
+    if (/^[a-z0-9-]+--[a-z0-9-]+\.(jpe?g|webp|png)$/.test(f)) return f.startsWith(catSlug + '--') ? 0 : 1;
+    if (/--interior\./.test(f)) return 2;
+    if (/--food\./.test(f)) return 3;
+    return 4;
+  };
+  return mine.sort((a, b2) => rank(a) - rank(b2) || a.localeCompare(b2)).map(f => `/img/places/${f}`);
+}
 
 function lookupCoords(slug, entry) {
   const hLook = hoursData[`${slug}:${entry.name}`];
@@ -3005,7 +3022,13 @@ function renderEntry(c, e, allCategories) {
          ${BEST_OF_LIVE && isBestOfWinner(c.slug, e.name) ? `<a class="bestof-ribbon" href="/best-of-${BEST_OF_YEAR}/">★ Best of MPLS ${BEST_OF_YEAR}: ${esc(bestOfAwardLabel(c.slug))}</a>` : ''}
        </header>
 
-       ${photo ? `<figure class="entry-photo"><img src="${esc(photo)}" alt="${esc(e.name)}" loading="eager" decoding="async"></figure>` : ''}
+       ${(() => {
+         const shots = placePhotos(c.slug, slug);
+         if (!shots.length) return '';
+         const hero = `<figure class="entry-photo"><img src="${esc(shots[0])}" alt="${esc(e.name)}" loading="eager" decoding="async"></figure>`;
+         const rest = shots.slice(1, 5).map(p2 => `<img src="${esc(p2)}" alt="${esc(e.name)}" loading="lazy" decoding="async">`).join('');
+         return hero + (rest ? `<div class="entry-photo-row">${rest}</div>` : '');
+       })()}
 
        <section class="entry-detail-body">
          <p class="entry-detail-description">${esc(e.description)}</p>
@@ -8870,7 +8893,7 @@ function renderShoot() {
             '<div class="sh-info"><div class="sh-name">' + t.n + '</div>' +
             '<div class="sh-meta">' + t.c + (t.a ? ' \\u00b7 ' + t.a : '') + '</div></div>' +
             (t.d != null ? '<div class="sh-dist">' + fmtDist(t.d) + '</div>' : '') +
-            (done ? '<button class="sh-btn" disabled>\\u2713 ' + (done.by || '') + '</button>'
+            (done ? '<button class="sh-btn sh-btn-more" data-i="' + targets.indexOf(t) + '" data-more="1">\\u2713 +angle</button>'
                   : '<button class="sh-btn" data-i="' + targets.indexOf(t) + '">Shoot</button>') +
             '</div>';
         }).join('');
@@ -8899,6 +8922,7 @@ function renderShoot() {
         var b = ev.target.closest('button[data-i]');
         if (!b) return;
         current = targets[parseInt(b.getAttribute('data-i'), 10)];
+        current._more = b.getAttribute('data-more') === '1';
         document.getElementById('sh-file').click();
       });
 
@@ -8918,7 +8942,7 @@ function renderShoot() {
           var data = cv.toDataURL('image/jpeg', 0.82);
           fetch(WORKER + '/shoot-upload', {
             method: 'POST', headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ code: me.code, contributor: me.name, slug: current.s, filename: current.f, image: data })
+            body: JSON.stringify({ code: me.code, contributor: me.name, slug: current.s, filename: current._more ? current.f.replace(/\.jpg$/, '--x' + Math.random().toString(36).slice(2, 6) + '.jpg') : current.f, image: data })
           }).then(function(r){ return r.json(); }).then(function(d){
             if (d.ok) {
               doneSet[current.f] = { by: me.name };

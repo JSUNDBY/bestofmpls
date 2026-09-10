@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-10T04:52:56.822Z",
+  "generated_at": "2026-09-10T12:31:13.669Z",
   "sources": [
     {
       "source": "first-avenue",
@@ -34,7 +34,7 @@
     {
       "source": "trylon",
       "label": "Trylon Cinema",
-      "count": 118,
+      "count": 119,
       "ok": true
     },
     {
@@ -58,7 +58,7 @@
     {
       "source": "331",
       "label": "The 331 Club",
-      "count": 73,
+      "count": 72,
       "ok": true
     },
     {
@@ -106,7 +106,7 @@
     {
       "source": "umn-events",
       "label": "University of Minnesota",
-      "count": 30,
+      "count": 2,
       "ok": true
     },
     {
@@ -130,7 +130,7 @@
     {
       "source": "whitesquirrel",
       "label": "White Squirrel Bar",
-      "count": 111,
+      "count": 112,
       "ok": true
     },
     {
@@ -184,7 +184,7 @@
     {
       "source": "crooners",
       "label": "Crooners Supper Club",
-      "count": 168,
+      "count": 170,
       "ok": true
     },
     {
@@ -305,40 +305,6 @@
       "price": null,
       "age": "All ages",
       "source": "highpoint"
-    },
-    {
-      "id": "331:2026-09-09:the-matt-arthur-contraption",
-      "date": "2026-09-09",
-      "time": "19:00",
-      "end_date": null,
-      "title": "The Matt Arthur Contraption",
-      "venue": "The 331 Club",
-      "venue_neighborhood": "Northeast Minneapolis",
-      "city": "Minneapolis",
-      "category": "music",
-      "subtitle": "With Harold’s House Party on KFAI, Wain Anthony McFarlane · 9:30pm, 7:00pm",
-      "url": "https://www.331club.com/",
-      "image": null,
-      "price": null,
-      "age": "21+",
-      "source": "331"
-    },
-    {
-      "id": "trylon:2026-09-09:19:00:vive-le-punk",
-      "date": "2026-09-09",
-      "time": "19:00",
-      "end_date": null,
-      "title": "Vive le Punk",
-      "venue": "Trylon Cinema",
-      "venue_neighborhood": "Longfellow, Minneapolis",
-      "city": "Minneapolis",
-      "category": "film",
-      "subtitle": "(2026, 96m, UK) dir Danny Garcia. Five decades after the explosive birth of British Punk, which shook the foundations of music and culture, Vive Le Punk dives headfirst into the raw, undying spirit of the movement that c",
-      "url": "https://www.trylon.org/film/vive-le-punk/",
-      "image": "https://www.trylon.org/wp-content/uploads/2026/06/Ruts-e1780514107694.jpg",
-      "price": null,
-      "age": null,
-      "source": "trylon"
     },
     {
       "id": "walker:2026-09-09:laurie-anderson-republic-of-love-solo",
@@ -3803,7 +3769,7 @@
       "category": "lecture",
       "subtitle": "Hosted by College of Science and Engineering",
       "url": "https://events.tc.umn.edu/cse/event/26906-2026-kaufmanis-public-lecture",
-      "image": "https://events.tc.umn.edu/live/image/gid/160/width/300/height/300/crop/1/src_region/0,0,220,163/5746_Lintott.png_2.jpg",
+      "image": "https://events.tc.umn.edu/live/image/gid/160/width/80/height/80/crop/1/src_region/0,0,220,163/5746_Lintott.png_2.jpg",
       "price": null,
       "age": null,
       "source": "umn-events"
@@ -4211,7 +4177,7 @@
       "category": "lecture",
       "subtitle": "Hosted by Medical School",
       "url": "https://events.tc.umn.edu/medical-school/event/26763-18th-annual-david-a-rothenberger-lecture",
-      "image": "https://events.tc.umn.edu/live/image/gid/325/width/300/height/300/crop/1/src_region/0,0,1447,814/5693_rothenberger_lecture_2026_graphic.jpg",
+      "image": "https://events.tc.umn.edu/live/image/gid/325/width/80/height/80/crop/1/src_region/0,0,1447,814/5693_rothenberger_lecture_2026_graphic.jpg",
       "price": null,
       "age": null,
       "source": "umn-events"
@@ -4300,23 +4266,6 @@
       "price": "$25–$35",
       "age": null,
       "source": "crooners"
-    },
-    {
-      "id": "umn-events:2026-09-17:2026-ima-public-lecture",
-      "date": "2026-09-17",
-      "time": "19:00",
-      "end_date": "2026-09-17",
-      "title": "2026 IMA Public Lecture",
-      "venue": "301 19th Avenue South, Minneapolis, MN 55455",
-      "venue_neighborhood": "University of Minnesota, Minneapolis",
-      "city": "Minneapolis",
-      "category": "lecture",
-      "subtitle": "Hosted by College of Science and Engineering",
-      "url": "https://events.tc.umn.edu/cse/event/27731-2026-ima-public-lecture",
-      "image": "https://events.tc.umn.edu/live/image/gid/160/width/300/height/300/crop/1/src_region/0,0,309,464/5888_Mattingly_Headshot.jpg",
-      "price": null,
-      "age": null,
-      "source": "umn-events"
     },
     {
       "id": "dakota:2026-09-17:a-night-dedicated-to-cassandra-wilson",
@@ -5337,23 +5286,6 @@
       "price": null,
       "age": null,
       "source": "guthrie"
-    },
-    {
-      "id": "umn-events:2026-09-19:artist-talk-contrast-2025-26-aragti-wadaag-residency",
-      "date": "2026-09-19",
-      "time": "16:00",
-      "end_date": "2026-09-19",
-      "title": "Artist Talk: CONTRAST: 2025-26 Aragti Wadaag Residency",
-      "venue": "Katherine E. Nash Gallery, 405 21st Avenue South Minneapolis, MN 55455",
-      "venue_neighborhood": "University of Minnesota, Minneapolis",
-      "city": "Minneapolis",
-      "category": "lecture",
-      "subtitle": "Hosted by Department of Art",
-      "url": "https://events.tc.umn.edu/art/event/28607-artist-talk-contrast-2025-26-aragti-wadaag",
-      "image": "https://events.tc.umn.edu/live/image/gid/53/width/300/height/300/crop/1/src_region/0,0,1610,1612/6032_still_of_work_-_sabr_saturn.png",
-      "price": "Free",
-      "age": null,
-      "source": "umn-events"
     },
     {
       "id": "berlin:2026-09-19:early-evening-jazz-jackson-churchill-trio",
@@ -6818,23 +6750,6 @@
       "source": "hook"
     },
     {
-      "id": "umn-events:2026-09-22:esther-freier-lecture-an-evening-with-george-saunders",
-      "date": "2026-09-22",
-      "time": "19:30",
-      "end_date": null,
-      "title": "Esther Freier Lecture: An Evening With George Saunders",
-      "venue": "Northrop",
-      "venue_neighborhood": "University of Minnesota, Minneapolis",
-      "city": "Minneapolis",
-      "category": "lecture",
-      "subtitle": "Hosted by Northrop",
-      "url": "https://events.tc.umn.edu/northrop/event/27174-esther-freier-lecture-an-evening-with-george",
-      "image": "https://events.tc.umn.edu/live/image/gid/372/width/300/height/300/crop/1/src_region/0,0,600,350/5804_George_Saunders_300x250.jpg",
-      "price": "Free",
-      "age": null,
-      "source": "umn-events"
-    },
-    {
       "id": "cedar:2026-09-22:first-avenue-presents-croz-boyce-with-powers-rolin-duo",
       "date": "2026-09-22",
       "time": "19:30",
@@ -7955,23 +7870,6 @@
       "price": null,
       "age": "All ages",
       "source": "spco"
-    },
-    {
-      "id": "umn-events:2026-09-25:webinar-real-talk-about-caregiving-in-midlife",
-      "date": "2026-09-25",
-      "time": "12:00",
-      "end_date": "2026-09-25",
-      "title": "Webinar: Real Talk About Caregiving in Midlife",
-      "venue": "College of Continuing and Professional Studies",
-      "venue_neighborhood": "University of Minnesota, Minneapolis",
-      "city": "Minneapolis",
-      "category": "lecture",
-      "subtitle": "Hosted by College of Continuing and Professional Studies",
-      "url": "https://events.tc.umn.edu/continuingand-professional-studies/event/27824-webinar-real-talk-about-caregiving-in-midlife",
-      "image": "https://events.tc.umn.edu/live/image/gid/153/width/300/height/300/crop/1/src_region/0,0,3200,2133/5898_iStock-1480607288.jpg",
-      "price": null,
-      "age": null,
-      "source": "umn-events"
     },
     {
       "id": "manual:2026-09-25:fulton-oktoberfest",
@@ -10029,23 +9927,6 @@
       "price": null,
       "age": "All ages",
       "source": "dakota"
-    },
-    {
-      "id": "umn-events:2026-09-29:cdes-study-abroad-info-session-and-student-panel",
-      "date": "2026-09-29",
-      "time": "12:00",
-      "end_date": "2026-09-29",
-      "title": "CDes Study Abroad Info Session & Student Panel",
-      "venue": "Learning Abroad Center",
-      "venue_neighborhood": "University of Minnesota, Minneapolis",
-      "city": "Minneapolis",
-      "category": "lecture",
-      "subtitle": "Hosted by Learning Abroad Center",
-      "url": "https://events.tc.umn.edu/learning-abroad-center/event/28585-cdes-study-abroad-info-session-student-panel",
-      "image": "https://events.tc.umn.edu/live/image/gid/298/width/300/height/300/crop/1/src_region/0,0,631,621/2620_wordmark-square2.png",
-      "price": null,
-      "age": null,
-      "source": "umn-events"
     },
     {
       "id": "loft:2026-09-29:friend-fete-september-2026",
@@ -12513,23 +12394,6 @@
       "source": "trylon"
     },
     {
-      "id": "umn-events:2026-10-06:isgh-advances-in-sexual-and-gender-health-seminar",
-      "date": "2026-10-06",
-      "time": "12:00",
-      "end_date": null,
-      "title": "ISGH Advances in Sexual and Gender Health Seminar",
-      "venue": "Eli Coleman Institute for Sexual and Gender Health",
-      "venue_neighborhood": "University of Minnesota, Minneapolis",
-      "city": "Minneapolis",
-      "category": "lecture",
-      "subtitle": "Hosted by Eli Coleman Institute for Sexual and Gender Health",
-      "url": "https://events.tc.umn.edu/sexual-gender-health/event/28317-isgh-advances-in-sexual-and-gender-health-seminar",
-      "image": "https://events.tc.umn.edu/live/image/gid/258/width/300/height/300/crop/1/src_region/0,0,2133,3200/5988_Simon_headshot_1.jpg",
-      "price": null,
-      "age": null,
-      "source": "umn-events"
-    },
-    {
       "id": "varsity:2026-10-06:our-lady-peace-30th-anniversary-tour-w-special-guests-the-verve-pipe",
       "date": "2026-10-06",
       "time": "19:00",
@@ -13412,23 +13276,6 @@
       "price": null,
       "age": null,
       "source": "parkway"
-    },
-    {
-      "id": "umn-events:2026-10-09:microbiome-and-cancer-symposium",
-      "date": "2026-10-09",
-      "time": "09:00",
-      "end_date": "2026-10-09",
-      "title": "Microbiome & Cancer Symposium",
-      "venue": "Cancer and Cardiovascular Research Building",
-      "venue_neighborhood": "University of Minnesota, Minneapolis",
-      "city": "Minneapolis",
-      "category": "lecture",
-      "subtitle": "Hosted by Masonic Cancer Center",
-      "url": "https://events.tc.umn.edu/masonic-cancer-center/event/27024-microbiome-cancer-symposium",
-      "image": null,
-      "price": "Free",
-      "age": null,
-      "source": "umn-events"
     },
     {
       "id": "trylon:2026-10-09:16:00:horrorthon-x",
@@ -14587,40 +14434,6 @@
       "source": "hclib"
     },
     {
-      "id": "umn-events:2026-10-12:ali-lecture-series-2026-2027",
-      "date": "2026-10-12",
-      "time": "16:30",
-      "end_date": "2027-04-12",
-      "title": "ALI LECTURE SERIES | 2026 - 2027",
-      "venue": "Rapson Hall, 89 Church Street Se Minneapolis, Minnesota 55455",
-      "venue_neighborhood": "University of Minnesota, Minneapolis",
-      "city": "Minneapolis",
-      "category": "lecture",
-      "subtitle": "Hosted by College of Design",
-      "url": "https://events.tc.umn.edu/design/event/28531-ali-lecture-series-2026-2027",
-      "image": "https://events.tc.umn.edu/live/image/gid/172/width/300/height/300/crop/1/src_region/0,0,359,359/143_CDes_ACAS_image_2_2.jpg",
-      "price": "Free",
-      "age": null,
-      "source": "umn-events"
-    },
-    {
-      "id": "umn-events:2026-10-12:ali-lecture-series-authors-of-thinking-through-soil",
-      "date": "2026-10-12",
-      "time": "16:30",
-      "end_date": "2026-10-12",
-      "title": "ALI LECTURE SERIES | Authors of “Thinking Through Soil”",
-      "venue": "Rapson Hall, 89 Church Street Se Minneapolis, Minnesota 55455",
-      "venue_neighborhood": "University of Minnesota, Minneapolis",
-      "city": "Minneapolis",
-      "category": "lecture",
-      "subtitle": "Hosted by College of Design",
-      "url": "https://events.tc.umn.edu/design/event/28535-ali-lecture-series-authors-of-thinking-through-soil",
-      "image": "https://events.tc.umn.edu/live/image/gid/172/width/300/height/300/crop/1/src_region/0,0,359,359/143_CDes_ACAS_image_2_2.jpg",
-      "price": "Free",
-      "age": null,
-      "source": "umn-events"
-    },
-    {
       "id": "whitesquirrel:2026-10-12:mumblin-drew-s-oldfangled-orchestrators",
       "date": "2026-10-12",
       "time": "18:00",
@@ -15046,23 +14859,6 @@
       "source": "trylon"
     },
     {
-      "id": "umn-events:2026-10-13:ali-lecture-series-2026-2027",
-      "date": "2026-10-13",
-      "time": null,
-      "end_date": null,
-      "title": "ALI LECTURE SERIES | 2026 - 2027",
-      "venue": "Rapson Hall, 89 Church Street Se Minneapolis, Minnesota 55455",
-      "venue_neighborhood": "University of Minnesota, Minneapolis",
-      "city": "Minneapolis",
-      "category": "lecture",
-      "subtitle": "Hosted by College of Design",
-      "url": "https://events.tc.umn.edu/design/event/28531-ali-lecture-series-2026-2027",
-      "image": "https://events.tc.umn.edu/live/image/gid/172/width/300/height/300/crop/1/src_region/0,0,359,359/143_CDes_ACAS_image_2_2.jpg",
-      "price": "Free",
-      "age": null,
-      "source": "umn-events"
-    },
-    {
       "id": "hennepinarts:2026-10-13:sting-3-0-tour-2026-with-special-guest-chance-emerson",
       "date": "2026-10-13",
       "time": null,
@@ -15350,23 +15146,6 @@
       "price": null,
       "age": "21+",
       "source": "berlin"
-    },
-    {
-      "id": "umn-events:2026-10-14:ali-lecture-series-2026-2027",
-      "date": "2026-10-14",
-      "time": null,
-      "end_date": null,
-      "title": "ALI LECTURE SERIES | 2026 - 2027",
-      "venue": "Rapson Hall, 89 Church Street Se Minneapolis, Minnesota 55455",
-      "venue_neighborhood": "University of Minnesota, Minneapolis",
-      "city": "Minneapolis",
-      "category": "lecture",
-      "subtitle": "Hosted by College of Design",
-      "url": "https://events.tc.umn.edu/design/event/28531-ali-lecture-series-2026-2027",
-      "image": "https://events.tc.umn.edu/live/image/gid/172/width/300/height/300/crop/1/src_region/0,0,359,359/143_CDes_ACAS_image_2_2.jpg",
-      "price": "Free",
-      "age": null,
-      "source": "umn-events"
     },
     {
       "id": "parkway:2026-10-14:conor-janda",
@@ -15675,23 +15454,6 @@
       "source": "331"
     },
     {
-      "id": "umn-events:2026-10-15:ali-lecture-series-2026-2027",
-      "date": "2026-10-15",
-      "time": null,
-      "end_date": null,
-      "title": "ALI LECTURE SERIES | 2026 - 2027",
-      "venue": "Rapson Hall, 89 Church Street Se Minneapolis, Minnesota 55455",
-      "venue_neighborhood": "University of Minnesota, Minneapolis",
-      "city": "Minneapolis",
-      "category": "lecture",
-      "subtitle": "Hosted by College of Design",
-      "url": "https://events.tc.umn.edu/design/event/28531-ali-lecture-series-2026-2027",
-      "image": "https://events.tc.umn.edu/live/image/gid/172/width/300/height/300/crop/1/src_region/0,0,359,359/143_CDes_ACAS_image_2_2.jpg",
-      "price": "Free",
-      "age": null,
-      "source": "umn-events"
-    },
-    {
       "id": "hennepinarts:2026-10-15:ben-schwartz-and-friends",
       "date": "2026-10-15",
       "time": null,
@@ -15996,23 +15758,6 @@
       "price": "$10–$20",
       "age": null,
       "source": "greenroom"
-    },
-    {
-      "id": "umn-events:2026-10-16:ali-lecture-series-2026-2027",
-      "date": "2026-10-16",
-      "time": null,
-      "end_date": null,
-      "title": "ALI LECTURE SERIES | 2026 - 2027",
-      "venue": "Rapson Hall, 89 Church Street Se Minneapolis, Minnesota 55455",
-      "venue_neighborhood": "University of Minnesota, Minneapolis",
-      "city": "Minneapolis",
-      "category": "lecture",
-      "subtitle": "Hosted by College of Design",
-      "url": "https://events.tc.umn.edu/design/event/28531-ali-lecture-series-2026-2027",
-      "image": "https://events.tc.umn.edu/live/image/gid/172/width/300/height/300/crop/1/src_region/0,0,359,359/143_CDes_ACAS_image_2_2.jpg",
-      "price": "Free",
-      "age": null,
-      "source": "umn-events"
     },
     {
       "id": "parkway:2026-10-16:millsmoke-on-the-skyline-chris-koza-album-release-with-special-guests-dylan-hick",
@@ -16321,23 +16066,6 @@
       "source": "trylon"
     },
     {
-      "id": "umn-events:2026-10-17:ali-lecture-series-2026-2027",
-      "date": "2026-10-17",
-      "time": null,
-      "end_date": null,
-      "title": "ALI LECTURE SERIES | 2026 - 2027",
-      "venue": "Rapson Hall, 89 Church Street Se Minneapolis, Minnesota 55455",
-      "venue_neighborhood": "University of Minnesota, Minneapolis",
-      "city": "Minneapolis",
-      "category": "lecture",
-      "subtitle": "Hosted by College of Design",
-      "url": "https://events.tc.umn.edu/design/event/28531-ali-lecture-series-2026-2027",
-      "image": "https://events.tc.umn.edu/live/image/gid/172/width/300/height/300/crop/1/src_region/0,0,359,359/143_CDes_ACAS_image_2_2.jpg",
-      "price": "Free",
-      "age": null,
-      "source": "umn-events"
-    },
-    {
       "id": "hennepinarts:2026-10-17:an-evening-with-david-sedaris",
       "date": "2026-10-17",
       "time": null,
@@ -16644,23 +16372,6 @@
       "source": "cedar"
     },
     {
-      "id": "umn-events:2026-10-18:ali-lecture-series-2026-2027",
-      "date": "2026-10-18",
-      "time": null,
-      "end_date": null,
-      "title": "ALI LECTURE SERIES | 2026 - 2027",
-      "venue": "Rapson Hall, 89 Church Street Se Minneapolis, Minnesota 55455",
-      "venue_neighborhood": "University of Minnesota, Minneapolis",
-      "city": "Minneapolis",
-      "category": "lecture",
-      "subtitle": "Hosted by College of Design",
-      "url": "https://events.tc.umn.edu/design/event/28531-ali-lecture-series-2026-2027",
-      "image": "https://events.tc.umn.edu/live/image/gid/172/width/300/height/300/crop/1/src_region/0,0,359,359/143_CDes_ACAS_image_2_2.jpg",
-      "price": "Free",
-      "age": null,
-      "source": "umn-events"
-    },
-    {
       "id": "hclib:2026-10-19:french-club",
       "date": "2026-10-19",
       "time": "13:00",
@@ -16797,40 +16508,6 @@
       "source": "whitesquirrel"
     },
     {
-      "id": "umn-events:2026-10-19:ali-lecture-series-2026-2027",
-      "date": "2026-10-19",
-      "time": null,
-      "end_date": null,
-      "title": "ALI LECTURE SERIES | 2026 - 2027",
-      "venue": "Rapson Hall, 89 Church Street Se Minneapolis, Minnesota 55455",
-      "venue_neighborhood": "University of Minnesota, Minneapolis",
-      "city": "Minneapolis",
-      "category": "lecture",
-      "subtitle": "Hosted by College of Design",
-      "url": "https://events.tc.umn.edu/design/event/28531-ali-lecture-series-2026-2027",
-      "image": "https://events.tc.umn.edu/live/image/gid/172/width/300/height/300/crop/1/src_region/0,0,359,359/143_CDes_ACAS_image_2_2.jpg",
-      "price": "Free",
-      "age": null,
-      "source": "umn-events"
-    },
-    {
-      "id": "umn-events:2026-10-20:tww-panel-writing-spaces-mapping-as-writing-and-writing-about-maps",
-      "date": "2026-10-20",
-      "time": "12:00",
-      "end_date": "2026-10-20",
-      "title": "TWW Panel: Writing Spaces: Mapping as writing and writing about maps",
-      "venue": "Writing Across the Curriculum",
-      "venue_neighborhood": "University of Minnesota, Minneapolis",
-      "city": "Minneapolis",
-      "category": "lecture",
-      "subtitle": "Hosted by Writing Across the Curriculum",
-      "url": "https://events.tc.umn.edu/live/events/28281-tww-panel-writing-spaces-mapping-as-writing-and-writin",
-      "image": "https://events.tc.umn.edu/live/image/gid/528/width/300/height/300/crop/1/src_region/0,0,1971,723/3736_Teaching-With-Writing.png",
-      "price": null,
-      "age": null,
-      "source": "umn-events"
-    },
-    {
       "id": "whitesquirrel:2026-10-20:the-new-havoline-supremes",
       "date": "2026-10-20",
       "time": "18:00",
@@ -16931,23 +16608,6 @@
       "price": null,
       "age": null,
       "source": "trylon"
-    },
-    {
-      "id": "umn-events:2026-10-20:ali-lecture-series-2026-2027",
-      "date": "2026-10-20",
-      "time": null,
-      "end_date": null,
-      "title": "ALI LECTURE SERIES | 2026 - 2027",
-      "venue": "Rapson Hall, 89 Church Street Se Minneapolis, Minnesota 55455",
-      "venue_neighborhood": "University of Minnesota, Minneapolis",
-      "city": "Minneapolis",
-      "category": "lecture",
-      "subtitle": "Hosted by College of Design",
-      "url": "https://events.tc.umn.edu/design/event/28531-ali-lecture-series-2026-2027",
-      "image": "https://events.tc.umn.edu/live/image/gid/172/width/300/height/300/crop/1/src_region/0,0,359,359/143_CDes_ACAS_image_2_2.jpg",
-      "price": "Free",
-      "age": null,
-      "source": "umn-events"
     },
     {
       "id": "hennepinarts:2026-10-20:the-sound-of-music",
@@ -17154,23 +16814,6 @@
       "source": "berlin"
     },
     {
-      "id": "umn-events:2026-10-21:ali-lecture-series-2026-2027",
-      "date": "2026-10-21",
-      "time": null,
-      "end_date": null,
-      "title": "ALI LECTURE SERIES | 2026 - 2027",
-      "venue": "Rapson Hall, 89 Church Street Se Minneapolis, Minnesota 55455",
-      "venue_neighborhood": "University of Minnesota, Minneapolis",
-      "city": "Minneapolis",
-      "category": "lecture",
-      "subtitle": "Hosted by College of Design",
-      "url": "https://events.tc.umn.edu/design/event/28531-ali-lecture-series-2026-2027",
-      "image": "https://events.tc.umn.edu/live/image/gid/172/width/300/height/300/crop/1/src_region/0,0,359,359/143_CDes_ACAS_image_2_2.jpg",
-      "price": "Free",
-      "age": null,
-      "source": "umn-events"
-    },
-    {
       "id": "hennepinarts:2026-10-21:indigo-girls-with-special-guest-linda-perry",
       "date": "2026-10-21",
       "time": null,
@@ -17220,23 +16863,6 @@
       "price": null,
       "age": null,
       "source": "hennepinarts"
-    },
-    {
-      "id": "umn-events:2026-10-22:13th-annual-minnesota-neuromodulation-symposium",
-      "date": "2026-10-22",
-      "time": "08:00",
-      "end_date": "2026-10-23",
-      "title": "13th Annual Minnesota Neuromodulation Symposium",
-      "venue": "Institute for Engineering in Medicine",
-      "venue_neighborhood": "University of Minnesota, Minneapolis",
-      "city": "Minneapolis",
-      "category": "lecture",
-      "subtitle": "Hosted by Institute for Engineering in Medicine",
-      "url": "https://events.tc.umn.edu/engineering-in-medicine/event/27196-13th-annual-minnesota-neuromodulation-symposium",
-      "image": "https://events.tc.umn.edu/live/image/gid/188/width/300/height/300/crop/1/src_region/0,0,1080,1080/5869_Social_Media-2-Travel_awards.png",
-      "price": null,
-      "age": null,
-      "source": "umn-events"
     },
     {
       "id": "mnorch:11915",
@@ -17492,23 +17118,6 @@
       "price": "Free",
       "age": "All ages",
       "source": "toapresents"
-    },
-    {
-      "id": "umn-events:2026-10-22:ali-lecture-series-2026-2027",
-      "date": "2026-10-22",
-      "time": null,
-      "end_date": null,
-      "title": "ALI LECTURE SERIES | 2026 - 2027",
-      "venue": "Rapson Hall, 89 Church Street Se Minneapolis, Minnesota 55455",
-      "venue_neighborhood": "University of Minnesota, Minneapolis",
-      "city": "Minneapolis",
-      "category": "lecture",
-      "subtitle": "Hosted by College of Design",
-      "url": "https://events.tc.umn.edu/design/event/28531-ali-lecture-series-2026-2027",
-      "image": "https://events.tc.umn.edu/live/image/gid/172/width/300/height/300/crop/1/src_region/0,0,359,359/143_CDes_ACAS_image_2_2.jpg",
-      "price": "Free",
-      "age": null,
-      "source": "umn-events"
     },
     {
       "id": "hennepinarts:2026-10-22:indigo-girls-with-special-guest-linda-perry",
@@ -17902,40 +17511,6 @@
       "source": "berlin"
     },
     {
-      "id": "umn-events:2026-10-23:13th-annual-minnesota-neuromodulation-symposium",
-      "date": "2026-10-23",
-      "time": null,
-      "end_date": null,
-      "title": "13th Annual Minnesota Neuromodulation Symposium",
-      "venue": "Institute for Engineering in Medicine",
-      "venue_neighborhood": "University of Minnesota, Minneapolis",
-      "city": "Minneapolis",
-      "category": "lecture",
-      "subtitle": "Hosted by Institute for Engineering in Medicine",
-      "url": "https://events.tc.umn.edu/engineering-in-medicine/event/27196-13th-annual-minnesota-neuromodulation-symposium",
-      "image": "https://events.tc.umn.edu/live/image/gid/188/width/300/height/300/crop/1/src_region/0,0,1080,1080/5869_Social_Media-2-Travel_awards.png",
-      "price": null,
-      "age": null,
-      "source": "umn-events"
-    },
-    {
-      "id": "umn-events:2026-10-23:ali-lecture-series-2026-2027",
-      "date": "2026-10-23",
-      "time": null,
-      "end_date": null,
-      "title": "ALI LECTURE SERIES | 2026 - 2027",
-      "venue": "Rapson Hall, 89 Church Street Se Minneapolis, Minnesota 55455",
-      "venue_neighborhood": "University of Minnesota, Minneapolis",
-      "city": "Minneapolis",
-      "category": "lecture",
-      "subtitle": "Hosted by College of Design",
-      "url": "https://events.tc.umn.edu/design/event/28531-ali-lecture-series-2026-2027",
-      "image": "https://events.tc.umn.edu/live/image/gid/172/width/300/height/300/crop/1/src_region/0,0,359,359/143_CDes_ACAS_image_2_2.jpg",
-      "price": "Free",
-      "age": null,
-      "source": "umn-events"
-    },
-    {
       "id": "hennepinarts:2026-10-23:indigo-girls-with-special-guest-linda-perry",
       "date": "2026-10-23",
       "time": null,
@@ -18240,23 +17815,6 @@
       "price": null,
       "age": null,
       "source": "whitesquirrel"
-    },
-    {
-      "id": "umn-events:2026-10-24:ali-lecture-series-2026-2027",
-      "date": "2026-10-24",
-      "time": null,
-      "end_date": null,
-      "title": "ALI LECTURE SERIES | 2026 - 2027",
-      "venue": "Rapson Hall, 89 Church Street Se Minneapolis, Minnesota 55455",
-      "venue_neighborhood": "University of Minnesota, Minneapolis",
-      "city": "Minneapolis",
-      "category": "lecture",
-      "subtitle": "Hosted by College of Design",
-      "url": "https://events.tc.umn.edu/design/event/28531-ali-lecture-series-2026-2027",
-      "image": "https://events.tc.umn.edu/live/image/gid/172/width/300/height/300/crop/1/src_region/0,0,359,359/143_CDes_ACAS_image_2_2.jpg",
-      "price": "Free",
-      "age": null,
-      "source": "umn-events"
     },
     {
       "id": "parkway:2026-10-24:ghostbusters-1984",
@@ -18582,23 +18140,6 @@
       "source": "crooners"
     },
     {
-      "id": "umn-events:2026-10-25:ali-lecture-series-2026-2027",
-      "date": "2026-10-25",
-      "time": null,
-      "end_date": null,
-      "title": "ALI LECTURE SERIES | 2026 - 2027",
-      "venue": "Rapson Hall, 89 Church Street Se Minneapolis, Minnesota 55455",
-      "venue_neighborhood": "University of Minnesota, Minneapolis",
-      "city": "Minneapolis",
-      "category": "lecture",
-      "subtitle": "Hosted by College of Design",
-      "url": "https://events.tc.umn.edu/design/event/28531-ali-lecture-series-2026-2027",
-      "image": "https://events.tc.umn.edu/live/image/gid/172/width/300/height/300/crop/1/src_region/0,0,359,359/143_CDes_ACAS_image_2_2.jpg",
-      "price": "Free",
-      "age": null,
-      "source": "umn-events"
-    },
-    {
       "id": "parkway:2026-10-25:the-arcadian-wild-make-it-out-alive-tour-with-special-guest-addison-agen",
       "date": "2026-10-25",
       "time": null,
@@ -18733,23 +18274,6 @@
       "price": null,
       "age": null,
       "source": "trylon"
-    },
-    {
-      "id": "umn-events:2026-10-26:ali-lecture-series-2026-2027",
-      "date": "2026-10-26",
-      "time": null,
-      "end_date": null,
-      "title": "ALI LECTURE SERIES | 2026 - 2027",
-      "venue": "Rapson Hall, 89 Church Street Se Minneapolis, Minnesota 55455",
-      "venue_neighborhood": "University of Minnesota, Minneapolis",
-      "city": "Minneapolis",
-      "category": "lecture",
-      "subtitle": "Hosted by College of Design",
-      "url": "https://events.tc.umn.edu/design/event/28531-ali-lecture-series-2026-2027",
-      "image": "https://events.tc.umn.edu/live/image/gid/172/width/300/height/300/crop/1/src_region/0,0,359,359/143_CDes_ACAS_image_2_2.jpg",
-      "price": "Free",
-      "age": null,
-      "source": "umn-events"
     },
     {
       "id": "mnorch:11460",
@@ -18903,23 +18427,6 @@
       "price": null,
       "age": null,
       "source": "trylon"
-    },
-    {
-      "id": "umn-events:2026-10-27:ali-lecture-series-2026-2027",
-      "date": "2026-10-27",
-      "time": null,
-      "end_date": null,
-      "title": "ALI LECTURE SERIES | 2026 - 2027",
-      "venue": "Rapson Hall, 89 Church Street Se Minneapolis, Minnesota 55455",
-      "venue_neighborhood": "University of Minnesota, Minneapolis",
-      "city": "Minneapolis",
-      "category": "lecture",
-      "subtitle": "Hosted by College of Design",
-      "url": "https://events.tc.umn.edu/design/event/28531-ali-lecture-series-2026-2027",
-      "image": "https://events.tc.umn.edu/live/image/gid/172/width/300/height/300/crop/1/src_region/0,0,359,359/143_CDes_ACAS_image_2_2.jpg",
-      "price": "Free",
-      "age": null,
-      "source": "umn-events"
     },
     {
       "id": "parkway:2026-10-27:the-blair-witch-project-1999-w-pre-movie-burlesque-by-queenie-von-curves",
@@ -19090,23 +18597,6 @@
       "price": null,
       "age": null,
       "source": "whitesquirrel"
-    },
-    {
-      "id": "umn-events:2026-10-28:ali-lecture-series-2026-2027",
-      "date": "2026-10-28",
-      "time": null,
-      "end_date": null,
-      "title": "ALI LECTURE SERIES | 2026 - 2027",
-      "venue": "Rapson Hall, 89 Church Street Se Minneapolis, Minnesota 55455",
-      "venue_neighborhood": "University of Minnesota, Minneapolis",
-      "city": "Minneapolis",
-      "category": "lecture",
-      "subtitle": "Hosted by College of Design",
-      "url": "https://events.tc.umn.edu/design/event/28531-ali-lecture-series-2026-2027",
-      "image": "https://events.tc.umn.edu/live/image/gid/172/width/300/height/300/crop/1/src_region/0,0,359,359/143_CDes_ACAS_image_2_2.jpg",
-      "price": "Free",
-      "age": null,
-      "source": "umn-events"
     },
     {
       "id": "parkway:2026-10-28:haxan-witchcraft-through-the-ages-1922-silent-film-with-live-score-performed-by-",
@@ -21591,6 +21081,23 @@
       "source": "whitesquirrel"
     },
     {
+      "id": "trylon:2026-11-09:19:00:kana",
+      "date": "2026-11-09",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Kanał",
+      "venue": "Trylon Cinema",
+      "venue_neighborhood": "Longfellow, Minneapolis",
+      "city": "Minneapolis",
+      "category": "film",
+      "subtitle": "(1957, 91m, Polish, German w/English subtitles) dir Andrzej Wajda w/Teresa Iżewska, Tadeusz Janczar, Wieńczysław Gliński. The Polish resistance stages a massive uprising against occupying Nazi forces in Warsaw. As they a",
+      "url": "https://www.trylon.org/?post_type=film&amp;p=213659",
+      "image": "https://www.trylon.org/wp-content/uploads/2026/08/KANAL-49individual_film.jpg",
+      "price": null,
+      "age": null,
+      "source": "trylon"
+    },
+    {
       "id": "sports:2026-11-09:vikings-vs-bills",
       "date": "2026-11-09",
       "time": "19:15",
@@ -21623,6 +21130,23 @@
       "price": null,
       "age": "21+",
       "source": "331"
+    },
+    {
+      "id": "trylon:2026-11-09:21:00:kana",
+      "date": "2026-11-09",
+      "time": "21:00",
+      "end_date": null,
+      "title": "Kanał",
+      "venue": "Trylon Cinema",
+      "venue_neighborhood": "Longfellow, Minneapolis",
+      "city": "Minneapolis",
+      "category": "film",
+      "subtitle": "(1957, 91m, Polish, German w/English subtitles) dir Andrzej Wajda w/Teresa Iżewska, Tadeusz Janczar, Wieńczysław Gliński. The Polish resistance stages a massive uprising against occupying Nazi forces in Warsaw. As they a",
+      "url": "https://www.trylon.org/?post_type=film&amp;p=213659",
+      "image": "https://www.trylon.org/wp-content/uploads/2026/08/KANAL-49individual_film.jpg",
+      "price": null,
+      "age": null,
+      "source": "trylon"
     },
     {
       "id": "whitesquirrel:2026-11-09:metal-mondays",
@@ -24855,6 +24379,40 @@
       "source": "guthrie"
     },
     {
+      "id": "crooners:2026-12-09:grand-ole-opry-christmas-with-mick-sterling-and-friends",
+      "date": "2026-12-09",
+      "time": "17:30",
+      "end_date": null,
+      "title": "GRAND OLE OPRY CHRISTMAS with Mick Sterling & Friends",
+      "venue": "Crooners Supper Club",
+      "venue_neighborhood": "Main Stage Showroom",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Doors will open at 4:30 PM for Dinner and Drink Service. A Grand Ole Opry Classic Christmas Mick Sterling Presents A GRAND OLE OPRY CHRISTMAS featuring the vocal firepower of Crooners favorites Cate F",
+      "url": "https://www.croonersmn.com/event/grand-ole-opry-christmas-with-mick-sterling-friends-2/",
+      "image": "https://www.croonersmn.com/wp-content/uploads/eventbrite-logos/25bc227bcc1823614a5c50a66231fadb.jpg",
+      "price": "$35–$45",
+      "age": null,
+      "source": "crooners"
+    },
+    {
+      "id": "crooners:2026-12-09:a-charlie-brown-christmas-with-the-tanner-taylor-trio",
+      "date": "2026-12-09",
+      "time": "18:30",
+      "end_date": null,
+      "title": "A Charlie Brown Christmas with the Tanner Taylor Trio",
+      "venue": "Crooners Supper Club",
+      "venue_neighborhood": "Dunsmore Jazz Room",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Doors open at 5:30 PM for Dinner and Drink Service. Hear the classic score from composer Vince Guaraldi, performed by one of the region’s finest piano trios. It’s guaranteed to put a smile on your fac",
+      "url": "https://www.croonersmn.com/event/a-charlie-brown-christmas-with-the-tanner-taylor-trio-10/",
+      "image": "https://www.croonersmn.com/wp-content/uploads/eventbrite-logos/343c0794cdca416eeb647c682503ae79.jpg",
+      "price": "$30–$40",
+      "age": null,
+      "source": "crooners"
+    },
+    {
       "id": "mnorch:12069",
       "date": "2026-12-09",
       "time": "19:00",
@@ -24887,6 +24445,23 @@
       "price": null,
       "age": null,
       "source": "guthrie"
+    },
+    {
+      "id": "whitesquirrel:2026-12-09:cole-diamond-s-whiskey-wednesdays",
+      "date": "2026-12-09",
+      "time": "21:00",
+      "end_date": null,
+      "title": "Cole Diamond’s Whiskey Wednesdays",
+      "venue": "White Squirrel Bar",
+      "venue_neighborhood": "West End, St. Paul",
+      "city": "St. Paul",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://whitesquirrelbar.com/event/cole-diamonds-whiskey-wednesdays-9/",
+      "image": "https://whitesquirrelbar.com/wp-content/uploads/Whiskey-Wednesday-Insta-Square.jpg",
+      "price": null,
+      "age": null,
+      "source": "whitesquirrel"
     },
     {
       "id": "mnorch:12390",

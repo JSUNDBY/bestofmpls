@@ -449,7 +449,7 @@ export default {
       ctx.waitUntil(env.POLLS.put(rlKey, String(uploads + 1), { expirationTtl: 3600 }));
       const filename = clean(body.filename, 120);
       const image = String(body.image || '');
-      if (!/^[a-z0-9-]+--[a-z0-9-]+\.jpg$/.test(filename)) return json({ error: 'bad filename' }, 400, origin);
+      if (!/^[a-z0-9-]+--[a-z0-9-]+(--[a-z0-9]{1,12})?\.jpg$/.test(filename)) return json({ error: 'bad filename' }, 400, origin);
       if (!image.startsWith('data:image/jpeg;base64,') || image.length > 1400000) {
         return json({ error: 'bad image (jpeg, under ~1MB after compression)' }, 400, origin);
       }
@@ -464,7 +464,10 @@ export default {
       // Shared progress: the shot list everyone sees
       const doneRaw = await env.POLLS.get('shoot:done');
       const done = doneRaw ? JSON.parse(doneRaw) : {};
-      done[filename] = { by: record.contributor, ts: record.ts };
+      const baseName = filename.replace(/(--[a-z0-9]{1,12})?\.jpg$/, '.jpg');
+      done[baseName] = done[baseName] || { by: record.contributor, ts: record.ts };
+      done[baseName].shots = (done[baseName].shots || 1);
+      if (filename !== baseName) done[baseName].shots += 1;
       ctx.waitUntil(env.POLLS.put('shoot:done', JSON.stringify(done)));
       return json({ ok: true, shot: Object.keys(done).length }, 200, origin);
     }
