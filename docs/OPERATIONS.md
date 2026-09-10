@@ -24,6 +24,7 @@ One page. What runs itself, what Josh does, and the commands behind everything. 
 - **Sunday, 30 seconds:** when the 6pm ping arrives, drop a voice memo (`~/Desktop/IN/bomm*.m4a`) or two typed sentences (`~/Desktop/IN/bomm-note.txt`). That's the email's one human paragraph. Skip it and the email goes out clean — it is never faked.
 - **Friday, ~1 hour, the sales block:** send or follow up partner pitches. Ready-to-send giveaway pitches: `~/Desktop/bestofmpls-posts/giveaway-pitches.md`.
 - **One night out as the face.** Ten seconds of vertical video from a real room beats an hour of desk work.
+- **Shoot as you go.** `docs/PHOTO-SHOTLIST.md` ranks every place that needs a photo, grouped by neighborhood. Save each shot with the exact filename shown into `public/img/places/`, tell Claude "commit the photos" (or commit yourself), and the next build puts it on the entry page automatically. Say "shotlist" to Claude for a fresh list anytime.
 
 ## Say-it-to-Claude commands (any session)
 
