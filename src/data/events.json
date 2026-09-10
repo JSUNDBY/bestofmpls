@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-09T12:33:00.772Z",
+  "generated_at": "2026-09-10T04:52:56.822Z",
   "sources": [
     {
       "source": "first-avenue",
@@ -10,7 +10,7 @@
     {
       "source": "cedar",
       "label": "The Cedar Cultural Center",
-      "count": 48,
+      "count": 47,
       "ok": true
     },
     {
@@ -22,13 +22,13 @@
     {
       "source": "riverview",
       "label": "Riverview Theater",
-      "count": 34,
+      "count": 30,
       "ok": true
     },
     {
       "source": "parkway",
       "label": "The Parkway Theater",
-      "count": 64,
+      "count": 66,
       "ok": true
     },
     {
@@ -46,13 +46,13 @@
     {
       "source": "hook",
       "label": "The Hook and Ladder",
-      "count": 0,
+      "count": 36,
       "ok": true
     },
     {
       "source": "berlin",
       "label": "Berlin",
-      "count": 62,
+      "count": 64,
       "ok": true
     },
     {
@@ -70,25 +70,25 @@
     {
       "source": "icehouse",
       "label": "Icehouse",
-      "count": 28,
+      "count": 27,
       "ok": true
     },
     {
       "source": "amsterdam",
       "label": "Amsterdam Bar & Hall",
-      "count": 38,
+      "count": 37,
       "ok": true
     },
     {
       "source": "astercafe",
       "label": "Aster Cafe",
-      "count": 0,
+      "count": 32,
       "ok": true
     },
     {
       "source": "bryantlakebowl",
-      "label": "Bryant Lake Bowl",
-      "count": 0,
+      "label": "Bryant Lake Bowl Theater",
+      "count": 35,
       "ok": true
     },
     {
@@ -106,13 +106,13 @@
     {
       "source": "umn-events",
       "label": "University of Minnesota",
-      "count": 2,
+      "count": 30,
       "ok": true
     },
     {
       "source": "hclib",
       "label": "Hennepin County Library",
-      "count": 51,
+      "count": 50,
       "ok": true
     },
     {
@@ -130,7 +130,7 @@
     {
       "source": "whitesquirrel",
       "label": "White Squirrel Bar",
-      "count": 113,
+      "count": 111,
       "ok": true
     },
     {
@@ -142,19 +142,19 @@
     {
       "source": "hennepinarts",
       "label": "Hennepin Arts (Orpheum/State/Pantages)",
-      "count": 137,
+      "count": 138,
       "ok": true
     },
     {
       "source": "guthrie",
       "label": "Guthrie Theater",
-      "count": 138,
+      "count": 139,
       "ok": true
     },
     {
       "source": "mysticlake",
       "label": "Mystic Lake (Amphitheater + Showroom)",
-      "count": 29,
+      "count": 30,
       "ok": true
     },
     {
@@ -172,7 +172,7 @@
     {
       "source": "ticketmaster",
       "label": "Arena shows (Ticketmaster)",
-      "count": 24,
+      "count": 25,
       "ok": true
     },
     {
@@ -184,7 +184,7 @@
     {
       "source": "crooners",
       "label": "Crooners Supper Club",
-      "count": 161,
+      "count": 168,
       "ok": true
     },
     {
@@ -202,7 +202,7 @@
     {
       "source": "dreamsong",
       "label": "Dreamsong",
-      "count": 0,
+      "count": 1,
       "ok": true
     },
     {
@@ -238,7 +238,7 @@
     {
       "source": "toapresents",
       "label": "TOA Presents",
-      "count": 1,
+      "count": 2,
       "ok": true
     },
     {
@@ -307,210 +307,6 @@
       "source": "highpoint"
     },
     {
-      "id": "walker:2026-09-08:fox-maxy-s-mental-wellness-film-workshop",
-      "date": "2026-09-08",
-      "time": "10:00",
-      "end_date": null,
-      "title": "Fox Maxy’s Mental Wellness Film Workshop",
-      "venue": "Walker Art Center",
-      "venue_neighborhood": "Lowry Hill, Minneapolis",
-      "city": "Minneapolis",
-      "category": "art",
-      "subtitle": "Workshops",
-      "url": "https://www.walkerart.org/whats-on/fox-maxys-mental-wellness-film-workshop/",
-      "image": null,
-      "price": null,
-      "age": null,
-      "source": "walker"
-    },
-    {
-      "id": "berlin:2026-09-08:lara-somogyi-and-laurels-string-quartet-w-jacob-pavek",
-      "date": "2026-09-08",
-      "time": "19:00",
-      "end_date": null,
-      "title": "Lara Somogyi & Laurels String Quartet w/ Jacob Pavek",
-      "venue": "Berlin",
-      "venue_neighborhood": "Downtown Minneapolis",
-      "city": "Minneapolis",
-      "category": "music",
-      "subtitle": "$20 ADV / $22 DOSGET TICKETS7:00pm Show",
-      "url": "https://berlinmpls.com/calendar/lara-somogyi-a-time-patterned-minneapolis-harp",
-      "image": "https://images.squarespace-cdn.com/content/v1/658316152e826a3bbbfc0aef/1780167240390-TFKVWLZODGLYK9OVHE03/Lara+Somogyi+horizontal.jpg",
-      "price": null,
-      "age": "21+",
-      "source": "berlin"
-    },
-    {
-      "id": "cedar:2026-09-08:setting-with-keith-fullerton-whitman",
-      "date": "2026-09-08",
-      "time": "19:30",
-      "end_date": null,
-      "title": "SETTING with Keith Fullerton Whitman",
-      "venue": "The Cedar Cultural Center",
-      "venue_neighborhood": "West Bank, Minneapolis",
-      "city": "Minneapolis",
-      "category": "music",
-      "subtitle": "Setting is Nathan Bowles (solo/trio, Pelt, Black Twig Pickers) on strings, keys, tapes, and percussion; Jaime Fennelly (Mind Over Mirrors, Peeesseye) on synthesizers and harmonium; and Joe Westerlund (solo, Califone, Syl",
-      "url": "https://www.thecedar.org/events/the-cedar-presents-setting-with-keithfullertonwhitman",
-      "image": "https://images.squarespace-cdn.com/content/v1/64c8a76bf0d7e24b819a4d4e/1782334205031-8DUKU3YWE2P6K72F111D/WWxSETTING-Final-0730.jpg",
-      "price": null,
-      "age": "All ages",
-      "source": "cedar"
-    },
-    {
-      "id": "first-avenue:2026-09-08:7th-st-entry:macseal-and-ben-quad",
-      "date": "2026-09-08",
-      "time": null,
-      "end_date": null,
-      "title": "Macseal and Ben Quad",
-      "venue": "7th St Entry",
-      "venue_neighborhood": "Downtown Minneapolis",
-      "city": "Minneapolis",
-      "category": "music",
-      "subtitle": "Aren't We Amphibians",
-      "url": "https://first-avenue.com/event/2026-09-macseal-and-ben-quad/",
-      "image": null,
-      "price": null,
-      "age": null,
-      "source": "first-avenue"
-    },
-    {
-      "id": "parkway:2026-09-08:rainbow-girls-with-special-guest-jordan-smart",
-      "date": "2026-09-08",
-      "time": null,
-      "end_date": null,
-      "title": "Rainbow Girls with special guest Jordan Smart",
-      "venue": "The Parkway Theater",
-      "venue_neighborhood": "Standish, Minneapolis",
-      "city": "Minneapolis",
-      "category": "performance",
-      "subtitle": "Called “A gang of sweet angels punching you in the heart,” Rainbow Girls come to MInneapolis by popular demand! Opening the night is Jordan Smart, a Kentucky-based folk singer-songwriter known best for his heartfelt song",
-      "url": "https://theparkwaytheater.com/all-events/the-rainbow-girls",
-      "image": null,
-      "price": null,
-      "age": null,
-      "source": "parkway"
-    },
-    {
-      "id": "first-avenue:2026-09-08:turf-club:steven-hyden-in-conversation-with-steve-gorman",
-      "date": "2026-09-08",
-      "time": null,
-      "end_date": null,
-      "title": "Steven Hyden in Conversation with Steve Gorman",
-      "venue": "Turf Club",
-      "venue_neighborhood": "Hamline-Midway, St. Paul",
-      "city": "St. Paul",
-      "category": "music",
-      "subtitle": null,
-      "url": "https://first-avenue.com/event/2026-09-steven-hyden-in-conversation-with-steve-gorman/",
-      "image": null,
-      "price": null,
-      "age": null,
-      "source": "first-avenue"
-    },
-    {
-      "id": "riverview:2026-09-09:12:45:hadestown-the-musical",
-      "date": "2026-09-09",
-      "time": "12:45",
-      "end_date": null,
-      "title": "Hadestown: The Musical",
-      "venue": "Riverview Theater",
-      "venue_neighborhood": "Standish-Ericsson, Minneapolis",
-      "city": "Minneapolis",
-      "category": "film",
-      "subtitle": null,
-      "url": "https://ticketing.useast.veezi.com/purchase/8203?siteToken=3taz3vkks7e11yj7r5dft9pq30",
-      "image": "https://ticketing.useast.veezi.com/Media/Poster?siteToken=3taz3vkks7e11yj7r5dft9pq30&code=0000001396",
-      "price": null,
-      "age": null,
-      "source": "riverview"
-    },
-    {
-      "id": "riverview:2026-09-09:15:15:cars-20th-anniversary",
-      "date": "2026-09-09",
-      "time": "15:15",
-      "end_date": null,
-      "title": "Cars (20th Anniversary)",
-      "venue": "Riverview Theater",
-      "venue_neighborhood": "Standish-Ericsson, Minneapolis",
-      "city": "Minneapolis",
-      "category": "film",
-      "subtitle": null,
-      "url": "https://ticketing.useast.veezi.com/purchase/8200?siteToken=3taz3vkks7e11yj7r5dft9pq30",
-      "image": "https://ticketing.useast.veezi.com/Media/Poster?siteToken=3taz3vkks7e11yj7r5dft9pq30&code=0000001404",
-      "price": null,
-      "age": null,
-      "source": "riverview"
-    },
-    {
-      "id": "crooners:2026-09-09:jim-bierma-and-nancy-bierma",
-      "date": "2026-09-09",
-      "time": "17:00",
-      "end_date": null,
-      "title": "Jim Bierma and Nancy Bierma",
-      "venue": "Crooners Supper Club",
-      "venue_neighborhood": "Maggie’s Piano Lounge",
-      "city": "Minneapolis",
-      "category": "music",
-      "subtitle": "No cover. Bar and table seating offered – NO RESERVATIONS. J im Bierma : Bass Nancy Bierma : Piano Maggie’s Piano Lounge is a warm, relaxed and inviting space featuring a variety of talented musicians",
-      "url": "https://www.croonersmn.com/event/jim-bierma-and-nancy-bierma-5/",
-      "image": "https://www.croonersmn.com/wp-content/uploads/eventbrite-logos/8aaa177f9e60a60ecd0eb907d71d6df4.jpg",
-      "price": "Free",
-      "age": null,
-      "source": "crooners"
-    },
-    {
-      "id": "crooners:2026-09-09:groovy-and-ethereal-with-the-neighborhood-quartet",
-      "date": "2026-09-09",
-      "time": "17:30",
-      "end_date": null,
-      "title": "Groovy and Ethereal with the Neighborhood Quartet",
-      "venue": "Crooners Supper Club",
-      "venue_neighborhood": "Dunsmore Jazz Room",
-      "city": "Minneapolis",
-      "category": "music",
-      "subtitle": "Doors will open at 4:30 PM for Dinner and Drink Service. An Evening of Evocative Instrumental Music Sticky melodies layered over funky grooves, with clever arrangements, tasty solos, and plenty of vib",
-      "url": "https://www.croonersmn.com/event/groovy-and-ethereal-with-the-neighborhood-quartet-4/",
-      "image": "https://www.croonersmn.com/wp-content/uploads/eventbrite-logos/e33ddb8d333a96cae5fda8d68fd8e8ce.jpg",
-      "price": "$25–$35",
-      "age": null,
-      "source": "crooners"
-    },
-    {
-      "id": "riverview:2026-09-09:17:30:tony",
-      "date": "2026-09-09",
-      "time": "17:30",
-      "end_date": null,
-      "title": "Tony",
-      "venue": "Riverview Theater",
-      "venue_neighborhood": "Standish-Ericsson, Minneapolis",
-      "city": "Minneapolis",
-      "category": "film",
-      "subtitle": null,
-      "url": "https://ticketing.useast.veezi.com/purchase/8206?siteToken=3taz3vkks7e11yj7r5dft9pq30",
-      "image": "https://ticketing.useast.veezi.com/Media/Poster?siteToken=3taz3vkks7e11yj7r5dft9pq30&code=0000001409",
-      "price": null,
-      "age": null,
-      "source": "riverview"
-    },
-    {
-      "id": "whitesquirrel:2026-09-09:paul-bergen",
-      "date": "2026-09-09",
-      "time": "18:00",
-      "end_date": null,
-      "title": "Paul Bergen",
-      "venue": "White Squirrel Bar",
-      "venue_neighborhood": "West End, St. Paul",
-      "city": "St. Paul",
-      "category": "music",
-      "subtitle": null,
-      "url": "https://whitesquirrelbar.com/event/paul-bergen-5/",
-      "image": null,
-      "price": null,
-      "age": null,
-      "source": "whitesquirrel"
-    },
-    {
       "id": "331:2026-09-09:the-matt-arthur-contraption",
       "date": "2026-09-09",
       "time": "19:00",
@@ -545,23 +341,6 @@
       "source": "trylon"
     },
     {
-      "id": "berlin:2026-09-09:white-boy-summer-thomas-abban-and-l-a-buckner",
-      "date": "2026-09-09",
-      "time": "19:00",
-      "end_date": null,
-      "title": "White Boy Summer (Thomas Abban & L.A. Buckner)",
-      "venue": "Berlin",
-      "venue_neighborhood": "Downtown Minneapolis",
-      "city": "Minneapolis",
-      "category": "music",
-      "subtitle": "NO COVER7:00pm Show",
-      "url": "https://berlinmpls.com/calendar/la-buckner-thomas-abban-sept-2026",
-      "image": "https://images.squarespace-cdn.com/content/v1/658316152e826a3bbbfc0aef/1730343855638-MCD3525OJMJ3ZI24GSUO/White+Boy+Summer+%28Thomas+Abban+%26+L.A.+Buckner%29.jpg",
-      "price": null,
-      "age": "21+",
-      "source": "berlin"
-    },
-    {
       "id": "walker:2026-09-09:laurie-anderson-republic-of-love-solo",
       "date": "2026-09-09",
       "time": "19:30",
@@ -579,72 +358,21 @@
       "source": "walker"
     },
     {
-      "id": "riverview:2026-09-09:19:30:the-end-of-oak-street",
+      "id": "bryantlakebowl:2026-09-09:oces-world-music-night-with-special-guests-tam-edo-bayashi-ensemble",
       "date": "2026-09-09",
       "time": "19:30",
       "end_date": null,
-      "title": "The End of Oak Street",
-      "venue": "Riverview Theater",
-      "venue_neighborhood": "Standish-Ericsson, Minneapolis",
+      "title": "OCE's World Music Night with special guests TAM Edo Bayashi Ensemble",
+      "venue": "Bryant Lake Bowl Theater",
+      "venue_neighborhood": "Lyn-Lake, Minneapolis",
       "city": "Minneapolis",
-      "category": "film",
+      "category": "performance",
       "subtitle": null,
-      "url": "https://ticketing.useast.veezi.com/purchase/8209?siteToken=3taz3vkks7e11yj7r5dft9pq30",
-      "image": "https://ticketing.useast.veezi.com/Media/Poster?siteToken=3taz3vkks7e11yj7r5dft9pq30&code=0000001407",
-      "price": null,
-      "age": null,
-      "source": "riverview"
-    },
-    {
-      "id": "amsterdam:2026-09-09:the-moth-nine-to-five",
-      "date": "2026-09-09",
-      "time": "19:30",
-      "end_date": null,
-      "title": "The Moth: NINE TO FIVE",
-      "venue": "Amsterdam Bar & Hall",
-      "venue_neighborhood": "Downtown, Saint Paul",
-      "city": "Saint Paul",
-      "category": "music",
-      "subtitle": null,
-      "url": "https://events.amsterdambarandhall.com/event/the-moth-nine-to-five/amsterdam-bar-hall/saint-paul-minnesota/",
+      "url": "https://www.bryantlakebowl.com/theater/oce-september",
       "image": null,
       "price": null,
-      "age": "18+",
-      "source": "amsterdam"
-    },
-    {
-      "id": "icehouse:2026-09-09:caley-conway-and-cathedral-becomes-tombs-ft-nelson-devereaux-trio",
-      "date": "2026-09-09",
-      "time": "20:00",
-      "end_date": null,
-      "title": "Caley Conway and Cathedral Becomes Tombs ft Nelson Devereaux Trio",
-      "venue": "Icehouse",
-      "venue_neighborhood": "Whittier, Minneapolis",
-      "city": "Minneapolis",
-      "category": "music",
-      "subtitle": "Starlight Room:",
-      "url": "https://icehouse.turntabletickets.com/p/45442/?utm_source=bestofmpls.com&utm_medium=referral",
-      "image": "https://assets-prod.turntabletickets.com/media/icehouse/show-12303/CaleyConway_%2B_CBT_%2B_NDT_9.9.26IceHouse.jpg",
-      "price": "$15",
       "age": null,
-      "source": "icehouse"
-    },
-    {
-      "id": "whitesquirrel:2026-09-09:cole-diamond-s-whiskey-wednesdays",
-      "date": "2026-09-09",
-      "time": "21:00",
-      "end_date": null,
-      "title": "Cole Diamond’s Whiskey Wednesdays",
-      "venue": "White Squirrel Bar",
-      "venue_neighborhood": "West End, St. Paul",
-      "city": "St. Paul",
-      "category": "music",
-      "subtitle": null,
-      "url": "https://whitesquirrelbar.com/event/cole-diamonds-whiskey-wednesdays-2/",
-      "image": "https://whitesquirrelbar.com/wp-content/uploads/Whiskey-Wednesday-Insta-Square.jpg",
-      "price": null,
-      "age": null,
-      "source": "whitesquirrel"
+      "source": "bryantlakebowl"
     },
     {
       "id": "berlin:2026-09-09:the-cherry-pit-open-jam",
@@ -664,23 +392,6 @@
       "source": "berlin"
     },
     {
-      "id": "hclib:2026-09-09:dial-a-story-for-adults",
-      "date": "2026-09-09",
-      "time": null,
-      "end_date": null,
-      "title": "Dial-a-Story for Adults",
-      "venue": "Hennepin County Library",
-      "venue_neighborhood": "Minneapolis",
-      "city": "Minneapolis",
-      "category": "lecture",
-      "subtitle": "Call 612-543-8851 and listen to a recording of staff reading a short story on-demand. The story will change weekly. See the list of previous stories on the Dial-a-Story for Adults book list . Hosted by Outreach Services.",
-      "url": "https://hclib.bibliocommons.com/events/show/6a46d39fed35742f00fffb15",
-      "image": "https://hclib.bibliocommons.com/events/uploads/images/full/071ea8ab01ec3d0561c8db1c30e3f67a/DialAStory_760x230.png",
-      "price": "Free",
-      "age": "Adults",
-      "source": "hclib"
-    },
-    {
       "id": "first-avenue:2026-09-09:7th-st-entry:saint-harison",
       "date": "2026-09-09",
       "time": null,
@@ -696,23 +407,6 @@
       "price": null,
       "age": null,
       "source": "first-avenue"
-    },
-    {
-      "id": "hennepinarts:2026-09-09:the-algorithm-is-gonna-get-you",
-      "date": "2026-09-09",
-      "time": null,
-      "end_date": "2026-11-07",
-      "title": "The Algorithm is Gonna Get You",
-      "venue": "Dudley Riggs Theatre",
-      "venue_neighborhood": "Downtown Minneapolis",
-      "city": "Minneapolis",
-      "category": "performance",
-      "subtitle": "Comedy",
-      "url": "https://hennepinarts.org/events/the-algorithm-is-gonna-get-you-2026",
-      "image": "https://images.ctfassets.net/sjxdiqjbm079/7nLWk8JzDt97mu1xGlSwjX/2ee75807e81f194dbeaad19e5c7e4e06/BNW_Alg_Email_Image.png",
-      "price": null,
-      "age": null,
-      "source": "hennepinarts"
     },
     {
       "id": "parkway:2026-09-09:the-breakfast-club-1985-w-pre-movie-80s-vj-set-by-transmissions-dj-chrissie-kawa",
@@ -970,6 +664,23 @@
       "source": "icehouse"
     },
     {
+      "id": "bryantlakebowl:2026-09-10:cole-sarars-scifi-reading-hour",
+      "date": "2026-09-10",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Cole Sarar's SciFi Reading Hour",
+      "venue": "Bryant Lake Bowl Theater",
+      "venue_neighborhood": "Lyn-Lake, Minneapolis",
+      "city": "Minneapolis",
+      "category": "performance",
+      "subtitle": null,
+      "url": "https://www.bryantlakebowl.com/theater/scifi-reading-hour-sept10",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "bryantlakebowl"
+    },
+    {
       "id": "walker:2026-09-10:gush-by-fox-maxy",
       "date": "2026-09-10",
       "time": "19:00",
@@ -987,6 +698,23 @@
       "source": "walker"
     },
     {
+      "id": "astercafe:2026-09-10:laplant-ryan-duo-with-sammie-jean",
+      "date": "2026-09-10",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Laplant-Ryan Duo with Sammie Jean",
+      "venue": "Aster Cafe",
+      "venue_neighborhood": "St. Anthony Main, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://astercafe.com/live-music-calendar",
+      "image": null,
+      "price": "$15",
+      "age": null,
+      "source": "astercafe"
+    },
+    {
       "id": "mnorch:12406",
       "date": "2026-09-10",
       "time": "19:30",
@@ -1002,6 +730,23 @@
       "price": null,
       "age": "All ages",
       "source": "mnorch"
+    },
+    {
+      "id": "hook:2026-09-10:chroma-purple-funk-metropolis-and-fuchsia",
+      "date": "2026-09-10",
+      "time": "19:30",
+      "end_date": null,
+      "title": "Chroma, Purple Funk Metropolis, & Fuchsia",
+      "venue": "The Hook and Ladder",
+      "venue_neighborhood": "Longfellow, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Wherever Purple Funk Metropolis goes, the party follows. Formed in the University of Minnesota's jazz department and greater Minneapolis music scene, the seven-piece instrumental funk band has been cr",
+      "url": "https://thehookmpls.com/shows/chroma-purple-funk-metropolis-fuchsia-september-10-2026-718108",
+      "image": "https://s3.amazonaws.com/opendate-aws-assets/confirms/main_event_images/000/718/108/compressed/Aaron_O%C3%A2%C2%80%C2%99Connor%C3%A2%C2%80%C2%99s_Birthday_Bash_%282160_x_1080_px%29.jpg?1784060218",
+      "price": null,
+      "age": null,
+      "source": "hook"
     },
     {
       "id": "cedar:2026-09-10:jeff-buckley-grace-tribute-featuring-peter-pisano-mei-ling-smith-and-bobby-maher",
@@ -1225,6 +970,40 @@
       "source": "first-avenue"
     },
     {
+      "id": "hennepinarts:2026-09-10:the-algorithm-is-gonna-get-you",
+      "date": "2026-09-10",
+      "time": null,
+      "end_date": "2026-11-07",
+      "title": "The Algorithm is Gonna Get You",
+      "venue": "Dudley Riggs Theatre",
+      "venue_neighborhood": "Downtown Minneapolis",
+      "city": "Minneapolis",
+      "category": "performance",
+      "subtitle": "Comedy",
+      "url": "https://hennepinarts.org/events/the-algorithm-is-gonna-get-you-2026",
+      "image": "https://images.ctfassets.net/sjxdiqjbm079/7nLWk8JzDt97mu1xGlSwjX/2ee75807e81f194dbeaad19e5c7e4e06/BNW_Alg_Email_Image.png",
+      "price": null,
+      "age": null,
+      "source": "hennepinarts"
+    },
+    {
+      "id": "dreamsong:2026-09-10:the-passing-of-a-shadow",
+      "date": "2026-09-10",
+      "time": null,
+      "end_date": "2026-10-24",
+      "title": "The Passing of a Shadow by Fidencio Fifield-Perez",
+      "venue": "Dreamsong",
+      "venue_neighborhood": "Northeast Minneapolis",
+      "city": "Minneapolis",
+      "category": "art",
+      "subtitle": "On view through Oct 24, 2026",
+      "url": "https://dreamsong.art/exhibitions",
+      "image": null,
+      "price": null,
+      "age": "All ages",
+      "source": "dreamsong"
+    },
+    {
       "id": "riverview:2026-09-11:13:15:practical-magic-2",
       "date": "2026-09-11",
       "time": "13:15",
@@ -1429,6 +1208,40 @@
       "source": "trylon"
     },
     {
+      "id": "astercafe:2026-09-11:emmy-woods-and-with-mayda",
+      "date": "2026-09-11",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Emmy Woods &with Mayda",
+      "venue": "Aster Cafe",
+      "venue_neighborhood": "St. Anthony Main, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://astercafe.com/live-music-calendar",
+      "image": null,
+      "price": "$15",
+      "age": null,
+      "source": "astercafe"
+    },
+    {
+      "id": "bryantlakebowl:2026-09-11:giggles-and-schnitz-contractually-obligated-comedy-cornucopia",
+      "date": "2026-09-11",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Giggles & Schnitz' Contractually Obligated Comedy Cornucopia!",
+      "venue": "Bryant Lake Bowl Theater",
+      "venue_neighborhood": "Lyn-Lake, Minneapolis",
+      "city": "Minneapolis",
+      "category": "performance",
+      "subtitle": null,
+      "url": "https://www.bryantlakebowl.com/theater/giggles-schnitz",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "bryantlakebowl"
+    },
+    {
       "id": "fillmore:2026-09-11:lp-all-is-not-lost-tour",
       "date": "2026-09-11",
       "time": "19:00",
@@ -1565,6 +1378,23 @@
       "source": "amsterdam"
     },
     {
+      "id": "hook:2026-09-11:mn-string-gathering-3-0",
+      "date": "2026-09-11",
+      "time": "20:00",
+      "end_date": null,
+      "title": "MN String Gathering 3.0",
+      "venue": "The Hook and Ladder",
+      "venue_neighborhood": "Longfellow, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Hey Minnesota! It's time to gather at the third annual MN String Gathering at The Hook. Some of Minnesota's premier string bands will perform on two stages for a non-stop evening of live music. Doors ",
+      "url": "https://thehookmpls.com/shows/mn-string-gathering-3-0-september-11-2026-718621",
+      "image": "https://s3.amazonaws.com/opendate-aws-assets/confirms/main_event_images/000/718/621/compressed/260911-Theater-MN-String-Gathering-3-2160x1080-Ticket-Web-TV.jpg?1784307147",
+      "price": null,
+      "age": null,
+      "source": "hook"
+    },
+    {
       "id": "whitesquirrel:2026-09-11:economic-headwinds-w-atomic-lights-murder-curious",
       "date": "2026-09-11",
       "time": "21:00",
@@ -1597,6 +1427,23 @@
       "price": null,
       "age": null,
       "source": "riverview"
+    },
+    {
+      "id": "bryantlakebowl:2026-09-11:that-felt-good",
+      "date": "2026-09-11",
+      "time": "21:30",
+      "end_date": null,
+      "title": "That Felt Good",
+      "venue": "Bryant Lake Bowl Theater",
+      "venue_neighborhood": "Lyn-Lake, Minneapolis",
+      "city": "Minneapolis",
+      "category": "performance",
+      "subtitle": null,
+      "url": "https://www.bryantlakebowl.com/theater/that-felt-good-sept11",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "bryantlakebowl"
     },
     {
       "id": "greenroom:2026-09-11:club-k-pop-k-pop-hits-and-k-edm-all-night-long",
@@ -1650,23 +1497,6 @@
       "source": "first-avenue"
     },
     {
-      "id": "parkway:2026-09-11:late-show-added-ben-palmer",
-      "date": "2026-09-11",
-      "time": null,
-      "end_date": null,
-      "title": "LATE SHOW ADDED! Ben Palmer",
-      "venue": "The Parkway Theater",
-      "venue_neighborhood": "Standish, Minneapolis",
-      "city": "Minneapolis",
-      "category": "performance",
-      "subtitle": "Ben Palmer is a comedian known for his distinctive blend of satire, trolling, and social commentary. His bits often involve elaborate pranks that blur the line between reality and parody.",
-      "url": "https://theparkwaytheater.com/all-events/palmer-ben",
-      "image": null,
-      "price": null,
-      "age": null,
-      "source": "parkway"
-    },
-    {
       "id": "first-avenue:2026-09-11:fine-line:margaret-glaspy",
       "date": "2026-09-11",
       "time": null,
@@ -1699,6 +1529,23 @@
       "price": null,
       "age": null,
       "source": "first-avenue"
+    },
+    {
+      "id": "parkway:2026-09-11:sold-out-ben-palmer",
+      "date": "2026-09-11",
+      "time": null,
+      "end_date": null,
+      "title": "SOLD OUT! Ben Palmer",
+      "venue": "The Parkway Theater",
+      "venue_neighborhood": "Standish, Minneapolis",
+      "city": "Minneapolis",
+      "category": "performance",
+      "subtitle": "Ben Palmer is a comedian known for his distinctive blend of satire, trolling, and social commentary. His bits often involve elaborate pranks that blur the line between reality and parody.",
+      "url": "https://theparkwaytheater.com/all-events/palmer-ben",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "parkway"
     },
     {
       "id": "first-avenue:2026-09-11:first-avenue:sugar",
@@ -1750,6 +1597,23 @@
       "price": "Free",
       "age": "Adults",
       "source": "hclib"
+    },
+    {
+      "id": "hook:2026-09-12:family-gathering-concert-series",
+      "date": "2026-09-12",
+      "time": "10:30",
+      "end_date": null,
+      "title": "Family Gathering Concert Series",
+      "venue": "The Hook and Ladder",
+      "venue_neighborhood": "Longfellow, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Family Gathering Concert Series ------- Saturday, September 12, 2026 The Hook and Ladder Event CenterThe Theater Stage Doors: 10:00am :: Music: 10:30am :: All Ages FREE : RSVP Encouraged RSVP encourag",
+      "url": "https://thehookmpls.com/shows/family-gathering-concert-series-september-12-2026-745440",
+      "image": "https://s3.amazonaws.com/opendate-aws-assets/confirms/main_event_images/000/745/440/compressed/FamilyGathering-Hook_Ladder-1920x1005.jpg?1788900083",
+      "price": null,
+      "age": null,
+      "source": "hook"
     },
     {
       "id": "mysticlake:2026-09-12:hop-house-ppv-watch-party-fight-night-silva-vs-delgado",
@@ -1852,6 +1716,23 @@
       "price": null,
       "age": null,
       "source": "riverview"
+    },
+    {
+      "id": "bryantlakebowl:2026-09-12:bring-your-kids",
+      "date": "2026-09-12",
+      "time": "15:00",
+      "end_date": null,
+      "title": "Bring Your Kids!",
+      "venue": "Bryant Lake Bowl Theater",
+      "venue_neighborhood": "Lyn-Lake, Minneapolis",
+      "city": "Minneapolis",
+      "category": "performance",
+      "subtitle": null,
+      "url": "https://www.bryantlakebowl.com/theater/bring-your-kids-sept2026",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "bryantlakebowl"
     },
     {
       "id": "trylon:2026-09-12:15:00:minnanimate-2026",
@@ -2109,6 +1990,23 @@
       "source": "trylon"
     },
     {
+      "id": "bryantlakebowl:2026-09-12:giggles-and-schnitz-contractually-obligated-comedy-cornucopia",
+      "date": "2026-09-12",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Giggles & Schnitz' Contractually Obligated Comedy Cornucopia!",
+      "venue": "Bryant Lake Bowl Theater",
+      "venue_neighborhood": "Lyn-Lake, Minneapolis",
+      "city": "Minneapolis",
+      "category": "performance",
+      "subtitle": null,
+      "url": "https://www.bryantlakebowl.com/theater/giggles-schnitz1",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "bryantlakebowl"
+    },
+    {
       "id": "dakota:2026-09-12:the-thrill-is-gone-a-birthday-celebration-of-b-b-king",
       "date": "2026-09-12",
       "time": "19:00",
@@ -2120,7 +2018,7 @@
       "category": "music",
       "subtitle": "An All-Star Twin Cities lineup celebrates the \"King of the Blues\". B.B. King was one of the most influential... Read More",
       "url": "https://www.dakotacooks.com/event/the-thrill-is-gone-a-birthday-celebration-of-b-b-king-sep12-2026/",
-      "image": "https://www.dakotacooks.com/wp-content/uploads/2026/08/700x400-ThrillIsGone.jpg",
+      "image": "https://www.dakotacooks.com/wp-content/uploads/2026/08/700x400-ThrillIsGoneBBKing.jpg",
       "price": null,
       "age": "All ages",
       "source": "dakota"
@@ -2755,6 +2653,23 @@
       "source": "whitesquirrel"
     },
     {
+      "id": "amsterdam:2026-09-13:cherokee-social-w-fmly-frnd-and-soul-flower",
+      "date": "2026-09-13",
+      "time": "18:30",
+      "end_date": null,
+      "title": "Cherokee Social w/ FMLY FRND & Soul Flower",
+      "venue": "Amsterdam Bar & Hall",
+      "venue_neighborhood": "Downtown, Saint Paul",
+      "city": "Saint Paul",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://events.amsterdambarandhall.com/event/cherokee-social-w-fmly-frnd-soul-flower/amsterdam-bar-hall/saint-paul-minnesota/",
+      "image": null,
+      "price": null,
+      "age": "All ages",
+      "source": "amsterdam"
+    },
+    {
       "id": "riverview:2026-09-13:18:45:practical-magic-2",
       "date": "2026-09-13",
       "time": "18:45",
@@ -2770,23 +2685,6 @@
       "price": null,
       "age": null,
       "source": "riverview"
-    },
-    {
-      "id": "amsterdam:2026-09-13:cherokee-social-w-fmly-frnd-and-soul-flower",
-      "date": "2026-09-13",
-      "time": "19:00",
-      "end_date": null,
-      "title": "Cherokee Social w/ FMLY FRND & Soul Flower",
-      "venue": "Amsterdam Bar & Hall",
-      "venue_neighborhood": "Downtown, Saint Paul",
-      "city": "Saint Paul",
-      "category": "music",
-      "subtitle": null,
-      "url": "https://events.amsterdambarandhall.com/event/cherokee-social-w-fmly-frnd-soul-flower/amsterdam-bar-hall/saint-paul-minnesota/",
-      "image": null,
-      "price": null,
-      "age": "18+",
-      "source": "amsterdam"
     },
     {
       "id": "mysticlake:2026-09-13:dan-shay-the-young-tour",
@@ -2889,6 +2787,23 @@
       "price": null,
       "age": null,
       "source": "guthrie"
+    },
+    {
+      "id": "hook:2026-09-13:the-holding-line-will-you-remember-debut-release-show",
+      "date": "2026-09-13",
+      "time": "19:15",
+      "end_date": null,
+      "title": "The Holding Line - Will You Remember Debut Release Show",
+      "venue": "The Hook and Ladder",
+      "venue_neighborhood": "Longfellow, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Step into the world of “Will You Remember,” a Pink Floyd-inspired audiovisual experience featuring immersive lights, visuals, and powerful live music. A moving tribute to loved ones we've lost, the sh",
+      "url": "https://thehookmpls.com/shows/the-holding-line-will-you-remember-debut-release-show-september-13-2026-719394",
+      "image": "https://s3.amazonaws.com/opendate-aws-assets/confirms/main_event_images/000/719/394/compressed/Hook_2160x1080_300dpi.jpg?1785419528",
+      "price": null,
+      "age": null,
+      "source": "hook"
     },
     {
       "id": "trylon:2026-09-13:19:30:it-happened-one-night-in-35mm",
@@ -3044,6 +2959,23 @@
       "source": "riverview"
     },
     {
+      "id": "crooners:2026-09-14:sheridan-zuther-and-raymond-berg",
+      "date": "2026-09-14",
+      "time": "17:00",
+      "end_date": null,
+      "title": "Sheridan Zuther and Raymond Berg",
+      "venue": "Crooners Supper Club",
+      "venue_neighborhood": "Maggie’s Piano Lounge",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "No cover. Bar and table seating offered – NO RESERVATIONS. Sheridan Zuther: Vocals Raymond Berg: Piano Maggie’s Piano Lounge is a warm, relaxed and inviting space featuring a variety of talented music",
+      "url": "https://www.croonersmn.com/event/sheridan-zuther-and-raymond-berg/",
+      "image": "https://www.croonersmn.com/wp-content/uploads/eventbrite-logos/8aaa177f9e60a60ecd0eb907d71d6df4.jpg",
+      "price": "Free",
+      "age": null,
+      "source": "crooners"
+    },
+    {
       "id": "whitesquirrel:2026-09-14:mumblin-drew-s-oldfangled-orchestrators",
       "date": "2026-09-14",
       "time": "18:00",
@@ -3112,11 +3044,11 @@
       "source": "riverview"
     },
     {
-      "id": "berlin:2026-09-14:gregory-uhlmann",
+      "id": "berlin:2026-09-14:gregory-uhlmann-w-lonefront",
       "date": "2026-09-14",
       "time": "19:00",
       "end_date": null,
-      "title": "Gregory Uhlmann",
+      "title": "Gregory Uhlmann w/ Lonefront",
       "venue": "Berlin",
       "venue_neighborhood": "Downtown Minneapolis",
       "city": "Minneapolis",
@@ -3161,6 +3093,23 @@
       "price": null,
       "age": "All ages",
       "source": "dakota"
+    },
+    {
+      "id": "bryantlakebowl:2026-09-14:uproar-comedy-open-mic",
+      "date": "2026-09-14",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Uproar Comedy Open Mic",
+      "venue": "Bryant Lake Bowl Theater",
+      "venue_neighborhood": "Lyn-Lake, Minneapolis",
+      "city": "Minneapolis",
+      "category": "performance",
+      "subtitle": null,
+      "url": "https://www.bryantlakebowl.com/theater/uproar-sept14",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "bryantlakebowl"
     },
     {
       "id": "331:2026-09-14:roe-family-singers",
@@ -3450,6 +3399,23 @@
       "price": null,
       "age": null,
       "source": "trylon"
+    },
+    {
+      "id": "astercafe:2026-09-15:mn-songwriter-showcase-hosted-by-nick-hensley",
+      "date": "2026-09-15",
+      "time": "19:00",
+      "end_date": null,
+      "title": "MN Songwriter Showcase hosted by Nick Hensley",
+      "venue": "Aster Cafe",
+      "venue_neighborhood": "St. Anthony Main, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://astercafe.com/live-music-calendar",
+      "image": null,
+      "price": "Free",
+      "age": null,
+      "source": "astercafe"
     },
     {
       "id": "amsterdam:2026-09-15:revocation-w-defeated-sanity-fuming-mouth-weeping",
@@ -3837,10 +3803,44 @@
       "category": "lecture",
       "subtitle": "Hosted by College of Science and Engineering",
       "url": "https://events.tc.umn.edu/cse/event/26906-2026-kaufmanis-public-lecture",
-      "image": "https://events.tc.umn.edu/live/image/gid/160/width/80/height/80/crop/1/src_region/0,0,220,163/5746_Lintott.png_2.jpg",
+      "image": "https://events.tc.umn.edu/live/image/gid/160/width/300/height/300/crop/1/src_region/0,0,220,163/5746_Lintott.png_2.jpg",
       "price": null,
       "age": null,
       "source": "umn-events"
+    },
+    {
+      "id": "bryantlakebowl:2026-09-16:adorable",
+      "date": "2026-09-16",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Adorable",
+      "venue": "Bryant Lake Bowl Theater",
+      "venue_neighborhood": "Lyn-Lake, Minneapolis",
+      "city": "Minneapolis",
+      "category": "performance",
+      "subtitle": null,
+      "url": "https://www.bryantlakebowl.com/theater/adorable-sept2026",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "bryantlakebowl"
+    },
+    {
+      "id": "astercafe:2026-09-16:emily-haavik-and-big-lake",
+      "date": "2026-09-16",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Emily Haavik & Big Lake",
+      "venue": "Aster Cafe",
+      "venue_neighborhood": "St. Anthony Main, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://astercafe.com/live-music-calendar",
+      "image": null,
+      "price": "$20",
+      "age": null,
+      "source": "astercafe"
     },
     {
       "id": "trylon:2026-09-16:19:00:executive-koala",
@@ -4211,7 +4211,7 @@
       "category": "lecture",
       "subtitle": "Hosted by Medical School",
       "url": "https://events.tc.umn.edu/medical-school/event/26763-18th-annual-david-a-rothenberger-lecture",
-      "image": "https://events.tc.umn.edu/live/image/gid/325/width/80/height/80/crop/1/src_region/0,0,1447,814/5693_rothenberger_lecture_2026_graphic.jpg",
+      "image": "https://events.tc.umn.edu/live/image/gid/325/width/300/height/300/crop/1/src_region/0,0,1447,814/5693_rothenberger_lecture_2026_graphic.jpg",
       "price": null,
       "age": null,
       "source": "umn-events"
@@ -4251,6 +4251,23 @@
       "source": "varsity"
     },
     {
+      "id": "hook:2026-09-17:dirty-p-s-thirsty-3rd-thursdays-club",
+      "date": "2026-09-17",
+      "time": "18:00",
+      "end_date": null,
+      "title": "Dirty P’s Thirsty 3rd Thursdays Club",
+      "venue": "The Hook and Ladder",
+      "venue_neighborhood": "Longfellow, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Dirty P’s Thirsty 3rd Thursdays Club at The Zen Arcade inside The Hook & Ladder EVERY THIRD THURSDAY in 2026 -- Doors 5PM :: Piano Lounge 5PM :: Liquor Pigs 6-8PM :: $5 Cover :: 21+ -- The Hook & Ladd",
+      "url": "https://thehookmpls.com/shows/dirty-p-s-thirsty-3rd-thursdays-club-september-17-2026-652584",
+      "image": "https://s3.amazonaws.com/opendate-aws-assets/confirms/main_event_images/000/652/584/compressed/2026-2-Zen-DirtyP-2160x1080-Eventbrite-Website-Twitter.jpg?1782252304",
+      "price": null,
+      "age": null,
+      "source": "hook"
+    },
+    {
       "id": "whitesquirrel:2026-09-17:martin-devaney-and-friends-w-tba",
       "date": "2026-09-17",
       "time": "18:00",
@@ -4283,6 +4300,23 @@
       "price": "$25–$35",
       "age": null,
       "source": "crooners"
+    },
+    {
+      "id": "umn-events:2026-09-17:2026-ima-public-lecture",
+      "date": "2026-09-17",
+      "time": "19:00",
+      "end_date": "2026-09-17",
+      "title": "2026 IMA Public Lecture",
+      "venue": "301 19th Avenue South, Minneapolis, MN 55455",
+      "venue_neighborhood": "University of Minnesota, Minneapolis",
+      "city": "Minneapolis",
+      "category": "lecture",
+      "subtitle": "Hosted by College of Science and Engineering",
+      "url": "https://events.tc.umn.edu/cse/event/27731-2026-ima-public-lecture",
+      "image": "https://events.tc.umn.edu/live/image/gid/160/width/300/height/300/crop/1/src_region/0,0,309,464/5888_Mattingly_Headshot.jpg",
+      "price": null,
+      "age": null,
+      "source": "umn-events"
     },
     {
       "id": "dakota:2026-09-17:a-night-dedicated-to-cassandra-wilson",
@@ -4334,6 +4368,40 @@
       "price": null,
       "age": "All ages",
       "source": "amsterdam"
+    },
+    {
+      "id": "astercafe:2026-09-17:the-new-entangled-particles",
+      "date": "2026-09-17",
+      "time": "19:00",
+      "end_date": null,
+      "title": "The New Entangled Particles",
+      "venue": "Aster Cafe",
+      "venue_neighborhood": "St. Anthony Main, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://astercafe.com/live-music-calendar",
+      "image": null,
+      "price": "$15",
+      "age": null,
+      "source": "astercafe"
+    },
+    {
+      "id": "bryantlakebowl:2026-09-17:tubthumping-thursdays",
+      "date": "2026-09-17",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Tubthumping Thursdays",
+      "venue": "Bryant Lake Bowl Theater",
+      "venue_neighborhood": "Lyn-Lake, Minneapolis",
+      "city": "Minneapolis",
+      "category": "performance",
+      "subtitle": null,
+      "url": "https://www.bryantlakebowl.com/theater/tubthumping-thursdays-sept17",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "bryantlakebowl"
     },
     {
       "id": "riverview:2026-09-17:19:15:queen-s-2026",
@@ -4812,6 +4880,40 @@
       "source": "trylon"
     },
     {
+      "id": "astercafe:2026-09-18:favourite-girl",
+      "date": "2026-09-18",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Favourite Girl",
+      "venue": "Aster Cafe",
+      "venue_neighborhood": "St. Anthony Main, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://astercafe.com/live-music-calendar",
+      "image": null,
+      "price": "$15",
+      "age": null,
+      "source": "astercafe"
+    },
+    {
+      "id": "bryantlakebowl:2026-09-18:giggles-and-schnitz-contractually-obligated-comedy-cornucopia",
+      "date": "2026-09-18",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Giggles & Schnitz' Contractually Obligated Comedy Cornucopia!",
+      "venue": "Bryant Lake Bowl Theater",
+      "venue_neighborhood": "Lyn-Lake, Minneapolis",
+      "city": "Minneapolis",
+      "category": "performance",
+      "subtitle": null,
+      "url": "https://www.bryantlakebowl.com/theater/giggles-schnitz2",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "bryantlakebowl"
+    },
+    {
       "id": "berlin:2026-09-18:jorge-luis-pacheco-trio",
       "date": "2026-09-18",
       "time": "19:00",
@@ -4948,6 +5050,23 @@
       "source": "whitesquirrel"
     },
     {
+      "id": "hook:2026-09-18:hipshaker-mpls-heavy-funk-and-rare-soul-dance-party",
+      "date": "2026-09-18",
+      "time": "21:00",
+      "end_date": null,
+      "title": "Hipshaker MPLS | Heavy Funk & Rare Soul Dance Party",
+      "venue": "The Hook and Ladder",
+      "venue_neighborhood": "Longfellow, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "GA: $14 ADV (Box-Office) / $16 ADV (Online) / $18 DOOR Price includes 12.025% Sales Tax, Ticketing Fee, Facility Fee, & CC Processing Fee ----- BOX-OFFICE Tickets Are Available During Hours of Operati",
+      "url": "https://thehookmpls.com/shows/hipshaker-mpls-heavy-funk-rare-soul-dance-party-september-18-2026-685468",
+      "image": "https://s3.amazonaws.com/opendate-aws-assets/confirms/main_event_images/000/685/468/compressed/260417-Zen-Hipshaker-2160x1080-Web-OpenDate.jpg?1774392526",
+      "price": null,
+      "age": null,
+      "source": "hook"
+    },
+    {
       "id": "greenroom:2026-09-18:samambo-feat-mohogany-nyc",
       "date": "2026-09-18",
       "time": "21:00",
@@ -4980,6 +5099,23 @@
       "price": null,
       "age": null,
       "source": "trylon"
+    },
+    {
+      "id": "bryantlakebowl:2026-09-18:that-felt-good",
+      "date": "2026-09-18",
+      "time": "21:30",
+      "end_date": null,
+      "title": "That Felt Good",
+      "venue": "Bryant Lake Bowl Theater",
+      "venue_neighborhood": "Lyn-Lake, Minneapolis",
+      "city": "Minneapolis",
+      "category": "performance",
+      "subtitle": null,
+      "url": "https://www.bryantlakebowl.com/theater/that-felt-good-sept18",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "bryantlakebowl"
     },
     {
       "id": "berlin:2026-09-18:late-night-lounge-alec-gruba",
@@ -5135,6 +5271,23 @@
       "source": "loft"
     },
     {
+      "id": "mysticlake:2026-09-19:hop-house-ppv-watch-party-fight-night-van-vs-pantoja",
+      "date": "2026-09-19",
+      "time": "11:00",
+      "end_date": null,
+      "title": "Hop House PPV Watch Party Fight Night VAN vs PANTOJA",
+      "venue": "Mystic Showroom",
+      "venue_neighborhood": "Mystic Lake, Prior Lake",
+      "city": "Prior Lake",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://mysticlake.com/shows-and-events/hop-house-fight-night-sept19",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "mysticlake"
+    },
+    {
       "id": "manual:2026-09-19:fulton-oktoberfest",
       "end_date": null,
       "image": null,
@@ -5184,6 +5337,23 @@
       "price": null,
       "age": null,
       "source": "guthrie"
+    },
+    {
+      "id": "umn-events:2026-09-19:artist-talk-contrast-2025-26-aragti-wadaag-residency",
+      "date": "2026-09-19",
+      "time": "16:00",
+      "end_date": "2026-09-19",
+      "title": "Artist Talk: CONTRAST: 2025-26 Aragti Wadaag Residency",
+      "venue": "Katherine E. Nash Gallery, 405 21st Avenue South Minneapolis, MN 55455",
+      "venue_neighborhood": "University of Minnesota, Minneapolis",
+      "city": "Minneapolis",
+      "category": "lecture",
+      "subtitle": "Hosted by Department of Art",
+      "url": "https://events.tc.umn.edu/art/event/28607-artist-talk-contrast-2025-26-aragti-wadaag",
+      "image": "https://events.tc.umn.edu/live/image/gid/53/width/300/height/300/crop/1/src_region/0,0,1610,1612/6032_still_of_work_-_sabr_saturn.png",
+      "price": "Free",
+      "age": null,
+      "source": "umn-events"
     },
     {
       "id": "berlin:2026-09-19:early-evening-jazz-jackson-churchill-trio",
@@ -5320,6 +5490,23 @@
       "price": null,
       "age": "All ages",
       "source": "mnorch"
+    },
+    {
+      "id": "bryantlakebowl:2026-09-19:giggles-and-schnitz-contractually-obligated-comedy-cornucopia",
+      "date": "2026-09-19",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Giggles & Schnitz' Contractually Obligated Comedy Cornucopia!",
+      "venue": "Bryant Lake Bowl Theater",
+      "venue_neighborhood": "Lyn-Lake, Minneapolis",
+      "city": "Minneapolis",
+      "category": "performance",
+      "subtitle": null,
+      "url": "https://www.bryantlakebowl.com/theater/giggles-schnitz3",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "bryantlakebowl"
     },
     {
       "id": "mysticlake:2026-09-19:iron-maiden-run-for-your-lives-with-megadeth",
@@ -5490,6 +5677,23 @@
       "price": null,
       "age": "18+",
       "source": "amsterdam"
+    },
+    {
+      "id": "hook:2026-09-19:two-trees-album-release-show-breanne-marie-and-the-front-porch-sinners",
+      "date": "2026-09-19",
+      "time": "20:00",
+      "end_date": null,
+      "title": "Two Trees Album Release Show - Breanne Marie & The Front Porch Sinners",
+      "venue": "The Hook and Ladder",
+      "venue_neighborhood": "Longfellow, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Breanne Marie and the Front Porch Sinners return to Minneapolis for the first time in three years with a new album and some very special guests OPNR and Dead North. Recorded at Sparta Sound, produced ",
+      "url": "https://thehookmpls.com/shows/two-trees-album-release-show-breanne-marie-the-front-porch-sinners-september-19-2026-731163",
+      "image": "https://s3.amazonaws.com/opendate-aws-assets/confirms/main_event_images/000/731/163/compressed/Two_Trees_MPLS_Album_Release_2160x1080_%281%29.jpg?1785447176",
+      "price": null,
+      "age": null,
+      "source": "hook"
     },
     {
       "id": "icehouse:2026-09-19:urgent-emergent-performance-art-series-volume-eight-play",
@@ -5985,6 +6189,23 @@
       "source": "dakota"
     },
     {
+      "id": "bryantlakebowl:2026-09-20:no-kings-paul-revere-resists-and-it-cant-happen-here-again",
+      "date": "2026-09-20",
+      "time": "19:00",
+      "end_date": null,
+      "title": "No Kings: Paul Revere Resists and It Can't Happen Here Again!",
+      "venue": "Bryant Lake Bowl Theater",
+      "venue_neighborhood": "Lyn-Lake, Minneapolis",
+      "city": "Minneapolis",
+      "category": "performance",
+      "subtitle": null,
+      "url": "https://www.bryantlakebowl.com/theater/no-kings",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "bryantlakebowl"
+    },
+    {
       "id": "greenroom:2026-09-20:poison-girl-friend",
       "date": "2026-09-20",
       "time": "19:00",
@@ -6068,6 +6289,23 @@
       "price": null,
       "age": null,
       "source": "ticketmaster"
+    },
+    {
+      "id": "hook:2026-09-20:light-em-up-the-bong-show",
+      "date": "2026-09-20",
+      "time": "20:00",
+      "end_date": null,
+      "title": "Light 'em Up The Bong Show",
+      "venue": "The Hook and Ladder",
+      "venue_neighborhood": "Longfellow, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "The Hook hosts a unique and interactive comedy improv experience for Twin City comedy and cannabis fans! The Hook is teaming up with local comic/host/producer Ira Ford , our friends at Stigma Cannabis",
+      "url": "https://thehookmpls.com/shows/light-em-up-the-bong-show-september-20-2026-657480",
+      "image": "https://s3.amazonaws.com/opendate-aws-assets/confirms/main_event_images/000/657/480/compressed/260920-Hook-TheBongShow-2160x1080-Eventbrite-Website-Twitter.jpg?1785421752",
+      "price": null,
+      "age": null,
+      "source": "hook"
     },
     {
       "id": "trylon:2026-09-20:20:00:paris-texas-in-4k",
@@ -6198,7 +6436,7 @@
       "venue_neighborhood": "Main Stage Showroom",
       "city": "Minneapolis",
       "category": "music",
-      "subtitle": "Doors open at 4:00 PM for Dinner and Drink Service. We envision a Cambodia where every returnee is welcomed, supported, and empowered to become a self-reliant, constructive member of society. Join us ",
+      "subtitle": "Doors Open at 4:30 PM. Dinner and Drinks will be Available for Purchase. We envision a Cambodia where every returnee is welcomed, supported, and empowered to become a self-reliant, constructive member",
       "url": "https://www.croonersmn.com/event/life-after-deportation-a-fundraiser-for-kvao/",
       "image": "https://www.croonersmn.com/wp-content/uploads/eventbrite-logos/f76df09392c0476e516871eafe39665c.jpg",
       "price": "$10",
@@ -6274,6 +6512,23 @@
       "source": "varsity"
     },
     {
+      "id": "hook:2026-09-21:cliff-cash-early-show",
+      "date": "2026-09-21",
+      "time": "18:30",
+      "end_date": null,
+      "title": "Cliff Cash - Early Show",
+      "venue": "The Hook and Ladder",
+      "venue_neighborhood": "Longfellow, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "“we need more people like Cliff Cash—southern, sharp, pissed off, and fully done playing polite with the apocalypse. While most Americans are too busy trying to refinance their souls or Googling “Is t",
+      "url": "https://thehookmpls.com/shows/cliff-cash-early-show-september-21-2026-691667",
+      "image": "https://s3.amazonaws.com/opendate-aws-assets/confirms/main_event_images/000/691/667/compressed/260921-Hook-CliffCash-2160x1080-Web-OpenDate.jpg?1776354595",
+      "price": null,
+      "age": null,
+      "source": "hook"
+    },
+    {
       "id": "trylon:2026-09-21:19:00:paris-texas-in-4k",
       "date": "2026-09-21",
       "time": "19:00",
@@ -6308,6 +6563,23 @@
       "source": "dakota"
     },
     {
+      "id": "bryantlakebowl:2026-09-21:uproar-comedy-open-mic",
+      "date": "2026-09-21",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Uproar Comedy Open Mic",
+      "venue": "Bryant Lake Bowl Theater",
+      "venue_neighborhood": "Lyn-Lake, Minneapolis",
+      "city": "Minneapolis",
+      "category": "performance",
+      "subtitle": null,
+      "url": "https://www.bryantlakebowl.com/theater/uproar-sept21",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "bryantlakebowl"
+    },
+    {
       "id": "icehouse:2026-09-21:self-evident-s-t-vinyl-release-and-congratulations-japan-tour-kick-off",
       "date": "2026-09-21",
       "time": "20:00",
@@ -6323,6 +6595,23 @@
       "price": "$15",
       "age": null,
       "source": "icehouse"
+    },
+    {
+      "id": "hook:2026-09-21:cliff-cash-late-show",
+      "date": "2026-09-21",
+      "time": "20:30",
+      "end_date": null,
+      "title": "Cliff Cash - Late Show",
+      "venue": "The Hook and Ladder",
+      "venue_neighborhood": "Longfellow, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "“we need more people like Cliff Cash—southern, sharp, pissed off, and fully done playing polite with the apocalypse. While most Americans are too busy trying to refinance their souls or Googling “Is t",
+      "url": "https://thehookmpls.com/shows/cliff-cash-late-show-september-21-2026-691668",
+      "image": "https://s3.amazonaws.com/opendate-aws-assets/confirms/main_event_images/000/691/668/compressed/260921-Hook-CliffCash-2160x1080-Web-OpenDate.jpg?1776353861",
+      "price": null,
+      "age": null,
+      "source": "hook"
     },
     {
       "id": "whitesquirrel:2026-09-21:jesus-was-a-commie-w-the-deeper-kind-shotgun-johnny",
@@ -6510,6 +6799,40 @@
       "price": null,
       "age": "All ages",
       "source": "dakota"
+    },
+    {
+      "id": "hook:2026-09-22:space-between-jam",
+      "date": "2026-09-22",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Space Between JAM",
+      "venue": "The Hook and Ladder",
+      "venue_neighborhood": "Longfellow, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "The monthly SPACE BETWEEN Jam is here! EVERY 4th Tuesday at the Hook and Ladder Theater. Open to the public. 7-10pm This OPEN jam, hosted by the non-profit SPACE BETWEEN and Minneapolis local Will Eff",
+      "url": "https://thehookmpls.com/shows/space-between-jam-september-22-2026-742256",
+      "image": "https://s3.amazonaws.com/opendate-aws-assets/confirms/main_event_images/000/742/256/compressed/701293266_1649326523869596_8338789062165136779_n.jpg?1786552527",
+      "price": null,
+      "age": null,
+      "source": "hook"
+    },
+    {
+      "id": "umn-events:2026-09-22:esther-freier-lecture-an-evening-with-george-saunders",
+      "date": "2026-09-22",
+      "time": "19:30",
+      "end_date": null,
+      "title": "Esther Freier Lecture: An Evening With George Saunders",
+      "venue": "Northrop",
+      "venue_neighborhood": "University of Minnesota, Minneapolis",
+      "city": "Minneapolis",
+      "category": "lecture",
+      "subtitle": "Hosted by Northrop",
+      "url": "https://events.tc.umn.edu/northrop/event/27174-esther-freier-lecture-an-evening-with-george",
+      "image": "https://events.tc.umn.edu/live/image/gid/372/width/300/height/300/crop/1/src_region/0,0,600,350/5804_George_Saunders_300x250.jpg",
+      "price": "Free",
+      "age": null,
+      "source": "umn-events"
     },
     {
       "id": "cedar:2026-09-22:first-avenue-presents-croz-boyce-with-powers-rolin-duo",
@@ -6767,6 +7090,23 @@
       "source": "crooners"
     },
     {
+      "id": "bryantlakebowl:2026-09-23:counter-surge-queers-to-the-front",
+      "date": "2026-09-23",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Counter Surge! Queers to the Front",
+      "venue": "Bryant Lake Bowl Theater",
+      "venue_neighborhood": "Lyn-Lake, Minneapolis",
+      "city": "Minneapolis",
+      "category": "performance",
+      "subtitle": null,
+      "url": "https://www.bryantlakebowl.com/theater/counter-surge",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "bryantlakebowl"
+    },
+    {
       "id": "berlin:2026-09-23:havana-highlife-with-yuya-rodriguez",
       "date": "2026-09-23",
       "time": "19:00",
@@ -6799,6 +7139,23 @@
       "price": null,
       "age": "21+",
       "source": "331"
+    },
+    {
+      "id": "astercafe:2026-09-23:mnaked-daniel-rosen-ep-release-and-carl-franzen",
+      "date": "2026-09-23",
+      "time": "19:00",
+      "end_date": null,
+      "title": "MNAKED: Daniel Rosen EP Release & Carl Franzen",
+      "venue": "Aster Cafe",
+      "venue_neighborhood": "St. Anthony Main, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://astercafe.com/live-music-calendar",
+      "image": null,
+      "price": "$12",
+      "age": null,
+      "source": "astercafe"
     },
     {
       "id": "guthrie:2026-09-23:19:00:waiting-for-godot",
@@ -6903,18 +7260,18 @@
       "source": "greenroom"
     },
     {
-      "id": "whitesquirrel:2026-09-23:13-howell",
+      "id": "whitesquirrel:2026-09-23:13-howell-w-glass",
       "date": "2026-09-23",
       "time": "21:00",
       "end_date": null,
-      "title": "13 Howell",
+      "title": "13 Howell w. Glass",
       "venue": "White Squirrel Bar",
       "venue_neighborhood": "West End, St. Paul",
       "city": "St. Paul",
       "category": "music",
       "subtitle": null,
       "url": "https://whitesquirrelbar.com/event/13-howell/",
-      "image": null,
+      "image": "https://whitesquirrelbar.com/wp-content/uploads/White-Squirrel-9.23.26-Insta-1.png",
       "price": null,
       "age": null,
       "source": "whitesquirrel"
@@ -7175,6 +7532,23 @@
       "source": "sports"
     },
     {
+      "id": "bryantlakebowl:2026-09-24:movie-fight-club",
+      "date": "2026-09-24",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Movie Fight Club",
+      "venue": "Bryant Lake Bowl Theater",
+      "venue_neighborhood": "Lyn-Lake, Minneapolis",
+      "city": "Minneapolis",
+      "category": "performance",
+      "subtitle": null,
+      "url": "https://www.bryantlakebowl.com/theater/movie-fight-club-sept",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "bryantlakebowl"
+    },
+    {
       "id": "berlin:2026-09-24:north-star-jazz-workshops-faculty",
       "date": "2026-09-24",
       "time": "19:00",
@@ -7209,6 +7583,23 @@
       "source": "mysticlake"
     },
     {
+      "id": "astercafe:2026-09-24:the-long-goodbyes",
+      "date": "2026-09-24",
+      "time": "19:00",
+      "end_date": null,
+      "title": "The Long Goodbyes",
+      "venue": "Aster Cafe",
+      "venue_neighborhood": "St. Anthony Main, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://astercafe.com/live-music-calendar",
+      "image": null,
+      "price": "$15",
+      "age": null,
+      "source": "astercafe"
+    },
+    {
       "id": "crooners:2026-09-24:urban-classic-presents-natural-mystic-the-music-of-bob-marley",
       "date": "2026-09-24",
       "time": "19:00",
@@ -7241,6 +7632,23 @@
       "price": null,
       "age": null,
       "source": "riverview"
+    },
+    {
+      "id": "hook:2026-09-24:almost-rocktober-2-0-revo-clash-minne-rockers-say-in-aint-faux",
+      "date": "2026-09-24",
+      "time": "19:30",
+      "end_date": null,
+      "title": "Almost Rocktober 2.0 - REVO, Clash Minne Rockers, Say In Aint Faux",
+      "venue": "The Hook and Ladder",
+      "venue_neighborhood": "Longfellow, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "7:00pm - DOORS 7:30pm - Say In Aint Faux 8:30pm - Clash Minne Rockers 9:30pm - REVO REVO . A Tribute to DEVO in the spirit of what they are: A ROCK BAND! Clash Minne Rockers. A Twin Cities tribute to ",
+      "url": "https://thehookmpls.com/shows/almost-rocktober-2-0-revo-clash-minne-rockers-say-in-aint-faux-september-24-2026-718127",
+      "image": "https://s3.amazonaws.com/opendate-aws-assets/confirms/main_event_images/000/718/127/compressed/AlmostRocktober_atTheHOOK2_FBheader.jpg?1786483806",
+      "price": null,
+      "age": null,
+      "source": "hook"
     },
     {
       "id": "cedar:2026-09-24:gordi-s-carey-with-gracie-and-rachel",
@@ -7456,7 +7864,7 @@
       "venue_neighborhood": "Warehouse District, Minneapolis",
       "city": "Minneapolis",
       "category": "music",
-      "subtitle": null,
+      "subtitle": "Juice Lord, Jandeltha Rae and JuneThaKid",
       "url": "https://first-avenue.com/event/2026-09-kota-the-friend/",
       "image": null,
       "price": null,
@@ -7547,6 +7955,23 @@
       "price": null,
       "age": "All ages",
       "source": "spco"
+    },
+    {
+      "id": "umn-events:2026-09-25:webinar-real-talk-about-caregiving-in-midlife",
+      "date": "2026-09-25",
+      "time": "12:00",
+      "end_date": "2026-09-25",
+      "title": "Webinar: Real Talk About Caregiving in Midlife",
+      "venue": "College of Continuing and Professional Studies",
+      "venue_neighborhood": "University of Minnesota, Minneapolis",
+      "city": "Minneapolis",
+      "category": "lecture",
+      "subtitle": "Hosted by College of Continuing and Professional Studies",
+      "url": "https://events.tc.umn.edu/continuingand-professional-studies/event/27824-webinar-real-talk-about-caregiving-in-midlife",
+      "image": "https://events.tc.umn.edu/live/image/gid/153/width/300/height/300/crop/1/src_region/0,0,3200,2133/5898_iStock-1480607288.jpg",
+      "price": null,
+      "age": null,
+      "source": "umn-events"
     },
     {
       "id": "manual:2026-09-25:fulton-oktoberfest",
@@ -7666,6 +8091,40 @@
       "price": "$30–$40",
       "age": null,
       "source": "crooners"
+    },
+    {
+      "id": "astercafe:2026-09-25:chris-mason",
+      "date": "2026-09-25",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Chris Mason",
+      "venue": "Aster Cafe",
+      "venue_neighborhood": "St. Anthony Main, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://astercafe.com/live-music-calendar",
+      "image": null,
+      "price": "$15",
+      "age": null,
+      "source": "astercafe"
+    },
+    {
+      "id": "bryantlakebowl:2026-09-25:giggles-and-schnitz-contractually-obligated-comedy-cornucopia",
+      "date": "2026-09-25",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Giggles & Schnitz' Contractually Obligated Comedy Cornucopia!",
+      "venue": "Bryant Lake Bowl Theater",
+      "venue_neighborhood": "Lyn-Lake, Minneapolis",
+      "city": "Minneapolis",
+      "category": "performance",
+      "subtitle": null,
+      "url": "https://www.bryantlakebowl.com/theater/giggles-schnitz4",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "bryantlakebowl"
     },
     {
       "id": "fillmore:2026-09-25:kylie-cantrall-presents-the-valley-girl-problems-tour",
@@ -7855,6 +8314,23 @@
       "source": "mnorch"
     },
     {
+      "id": "hook:2026-09-25:the-parkinsons-foundation-mn-fundraiser",
+      "date": "2026-09-25",
+      "time": "20:00",
+      "end_date": null,
+      "title": "The Parkinson's Foundation MN Fundraiser",
+      "venue": "The Hook and Ladder",
+      "venue_neighborhood": "Longfellow, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "The Parkinson's Foundation Minnesota and Dakota's Chapter is pleased to announce their first music fundraiser to support the Parkinson's Foundation. Tickets to the event and donations made at the even",
+      "url": "https://thehookmpls.com/shows/the-parkinson-s-foundation-mn-fundraiser-september-25-2026-711808",
+      "image": "https://s3.amazonaws.com/opendate-aws-assets/confirms/main_event_images/000/711/808/compressed/260925-THeater-MNParkinsonsFoundation-2160x1080-Ticket-Web-TV.jpg?1782490790",
+      "price": null,
+      "age": null,
+      "source": "hook"
+    },
+    {
       "id": "crooners:2026-09-25:yazmin-and-beat-zero-ft-havana-quartet-and-prudence-johnson",
       "date": "2026-09-25",
       "time": "20:00",
@@ -7870,6 +8346,23 @@
       "price": "$30–$40",
       "age": null,
       "source": "crooners"
+    },
+    {
+      "id": "hook:2026-09-25:efmi-with-dream-of-the-wild-the-stretch",
+      "date": "2026-09-25",
+      "time": "20:30",
+      "end_date": null,
+      "title": "Efmi with Dream Of The Wild, The Stretch",
+      "venue": "The Hook and Ladder",
+      "venue_neighborhood": "Longfellow, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Efmi — Minneapolis-based Efmi creates adventurous, groove-heavy music that moves between psychedelic rock, funk, jazz, and improvisational jams. Dream Of The Wild — Minneapolis psychedelic jam band Dr",
+      "url": "https://thehookmpls.com/shows/efmi-with-dream-of-the-wild-the-stretch-september-25-2026-718132",
+      "image": "https://s3.amazonaws.com/opendate-aws-assets/confirms/main_event_images/000/718/132/compressed/260925-Zen-EFMI-1920x1080-FB-Event-Cover.jpg?1787690396",
+      "price": null,
+      "age": null,
+      "source": "hook"
     },
     {
       "id": "whitesquirrel:2026-09-25:and-i-found-a-way-w-southpaw-shrive-pommel",
@@ -7904,6 +8397,23 @@
       "price": null,
       "age": null,
       "source": "trylon"
+    },
+    {
+      "id": "bryantlakebowl:2026-09-25:that-felt-good",
+      "date": "2026-09-25",
+      "time": "21:30",
+      "end_date": null,
+      "title": "That Felt Good",
+      "venue": "Bryant Lake Bowl Theater",
+      "venue_neighborhood": "Lyn-Lake, Minneapolis",
+      "city": "Minneapolis",
+      "category": "performance",
+      "subtitle": null,
+      "url": "https://www.bryantlakebowl.com/theater/that-felt-good-sept25",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "bryantlakebowl"
     },
     {
       "id": "greenroom:2026-09-25:daft-disko-a-french-house-and-disco-party",
@@ -8348,6 +8858,23 @@
       "source": "crooners"
     },
     {
+      "id": "bryantlakebowl:2026-09-26:giggles-and-schnitz-contractually-obligated-comedy-cornucopia",
+      "date": "2026-09-26",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Giggles & Schnitz' Contractually Obligated Comedy Cornucopia!",
+      "venue": "Bryant Lake Bowl Theater",
+      "venue_neighborhood": "Lyn-Lake, Minneapolis",
+      "city": "Minneapolis",
+      "category": "performance",
+      "subtitle": null,
+      "url": "https://www.bryantlakebowl.com/theater/giggles-schnitz5",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "bryantlakebowl"
+    },
+    {
       "id": "spco:2026-09-26:19:00:koh-where-rivers-merge-with-abel-selaocoe-and-sidiki-dembele",
       "date": "2026-09-26",
       "time": "19:00",
@@ -8380,6 +8907,23 @@
       "price": null,
       "age": null,
       "source": "mysticlake"
+    },
+    {
+      "id": "hook:2026-09-26:private-event",
+      "date": "2026-09-26",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Private Event",
+      "venue": "The Hook and Ladder",
+      "venue_neighborhood": "Longfellow, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Private Event — Saturday, September 26, 2026 at The Hook and Ladder (Theater), Minneapolis, MN.",
+      "url": "https://thehookmpls.com/shows/private-event-september-26-2026-729183",
+      "image": "https://s3.amazonaws.com/opendate-aws-assets/confirms/main_event_images/000/729/183/compressed/Screen-Shot-2024-07-24-at-7.30.22-PM-2048x706.jpg?1784050520",
+      "price": null,
+      "age": null,
+      "source": "hook"
     },
     {
       "id": "mnorch:11903",
@@ -8567,6 +9111,23 @@
       "price": null,
       "age": "21+",
       "source": "331"
+    },
+    {
+      "id": "bryantlakebowl:2026-09-26:melody-hits-music-video-bingo",
+      "date": "2026-09-26",
+      "time": "22:00",
+      "end_date": null,
+      "title": "Melody Hits Music Video Bingo",
+      "venue": "Bryant Lake Bowl Theater",
+      "venue_neighborhood": "Lyn-Lake, Minneapolis",
+      "city": "Minneapolis",
+      "category": "performance",
+      "subtitle": null,
+      "url": "https://www.bryantlakebowl.com/theater/melody-hits-music-video-bingo",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "bryantlakebowl"
     },
     {
       "id": "first-avenue:2026-09-26:fine-line:bahamas",
@@ -8873,6 +9434,23 @@
       "price": null,
       "age": null,
       "source": "trylon"
+    },
+    {
+      "id": "bryantlakebowl:2026-09-27:andy-ulseth-40th-b-day-and-career-retrospective",
+      "date": "2026-09-27",
+      "time": "15:00",
+      "end_date": null,
+      "title": "Andy Ulseth - 40th B-Day & Career Retrospective",
+      "venue": "Bryant Lake Bowl Theater",
+      "venue_neighborhood": "Lyn-Lake, Minneapolis",
+      "city": "Minneapolis",
+      "category": "performance",
+      "subtitle": null,
+      "url": "https://www.bryantlakebowl.com/theater/andy-ulseth",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "bryantlakebowl"
     },
     {
       "id": "dakota:2026-09-27:vip-event-alicia-witt-album-release",
@@ -9368,6 +9946,23 @@
       "source": "crooners"
     },
     {
+      "id": "bryantlakebowl:2026-09-28:uproar-comedy-open-mic",
+      "date": "2026-09-28",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Uproar Comedy Open Mic",
+      "venue": "Bryant Lake Bowl Theater",
+      "venue_neighborhood": "Lyn-Lake, Minneapolis",
+      "city": "Minneapolis",
+      "category": "performance",
+      "subtitle": null,
+      "url": "https://www.bryantlakebowl.com/theater/uproar-sept28",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "bryantlakebowl"
+    },
+    {
       "id": "icehouse:2026-09-28:buzz-kull-and-kontravoid",
       "date": "2026-09-28",
       "time": "20:00",
@@ -9434,6 +10029,23 @@
       "price": null,
       "age": "All ages",
       "source": "dakota"
+    },
+    {
+      "id": "umn-events:2026-09-29:cdes-study-abroad-info-session-and-student-panel",
+      "date": "2026-09-29",
+      "time": "12:00",
+      "end_date": "2026-09-29",
+      "title": "CDes Study Abroad Info Session & Student Panel",
+      "venue": "Learning Abroad Center",
+      "venue_neighborhood": "University of Minnesota, Minneapolis",
+      "city": "Minneapolis",
+      "category": "lecture",
+      "subtitle": "Hosted by Learning Abroad Center",
+      "url": "https://events.tc.umn.edu/learning-abroad-center/event/28585-cdes-study-abroad-info-session-student-panel",
+      "image": "https://events.tc.umn.edu/live/image/gid/298/width/300/height/300/crop/1/src_region/0,0,631,621/2620_wordmark-square2.png",
+      "price": null,
+      "age": null,
+      "source": "umn-events"
     },
     {
       "id": "loft:2026-09-29:friend-fete-september-2026",
@@ -9519,6 +10131,40 @@
       "price": null,
       "age": null,
       "source": "trylon"
+    },
+    {
+      "id": "hook:2026-09-29:private-event",
+      "date": "2026-09-29",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Private Event",
+      "venue": "The Hook and Ladder",
+      "venue_neighborhood": "Longfellow, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Private Event — Tuesday, September 29, 2026 at The Hook and Ladder (Theater), Minneapolis, MN.",
+      "url": "https://thehookmpls.com/shows/private-event-september-29-2026-728824",
+      "image": "https://s3.amazonaws.com/opendate-aws-assets/confirms/main_event_images/000/728/824/compressed/Screen-Shot-2024-07-24-at-7.30.22-PM-2048x706.jpg?1783957542",
+      "price": null,
+      "age": null,
+      "source": "hook"
+    },
+    {
+      "id": "bryantlakebowl:2026-09-29:the-theater-of-public-policy-with-jen-ford-reedy",
+      "date": "2026-09-29",
+      "time": "19:00",
+      "end_date": null,
+      "title": "The Theater of Public Policy with Jen Ford Reedy",
+      "venue": "Bryant Lake Bowl Theater",
+      "venue_neighborhood": "Lyn-Lake, Minneapolis",
+      "city": "Minneapolis",
+      "category": "performance",
+      "subtitle": null,
+      "url": "https://www.bryantlakebowl.com/theater/the-theater-of-public-policy-with-jen-ford-reedy",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "bryantlakebowl"
     },
     {
       "id": "guthrie:2026-09-29:19:00:waiting-for-godot",
@@ -9793,6 +10439,23 @@
       "source": "fillmore"
     },
     {
+      "id": "bryantlakebowl:2026-09-30:improv-zodiac",
+      "date": "2026-09-30",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Improv Zodiac!",
+      "venue": "Bryant Lake Bowl Theater",
+      "venue_neighborhood": "Lyn-Lake, Minneapolis",
+      "city": "Minneapolis",
+      "category": "performance",
+      "subtitle": null,
+      "url": "https://www.bryantlakebowl.com/theater/improv-zodiac-sept30",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "bryantlakebowl"
+    },
+    {
       "id": "greenroom:2026-09-30:jackson-marshall",
       "date": "2026-09-30",
       "time": "19:00",
@@ -9825,6 +10488,23 @@
       "price": null,
       "age": "21+",
       "source": "331"
+    },
+    {
+      "id": "astercafe:2026-09-30:mississippi-hot-club",
+      "date": "2026-09-30",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Mississippi Hot Club",
+      "venue": "Aster Cafe",
+      "venue_neighborhood": "St. Anthony Main, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://astercafe.com/live-music-calendar",
+      "image": null,
+      "price": "$17",
+      "age": null,
+      "source": "astercafe"
     },
     {
       "id": "crooners:2026-09-30:pennies-from-heaven-with-mick-sterling-and-cate-fierro",
@@ -10167,6 +10847,23 @@
       "source": "dakota"
     },
     {
+      "id": "astercafe:2026-10-01:frankie-torres",
+      "date": "2026-10-01",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Frankie Torres",
+      "venue": "Aster Cafe",
+      "venue_neighborhood": "St. Anthony Main, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://astercafe.com/live-music-calendar",
+      "image": null,
+      "price": "$15",
+      "age": null,
+      "source": "astercafe"
+    },
+    {
       "id": "crooners:2026-10-01:kaatwalk-s-debut-album-release-show",
       "date": "2026-10-01",
       "time": "19:00",
@@ -10250,6 +10947,23 @@
       "price": null,
       "age": null,
       "source": "trylon"
+    },
+    {
+      "id": "hook:2026-10-01:jon-sullivan-jezebel-sweet-and-fern-spores",
+      "date": "2026-10-01",
+      "time": "19:30",
+      "end_date": null,
+      "title": "Jon Sullivan, Jezebel Sweet, & Fern Spores",
+      "venue": "The Hook and Ladder",
+      "venue_neighborhood": "Longfellow, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "There are a lot of bands performing and releasing music to the masses - there are not many that can bring a feeling of pure soul. Jon Sullivan Band (4 piece) is a group that can. The band is an ensemb",
+      "url": "https://thehookmpls.com/shows/jon-sullivan-jezebel-sweet-fern-spores-october-01-2026-715946",
+      "image": "https://s3.amazonaws.com/opendate-aws-assets/confirms/main_event_images/000/715/946/compressed/Untitled_design-233.jpg?1783617528",
+      "price": null,
+      "age": null,
+      "source": "hook"
     },
     {
       "id": "dakota:2026-10-01:tab-benoit-soul-of-the-swamp-tour-at-pantages-theatre",
@@ -10352,23 +11066,6 @@
       "price": null,
       "age": null,
       "source": "whitesquirrel"
-    },
-    {
-      "id": "toapresents:2026-10-01:kim-benson-new-paintings",
-      "date": "2026-10-01",
-      "time": null,
-      "end_date": null,
-      "title": "Kim Benson: New Paintings",
-      "venue": "TOA Presents",
-      "venue_neighborhood": "Northeast Minneapolis",
-      "city": "Minneapolis",
-      "category": "art",
-      "subtitle": "Entrance at the back of the Carter-Day building",
-      "url": "https://www.theorangeadvisory.com/toa-presents",
-      "image": null,
-      "price": "Free",
-      "age": "All ages",
-      "source": "toapresents"
     },
     {
       "id": "parkway:2026-10-01:live-from-laurel-canyon-songs-and-stories-of-american-folk-rock",
@@ -10541,6 +11238,23 @@
       "source": "331"
     },
     {
+      "id": "astercafe:2026-10-02:raegan-boehmer",
+      "date": "2026-10-02",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Raegan Boehmer",
+      "venue": "Aster Cafe",
+      "venue_neighborhood": "St. Anthony Main, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://astercafe.com/live-music-calendar",
+      "image": null,
+      "price": "$15",
+      "age": null,
+      "source": "astercafe"
+    },
+    {
       "id": "crooners:2026-10-02:saxophunk-the-ronny-loew-band",
       "date": "2026-10-02",
       "time": "19:00",
@@ -10590,6 +11304,23 @@
       "price": null,
       "age": "21+",
       "source": "berlin"
+    },
+    {
+      "id": "hook:2026-10-02:the-inspector-cluzo-france",
+      "date": "2026-10-02",
+      "time": "19:30",
+      "end_date": null,
+      "title": "The Inspector Cluzo (France)",
+      "venue": "The Hook and Ladder",
+      "venue_neighborhood": "Longfellow, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "THE INSPECTOR CLUZO is back in the US for a massive North American tour to promote their 10th LP \"Less is more\" produced in Nashville by Vance Powell (Raconteurs, Jack White, Chris Stapleton). Last ye",
+      "url": "https://thehookmpls.com/shows/the-inspector-cluzo-france-october-02-2026-671100",
+      "image": "https://s3.amazonaws.com/opendate-aws-assets/confirms/main_event_images/000/671/100/compressed/Untitled_design-201.jpg?1782251654",
+      "price": null,
+      "age": null,
+      "source": "hook"
     },
     {
       "id": "guthrie:2026-10-02:19:30:waiting-for-godot",
@@ -10728,6 +11459,23 @@
       "source": "trylon"
     },
     {
+      "id": "bryantlakebowl:2026-10-02:that-felt-good",
+      "date": "2026-10-02",
+      "time": "21:30",
+      "end_date": null,
+      "title": "That Felt Good",
+      "venue": "Bryant Lake Bowl Theater",
+      "venue_neighborhood": "Lyn-Lake, Minneapolis",
+      "city": "Minneapolis",
+      "category": "performance",
+      "subtitle": null,
+      "url": "https://www.bryantlakebowl.com/theater/that-felt-good-oct2",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "bryantlakebowl"
+    },
+    {
       "id": "hennepinarts:2026-10-02:dan-and-phil-hard-launch-world-tour",
       "date": "2026-10-02",
       "time": null,
@@ -10777,6 +11525,23 @@
       "price": null,
       "age": null,
       "source": "hennepinarts"
+    },
+    {
+      "id": "hook:2026-10-03:record-sale",
+      "date": "2026-10-03",
+      "time": "09:00",
+      "end_date": null,
+      "title": "Record Sale",
+      "venue": "The Hook and Ladder",
+      "venue_neighborhood": "Longfellow, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "25 tables of new, used and rare records, cds, vhs, dvds, vintage t-shirts, posters, cassettes and more! Free parking behind the building. Suggested donation for admission. Art by Mark Fearing!",
+      "url": "https://thehookmpls.com/shows/record-sale-october-03-2026-654715",
+      "image": "https://s3.amazonaws.com/opendate-aws-assets/confirms/main_event_images/000/654/715/compressed/Untitled_design-46.jpg?1787068845",
+      "price": null,
+      "age": null,
+      "source": "hook"
     },
     {
       "id": "hclib:2026-10-03:voting-and-election-resources-with-hennepin-county-elections",
@@ -10947,6 +11712,23 @@
       "price": null,
       "age": "All ages",
       "source": "sports"
+    },
+    {
+      "id": "hook:2026-10-03:flavor-crystals-honeymoon-madness-the-get-together",
+      "date": "2026-10-03",
+      "time": "19:30",
+      "end_date": null,
+      "title": "Flavor Crystals, Honeymoon Madness, The Get Together",
+      "venue": "The Hook and Ladder",
+      "venue_neighborhood": "Longfellow, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Join us on an audio-visual journey through Minnesota psychedelia at its finest. An evening laced with the mindbending, ethereal music of the Flavor Crystals , the swirling soundscapes of Honeymoon Mad",
+      "url": "https://thehookmpls.com/shows/flavor-crystals-honeymoon-madness-the-get-together-october-03-2026-683989",
+      "image": "https://s3.amazonaws.com/opendate-aws-assets/confirms/main_event_images/000/683/989/compressed/HL_10_03_26_2180x1080.jpg?1785964875",
+      "price": null,
+      "age": null,
+      "source": "hook"
     },
     {
       "id": "berlin:2026-10-03:green-line-album-release",
@@ -11391,6 +12173,23 @@
       "source": "crooners"
     },
     {
+      "id": "berlin:2026-10-04:sounds-from-planet-ie-feat-john-marks-and-crystal-myslajek",
+      "date": "2026-10-04",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Sounds From Planet IE (feat. John Marks & Crystal Myslajek)",
+      "venue": "Berlin",
+      "venue_neighborhood": "Downtown Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "$15 ADV / $20 DOSGET TICKETS7:00pm Show",
+      "url": "https://berlinmpls.com/calendar/sounds-from-planet-ie-residency-week-1",
+      "image": "https://images.squarespace-cdn.com/content/v1/658316152e826a3bbbfc0aef/1788973952001-YVAJPRZ7A91HHJFMKR4Z/IE_PressPhoto2+copy.jpg",
+      "price": null,
+      "age": "21+",
+      "source": "berlin"
+    },
+    {
       "id": "trylon:2026-10-04:19:00:suspiria-in-4k",
       "date": "2026-10-04",
       "time": "19:00",
@@ -11476,11 +12275,11 @@
       "source": "crooners"
     },
     {
-      "id": "cedar:2026-10-04:w-i-t-c-h",
+      "id": "cedar:2026-10-04:w-i-t-c-h-with-american-cream-band-and-van-glow-light-show",
       "date": "2026-10-04",
       "time": "19:30",
       "end_date": null,
-      "title": "W.I.T.C.H.",
+      "title": "W.I.T.C.H. with American Cream Band and Van Glow Light Show",
       "venue": "The Cedar Cultural Center",
       "venue_neighborhood": "West Bank, Minneapolis",
       "city": "Minneapolis",
@@ -11646,6 +12445,23 @@
       "source": "trylon"
     },
     {
+      "id": "bryantlakebowl:2026-10-05:uproar-comedy-open-mic",
+      "date": "2026-10-05",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Uproar Comedy Open Mic",
+      "venue": "Bryant Lake Bowl Theater",
+      "venue_neighborhood": "Lyn-Lake, Minneapolis",
+      "city": "Minneapolis",
+      "category": "performance",
+      "subtitle": null,
+      "url": "https://www.bryantlakebowl.com/theater/uproar-oct5",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "bryantlakebowl"
+    },
+    {
       "id": "crooners:2026-10-05:when-autumn-falls-an-evening-of-song-with-nichole-carey",
       "date": "2026-10-05",
       "time": "19:00",
@@ -11695,6 +12511,23 @@
       "price": null,
       "age": null,
       "source": "trylon"
+    },
+    {
+      "id": "umn-events:2026-10-06:isgh-advances-in-sexual-and-gender-health-seminar",
+      "date": "2026-10-06",
+      "time": "12:00",
+      "end_date": null,
+      "title": "ISGH Advances in Sexual and Gender Health Seminar",
+      "venue": "Eli Coleman Institute for Sexual and Gender Health",
+      "venue_neighborhood": "University of Minnesota, Minneapolis",
+      "city": "Minneapolis",
+      "category": "lecture",
+      "subtitle": "Hosted by Eli Coleman Institute for Sexual and Gender Health",
+      "url": "https://events.tc.umn.edu/sexual-gender-health/event/28317-isgh-advances-in-sexual-and-gender-health-seminar",
+      "image": "https://events.tc.umn.edu/live/image/gid/258/width/300/height/300/crop/1/src_region/0,0,2133,3200/5988_Simon_headshot_1.jpg",
+      "price": null,
+      "age": null,
+      "source": "umn-events"
     },
     {
       "id": "varsity:2026-10-06:our-lady-peace-30th-anniversary-tour-w-special-guests-the-verve-pipe",
@@ -11986,6 +12819,40 @@
       "source": "331"
     },
     {
+      "id": "bryantlakebowl:2026-10-07:good-camel-live",
+      "date": "2026-10-07",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Good Camel Live",
+      "venue": "Bryant Lake Bowl Theater",
+      "venue_neighborhood": "Lyn-Lake, Minneapolis",
+      "city": "Minneapolis",
+      "category": "performance",
+      "subtitle": null,
+      "url": "https://www.bryantlakebowl.com/theater/good-camel-live-oct7",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "bryantlakebowl"
+    },
+    {
+      "id": "astercafe:2026-10-07:nikki-lemire-trio",
+      "date": "2026-10-07",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Nikki Lemire Trio",
+      "venue": "Aster Cafe",
+      "venue_neighborhood": "St. Anthony Main, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://astercafe.com/live-music-calendar",
+      "image": null,
+      "price": "$15",
+      "age": null,
+      "source": "astercafe"
+    },
+    {
       "id": "trylon:2026-10-07:19:00:tape-freaks",
       "date": "2026-10-07",
       "time": "19:00",
@@ -12020,6 +12887,23 @@
       "source": "guthrie"
     },
     {
+      "id": "hook:2026-10-07:carrie-nation-and-the-speakeasy-w-king-sized-coffin-old-smugglers-and-the-gentle",
+      "date": "2026-10-07",
+      "time": "19:30",
+      "end_date": null,
+      "title": "Carrie Nation And The Speakeasy w/ King-Sized Coffin, Old Smugglers, & The Gentlemen's Anti-Temperance League",
+      "venue": "The Hook and Ladder",
+      "venue_neighborhood": "Longfellow, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "GATL presents \"Pickin' and Blowin' and Hollerin\", an adrenaline-fueled rollercoaster of punk politics, folk thoughtfulness, jazz sensibilities, and horrific consequences. CARRIE NATION & THE SPEAKEASY",
+      "url": "https://thehookmpls.com/shows/carrie-nation-and-the-speakeasy-w-king-sized-coffin-old-smugglers-the-gentlemen-s-anti-temperance-league-october-07-2026-745299",
+      "image": "https://s3.amazonaws.com/opendate-aws-assets/confirms/main_event_images/000/745/299/compressed/Untitled_design-79.jpg?1788543802",
+      "price": null,
+      "age": null,
+      "source": "hook"
+    },
+    {
       "id": "crooners:2026-10-07:cornbread-99-live-recording",
       "date": "2026-10-07",
       "time": "19:30",
@@ -12052,6 +12936,23 @@
       "price": null,
       "age": "All ages",
       "source": "cedar"
+    },
+    {
+      "id": "hook:2026-10-07:john-papa-gros",
+      "date": "2026-10-07",
+      "time": "19:30",
+      "end_date": null,
+      "title": "John 'Papa' Gros",
+      "venue": "The Hook and Ladder",
+      "venue_neighborhood": "Longfellow, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "John “Papa” Gros (pronounced Grow) is a New Orleans pianist, organist, singer-songwriter, and torchbearer of the city’s rich musical traditions. For more than 30 years, he has blended New Orleans funk",
+      "url": "https://thehookmpls.com/shows/john-papa-gros-october-07-2026-750284",
+      "image": "https://s3.amazonaws.com/opendate-aws-assets/confirms/main_event_images/000/750/284/compressed/261007-Zen-JohnPapaGros-2160x1080-TV.jpg?1788906325",
+      "price": null,
+      "age": null,
+      "source": "hook"
     },
     {
       "id": "greenroom:2026-10-07:red-pk",
@@ -12343,6 +13244,23 @@
       "source": "fillmore"
     },
     {
+      "id": "astercafe:2026-10-08:dark-pony-w-dukes-of-the-prairie",
+      "date": "2026-10-08",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Dark Pony w/ Dukes of the Prairie",
+      "venue": "Aster Cafe",
+      "venue_neighborhood": "St. Anthony Main, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://astercafe.com/live-music-calendar",
+      "image": null,
+      "price": "$15",
+      "age": null,
+      "source": "astercafe"
+    },
+    {
       "id": "hclib:2026-10-08:halcyon-days-book-club-the-three-body-problem",
       "date": "2026-10-08",
       "time": "19:00",
@@ -12411,6 +13329,23 @@
       "source": "cedar"
     },
     {
+      "id": "crooners:2026-10-08:spinning-wheel",
+      "date": "2026-10-08",
+      "time": "19:30",
+      "end_date": null,
+      "title": "SPINNING WHEEL",
+      "venue": "Crooners Supper Club",
+      "venue_neighborhood": "The Belvedere at Crooners",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Doors open at 6:15 PM for Dinner and Drink service. Blood Sweat & Tears • Chicago • Tower of Power Vocally inspired – Horn Band Classics – A Tribute to the Brass Rock Revolution. Featuring these great",
+      "url": "https://www.croonersmn.com/event/spinning-wheel-trilogy-2/",
+      "image": "https://www.croonersmn.com/wp-content/uploads/eventbrite-logos/0f3d058be8f6096dbe667c65ec564b88.jpg",
+      "price": "$40–$50",
+      "age": null,
+      "source": "crooners"
+    },
+    {
       "id": "guthrie:2026-10-08:19:30:waiting-for-godot",
       "date": "2026-10-08",
       "time": "19:30",
@@ -12477,6 +13412,23 @@
       "price": null,
       "age": null,
       "source": "parkway"
+    },
+    {
+      "id": "umn-events:2026-10-09:microbiome-and-cancer-symposium",
+      "date": "2026-10-09",
+      "time": "09:00",
+      "end_date": "2026-10-09",
+      "title": "Microbiome & Cancer Symposium",
+      "venue": "Cancer and Cardiovascular Research Building",
+      "venue_neighborhood": "University of Minnesota, Minneapolis",
+      "city": "Minneapolis",
+      "category": "lecture",
+      "subtitle": "Hosted by Masonic Cancer Center",
+      "url": "https://events.tc.umn.edu/masonic-cancer-center/event/27024-microbiome-cancer-symposium",
+      "image": null,
+      "price": "Free",
+      "age": null,
+      "source": "umn-events"
     },
     {
       "id": "trylon:2026-10-09:16:00:horrorthon-x",
@@ -12564,6 +13516,23 @@
       "source": "331"
     },
     {
+      "id": "hook:2026-10-09:big-fat-love-john-prine-birthday-show",
+      "date": "2026-10-09",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Big Fat Love - John Prine Birthday Show",
+      "venue": "The Hook and Ladder",
+      "venue_neighborhood": "Longfellow, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "The Hook & Ladder Theater is pleased to host the 17th Annual Big Fat Love show, celebrating what would have been the late J ohn Prine’s 80th birthday. The popular event is curated and hosted by Ben Co",
+      "url": "https://thehookmpls.com/shows/big-fat-love-john-prine-birthday-show-october-09-2026-685291",
+      "image": "https://s3.amazonaws.com/opendate-aws-assets/confirms/main_event_images/000/685/291/compressed/261009-Hook-BigFatLove16-1920x1080-FBEventCover.jpg?1786039441",
+      "price": null,
+      "age": null,
+      "source": "hook"
+    },
+    {
       "id": "mnorch:12036",
       "date": "2026-10-09",
       "time": "19:00",
@@ -12579,6 +13548,23 @@
       "price": null,
       "age": "All ages",
       "source": "mnorch"
+    },
+    {
+      "id": "astercafe:2026-10-09:waterstreet",
+      "date": "2026-10-09",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Waterstreet",
+      "venue": "Aster Cafe",
+      "venue_neighborhood": "St. Anthony Main, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://astercafe.com/live-music-calendar",
+      "image": null,
+      "price": "$15",
+      "age": null,
+      "source": "astercafe"
     },
     {
       "id": "berlin:2026-10-09:sarah-navratil-quartet-ep-release",
@@ -12698,6 +13684,23 @@
       "price": null,
       "age": null,
       "source": "whitesquirrel"
+    },
+    {
+      "id": "bryantlakebowl:2026-10-09:that-felt-good",
+      "date": "2026-10-09",
+      "time": "21:30",
+      "end_date": null,
+      "title": "That Felt Good",
+      "venue": "Bryant Lake Bowl Theater",
+      "venue_neighborhood": "Lyn-Lake, Minneapolis",
+      "city": "Minneapolis",
+      "category": "performance",
+      "subtitle": null,
+      "url": "https://www.bryantlakebowl.com/theater/that-felt-good-oct9",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "bryantlakebowl"
     },
     {
       "id": "berlin:2026-10-09:late-night-lounge-michael-grey",
@@ -12904,6 +13907,23 @@
       "source": "whitesquirrel"
     },
     {
+      "id": "crooners:2026-10-10:don-powell-presents-cole-porter-night-and-day",
+      "date": "2026-10-10",
+      "time": "17:30",
+      "end_date": null,
+      "title": "Don Powell Presents: COLE PORTER… NIGHT AND DAY",
+      "venue": "Crooners Supper Club",
+      "venue_neighborhood": "Dunsmore Jazz Room",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Doors will open at 4:30 PM for Dinner and Drink Service. Don Powell and music director Adi Yeshaya invite audiences into an unforgettable, story driven celebration of Cole Porter—the brilliant, mischi",
+      "url": "https://www.croonersmn.com/event/don-powell-presents-cole-porter-night-and-day/",
+      "image": "https://www.croonersmn.com/wp-content/uploads/eventbrite-logos/91b9d299f8ba21ae2a5cc95136bf35f9.jpg",
+      "price": "$35–$45",
+      "age": null,
+      "source": "crooners"
+    },
+    {
       "id": "crooners:2026-10-10:an-evening-with-patty-and-ricky-peterson",
       "date": "2026-10-10",
       "time": "18:30",
@@ -12936,6 +13956,23 @@
       "price": null,
       "age": null,
       "source": "varsity"
+    },
+    {
+      "id": "hook:2026-10-10:private-event",
+      "date": "2026-10-10",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Private Event",
+      "venue": "The Hook and Ladder",
+      "venue_neighborhood": "Longfellow, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Private Event — Saturday, October 10, 2026 at The Hook and Ladder (Theater), Minneapolis, MN.",
+      "url": "https://thehookmpls.com/shows/private-event-october-10-2026-729184",
+      "image": "https://s3.amazonaws.com/opendate-aws-assets/confirms/main_event_images/000/729/184/compressed/Screen-Shot-2024-07-24-at-7.30.22-PM-2048x706.jpg?1784050643",
+      "price": null,
+      "age": null,
+      "source": "hook"
     },
     {
       "id": "mnorch:12037",
@@ -13244,18 +14281,18 @@
       "source": "trylon"
     },
     {
-      "id": "whitesquirrel:2026-10-11:songwriter-showcase",
+      "id": "whitesquirrel:2026-10-11:songwriter-showcase-nici-peper-sarah-vanvolkenberg-doyle-turner-aj-schieber",
       "date": "2026-10-11",
       "time": "13:00",
       "end_date": null,
-      "title": "Songwriter Showcase",
+      "title": "Songwriter Showcase: Nici Peper, Sarah VanVolkenberg, Doyle Turner, AJ Schieber",
       "venue": "White Squirrel Bar",
       "venue_neighborhood": "West End, St. Paul",
       "city": "St. Paul",
       "category": "music",
       "subtitle": null,
       "url": "https://whitesquirrelbar.com/event/songwriter-showcase-2/",
-      "image": null,
+      "image": "https://whitesquirrelbar.com/wp-content/uploads/1011-dr.jpeg",
       "price": null,
       "age": null,
       "source": "whitesquirrel"
@@ -13414,6 +14451,40 @@
       "source": "guthrie"
     },
     {
+      "id": "hook:2026-10-11:private-event",
+      "date": "2026-10-11",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Private Event",
+      "venue": "The Hook and Ladder",
+      "venue_neighborhood": "Longfellow, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Private Event — Sunday, October 11, 2026 at The Hook and Ladder (Theater), Minneapolis, MN.",
+      "url": "https://thehookmpls.com/shows/private-event-october-11-2026-743958",
+      "image": "https://s3.amazonaws.com/opendate-aws-assets/confirms/main_event_images/000/743/958/compressed/Screen-Shot-2024-07-24-at-7.30.22-PM-2048x706.jpg?1787106182",
+      "price": null,
+      "age": null,
+      "source": "hook"
+    },
+    {
+      "id": "berlin:2026-10-11:sounds-from-planet-ie-feat-little-obsessions-and-lxd",
+      "date": "2026-10-11",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Sounds From Planet IE (feat. Little Obsessions & LXD)",
+      "venue": "Berlin",
+      "venue_neighborhood": "Downtown Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "$15 ADV / $20 DOSGET TICKETS7:00pm Show",
+      "url": "https://berlinmpls.com/calendar/sounds-from-planet-ie-residency-week-2",
+      "image": "https://images.squarespace-cdn.com/content/v1/658316152e826a3bbbfc0aef/1788973952001-YVAJPRZ7A91HHJFMKR4Z/IE_PressPhoto2+copy.jpg",
+      "price": null,
+      "age": "21+",
+      "source": "berlin"
+    },
+    {
       "id": "guthrie:2026-10-11:19:00:waiting-for-godot",
       "date": "2026-10-11",
       "time": "19:00",
@@ -13446,6 +14517,23 @@
       "price": null,
       "age": null,
       "source": "trylon"
+    },
+    {
+      "id": "crooners:2026-10-11:who-are-they-a-tribute-to-the-who",
+      "date": "2026-10-11",
+      "time": "19:30",
+      "end_date": null,
+      "title": "Who Are They? A Tribute to The Who!",
+      "venue": "Crooners Supper Club",
+      "venue_neighborhood": "The Belvedere at Crooners",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Doors open at 6:15 PM for Dinner and Drink service. A tribute to The Who , channeling the raw stage energy of the band’s legendary Woodstock and Live at Leeds performances. The songs of guitarist Pete",
+      "url": "https://www.croonersmn.com/event/who-are-they-a-tribute-to-the-who/",
+      "image": "https://www.croonersmn.com/wp-content/uploads/eventbrite-logos/1f289b02eb947e8442cfa4f747efc4fc.jpg",
+      "price": "$25–$35",
+      "age": null,
+      "source": "crooners"
     },
     {
       "id": "hennepinarts:2026-10-11:clue",
@@ -13499,6 +14587,40 @@
       "source": "hclib"
     },
     {
+      "id": "umn-events:2026-10-12:ali-lecture-series-2026-2027",
+      "date": "2026-10-12",
+      "time": "16:30",
+      "end_date": "2027-04-12",
+      "title": "ALI LECTURE SERIES | 2026 - 2027",
+      "venue": "Rapson Hall, 89 Church Street Se Minneapolis, Minnesota 55455",
+      "venue_neighborhood": "University of Minnesota, Minneapolis",
+      "city": "Minneapolis",
+      "category": "lecture",
+      "subtitle": "Hosted by College of Design",
+      "url": "https://events.tc.umn.edu/design/event/28531-ali-lecture-series-2026-2027",
+      "image": "https://events.tc.umn.edu/live/image/gid/172/width/300/height/300/crop/1/src_region/0,0,359,359/143_CDes_ACAS_image_2_2.jpg",
+      "price": "Free",
+      "age": null,
+      "source": "umn-events"
+    },
+    {
+      "id": "umn-events:2026-10-12:ali-lecture-series-authors-of-thinking-through-soil",
+      "date": "2026-10-12",
+      "time": "16:30",
+      "end_date": "2026-10-12",
+      "title": "ALI LECTURE SERIES | Authors of “Thinking Through Soil”",
+      "venue": "Rapson Hall, 89 Church Street Se Minneapolis, Minnesota 55455",
+      "venue_neighborhood": "University of Minnesota, Minneapolis",
+      "city": "Minneapolis",
+      "category": "lecture",
+      "subtitle": "Hosted by College of Design",
+      "url": "https://events.tc.umn.edu/design/event/28535-ali-lecture-series-authors-of-thinking-through-soil",
+      "image": "https://events.tc.umn.edu/live/image/gid/172/width/300/height/300/crop/1/src_region/0,0,359,359/143_CDes_ACAS_image_2_2.jpg",
+      "price": "Free",
+      "age": null,
+      "source": "umn-events"
+    },
+    {
       "id": "whitesquirrel:2026-10-12:mumblin-drew-s-oldfangled-orchestrators",
       "date": "2026-10-12",
       "time": "18:00",
@@ -13514,6 +14636,23 @@
       "price": null,
       "age": null,
       "source": "whitesquirrel"
+    },
+    {
+      "id": "crooners:2026-10-12:new-musical-theatre-exchange-s-2026-fall-cabaret",
+      "date": "2026-10-12",
+      "time": "18:00",
+      "end_date": null,
+      "title": "New Musical Theatre Exchange’s 2026 Fall Cabaret",
+      "venue": "Crooners Supper Club",
+      "venue_neighborhood": "Dunsmore Jazz Room",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Doors will open at 5:00 PM for Dinner and Drink Service. Come to the Cabaret old chum, and experience the Twin Cities’ best new musical theatre works , curated by the area’s oldest musical theatre wri",
+      "url": "https://www.croonersmn.com/event/new-musical-theatre-exchanges-2026-fall-cabaret/",
+      "image": "https://www.croonersmn.com/wp-content/uploads/eventbrite-logos/5fc34f0bb7de155c7ad26b71af0b91d2-scaled.jpg",
+      "price": "$25–$35",
+      "age": null,
+      "source": "crooners"
     },
     {
       "id": "331:2026-10-12:roe-family-singers",
@@ -13565,6 +14704,23 @@
       "price": null,
       "age": null,
       "source": "trylon"
+    },
+    {
+      "id": "bryantlakebowl:2026-10-12:uproar-comedy-open-mic",
+      "date": "2026-10-12",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Uproar Comedy Open Mic",
+      "venue": "Bryant Lake Bowl Theater",
+      "venue_neighborhood": "Lyn-Lake, Minneapolis",
+      "city": "Minneapolis",
+      "category": "performance",
+      "subtitle": null,
+      "url": "https://www.bryantlakebowl.com/theater/uproar-oct12",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "bryantlakebowl"
     },
     {
       "id": "sports:2026-10-12:wild-vs-golden-knights",
@@ -13662,7 +14818,7 @@
       "city": "Minneapolis",
       "category": "lecture",
       "subtitle": "If you're curious about the Loft's Year-Long Writing Project in Novel Writing, Creative Nonfiction with Sun Yung Shin, or Memoir with Kelly Sundberg, and which is right for you, come to this informal information session ",
-      "url": "https://loft.org/upcoming-events",
+      "url": "https://loft.org/events/2027-novel-writing-poetry-creative-nonfiction-memoir-and-fiction-writing-project-information",
       "image": null,
       "price": null,
       "age": null,
@@ -13771,6 +14927,23 @@
       "source": "greenroom"
     },
     {
+      "id": "hook:2026-10-13:space-between-monthly-music-industry-meetup",
+      "date": "2026-10-13",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Space Between Monthly Music Industry MEETUP",
+      "venue": "The Hook and Ladder",
+      "venue_neighborhood": "Longfellow, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Space Between MEETUP ***2nd Tuesdays Monthly*** Space Between is a free peer-to-peer community support group for music industry professionals. A communal space to share in the joys and pains of functi",
+      "url": "https://thehookmpls.com/shows/space-between-monthly-music-industry-meetup-october-13-2026-742702",
+      "image": "https://s3.amazonaws.com/opendate-aws-assets/confirms/main_event_images/000/742/702/compressed/2026-SpaceBetween-1920x1080-FBEventCover.jpg?1786573168",
+      "price": null,
+      "age": null,
+      "source": "hook"
+    },
+    {
       "id": "trylon:2026-10-13:19:00:the-conjuring-in-35mm",
       "date": "2026-10-13",
       "time": "19:00",
@@ -13871,6 +15044,23 @@
       "price": null,
       "age": null,
       "source": "trylon"
+    },
+    {
+      "id": "umn-events:2026-10-13:ali-lecture-series-2026-2027",
+      "date": "2026-10-13",
+      "time": null,
+      "end_date": null,
+      "title": "ALI LECTURE SERIES | 2026 - 2027",
+      "venue": "Rapson Hall, 89 Church Street Se Minneapolis, Minnesota 55455",
+      "venue_neighborhood": "University of Minnesota, Minneapolis",
+      "city": "Minneapolis",
+      "category": "lecture",
+      "subtitle": "Hosted by College of Design",
+      "url": "https://events.tc.umn.edu/design/event/28531-ali-lecture-series-2026-2027",
+      "image": "https://events.tc.umn.edu/live/image/gid/172/width/300/height/300/crop/1/src_region/0,0,359,359/143_CDes_ACAS_image_2_2.jpg",
+      "price": "Free",
+      "age": null,
+      "source": "umn-events"
     },
     {
       "id": "hennepinarts:2026-10-13:sting-3-0-tour-2026-with-special-guest-chance-emerson",
@@ -13992,6 +15182,23 @@
       "source": "trylon"
     },
     {
+      "id": "astercafe:2026-10-14:the-federales",
+      "date": "2026-10-14",
+      "time": "19:00",
+      "end_date": null,
+      "title": "The Federales",
+      "venue": "Aster Cafe",
+      "venue_neighborhood": "St. Anthony Main, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://astercafe.com/live-music-calendar",
+      "image": null,
+      "price": "$15",
+      "age": null,
+      "source": "astercafe"
+    },
+    {
       "id": "331:2026-10-14:the-flying-t",
       "date": "2026-10-14",
       "time": "19:00",
@@ -14024,6 +15231,23 @@
       "price": null,
       "age": "All ages",
       "source": "sports"
+    },
+    {
+      "id": "hook:2026-10-14:chrissa-sparkles",
+      "date": "2026-10-14",
+      "time": "19:30",
+      "end_date": null,
+      "title": "CHRISSA SPARKLES",
+      "venue": "The Hook and Ladder",
+      "venue_neighborhood": "Longfellow, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Chrissa Sparkles presents her debut solo show \"DELULU!\" She's a hot divorcee who unpacks her Filipino heritage, ideals of love, and how she can change the world - one political bop at a time! Her \"DEL",
+      "url": "https://thehookmpls.com/shows/chrissa-sparkles-october-14-2026-727345",
+      "image": "https://s3.amazonaws.com/opendate-aws-assets/confirms/main_event_images/000/727/345/compressed/DELULU_MN_2160x1080.jpg?1783389687",
+      "price": null,
+      "age": null,
+      "source": "hook"
     },
     {
       "id": "cedar:2026-10-14:salin",
@@ -14128,6 +15352,23 @@
       "source": "berlin"
     },
     {
+      "id": "umn-events:2026-10-14:ali-lecture-series-2026-2027",
+      "date": "2026-10-14",
+      "time": null,
+      "end_date": null,
+      "title": "ALI LECTURE SERIES | 2026 - 2027",
+      "venue": "Rapson Hall, 89 Church Street Se Minneapolis, Minnesota 55455",
+      "venue_neighborhood": "University of Minnesota, Minneapolis",
+      "city": "Minneapolis",
+      "category": "lecture",
+      "subtitle": "Hosted by College of Design",
+      "url": "https://events.tc.umn.edu/design/event/28531-ali-lecture-series-2026-2027",
+      "image": "https://events.tc.umn.edu/live/image/gid/172/width/300/height/300/crop/1/src_region/0,0,359,359/143_CDes_ACAS_image_2_2.jpg",
+      "price": "Free",
+      "age": null,
+      "source": "umn-events"
+    },
+    {
       "id": "parkway:2026-10-14:conor-janda",
       "date": "2026-10-14",
       "time": null,
@@ -14213,6 +15454,23 @@
       "source": "crooners"
     },
     {
+      "id": "hook:2026-10-15:dirty-p-s-thirsty-3rd-thursdays-club",
+      "date": "2026-10-15",
+      "time": "18:00",
+      "end_date": null,
+      "title": "Dirty P’s Thirsty 3rd Thursdays Club",
+      "venue": "The Hook and Ladder",
+      "venue_neighborhood": "Longfellow, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Dirty P’s Thirsty 3rd Thursdays Club at The Zen Arcade inside The Hook & Ladder EVERY THIRD THURSDAY in 2026 -- Doors 5PM :: Piano Lounge 5PM :: Liquor Pigs 6-8PM :: $5 Cover :: 21+ -- The Hook & Ladd",
+      "url": "https://thehookmpls.com/shows/dirty-p-s-thirsty-3rd-thursdays-club-october-15-2026-652585",
+      "image": "https://s3.amazonaws.com/opendate-aws-assets/confirms/main_event_images/000/652/585/compressed/2026-2-Zen-DirtyP-2160x1080-Eventbrite-Website-Twitter.jpg?1782252394",
+      "price": null,
+      "age": null,
+      "source": "hook"
+    },
+    {
       "id": "crooners:2026-10-15:jon-sullivan-band",
       "date": "2026-10-15",
       "time": "18:00",
@@ -14228,6 +15486,23 @@
       "price": "$25–$35",
       "age": null,
       "source": "crooners"
+    },
+    {
+      "id": "astercafe:2026-10-15:bob-frey-and-the-adaptors",
+      "date": "2026-10-15",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Bob Frey & The Adaptors",
+      "venue": "Aster Cafe",
+      "venue_neighborhood": "St. Anthony Main, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://astercafe.com/live-music-calendar",
+      "image": null,
+      "price": "$15",
+      "age": null,
+      "source": "astercafe"
     },
     {
       "id": "crooners:2026-10-15:joyann-parker-the-music-of-patsy-cline",
@@ -14262,6 +15537,23 @@
       "price": null,
       "age": "21+",
       "source": "berlin"
+    },
+    {
+      "id": "hook:2026-10-15:tcc4slay-3-0-a-masquerade",
+      "date": "2026-10-15",
+      "time": "19:00",
+      "end_date": null,
+      "title": "TCC4SLAY 3.0: A Masquerade",
+      "venue": "The Hook and Ladder",
+      "venue_neighborhood": "Longfellow, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Drag cabaret, masquerade party and fundraiser for the Twin Cities Coalition for Justice (TCC4J) - An all-volunteer grassroots organization fighting for police accountability in Minneapolis! ------- $1",
+      "url": "https://thehookmpls.com/shows/tcc4slay-3-0-a-masquerade-october-15-2026-719463",
+      "image": "https://s3.amazonaws.com/opendate-aws-assets/confirms/main_event_images/000/719/463/compressed/TCC4Slay_2026_%282160_x_1080_px%29.jpg?1786886159",
+      "price": null,
+      "age": null,
+      "source": "hook"
     },
     {
       "id": "sports:2026-10-15:wild-vs-blues",
@@ -14332,6 +15624,23 @@
       "source": "crooners"
     },
     {
+      "id": "hook:2026-10-15:my-kid-banana-jon-q-public-velvet-ghoul-dirty930",
+      "date": "2026-10-15",
+      "time": "21:00",
+      "end_date": null,
+      "title": "My Kid Banana / Jon Q Public / Velvet Ghoul / Dirty930",
+      "venue": "The Hook and Ladder",
+      "venue_neighborhood": "Longfellow, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "A night of punk, alternative rock, horror, and loud guitars featuring four bands bringing their own flavor of underground noise, attitude, and mayhem. My Kid Banana is a St. Paul pop-punk band mixing ",
+      "url": "https://thehookmpls.com/shows/my-kid-banana-jon-q-public-velvet-ghoul-dirty930-october-15-2026-725770",
+      "image": "https://s3.amazonaws.com/opendate-aws-assets/confirms/main_event_images/000/725/770/compressed/Zen_Arcade_EVENT_and_WEB_Media_Kit_%282160_x_1080_px%29.jpg?1787176581",
+      "price": null,
+      "age": null,
+      "source": "hook"
+    },
+    {
       "id": "whitesquirrel:2026-10-15:the-makeouts-w-cain-and-co-mike-and-the-tv-s",
       "date": "2026-10-15",
       "time": "21:00",
@@ -14364,6 +15673,23 @@
       "price": null,
       "age": "21+",
       "source": "331"
+    },
+    {
+      "id": "umn-events:2026-10-15:ali-lecture-series-2026-2027",
+      "date": "2026-10-15",
+      "time": null,
+      "end_date": null,
+      "title": "ALI LECTURE SERIES | 2026 - 2027",
+      "venue": "Rapson Hall, 89 Church Street Se Minneapolis, Minnesota 55455",
+      "venue_neighborhood": "University of Minnesota, Minneapolis",
+      "city": "Minneapolis",
+      "category": "lecture",
+      "subtitle": "Hosted by College of Design",
+      "url": "https://events.tc.umn.edu/design/event/28531-ali-lecture-series-2026-2027",
+      "image": "https://events.tc.umn.edu/live/image/gid/172/width/300/height/300/crop/1/src_region/0,0,359,359/143_CDes_ACAS_image_2_2.jpg",
+      "price": "Free",
+      "age": null,
+      "source": "umn-events"
     },
     {
       "id": "hennepinarts:2026-10-15:ben-schwartz-and-friends",
@@ -14468,6 +15794,23 @@
       "source": "trylon"
     },
     {
+      "id": "astercafe:2026-10-16:ryan-little-eagle-and-obsidian-james",
+      "date": "2026-10-16",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Ryan Little Eagle & Obsidian James",
+      "venue": "Aster Cafe",
+      "venue_neighborhood": "St. Anthony Main, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://astercafe.com/live-music-calendar",
+      "image": null,
+      "price": "$15",
+      "age": null,
+      "source": "astercafe"
+    },
+    {
       "id": "fillmore:2026-10-16:toad-the-wet-sprocket-rings-the-acoustic-tour",
       "date": "2026-10-16",
       "time": "19:00",
@@ -14517,6 +15860,23 @@
       "price": null,
       "age": null,
       "source": "guthrie"
+    },
+    {
+      "id": "hook:2026-10-16:letdown",
+      "date": "2026-10-16",
+      "time": "19:30",
+      "end_date": null,
+      "title": "Letdown.",
+      "venue": "The Hook and Ladder",
+      "venue_neighborhood": "Longfellow, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "LETDOWN. brings The Happy Tour to The Hook & Ladder for a night of soaring alternative rock, emotional lyrics, and unforgettable hooks. Joined by Nashville's rising artist Luchiano and alternative roc",
+      "url": "https://thehookmpls.com/shows/letdown-october-16-2026-728363",
+      "image": "https://s3.amazonaws.com/opendate-aws-assets/confirms/main_event_images/000/728/363/compressed/261016-Theater-Letdown-2160x1080-Web.jpg?1786043126",
+      "price": null,
+      "age": null,
+      "source": "hook"
     },
     {
       "id": "berlin:2026-10-16:michael-ragonese-trio",
@@ -14604,6 +15964,23 @@
       "source": "trylon"
     },
     {
+      "id": "bryantlakebowl:2026-10-16:that-felt-good",
+      "date": "2026-10-16",
+      "time": "21:30",
+      "end_date": null,
+      "title": "That Felt Good",
+      "venue": "Bryant Lake Bowl Theater",
+      "venue_neighborhood": "Lyn-Lake, Minneapolis",
+      "city": "Minneapolis",
+      "category": "performance",
+      "subtitle": null,
+      "url": "https://www.bryantlakebowl.com/theater/that-felt-good-oct16",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "bryantlakebowl"
+    },
+    {
       "id": "greenroom:2026-10-16:reventon-rave",
       "date": "2026-10-16",
       "time": "22:00",
@@ -14619,6 +15996,23 @@
       "price": "$10–$20",
       "age": null,
       "source": "greenroom"
+    },
+    {
+      "id": "umn-events:2026-10-16:ali-lecture-series-2026-2027",
+      "date": "2026-10-16",
+      "time": null,
+      "end_date": null,
+      "title": "ALI LECTURE SERIES | 2026 - 2027",
+      "venue": "Rapson Hall, 89 Church Street Se Minneapolis, Minnesota 55455",
+      "venue_neighborhood": "University of Minnesota, Minneapolis",
+      "city": "Minneapolis",
+      "category": "lecture",
+      "subtitle": "Hosted by College of Design",
+      "url": "https://events.tc.umn.edu/design/event/28531-ali-lecture-series-2026-2027",
+      "image": "https://events.tc.umn.edu/live/image/gid/172/width/300/height/300/crop/1/src_region/0,0,359,359/143_CDes_ACAS_image_2_2.jpg",
+      "price": "Free",
+      "age": null,
+      "source": "umn-events"
     },
     {
       "id": "parkway:2026-10-16:millsmoke-on-the-skyline-chris-koza-album-release-with-special-guests-dylan-hick",
@@ -14689,6 +16083,23 @@
       "source": "guthrie"
     },
     {
+      "id": "hook:2026-10-17:minneapolis-valhalla-fest-iii",
+      "date": "2026-10-17",
+      "time": "15:45",
+      "end_date": null,
+      "title": "Minneapolis Valhalla Fest III",
+      "venue": "The Hook and Ladder",
+      "venue_neighborhood": "Longfellow, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "🤘 Minneapolis Valhalla Fest is back for its 3rd Annual Metal Showcase! 🤘 Get ready for 13 bands, two stages, and 10 hours of heavy music featuring some of the best local and national acts in the sce",
+      "url": "https://thehookmpls.com/shows/minneapolis-valhalla-fest-iii-october-17-2026-733500",
+      "image": "https://s3.amazonaws.com/opendate-aws-assets/confirms/main_event_images/000/733/500/compressed/Valhallafest_III_-_72dpi_2160x1080.jpg?1786527248",
+      "price": null,
+      "age": null,
+      "source": "hook"
+    },
+    {
       "id": "crooners:2026-10-17:cuscampbell",
       "date": "2026-10-17",
       "time": "17:00",
@@ -14721,6 +16132,23 @@
       "price": null,
       "age": null,
       "source": "trylon"
+    },
+    {
+      "id": "crooners:2026-10-17:minute-by-minute-doobie-brothers-and-yacht-rock-icons",
+      "date": "2026-10-17",
+      "time": "17:30",
+      "end_date": null,
+      "title": "Minute By Minute: Doobie Brothers and Yacht Rock Icons",
+      "venue": "Crooners Supper Club",
+      "venue_neighborhood": "The Belvedere at Crooners",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Doors open at 4:15 PM for Dinner and Drink service. Yacht Rock Icons of LA, R&B and Pop The Grammy Award Winning Songs of Michael McDonald, Kenny Loggins, James Ingram, Patty Austin, Christopher Cross",
+      "url": "https://www.croonersmn.com/event/minute-by-minute-doobie-brothers-and-yacht-rock-icons-2/",
+      "image": "https://www.croonersmn.com/wp-content/uploads/eventbrite-logos/e08d1258efac77ed3abe60fb2eb4834f.jpg",
+      "price": "$35–$45",
+      "age": null,
+      "source": "crooners"
     },
     {
       "id": "331:2026-10-17:close-to-toast",
@@ -14891,6 +16319,23 @@
       "price": null,
       "age": null,
       "source": "trylon"
+    },
+    {
+      "id": "umn-events:2026-10-17:ali-lecture-series-2026-2027",
+      "date": "2026-10-17",
+      "time": null,
+      "end_date": null,
+      "title": "ALI LECTURE SERIES | 2026 - 2027",
+      "venue": "Rapson Hall, 89 Church Street Se Minneapolis, Minnesota 55455",
+      "venue_neighborhood": "University of Minnesota, Minneapolis",
+      "city": "Minneapolis",
+      "category": "lecture",
+      "subtitle": "Hosted by College of Design",
+      "url": "https://events.tc.umn.edu/design/event/28531-ali-lecture-series-2026-2027",
+      "image": "https://events.tc.umn.edu/live/image/gid/172/width/300/height/300/crop/1/src_region/0,0,359,359/143_CDes_ACAS_image_2_2.jpg",
+      "price": "Free",
+      "age": null,
+      "source": "umn-events"
     },
     {
       "id": "hennepinarts:2026-10-17:an-evening-with-david-sedaris",
@@ -15165,6 +16610,23 @@
       "source": "guthrie"
     },
     {
+      "id": "berlin:2026-10-18:sounds-from-planet-ie-feat-american-cream-band-and-shawn-walker",
+      "date": "2026-10-18",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Sounds From Planet IE (feat. American Cream Band & Shawn Walker)",
+      "venue": "Berlin",
+      "venue_neighborhood": "Downtown Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "$15 ADV / $20 DOSGET TICKETS7:00pm Show",
+      "url": "https://berlinmpls.com/calendar/sounds-from-planet-ie-residency-week-3",
+      "image": "https://images.squarespace-cdn.com/content/v1/658316152e826a3bbbfc0aef/1788973952001-YVAJPRZ7A91HHJFMKR4Z/IE_PressPhoto2+copy.jpg",
+      "price": null,
+      "age": "21+",
+      "source": "berlin"
+    },
+    {
       "id": "cedar:2026-10-18:an-evening-with-richard-shindell-all-acoustic",
       "date": "2026-10-18",
       "time": "19:30",
@@ -15180,6 +16642,23 @@
       "price": null,
       "age": "All ages",
       "source": "cedar"
+    },
+    {
+      "id": "umn-events:2026-10-18:ali-lecture-series-2026-2027",
+      "date": "2026-10-18",
+      "time": null,
+      "end_date": null,
+      "title": "ALI LECTURE SERIES | 2026 - 2027",
+      "venue": "Rapson Hall, 89 Church Street Se Minneapolis, Minnesota 55455",
+      "venue_neighborhood": "University of Minnesota, Minneapolis",
+      "city": "Minneapolis",
+      "category": "lecture",
+      "subtitle": "Hosted by College of Design",
+      "url": "https://events.tc.umn.edu/design/event/28531-ali-lecture-series-2026-2027",
+      "image": "https://events.tc.umn.edu/live/image/gid/172/width/300/height/300/crop/1/src_region/0,0,359,359/143_CDes_ACAS_image_2_2.jpg",
+      "price": "Free",
+      "age": null,
+      "source": "umn-events"
     },
     {
       "id": "hclib:2026-10-19:french-club",
@@ -15267,6 +16746,23 @@
       "source": "trylon"
     },
     {
+      "id": "bryantlakebowl:2026-10-19:uproar-comedy-open-mic",
+      "date": "2026-10-19",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Uproar Comedy Open Mic",
+      "venue": "Bryant Lake Bowl Theater",
+      "venue_neighborhood": "Lyn-Lake, Minneapolis",
+      "city": "Minneapolis",
+      "category": "performance",
+      "subtitle": null,
+      "url": "https://www.bryantlakebowl.com/theater/uproar-oct19",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "bryantlakebowl"
+    },
+    {
       "id": "trylon:2026-10-19:21:00:drag-me-to-hell-in-35mm",
       "date": "2026-10-19",
       "time": "21:00",
@@ -15299,6 +16795,40 @@
       "price": null,
       "age": null,
       "source": "whitesquirrel"
+    },
+    {
+      "id": "umn-events:2026-10-19:ali-lecture-series-2026-2027",
+      "date": "2026-10-19",
+      "time": null,
+      "end_date": null,
+      "title": "ALI LECTURE SERIES | 2026 - 2027",
+      "venue": "Rapson Hall, 89 Church Street Se Minneapolis, Minnesota 55455",
+      "venue_neighborhood": "University of Minnesota, Minneapolis",
+      "city": "Minneapolis",
+      "category": "lecture",
+      "subtitle": "Hosted by College of Design",
+      "url": "https://events.tc.umn.edu/design/event/28531-ali-lecture-series-2026-2027",
+      "image": "https://events.tc.umn.edu/live/image/gid/172/width/300/height/300/crop/1/src_region/0,0,359,359/143_CDes_ACAS_image_2_2.jpg",
+      "price": "Free",
+      "age": null,
+      "source": "umn-events"
+    },
+    {
+      "id": "umn-events:2026-10-20:tww-panel-writing-spaces-mapping-as-writing-and-writing-about-maps",
+      "date": "2026-10-20",
+      "time": "12:00",
+      "end_date": "2026-10-20",
+      "title": "TWW Panel: Writing Spaces: Mapping as writing and writing about maps",
+      "venue": "Writing Across the Curriculum",
+      "venue_neighborhood": "University of Minnesota, Minneapolis",
+      "city": "Minneapolis",
+      "category": "lecture",
+      "subtitle": "Hosted by Writing Across the Curriculum",
+      "url": "https://events.tc.umn.edu/live/events/28281-tww-panel-writing-spaces-mapping-as-writing-and-writin",
+      "image": "https://events.tc.umn.edu/live/image/gid/528/width/300/height/300/crop/1/src_region/0,0,1971,723/3736_Teaching-With-Writing.png",
+      "price": null,
+      "age": null,
+      "source": "umn-events"
     },
     {
       "id": "whitesquirrel:2026-10-20:the-new-havoline-supremes",
@@ -15401,6 +16931,23 @@
       "price": null,
       "age": null,
       "source": "trylon"
+    },
+    {
+      "id": "umn-events:2026-10-20:ali-lecture-series-2026-2027",
+      "date": "2026-10-20",
+      "time": null,
+      "end_date": null,
+      "title": "ALI LECTURE SERIES | 2026 - 2027",
+      "venue": "Rapson Hall, 89 Church Street Se Minneapolis, Minnesota 55455",
+      "venue_neighborhood": "University of Minnesota, Minneapolis",
+      "city": "Minneapolis",
+      "category": "lecture",
+      "subtitle": "Hosted by College of Design",
+      "url": "https://events.tc.umn.edu/design/event/28531-ali-lecture-series-2026-2027",
+      "image": "https://events.tc.umn.edu/live/image/gid/172/width/300/height/300/crop/1/src_region/0,0,359,359/143_CDes_ACAS_image_2_2.jpg",
+      "price": "Free",
+      "age": null,
+      "source": "umn-events"
     },
     {
       "id": "hennepinarts:2026-10-20:the-sound-of-music",
@@ -15522,6 +17069,23 @@
       "source": "guthrie"
     },
     {
+      "id": "astercafe:2026-10-21:mnaked-sam-ryden-and-guests-and-sawtooth-witch",
+      "date": "2026-10-21",
+      "time": "19:00",
+      "end_date": null,
+      "title": "MNAKED: Sam Ryden & Guests & Sawtooth Witch",
+      "venue": "Aster Cafe",
+      "venue_neighborhood": "St. Anthony Main, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://astercafe.com/live-music-calendar",
+      "image": null,
+      "price": "$12",
+      "age": null,
+      "source": "astercafe"
+    },
+    {
       "id": "331:2026-10-21:nina-luna",
       "date": "2026-10-21",
       "time": "19:00",
@@ -15590,6 +17154,23 @@
       "source": "berlin"
     },
     {
+      "id": "umn-events:2026-10-21:ali-lecture-series-2026-2027",
+      "date": "2026-10-21",
+      "time": null,
+      "end_date": null,
+      "title": "ALI LECTURE SERIES | 2026 - 2027",
+      "venue": "Rapson Hall, 89 Church Street Se Minneapolis, Minnesota 55455",
+      "venue_neighborhood": "University of Minnesota, Minneapolis",
+      "city": "Minneapolis",
+      "category": "lecture",
+      "subtitle": "Hosted by College of Design",
+      "url": "https://events.tc.umn.edu/design/event/28531-ali-lecture-series-2026-2027",
+      "image": "https://events.tc.umn.edu/live/image/gid/172/width/300/height/300/crop/1/src_region/0,0,359,359/143_CDes_ACAS_image_2_2.jpg",
+      "price": "Free",
+      "age": null,
+      "source": "umn-events"
+    },
+    {
       "id": "hennepinarts:2026-10-21:indigo-girls-with-special-guest-linda-perry",
       "date": "2026-10-21",
       "time": null,
@@ -15601,7 +17182,7 @@
       "category": "music",
       "subtitle": null,
       "url": "https://hennepinarts.org/events/indigo-girls-with-special-guest-linda-perry-2026",
-      "image": "https://images.ctfassets.net/sjxdiqjbm079/296lunBVMMg3hCmzbM2Ey0/a38b2105c878a43d818f50e8bcc4f13a/indigo_girls.png",
+      "image": "https://images.ctfassets.net/sjxdiqjbm079/5KbWWN1TYXXA1i5SozCIkg/a089f08c64cbd7de340c5828e05f0a09/IG_1Credit_Shervin_Lainez.jpg",
       "price": null,
       "age": null,
       "source": "hennepinarts"
@@ -15639,6 +17220,23 @@
       "price": null,
       "age": null,
       "source": "hennepinarts"
+    },
+    {
+      "id": "umn-events:2026-10-22:13th-annual-minnesota-neuromodulation-symposium",
+      "date": "2026-10-22",
+      "time": "08:00",
+      "end_date": "2026-10-23",
+      "title": "13th Annual Minnesota Neuromodulation Symposium",
+      "venue": "Institute for Engineering in Medicine",
+      "venue_neighborhood": "University of Minnesota, Minneapolis",
+      "city": "Minneapolis",
+      "category": "lecture",
+      "subtitle": "Hosted by Institute for Engineering in Medicine",
+      "url": "https://events.tc.umn.edu/engineering-in-medicine/event/27196-13th-annual-minnesota-neuromodulation-symposium",
+      "image": "https://events.tc.umn.edu/live/image/gid/188/width/300/height/300/crop/1/src_region/0,0,1080,1080/5869_Social_Media-2-Travel_awards.png",
+      "price": null,
+      "age": null,
+      "source": "umn-events"
     },
     {
       "id": "mnorch:11915",
@@ -15743,6 +17341,23 @@
       "source": "trylon"
     },
     {
+      "id": "astercafe:2026-10-22:judy-thomas",
+      "date": "2026-10-22",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Judy Thomas",
+      "venue": "Aster Cafe",
+      "venue_neighborhood": "St. Anthony Main, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://astercafe.com/live-music-calendar",
+      "image": null,
+      "price": "$20",
+      "age": null,
+      "source": "astercafe"
+    },
+    {
       "id": "amsterdam:2026-10-22:lakeview",
       "date": "2026-10-22",
       "time": "19:00",
@@ -15775,6 +17390,23 @@
       "price": "$25–$35",
       "age": null,
       "source": "crooners"
+    },
+    {
+      "id": "hook:2026-10-22:intuition-and-equalibrum-the-teach-a-man-to-fish-tour-w-speak",
+      "date": "2026-10-22",
+      "time": "19:30",
+      "end_date": null,
+      "title": "Intuition & Equalibrum, The Teach a Man To Fish Tour w/ Speak!",
+      "venue": "The Hook and Ladder",
+      "venue_neighborhood": "Longfellow, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "INTUITION & EQUALIBRUM ARE FINALLY PLAYING THEIR FIRST SHOW IN MINNEAPOLIS, JOINED BY SPEAK, ON THEIR FIRST HEADLINING TOUR! Intuition (Lee Shaner) and Equalibrum (Mark Pawlak) met and began working o",
+      "url": "https://thehookmpls.com/shows/intuition-equalibrum-the-teach-a-man-to-fish-tour-w-speak-october-22-2026-730212",
+      "image": "https://s3.amazonaws.com/opendate-aws-assets/confirms/main_event_images/000/730/212/compressed/790591304_1646626667029158_1223101134542969387_n.jpg?1788546162",
+      "price": null,
+      "age": null,
+      "source": "hook"
     },
     {
       "id": "guthrie:2026-10-22:19:30:kunene-and-the-king",
@@ -15845,6 +17477,40 @@
       "source": "331"
     },
     {
+      "id": "toapresents:2026-10-22:1808-quincy-street-ne-minneapolis-mn-55418",
+      "date": "2026-10-22",
+      "time": null,
+      "end_date": null,
+      "title": "1808 Quincy Street NE / Minneapolis, MN 55418",
+      "venue": "TOA Presents",
+      "venue_neighborhood": "Northeast Minneapolis",
+      "city": "Minneapolis",
+      "category": "art",
+      "subtitle": "Entrance at the back of the Carter-Day building",
+      "url": "https://www.theorangeadvisory.com/toa-presents",
+      "image": null,
+      "price": "Free",
+      "age": "All ages",
+      "source": "toapresents"
+    },
+    {
+      "id": "umn-events:2026-10-22:ali-lecture-series-2026-2027",
+      "date": "2026-10-22",
+      "time": null,
+      "end_date": null,
+      "title": "ALI LECTURE SERIES | 2026 - 2027",
+      "venue": "Rapson Hall, 89 Church Street Se Minneapolis, Minnesota 55455",
+      "venue_neighborhood": "University of Minnesota, Minneapolis",
+      "city": "Minneapolis",
+      "category": "lecture",
+      "subtitle": "Hosted by College of Design",
+      "url": "https://events.tc.umn.edu/design/event/28531-ali-lecture-series-2026-2027",
+      "image": "https://events.tc.umn.edu/live/image/gid/172/width/300/height/300/crop/1/src_region/0,0,359,359/143_CDes_ACAS_image_2_2.jpg",
+      "price": "Free",
+      "age": null,
+      "source": "umn-events"
+    },
+    {
       "id": "hennepinarts:2026-10-22:indigo-girls-with-special-guest-linda-perry",
       "date": "2026-10-22",
       "time": null,
@@ -15856,7 +17522,7 @@
       "category": "music",
       "subtitle": null,
       "url": "https://hennepinarts.org/events/indigo-girls-with-special-guest-linda-perry-2026",
-      "image": "https://images.ctfassets.net/sjxdiqjbm079/296lunBVMMg3hCmzbM2Ey0/a38b2105c878a43d818f50e8bcc4f13a/indigo_girls.png",
+      "image": "https://images.ctfassets.net/sjxdiqjbm079/5KbWWN1TYXXA1i5SozCIkg/a089f08c64cbd7de340c5828e05f0a09/IG_1Credit_Shervin_Lainez.jpg",
       "price": null,
       "age": null,
       "source": "hennepinarts"
@@ -15877,6 +17543,23 @@
       "price": null,
       "age": null,
       "source": "parkway"
+    },
+    {
+      "id": "toapresents:2026-10-22:kim-benson-new-paintings",
+      "date": "2026-10-22",
+      "time": null,
+      "end_date": null,
+      "title": "Kim Benson: New Paintings",
+      "venue": "TOA Presents",
+      "venue_neighborhood": "Northeast Minneapolis",
+      "city": "Minneapolis",
+      "category": "art",
+      "subtitle": "Entrance at the back of the Carter-Day building",
+      "url": "https://www.theorangeadvisory.com/toa-presents",
+      "image": null,
+      "price": "Free",
+      "age": "All ages",
+      "source": "toapresents"
     },
     {
       "id": "hennepinarts:2026-10-22:outlander-in-concert-echoes-through-the-highlands",
@@ -15964,6 +17647,40 @@
       "source": "crooners"
     },
     {
+      "id": "hook:2026-10-23:claws-out",
+      "date": "2026-10-23",
+      "time": "18:30",
+      "end_date": null,
+      "title": "Claws Out",
+      "venue": "The Hook and Ladder",
+      "venue_neighborhood": "Longfellow, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Liberation, Celebration, Sensuality. Claws Out is a 21+ festival in miniature embracing and uplifting queer art, providing space for the queer community and its intersection with the kink community. I",
+      "url": "https://thehookmpls.com/shows/claws-out-october-23-2026-733682",
+      "image": "https://s3.amazonaws.com/opendate-aws-assets/confirms/main_event_images/000/733/682/compressed/ticketing_etc.jpg?1786015349",
+      "price": null,
+      "age": null,
+      "source": "hook"
+    },
+    {
+      "id": "hook:2026-10-23:dubuquefest-iowa-mn-game-party",
+      "date": "2026-10-23",
+      "time": "18:30",
+      "end_date": null,
+      "title": "Dubuquefest (Iowa/MN game party)",
+      "venue": "The Hook and Ladder",
+      "venue_neighborhood": "Longfellow, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Dubuquefest (Iowa/Minnesota game party) ------- Friday, October 23, 2026 The Hook and Ladder Event Center The Zen Arcade Stage Doors: 6:00pm :: Music: 6:30pm Event is Free with Registration Link -----",
+      "url": "https://thehookmpls.com/shows/dubuquefest-iowa-mn-game-party-october-23-2026-686332",
+      "image": "https://s3.amazonaws.com/opendate-aws-assets/confirms/main_event_images/000/686/332/compressed/image.jpg?1788204368",
+      "price": null,
+      "age": null,
+      "source": "hook"
+    },
+    {
       "id": "fillmore:2026-10-23:dogstar-all-in-now-tour",
       "date": "2026-10-23",
       "time": "19:00",
@@ -15979,6 +17696,23 @@
       "price": null,
       "age": null,
       "source": "fillmore"
+    },
+    {
+      "id": "astercafe:2026-10-23:the-scarlet-goodbye-with-holy-hannah",
+      "date": "2026-10-23",
+      "time": "19:00",
+      "end_date": null,
+      "title": "The Scarlet Goodbye with Holy Hannah!",
+      "venue": "Aster Cafe",
+      "venue_neighborhood": "St. Anthony Main, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://astercafe.com/live-music-calendar",
+      "image": null,
+      "price": "$20",
+      "age": null,
+      "source": "astercafe"
     },
     {
       "id": "331:2026-10-23:uspop",
@@ -16134,6 +17868,23 @@
       "source": "whitesquirrel"
     },
     {
+      "id": "bryantlakebowl:2026-10-23:that-felt-good",
+      "date": "2026-10-23",
+      "time": "21:30",
+      "end_date": null,
+      "title": "That Felt Good",
+      "venue": "Bryant Lake Bowl Theater",
+      "venue_neighborhood": "Lyn-Lake, Minneapolis",
+      "city": "Minneapolis",
+      "category": "performance",
+      "subtitle": null,
+      "url": "https://www.bryantlakebowl.com/theater/that-felt-good-oct23",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "bryantlakebowl"
+    },
+    {
       "id": "berlin:2026-10-23:late-night-lounge-lauryn-lesley",
       "date": "2026-10-23",
       "time": "22:30",
@@ -16151,6 +17902,40 @@
       "source": "berlin"
     },
     {
+      "id": "umn-events:2026-10-23:13th-annual-minnesota-neuromodulation-symposium",
+      "date": "2026-10-23",
+      "time": null,
+      "end_date": null,
+      "title": "13th Annual Minnesota Neuromodulation Symposium",
+      "venue": "Institute for Engineering in Medicine",
+      "venue_neighborhood": "University of Minnesota, Minneapolis",
+      "city": "Minneapolis",
+      "category": "lecture",
+      "subtitle": "Hosted by Institute for Engineering in Medicine",
+      "url": "https://events.tc.umn.edu/engineering-in-medicine/event/27196-13th-annual-minnesota-neuromodulation-symposium",
+      "image": "https://events.tc.umn.edu/live/image/gid/188/width/300/height/300/crop/1/src_region/0,0,1080,1080/5869_Social_Media-2-Travel_awards.png",
+      "price": null,
+      "age": null,
+      "source": "umn-events"
+    },
+    {
+      "id": "umn-events:2026-10-23:ali-lecture-series-2026-2027",
+      "date": "2026-10-23",
+      "time": null,
+      "end_date": null,
+      "title": "ALI LECTURE SERIES | 2026 - 2027",
+      "venue": "Rapson Hall, 89 Church Street Se Minneapolis, Minnesota 55455",
+      "venue_neighborhood": "University of Minnesota, Minneapolis",
+      "city": "Minneapolis",
+      "category": "lecture",
+      "subtitle": "Hosted by College of Design",
+      "url": "https://events.tc.umn.edu/design/event/28531-ali-lecture-series-2026-2027",
+      "image": "https://events.tc.umn.edu/live/image/gid/172/width/300/height/300/crop/1/src_region/0,0,359,359/143_CDes_ACAS_image_2_2.jpg",
+      "price": "Free",
+      "age": null,
+      "source": "umn-events"
+    },
+    {
       "id": "hennepinarts:2026-10-23:indigo-girls-with-special-guest-linda-perry",
       "date": "2026-10-23",
       "time": null,
@@ -16162,7 +17947,7 @@
       "category": "music",
       "subtitle": null,
       "url": "https://hennepinarts.org/events/indigo-girls-with-special-guest-linda-perry-2026",
-      "image": "https://images.ctfassets.net/sjxdiqjbm079/296lunBVMMg3hCmzbM2Ey0/a38b2105c878a43d818f50e8bcc4f13a/indigo_girls.png",
+      "image": "https://images.ctfassets.net/sjxdiqjbm079/5KbWWN1TYXXA1i5SozCIkg/a089f08c64cbd7de340c5828e05f0a09/IG_1Credit_Shervin_Lainez.jpg",
       "price": null,
       "age": null,
       "source": "hennepinarts"
@@ -16297,7 +18082,7 @@
       "city": "Minneapolis",
       "category": "music",
       "subtitle": null,
-      "url": "https://www.greenroommn.com/events",
+      "url": "https://t.venuepilot.com/e/nur-d-hell-album-release-show-2026-10-24-green-room-minneapolis-ae88bb",
       "image": null,
       "price": "$20–$30",
       "age": null,
@@ -16455,6 +18240,23 @@
       "price": null,
       "age": null,
       "source": "whitesquirrel"
+    },
+    {
+      "id": "umn-events:2026-10-24:ali-lecture-series-2026-2027",
+      "date": "2026-10-24",
+      "time": null,
+      "end_date": null,
+      "title": "ALI LECTURE SERIES | 2026 - 2027",
+      "venue": "Rapson Hall, 89 Church Street Se Minneapolis, Minnesota 55455",
+      "venue_neighborhood": "University of Minnesota, Minneapolis",
+      "city": "Minneapolis",
+      "category": "lecture",
+      "subtitle": "Hosted by College of Design",
+      "url": "https://events.tc.umn.edu/design/event/28531-ali-lecture-series-2026-2027",
+      "image": "https://events.tc.umn.edu/live/image/gid/172/width/300/height/300/crop/1/src_region/0,0,359,359/143_CDes_ACAS_image_2_2.jpg",
+      "price": "Free",
+      "age": null,
+      "source": "umn-events"
     },
     {
       "id": "parkway:2026-10-24:ghostbusters-1984",
@@ -16729,6 +18531,23 @@
       "source": "guthrie"
     },
     {
+      "id": "berlin:2026-10-25:sounds-from-planet-ie-feat-material",
+      "date": "2026-10-25",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Sounds From Planet IE (feat. Material)",
+      "venue": "Berlin",
+      "venue_neighborhood": "Downtown Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "$15 ADV / $20 DOSGET TICKETS7:00pm Show",
+      "url": "https://berlinmpls.com/calendar/sounds-from-planet-ie-residency-week-4",
+      "image": "https://images.squarespace-cdn.com/content/v1/658316152e826a3bbbfc0aef/1788973952001-YVAJPRZ7A91HHJFMKR4Z/IE_PressPhoto2+copy.jpg",
+      "price": null,
+      "age": "21+",
+      "source": "berlin"
+    },
+    {
       "id": "trylon:2026-10-25:19:15:the-craft-in-35mm",
       "date": "2026-10-25",
       "time": "19:15",
@@ -16761,6 +18580,23 @@
       "price": "$30–$40",
       "age": null,
       "source": "crooners"
+    },
+    {
+      "id": "umn-events:2026-10-25:ali-lecture-series-2026-2027",
+      "date": "2026-10-25",
+      "time": null,
+      "end_date": null,
+      "title": "ALI LECTURE SERIES | 2026 - 2027",
+      "venue": "Rapson Hall, 89 Church Street Se Minneapolis, Minnesota 55455",
+      "venue_neighborhood": "University of Minnesota, Minneapolis",
+      "city": "Minneapolis",
+      "category": "lecture",
+      "subtitle": "Hosted by College of Design",
+      "url": "https://events.tc.umn.edu/design/event/28531-ali-lecture-series-2026-2027",
+      "image": "https://events.tc.umn.edu/live/image/gid/172/width/300/height/300/crop/1/src_region/0,0,359,359/143_CDes_ACAS_image_2_2.jpg",
+      "price": "Free",
+      "age": null,
+      "source": "umn-events"
     },
     {
       "id": "parkway:2026-10-25:the-arcadian-wild-make-it-out-alive-tour-with-special-guest-addison-agen",
@@ -16848,6 +18684,23 @@
       "source": "trylon"
     },
     {
+      "id": "bryantlakebowl:2026-10-26:uproar-comedy-open-mic",
+      "date": "2026-10-26",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Uproar Comedy Open Mic",
+      "venue": "Bryant Lake Bowl Theater",
+      "venue_neighborhood": "Lyn-Lake, Minneapolis",
+      "city": "Minneapolis",
+      "category": "performance",
+      "subtitle": null,
+      "url": "https://www.bryantlakebowl.com/theater/uproar-oct26",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "bryantlakebowl"
+    },
+    {
       "id": "whitesquirrel:2026-10-26:alpha-consumer-jt-bates-w-jon-neufeld-mike-lewis-jeremy-ylvisaker-and-martha-sca",
       "date": "2026-10-26",
       "time": "21:00",
@@ -16880,6 +18733,23 @@
       "price": null,
       "age": null,
       "source": "trylon"
+    },
+    {
+      "id": "umn-events:2026-10-26:ali-lecture-series-2026-2027",
+      "date": "2026-10-26",
+      "time": null,
+      "end_date": null,
+      "title": "ALI LECTURE SERIES | 2026 - 2027",
+      "venue": "Rapson Hall, 89 Church Street Se Minneapolis, Minnesota 55455",
+      "venue_neighborhood": "University of Minnesota, Minneapolis",
+      "city": "Minneapolis",
+      "category": "lecture",
+      "subtitle": "Hosted by College of Design",
+      "url": "https://events.tc.umn.edu/design/event/28531-ali-lecture-series-2026-2027",
+      "image": "https://events.tc.umn.edu/live/image/gid/172/width/300/height/300/crop/1/src_region/0,0,359,359/143_CDes_ACAS_image_2_2.jpg",
+      "price": "Free",
+      "age": null,
+      "source": "umn-events"
     },
     {
       "id": "mnorch:11460",
@@ -17035,6 +18905,23 @@
       "source": "trylon"
     },
     {
+      "id": "umn-events:2026-10-27:ali-lecture-series-2026-2027",
+      "date": "2026-10-27",
+      "time": null,
+      "end_date": null,
+      "title": "ALI LECTURE SERIES | 2026 - 2027",
+      "venue": "Rapson Hall, 89 Church Street Se Minneapolis, Minnesota 55455",
+      "venue_neighborhood": "University of Minnesota, Minneapolis",
+      "city": "Minneapolis",
+      "category": "lecture",
+      "subtitle": "Hosted by College of Design",
+      "url": "https://events.tc.umn.edu/design/event/28531-ali-lecture-series-2026-2027",
+      "image": "https://events.tc.umn.edu/live/image/gid/172/width/300/height/300/crop/1/src_region/0,0,359,359/143_CDes_ACAS_image_2_2.jpg",
+      "price": "Free",
+      "age": null,
+      "source": "umn-events"
+    },
+    {
       "id": "parkway:2026-10-27:the-blair-witch-project-1999-w-pre-movie-burlesque-by-queenie-von-curves",
       "date": "2026-10-27",
       "time": null,
@@ -17103,6 +18990,23 @@
       "source": "guthrie"
     },
     {
+      "id": "crooners:2026-10-28:django-s-monster-mash-with-hot-club-mania",
+      "date": "2026-10-28",
+      "time": "17:30",
+      "end_date": null,
+      "title": "Django’s Monster Mash with Hot Club Mania",
+      "venue": "Crooners Supper Club",
+      "venue_neighborhood": "Dunsmore Jazz Room",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Doors will open at 4:30 PM for Dinner and Drink Service. Hot Club Mania (Formally Gypsy Mania Hot club quartet) Hot Club Mania celebrates the musical style of Django Reinhardt and Halloween. HCM perfo",
+      "url": "https://www.croonersmn.com/event/djangos-monster-mash-with-hot-club-mania/",
+      "image": "https://www.croonersmn.com/wp-content/uploads/eventbrite-logos/f0615fad8c9b37768522f6ec436ed626.jpg",
+      "price": "$25–$35",
+      "age": null,
+      "source": "crooners"
+    },
+    {
       "id": "trylon:2026-10-28:19:00:fangs-anyab",
       "date": "2026-10-28",
       "time": "19:00",
@@ -17118,6 +19022,23 @@
       "price": null,
       "age": null,
       "source": "trylon"
+    },
+    {
+      "id": "astercafe:2026-10-28:jazz-in-the-twilight-zone-with-larry-mcdonough-quartet",
+      "date": "2026-10-28",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Jazz In The Twilight Zone with Larry McDonough Quartet",
+      "venue": "Aster Cafe",
+      "venue_neighborhood": "St. Anthony Main, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://astercafe.com/live-music-calendar",
+      "image": null,
+      "price": "$15",
+      "age": null,
+      "source": "astercafe"
     },
     {
       "id": "guthrie:2026-10-28:19:00:kunene-and-the-king",
@@ -17169,6 +19090,40 @@
       "price": null,
       "age": null,
       "source": "whitesquirrel"
+    },
+    {
+      "id": "umn-events:2026-10-28:ali-lecture-series-2026-2027",
+      "date": "2026-10-28",
+      "time": null,
+      "end_date": null,
+      "title": "ALI LECTURE SERIES | 2026 - 2027",
+      "venue": "Rapson Hall, 89 Church Street Se Minneapolis, Minnesota 55455",
+      "venue_neighborhood": "University of Minnesota, Minneapolis",
+      "city": "Minneapolis",
+      "category": "lecture",
+      "subtitle": "Hosted by College of Design",
+      "url": "https://events.tc.umn.edu/design/event/28531-ali-lecture-series-2026-2027",
+      "image": "https://events.tc.umn.edu/live/image/gid/172/width/300/height/300/crop/1/src_region/0,0,359,359/143_CDes_ACAS_image_2_2.jpg",
+      "price": "Free",
+      "age": null,
+      "source": "umn-events"
+    },
+    {
+      "id": "parkway:2026-10-28:haxan-witchcraft-through-the-ages-1922-silent-film-with-live-score-performed-by-",
+      "date": "2026-10-28",
+      "time": null,
+      "end_date": null,
+      "title": "Häxan: Witchcraft Through The Ages (1922) || Silent film with live score performed by Paris1919",
+      "venue": "The Parkway Theater",
+      "venue_neighborhood": "Standish, Minneapolis",
+      "city": "Minneapolis",
+      "category": "film",
+      "subtitle": "Just in time for Halloween, this popular series pairing iconic silent films with original live score returns with a rare screening of the 1922 Swedish-Danish horror film, Häxan. Written and directed by Benjamin Christens",
+      "url": "https://theparkwaytheater.com/all-events/haxan-paris1919",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "parkway"
     },
     {
       "id": "mnorch:11464",
@@ -17290,6 +19245,23 @@
       "source": "crooners"
     },
     {
+      "id": "astercafe:2026-10-29:the-neighborhood-quartet-groovy-and-ethereal",
+      "date": "2026-10-29",
+      "time": "19:00",
+      "end_date": null,
+      "title": "The Neighborhood Quartet: Groovy & Ethereal",
+      "venue": "Aster Cafe",
+      "venue_neighborhood": "St. Anthony Main, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://astercafe.com/live-music-calendar",
+      "image": null,
+      "price": "$15",
+      "age": null,
+      "source": "astercafe"
+    },
+    {
       "id": "sports:2026-10-29:wild-vs-islanders",
       "date": "2026-10-29",
       "time": "19:00",
@@ -17339,6 +19311,23 @@
       "price": null,
       "age": null,
       "source": "guthrie"
+    },
+    {
+      "id": "hook:2026-10-29:solvejg-ray-gun-youth-pity-party-and-cheap-bouquet",
+      "date": "2026-10-29",
+      "time": "20:00",
+      "end_date": null,
+      "title": "Solvejg, Ray Gun Youth, Pity Party, and Cheap Bouquet",
+      "venue": "The Hook and Ladder",
+      "venue_neighborhood": "Longfellow, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Solvejg is a singer and songwriter from southern Minnesota. After 2 years serving as frontwoman for the indie band Citrine Shandy, Solvejg has since embarked on a solo journey, blending her bubblegrun",
+      "url": "https://thehookmpls.com/shows/solvejg-ray-gun-youth-pity-party-and-cheap-bouquet-october-29-2026-745871",
+      "image": "https://s3.amazonaws.com/opendate-aws-assets/confirms/main_event_images/000/745/871/compressed/web.jpg?1787864705",
+      "price": null,
+      "age": null,
+      "source": "hook"
     },
     {
       "id": "amsterdam:2026-10-29:akeem-ali",
@@ -17611,6 +19600,23 @@
       "price": null,
       "age": null,
       "source": "fillmore"
+    },
+    {
+      "id": "bryantlakebowl:2026-10-30:that-felt-good",
+      "date": "2026-10-30",
+      "time": "21:30",
+      "end_date": null,
+      "title": "That Felt Good",
+      "venue": "Bryant Lake Bowl Theater",
+      "venue_neighborhood": "Lyn-Lake, Minneapolis",
+      "city": "Minneapolis",
+      "category": "performance",
+      "subtitle": null,
+      "url": "https://www.bryantlakebowl.com/theater/that-felt-good-oct30",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "bryantlakebowl"
     },
     {
       "id": "greenroom:2026-10-30:mi-casa-presents-haunted-disco",
@@ -18378,6 +20384,23 @@
       "source": "331"
     },
     {
+      "id": "bryantlakebowl:2026-11-04:good-camel-live",
+      "date": "2026-11-04",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Good Camel Live",
+      "venue": "Bryant Lake Bowl Theater",
+      "venue_neighborhood": "Lyn-Lake, Minneapolis",
+      "city": "Minneapolis",
+      "category": "performance",
+      "subtitle": null,
+      "url": "https://www.bryantlakebowl.com/theater/good-camel-live-nov4",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "bryantlakebowl"
+    },
+    {
       "id": "guthrie:2026-11-04:19:00:kunene-and-the-king",
       "date": "2026-11-04",
       "time": "19:00",
@@ -18495,6 +20518,23 @@
       "price": "$25–$35",
       "age": null,
       "source": "crooners"
+    },
+    {
+      "id": "astercafe:2026-11-05:raymnd",
+      "date": "2026-11-05",
+      "time": "18:00",
+      "end_date": null,
+      "title": "Raymnd",
+      "venue": "Aster Cafe",
+      "venue_neighborhood": "St. Anthony Main, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://astercafe.com/live-music-calendar",
+      "image": null,
+      "price": "$20",
+      "age": null,
+      "source": "astercafe"
     },
     {
       "id": "hclib:2026-11-05:sci-fi-book-club",
@@ -18648,6 +20688,23 @@
       "price": null,
       "age": "All ages",
       "source": "amsterdam"
+    },
+    {
+      "id": "astercafe:2026-11-06:thomas-sticha",
+      "date": "2026-11-06",
+      "time": "18:00",
+      "end_date": null,
+      "title": "Thomas Sticha",
+      "venue": "Aster Cafe",
+      "venue_neighborhood": "St. Anthony Main, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://astercafe.com/live-music-calendar",
+      "image": null,
+      "price": "$20",
+      "age": null,
+      "source": "astercafe"
     },
     {
       "id": "331:2026-11-06:matty-and-the-subtle-validation",
@@ -19143,6 +21200,23 @@
       "source": "hennepinarts"
     },
     {
+      "id": "parkway:2026-11-07:the-shabby-road-orchestra-performs-the-beatles-abbey-road",
+      "date": "2026-11-07",
+      "time": null,
+      "end_date": null,
+      "title": "The Shabby Road Orchestra performs the Beatles’ Abbey Road",
+      "venue": "The Parkway Theater",
+      "venue_neighborhood": "Standish, Minneapolis",
+      "city": "Minneapolis",
+      "category": "performance",
+      "subtitle": "Now in its 7th year, The Parkway’s annual celebration of the Beatles' iconic final recording is must-see event!",
+      "url": "https://theparkwaytheater.com/all-events/abbey-road-7",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "parkway"
+    },
+    {
       "id": "trylon:2026-11-08:12:30:red-dawn",
       "date": "2026-11-08",
       "time": "12:30",
@@ -19177,18 +21251,18 @@
       "source": "guthrie"
     },
     {
-      "id": "whitesquirrel:2026-11-08:songwriter-showcase",
+      "id": "whitesquirrel:2026-11-08:songwriter-showcase-edie-rae-christopher-david-hanson-mare-lennon-joe-fahey",
       "date": "2026-11-08",
       "time": "13:00",
       "end_date": null,
-      "title": "Songwriter Showcase",
+      "title": "Songwriter Showcase: Edie Rae, Christopher David Hanson, Mare Lennon, Joe Fahey",
       "venue": "White Squirrel Bar",
       "venue_neighborhood": "West End, St. Paul",
       "city": "St. Paul",
       "category": "music",
       "subtitle": null,
       "url": "https://whitesquirrelbar.com/event/songwriter-showcase-3/",
-      "image": null,
+      "image": "https://whitesquirrelbar.com/wp-content/uploads/dr-11.jpeg",
       "price": null,
       "age": null,
       "source": "whitesquirrel"
@@ -19362,6 +21436,23 @@
       "price": null,
       "age": null,
       "source": "loft"
+    },
+    {
+      "id": "crooners:2026-11-08:wayne-anthony-presents-ultimate-sinatra",
+      "date": "2026-11-08",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Wayne Anthony Presents Ultimate Sinatra",
+      "venue": "Crooners Supper Club",
+      "venue_neighborhood": "Main Stage Showroom",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Doors open at 6:00 PM for Dinner and Drink Service. Legendary Sinatra Classics Wayne Anthony delivers The Chairman of the Board’s most iconic hits from his Billboard-Chart topping Ultimate Sinatra Col",
+      "url": "https://www.croonersmn.com/event/wayne-anthony-presents-ultimate-sinatra-2/",
+      "image": "https://www.croonersmn.com/wp-content/uploads/eventbrite-logos/1ecc5c97c505e063b431a24506a2c4e6.jpg",
+      "price": "$40–$50",
+      "age": null,
+      "source": "crooners"
     },
     {
       "id": "cedar:2026-11-08:teddy-thompson-with-jenna-nicholls",
@@ -19687,6 +21778,23 @@
       "source": "crooners"
     },
     {
+      "id": "astercafe:2026-11-11:allison-mahal-and-whitney-fenimore",
+      "date": "2026-11-11",
+      "time": "18:00",
+      "end_date": null,
+      "title": "Allison Mahal & Whitney Fenimore",
+      "venue": "Aster Cafe",
+      "venue_neighborhood": "St. Anthony Main, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://astercafe.com/live-music-calendar",
+      "image": null,
+      "price": "$15",
+      "age": null,
+      "source": "astercafe"
+    },
+    {
       "id": "icehouse:2026-11-11:harriet-tubman",
       "date": "2026-11-11",
       "time": "18:30",
@@ -19857,6 +21965,23 @@
       "source": "crooners"
     },
     {
+      "id": "astercafe:2026-11-12:billy-johnson-with-kate-snyder-and-luke-ericksen",
+      "date": "2026-11-12",
+      "time": "18:00",
+      "end_date": null,
+      "title": "Billy Johnson with Kate Snyder & Luke Ericksen",
+      "venue": "Aster Cafe",
+      "venue_neighborhood": "St. Anthony Main, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://astercafe.com/live-music-calendar",
+      "image": null,
+      "price": "$15",
+      "age": null,
+      "source": "astercafe"
+    },
+    {
       "id": "whitesquirrel:2026-11-12:fuzzy-math",
       "date": "2026-11-12",
       "time": "18:00",
@@ -19991,6 +22116,23 @@
       "price": null,
       "age": null,
       "source": "whitesquirrel"
+    },
+    {
+      "id": "astercafe:2026-11-13:mae-and-the-guys",
+      "date": "2026-11-13",
+      "time": "18:00",
+      "end_date": null,
+      "title": "Mae & The Guys .",
+      "venue": "Aster Cafe",
+      "venue_neighborhood": "St. Anthony Main, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://astercafe.com/live-music-calendar",
+      "image": null,
+      "price": "$20",
+      "age": null,
+      "source": "astercafe"
     },
     {
       "id": "331:2026-11-13:stringdingers",
@@ -20722,6 +22864,23 @@
       "price": "Free",
       "age": "Adults",
       "source": "hclib"
+    },
+    {
+      "id": "astercafe:2026-11-19:lily-detaeye-and-molly-brandt",
+      "date": "2026-11-19",
+      "time": "18:00",
+      "end_date": null,
+      "title": "Lily DeTaeye & Molly Brandt",
+      "venue": "Aster Cafe",
+      "venue_neighborhood": "St. Anthony Main, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://astercafe.com/live-music-calendar",
+      "image": null,
+      "price": "$23",
+      "age": null,
+      "source": "astercafe"
     },
     {
       "id": "hclib:2026-11-19:bookomis-all-genres-book-club",
@@ -21472,6 +23631,23 @@
       "source": "guthrie"
     },
     {
+      "id": "crooners:2026-11-25:brandon-commodore-hosts-family-and-friends",
+      "date": "2026-11-25",
+      "time": "19:00",
+      "end_date": null,
+      "title": "Brandon Commodore Hosts: Family & Friends",
+      "venue": "Crooners Supper Club",
+      "venue_neighborhood": "Main Stage Showroom",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": "Doors open at 6:00 PM for Dinner and Drink Service. Brandon Commodore brings his signature NRG to Crooners for Friends & Family, a soulful Thanksgiving Eve celebration built around great music, good p",
+      "url": "https://www.croonersmn.com/event/brandon-commodore-hosts-family-friends/",
+      "image": "https://www.croonersmn.com/wp-content/uploads/eventbrite-logos/e863a1e82374e2fc09b304ab45baa6be.jpg",
+      "price": "$25–$35",
+      "age": null,
+      "source": "crooners"
+    },
+    {
       "id": "331:2026-11-25:harold-s-house-party-on-kfai",
       "date": "2026-11-25",
       "time": "19:00",
@@ -21506,6 +23682,23 @@
       "source": "sports"
     },
     {
+      "id": "astercafe:2026-11-26:amanda-grace-and-samantha-grimes",
+      "date": "2026-11-26",
+      "time": "18:00",
+      "end_date": null,
+      "title": "Amanda Grace & Samantha Grimes",
+      "venue": "Aster Cafe",
+      "venue_neighborhood": "St. Anthony Main, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://astercafe.com/live-music-calendar",
+      "image": null,
+      "price": "$15",
+      "age": null,
+      "source": "astercafe"
+    },
+    {
       "id": "guthrie:2026-11-27:13:00:a-christmas-carol",
       "date": "2026-11-27",
       "time": "13:00",
@@ -21538,6 +23731,23 @@
       "price": null,
       "age": "All ages",
       "source": "sports"
+    },
+    {
+      "id": "astercafe:2026-11-27:david-huckfelt-and-the-mystery-lights-night-one",
+      "date": "2026-11-27",
+      "time": "18:00",
+      "end_date": null,
+      "title": "David Huckfelt & The Mystery Lights (Night One)",
+      "venue": "Aster Cafe",
+      "venue_neighborhood": "St. Anthony Main, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://astercafe.com/live-music-calendar",
+      "image": null,
+      "price": "$20",
+      "age": null,
+      "source": "astercafe"
     },
     {
       "id": "331:2026-11-27:toussaint-morrison",
@@ -21623,6 +23833,23 @@
       "price": null,
       "age": "All ages",
       "source": "mnorch"
+    },
+    {
+      "id": "astercafe:2026-11-28:david-huckfelt-and-the-mystery-lights-night-two",
+      "date": "2026-11-28",
+      "time": "18:00",
+      "end_date": null,
+      "title": "David Huckfelt & The Mystery Lights (Night Two)",
+      "venue": "Aster Cafe",
+      "venue_neighborhood": "St. Anthony Main, Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://astercafe.com/live-music-calendar",
+      "image": null,
+      "price": "$20",
+      "age": null,
+      "source": "astercafe"
     },
     {
       "id": "crooners:2026-11-28:christmas-soul-and-joy-with-kijana-gant",
@@ -23937,6 +26164,23 @@
       "source": "guthrie"
     },
     {
+      "id": "ticketmaster:2026-12-27:trans-siberian-orchestra-the-ghosts-of-christmas-eve",
+      "date": "2026-12-27",
+      "time": "15:00",
+      "end_date": null,
+      "title": "Trans-Siberian Orchestra - The Ghosts Of Christmas Eve",
+      "venue": "Target Center",
+      "venue_neighborhood": "Downtown Minneapolis",
+      "city": "Minneapolis",
+      "category": "music",
+      "subtitle": null,
+      "url": "https://www.ticketmaster.com/transsiberian-orchestra-the-ghosts-of-christmas-minneapolis-minnesota-12-27-2026/event/06006518ABE7B1FE",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "ticketmaster"
+    },
+    {
       "id": "guthrie:2026-12-27:19:00:and-then-there-were-none",
       "date": "2026-12-27",
       "time": "19:00",
@@ -24296,6 +26540,23 @@
     {
       "id": "guthrie:2027-01-07:19:30:and-then-there-were-none",
       "date": "2027-01-07",
+      "time": "19:30",
+      "end_date": null,
+      "title": "And Then There Were None",
+      "venue": "Guthrie Theater",
+      "venue_neighborhood": "Mill District, Minneapolis",
+      "city": "Minneapolis",
+      "category": "performance",
+      "subtitle": null,
+      "url": "https://www.guthrietheater.org/whats-on/and-then-there-were-none/",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "guthrie"
+    },
+    {
+      "id": "guthrie:2027-01-08:19:30:and-then-there-were-none",
+      "date": "2027-01-08",
       "time": "19:30",
       "end_date": null,
       "title": "And Then There Were None",
@@ -25127,6 +27388,23 @@
       "source": "mnorch"
     },
     {
+      "id": "parkway:2027-02-20:dustin-nickerson",
+      "date": "2027-02-20",
+      "time": null,
+      "end_date": null,
+      "title": "Dustin Nickerson",
+      "venue": "The Parkway Theater",
+      "venue_neighborhood": "Standish, Minneapolis",
+      "city": "Minneapolis",
+      "category": "performance",
+      "subtitle": "In-demand comedian Dustin Nickerson returns to The Parkway with his hilarious views on the struggles of parenting, marriage, and being generally annoyed by most people.",
+      "url": "https://theparkwaytheater.com/all-events/dustin-nickerson-27",
+      "image": null,
+      "price": null,
+      "age": null,
+      "source": "parkway"
+    },
+    {
       "id": "hennepinarts:2027-02-20:kathy-mattea",
       "date": "2027-02-20",
       "time": null,
@@ -25343,6 +27621,23 @@
       "subtitle": "Comedy",
       "url": "https://hennepinarts.org/events/jeff-arcuri-2027",
       "image": "https://images.ctfassets.net/sjxdiqjbm079/7k0rjhIS4yUUi4T7Jy5aL9/0f2fe5e05b17f0828028f6acdebf64b8/JeffArcuri_002.jpg",
+      "price": null,
+      "age": null,
+      "source": "hennepinarts"
+    },
+    {
+      "id": "hennepinarts:2027-03-09:the-outsiders",
+      "date": "2027-03-09",
+      "time": null,
+      "end_date": null,
+      "title": "The Outsiders",
+      "venue": "Orpheum Theatre",
+      "venue_neighborhood": "Downtown Minneapolis",
+      "city": "Minneapolis",
+      "category": "performance",
+      "subtitle": "Broadway",
+      "url": "https://hennepinarts.org/events/the-outsiders-2027",
+      "image": "https://images.ctfassets.net/sjxdiqjbm079/5o2560CiHiJvzfvmHPrcQt/f1ba76f6302d2e28aaad700cf6d88280/OUTSIDERS_Tour_-_photo_8_Large.jpeg",
       "price": null,
       "age": null,
       "source": "hennepinarts"

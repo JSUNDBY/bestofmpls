@@ -1,7 +1,11 @@
 /**
  * Bauhaus Brew Labs scraper — STUB (Northeast Minneapolis, 1315 Tyler St NE).
  *
- * No accessible event feed as of June 2026.
+ * No accessible event feed as of June 2026. RE-CHECKED 2026-09-09: the
+ * public site has been gutted to three pages (blog/cart/media), the old
+ * /taproomevents page 404s, and the sitemap lists no events page at all —
+ * their calendar appears to live on Instagram only now. Nothing to scrape;
+ * re-check if they ever rebuild the site.
  *
  * What they use:
  *   - bauhausbrewlabs.com — Squarespace site. Events are listed at

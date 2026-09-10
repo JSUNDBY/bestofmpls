@@ -1,64 +1,67 @@
 /**
- * The Hook and Ladder Theater & Lounge scraper.
+ * The Hook and Ladder Theater & Lounge scraper — v2 (2026-09-09).
  *
- * Longfellow venue (Minnehaha Ave). WordPress site emits clean schema.org
- * Event JSON-LD per show. The Hook hosts multiple stages — main stage,
- * Mission Room, Zen Arcade — so we keep the JSON-LD `location.name` when
- * present and fall back to a generic "The Hook and Ladder" label.
+ * The site rebuilt on Opendate (ticketing platform) in 2026 and the listing
+ * pages stopped emitting JSON-LD, which killed v1 silently ("ok but zero"
+ * since July). The individual show pages at /shows/<slug> still carry clean
+ * schema.org MusicEvent JSON-LD, so: fetch /events/, harvest the unique
+ * /shows/ permalinks embedded in the Opendate payload, then fetch each show
+ * page (capped) and read its JSON-LD.
  */
 
-const { fetchHtml, slugify, extractJsonLdEvents, isoFromStartDate, hmFromStartDate, decodeEntities } = require('./_helpers');
+const { fetchHtml, slugify, extractJsonLdEvents, decodeEntities } = require('./_helpers');
 
-const PAGES = [
-  'https://thehookmpls.com/events/',
-  'https://thehookmpls.com/events/list/page/2/',
-  'https://thehookmpls.com/events/list/page/3/'
-];
+const LIST_URL = 'https://thehookmpls.com/events/';
+const MAX_SHOWS = 40;
 
 async function scrape() {
   const events = [];
   const seen = new Set();
 
-  for (const url of PAGES) {
+  let listHtml;
+  try { listHtml = await fetchHtml(LIST_URL); } catch (_) { return events; }
+
+  const links = [...new Set(
+    (listHtml.match(/https:\/\/thehookmpls\.com\/shows\/[a-z0-9-]+/g) || [])
+  )].slice(0, MAX_SHOWS);
+
+  for (const link of links) {
     let html;
-    try { html = await fetchHtml(url); } catch (_) { continue; }
-    const items = extractJsonLdEvents(html);
-    for (const it of items) {
-      const date = isoFromStartDate(it.startDate);
-      const time = hmFromStartDate(it.startDate);
+    try { html = await fetchHtml(link); } catch (_) { continue; }
+    for (const it of extractJsonLdEvents(html)) {
+      // Opendate emits UTC instants (...T00:00:00.000Z = 7pm CDT the night
+      // before) — convert to Central or every show lands on the wrong day.
+      const dt = new Date(it.startDate);
+      if (isNaN(dt)) continue;
+      const central = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Chicago', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hour12: false }).formatToParts(dt);
+      const get = t => central.find(p => p.type === t).value;
+      const date = `${get('year')}-${get('month')}-${get('day')}`;
+      const time = `${get('hour') === '24' ? '00' : get('hour')}:${get('minute')}`;
       const title = decodeEntities(it.name);
       if (!date || !title) continue;
       const id = `hook:${date}:${slugify(title)}`;
       if (seen.has(id)) continue;
       seen.add(id);
-      // Hook has multiple stages (Mission Room, Zen Arcade, Under the Canopy)
-      // but we collapse them under one "The Hook and Ladder" venue so the
-      // calendar's venue filter stays clean. Stage stays in the subtitle.
       const stage = it.location?.name && !/the hook and ladder/i.test(it.location.name)
         ? decodeEntities(it.location.name)
         : null;
       const desc = decodeEntities(it.description || '').slice(0, 200);
-      const subtitle = [stage, desc].filter(Boolean).join(' · ') || null;
       events.push({
-        id,
-        date,
-        time,
-        end_date: isoFromStartDate(it.endDate) || null,
+        id, date, time,
+        end_date: null,
         title,
         venue: 'The Hook and Ladder',
         venue_neighborhood: 'Longfellow, Minneapolis',
         city: 'Minneapolis',
         category: 'music',
-        subtitle,
-        url: it.url || url,
-        image: it.image || null,
-        price: null,
-        age: null,
+        subtitle: [stage, desc].filter(Boolean).join(' · ') || null,
+        url: link,
+        image: typeof it.image === 'string' ? it.image : (Array.isArray(it.image) ? it.image[0] : null),
+        price: null, age: null,
         source: 'hook'
       });
     }
   }
-
   return events;
 }
 
