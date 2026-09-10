@@ -1161,6 +1161,7 @@ function footer() {
   // below can stay focused on the static category lists.
   const dailyLinks = [
     { href: '/tonight/', label: 'Tonight' },
+    { href: '/openings/', label: 'Openings' },
     { href: '/calendar/', label: 'Calendar' },
     { href: '/map/', label: 'Map' },
     { href: '/near/', label: 'Near You' },
@@ -1725,7 +1726,7 @@ function renderHome() {
       .sort((a, b) => a.date.localeCompare(b.date));
     for (const o of openingPool.slice(0, 2)) {
       if (cards.length >= 3) break;   // leave room for at least one stage show
-      cards.push({ kind: 'Opening', when: `Opens ${fmtMD(o.date)}`, title: o.title, venue: o.venue, line: usefulLine(o.subtitle), href: '/now-showing/#openings' });
+      cards.push({ kind: 'Opening', when: `Opens ${fmtMD(o.date)}`, title: o.title, venue: o.venue, line: usefulLine(o.subtitle), href: '/openings/' });
     }
 
     // 3+4. The big rooms — marquee shows in the next ten days (not tonight;
@@ -4181,20 +4182,11 @@ function renderExhibitions() {
       </div>
     </article>`;
 
-  // ---- Openings: the receptions and first days, the social calendar.
-  // Curated receptions (with times) first, then scraped upcoming starts,
-  // deduped by venue+date. Empty list = no section; never a placeholder.
-  const fmtOpen = (iso) => { const [y, m, d] = iso.split('-').map(Number); return new Date(y, m - 1, d).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' }); };
-  const fmt12h = (t) => { if (!t) return null; const [h, mm] = t.split(':').map(Number); const ap = h >= 12 ? 'pm' : 'am'; const hr = h % 12 === 0 ? 12 : h % 12; return mm ? `${hr}:${String(mm).padStart(2, '0')}${ap}` : `${hr}${ap}`; };
-  const curatedOpen = (artOpenings.openings || [])
-    .filter(o => o.date && o.date >= TODAY_ISO)
-    .map(o => ({ ...o, reception: true }));
-  const curatedKeys = new Set(curatedOpen.map(o => `${o.venue}::${o.date}`));
-  const scrapedOpen = (eventsData.events || [])
-    .filter(e => e.category === 'art' && e.date > TODAY_ISO && e.end_date)   // real runs only; a one-day art event is not an opening
-    .filter(e => !curatedKeys.has(`${e.venue}::${e.date}`))
-    .map(e => ({ title: e.title, venue: e.venue, date: e.date, time: null, url: e.url, on_view_through: e.end_date, reception: false }));
-  const openingsList = [...curatedOpen, ...scrapedOpen].sort((a, b) => a.date.localeCompare(b.date)).slice(0, 12);
+  // ---- Openings: shared builder (also powers /openings/, the dedicated
+  // artist-forward page — art is core to the site's identity).
+  const fmtOpen = fmtOpeningDate;
+  const fmt12h = fmt12hOpening;
+  const openingsList = buildOpeningsList().slice(0, 12);
   const openingsSection = openingsList.length ? `
     <div class="exhibition-section" id="openings">
       <div class="wrap">
@@ -4214,6 +4206,7 @@ function renderExhibitions() {
           </div>
         </article>`).join('')}
       </div>
+      <div class="wrap" style="margin-top:18px;"><a class="cal-chip" href="/openings/">Every opening, artist-first →</a></div>
     </div>` : '';
   const submitCta = `
     <div class="wrap">
@@ -4679,6 +4672,84 @@ function venueLink(name, cls) {
   const h = venueHref(name);
   const attr = cls ? ` class="${cls}"` : '';
   return h ? `<a${attr} href="${h}">${esc(name)}</a>` : `<span${attr}>${esc(name)}</span>`;
+}
+
+// ---------- Openings: shared data + helpers (feeds /now-showing/ and /openings/) ----------
+const fmtOpeningDate = (iso) => { const [y, m, d] = iso.split('-').map(Number); return new Date(y, m - 1, d).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' }); };
+const fmt12hOpening = (t) => { if (!t) return null; const [h, mm] = t.split(':').map(Number); const ap = h >= 12 ? 'pm' : 'am'; const hr = h % 12 === 0 ? 12 : h % 12; return mm ? `${hr}:${String(mm).padStart(2, '0')}${ap}` : `${hr}${ap}`; };
+// Curated receptions (with times) first, then scraped upcoming starts,
+// deduped by venue+date. Empty list = no section; never a placeholder.
+function buildOpeningsList() {
+  const curatedOpen = (artOpenings.openings || [])
+    .filter(o => o.date && o.date >= TODAY_ISO)
+    .map(o => ({ ...o, reception: true }));
+  const curatedKeys = new Set(curatedOpen.map(o => `${o.venue}::${o.date}`));
+  const scrapedOpen = (eventsData.events || [])
+    .filter(e => e.category === 'art' && e.date > TODAY_ISO && e.end_date)   // real runs only; a one-day art event is not an opening
+    .filter(e => !curatedKeys.has(`${e.venue}::${e.date}`))
+    .map(e => ({ title: e.title, venue: e.venue, date: e.date, time: null, url: e.url, on_view_through: e.end_date, reception: false }));
+  return [...curatedOpen, ...scrapedOpen].sort((a, b) => a.date.localeCompare(b.date));
+}
+// Artist promotion: pull the artist forward when we can say it honestly —
+// a curated `artist` field, or a title shaped exactly "Show Title by Artist".
+function openingArtist(o) {
+  if (o.artist) return { artist: o.artist, show: o.title };
+  const parts = String(o.title || '').split(/ by /);
+  if (parts.length === 2 && parts[1].trim().split(/\s+/).length <= 4 && /^[A-Z]/.test(parts[1].trim())) {
+    return { artist: parts[1].trim(), show: parts[0].trim() };
+  }
+  return { artist: null, show: o.title };
+}
+
+// /openings/ — the dedicated home for art openings. Artist names lead.
+function renderOpenings() {
+  const list = buildOpeningsList();
+  const description = 'Every upcoming art opening and reception in Minneapolis and St. Paul: galleries, project spaces, and museums, updated daily from the venues themselves and from gallery submissions.';
+  const rows = list.map(o => {
+    const a = openingArtist(o);
+    return `
+      <article class="opening-row">
+        <div class="opening-when">
+          <span class="opening-date">${esc(fmtOpeningDate(o.date))}</span>
+          ${o.time ? `<span class="opening-time">${esc(fmt12hOpening(o.time))}${o.end_time ? '\u2013' + esc(fmt12hOpening(o.end_time)) : ''} \u00b7 reception</span>` : (o.reception ? `<span class="opening-time">opening reception</span>` : `<span class="opening-time opening-time--day">first day on view</span>`)}
+        </div>
+        <div class="opening-body">
+          ${a.artist ? `<div class="opening-artist">${esc(a.artist)}</div>` : ''}
+          <h3 class="opening-title">${o.url ? `<a href="${esc(o.url)}" target="_blank" rel="noopener">${esc(a.show)}</a>` : esc(a.show)}</h3>
+          <div class="opening-venue">${esc(o.venue)}${o.on_view_through ? ` \u00b7 on view through ${esc(fmtOpeningDate(o.on_view_through).replace(/^[A-Za-z]+, /, ''))}` : ''}</div>
+        </div>
+      </article>`;
+  }).join('');
+  const schema = {
+    '@context': 'https://schema.org', '@type': 'ItemList',
+    name: 'Art openings in Minneapolis & St. Paul',
+    itemListElement: list.slice(0, 20).map((o, i) => ({ '@type': 'ListItem', position: i + 1, item: { '@type': 'VisualArtsEvent', name: o.title, startDate: o.date, location: { '@type': 'Place', name: o.venue } } })),
+  };
+  return head({ title: 'Art Openings in Minneapolis & St. Paul', description, slug: 'openings', theme: 'default' }) +
+    header({ activeSlug: '' }) +
+    `<script type="application/ld+json">${JSON.stringify(schema)}</script>
+    <section class="section-head">
+      <div class="wrap">
+        <div class="section-eyebrow">${list.length} on the calendar \u00b7 updated daily</div>
+        <h1 class="section-title">Art openings.</h1>
+        <p class="section-deck">The nights the art world is actually in the room. Receptions and first days across the metro's galleries, project spaces, and museums \u2014 pulled daily from the venues themselves, with artist-submitted receptions first. Go to one; nobody checks credentials at a gallery door.</p>
+      </div>
+    </section>
+    <section class="wrap" style="padding-bottom: var(--sec-y);">
+      <div class="openings-list">${rows}</div>
+      <div class="wrap" style="padding:0;">
+        <aside class="openings-cta">
+          <h2 class="openings-cta-title">Artist? Gallery? Project space in a garage?</h2>
+          <p class="openings-cta-body">Send us your opening and we will put it on this page, in the Monday email, and in front of the metro. Free, always. We verify everything before it runs, and artist names go up front \u2014 that is the point of this page.</p>
+          <a class="cover-cta" href="/submit-opening/">Submit an opening \u2192</a>
+        </aside>
+      </div>
+      <div style="margin-top:28px; display:flex; gap:14px; flex-wrap:wrap;">
+        <a class="cal-chip" href="/now-showing/">What\u2019s on view right now</a>
+        <a class="cal-chip" href="/museums-and-galleries/">The galleries</a>
+      </div>
+    </section>` +
+    footer();
 }
 
 function renderVenuePage(v) {
@@ -8686,6 +8757,7 @@ function renderSitemap(neighborhoods, crossPages) {
     { loc: SITE + '/free/', priority: '0.85' },
     { loc: SITE + '/' + dataEssay.slug + '/', priority: '0.8' },
     { loc: SITE + '/lunch/', priority: '0.8' },
+    { loc: SITE + '/openings/', priority: '0.85' },
     { loc: SITE + '/privacy/', priority: '0.1' },
     { loc: SITE + '/terms/', priority: '0.1' },
     { loc: SITE + '/live-music/tonight/', priority: '0.9' },
@@ -8963,6 +9035,7 @@ function build() {
   writeFile('free/index.html', renderFreeWeek());
   writeFile(dataEssay.slug + '/index.html', renderDataEssay());
   writeFile('lunch/index.html', renderLunch());
+  writeFile('openings/index.html', renderOpenings());
   writeFile('privacy/index.html', renderLegal('privacy', 'Privacy Policy', PRIVACY_HTML));
   writeFile('terms/index.html', renderLegal('terms', 'Terms of Use', TERMS_HTML));
 
