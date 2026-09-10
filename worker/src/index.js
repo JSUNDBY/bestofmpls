@@ -415,10 +415,23 @@ export default {
     }
 
     // ===== GET /admin/recent (board only) =====
+    // Admin auth with brute-force lockout: 20 failed key attempts from one
+    // IP locks /admin/* for that IP for 15 minutes. Success never counts.
+    async function adminAuthed() {
+      const ip = request.headers.get('CF-Connecting-IP') || '0.0.0.0';
+      const ipHash = (await sha256Hex(ip)).slice(0, 16);
+      const lockKey = `adminfail:${ipHash}`;
+      const fails = parseInt(await env.POLLS.get(lockKey) || '0', 10);
+      if (fails >= 20) return false;
+      const adminKey = request.headers.get('X-Admin-Key');
+      if (env.ADMIN_KEY && adminKey === env.ADMIN_KEY) return true;
+      ctx.waitUntil(env.POLLS.put(lockKey, String(fails + 1), { expirationTtl: 900 }));
+      return false;
+    }
+
     // ===== GET /admin/stories — every story with its moderation state =====
     if (request.method === 'GET' && url.pathname === '/admin/stories') {
-      const adminKey = request.headers.get('X-Admin-Key');
-      if (!env.ADMIN_KEY || adminKey !== env.ADMIN_KEY) {
+      if (!(await adminAuthed())) {
         return json({ error: 'unauthorized' }, 401, origin);
       }
       const out = [];
@@ -443,8 +456,7 @@ export default {
     // ===== POST /admin/story — publish (ok:true), unpublish (ok:false), or
     // remove a story, identified by (place, ts) =====
     if (request.method === 'POST' && url.pathname === '/admin/story') {
-      const adminKey = request.headers.get('X-Admin-Key');
-      if (!env.ADMIN_KEY || adminKey !== env.ADMIN_KEY) {
+      if (!(await adminAuthed())) {
         return json({ error: 'unauthorized' }, 401, origin);
       }
       let body;
@@ -467,8 +479,7 @@ export default {
     }
 
     if (request.method === 'GET' && url.pathname === '/admin/recent') {
-      const adminKey = request.headers.get('X-Admin-Key');
-      if (!env.ADMIN_KEY || adminKey !== env.ADMIN_KEY) {
+      if (!(await adminAuthed())) {
         return json({ error: 'unauthorized' }, 401, origin);
       }
       // KV lists keys in ascending (oldest-first) order, so a plain limit:50
