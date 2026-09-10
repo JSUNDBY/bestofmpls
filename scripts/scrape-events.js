@@ -111,6 +111,32 @@ async function main() {
 
   const results = await Promise.all(scrapers.map(runOne));
 
+  // Carry-forward: a source that returns 0 while the previous feed held its
+  // events is far more likely blocked/broken than genuinely empty (ESPN
+  // intermittently 403s CI runners — 2026-09-09 the whole sports slate
+  // vanished from the live site this way). Reuse the previous run's events
+  // for that source, capped at 3 days of staleness so a truly dead source
+  // still drains. Only for full runs; --only runs are debugging.
+  const { only: onlyFlag } = parseArgs();
+  if (!onlyFlag && fs.existsSync(OUT)) {
+    try {
+      const prev = JSON.parse(fs.readFileSync(OUT, 'utf8'));
+      const prevAgeDays = prev.generated_at ? (Date.now() - new Date(prev.generated_at)) / 86400000 : 99;
+      if (prevAgeDays < 3) {
+        for (const r of results) {
+          if (r.ok && r.events.length === 0) {
+            const carried = (prev.events || []).filter(e => e.source === r.source);
+            if (carried.length) {
+              r.events = carried;
+              r.carried = true;
+              console.warn(`  ↻ ${r.source}: 0 fresh, carried ${carried.length} from previous run`);
+            }
+          }
+        }
+      }
+    } catch (_) {}
+  }
+
   // Merge, dedupe by id, sort by date then time then title.
   const byId = new Map();
   for (const r of results) {
