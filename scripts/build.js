@@ -552,6 +552,31 @@ const skywaySegmentsData = loadJsonOptional(path.join(SRC, 'data/skyway-segments
 //      with every other entry that lazy-addressed the same neighborhood,
 //      so we refuse to plot those.
 //   3. null — entry will not appear on the map. Better than a wrong pin.
+// Place photos: drop a file at public/img/places/<category>--<entry-slug>.jpg
+// (or .webp/.jpeg) and it auto-attaches at build — entry-page hero, og:image,
+// and schema image. No data edits ever; the photo shot list
+// (scripts/photo-shotlist.js) tells you the exact filename to shoot for.
+const PLACE_PHOTO_DIR = path.join(ROOT, 'public/img/places');
+let _placePhotoIndex = null;
+function placePhoto(catSlug, slug) {
+  // Exact category match first, then any category's photo of the same
+  // place — one shot serves an entry everywhere it appears.
+  if (_placePhotoIndex === null) {
+    _placePhotoIndex = new Map();
+    try {
+      for (const f of fs.readdirSync(PLACE_PHOTO_DIR)) {
+        const m = f.match(/^(.+)--(.+)\.(jpe?g|webp|png)$/);
+        if (m && !_placePhotoIndex.has(m[2])) _placePhotoIndex.set(m[2], f);
+        if (m) _placePhotoIndex.set(`${m[1]}--${m[2]}`, f);
+      }
+    } catch (_) {}
+  }
+  const exact = _placePhotoIndex.get(`${catSlug}--${slug}`);
+  if (exact) return `/img/places/${exact}`;
+  const any = _placePhotoIndex.get(slug);
+  return any ? `/img/places/${any}` : null;
+}
+
 function lookupCoords(slug, entry) {
   const hLook = hoursData[`${slug}:${entry.name}`];
 
@@ -898,7 +923,7 @@ function basemapJs(style, extraAttribution) {
   return `L.maplibreGL({ style: 'https://tiles.openfreemap.org/styles/${style}', attribution: '${attr}' })`;
 }
 
-function head({ title, description, slug, theme, noindex }) {
+function head({ title, description, slug, theme, noindex, image }) {
   const url = slug ? `${SITE}/${slug}/` : `${SITE}/`;
   // Homepage gets its full keyword title with no brand suffix (the brand is
   // already in the domain); every other page gets the ' · bestofmpls' suffix.
@@ -925,7 +950,7 @@ ${GSC_VERIFICATION ? `<meta name="google-site-verification" content="${esc(GSC_V
 <meta property="og:title" content="${fullTitle}">
 <meta property="og:description" content="${esc(description)}">
 <meta property="og:site_name" content="bestofmpls">
-<meta property="og:image" content="${ogImg}">
+<meta property="og:image" content="${image ? SITE + image : ogImg}">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="${ogAlt}">
@@ -2957,7 +2982,9 @@ function renderEntry(c, e, allCategories) {
       </section>`;
   })();
 
-  return head({ title: `${e.name} · ${e.neighborhood || 'Minneapolis'} · ${c.title}`, description, slug: `${c.slug}/${slug}`, theme: c.hero_color }) +
+  const photo = placePhoto(c.slug, slug);
+  if (photo) schema.image = `${SITE}${photo}`;
+  return head({ title: `${e.name} · ${e.neighborhood || 'Minneapolis'} · ${c.title}`, description, slug: `${c.slug}/${slug}`, theme: c.hero_color, image: photo }) +
     header({ activeSlug: c.slug }) +
     `<nav class="breadcrumb wrap">
        <a href="/">bestofmpls</a>
@@ -2977,6 +3004,8 @@ function renderEntry(c, e, allCategories) {
          <h1 class="entry-detail-name">${esc(e.name)}</h1>
          ${BEST_OF_LIVE && isBestOfWinner(c.slug, e.name) ? `<a class="bestof-ribbon" href="/best-of-${BEST_OF_YEAR}/">★ Best of MPLS ${BEST_OF_YEAR}: ${esc(bestOfAwardLabel(c.slug))}</a>` : ''}
        </header>
+
+       ${photo ? `<figure class="entry-photo"><img src="${esc(photo)}" alt="${esc(e.name)}" loading="eager" decoding="async"></figure>` : ''}
 
        <section class="entry-detail-body">
          <p class="entry-detail-description">${esc(e.description)}</p>
