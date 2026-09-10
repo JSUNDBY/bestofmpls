@@ -2037,5 +2037,25 @@
   "2308 W 50th St, Minneapolis": {
     "lat": 44.9125515,
     "lng": -93.309182
+  },
+  "3501 Minnesota Dr, Bloomington": {
+    "lat": 44.8613426,
+    "lng": -93.3244706
+  },
+  "2014 Central Ave NE, Minneapolis": {
+    "lat": 45.0358157,
+    "lng": -93.2473553
+  },
+  "4351 France Ave S, Minneapolis": {
+    "lat": 44.9229241,
+    "lng": -93.3287467
+  },
+  "1573 Grand Ave, St. Paul": {
+    "lat": 44.9402242,
+    "lng": -93.1665666
+  },
+  "882 7th St W, St. Paul": {
+    "lat": 44.9239866,
+    "lng": -93.1374111
   }
 }

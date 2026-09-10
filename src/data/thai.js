@@ -7,6 +7,14 @@ module.exports = {
   needs_verification: true,
   entries: [
     {
+      name: 'HOT GRAINZ Thai Street Food',
+      neighborhood: 'West End, St. Paul',
+      style: 'Northern Thai street food',
+      description: 'Northern Thai street food in a small West 7th room, with the kind of menu that trusts you: khao soi done right, grilled meats over rice, and heat levels that mean what they say. Counter-casual, quick, and one of the reasons the West End eats better than it used to.',
+      address: '882 7th St W, St. Paul',
+      price: '$$'
+    },
+    {
       name: 'Bangkok Thai Deli',
       neighborhood: 'Frogtown, St. Paul',
       style: 'Bangkok-style, regional Thai',

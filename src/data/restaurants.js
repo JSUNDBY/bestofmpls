@@ -31,6 +31,14 @@ module.exports = {
       website: 'https://yumkitchen.com'
     },
     {
+      name: 'Ciao Bella',
+      neighborhood: 'Bloomington',
+      style: 'Contemporary Italian',
+      description: 'A Bloomington institution off the 494 strip doing contemporary Italian with fresh, seasonal ingredients, an approachable wine list, and a patio that fills the second the weather allows. The kind of polished, generous room that makes a suburban business lunch or a family dinner feel like an occasion.',
+      address: '3501 Minnesota Dr, Bloomington',
+      price: '$$$'
+    },
+    {
       name: 'Tasca Madrid',
       neighborhood: 'Cathedral Hill, St. Paul',
       style: 'Spanish, tapas and paella',
