@@ -246,8 +246,8 @@ DAY_MODES.sun = DAY_MODES.fri;
 const IG = {
   'First Avenue': '@firstavenue', '7th St Entry': '@7thstentry',
   'Fine Line': '@finelinempls', 'Turf Club': '@turfclubmpls',
-  'The Fillmore Minneapolis': '@fillmoreminneapolis',
-  'Dakota Jazz Club': '@dakotajazzclub', 'Icehouse': '@icehousempls',
+  'The Fillmore Minneapolis': '@fillmorempls',
+  'Dakota Jazz Club': '@dakotampls', 'Icehouse': '@icehousempls',
   'The Cedar Cultural Center': '@thecedar', 'The Parkway Theater': '@theparkwaytheater',
   'Berlin': '@berlinmpls', 'Varsity Theater': '@varsitytheater',
   'White Squirrel Bar': '@whitesquirrelbar', 'Palace Theatre': '@palacestpaul',
