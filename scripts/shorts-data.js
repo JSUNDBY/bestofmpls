@@ -241,9 +241,53 @@ const DAY_MODES = {
 DAY_MODES.sat = DAY_MODES.fri;
 DAY_MODES.sun = DAY_MODES.fri;
 
+// IG handles for common venues. Verify a handle in the app the first time
+// it appears in a caption; unknown venues fall back to their plain name.
+const IG = {
+  'First Avenue': '@firstavenue', '7th St Entry': '@7thstentry',
+  'Fine Line': '@finelinempls', 'Turf Club': '@turfclubmpls',
+  'The Fillmore Minneapolis': '@fillmoreminneapolis',
+  'Dakota Jazz Club': '@dakotajazzclub', 'Icehouse': '@icehousempls',
+  'The Cedar Cultural Center': '@thecedar', 'The Parkway Theater': '@theparkwaytheater',
+  'Berlin': '@berlinmpls', 'Varsity Theater': '@varsitytheater',
+  'White Squirrel Bar': '@whitesquirrelbar', 'Palace Theatre': '@palacestpaul',
+  'Orchestra Hall': '@minnesotaorchestra', 'Guthrie Theater': '@guthrietheater',
+  'Walker Art Center': '@walkerartcenter', 'Green Room': '@greenroommn',
+};
+const igName = v => IG[v] || v;
+// A subtitle earns a detail line if it reads like context, not boilerplate.
+const detailOf = e => {
+  const t = String(e.subtitle || '').trim();
+  if (!t || /doors|showtime|show\s*time|pm\s*\||no cover|^\$|^\d/i.test(t)) return null;
+  return t.length > 90 ? t.slice(0, 88).replace(/\s+\S*$/, '') + '…' : t;
+};
+// Caption: hook, detail-rich picks, an also-tonight line from the wider
+// pool, the count, the day's CTA, hashtags. (Josh: picks need a little
+// more detail, and more of them.)
+function writeCaption(mode2, props, extraPool) {
+  const hookLine = `${props.kicker} ${props.hook1} ${props.hook2}`.replace(/\s+/g, ' ');
+  const lines = props.items.map(i => {
+    const src = extraPool.find(e => stripHype(e.title).trim() === i.title && e.venue === i.venue);
+    const d = src ? detailOf(src) : null;
+    return `${i.title} at ${igName(i.venue)}${d ? ' — ' + d : ''}`;
+  });
+  const used = new Set(props.items.map(i => `${i.title}|${i.venue}`));
+  const also = extraPool
+    .filter(e => !used.has(`${stripHype(e.title).trim()}|${e.venue}`) && displayable(e))
+    .slice(0, 3)
+    .map(e => `${stripHype(e.title).trim()} at ${igName(e.venue)}`);
+  let cap = hookLine + '\n\n' + lines.join('\n') + '\n';
+  if (also.length) cap += `\nAlso: ${also.join(', ')}.\n`;
+  cap += `\n${props.closeTop.replace(/\n/g, ' ')} ${props.closeUrl} — link in bio.\n`;
+  if (props.closeCta && /follow/i.test(props.closeCta)) cap += 'Follow for tomorrow\u2019s picks.\n';
+  cap += '\n#minneapolis #twincities #stpaul #mymplsdt';
+  fs.writeFileSync(path.join(outDir, `${mode2}-caption.txt`), cap);
+}
+
 if (DAY_MODES[mode]) {
   const props = DAY_MODES[mode]();
   fs.writeFileSync(path.join(outDir, `${mode}.json`), JSON.stringify(props, null, 2));
+  writeCaption(mode, props, pool(todayIso, weekEnd));
   ledger.days[mode] = props.items.map(i => `${i.title}|${i.venue}`);
   try { fs.writeFileSync(LEDGER_PATH, JSON.stringify(ledger, null, 2)); } catch (_) {}
   console.log(`${mode}: ${props.items.length} items`);
