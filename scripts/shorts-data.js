@@ -245,7 +245,7 @@ DAY_MODES.sun = DAY_MODES.fri;
 // it appears in a caption; unknown venues fall back to their plain name.
 const IG = {
   'First Avenue': '@firstavenue', '7th St Entry': '@7thstentry',
-  'Fine Line': '@finelinempls', 'Turf Club': '@turfclubmpls',
+  'Fine Line': '@finelinempls', 'Turf Club': '@turfclubmn',
   'The Fillmore Minneapolis': '@fillmorempls',
   'Dakota Jazz Club': '@dakotampls', 'Icehouse': '@icehousempls',
   'The Cedar Cultural Center': '@thecedar', 'The Parkway Theater': '@theparkwaytheater',
