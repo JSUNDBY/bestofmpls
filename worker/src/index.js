@@ -550,6 +550,48 @@ export default {
       return json({ keys: list.keys.map(k => k.name) }, 200, origin);
     }
 
+    // ===== Venue CRM: GET /admin/crm, POST /admin/crm =====
+    // One KV object (crm:all) keyed by place (cat--slug): status, contact,
+    // channel, notes, touches[]. Single-operator tool, so read-modify-write
+    // is fine. The static venue roster (contacts, websites, photo state)
+    // comes from the site build at /admin/venues.json; this holds only
+    // what Josh types.
+    if (url.pathname === '/admin/crm') {
+      if (!(await adminAuthed())) return json({ error: 'unauthorized' }, 401, origin);
+      const raw = await env.POLLS.get('crm:all');
+      const crm = raw ? JSON.parse(raw) : {};
+      if (request.method === 'GET') return json({ crm }, 200, origin);
+      if (request.method === 'POST') {
+        let body;
+        try { body = await request.json(); } catch (_) { return json({ error: 'invalid json' }, 400, origin); }
+        const place = clean(body.place, 120);
+        if (!/^[a-z0-9-]+--[a-z0-9-]+$/.test(place)) return json({ error: 'bad place' }, 400, origin);
+        const cur = crm[place] || { touches: [] };
+        const p = body.patch || {};
+        if (typeof p.status === 'string') cur.status = clean(p.status, 20);
+        if (typeof p.contact === 'string') cur.contact = clean(p.contact, 120);
+        if (typeof p.channel === 'string') cur.channel = clean(p.channel, 120);
+        if (typeof p.notes === 'string') cur.notes = clean(p.notes, 2000);
+        if (typeof p.touch === 'string' && p.touch.trim()) {
+          cur.touches = (cur.touches || []).concat([{ ts: Date.now(), note: clean(p.touch, 300) }]).slice(-50);
+        }
+        cur.updated = Date.now();
+        crm[place] = cur;
+        await env.POLLS.put('crm:all', JSON.stringify(crm));
+        return json({ ok: true, record: cur }, 200, origin);
+      }
+    }
+
+    // ===== GET /admin/venue-link?place=cat--slug — mint an upload link =====
+    if (request.method === 'GET' && url.pathname === '/admin/venue-link') {
+      if (!(await adminAuthed())) return json({ error: 'unauthorized' }, 401, origin);
+      const place = url.searchParams.get('place') || '';
+      if (!/^[a-z0-9-]+--[a-z0-9-]+$/.test(place)) return json({ error: 'bad place' }, 400, origin);
+      if (!env.VENUE_SECRET) return json({ error: 'not configured' }, 500, origin);
+      const k = (await sha256Hex(`${env.VENUE_SECRET}:${place}`)).slice(0, 12);
+      return json({ url: `https://bestofmpls.com/photos/?p=${place}&k=${k}` }, 200, origin);
+    }
+
     // ===== GET /admin/photo?key=... — one photo record incl. blob =====
     if (request.method === 'GET' && url.pathname === '/admin/photo') {
       if (!(await adminAuthed())) return json({ error: 'unauthorized' }, 401, origin);

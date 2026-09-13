@@ -1078,6 +1078,8 @@ function header({ activeSlug } = {}) {
         { href: '/this-weekend/', label: 'This Weekend', deck: 'Friday through Sunday, day by day' },
         { href: `/${monthPageMeta(0).slug}/`, label: 'This Month', deck: 'The month’s whole board, week by week' },
         { href: '/live-music/tonight/', label: 'Music Tonight', deck: 'Every show, from the venues themselves' },
+        { href: '/jazz/tonight/', label: 'Jazz Tonight', deck: 'The working jazz rooms, tonight and this week' },
+        { href: '/comedy/tonight/', label: 'Comedy Tonight', deck: 'Stand-up, improv, sketch' },
         { href: '/calendar/',  label: 'Calendar',       deck: 'Live shows, openings, screenings' },
         { href: '/scenes/',    label: 'Scenes',         deck: 'Jazz, punk, electronic, folk, hip-hop' },
         { href: '/now-showing/', label: 'Now Showing',  deck: 'Current art exhibitions' },
@@ -3414,6 +3416,7 @@ ${aeoBlock}
   <h2 class="ops-h2">Doors</h2>
   <div class="ops-links">
     <a href="/admin/picks/">Full picks inbox →</a>
+    <a href="/admin/venues/">Venues CRM →</a>
     <a href="https://github.com/JSUNDBY/bestofmpls">Repo</a>
     <a href="https://github.com/JSUNDBY/bestofmpls/actions">Actions</a>
     <a href="https://dash.cloudflare.com/">Worker (Cloudflare)</a>
@@ -3577,6 +3580,252 @@ ${aeoBlock}
   // Boot: silent sign-in when the key is already on this device.
   var existing = getKey();
   if (existing) { hide('gate'); tryKey(existing, false); }
+})();
+</script>
+</body></html>`;
+}
+
+// ---------- /admin/venues/ — the venue CRM ----------
+// Static roster (this build) + what Josh types (worker KV crm:all). One
+// table: who, how to reach them, where the relationship stands, their
+// upload link, whether their photos have landed. Same admin key as /admin/.
+function buildVenueRoster() {
+  const contacts = loadJsonOptional(path.join(SRC, 'data/venue-contacts.json')) || {};
+  const SKIP = new Set(['festivals', 'history', 'departed', 'outdoors', 'hidden-gems', 'curiosities', 'skyway', 'openings', 'trails']);
+  const seen = new Set();
+  const roster = [];
+  for (const cat of categories) {
+    if (SKIP.has(cat.slug)) continue;
+    for (const e of cat.entries || []) {
+      if (!e.name) continue;
+      const slug = entrySlug(e.name);
+      if (seen.has(slug)) continue;
+      seen.add(slug);
+      const place = `${cat.slug}--${slug}`;
+      const c = contacts[place] || {};
+      roster.push({
+        place,
+        name: e.name,
+        cat: cat.slug,
+        catTitle: cat.title,
+        hood: (e.neighborhood || '').split(',')[0].trim(),
+        website: e.website || c.website || '',
+        emails: c.emails || [],
+        instagram: e.instagram || c.instagram || '',
+        photo: placePhotos(cat.slug, slug).length,
+        url: `/${cat.slug}/${slug}/`,
+        scraped: !!venueHref(e.name),
+      });
+    }
+  }
+  return roster.sort((a, b) => a.name.localeCompare(b.name));
+}
+
+function renderAdminVenues() {
+  const roster = buildVenueRoster();
+  writeFile('admin/venues.json', JSON.stringify({ built: TODAY_ISO, roster }));
+  const withEmail = roster.filter(r => r.emails.length).length;
+  const withIg = roster.filter(r => r.instagram).length;
+  return `<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Venues · bestofmpls</title>
+<link rel="stylesheet" href="/style.css?v=79">
+<style>
+  body { background: var(--paper); }
+  .crm-wrap { max-width: 1240px; margin: 0 auto; padding: 28px var(--gutter) 96px; }
+  .crm-mast { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding-bottom: 16px; border-bottom: 2px solid var(--ink); margin-bottom: 18px; }
+  .crm-mast h1 { font-family: var(--font-display); font-weight: 800; font-size: clamp(26px, 4vw, 36px); margin: 0; letter-spacing: -0.02em; }
+  .crm-mast a { font-family: var(--font-label); font-weight: 700; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-soft); text-decoration: none; }
+  .crm-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; margin-bottom: 18px; }
+  .crm-stat { padding: 12px 14px; border: 1px solid var(--rule); border-radius: var(--radius); cursor: pointer; }
+  .crm-stat.is-on { border-color: var(--clay); background: rgba(200,32,15,0.05); }
+  .crm-stat b { display: block; font-family: var(--font-mono); font-weight: 700; font-size: 24px; line-height: 1; }
+  .crm-stat span { font-family: var(--font-label); font-weight: 700; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-faint); margin-top: 6px; display: block; }
+  .crm-bar { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; align-items: center; }
+  .crm-bar input, .crm-bar select { font-family: var(--font-body); font-size: 14px; padding: 9px 12px; border: 1px solid var(--rule); border-radius: 8px; background: var(--paper); color: var(--ink); }
+  .crm-bar input { flex: 1; min-width: 200px; }
+  .crm-count { font-family: var(--font-mono); font-size: 12px; color: var(--ink-faint); margin-left: auto; }
+  table.crm { width: 100%; border-collapse: collapse; font-family: var(--font-body); font-size: 13.5px; }
+  .crm th { font-family: var(--font-label); font-weight: 700; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-faint); text-align: left; padding: 8px 8px; border-bottom: 2px solid var(--ink); white-space: nowrap; }
+  .crm td { padding: 8px 8px; border-bottom: 1px solid var(--rule-soft); vertical-align: top; }
+  .crm td.name a { font-family: var(--font-display); font-weight: 700; font-size: 14.5px; color: var(--ink); text-decoration: none; }
+  .crm td.name small { display: block; font-family: var(--font-mono); font-size: 10.5px; color: var(--ink-faint); margin-top: 2px; }
+  .crm td.contact { font-size: 12.5px; line-height: 1.5; }
+  .crm td.contact a { color: var(--clay); text-decoration: none; }
+  .crm td.contact .none { color: var(--ink-faint); }
+  .crm select.st { font-family: var(--font-label); font-weight: 700; font-size: 10.5px; letter-spacing: 0.06em; text-transform: uppercase; padding: 5px 8px; border: 1px solid var(--rule); border-radius: 999px; background: var(--paper); color: var(--ink); }
+  .crm select.st.s-sent { border-color: #B58900; color: #B58900; }
+  .crm select.st.s-replied, .crm select.st.s-photos { border-color: #2E7D32; color: #2E7D32; }
+  .crm select.st.s-link, .crm select.st.s-partner { border-color: var(--clay); color: var(--clay); background: rgba(200,32,15,0.06); }
+  .crm select.st.s-no { border-color: var(--rule); color: var(--ink-faint); }
+  .crm input.who { width: 130px; font-family: var(--font-body); font-size: 12.5px; padding: 5px 7px; border: 1px solid transparent; border-radius: 6px; background: transparent; color: var(--ink); }
+  .crm input.who:focus, .crm textarea.notes:focus { border-color: var(--rule); outline: none; background: var(--paper); }
+  .crm textarea.notes { width: 100%; min-width: 180px; font-family: var(--font-body); font-size: 12.5px; padding: 5px 7px; border: 1px solid transparent; border-radius: 6px; background: transparent; color: var(--ink); resize: vertical; min-height: 30px; }
+  .crm td.photo { font-family: var(--font-mono); font-size: 11.5px; white-space: nowrap; }
+  .crm td.photo .ok { color: #2E7D32; }
+  .crm td.photo .pend { color: #B58900; }
+  .crm button.lnk { appearance: none; font-family: var(--font-label); font-weight: 700; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; padding: 6px 10px; border: 1px solid var(--rule); border-radius: 999px; background: transparent; color: var(--ink); cursor: pointer; white-space: nowrap; }
+  .crm button.lnk:hover { border-color: var(--clay); color: var(--clay); }
+  .crm td.touch { font-family: var(--font-mono); font-size: 11px; color: var(--ink-faint); white-space: nowrap; }
+  .crm-toast { position: fixed; bottom: 18px; left: 50%; transform: translateX(-50%); background: var(--ink); color: var(--paper); font-family: var(--font-label); padding: 10px 18px; border-radius: 999px; font-size: 13px; opacity: 0; transition: opacity .25s; pointer-events: none; }
+  .crm-toast.on { opacity: 1; }
+  .crm-gate { font-family: var(--font-body); padding: 60px 0; text-align: center; color: var(--ink-soft); }
+  .crm-gate a { color: var(--clay); }
+  .crm-tablewrap { overflow-x: auto; }
+</style>
+</head>
+<body>
+${header({ activeSlug: '' })}
+<main class="crm-wrap">
+  <div class="crm-mast">
+    <h1>Venues</h1>
+    <a href="/admin/">← Operations</a>
+  </div>
+  <div id="crm-gate" class="crm-gate">Unlock on <a href="/admin/">the operations page</a> first — the same key opens this.</div>
+  <div id="crm-app" style="display:none">
+    <div class="crm-stats" id="crm-stats"></div>
+    <div class="crm-bar">
+      <input type="search" id="crm-q" placeholder="Search name, neighborhood, category…">
+      <select id="crm-cat"><option value="">All categories</option></select>
+      <select id="crm-hood"><option value="">All neighborhoods</option></select>
+      <select id="crm-status"><option value="">Any status</option><option value="new">New</option><option value="sent">Sent</option><option value="replied">Replied</option><option value="photos">Photos in</option><option value="link">Link live</option><option value="partner">Partner</option><option value="no">Not now</option></select>
+      <select id="crm-reach"><option value="">Any contact</option><option value="email">Has email</option><option value="ig">Instagram only</option><option value="none">No contact found</option></select>
+      <span class="crm-count" id="crm-n"></span>
+    </div>
+    <div class="crm-tablewrap">
+    <table class="crm">
+      <thead><tr><th>Place</th><th>Reach</th><th>Status</th><th>Person</th><th>Photos</th><th>Upload link</th><th>Notes</th><th>Last touch</th></tr></thead>
+      <tbody id="crm-rows"></tbody>
+    </table>
+    </div>
+    <p class="ops-note" style="margin-top:14px;font-family:var(--font-body);font-size:12.5px;color:var(--ink-faint)">Roster built ${esc(TODAY_ISO)}: ${roster.length} places, ${withEmail} with an email found on their site, ${withIg} with Instagram. Contacts refresh with <code>node scripts/venue-contacts.js</code>. Edits save as you type.</p>
+  </div>
+  <div class="crm-toast" id="crm-toast"></div>
+</main>
+<script>
+(function(){
+  var WORKER = ${JSON.stringify(POLL_WORKER_URL)};
+  var KEY = localStorage.getItem('bom-admin-key') || '';
+  if (!KEY) return;
+  document.getElementById('crm-gate').style.display = 'none';
+  document.getElementById('crm-app').style.display = '';
+  var roster = [], crm = {}, pending = {}, links = {};
+  var STATUSES = ['new','sent','replied','photos','link','partner','no'];
+  var LABELS = { new: 'New', sent: 'Sent', replied: 'Replied', photos: 'Photos in', link: 'Link live', partner: 'Partner', no: 'Not now' };
+  function esc(s){ return String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+  function toast(t){ var el = document.getElementById('crm-toast'); el.textContent = t; el.classList.add('on'); setTimeout(function(){ el.classList.remove('on'); }, 1800); }
+  function ago(ts){ var m = Math.round((Date.now() - ts) / 60000); if (m < 60) return m + 'm'; var h = Math.round(m / 60); if (h < 48) return h + 'h'; return Math.round(h / 24) + 'd'; }
+  function auth(path, opts){ opts = opts || {}; opts.headers = Object.assign({}, opts.headers, { 'X-Admin-Key': KEY }); return fetch(WORKER + path, opts); }
+  function rec(place){ return crm[place] || {}; }
+  function statusOf(r){ var s = rec(r.place).status; if (s) return s; if (pending[r.place]) return 'photos'; return 'new'; }
+
+  function filtered(){
+    var q = document.getElementById('crm-q').value.trim().toLowerCase();
+    var cat = document.getElementById('crm-cat').value, hood = document.getElementById('crm-hood').value;
+    var st = document.getElementById('crm-status').value, reach = document.getElementById('crm-reach').value;
+    return roster.filter(function(r){
+      if (q && (r.name + ' ' + r.hood + ' ' + r.catTitle).toLowerCase().indexOf(q) < 0) return false;
+      if (cat && r.cat !== cat) return false;
+      if (hood && r.hood !== hood) return false;
+      if (st && statusOf(r) !== st) return false;
+      if (reach === 'email' && !r.emails.length) return false;
+      if (reach === 'ig' && (r.emails.length || !r.instagram)) return false;
+      if (reach === 'none' && (r.emails.length || r.instagram)) return false;
+      return true;
+    });
+  }
+
+  function renderStats(){
+    var counts = { total: roster.length, sent: 0, replied: 0, photos: 0, link: 0, partner: 0 };
+    roster.forEach(function(r){ var s = statusOf(r); if (s === 'sent') counts.sent++; if (s === 'replied') counts.replied++; if (s === 'photos' || r.photo) counts.photos++; if (s === 'link') counts.link++; if (s === 'partner') counts.partner++; });
+    var cur = document.getElementById('crm-status').value;
+    var tiles = [['', counts.total, 'venues'], ['sent', counts.sent, 'contacted'], ['replied', counts.replied, 'replied'], ['photos', counts.photos, 'with photos'], ['link', counts.link, 'links live'], ['partner', counts.partner, 'partners']];
+    document.getElementById('crm-stats').innerHTML = tiles.map(function(t){
+      return '<div class="crm-stat' + (cur === t[0] && t[0] ? ' is-on' : '') + '" data-st="' + t[0] + '"><b>' + t[1] + '</b><span>' + t[2] + '</span></div>';
+    }).join('');
+  }
+
+  function row(r){
+    var c = rec(r.place), s = statusOf(r);
+    var reach = [];
+    r.emails.forEach(function(e){ reach.push('<a href="mailto:' + esc(e) + '">' + esc(e) + '</a>'); });
+    if (r.instagram) reach.push('<a href="https://instagram.com/' + esc(r.instagram.replace('@','')) + '" target="_blank" rel="noopener">' + esc(r.instagram) + '</a>');
+    if (r.website) reach.push('<a href="' + esc(r.website) + '" target="_blank" rel="noopener">site ↗</a>');
+    var last = (c.touches && c.touches.length) ? c.touches[c.touches.length - 1] : null;
+    return '<tr data-place="' + esc(r.place) + '">' +
+      '<td class="name"><a href="' + esc(r.url) + '" target="_blank">' + esc(r.name) + '</a><small>' + esc(r.hood) + ' · ' + esc(r.catTitle) + (r.scraped ? ' · calendar scraped' : '') + '</small></td>' +
+      '<td class="contact">' + (reach.length ? reach.join('<br>') : '<span class="none">nothing found</span>') + '</td>' +
+      '<td><select class="st s-' + s + '" data-f="status">' + STATUSES.map(function(x){ return '<option value="' + x + '"' + (x === s ? ' selected' : '') + '>' + LABELS[x] + '</option>'; }).join('') + '</select></td>' +
+      '<td><input class="who" data-f="contact" placeholder="who" value="' + esc(c.contact || '') + '"></td>' +
+      '<td class="photo">' + (r.photo ? '<span class="ok">✓ ' + r.photo + ' live</span>' : '') + (pending[r.place] ? '<span class="pend">' + (r.photo ? ' · ' : '') + pending[r.place] + ' waiting</span>' : '') + (!r.photo && !pending[r.place] ? '<span style="color:var(--ink-faint)">none</span>' : '') + '</td>' +
+      '<td><button class="lnk" data-act="link">' + (links[r.place] ? 'Copy again' : 'Copy link') + '</button></td>' +
+      '<td><textarea class="notes" data-f="notes" rows="1" placeholder="notes">' + esc(c.notes || '') + '</textarea></td>' +
+      '<td class="touch">' + (last ? ago(last.ts) + ' · ' + esc(last.note) : (c.updated ? ago(c.updated) : '')) + '</td>' +
+      '</tr>';
+  }
+
+  function render(){
+    var list = filtered();
+    document.getElementById('crm-rows').innerHTML = list.map(row).join('');
+    document.getElementById('crm-n').textContent = list.length + ' of ' + roster.length;
+    renderStats();
+  }
+
+  var saveTimers = {};
+  function save(place, patch, note){
+    clearTimeout(saveTimers[place]);
+    saveTimers[place] = setTimeout(function(){
+      auth('/admin/crm', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ place: place, patch: patch }) })
+        .then(function(r){ return r.json(); }).then(function(d){ if (d.ok) { crm[place] = d.record; if (note) toast(note); renderStats(); } else toast(d.error || 'save failed'); })
+        .catch(function(){ toast('offline — not saved'); });
+    }, patch.status ? 0 : 600);
+  }
+
+  document.getElementById('crm-rows').addEventListener('change', function(ev){
+    var el = ev.target, tr = el.closest('tr'); if (!tr) return;
+    var place = tr.getAttribute('data-place'), f = el.getAttribute('data-f');
+    if (f === 'status') { el.className = 'st s-' + el.value; save(place, { status: el.value, touch: 'status → ' + LABELS[el.value] }, 'Saved'); }
+    else if (f === 'contact') save(place, { contact: el.value }, 'Saved');
+    else if (f === 'notes') save(place, { notes: el.value }, 'Saved');
+  });
+  document.getElementById('crm-rows').addEventListener('input', function(ev){
+    var el = ev.target; if (el.getAttribute('data-f') !== 'notes') return;
+    var tr = el.closest('tr'); save(tr.getAttribute('data-place'), { notes: el.value });
+  });
+  document.getElementById('crm-rows').addEventListener('click', function(ev){
+    var b = ev.target.closest('button[data-act="link"]'); if (!b) return;
+    var tr = b.closest('tr'), place = tr.getAttribute('data-place');
+    var r = roster.find(function(x){ return x.place === place; });
+    var go = function(url){
+      var msg = 'Hi — Josh from Best of MPLS (bestofmpls.com). Your page on our guide can show your own photos. Here\\u2019s a private upload link for ' + r.name + ': ' + url + ' — pick your best few (the room, the food, the front), takes a minute from a phone. We review everything before it goes live. Any questions, just reply.';
+      navigator.clipboard.writeText(msg).then(function(){ toast('Message + link copied'); b.textContent = 'Copy again'; }, function(){ prompt('Copy this:', msg); });
+    };
+    if (links[place]) return go(links[place]);
+    auth('/admin/venue-link?place=' + encodeURIComponent(place)).then(function(x){ return x.json(); }).then(function(d){ if (d.url) { links[place] = d.url; go(d.url); } else toast(d.error || 'no link'); });
+  });
+  ['crm-q','crm-cat','crm-hood','crm-status','crm-reach'].forEach(function(id){ document.getElementById(id).addEventListener('input', render); document.getElementById(id).addEventListener('change', render); });
+  document.getElementById('crm-stats').addEventListener('click', function(ev){
+    var t = ev.target.closest('[data-st]'); if (!t) return;
+    var sel = document.getElementById('crm-status'); sel.value = (sel.value === t.getAttribute('data-st')) ? '' : t.getAttribute('data-st'); render();
+  });
+
+  Promise.all([
+    fetch('/admin/venues.json').then(function(r){ return r.json(); }),
+    auth('/admin/crm').then(function(r){ return r.json(); }),
+    auth('/admin/photos').then(function(r){ return r.json(); }).catch(function(){ return { keys: [] }; })
+  ]).then(function(res){
+    roster = res[0].roster || [];
+    crm = (res[1] && res[1].crm) || {};
+    (res[2].keys || []).forEach(function(k){ var m = k.match(/^photo:\\d+-([a-z0-9-]+--[a-z0-9-]+)/); if (m) pending[m[1]] = (pending[m[1]] || 0) + 1; });
+    var cats = {}, hoods = {};
+    roster.forEach(function(r){ cats[r.cat] = r.catTitle; if (r.hood) hoods[r.hood] = 1; });
+    document.getElementById('crm-cat').innerHTML += Object.keys(cats).sort(function(a,b){ return cats[a].localeCompare(cats[b]); }).map(function(c){ return '<option value="' + esc(c) + '">' + esc(cats[c]) + '</option>'; }).join('');
+    document.getElementById('crm-hood').innerHTML += Object.keys(hoods).sort().map(function(h){ return '<option value="' + esc(h) + '">' + esc(h) + '</option>'; }).join('');
+    render();
+  }).catch(function(){ toast('Could not load — is the key still valid?'); });
 })();
 </script>
 </body></html>`;
@@ -7199,6 +7448,99 @@ function renderMonthPage(mp) {
     footer();
 }
 
+// ---------- /jazz/tonight/ and /comedy/tonight/ — lane answer pages ----------
+// Same shape as /live-music/tonight/: today first, then the week, rebuilt
+// every CI run. Jazz is venue-defined (the scene's rooms); comedy is
+// classified by title/venue keywords until dedicated comedy scrapers land.
+const JAZZ_VENUES = new Set(['Dakota Jazz Club & Restaurant', 'Dakota Jazz Club', 'Icehouse', 'Berlin', 'Aster Cafe', 'Crooners', 'Crooners Supper Club', 'Jazz Central Studios', 'Khyber Pass Cafe']);
+const isJazzEvent = e => JAZZ_VENUES.has(e.venue) || /\bjazz\b/i.test(`${e.title} ${e.subtitle || ''}`);
+const COMEDY_RE = /\b(comedy|comedian|comedians|stand-?up|improv|sketch show|open mic comedy|roast battle)\b/i;
+const COMEDY_VENUES = new Set(['Acme Comedy Co', 'Acme Comedy Company', 'Comedy Corner Underground', 'Brave New Workshop', 'HUGE Theater', 'HUGE Improv Theater', 'House of Comedy', 'Rick Bronson’s House of Comedy', 'Sisyphus Brewing']);
+const isComedyEvent = e => COMEDY_VENUES.has(e.venue) || COMEDY_RE.test(`${e.title} ${e.subtitle || ''}`);
+
+function renderLaneTonight(lane) {
+  const all = dedupeNonFilms((eventsData.events || []).filter(e => !isFilmEvent(e) && !isNoiseEvent(e) && e.date >= TODAY_ISO && lane.match(e)))
+    .sort((a, b) => (a.date + (a.time || '99:99')).localeCompare(b.date + (b.time || '99:99')));
+  const [ty, tm, td] = TODAY_ISO.split('-').map(Number);
+  const weekEnd = new Date(ty, tm - 1, td + 7).toISOString().slice(0, 10);
+  const tonight = all.filter(e => e.date === TODAY_ISO);
+  const week = all.filter(e => e.date > TODAY_ISO && e.date <= weekEnd);
+  const fmtDay = iso => { const [y, m, d] = iso.split('-').map(Number); return new Date(y, m - 1, d).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' }); };
+  const fmtT = t => { if (!t) return ''; const [h, m] = t.split(':').map(Number); const ap = h >= 12 ? 'pm' : 'am', hr = h % 12 === 0 ? 12 : h % 12; return `${hr}:${String(m).padStart(2, '0')}${ap}`; };
+  const row = e => `
+    <li class="openday-row">
+      <span class="openday-name">${e.url ? `<a href="${esc(e.url)}" target="_blank" rel="noopener">${esc(e.title)}</a>` : esc(e.title)}</span>
+      <span class="openday-meta">${venueHref(e.venue) ? `<a href="${venueHref(e.venue)}">${esc(e.venue)}</a>` : esc(e.venue)}${e.venue_neighborhood ? ' · ' + esc(e.venue_neighborhood) : ''}${e.price ? ' · ' + esc(e.price) : ''}</span>
+      <span class="openday-close">${esc(fmtDay(e.date))}${e.time ? ' · ' + fmtT(e.time) : ''}</span>
+    </li>`;
+  const faq = lane.faq(tonight, week, all);
+  const faqSchema = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.map(f => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) };
+  const css = `<style>
+    .openday-list{list-style:none;margin:0 0 8px;padding:0;border-top:1px solid var(--rule-soft)}
+    .openday-row{display:grid;grid-template-columns:1fr auto;grid-template-areas:'name close' 'meta close';gap:2px 18px;padding:13px 4px;border-bottom:1px solid var(--rule-soft);align-items:baseline}
+    .openday-name{grid-area:name;font-family:var(--font-display);font-weight:700;font-size:17px;line-height:1.2}
+    .openday-name a{color:var(--ink);text-decoration:none}
+    .openday-name a:hover{color:var(--clay)}
+    .openday-meta{grid-area:meta;font-family:var(--font-body);font-size:13.5px;color:var(--ink-soft)}
+    .openday-meta a{color:inherit}
+    .openday-close{grid-area:close;font-family:var(--font-mono);font-weight:600;font-size:13px;color:var(--clay);white-space:nowrap}
+    .openday-h2{font-family:var(--font-display);font-weight:800;font-size:clamp(22px,3.2vw,30px);margin:40px 0 6px}
+    .openday-note{font-family:var(--font-body);font-size:13.5px;color:var(--ink-faint);margin:6px 0 18px}
+    .openday-faq{border-top:1px solid var(--ink);margin-top:52px;padding-top:8px}
+    .openday-faq h3{font-family:var(--font-display);font-weight:700;font-size:17px;margin:20px 0 6px}
+    .openday-faq p{font-family:var(--font-body);font-size:15px;line-height:1.6;color:var(--ink-soft);max-width:66ch;margin:0}
+  </style>`;
+  return head({ title: lane.seoTitle, description: lane.description(tonight, week), slug: lane.slug, theme: 'forest' }) +
+    header({ activeSlug: '' }) + css +
+    `<section class="section-head">
+      <div class="wrap">
+        <div class="section-eyebrow">${tonight.length} tonight · ${week.length} more this week · updated through the day</div>
+        <h1 class="section-title">${esc(lane.h1)} <em>in the Twin Cities</em></h1>
+        <p class="section-deck">${esc(lane.deck)}</p>
+        ${freshnessNote()}
+      </div>
+    </section>
+    <section class="wrap">
+      <h2 class="openday-h2">Tonight</h2>
+      ${tonight.length ? `<ul class="openday-list">${tonight.map(row).join('')}</ul>` : `<p class="openday-note">${esc(lane.empty)}</p>`}
+      <h2 class="openday-h2">This week</h2>
+      ${week.length ? `<ul class="openday-list">${week.slice(0, 40).map(row).join('')}</ul>` : '<p class="openday-note">Nothing else posted for the next seven days yet.</p>'}
+      <div class="openday-faq">${faq.map(f => `<h3>${esc(f.q)}</h3><p>${esc(f.a)}</p>`).join('')}</div>
+      <p class="openday-note" style="margin-top:28px">Also: ${lane.also}</p>
+    </section>
+    <script type="application/ld+json">${JSON.stringify(faqSchema)}</script>
+    <script type="application/ld+json">${JSON.stringify(musicEventSchema(tonight.concat(week).slice(0, 50), lane.h1 + ' in Minneapolis & St. Paul', `${SITE}/${lane.slug}/`))}</script>` +
+    newsletterCapture({ context: 'calendar' }) +
+    footer();
+}
+
+const LANE_PAGES = [
+  {
+    slug: 'jazz/tonight', h1: 'Jazz Tonight', match: isJazzEvent,
+    seoTitle: 'Jazz in Minneapolis Tonight: Every Show at the Jazz Rooms',
+    deck: 'The Dakota, Icehouse, Berlin, the Aster and the rest of the working jazz rooms, pulled from their own calendars four times a day.',
+    empty: 'No jazz on the board tonight — rare. The week below is where it lives.',
+    description: (t, w) => `${t.length} jazz shows tonight and ${w.length} more this week across Minneapolis and St. Paul, from the venues’ own calendars.`,
+    also: '<a href="/scenes/jazz/">the jazz scene guide</a> · <a href="/live-music/tonight/">all live music tonight</a> · <a href="/calendar/">full calendar</a>',
+    faq: (t, w) => [
+      { q: 'Where is there live jazz in Minneapolis tonight?', a: t.length ? `${t.length} jazz shows tonight: ${t.slice(0, 3).map(e => `${e.title} at ${e.venue}`).join('; ')}. The list above comes straight from the venues’ calendars.` : `No jazz is posted for tonight; ${w.length} shows are on the board for the coming week at the rooms we track.` },
+      { q: 'Which venues are the Twin Cities jazz rooms?', a: 'The Dakota downtown is the destination room for national touring acts. Icehouse, Berlin, and the Aster Cafe book the ambitious smaller sets, and Crooners north of the city runs a supper-club program. This page watches all of them.' }
+    ]
+  },
+  {
+    slug: 'comedy/tonight', h1: 'Comedy Tonight', match: isComedyEvent,
+    seoTitle: 'Comedy Shows in Minneapolis Tonight: Stand-Up, Improv & Sketch',
+    deck: 'Stand-up, improv, and sketch across Minneapolis and St. Paul, from the venues we track, rebuilt through the day.',
+    empty: 'Nothing tagged comedy on the board tonight. The week below has what’s posted.',
+    description: (t, w) => `${t.length} comedy shows tonight and ${w.length} more this week in Minneapolis and St. Paul — stand-up, improv, sketch — from the venues’ own calendars.`,
+    also: '<a href="/live-music/tonight/">live music tonight</a> · <a href="/this-weekend/">this weekend</a> · <a href="/calendar/">full calendar</a>',
+    faq: (t, w) => [
+      { q: 'What comedy shows are in Minneapolis tonight?', a: t.length ? `${t.length} on the board tonight: ${t.slice(0, 3).map(e => `${e.title} at ${e.venue}`).join('; ')}.` : `Nothing is posted for tonight; ${w.length} comedy shows are listed for the coming week.` },
+      { q: 'Which comedy clubs does this cover?', a: 'Every show tagged as comedy across the venues we scrape, including the theaters and music rooms that book stand-up. The dedicated clubs (Acme, Comedy Corner Underground, Brave New Workshop, HUGE) are being added as their calendars come online here.' }
+    ]
+  }
+];
+
 // ---------- /dog-friendly-patios/ — verified, not vibes ----------
 // Minnesota lets patios admit dogs only if the business opts in, so a
 // patio existing proves nothing. Entries carry `dogs: true` plus a
@@ -9526,6 +9868,7 @@ function renderSitemap(neighborhoods, crossPages) {
     ...HOLIDAY_PAGES.map(h => ({ loc: `${SITE}/open/${h.slug}/`, priority: '0.7' })),
     ...[0, 1].map(off => ({ loc: `${SITE}/${monthPageMeta(off).slug}/`, priority: '0.8' })),
     ...(collectDogFriendly().length >= 6 ? [{ loc: SITE + '/dog-friendly-patios/', priority: '0.8' }] : []),
+    ...LANE_PAGES.map(l => ({ loc: `${SITE}/${l.slug}/`, priority: '0.8' })),
     { loc: SITE + '/pride/', priority: '0.85' },
     ...(BEST_OF_LIVE ? [{ loc: `${SITE}/best-of-${BEST_OF_YEAR}/`, priority: '0.9' }] : []),
     ...categories.map(c => ({ loc: `${SITE}/${c.slug}/`, priority: '0.9' })),
@@ -9548,7 +9891,7 @@ function renderSitemap(neighborhoods, crossPages) {
   // date. Everything else omits lastmod entirely — a sitemap that stamps 846
   // URLs "today" every day teaches Google to ignore the signal.
   const lastmod = new Date().toISOString().slice(0, 10);
-  const DAILY = new Set([SITE + '/', SITE + '/tonight/', SITE + '/calendar/', SITE + '/this-weekend/', SITE + '/now-showing/', SITE + '/five/', SITE + '/live-music/tonight/', SITE + '/live-music/free/']);
+  const DAILY = new Set([SITE + '/', SITE + '/tonight/', SITE + '/calendar/', SITE + '/this-weekend/', SITE + '/now-showing/', SITE + '/five/', SITE + '/live-music/tonight/', SITE + '/live-music/free/', SITE + '/jazz/tonight/', SITE + '/comedy/tonight/']);
   return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${urls.map(u => `  <url><loc>${u.loc}</loc>${DAILY.has(u.loc) ? `<lastmod>${lastmod}</lastmod>` : ''}<priority>${u.priority}</priority></url>`).join('\n')}
@@ -9621,6 +9964,8 @@ function renderLlmsTxt(neighborhoods) {
 - [Open on Monday](${SITE}/open/monday/): restaurants and bars open Monday evenings, from verified hours
 - [This Month](${SITE}/${monthPageMeta(0).slug}/): every event we track this month, updated through the day
 - [Dog-Friendly Patios](${SITE}/dog-friendly-patios/): patios and taprooms that welcome dogs, each verified with the venue's own statement
+- [Jazz Tonight](${SITE}/jazz/tonight/): every jazz show tonight and this week at the Twin Cities jazz rooms
+- [Comedy Tonight](${SITE}/comedy/tonight/): stand-up, improv, and sketch tonight and this week
 - [The Calendar](${SITE}/calendar/): concerts, openings, talks, and screenings by date and venue
 - [Now Showing](${SITE}/now-showing/): museum exhibitions and independent gallery shows on view
 - [Best of MPLS](${SITE}/best-of-2026/): the living best-of, ranked by real reader signals
@@ -9695,6 +10040,7 @@ function build() {
   for (const off of [0, 1]) { const mp = monthPageMeta(off); writeFile(`${mp.slug}/index.html`, renderMonthPage(mp)); }
   // Thin-content guard: the dog page only exists once enough venues are verified.
   if (collectDogFriendly().length >= 6) writeFile('dog-friendly-patios/index.html', renderDogFriendly());
+  for (const lane of LANE_PAGES) writeFile(`${lane.slug}/index.html`, renderLaneTonight(lane));
   if (BEST_OF_LIVE) writeFile(`best-of-${BEST_OF_YEAR}/index.html`, renderBestOf());
 
   // Subscribable iCal feed: upcoming creative events (no film showtime spam, no
@@ -9838,6 +10184,7 @@ function build() {
   // Private admin dashboard for reader poll submissions. Not in sitemap,
   // marked noindex. Anyone can hit the URL but the worker enforces auth.
   writeFile('admin/index.html', renderAdminDash());
+  writeFile('admin/venues/index.html', renderAdminVenues());
   writeFile('admin/picks/index.html', renderAdminPicks());
   writeFile('contribute/index.html', renderContribute());
   writeFile('partner/index.html', renderPartner());
