@@ -7,6 +7,9 @@ module.exports = {
   entries: [
     {
       name: 'Bauhaus Brew Labs',
+      dogs: true,
+      dogsNote: "inside and on the patio; a few ticketed events are dog-free",
+      dogsSource: "https://www.minneapolis.org/food-drink/breweries/family-pet-friendly-breweries/",
       neighborhood: 'Northeast Minneapolis',
       style: 'Industrial beer garden',
       description: 'A full city block of patio in the heart of Northeast’s brewery district. Live music most weekends, a rotating cast of food trucks, dogs welcome, and a public-square feeling that beer halls in this country mostly fail to pull off.',
@@ -23,6 +26,9 @@ module.exports = {
     },
     {
       name: 'Sociable Cider Werks',
+      dogs: true,
+      dogsNote: "well-behaved dogs, indoors and out",
+      dogsSource: "https://www.harderthancider.com/taproom",
       neighborhood: 'Northeast Minneapolis',
       style: 'Cider beer garden',
       description: 'The dog-friendliest patio in the city, attached to a cider house that takes hops as seriously as fruit. Big communal tables, weekend live music, a fenced yard that turns into a four-legged social hour by 4pm.',
@@ -31,6 +37,9 @@ module.exports = {
     },
     {
       name: 'Surly Brewing Beer Hall',
+      dogs: true,
+      dogsNote: "beer garden and patio only, not inside",
+      dogsSource: "https://www.yelp.com/questions/surly-brewing-are-dogs-allowed-inside-during-fall-winter/05BYJ5eoWmSAT_V3imSNGA",
       neighborhood: 'Prospect Park, Minneapolis',
       style: 'Beer hall + lawn',
       description: 'The destination brewery to end all of them. Half-ringed by the brewery’s glass facade, half open to a green that fills the moment the temperature breaks. The pizza is shockingly good, by the way.',
@@ -38,27 +47,14 @@ module.exports = {
       price: '$$'
     },
         {
-      name: 'Sandcastle',
-      neighborhood: 'Lake Nokomis',
-      style: 'Lakeside burgers and beer',
-      description: 'On the southwest side of Nokomis, with sand a few feet from the patio. Burgers, brats, fish tacos, and a kids-and-dogs-and-strollers chaos that is the whole point. Seasonal, no reservations, just go.',
-      address: '4955 W Lake Nokomis Pkwy, Minneapolis',
-      price: '$$'
-    },
-    {
       name: 'Lake Monster Brewing',
+      dogs: true,
+      dogsNote: "inside and on the patio",
+      dogsSource: "https://www.lakemonsterbrewing.com/news/dogs",
       neighborhood: 'Vandalia, St. Paul',
       style: 'Industrial taproom + beer garden',
       description: 'A St. Paul taproom whose patio quietly out-vibes most Minneapolis breweries. Long picnic tables, rotating food trucks, a yard that catches just enough afternoon sun. Lager program is among the best in the metro.',
       address: '550 Vandalia St #160, St. Paul',
-      price: '$$'
-    },
-    {
-      name: 'Tin Whiskers Brewing Co.',
-      neighborhood: 'Lowertown, St. Paul',
-      style: 'Downtown patio',
-      description: 'A St. Paul brewery that lucked into a perfect patio location. Walking distance to CHS Field, around the corner from Mears Park, on a corner that catches afternoon sun. Pre-Saints-game patios do not come better.',
-      address: '125 9th St E, St. Paul',
       price: '$$'
     },
     {
@@ -103,6 +99,9 @@ module.exports = {
     },
     {
       name: 'Aster Cafe',
+      dogs: true,
+      dogsNote: "patio only, at their discretion, walk-in tables",
+      dogsSource: "https://astercafe.com/reservations/",
       neighborhood: 'St. Anthony Main, Minneapolis',
       style: 'Riverside patio with skyline view',
       description: 'The European-style courtyard patio sits on the prettiest cobblestone street in town, with the Mississippi and the downtown skyline right across the way. Patio seating is walk-in only and fills fast on summer nights, so it is worth the wait for that view.',
@@ -115,14 +114,6 @@ module.exports = {
       style: 'Neighborhood back patio with shade and fans',
       description: 'The back patio here is a south Minneapolis institution, shaded and fan-cooled with room to spread out over scratch-made food and Town Hall beer. It is the unfussy neighborhood patio people default to all summer long.',
       address: '4810 Chicago Ave S, Minneapolis, MN 55417',
-      price: '$$'
-    },
-    {
-      name: 'Betty Danger’s Country Club',
-      neighborhood: 'Northeast Minneapolis',
-      style: 'Quirky patio with a Ferris wheel and mini golf',
-      description: 'Few patios commit to a bit like Betty Danger’s, where a 65-foot Ferris wheel looms over a sprawling open patio and mini golf rounds out the back. It is loud, pink, and seasonal, the spot locals bring out-of-towners for frozen drinks and Mexampton tacos in the sun.',
-      address: '2501 NE Marshall St, Minneapolis, MN 55418',
       price: '$$'
     },
     {

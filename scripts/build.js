@@ -1117,7 +1117,8 @@ function header({ activeSlug } = {}) {
         { href: '/cocktail-bars/', label: 'Cocktail Bars', deck: 'Where the bartender has an opinion' },
         { href: '/breweries/', label: 'Breweries', deck: 'Patios, taprooms, sour rooms' },
         { href: '/best-dive-bars/', label: 'Dive Bars', deck: 'Booth, beer, no fuss' },
-        { href: '/open/monday/', label: 'Open on Monday', deck: 'The night that burns you, solved' }
+        { href: '/open/monday/', label: 'Open on Monday', deck: 'The night that burns you, solved' },
+        { href: '/dog-friendly-patios/', label: 'Dog-Friendly Patios', deck: 'Verified with the venue, not vibes' }
       ]
     },
     {
@@ -7198,6 +7199,86 @@ function renderMonthPage(mp) {
     footer();
 }
 
+// ---------- /dog-friendly-patios/ — verified, not vibes ----------
+// Minnesota lets patios admit dogs only if the business opts in, so a
+// patio existing proves nothing. Entries carry `dogs: true` plus a
+// `dogsNote` (conditions) and `dogsSource` (URL) only after a source
+// confirmed it — the page reads those fields and nothing else.
+function collectDogFriendly() {
+  const out = [];
+  const seen = new Set();
+  for (const cat of categories) {
+    for (const e of cat.entries || []) {
+      if (e.dogs !== true) continue;
+      const key = entrySlug(e.name);
+      if (seen.has(key)) continue;
+      seen.add(key);
+      out.push({ name: e.name, cat: cat.slug, catTitle: cat.title, neighborhood: e.neighborhood ? String(e.neighborhood).split(',')[0].trim() : '', note: e.dogsNote || '', source: e.dogsSource || '', description: e.description || '', url: `/${cat.slug}/${key}/` });
+    }
+  }
+  // Verified places that aren't directory entries yet (src/data/dog-friendly.js).
+  let extras = [];
+  try { extras = require(path.join(SRC, 'data/dog-friendly.js')).extras || []; } catch (_) {}
+  for (const x of extras) {
+    const key = entrySlug(x.name);
+    if (seen.has(key)) continue;
+    seen.add(key);
+    out.push({ name: x.name, cat: null, catTitle: x.kind || '', neighborhood: x.neighborhood || '', note: x.note || '', source: x.source || '', description: '', url: null });
+  }
+  return out.sort((a, b) => a.neighborhood.localeCompare(b.neighborhood) || a.name.localeCompare(b.name));
+}
+
+function renderDogFriendly() {
+  const places = collectDogFriendly();
+  const faq = [
+    { q: 'Can I bring my dog to a restaurant patio in Minneapolis?', a: 'Only where the business has chosen to allow it. Minnesota law lets restaurants and bars admit dogs to outdoor seating if they opt in and post the rules, so a patio being outdoors doesn’t make it dog-friendly. Every place on this page has said so itself.' },
+    { q: 'Which Twin Cities patios allow dogs?', a: `${places.length} places we track have confirmed dogs are welcome on their patio or in their taproom, including ${places.slice(0, 4).map(p => p.name).join(', ')}. Leashes are the norm everywhere; a few offer water bowls or a dog menu.` },
+    { q: 'How do you verify this?', a: 'Each listing links the venue’s own statement — their site, FAQ, or a post from the venue. Policies change, so if you find one that’s wrong, tell us and we fix it the same day.' }
+  ];
+  const faqSchema = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.map(f => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) };
+  const listSchema = { '@context': 'https://schema.org', '@type': 'ItemList', name: 'Dog-Friendly Patios in Minneapolis & St. Paul', numberOfItems: places.length, itemListElement: places.map((p, i) => ({ '@type': 'ListItem', position: i + 1, name: p.name, ...(p.url ? { url: `${SITE}${p.url}` } : {}) })) };
+  const row = p => `
+    <li class="openday-row">
+      <span class="openday-name">${p.url ? `<a href="${p.url}">${esc(p.name)}</a>` : esc(p.name)}</span>
+      <span class="openday-meta">${p.neighborhood ? esc(p.neighborhood) + ' · ' : ''}${esc(p.catTitle)}${p.note ? ' · ' + esc(p.note) : ''}${p.source ? ` · <a href="${esc(p.source)}" target="_blank" rel="noopener">their word ↗</a>` : ''}</span>
+      <span class="openday-close">dogs ok</span>
+    </li>`;
+  const css = `<style>
+    .openday-list{list-style:none;margin:0 0 8px;padding:0;border-top:1px solid var(--rule-soft)}
+    .openday-row{display:grid;grid-template-columns:1fr auto;grid-template-areas:'name close' 'meta close';gap:2px 18px;padding:13px 4px;border-bottom:1px solid var(--rule-soft);align-items:baseline}
+    .openday-name{grid-area:name;font-family:var(--font-display);font-weight:700;font-size:18px;line-height:1.15}
+    .openday-name a{color:var(--ink);text-decoration:none}
+    .openday-name a:hover{color:var(--clay)}
+    .openday-meta{grid-area:meta;font-family:var(--font-body);font-size:13.5px;color:var(--ink-soft)}
+    .openday-meta a{color:var(--clay)}
+    .openday-close{grid-area:close;font-family:var(--font-mono);font-weight:600;font-size:12px;letter-spacing:0.06em;text-transform:uppercase;color:var(--clay);white-space:nowrap}
+    .openday-faq{border-top:1px solid var(--ink);margin-top:52px;padding-top:8px}
+    .openday-faq h3{font-family:var(--font-display);font-weight:700;font-size:17px;margin:20px 0 6px}
+    .openday-faq p{font-family:var(--font-body);font-size:15px;line-height:1.6;color:var(--ink-soft);max-width:66ch;margin:0}
+    .openday-note{font-family:var(--font-body);font-size:13.5px;color:var(--ink-faint);margin:6px 0 18px}
+  </style>`;
+  return head({ title: 'Dog-Friendly Patios in Minneapolis & St. Paul (Verified)', description: `${places.length} Twin Cities patios and taprooms that have confirmed dogs are welcome — each one linked to the venue’s own word, not a guess.`, slug: 'dog-friendly-patios', theme: 'forest' }) +
+    header({ activeSlug: '' }) + css +
+    `<section class="section-head">
+      <div class="wrap">
+        <div class="section-eyebrow">${places.length} places · verified with the venue</div>
+        <h1 class="section-title">Dog-Friendly Patios <em>in the Twin Cities</em></h1>
+        <p class="section-deck">Patios and taprooms that have said, in their own words, that your dog is welcome. Leashed, outside unless noted, and be the person who brings a water bowl. Policies change; every listing links the source.</p>
+        ${freshnessNote(contentDate('dogs', places.map(p => p.name + p.note)))}
+      </div>
+    </section>
+    <section class="wrap">
+      <ul class="openday-list">${places.map(row).join('')}</ul>
+      <p class="openday-note">Know a patio that welcomes dogs and isn’t here? <a href="/contribute/">Tell us</a> — we verify with the venue and add it.</p>
+      <div class="openday-faq">${faq.map(f => `<h3>${esc(f.q)}</h3><p>${esc(f.a)}</p>`).join('')}</div>
+      <p class="openday-note" style="margin-top:28px">Also: <a href="/best-patios/">the best patios</a> · <a href="/breweries/">breweries</a> · <a href="/open/monday/">open on Monday</a></p>
+    </section>
+    <script type="application/ld+json">${JSON.stringify(faqSchema)}</script>
+    <script type="application/ld+json">${JSON.stringify(listSchema)}</script>` +
+    newsletterCapture({ context: 'category' }) +
+    footer();
+}
+
 // ---------- /open/<holiday>/ — evergreen holiday-hours shells ----------
 // Published early so the URLs age before the seasonal spike; the verified
 // list lands ~3 weeks before each holiday when places post their hours.
@@ -9444,6 +9525,7 @@ function renderSitemap(neighborhoods, crossPages) {
     { loc: SITE + '/open/monday/', priority: '0.8' },
     ...HOLIDAY_PAGES.map(h => ({ loc: `${SITE}/open/${h.slug}/`, priority: '0.7' })),
     ...[0, 1].map(off => ({ loc: `${SITE}/${monthPageMeta(off).slug}/`, priority: '0.8' })),
+    ...(collectDogFriendly().length >= 6 ? [{ loc: SITE + '/dog-friendly-patios/', priority: '0.8' }] : []),
     { loc: SITE + '/pride/', priority: '0.85' },
     ...(BEST_OF_LIVE ? [{ loc: `${SITE}/best-of-${BEST_OF_YEAR}/`, priority: '0.9' }] : []),
     ...categories.map(c => ({ loc: `${SITE}/${c.slug}/`, priority: '0.9' })),
@@ -9538,6 +9620,7 @@ function renderLlmsTxt(neighborhoods) {
 - [This Weekend](${SITE}/this-weekend/): Friday through Sunday, day by day
 - [Open on Monday](${SITE}/open/monday/): restaurants and bars open Monday evenings, from verified hours
 - [This Month](${SITE}/${monthPageMeta(0).slug}/): every event we track this month, updated through the day
+- [Dog-Friendly Patios](${SITE}/dog-friendly-patios/): patios and taprooms that welcome dogs, each verified with the venue's own statement
 - [The Calendar](${SITE}/calendar/): concerts, openings, talks, and screenings by date and venue
 - [Now Showing](${SITE}/now-showing/): museum exhibitions and independent gallery shows on view
 - [Best of MPLS](${SITE}/best-of-2026/): the living best-of, ranked by real reader signals
@@ -9610,6 +9693,8 @@ function build() {
   writeFile('open/monday/index.html', renderOpenMonday());
   for (const h of HOLIDAY_PAGES) writeFile(`open/${h.slug}/index.html`, renderHolidayShell(h));
   for (const off of [0, 1]) { const mp = monthPageMeta(off); writeFile(`${mp.slug}/index.html`, renderMonthPage(mp)); }
+  // Thin-content guard: the dog page only exists once enough venues are verified.
+  if (collectDogFriendly().length >= 6) writeFile('dog-friendly-patios/index.html', renderDogFriendly());
   if (BEST_OF_LIVE) writeFile(`best-of-${BEST_OF_YEAR}/index.html`, renderBestOf());
 
   // Subscribable iCal feed: upcoming creative events (no film showtime spam, no

@@ -256,6 +256,38 @@ module.exports = {
       opened: '1979',
       closed: 'October 2020',
       epitaph: 'The alt-weekly that defined what writing about this metro could sound like. Forty-one years. The void it left is still being filled.'
-    }
+    },
+    {
+      name: "Sandcastle",
+      kind: "Lakeside Patio",
+      neighborhood: "Lake Nokomis, Minneapolis",
+      opened: "2014",
+      closed: "2022",
+      epitaph: "The beach-side burger-and-beer stand that made a Nokomis afternoon feel like vacation. Final season 2022; The Painted Turtle took over the spot."
+    },
+    {
+      name: "Tin Whiskers Brewing Co.",
+      kind: "Brewery Taproom",
+      neighborhood: "Lowertown, Saint Paul",
+      opened: "2014",
+      closed: "2022",
+      epitaph: "Engineer-founded Lowertown taproom with circuit-board branding and a loyal patio crowd. Closed May 2022."
+    },
+    {
+      name: "Betty Danger’s Country Club",
+      kind: "Patio Bar",
+      neighborhood: "Northeast Minneapolis",
+      opened: "2014",
+      closed: "2022",
+      epitaph: "The Ferris wheel bar. Closed in 2022; its successor Hey Y’all closed in February 2026 and the building went up for sale, wheel and all."
+    },
+    {
+      name: "Fair State Brewing Cooperative taproom",
+      kind: "Brewery Taproom",
+      neighborhood: "Northeast Minneapolis",
+      opened: "2014",
+      closed: "2025",
+      epitaph: "Minnesota’s first cooperatively owned brewery closed its Central Avenue taproom on December 7, 2025. The brand still brews in St. Paul; the room is gone."
+    },
   ]
 };

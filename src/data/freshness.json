@@ -120,7 +120,7 @@
   "date": "2026-09-13"
  },
  "cat:breweries": {
-  "hash": "c13f47879eb2",
+  "hash": "9b16bf7e5bdf",
   "date": "2026-09-13"
  },
  "cat:best-dive-bars": {
@@ -128,7 +128,7 @@
   "date": "2026-09-13"
  },
  "cat:best-patios": {
-  "hash": "b9b205f7fb56",
+  "hash": "665ca06d1108",
   "date": "2026-09-13"
  },
  "cat:best-happy-hours": {
@@ -204,7 +204,7 @@
   "date": "2026-09-13"
  },
  "nbx:breweries/in-northeast-minneapolis": {
-  "hash": "77f90836beb6",
+  "hash": "1c4605789561",
   "date": "2026-09-13"
  },
  "nbx:best-dive-bars/in-northeast-minneapolis": {
@@ -212,7 +212,7 @@
   "date": "2026-09-13"
  },
  "nbx:best-patios/in-northeast-minneapolis": {
-  "hash": "20197c5f3820",
+  "hash": "6019b44a38c1",
   "date": "2026-09-13"
  },
  "nbx:best-happy-hours/in-northeast-minneapolis": {
@@ -357,6 +357,10 @@
  },
  "note:first-avenue-stars": {
   "hash": "39ba1c336f06",
+  "date": "2026-09-13"
+ },
+ "dogs": {
+  "hash": "5a8ed1a2202f",
   "date": "2026-09-13"
  }
 }
