@@ -64,7 +64,7 @@
   "status": "no-website"
  },
  "pastries-and-bakeries--a-baker-s-wife-s-pastry-shop": {
-  "name": "A Baker’s Wife’s Pastry Shop",
+  "name": "A Baker\u2019s Wife\u2019s Pastry Shop",
   "website": "",
   "emails": [],
   "instagram": "",
@@ -182,7 +182,7 @@
   "status": "email"
  },
  "bookstores--uncle-hugo-s-and-uncle-edgar-s": {
-  "name": "Uncle Hugo’s & Uncle Edgar’s",
+  "name": "Uncle Hugo\u2019s & Uncle Edgar\u2019s",
   "website": "https://www.unclehugo.com",
   "emails": [],
   "instagram": "",
@@ -346,7 +346,7 @@
   "status": "no-website"
  },
  "best-brunch--mucci-s-italian": {
-  "name": "Mucci’s Italian",
+  "name": "Mucci\u2019s Italian",
   "website": "",
   "emails": [],
   "instagram": "",
@@ -354,7 +354,7 @@
   "status": "no-website"
  },
  "best-brunch--khaluna": {
-  "name": "Khâluna",
+  "name": "Kh\u00e2luna",
   "website": "",
   "emails": [],
   "instagram": "",
@@ -372,12 +372,10 @@
  "best-brunch--saint-genevieve": {
   "name": "Saint Genevieve",
   "website": "https://www.stgmpls.com",
-  "emails": [
-   "user@domain.com"
-  ],
+  "emails": [],
   "instagram": "@bonjour_stg",
   "checked": "2026-09-13",
-  "status": "email"
+  "status": "instagram-only"
  },
  "best-brunch--hai-hai": {
   "name": "Hai Hai",
@@ -400,22 +398,18 @@
  "best-brunch--brasa-premium-rotisserie": {
   "name": "Brasa Premium Rotisserie",
   "website": "https://www.brasa.us",
-  "emails": [
-   "user@domain.com"
-  ],
+  "emails": [],
   "instagram": "@brasa_rotisserie",
   "checked": "2026-09-13",
-  "status": "email"
+  "status": "instagram-only"
  },
  "burgers--the-nook": {
   "name": "The Nook",
   "website": "https://www.crnook.com",
-  "emails": [
-   "user@domain.com"
-  ],
+  "emails": [],
   "instagram": "@shamrocksw7th",
   "checked": "2026-09-13",
-  "status": "email"
+  "status": "instagram-only"
  },
  "burgers--blue-door-pub": {
   "name": "Blue Door Pub",
@@ -434,7 +428,7 @@
   "status": "no-website"
  },
  "burgers--brunson-s-pub": {
-  "name": "Brunson’s Pub",
+  "name": "Brunson\u2019s Pub",
   "website": "",
   "emails": [],
   "instagram": "",
@@ -461,7 +455,6 @@
   "name": "5-8 Club",
   "website": "https://www.5-8club.com",
   "emails": [
-   "user@domain.com",
    "info@5-8club.com"
   ],
   "instagram": "@58club",
@@ -469,7 +462,7 @@
   "status": "email"
  },
  "burgers--matt-s-bar": {
-  "name": "Matt’s Bar",
+  "name": "Matt\u2019s Bar",
   "website": "https://mattsbar.com",
   "emails": [
    "amy@mattsbar.com"
@@ -497,15 +490,13 @@
  "burgers--parlour-bar-st-paul": {
   "name": "Parlour Bar St. Paul",
   "website": "https://www.parlourbar.com",
-  "emails": [
-   "user@domain.com"
-  ],
+  "emails": [],
   "instagram": "@parlourcocktails",
   "checked": "2026-09-13",
-  "status": "email"
+  "status": "instagram-only"
  },
  "burgers--buster-s-on-28th": {
-  "name": "Buster’s on 28th",
+  "name": "Buster\u2019s on 28th",
   "website": "https://www.busterson28th.com",
   "emails": [
    "info@busterson28th.com"
@@ -653,12 +644,10 @@
  "burgers--dream-creamery": {
   "name": "Dream Creamery",
   "website": "https://www.dreamcreamerymn.com",
-  "emails": [
-   "user@domain.com"
-  ],
+  "emails": [],
   "instagram": "@dreamcreamerymn",
   "checked": "2026-09-13",
-  "status": "email"
+  "status": "instagram-only"
  },
  "bookstores--next-chapter-booksellers": {
   "name": "Next Chapter Booksellers",
@@ -671,7 +660,7 @@
   "status": "email"
  },
  "burgers--forepaugh-s": {
-  "name": "Forepaugh’s",
+  "name": "Forepaugh\u2019s",
   "website": "https://forepaughs.com",
   "emails": [
    "gm@forepaughs.com"
@@ -689,7 +678,7 @@
   "status": "none-found"
  },
  "burgers--lion-s-tap": {
-  "name": "Lion’s Tap",
+  "name": "Lion\u2019s Tap",
   "website": "https://lionstap.com",
   "emails": [],
   "instagram": "",
@@ -747,7 +736,7 @@
   "status": "instagram-only"
  },
  "cocktail-bars--volstead-s-emporium": {
-  "name": "Volstead’s Emporium",
+  "name": "Volstead\u2019s Emporium",
   "website": "",
   "emails": [],
   "instagram": "",
@@ -807,12 +796,10 @@
  "cocktail-bars--parlour": {
   "name": "Parlour",
   "website": "https://www.parlourbar.com/",
-  "emails": [
-   "user@domain.com"
-  ],
+  "emails": [],
   "instagram": "@parlourcocktails",
   "checked": "2026-09-13",
-  "status": "email"
+  "status": "instagram-only"
  },
  "cocktail-bars--earl-giles": {
   "name": "Earl Giles",
@@ -835,12 +822,10 @@
  "cocktail-bars--berlin": {
   "name": "Berlin",
   "website": "https://www.berlinmpls.com/",
-  "emails": [
-   "user@domain.com"
-  ],
+  "emails": [],
   "instagram": "@berlinmpls",
   "checked": "2026-09-13",
-  "status": "email"
+  "status": "instagram-only"
  },
  "cocktail-bars--public-domain": {
   "name": "Public Domain",
@@ -863,12 +848,10 @@
  "cocktail-bars--flora-room": {
   "name": "Flora Room",
   "website": "https://www.floraroommpls.com/",
-  "emails": [
-   "user@domain.com"
-  ],
+  "emails": [],
   "instagram": "@floraroommpls",
   "checked": "2026-09-13",
-  "status": "email"
+  "status": "instagram-only"
  },
  "coffee-shops--dogwood-coffee": {
   "name": "Dogwood Coffee",
@@ -895,7 +878,7 @@
   "status": "no-website"
  },
  "coffee-shops--cafe-ceres": {
-  "name": "Cafe Cerés",
+  "name": "Cafe Cer\u00e9s",
   "website": "",
   "emails": [],
   "instagram": "",
@@ -927,7 +910,7 @@
   "status": "no-website"
  },
  "coffee-shops--nina-s-coffee-cafe": {
-  "name": "Nina’s Coffee Cafe",
+  "name": "Nina\u2019s Coffee Cafe",
   "website": "",
   "emails": [],
   "instagram": "",
@@ -935,7 +918,7 @@
   "status": "no-website"
  },
  "coffee-shops--penny-s-coffee": {
-  "name": "Penny’s Coffee",
+  "name": "Penny\u2019s Coffee",
   "website": "",
   "emails": [],
   "instagram": "",
@@ -945,25 +928,21 @@
  "cocktail-bars--stargazer": {
   "name": "Stargazer",
   "website": "https://stargazermpls.com/",
-  "emails": [
-   "user@domain.com"
-  ],
+  "emails": [],
   "instagram": "@stargazer_mpls",
   "checked": "2026-09-13",
-  "status": "email"
+  "status": "instagram-only"
  },
  "cocktail-bars--du-nord-cocktail-room": {
   "name": "Du Nord Cocktail Room",
   "website": "https://dunordsocialspirits.com/",
-  "emails": [
-   "user@domain.com"
-  ],
+  "emails": [],
   "instagram": "@dunordspirits",
   "checked": "2026-09-13",
-  "status": "email"
+  "status": "instagram-only"
  },
  "coffee-shops--caphin": {
-  "name": "Càphin",
+  "name": "C\u00e0phin",
   "website": "",
   "emails": [],
   "instagram": "",
@@ -982,7 +961,6 @@
   "name": "The Dampfwerk Distillery",
   "website": "https://www.thedampfwerk.com/",
   "emails": [
-   "user@domain.com",
    "contact@thedampfwerk.com"
   ],
   "instagram": "@dampfwerkdistillery",
@@ -1008,12 +986,10 @@
  "coffee-shops--wildflyer-coffee": {
   "name": "Wildflyer Coffee",
   "website": "https://wildflyercoffee.com",
-  "emails": [
-   "user@domain.com"
-  ],
+  "emails": [],
   "instagram": "@wildflyercoffee",
   "checked": "2026-09-13",
-  "status": "email"
+  "status": "instagram-only"
  },
  "coffee-shops--sisters-sludge-coffee-cafe-and-wine-bar": {
   "name": "Sisters' Sludge Coffee Cafe and Wine Bar",
@@ -1066,7 +1042,7 @@
   "status": "no-website"
  },
  "best-dive-bars--mortimer-s": {
-  "name": "Mortimer’s",
+  "name": "Mortimer\u2019s",
   "website": "",
   "emails": [],
   "instagram": "",
@@ -1114,7 +1090,7 @@
   "status": "no-website"
  },
  "best-dive-bars--mickey-s-diner": {
-  "name": "Mickey’s Diner",
+  "name": "Mickey\u2019s Diner",
   "website": "",
   "emails": [],
   "instagram": "",
@@ -1122,7 +1098,7 @@
   "status": "no-website"
  },
  "best-dive-bars--grumpy-s-northeast": {
-  "name": "Grumpy’s Northeast",
+  "name": "Grumpy\u2019s Northeast",
   "website": "",
   "emails": [],
   "instagram": "",
@@ -1138,7 +1114,7 @@
   "status": "no-website"
  },
  "best-dive-bars--otter-s-saloon": {
-  "name": "Otter’s Saloon",
+  "name": "Otter\u2019s Saloon",
   "website": "",
   "emails": [],
   "instagram": "",
@@ -1146,7 +1122,7 @@
   "status": "no-website"
  },
  "best-dive-bars--stub-and-herb-s": {
-  "name": "Stub & Herb’s",
+  "name": "Stub & Herb\u2019s",
   "website": "",
   "emails": [],
   "instagram": "",
@@ -1264,12 +1240,10 @@
  "food-halls--graze-provisions-libations": {
   "name": "Graze Provisions + Libations",
   "website": "https://www.grazenorthloop.com",
-  "emails": [
-   "user@domain.com"
-  ],
+  "emails": [],
   "instagram": "@grazenorthloop",
   "checked": "2026-09-13",
-  "status": "email"
+  "status": "instagram-only"
  },
  "food-halls--eat-street-crossing": {
   "name": "Eat Street Crossing",
@@ -1838,7 +1812,7 @@
   "status": "no-website"
  },
  "boutique-hotels--le-meridien-chambers": {
-  "name": "Le Méridien Chambers",
+  "name": "Le M\u00e9ridien Chambers",
   "website": "",
   "emails": [],
   "instagram": "",
@@ -1906,7 +1880,7 @@
   "status": "email"
  },
  "ice-cream--sebastian-joe-s-ice-cream": {
-  "name": "Sebastian Joe’s Ice Cream",
+  "name": "Sebastian Joe\u2019s Ice Cream",
   "website": "https://sebastianjoesicecream.com",
   "emails": [],
   "instagram": "",
@@ -1924,7 +1898,7 @@
   "status": "email"
  },
  "ice-cream--sonny-s-ice-cream": {
-  "name": "Sonny’s Ice Cream",
+  "name": "Sonny\u2019s Ice Cream",
   "website": "https://sonnysicecream.com",
   "emails": [
    "owners@sonnysicecream.com"
@@ -1947,7 +1921,6 @@
   "name": "Pumphouse Creamery",
   "website": "https://www.pumphouse-creamery.com",
   "emails": [
-   "user@domain.com",
    "info@pumphouse-creamery.com"
   ],
   "instagram": "",
@@ -2023,7 +1996,7 @@
   "status": "email"
  },
  "ice-cream--cossetta-s-pasticceria": {
-  "name": "Cossetta’s Pasticceria",
+  "name": "Cossetta\u2019s Pasticceria",
   "website": "https://cossettas.com/pasticceria-pastries-gelato",
   "emails": [],
   "instagram": "@cossettas",
@@ -2046,7 +2019,6 @@
   "name": "Kado no Mise",
   "website": "https://www.kadonomise.com",
   "emails": [
-   "user@domain.com",
    "info@kadonomise.com"
   ],
   "instagram": "@kadonomise",
@@ -2187,12 +2159,10 @@
  "korean--minari-and-the-pikok-lounge": {
   "name": "Minari & The Pikok Lounge",
   "website": "https://www.minarirestaurant.com",
-  "emails": [
-   "user@domain.com"
-  ],
+  "emails": [],
   "instagram": "@minarirestaurant",
   "checked": "2026-09-13",
-  "status": "email"
+  "status": "instagram-only"
  },
  "korean--dong-yang": {
   "name": "Dong Yang",
@@ -2261,7 +2231,7 @@
   "status": "email"
  },
  "late-night--pizza-luce-downtown": {
-  "name": "Pizza Lucé Downtown",
+  "name": "Pizza Luc\u00e9 Downtown",
   "website": "https://pizzaluce.com/locations/downtown",
   "emails": [],
   "instagram": "@pizza_luce",
@@ -2441,7 +2411,7 @@
   "status": "none-found"
  },
  "lgbtq-nightlife--the-gay-90-s": {
-  "name": "The Gay 90’s",
+  "name": "The Gay 90\u2019s",
   "website": "",
   "emails": [],
   "instagram": "",
@@ -2568,7 +2538,6 @@
   "name": "Cedar Cultural Center",
   "website": "https://www.thecedar.org",
   "emails": [
-   "user@domain.com",
    "info@thecedar.org"
   ],
   "instagram": "@thecedar",
@@ -2644,7 +2613,7 @@
   "status": "no-website"
  },
  "mens-clothing--heimie-s-haberdashery": {
-  "name": "Heimie’s Haberdashery",
+  "name": "Heimie\u2019s Haberdashery",
   "website": "",
   "emails": [],
   "instagram": "",
@@ -2893,7 +2862,6 @@
   "website": "https://publicfunctionary.org",
   "emails": [
    "sarah@publicfunctionary.org",
-   "user@domain.com",
    "hello@publicfunctionary.org"
   ],
   "instagram": "@confluence_mn",
@@ -2952,7 +2920,6 @@
   "name": "TOA Presents (The Orange Advisory)",
   "website": "https://www.theorangeadvisory.com/toa-presents",
   "emails": [
-   "user@domain.com",
    "rob@theorangeadvisory.com"
   ],
   "instagram": "@theorangeadvisory",
@@ -3079,8 +3046,7 @@
   "name": "The AZ Gallery",
   "website": "https://theazgallery.org",
   "emails": [
-   "info@theazgallery.org",
-   "user@domain.com"
+   "info@theazgallery.org"
   ],
   "instagram": "",
   "checked": "2026-09-13",
@@ -3151,7 +3117,7 @@
   "status": "email"
  },
  "new--shota": {
-  "name": "Šhotá",
+  "name": "\u0160hot\u00e1",
   "website": "",
   "emails": [],
   "instagram": "",
@@ -3239,7 +3205,7 @@
   "status": "no-website"
  },
  "best-patios--lord-fletcher-s-old-lake-lodge": {
-  "name": "Lord Fletcher’s Old Lake Lodge",
+  "name": "Lord Fletcher\u2019s Old Lake Lodge",
   "website": "",
   "emails": [],
   "instagram": "",
@@ -3311,7 +3277,7 @@
   "status": "no-website"
  },
  "new--indigena-by-owamni": {
-  "name": "Indígena by Owamni",
+  "name": "Ind\u00edgena by Owamni",
   "website": "https://owamni.com",
   "emails": [],
   "instagram": "@indigena_by_owamni",
@@ -3340,7 +3306,6 @@
   "name": "Black Sheep Coal-Fired Pizza",
   "website": "https://www.blacksheeppizza.com",
   "emails": [
-   "user@domain.com",
    "contact@blacksheeppizza.com"
   ],
   "instagram": "@blacksheeppizza",
@@ -3371,7 +3336,6 @@
   "name": "Pig Ate My Pizza",
   "website": "https://www.pigatemypizza.com",
   "emails": [
-   "user@domain.com",
    "bea@killvanillastudio.com"
   ],
   "instagram": "@pigatemyza",
@@ -3508,7 +3472,6 @@
   "name": "Roadrunner Records",
   "website": "https://www.roadrunnermpls.com",
   "emails": [
-   "user@domain.com",
    "roadrunner@landspeedrecords.com"
   ],
   "instagram": "",
@@ -3595,11 +3558,10 @@
   "status": "none-found"
  },
  "restaurants--broders-cucina-italiana": {
-  "name": "Broders’ Cucina Italiana",
+  "name": "Broders\u2019 Cucina Italiana",
   "website": "https://broders.com",
   "emails": [
-   "info@broders.com",
-   "user@domain.com"
+   "info@broders.com"
   ],
   "instagram": "@broderscucina",
   "checked": "2026-09-13",
@@ -3685,7 +3647,6 @@
   "name": "Hyacinth",
   "website": "https://hyacinthstpaul.com",
   "emails": [
-   "user@domain.com",
    "hyacinthathome@gmail.com"
   ],
   "instagram": "@hyacinth.restaurant",
@@ -3714,7 +3675,6 @@
   "name": "Porzana",
   "website": "https://www.porzanampls.com",
   "emails": [
-   "user@domain.com",
    "dine@porzanampls.com"
   ],
   "instagram": "@porzanasteaks",
@@ -3732,38 +3692,31 @@
  "restaurants--myriel": {
   "name": "Myriel",
   "website": "https://www.myrielmn.com",
-  "emails": [
-   "user@domain.com"
-  ],
+  "emails": [],
   "instagram": "@myrielmn",
   "checked": "2026-09-13",
-  "status": "email"
+  "status": "instagram-only"
  },
  "restaurants--the-kenwood": {
   "name": "The Kenwood",
   "website": "https://www.thekenwoodrestaurant.com",
-  "emails": [
-   "user@domain.com"
-  ],
+  "emails": [],
   "instagram": "@thekenwoodrestaurant",
   "checked": "2026-09-13",
-  "status": "email"
+  "status": "instagram-only"
  },
  "restaurants--st-genevieve": {
   "name": "St. Genevieve",
   "website": "https://www.stgmpls.com",
-  "emails": [
-   "user@domain.com"
-  ],
+  "emails": [],
   "instagram": "@bonjour_stg",
   "checked": "2026-09-13",
-  "status": "email"
+  "status": "instagram-only"
  },
  "restaurants--moscow-on-the-hill": {
   "name": "Moscow on the Hill",
   "website": "https://www.moscowonthehill.com",
   "emails": [
-   "user@domain.com",
    "info@moscowonthehill.com"
   ],
   "instagram": "@moscowonthehill",
@@ -3790,7 +3743,7 @@
   "status": "no-website"
  },
  "sandwiches--sammy-s-avenue-eatery": {
-  "name": "Sammy’s Avenue Eatery",
+  "name": "Sammy\u2019s Avenue Eatery",
   "website": "",
   "emails": [],
   "instagram": "",
@@ -3808,18 +3761,15 @@
  "restaurants--cafe-yoto": {
   "name": "Cafe Yoto",
   "website": "https://www.cafeyoto.com",
-  "emails": [
-   "user@domain.com"
-  ],
+  "emails": [],
   "instagram": "@cafeyoto",
   "checked": "2026-09-13",
-  "status": "email"
+  "status": "instagram-only"
  },
  "restaurants--estelle": {
   "name": "Estelle",
   "website": "https://www.estellestp.com",
   "emails": [
-   "user@domain.com",
    "info@estellestp.com"
   ],
   "instagram": "@estellestp",
@@ -3830,7 +3780,6 @@
   "name": "Little Bird Delicatessen",
   "website": "https://www.littlebirddelicatessen.com",
   "emails": [
-   "user@domain.com",
    "hello@littlebirddelicatessen.com"
   ],
   "instagram": "@littlebirddelicatessen",
@@ -3866,7 +3815,7 @@
   "status": "no-website"
  },
  "independent-shops--ingebretsen-s": {
-  "name": "Ingebretsen’s",
+  "name": "Ingebretsen\u2019s",
   "website": "",
   "emails": [],
   "instagram": "",
@@ -3909,7 +3858,6 @@
   "name": "St. Paul Cheese Shop",
   "website": "https://www.stpaulcheeseshop.com",
   "emails": [
-   "user@domain.com",
    "cheeseshop@france44.com"
   ],
   "instagram": "@france44cheese",
@@ -3949,32 +3897,26 @@
  "independent-shops--tandem-vintage": {
   "name": "Tandem Vintage",
   "website": "https://www.tandemvintage.com/",
-  "emails": [
-   "user@domain.com"
-  ],
+  "emails": [],
   "instagram": "@tandemvintage",
   "checked": "2026-09-13",
-  "status": "email"
+  "status": "instagram-only"
  },
  "independent-shops--martinpatrick3": {
   "name": "MartinPatrick3",
   "website": "https://www.martinpatrick3.com/",
-  "emails": [
-   "user@domain.com"
-  ],
+  "emails": [],
   "instagram": "@MARTINPATRICK3",
   "checked": "2026-09-13",
-  "status": "email"
+  "status": "instagram-only"
  },
  "independent-shops--hunt-and-gather": {
   "name": "Hunt & Gather",
   "website": "http://www.huntandgatherantiques.com/",
-  "emails": [
-   "user@domain.com"
-  ],
+  "emails": [],
   "instagram": "@huntandgathermpls",
   "checked": "2026-09-13",
-  "status": "email"
+  "status": "instagram-only"
  },
  "sports--target-field": {
   "name": "Target Field",
@@ -4191,7 +4133,7 @@
   "status": "email"
  },
  "theaters--theater-latte-da": {
-  "name": "Theater Latté Da",
+  "name": "Theater Latt\u00e9 Da",
   "website": "https://www.latteda.org",
   "emails": [
    "info@latteda.org"
@@ -4219,7 +4161,7 @@
   "status": "email"
  },
  "theaters--children-s-theatre-company": {
-  "name": "Children’s Theatre Company",
+  "name": "Children\u2019s Theatre Company",
   "website": "https://childrenstheatre.org",
   "emails": [
    "tickets@childrenstheatre.org"
@@ -4375,12 +4317,10 @@
  "vietnamese--hoa-bien": {
   "name": "Hoa Bien",
   "website": "https://www.hoa-bien.com",
-  "emails": [
-   "user@domain.com"
-  ],
+  "emails": [],
   "instagram": "@hoa_bienmn",
   "checked": "2026-09-13",
-  "status": "email"
+  "status": "instagram-only"
  },
  "wellness-and-spas--onx-amelia": {
   "name": "ONX + Amelia",
@@ -4413,7 +4353,7 @@
   "status": "email"
  },
  "wellness-and-spas--portal-thermaculture": {
-  "name": "PORTAL° Thermaculture",
+  "name": "PORTAL\u00b0 Thermaculture",
   "website": "",
   "emails": [],
   "instagram": "",
@@ -4536,8 +4476,7 @@
   "name": "enterSTELLAR",
   "website": "https://www.iamenterstellar.com",
   "emails": [
-   "vibe@iamenterstellar.com",
-   "you@email.com"
+   "vibe@iamenterstellar.com"
   ],
   "instagram": "",
   "checked": "2026-09-13",
@@ -4564,7 +4503,7 @@
   "status": "instagram-only"
  },
  "sandwiches--cecil-s-deli": {
-  "name": "Cecil’s Deli",
+  "name": "Cecil\u2019s Deli",
   "website": "https://cecilsdeli.com",
   "emails": [
    "cecildel@aol.com"

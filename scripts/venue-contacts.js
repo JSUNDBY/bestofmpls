@@ -37,7 +37,7 @@ for (const f of fs.readdirSync(path.join(SRC, 'data'))) {
   }
 }
 
-const JUNK_MAIL = /(example\.com|sentry|wixpress|squarespace|shopify|godaddy|\.png$|\.jpg$|noreply|no-reply|donotreply)/i;
+const JUNK_MAIL = /(example\.com|sentry|wixpress|squarespace|shopify|godaddy|\.png$|\.jpg$|noreply|no-reply|donotreply|^user@|^email@|^name@|^your@|^you@|^test@|@domain\.|@email\.|@yourdomain|@mysite|@website|placeholder|@site\.com)/i;
 const pickEmail = html => {
   const m = [...html.matchAll(/mailto:([^"'?\s<>]+)/gi)].map(x => x[1].toLowerCase()).filter(x => /^[^@]+@[^@]+\.[a-z]{2,}$/.test(x) && !JUNK_MAIL.test(x));
   if (m.length) return [...new Set(m)].slice(0, 3);
