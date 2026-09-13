@@ -1074,6 +1074,7 @@ function header({ activeSlug } = {}) {
       items: [
         { href: '/tonight/',   label: 'Tonight',        deck: 'Sunset, weather, what is coming up' },
         { href: '/this-weekend/', label: 'This Weekend', deck: 'Friday through Sunday, day by day' },
+        { href: `/${monthPageMeta(0).slug}/`, label: 'This Month', deck: 'The month’s whole board, week by week' },
         { href: '/live-music/tonight/', label: 'Music Tonight', deck: 'Every show, from the venues themselves' },
         { href: '/calendar/',  label: 'Calendar',       deck: 'Live shows, openings, screenings' },
         { href: '/scenes/',    label: 'Scenes',         deck: 'Jazz, punk, electronic, folk, hip-hop' },
@@ -7088,6 +7089,108 @@ function renderOpenMonday() {
     footer();
 }
 
+// ---------- /things-to-do/<month-year>/ — the auto-rolling month pages ----------
+// "things to do minneapolis october 2026" is a query competitors answer with
+// hand-written listicles that go stale. Ours regenerates from the feed on
+// every CI run and rolls forward forever: each build renders the current
+// month and the next one; a month page simply stops being built once it's
+// two months gone. Zero maintenance by design.
+const MONTH_NAMES = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];
+
+function monthPageMeta(offset) {
+  const [y0, m0] = TODAY_ISO.split('-').map(Number);
+  const d = new Date(y0, m0 - 1 + offset, 1);
+  const y = d.getFullYear(), m = d.getMonth();
+  return {
+    year: y,
+    monthIdx: m,
+    name: MONTH_NAMES[m][0].toUpperCase() + MONTH_NAMES[m].slice(1),
+    slug: `things-to-do/${MONTH_NAMES[m]}-${y}`,
+    startIso: `${y}-${String(m + 1).padStart(2, '0')}-01`,
+    endIso: `${y}-${String(m + 1).padStart(2, '0')}-${new Date(y, m + 1, 0).getDate()}`
+  };
+}
+
+function renderMonthPage(mp) {
+  const evs = dedupeNonFilms((eventsData.events || [])
+    .filter(e => e.date >= mp.startIso && e.date <= mp.endIso && e.date >= TODAY_ISO && !isNoiseEvent(e)))
+    .sort((a, b) => (a.date + (a.time || '')).localeCompare(b.date + (b.time || '')));
+  const catCount = {};
+  for (const e of evs) catCount[e.category || 'other'] = (catCount[e.category || 'other'] || 0) + 1;
+  // Week buckets (Mon-Sun), up to 12 rows each — enough to be useful, short
+  // enough to read. The calendar holds the rest.
+  const weeks = new Map();
+  for (const e of evs) {
+    const [y, m, d] = e.date.split('-').map(Number);
+    const dt = new Date(y, m - 1, d);
+    const monday = new Date(dt); monday.setDate(dt.getDate() - ((dt.getDay() + 6) % 7));
+    const wk = monday.toISOString().slice(0, 10);
+    if (!weeks.has(wk)) weeks.set(wk, []);
+    weeks.get(wk).push(e);
+  }
+  const fmtDay = iso => { const [y, m, d] = iso.split('-').map(Number);
+    return new Date(y, m - 1, d).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' }); };
+  const weekBlocks = [...weeks.entries()].map(([wk, list]) => {
+    const shown = list.slice(0, 12);
+    return `
+      <h2 class="openday-h2">Week of ${esc(fmtDay(wk))}</h2>
+      <ul class="openday-list">
+        ${shown.map(e => `
+        <li class="openday-row">
+          <span class="openday-name">${e.url ? `<a href="${esc(e.url)}" target="_blank" rel="noopener">${esc(e.title)}</a>` : esc(e.title)}</span>
+          <span class="openday-meta">${esc(e.venue)}${e.venue_neighborhood ? ' · ' + esc(e.venue_neighborhood) : ''}</span>
+          <span class="openday-close">${esc(fmtDay(e.date))}</span>
+        </li>`).join('')}
+      </ul>
+      ${list.length > shown.length ? `<p class="openday-note">+ ${list.length - shown.length} more that week on <a href="/calendar/">the calendar</a>.</p>` : ''}`;
+  }).join('');
+  // Annual festivals whose stated month matches.
+  const monthFests = festivals.entries.filter(f => (f.month || '').toLowerCase().includes(mp.name.toLowerCase()));
+  const festBlock = monthFests.length ? `
+    <h2 class="openday-h2">Annual events in ${esc(mp.name)}</h2>
+    <ul class="openday-list">
+      ${monthFests.map(f => `
+      <li class="openday-row">
+        <span class="openday-name">${esc(f.name)}</span>
+        <span class="openday-meta">${esc(f.style || '')}</span>
+        <span class="openday-close">${esc(f.month)}</span>
+      </li>`).join('')}
+    </ul>` : '';
+  const catLine = Object.entries(catCount).sort((a, b) => b[1] - a[1])
+    .map(([c, n]) => `${n} ${c}`).join(' · ');
+  const listSchema = { '@context': 'https://schema.org', '@type': 'ItemList',
+    name: `Things to Do in Minneapolis & St. Paul, ${mp.name} ${mp.year}`, numberOfItems: evs.length,
+    itemListElement: evs.slice(0, 50).map((e, i) => ({ '@type': 'ListItem', position: i + 1, item: eventJsonLd(e, null) })) };
+  const css = `<style>
+    .openday-list{list-style:none;margin:0 0 8px;padding:0;border-top:1px solid var(--rule-soft)}
+    .openday-row{display:grid;grid-template-columns:1fr auto;grid-template-areas:'name close' 'meta close';gap:2px 18px;padding:13px 4px;border-bottom:1px solid var(--rule-soft);align-items:baseline}
+    .openday-name{grid-area:name;font-family:var(--font-display);font-weight:700;font-size:17px;line-height:1.2}
+    .openday-name a{color:var(--ink);text-decoration:none}
+    .openday-name a:hover{color:var(--clay)}
+    .openday-meta{grid-area:meta;font-family:var(--font-body);font-size:13.5px;color:var(--ink-soft)}
+    .openday-close{grid-area:close;font-family:var(--font-mono);font-weight:600;font-size:13px;color:var(--clay);white-space:nowrap}
+    .openday-h2{font-family:var(--font-display);font-weight:800;font-size:clamp(22px,3.2vw,30px);margin:40px 0 6px}
+    .openday-note{font-family:var(--font-body);font-size:13.5px;color:var(--ink-faint);margin:6px 0 18px}
+  </style>`;
+  return head({ title: `Things to Do in Minneapolis & St. Paul: ${mp.name} ${mp.year}`, description: `${evs.length} shows, screenings, openings, and events on the ${mp.name} ${mp.year} calendar across Minneapolis and St. Paul — rebuilt through the day from the venue calendars we track.`, slug: mp.slug, theme: 'forest' }) +
+    header({ activeSlug: '' }) + css +
+    `<section class="section-head">
+      <div class="wrap">
+        <div class="section-eyebrow">${evs.length} events on the board · updated through the day</div>
+        <h1 class="section-title">${esc(mp.name)} ${mp.year} <em>in the Twin Cities</em></h1>
+        <p class="section-deck">Everything our scrapers can see for ${esc(mp.name)} so far${catLine ? ` — ${catLine}` : ''}. The list grows as venues announce; same-week detail lives on <a href="/this-weekend/">This Weekend</a> and <a href="/tonight/">Tonight</a>.</p>
+        ${freshnessNote()}
+      </div>
+    </section>
+    <section class="wrap">
+      ${weekBlocks || '<p class="openday-note">Venues haven’t posted this far ahead yet — the page fills in as announcements land. The <a href="/calendar/">calendar</a> has the near-term board.</p>'}
+      ${festBlock}
+    </section>
+    <script type="application/ld+json">${JSON.stringify(listSchema)}</script>` +
+    newsletterCapture({ context: 'calendar' }) +
+    footer();
+}
+
 // ---------- /open/<holiday>/ — evergreen holiday-hours shells ----------
 // Published early so the URLs age before the seasonal spike; the verified
 // list lands ~3 weeks before each holiday when places post their hours.
@@ -9225,6 +9328,7 @@ function renderSitemap(neighborhoods, crossPages) {
     { loc: SITE + '/state-fair/', priority: '0.9' },
     { loc: SITE + '/open/monday/', priority: '0.8' },
     ...HOLIDAY_PAGES.map(h => ({ loc: `${SITE}/open/${h.slug}/`, priority: '0.7' })),
+    ...[0, 1].map(off => ({ loc: `${SITE}/${monthPageMeta(off).slug}/`, priority: '0.8' })),
     { loc: SITE + '/pride/', priority: '0.85' },
     ...(BEST_OF_LIVE ? [{ loc: `${SITE}/best-of-${BEST_OF_YEAR}/`, priority: '0.9' }] : []),
     ...categories.map(c => ({ loc: `${SITE}/${c.slug}/`, priority: '0.9' })),
@@ -9318,6 +9422,7 @@ function renderLlmsTxt(neighborhoods) {
 - [Five Today](${SITE}/five/): exactly five things worth leaving the house for today
 - [This Weekend](${SITE}/this-weekend/): Friday through Sunday, day by day
 - [Open on Monday](${SITE}/open/monday/): restaurants and bars open Monday evenings, from verified hours
+- [This Month](${SITE}/${monthPageMeta(0).slug}/): every event we track this month, updated through the day
 - [The Calendar](${SITE}/calendar/): concerts, openings, talks, and screenings by date and venue
 - [Now Showing](${SITE}/now-showing/): museum exhibitions and independent gallery shows on view
 - [Best of MPLS](${SITE}/best-of-2026/): the living best-of, ranked by real reader signals
@@ -9389,6 +9494,7 @@ function build() {
   writeFile('state-fair/index.html', renderStateFair());
   writeFile('open/monday/index.html', renderOpenMonday());
   for (const h of HOLIDAY_PAGES) writeFile(`open/${h.slug}/index.html`, renderHolidayShell(h));
+  for (const off of [0, 1]) { const mp = monthPageMeta(off); writeFile(`${mp.slug}/index.html`, renderMonthPage(mp)); }
   if (BEST_OF_LIVE) writeFile(`best-of-${BEST_OF_YEAR}/index.html`, renderBestOf());
 
   // Subscribable iCal feed: upcoming creative events (no film showtime spam, no
