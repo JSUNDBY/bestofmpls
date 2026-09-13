@@ -1023,6 +1023,7 @@ function header({ activeSlug } = {}) {
   // for the mobile hamburger.
   const primaryNav = [
     { href: '/tonight/',     label: 'Tonight',       slug: 'tonight' },
+    { href: '/this-weekend/', label: 'Weekend',      slug: 'this-weekend' },
     { href: '/restaurants/', label: 'Eat',           slug: 'restaurants' },
     { href: '/cocktail-bars/', label: 'Drink',       slug: 'cocktail-bars' },
     { href: '/live-music/',  label: 'Music',         slug: 'live-music' },
@@ -1039,6 +1040,7 @@ function header({ activeSlug } = {}) {
       label: 'Right Now',
       items: [
         { href: '/tonight/',   label: 'Tonight',        deck: 'Sunset, weather, what is coming up' },
+        { href: '/this-weekend/', label: 'This Weekend', deck: 'Friday through Sunday, day by day' },
         { href: '/live-music/tonight/', label: 'Music Tonight', deck: 'Every show, from the venues themselves' },
         { href: '/calendar/',  label: 'Calendar',       deck: 'Live shows, openings, screenings' },
         { href: '/scenes/',    label: 'Scenes',         deck: 'Jazz, punk, electronic, folk, hip-hop' },
@@ -1203,6 +1205,7 @@ function footer() {
   // below can stay focused on the static category lists.
   const dailyLinks = [
     { href: '/tonight/', label: 'Tonight' },
+    { href: '/this-weekend/', label: 'This Weekend' },
     { href: '/openings/', label: 'Openings' },
     { href: '/calendar/', label: 'Calendar' },
     { href: '/map/', label: 'Map' },
@@ -2508,6 +2511,18 @@ function renderCategory(c) {
       </section>`;
   }
 
+  // "More like this" — contextual body links to sibling categories in the
+  // same homepage cluster, plus the live weekend page. Sitewide footer
+  // links alone pass weak topical signal; in-body links between related
+  // categories are what move rankings across the whole set.
+  const siblingCluster = clusters.find(cl => cl.categories.some(x => x.slug === c.slug));
+  const siblings = siblingCluster ? siblingCluster.categories.filter(x => x.slug !== c.slug).slice(0, 5) : [];
+  const moreLikeThis = siblings.length ? `
+    <section class="wrap nb-nav" aria-label="Related guides">
+      <div class="cluster-eyebrow nb-nav-label">More like this</div>
+      <p class="nb-nav-guides">${siblings.map(s => `<a href="/${s.slug}/">${esc(s.title)}</a>`).join(' · ')} · <a href="/this-weekend/">This weekend&rsquo;s events</a></p>
+    </section>` : '';
+
   return head({ title: seoTitle(c), description, slug: c.slug, theme: c.hero_color }) +
     header({ activeSlug: c.slug }) +
     `<section class="section-head">
@@ -2537,6 +2552,7 @@ function renderCategory(c) {
     <section class="entry-list">
       ${entries}
     </section>
+    ${moreLikeThis}
     ${renderPollForm(c)}
     <script type="application/ld+json">${JSON.stringify(schema)}</script>` +
     newsletterCapture({ context: 'category' }) +
