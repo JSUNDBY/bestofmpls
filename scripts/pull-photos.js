@@ -36,14 +36,21 @@ const CREDITS_PATH = path.join(ROOT, 'src/data/photo-credits.json');
     if (fs.existsSync(dest)) { skipped++; continue; }
     const b64 = rec.image.replace(/^data:image\/jpeg;base64,/, '');
     fs.writeFileSync(dest, Buffer.from(b64, 'base64'));
+    const isVenue = rec.source === 'venue';
     credits[rec.filename] = {
       credit: rec.contributor || 'anonymous',
-      consent: rec.consent === true,
+      source: isVenue ? 'venue' : 'crew',
+      consent: rec.consent === true || rec.rights === true,
       ts: rec.ts,
       dist_m: rec.dist_m != null ? rec.dist_m : null,
     };
-    const distNote = rec.dist_m != null ? `, ${rec.dist_m}m from target` : ', no location';
-    console.log(`  ✓ ${rec.filename}  (by ${rec.contributor}${rec.consent === true ? ', grant on file' : ', NO GRANT — old client, get permission before shipping'}${distNote})`);
+    if (isVenue && rec.contact) credits[rec.filename].contact = rec.contact;
+    if (isVenue) {
+      console.log(`  ✓ ${rec.filename}  (VENUE — ${rec.contributor}${rec.role ? ', ' + rec.role : ''}${rec.contact ? ', ' + rec.contact : ''}, rights affirmed)`);
+    } else {
+      const distNote = rec.dist_m != null ? `, ${rec.dist_m}m from target` : ', no location';
+      console.log(`  ✓ ${rec.filename}  (by ${rec.contributor}${rec.consent === true ? ', grant on file' : ', NO GRANT — old client, get permission before shipping'}${distNote})`);
+    }
     pulled++;
   }
   if (pulled) fs.writeFileSync(CREDITS_PATH, JSON.stringify(credits, null, 1) + '\n');

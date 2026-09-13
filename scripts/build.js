@@ -3082,7 +3082,7 @@ function renderEntry(c, e, allCategories) {
          // Credit line: the crew's name on their shot, from the ledger
          // pull-photos.js maintains. Uncredited files (Josh's own, or
          // pre-ledger pulls) just show no line.
-         const creditFor = p2 => { const rec = photoCredits[p2.split('/').pop()]; return rec && rec.credit && rec.credit !== 'anonymous' ? rec.credit : null; };
+         const creditFor = p2 => { const rec = photoCredits[p2.split('/').pop()]; return rec && rec.credit && rec.credit !== 'anonymous' && rec.source !== 'venue' ? rec.credit : null; };
          const heroCredit = creditFor(shots[0]);
          const hero = `<figure class="entry-photo"><img src="${esc(shots[0])}" alt="${esc(e.name)}" loading="eager" decoding="async">${heroCredit ? `<figcaption class="entry-photo-credit">Photo: ${esc(heroCredit)}</figcaption>` : ''}</figure>`;
          const rest = shots.slice(1, 5).map(p2 => `<img src="${esc(p2)}" alt="${esc(e.name)}" loading="lazy" decoding="async" title="${creditFor(p2) ? esc('Photo: ' + creditFor(p2)) : ''}">`).join('');
@@ -9302,6 +9302,108 @@ function renderShoot() {
 }
 
 
+// ---------- /photos/ — the venues' own upload page ----------
+// Owners land here from a private tokenized link (minted by
+// scripts/venue-link.js), affirm their business holds the rights, and
+// drop up to a handful of photos. Same review inbox as the Shot Hunt:
+// nothing ships without a pull + Josh's commit.
+function renderVenuePhotos() {
+  return head({ title: 'Add your photos', description: 'Share photos of your place with Best of MPLS.', slug: 'photos', theme: 'default', noindex: true }) +
+    `<style>
+      .vp-wrap { max-width: 560px; margin: 0 auto; padding: 26px 18px 90px; }
+      .vp-title { font-family: var(--font-display); font-weight: 800; font-size: 28px; margin: 8px 0 2px; }
+      .vp-place { font-family: var(--font-mono); font-size: 13px; color: var(--clay, var(--accent)); margin: 0 0 14px; letter-spacing: 0.04em; }
+      .vp-sub { font-family: var(--font-body); font-size: 14.5px; line-height: 1.6; color: var(--ink-soft); margin: 0 0 18px; }
+      .vp-form input[type=text], .vp-form input[type=email] { width: 100%; font-size: 16px; padding: 12px; margin: 5px 0; border: 1px solid var(--rule-soft); border-radius: 8px; background: var(--paper); color: var(--ink); box-sizing: border-box; }
+      .vp-rights { display: flex; gap: 10px; align-items: flex-start; font-family: var(--font-body); font-size: 13.5px; line-height: 1.5; color: var(--ink-soft); margin: 12px 0; }
+      .vp-rights input { margin: 3px 0 0; accent-color: var(--accent); }
+      .vp-btn { font-family: var(--font-label); font-weight: 700; font-size: 15px; background: var(--accent); color: #F4F2EC; border: 0; border-radius: 99px; padding: 14px 20px; width: 100%; }
+      .vp-btn[disabled] { opacity: 0.5; }
+      .vp-note { font-family: var(--font-body); font-size: 13px; color: var(--ink-faint); margin-top: 14px; line-height: 1.55; }
+      .vp-status { font-family: var(--font-mono); font-size: 13px; margin-top: 12px; color: var(--ink-soft); white-space: pre-line; }
+      .vp-dead { font-family: var(--font-body); font-size: 15px; color: var(--ink-soft); }
+    </style>
+    <div class="vp-wrap">
+      <div class="vp-title">Add your photos<span style="color:var(--accent)">.</span></div>
+      <div id="vp-invalid" class="vp-dead" hidden>This upload link isn't valid. If we sent it to you, reply to that message and we'll mint a fresh one — hello@bestofmpls.com.</div>
+      <div id="vp-form-wrap" hidden>
+        <p class="vp-place" id="vp-place"></p>
+        <p class="vp-sub">Your page on Best of MPLS can show your own photos — the room, the food, the front. Pick your best few (5&ndash;8 is plenty); we review everything before it goes live, usually within a couple of days.</p>
+        <div class="vp-form">
+          <input type="text" id="vp-name" placeholder="Your name" autocomplete="name">
+          <input type="text" id="vp-role" placeholder="Role (owner, manager, chef&hellip;)">
+          <input type="email" id="vp-contact" placeholder="Email, in case we have a question (optional)" autocomplete="email">
+          <label class="vp-rights"><input type="checkbox" id="vp-rights"> <span>Our business holds the rights to these photos &mdash; we took them, or our photographer gave us the rights to use them &mdash; and Best of MPLS may show them on our page and in its social posts.</span></label>
+          <input type="file" id="vp-files" accept="image/*" multiple hidden>
+          <button class="vp-btn" id="vp-pick">Choose photos</button>
+          <div class="vp-status" id="vp-status"></div>
+        </div>
+        <p class="vp-note">Horizontal or vertical both work. Skip heavy filters and stock shots &mdash; real rooms in real light is the whole idea. Photos of identifiable customers need their OK; food, rooms, and staff who are game are perfect.</p>
+      </div>
+    </div>
+    <script>
+    (function(){
+      var WORKER = ${JSON.stringify(POLL_WORKER_URL)};
+      var qs = new URLSearchParams(location.search);
+      var place = qs.get('p') || '', k = qs.get('k') || '';
+      if (!/^[a-z0-9-]+--[a-z0-9-]+$/.test(place) || !k) { document.getElementById('vp-invalid').hidden = false; return; }
+      document.getElementById('vp-form-wrap').hidden = false;
+      // Pretty name from the Shot Hunt target pool when we have it.
+      fetch('/shoot/targets.json').then(function(r){ return r.json(); }).then(function(d){
+        var t = (d.targets || []).find(function(x){ return x.f === place + '.jpg'; });
+        document.getElementById('vp-place').textContent = t ? t.n : place.split('--').pop().replace(/-/g, ' ');
+      }).catch(function(){ document.getElementById('vp-place').textContent = place.split('--').pop().replace(/-/g, ' '); });
+
+      var busy = false;
+      document.getElementById('vp-pick').addEventListener('click', function(){
+        if (busy) return;
+        if (!document.getElementById('vp-name').value.trim()) { status('Your name first, so we know who sent these.'); return; }
+        if (!document.getElementById('vp-rights').checked) { status('Please confirm the rights box \\u2014 we can only publish photos your business has the rights to.'); return; }
+        document.getElementById('vp-files').click();
+      });
+      function status(t){ document.getElementById('vp-status').textContent = t; }
+
+      document.getElementById('vp-files').addEventListener('change', function(ev){
+        var files = Array.prototype.slice.call(ev.target.files || []).slice(0, 8);
+        ev.target.value = '';
+        if (!files.length) return;
+        busy = true; document.getElementById('vp-pick').disabled = true;
+        var sent = 0, failed = 0;
+        function next(i){
+          if (i >= files.length) {
+            busy = false; document.getElementById('vp-pick').disabled = false;
+            status(sent + ' photo' + (sent === 1 ? '' : 's') + ' received' + (failed ? (', ' + failed + ' failed \\u2014 try those again') : '') + '.\\nThank you \\u2014 we review everything and your page updates within a couple of days.');
+            return;
+          }
+          status('Sending ' + (i + 1) + ' of ' + files.length + '\\u2026');
+          var img = new Image();
+          img.onload = function(){
+            var MAX = 1600, scale = Math.min(1, MAX / Math.max(img.width, img.height));
+            var cv = document.createElement('canvas');
+            cv.width = Math.round(img.width * scale); cv.height = Math.round(img.height * scale);
+            cv.getContext('2d').drawImage(img, 0, 0, cv.width, cv.height);
+            fetch(WORKER + '/venue-upload', {
+              method: 'POST', headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ place: place, k: k, rights: true,
+                name: document.getElementById('vp-name').value.trim(),
+                role: document.getElementById('vp-role').value.trim(),
+                contact: document.getElementById('vp-contact').value.trim(),
+                image: cv.toDataURL('image/jpeg', 0.82) })
+            }).then(function(r){ return r.json(); }).then(function(d){
+              if (d.ok) sent++; else failed++;
+              next(i + 1);
+            }).catch(function(){ failed++; next(i + 1); });
+          };
+          img.onerror = function(){ failed++; next(i + 1); };
+          img.src = URL.createObjectURL(files[i]);
+        }
+        next(0);
+      });
+    })();
+    </script>` +
+    footer();
+}
+
 function renderSitemap(neighborhoods, crossPages) {
   const urls = [
     { loc: SITE + '/', priority: '1.0' },
@@ -9610,6 +9712,7 @@ function build() {
   writeFile('lunch/index.html', renderLunch());
   writeFile('openings/index.html', renderOpenings());
   writeFile('shoot/index.html', renderShoot());
+  writeFile('photos/index.html', renderVenuePhotos());
   writeFile('privacy/index.html', renderLegal('privacy', 'Privacy Policy', PRIVACY_HTML));
   writeFile('terms/index.html', renderLegal('terms', 'Terms of Use', TERMS_HTML));
 

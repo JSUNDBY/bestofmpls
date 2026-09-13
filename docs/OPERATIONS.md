@@ -33,7 +33,8 @@ One page. What runs itself, what Josh does, and the commands behind everything. 
 - "hold this week's giveaway" — removes it.
 - "add [venue]" — new scraper investigation (VenuePilot venues take minutes).
 - "make a spot for [event]" — bespoke wildcard video through the same review gate.
-- "pull the photos" — fetch the Shot Hunt crew's uploads for review + commit.
+- "pull the photos" — fetch the Shot Hunt crew's AND venues' uploads for review + commit (credits + rights records land in `src/data/photo-credits.json` automatically).
+- "venue photo link for [place]" — mints that venue's private upload page (`node scripts/venue-link.js "<place>"`) with a paste-ready message. Owners affirm rights on the page; uploads wait in the same review inbox.
 - The Shot Hunt: bestofmpls.com/shoot/ on any phone — crew code in `~/Desktop/IN/shot-hunt-crew-code.txt`. Share the URL + code to add crew.
 
 ## The email (what subscribers get and why it works)

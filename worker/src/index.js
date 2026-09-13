@@ -488,6 +488,52 @@ export default {
       return json({ ok: true, shot: Object.keys(done).length }, 200, origin);
     }
 
+    // ===== POST /venue-upload — owners' photo drop =====
+    // Each venue gets a private link: /photos/?p=<cat>--<slug>&k=<token>
+    // where token = sha256(VENUE_SECRET:place).slice(0,12) — no per-venue
+    // KV setup, links mintable offline via scripts/venue-link.js. Body:
+    // { place, k, name, role, contact, rights, filename, image }.
+    // rights===true is the owner's affirmation that the business holds
+    // the rights to the photo (their photographer transferred or licensed
+    // them) — required, and recorded. Lands in the same photo:* review
+    // inbox the Shot Hunt uses; nothing ships without Josh's pull+commit.
+    if (request.method === 'POST' && url.pathname === '/venue-upload') {
+      let body;
+      try { body = await request.json(); }
+      catch (_) { return json({ error: 'invalid json' }, 400, origin); }
+      const place = clean(body.place, 120);
+      if (!/^[a-z0-9-]+--[a-z0-9-]+$/.test(place)) return json({ error: 'bad place' }, 400, origin);
+      if (!env.VENUE_SECRET) return json({ error: 'uploads not configured' }, 500, origin);
+      const expected = (await sha256Hex(`${env.VENUE_SECRET}:${place}`)).slice(0, 12);
+      if (clean(body.k, 20) !== expected) return json({ error: 'this upload link is not valid' }, 401, origin);
+      if (body.rights !== true) return json({ error: 'the rights confirmation is required' }, 400, origin);
+      const ip = request.headers.get('CF-Connecting-IP') || '0.0.0.0';
+      const ipHash = (await sha256Hex(ip)).slice(0, 16);
+      const rlKey = `venuerl:${ipHash}`;
+      const uploads = parseInt(await env.POLLS.get(rlKey) || '0', 10);
+      if (uploads > 40) return json({ error: 'that is plenty for today — thank you' }, 429, origin);
+      ctx.waitUntil(env.POLLS.put(rlKey, String(uploads + 1), { expirationTtl: 86400 }));
+      const image = String(body.image || '');
+      if (!image.startsWith('data:image/jpeg;base64,') || image.length > 1400000) {
+        return json({ error: 'bad image (jpeg, under ~1MB after compression)' }, 400, origin);
+      }
+      const ts = Date.now();
+      const filename = `${place}--v${ts.toString(36).slice(-6)}.jpg`;
+      const record = {
+        filename,
+        slug: place,
+        source: 'venue',
+        contributor: clean(body.name, 60) || 'unnamed',
+        role: clean(body.role, 40),
+        contact: clean(body.contact, 120),
+        rights: true,
+        ts,
+        image,
+      };
+      await env.POLLS.put(`photo:${ts}-${filename}`, JSON.stringify(record));
+      return json({ ok: true }, 200, origin);
+    }
+
     // ===== GET /shoot-progress — shared game state (public, no images) =====
     if (request.method === 'GET' && url.pathname === '/shoot-progress') {
       const doneRaw = await env.POLLS.get('shoot:done');
