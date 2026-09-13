@@ -11,6 +11,7 @@
 
 const fs   = require('fs');
 const path = require('path');
+const crypto = require('crypto');
 const { execSync } = require('child_process');
 
 const ROOT  = path.resolve(__dirname, '..');
@@ -117,8 +118,40 @@ const UPDATED_LABEL = (function(){
   return new Date(y, m - 1, d).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 })();
 // A small "kept current + independent" stamp for guide and category pages.
-function freshnessNote() {
-  return `<p class="freshness-note">Updated ${UPDATED_LABEL} · Independent and locally run. Our picks aren't for sale; any paid placement is labeled.</p>`;
+// Pass a content date (ISO) for pages whose data changes only on commit;
+// with no argument it shows the build date (right for daily-refresh pages).
+function freshnessNote(dateIso) {
+  const label = dateIso ? (() => { const [y, m, d] = dateIso.split('-').map(Number);
+    return new Date(y, m - 1, d).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }); })() : UPDATED_LABEL;
+  return `<p class="freshness-note">Updated ${label} · Independent and locally run. Our picks aren't for sale; any paid placement is labeled.</p>`;
+}
+
+// ---------- Content freshness ----------
+// Data-driven pages used to stamp today's date on every build, which
+// teaches Google to ignore the freshness signal entirely (and burns the
+// ability to flag genuinely updated pages for recrawl). contentDate()
+// hashes a page's data inputs and advances its date only when the data
+// actually changed. The map lives in src/data/freshness.json, committed —
+// CI is read-only (it can't commit), so local builds keep the file
+// current and it ships alongside the data change that moved the date.
+// Daily-refresh pages (tonight, weekend, calendar, venues) keep TODAY_ISO:
+// their content genuinely changes every build.
+const FRESHNESS_PATH = path.join(SRC, 'data/freshness.json');
+let freshnessMap = {};
+try { freshnessMap = JSON.parse(fs.readFileSync(FRESHNESS_PATH, 'utf8')); } catch (_) {}
+let freshnessDirty = false;
+function contentDate(key, obj) {
+  const hash = crypto.createHash('sha1').update(JSON.stringify(obj)).digest('hex').slice(0, 12);
+  const rec = freshnessMap[key];
+  if (rec && rec.hash === hash) return rec.date;
+  freshnessMap[key] = { hash, date: TODAY_ISO };
+  freshnessDirty = true;
+  return TODAY_ISO;
+}
+function writeFreshness() {
+  if (!freshnessDirty || process.env.CI) return;
+  fs.writeFileSync(FRESHNESS_PATH, JSON.stringify(freshnessMap, null, 1) + '\n');
+  console.log(`  → freshness.json updated (commit it with the data change)`);
 }
 
 // One-line editorial pull-quote for the homepage interruption block. Picks
@@ -1080,7 +1113,8 @@ function header({ activeSlug } = {}) {
         { href: '/best-pizza/', label: 'Pizza', deck: 'Lola, Black Sheep, and the wood-fired wave' },
         { href: '/cocktail-bars/', label: 'Cocktail Bars', deck: 'Where the bartender has an opinion' },
         { href: '/breweries/', label: 'Breweries', deck: 'Patios, taprooms, sour rooms' },
-        { href: '/best-dive-bars/', label: 'Dive Bars', deck: 'Booth, beer, no fuss' }
+        { href: '/best-dive-bars/', label: 'Dive Bars', deck: 'Booth, beer, no fuss' },
+        { href: '/open/monday/', label: 'Open on Monday', deck: 'The night that burns you, solved' }
       ]
     },
     {
@@ -2343,12 +2377,13 @@ function renderCategory(c) {
 
   // ItemList wraps individual LocalBusiness entries.
   // Each entry gets its own schema with name, address, website, price.
+  const catDate = contentDate(`cat:${c.slug}`, c.entries);
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
     name: c.title,
     description: c.subtitle,
-    dateModified: TODAY_ISO,
+    dateModified: catDate,
     numberOfItems: c.entries.length,
     itemListElement: c.entries.map((e, i) => {
       const item = {
@@ -2540,7 +2575,7 @@ function renderCategory(c) {
             <a class="cal-chip" href="/scenes/">By scene</a>
           </nav>`;
         })() : ''}
-        ${freshnessNote()}
+        ${freshnessNote(catDate)}
       </div>
     </section>
     ${upcomingTalks}
@@ -4092,7 +4127,7 @@ function renderCategoryNeighborhood(page, allPages) {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
     name: title,
-    dateModified: TODAY_ISO,
+    dateModified: contentDate(`nbx:${slug}`, items),
     numberOfItems: items.length,
     itemListElement: items.map((e, i) => {
       const item = { '@type': 'Place', name: e.name, url: e.website || `${SITE}/${c.slug}/${entrySlug(e.name)}/` };
@@ -4693,7 +4728,11 @@ function resolveVenues() {
   const events_dedup = dedupeNonFilms(events);
 
   const venues = new Map();
+  // Scraper artifacts sometimes land in the venue field ("General
+  // Admission", "TBA"). Those must never become venue pages.
+  const JUNK_VENUE = /^(general admission|tba|tbd|online|various|multiple venues|venue tbd)$/i;
   for (const e of events_dedup) {
+    if (JUNK_VENUE.test(String(e.venue || '').trim())) continue;
     const slug = entrySlug(e.venue);
     if (!venues.has(slug)) {
       // Try the alias map first, then the scraped name verbatim — venues like
@@ -5553,7 +5592,7 @@ function renderSituation(sit) {
       <p class="situation-pick-why">${esc(p.why)}</p>
     </li>`).join('');
   const itemList = {
-    '@context': 'https://schema.org', '@type': 'ItemList', name: title, dateModified: TODAY_ISO,
+    '@context': 'https://schema.org', '@type': 'ItemList', name: title, dateModified: contentDate(`sit:${sit.slug}`, sit.picks),
     itemListElement: sit.picks.map((p, i) => ({ '@type': 'ListItem', position: i + 1, name: p.name }))
   };
   const breadcrumb = {
@@ -5655,7 +5694,7 @@ function renderNote(n) {
     headline: n.title,
     description: n.deck,
     datePublished: n.date,
-    dateModified: TODAY_ISO,
+    dateModified: contentDate(`note:${n.slug}`, n),
     mainEntityOfPage: url,
     author: { '@type': 'Organization', name: 'bestofmpls', url: `${SITE}/` },
     publisher: { '@type': 'Organization', name: 'bestofmpls', url: `${SITE}/` }
@@ -6771,6 +6810,12 @@ function renderSkyway() {
 // ---------- /state-fair/ — the Great Minnesota Get-Together ----------
 function renderStateFair() {
   const f = stateFair;
+  // Off-season mode: once the fair wraps, the page becomes the next year's
+  // holding page so its rankings carry over instead of decaying. Title and
+  // schema point at 2027 (dates confirmed on mnstatefair.org); the 2026
+  // detail below stays as the how-it-works reference until fresh data lands.
+  const fairOver = TODAY_ISO > '2026-09-07';
+  const NEXT = { year: '2027', start: '2027-08-26', end: '2027-09-06', label: 'Thursday, Aug. 26 through Labor Day, Monday, Sept. 6, 2027' };
   const factRow = (label, val) => `<div class="fair-fact"><dt>${esc(label)}</dt><dd>${val}</dd></div>`;
   const priceRows = f.facts.prices.map(([label, val]) => `
       <div class="fair-price"><span class="fair-price-label">${esc(label)}</span><span class="fair-price-val">${esc(val)}</span></div>`).join('');
@@ -6793,8 +6838,8 @@ function renderStateFair() {
 
   const event = {
     '@context': 'https://schema.org', '@type': 'Festival',
-    name: 'Minnesota State Fair ' + f.year,
-    startDate: '2026-08-27', endDate: '2026-09-07',
+    name: 'Minnesota State Fair ' + (fairOver ? NEXT.year : f.year),
+    startDate: fairOver ? NEXT.start : '2026-08-27', endDate: fairOver ? NEXT.end : '2026-09-07',
     eventStatus: 'https://schema.org/EventScheduled',
     eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
     location: { '@type': 'Place', name: 'Minnesota State Fairgrounds',
@@ -6851,21 +6896,28 @@ function renderStateFair() {
     }
   </style>`;
 
-  return head({ title: f.title, description: f.seoDescription, slug: 'state-fair', theme: 'clay' }) +
+  const offSeasonTitle = `Minnesota State Fair ${NEXT.year}: Dates, Tickets & What to Know`;
+  const offSeasonBanner = fairOver ? `
+    <section class="wrap" style="margin-top:18px">
+      <div class="verify-banner-inner" style="border:1px solid var(--rule-soft);padding:16px 18px;font-family:var(--font-body);font-size:15px;line-height:1.55">
+        <strong>The ${f.year} Fair has wrapped.</strong> The ${NEXT.year} Minnesota State Fair runs <strong>${esc(NEXT.label)}</strong> at the Fairgrounds in Falcon Heights. Everything below — prices, food, how the days work — is from ${f.year}, kept as the reference until ${NEXT.year} details post next summer. <a href="/calendar/">See what's on in the Twin Cities right now →</a>
+      </div>
+    </section>` : '';
+  return head({ title: fairOver ? offSeasonTitle : f.title, description: f.seoDescription, slug: 'state-fair', theme: 'clay' }) +
     header({ activeSlug: '' }) + css +
     `<section class="section-head">
       <div class="wrap">
-        <div class="section-eyebrow">Seasonal guide · verified Aug 2026</div>
+        <div class="section-eyebrow">${fairOver ? `Seasonal guide · next fair ${esc(NEXT.label)}` : 'Seasonal guide · verified Aug 2026'}</div>
         <h1 class="section-title">${esc(f.h1)}</h1>
         <p class="section-deck">${esc(f.intro)}</p>
         <div class="fair-hero-meta">
-          <span><b>${esc(f.facts.dates)}</b></span>
+          <span><b>${esc(fairOver ? NEXT.label : f.facts.dates)}</b></span>
           <span>${esc(f.facts.days)}</span>
           <span>${esc(f.facts.location)}</span>
         </div>
       </div>
     </section>
-
+    ${offSeasonBanner}
     <section class="fair-block" id="know-before">
       <div class="wrap">
         <p class="fair-kicker">Know before you go</p>
@@ -6921,6 +6973,154 @@ function renderStateFair() {
 
     <script type="application/ld+json">${JSON.stringify(event)}</script>
     <script type="application/ld+json">${JSON.stringify(breadcrumb)}</script>` +
+    footer();
+}
+
+// ---------- /open/monday/ — the day the city eats out anyway ----------
+// Pure hours-data play: Monday is the day Twin Cities restaurants close and
+// searchers get burned. Built entirely from hours.json (Google-verified)
+// joined back to the directory entries, so it stays true as hours refresh.
+const OPEN_DAY_FOOD = new Set(['restaurants', 'food-halls', 'sandwiches', 'burgers', 'best-pizza', 'best-brunch', 'mexican-and-tacos', 'vietnamese', 'korean', 'japanese', 'hmong-food', 'ethiopian', 'indian-restaurants', 'thai', 'chinese', 'ice-cream', 'late-night', 'pastries-and-bakeries']);
+const OPEN_DAY_DRINK = new Set(['cocktail-bars', 'breweries', 'best-dive-bars', 'best-happy-hours', 'best-patios', 'lgbtq-nightlife']);
+
+function fmtCloseTime(t) {
+  if (t === '00:00') return 'midnight';
+  const [h, m] = t.split(':').map(Number);
+  const ap = h >= 12 ? 'pm' : 'am';
+  const hr = h % 12 === 0 ? 12 : h % 12;
+  return m ? `${hr}:${String(m).padStart(2, '0')}${ap}` : `${hr}${ap}`;
+}
+
+function collectOpenDay(day, minCloseMins) {
+  const mins = t => { const [H, M] = t.split(':').map(Number); return H * 60 + M; };
+  const seen = new Set();
+  const out = { food: [], drink: [] };
+  for (const cat of categories) {
+    const lane = OPEN_DAY_FOOD.has(cat.slug) ? 'food' : OPEN_DAY_DRINK.has(cat.slug) ? 'drink' : null;
+    if (!lane) continue;
+    for (const e of cat.entries) {
+      const rec = hoursData[`${cat.slug}:${e.name}`];
+      if (!rec || rec.business_status !== 'OPERATIONAL' || !rec.hours) continue;
+      const seg = rec.hours.find(s => s.day === day);
+      if (!seg || !seg.close || !seg.open) continue;
+      const c = mins(seg.close), o = mins(seg.open);
+      const eff = c <= o ? c + 1440 : c;
+      if (eff < minCloseMins) continue;
+      const placeKey = entrySlug(e.name);
+      if (seen.has(placeKey)) continue;
+      seen.add(placeKey);
+      out[lane].push({
+        name: e.name,
+        cat: cat.slug,
+        catTitle: cat.title,
+        neighborhood: e.neighborhood ? String(e.neighborhood).split(',')[0].trim() : '',
+        description: e.description || '',
+        close: seg.close,
+        closeEff: eff,
+        url: `/${cat.slug}/${placeKey}/`
+      });
+    }
+  }
+  out.food.sort((a, b) => b.closeEff - a.closeEff || a.name.localeCompare(b.name));
+  out.drink.sort((a, b) => b.closeEff - a.closeEff || a.name.localeCompare(b.name));
+  return out;
+}
+
+function renderOpenMonday() {
+  // Dinner-viable: still open at 8pm. Google door hours, refreshed by
+  // fetch-hours; per the covenant we say where the hours come from.
+  const { food, drink } = collectOpenDay(1, 20 * 60);
+  const fetchedAt = (() => {
+    const rec = Object.values(hoursData).find(r => r && r.fetched_at);
+    return rec ? rec.fetched_at.slice(0, 10) : null;
+  })();
+  const row = p => `
+    <li class="openday-row">
+      <span class="openday-name"><a href="${p.url}">${esc(p.name)}</a></span>
+      <span class="openday-meta">${p.neighborhood ? esc(p.neighborhood) + ' · ' : ''}${esc(p.catTitle)}</span>
+      <span class="openday-close">til ${esc(fmtCloseTime(p.close))}</span>
+    </li>`;
+  const faq = [
+    { q: 'What restaurants are open on Monday in Minneapolis?', a: `${food.length} places we track serve on Monday evenings, including ${food.slice(0, 4).map(p => p.name).join(', ')}. The full list on this page comes from verified Google hours and links to our entry on each place.` },
+    { q: 'Why are so many Twin Cities restaurants closed on Mondays?', a: 'Monday is the industry’s traditional day off — the slowest night of the week, and the one most independent kitchens use for deep cleaning, deliveries, and giving staff a real weekend. That’s why the places that DO open on Monday earn a loyal crowd.' },
+    { q: 'Are these hours accurate?', a: `Hours come from Google’s listings for each place${fetchedAt ? `, last refreshed ${fetchedAt}` : ''}, and cover the front door — kitchens can close earlier than the room. For a special trip, check the place’s own site (linked from each entry).` }
+  ];
+  const faqSchema = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.map(f => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) };
+  const listSchema = { '@context': 'https://schema.org', '@type': 'ItemList', name: 'Open on Monday in Minneapolis & St. Paul', numberOfItems: food.length + drink.length, itemListElement: [...food, ...drink].map((p, i) => ({ '@type': 'ListItem', position: i + 1, name: p.name, url: `${SITE}${p.url}` })) };
+  const css = `<style>
+    .openday-list{list-style:none;margin:0 0 8px;padding:0;border-top:1px solid var(--rule-soft)}
+    .openday-row{display:grid;grid-template-columns:1fr auto;grid-template-areas:'name close' 'meta close';gap:2px 18px;padding:13px 4px;border-bottom:1px solid var(--rule-soft);align-items:baseline}
+    .openday-name{grid-area:name;font-family:var(--font-display);font-weight:700;font-size:18px;line-height:1.15}
+    .openday-name a{color:var(--ink);text-decoration:none}
+    .openday-name a:hover{color:var(--clay)}
+    .openday-meta{grid-area:meta;font-family:var(--font-body);font-size:13.5px;color:var(--ink-soft)}
+    .openday-close{grid-area:close;font-family:var(--font-mono);font-weight:600;font-size:14px;color:var(--clay);white-space:nowrap}
+    .openday-h2{font-family:var(--font-display);font-weight:800;font-size:clamp(24px,3.5vw,34px);margin:44px 0 6px}
+    .openday-note{font-family:var(--font-body);font-size:13.5px;color:var(--ink-faint);margin:6px 0 18px}
+    .openday-faq{border-top:1px solid var(--ink);margin-top:52px;padding-top:8px}
+    .openday-faq h3{font-family:var(--font-display);font-weight:700;font-size:17px;margin:20px 0 6px}
+    .openday-faq p{font-family:var(--font-body);font-size:15px;line-height:1.6;color:var(--ink-soft);max-width:66ch;margin:0}
+  </style>`;
+  return head({ title: 'Restaurants Open on Monday in Minneapolis & St. Paul (Verified Hours)', description: `${food.length} restaurants and ${drink.length} bars we track are open Monday evenings across Minneapolis and St. Paul — from verified hours, not stale listicles.`, slug: 'open/monday', theme: 'forest' }) +
+    header({ activeSlug: '' }) + css +
+    `<section class="section-head">
+      <div class="wrap">
+        <div class="section-eyebrow">${food.length + drink.length} places · verified hours</div>
+        <h1 class="section-title">Open on Monday <em>in the Twin Cities</em></h1>
+        <p class="section-deck">Monday is the day this town's kitchens rest — and the night the "open now" search burns you. Every place below is open Monday until at least 8pm, from verified hours. Sorted by who stays open latest.</p>
+        ${freshnessNote()}
+      </div>
+    </section>
+    <section class="wrap">
+      <h2 class="openday-h2">Dinner</h2>
+      <p class="openday-note">Door hours — kitchens can wind down 30–60 minutes before close.</p>
+      <ul class="openday-list">${food.map(row).join('')}</ul>
+      <h2 class="openday-h2">Drinks after</h2>
+      <ul class="openday-list">${drink.map(row).join('')}</ul>
+      <div class="openday-faq">
+        ${faq.map(f => `<h3>${esc(f.q)}</h3><p>${esc(f.a)}</p>`).join('')}
+      </div>
+      <p class="openday-note" style="margin-top:28px">Also: <a href="/late-night/">late-night eats</a> · <a href="/best-happy-hours/">happy hours</a> · <a href="/tonight/">what's on tonight</a></p>
+    </section>
+    <script type="application/ld+json">${JSON.stringify(faqSchema)}</script>
+    <script type="application/ld+json">${JSON.stringify(listSchema)}</script>` +
+    newsletterCapture({ context: 'category' }) +
+    footer();
+}
+
+// ---------- /open/<holiday>/ — evergreen holiday-hours shells ----------
+// Published early so the URLs age before the seasonal spike; the verified
+// list lands ~3 weeks before each holiday when places post their hours.
+// Until then the page is honest about what it is and routes to the pages
+// that can answer today.
+const HOLIDAY_PAGES = [
+  { slug: 'thanksgiving', name: 'Thanksgiving', date: '2026-11-26', dateLabel: 'Thursday, November 26, 2026' },
+  { slug: 'christmas', name: 'Christmas', date: '2026-12-25', dateLabel: 'Friday, December 25, 2026' }
+];
+
+function renderHolidayShell(h) {
+  const year = h.date.slice(0, 4);
+  const faq = [
+    { q: `When do restaurants post their ${h.name} hours?`, a: `Most Twin Cities restaurants decide and post ${h.name} hours two to three weeks ahead. This page fills in with verified hours in the weeks before ${h.dateLabel} — we check the roughly 400 places we track rather than reprinting last year's list.` },
+    { q: `What's usually open on ${h.name} in Minneapolis?`, a: `Hotel restaurants, some larger operations, and many Asian restaurants traditionally serve on ${h.name}, while most independent kitchens close so staff get the day. Movie theaters typically run a full schedule. The verified ${year} list will replace this general note.` }
+  ];
+  const faqSchema = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.map(f => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) };
+  return head({ title: `What's Open on ${h.name} ${year} in Minneapolis & St. Paul`, description: `Which Twin Cities restaurants and spots are open ${h.dateLabel} — verified hours for the places we track, updated in the weeks before the holiday.`, slug: `open/${h.slug}`, theme: 'forest' }) +
+    header({ activeSlug: '' }) +
+    `<section class="section-head">
+      <div class="wrap">
+        <div class="section-eyebrow">Holiday hours · ${esc(h.dateLabel)}</div>
+        <h1 class="section-title">Open on ${esc(h.name)} <em>in the Twin Cities</em></h1>
+        <p class="section-deck">The verified ${esc(h.name)} list lands here in the weeks before the holiday, once places actually post their hours — we check the ~400 places we track instead of reprinting last year's list. Until then, these pages can answer today:</p>
+        <p class="section-deck" style="margin-top:10px"><a href="/open/monday/">Open on Mondays</a> · <a href="/late-night/">Late-night eats</a> · <a href="/tonight/">Tonight</a> · <a href="/this-weekend/">This weekend</a></p>
+        ${freshnessNote()}
+      </div>
+    </section>
+    <section class="wrap" style="padding-bottom:24px">
+      ${faq.map(f => `<h3 style="font-family:var(--font-display);font-weight:700;font-size:17px;margin:24px 0 6px">${esc(f.q)}</h3><p style="font-family:var(--font-body);font-size:15px;line-height:1.6;color:var(--ink-soft);max-width:66ch;margin:0">${esc(f.a)}</p>`).join('')}
+    </section>
+    <script type="application/ld+json">${JSON.stringify(faqSchema)}</script>` +
+    newsletterCapture({ context: 'category' }) +
     footer();
 }
 
@@ -9023,10 +9223,15 @@ function renderSitemap(neighborhoods, crossPages) {
     ...(featuredEvts.events || []).map(ev => ({ loc: `${SITE}/${ev.slug}/`, priority: '0.95' })),
     ...guides.map(g => ({ loc: `${SITE}/${g.slug}/`, priority: '0.85' })),
     { loc: SITE + '/state-fair/', priority: '0.9' },
+    { loc: SITE + '/open/monday/', priority: '0.8' },
+    ...HOLIDAY_PAGES.map(h => ({ loc: `${SITE}/open/${h.slug}/`, priority: '0.7' })),
     { loc: SITE + '/pride/', priority: '0.85' },
     ...(BEST_OF_LIVE ? [{ loc: `${SITE}/best-of-${BEST_OF_YEAR}/`, priority: '0.9' }] : []),
     ...categories.map(c => ({ loc: `${SITE}/${c.slug}/`, priority: '0.9' })),
-    ...getVenues().map(v => ({ loc: `${SITE}/calendar/venue/${v.slug}/`, priority: '0.8' })),
+    // Only substantive venue pages go in the sitemap: a directory match or
+    // a real booking calendar. One-off rooms still get pages, just not
+    // sitemap slots (thin orphans dilute crawl budget).
+    ...getVenues().filter(v => v.directory || v.events.length >= 2).map(v => ({ loc: `${SITE}/calendar/venue/${v.slug}/`, priority: '0.8' })),
     ...(neighborhoods || []).map(nb => ({ loc: `${SITE}/neighborhoods/${nb.slug}/`, priority: '0.8' })),
     ...(crossPages || []).map(p => ({ loc: `${SITE}/${p.category.slug}/in-${p.nb.slug}/`, priority: '0.75' })),
     // Per-entry detail pages. The biggest SEO surface on the site.
@@ -9112,6 +9317,7 @@ function renderLlmsTxt(neighborhoods) {
 - [Free Live Music](${SITE}/live-music/free/): every upcoming no-cover show in the Twin Cities, plus the rooms that never charge
 - [Five Today](${SITE}/five/): exactly five things worth leaving the house for today
 - [This Weekend](${SITE}/this-weekend/): Friday through Sunday, day by day
+- [Open on Monday](${SITE}/open/monday/): restaurants and bars open Monday evenings, from verified hours
 - [The Calendar](${SITE}/calendar/): concerts, openings, talks, and screenings by date and venue
 - [Now Showing](${SITE}/now-showing/): museum exhibitions and independent gallery shows on view
 - [Best of MPLS](${SITE}/best-of-2026/): the living best-of, ranked by real reader signals
@@ -9181,6 +9387,8 @@ function build() {
   console.log(`  → ${guides.length} guide pages`);
   writeFile('pride/index.html', renderPride());
   writeFile('state-fair/index.html', renderStateFair());
+  writeFile('open/monday/index.html', renderOpenMonday());
+  for (const h of HOLIDAY_PAGES) writeFile(`open/${h.slug}/index.html`, renderHolidayShell(h));
   if (BEST_OF_LIVE) writeFile(`best-of-${BEST_OF_YEAR}/index.html`, renderBestOf());
 
   // Subscribable iCal feed: upcoming creative events (no film showtime spam, no
@@ -9368,6 +9576,7 @@ function build() {
   const publicDir = path.join(ROOT, 'public');
   if (fs.existsSync(publicDir)) copyPublic(publicDir, '');
 
+  writeFreshness();
   console.log(`\n✓ Built to dist/\n`);
 }
 
