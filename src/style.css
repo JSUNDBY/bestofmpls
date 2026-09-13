@@ -6927,6 +6927,7 @@ html[data-mode="dark"] .home-board { background: #050505; border-top: 1px solid 
 /* Place photo: the entry hero shot */
 .entry-photo { margin: 20px 0 8px; }
 .entry-photo img { width: 100%; height: auto; display: block; border-radius: var(--radius); }
+.entry-photo-credit { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.06em; color: var(--ink-faint); margin-top: 6px; text-transform: uppercase; }
 
 /* Extra place photos: the angle row */
 .entry-photo-row { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 8px; margin: 8px 0; }

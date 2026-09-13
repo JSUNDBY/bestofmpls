@@ -574,6 +574,8 @@ const todayData     = loadJsonOptional(path.join(SRC, 'data/today.json')) || nul
 const coordsData    = loadJsonOptional(path.join(SRC, 'data/coords.json')) || {};
 const rightnowData  = loadJsonOptional(path.join(SRC, 'data/rightnow.json')) || null;
 const hoursData     = loadJsonOptional(path.join(SRC, 'data/hours.json')) || {};
+// Crew photo credits + rights grants, maintained by scripts/pull-photos.js.
+const photoCredits  = loadJsonOptional(path.join(SRC, 'data/photo-credits.json')) || {};
 const skywaySegmentsData = loadJsonOptional(path.join(SRC, 'data/skyway-segments.json')) || { cities: { minneapolis: { segments: [] }, saintpaul: { segments: [] } } };
 
 // Resolve the best lat/lng for an entry. Preference order:
@@ -3077,8 +3079,13 @@ function renderEntry(c, e, allCategories) {
        ${(() => {
          const shots = placePhotos(c.slug, slug);
          if (!shots.length) return '';
-         const hero = `<figure class="entry-photo"><img src="${esc(shots[0])}" alt="${esc(e.name)}" loading="eager" decoding="async"></figure>`;
-         const rest = shots.slice(1, 5).map(p2 => `<img src="${esc(p2)}" alt="${esc(e.name)}" loading="lazy" decoding="async">`).join('');
+         // Credit line: the crew's name on their shot, from the ledger
+         // pull-photos.js maintains. Uncredited files (Josh's own, or
+         // pre-ledger pulls) just show no line.
+         const creditFor = p2 => { const rec = photoCredits[p2.split('/').pop()]; return rec && rec.credit && rec.credit !== 'anonymous' ? rec.credit : null; };
+         const heroCredit = creditFor(shots[0]);
+         const hero = `<figure class="entry-photo"><img src="${esc(shots[0])}" alt="${esc(e.name)}" loading="eager" decoding="async">${heroCredit ? `<figcaption class="entry-photo-credit">Photo: ${esc(heroCredit)}</figcaption>` : ''}</figure>`;
+         const rest = shots.slice(1, 5).map(p2 => `<img src="${esc(p2)}" alt="${esc(e.name)}" loading="lazy" decoding="async" title="${creditFor(p2) ? esc('Photo: ' + creditFor(p2)) : ''}">`).join('');
          return hero + (rest ? `<div class="entry-photo-row">${rest}</div>` : '');
        })()}
 
@@ -9159,6 +9166,8 @@ function renderShoot() {
       .sh-btn { font-family: var(--font-label); font-weight: 700; font-size: 14px; background: var(--accent); color: #F4F2EC; border: 0; border-radius: 99px; padding: 10px 16px; }
       .sh-btn[disabled] { background: var(--paper-3); color: var(--ink-faint); }
       .sh-setup input { width: 100%; font-size: 16px; padding: 12px; margin: 6px 0; border: 1px solid var(--rule-soft); border-radius: 8px; background: var(--paper); color: var(--ink); }
+      .sh-consent { display: flex; gap: 10px; align-items: flex-start; font-family: var(--font-body); font-size: 13.5px; line-height: 1.5; color: var(--ink-soft); margin: 8px 0 12px; }
+      .sh-consent input { width: auto; margin: 3px 0 0; accent-color: var(--accent); }
       .sh-rules { background: var(--paper-2); border-left: 3px solid var(--accent); padding: 12px 16px; font-size: 13.5px; line-height: 1.55; font-family: var(--font-body); color: var(--ink-soft); margin: 12px 0; }
       .sh-toast { position: fixed; bottom: 18px; left: 50%; transform: translateX(-50%); background: var(--ink); color: #F4F2EC; font-family: var(--font-label); padding: 10px 18px; border-radius: 99px; font-size: 14px; opacity: 0; transition: opacity .3s; pointer-events: none; }
       .sh-toast.on { opacity: 1; }
@@ -9170,6 +9179,7 @@ function renderShoot() {
       <div class="sh-setup" id="sh-setup">
         <input id="sh-name" placeholder="Your name (for credit)" autocomplete="name">
         <input id="sh-code" placeholder="Crew code">
+        <label class="sh-consent"><input type="checkbox" id="sh-consent"> <span>These are my photos. Best of MPLS can use them on the site and social, with credit to me.</span></label>
         <button class="sh-btn" id="sh-start" style="width:100%; padding:14px;">Start hunting</button>
       </div>
       <div id="sh-game" hidden>
@@ -9185,8 +9195,8 @@ function renderShoot() {
     <script>
     (function(){
       var WORKER = ${JSON.stringify(POLL_WORKER_URL)};
-      var targets = [], doneSet = {}, board = {}, me = { name: localStorage.getItem('sh-name') || '', code: localStorage.getItem('sh-code') || '' };
-      var current = null, myCount = parseInt(localStorage.getItem('sh-mycount') || '0', 10);
+      var targets = [], doneSet = {}, board = {}, me = { name: localStorage.getItem('sh-name') || '', code: localStorage.getItem('sh-code') || '', consent: localStorage.getItem('sh-consent') || '' };
+      var current = null, lastPos = null, myCount = parseInt(localStorage.getItem('sh-mycount') || '0', 10);
 
       function toast(t){ var el = document.getElementById('sh-toast'); el.textContent = t; el.classList.add('on'); setTimeout(function(){ el.classList.remove('on'); }, 2600); }
       function dist(a, b){ var dx = (a.lng - b.lng) * 84000, dy = (a.lat - b.lat) * 111000; return Math.sqrt(dx*dx + dy*dy); }
@@ -9220,7 +9230,8 @@ function renderShoot() {
 
       function locate(){
         navigator.geolocation.getCurrentPosition(function(p){
-          render({ lat: p.coords.latitude, lng: p.coords.longitude });
+          lastPos = { lat: p.coords.latitude, lng: p.coords.longitude };
+          render(lastPos);
         }, function(){ render(null); }, { enableHighAccuracy: true, timeout: 8000 });
       }
 
@@ -9228,6 +9239,8 @@ function renderShoot() {
         me.name = document.getElementById('sh-name').value.trim() || me.name;
         me.code = document.getElementById('sh-code').value.trim() || me.code;
         if (!me.name || !me.code) { toast('Name and crew code first'); return; }
+        if (!me.consent && !document.getElementById('sh-consent').checked) { toast('Check the permission box so we can publish your shots'); return; }
+        if (!me.consent) { me.consent = new Date().toISOString(); localStorage.setItem('sh-consent', me.consent); }
         localStorage.setItem('sh-name', me.name);
         localStorage.setItem('sh-code', me.code);
         document.getElementById('sh-setup').hidden = true;
@@ -9261,7 +9274,7 @@ function renderShoot() {
           var data = cv.toDataURL('image/jpeg', 0.82);
           fetch(WORKER + '/shoot-upload', {
             method: 'POST', headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ code: me.code, contributor: me.name, slug: current.s, filename: current._more ? current.f.replace(/\.jpg$/, '--x' + Math.random().toString(36).slice(2, 6) + '.jpg') : current.f, image: data })
+            body: JSON.stringify({ code: me.code, contributor: me.name, consent: true, slug: current.s, filename: current._more ? current.f.replace(/\.jpg$/, '--x' + Math.random().toString(36).slice(2, 6) + '.jpg') : current.f, image: data, lat: lastPos ? lastPos.lat : null, lng: lastPos ? lastPos.lng : null, dist_m: lastPos ? Math.round(dist(lastPos, current)) : null })
           }).then(function(r){ return r.json(); }).then(function(d){
             if (d.ok) {
               doneSet[current.f] = { by: me.name };

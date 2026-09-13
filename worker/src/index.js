@@ -453,10 +453,26 @@ export default {
       if (!image.startsWith('data:image/jpeg;base64,') || image.length > 1400000) {
         return json({ error: 'bad image (jpeg, under ~1MB after compression)' }, 400, origin);
       }
+      // The rights grant is required: without it we have no license to
+      // publish the photo. The page can't submit without the box checked,
+      // so hitting this means a stale client or a hand-rolled request.
+      if (body.consent !== true) {
+        return json({ error: 'permission box required (update the page and retry)' }, 400, origin);
+      }
+      const num = v => (typeof v === 'number' && isFinite(v)) ? v : null;
       const record = {
         filename,
         slug: clean(body.slug, 80),
         contributor: clean(body.contributor, 40) || 'anonymous',
+        // The license record: contributor affirmed they took the photo and
+        // granted Best of MPLS use on site + social with credit.
+        consent: true,
+        // Soft location verification: device position at upload time and
+        // its distance to the target, both client-reported. A shot from
+        // 40m away reads very differently than one from 3km in review.
+        lat: num(body.lat) != null ? Math.round(body.lat * 1e5) / 1e5 : null,
+        lng: num(body.lng) != null ? Math.round(body.lng * 1e5) / 1e5 : null,
+        dist_m: num(body.dist_m) != null ? Math.max(0, Math.round(body.dist_m)) : null,
         ts: Date.now(),
         image,
       };

@@ -14,8 +14,16 @@ const WORKER = 'https://bestofmpls-poll.j-sundby.workers.dev';
 const adminKey = (fs.readFileSync(path.join(ROOT, '.dev.vars'), 'utf8').match(/^ADMIN_KEY=(.+)$/m) || [])[1];
 if (!adminKey) { console.error('No ADMIN_KEY in .dev.vars'); process.exit(1); }
 
+// The credits ledger: per filename, who shot it, when, the rights grant,
+// and how far from the target the device reported being at upload. Commits
+// with the photos — the permanent permission record, and the source of the
+// "Photo: name" line on entry pages.
+const CREDITS_PATH = path.join(ROOT, 'src/data/photo-credits.json');
+
 (async () => {
   fs.mkdirSync(DEST, { recursive: true });
+  let credits = {};
+  try { credits = JSON.parse(fs.readFileSync(CREDITS_PATH, 'utf8')); } catch (_) {}
   const H = { 'X-Admin-Key': adminKey };
   const { keys, error } = await fetch(`${WORKER}/admin/photos`, { headers: H }).then(r => r.json());
   if (error) { console.error('worker:', error); process.exit(1); }
@@ -28,8 +36,16 @@ if (!adminKey) { console.error('No ADMIN_KEY in .dev.vars'); process.exit(1); }
     if (fs.existsSync(dest)) { skipped++; continue; }
     const b64 = rec.image.replace(/^data:image\/jpeg;base64,/, '');
     fs.writeFileSync(dest, Buffer.from(b64, 'base64'));
-    console.log(`  ✓ ${rec.filename}  (by ${rec.contributor})`);
+    credits[rec.filename] = {
+      credit: rec.contributor || 'anonymous',
+      consent: rec.consent === true,
+      ts: rec.ts,
+      dist_m: rec.dist_m != null ? rec.dist_m : null,
+    };
+    const distNote = rec.dist_m != null ? `, ${rec.dist_m}m from target` : ', no location';
+    console.log(`  ✓ ${rec.filename}  (by ${rec.contributor}${rec.consent === true ? ', grant on file' : ', NO GRANT — old client, get permission before shipping'}${distNote})`);
     pulled++;
   }
-  console.log(`\n${pulled} pulled, ${skipped} already local. Review them in public/img/places/, then commit — next build attaches everything.`);
+  if (pulled) fs.writeFileSync(CREDITS_PATH, JSON.stringify(credits, null, 1) + '\n');
+  console.log(`\n${pulled} pulled, ${skipped} already local. Review them in public/img/places/, then commit — next build attaches everything (credits land automatically).`);
 })();
