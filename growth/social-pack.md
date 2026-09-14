@@ -11,10 +11,10 @@
 
 **Shot list:**
 - Ben LaMar Gay: The World of Ben LaMar Gay at Walker Art Center (03:00) — b-roll of the venue or a poster
-- Sheridan Zuther and Raymond Berg at Crooners Supper Club (17:00) — b-roll of the venue or a poster
+- *CANCELED* Sheridan Zuther and Raymond Berg at Crooners Supper Club (17:00) — b-roll of the venue or a poster
 - Mumblin’ Drew’s Oldfangled Orchestrators at White Squirrel Bar (18:00) — b-roll of the venue or a poster
-- Songwriter Night: Hosted by Tom Peschges and Featuring Tim Fast at Crooners Supper Club (18:00) — b-roll of the venue or a poster
 - Gregory Uhlmann w/ Lonefront at Berlin (19:00) — b-roll of the venue or a poster
+- Uproar Comedy Open Mic at Bryant Lake Bowl Theater (19:00) — b-roll of the venue or a poster
 
 **Caption:** Five ways to spend the weekend, no scrolling six apps required. Full calendar and more at the link. Walker Art Center, Crooners Supper Club, White Squirrel Bar and more.
 
