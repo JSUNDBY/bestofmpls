@@ -106,7 +106,7 @@ module.exports = {
       capacity: '300',
       mood_tags: ['intimate', 'listening-room', 'date-night', 'seated'],
       before_after: {
-        eat:   'Icehouse IS the dinner — full kitchen, dinner before the back-stage show. Or Hola Arepa across the street for arepas + a quiet bar.',
+        eat:   'Eat here: full kitchen, and the stage is at the back of the same room, so dinner turns into the show without leaving your table. Or Hola Arepa across the street for arepas and a quiet bar.',
         drink: 'Stay at Icehouse — the bar is the back of the show.',
         after: 'Nightingale on Lyndale (5-block walk west to the Wedge) for late dinner and a careful cocktail.',
         late:  'Nightingale runs until 1 AM most nights — the closest real late kitchen to Icehouse.'
