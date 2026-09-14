@@ -1,6 +1,6 @@
-# Best of MPLS — Content Plan (week of September 7)
+# Best of MPLS — Content Plan (week of September 14)
 
-7 post concepts from live site data. Faceless-friendly: each is a shot list, not an on-camera script. Shoot 2-3 in one outing, let the repurposer fan them across IG / TikTok / Reels / Threads. The Post slot is a suggested time to queue it.
+8 post concepts from live site data. Faceless-friendly: each is a shot list, not an on-camera script. Shoot 2-3 in one outing, let the repurposer fan them across IG / TikTok / Reels / Threads. The Post slot is a suggested time to queue it.
 
 ---
 
@@ -10,81 +10,81 @@
 **Hook:** On screen, frame 1: "5 things to do this weekend in Minneapolis"
 
 **Shot list:**
-- The Riff Rangers at Lake Harriet Bandshell (17:30) — b-roll of the venue or a poster
-- David Robinson & the Dedicated Friends at The 331 Club (18:00) — b-roll of the venue or a poster
-- Nancy Olson w. Joe Carey at White Squirrel Bar (18:00) — b-roll of the venue or a poster
-- *CANCELED* Soap Prov: Show of 10,000 Secrets at Crooners Supper Club (18:30) — b-roll of the venue or a poster
-- A Night for Nina: The Cast of Nina Simone: Four Women at Dakota Jazz Club (19:00) — b-roll of the venue or a poster
+- Summer Cypher Presents Cedar Cypher at The Cedar Cultural Center (11:00) — b-roll of the venue or a poster
+- BALLS Cabaret at Strike Theater (14:00) — b-roll of the venue or a poster
+- Emmy Woods and friends at The 331 Club (16:00) — b-roll of the venue or a poster
+- Open Mic Sundays Hosted by James Stanley at Laugh Camp Comedy Club (18:00) — b-roll of the venue or a poster
+- honestav - The Sweet American Boy Tour at Varsity Theater (19:00) — b-roll of the venue or a poster
 
-**Caption:** Five ways to spend the weekend, no scrolling six apps required. Full calendar and more at the link. Lake Harriet Bandshell, The 331 Club, White Squirrel Bar and more.
+**Caption:** Five ways to spend the weekend, no scrolling six apps required. Full calendar and more at the link. The Cedar Cultural Center, Strike Theater, The 331 Club and more.
 
 **Tags:** #minneapolis #saintpaul #twincities #onlyinmn #mnpls #mplsevents #twincitieslife #thingstodomn
 
 ---
 
-## 2. Happy Hour Pick: Red Cow (Cathedral Hill)
+## 2. Happy Hour Pick: The Commodore Bar & Restaurant
 **Format:** Reel (10-15s)  ·  **Post:** Tue 11:30 AM
 
 **Hook:** On screen: "The happy hour locals actually go to"
 
 **Shot list:**
-- Exterior of Red Cow (Cathedral Hill) (Cathedral Hill, St. Paul)
+- Exterior of The Commodore Bar & Restaurant (Cathedral Hill, St. Paul)
 - The drink and a snack, close up
-- Text overlay: Tue–Fri 2–5:30pm
+- Text overlay: Wed–Thu 4–6pm; Fri–Sat 9–11pm
 
-**Caption:** Red Cow (Cathedral Hill) in Cathedral Hill, St. Paul. The Selby Avenue Red Cow runs the same Tuesday-through-Friday window as the other locations, with two dollars off wine, beer, and cocktails and seven-dollar starters: ahi crisps, buffalo cauliflower, Brussels, wings, scotch eggs, Wisconsin cheese curds. The scotch eggs and a Moscow mule, two bucks off, is a reliable early-evening plan. More happy hours at the link.
+**Caption:** The Commodore Bar & Restaurant in Cathedral Hill, St. Paul. Old-school St. Paul glamour in a room that has been doing it since the Fitzgeralds were neighbors. Wednesday and Thursday from four to six: fifteen dollars for any app (cheese curds, fries, lamb sliders, cauliflower) and sixteen dollars for any cocktail from the classic list. Wednesday and Thursday also get half-off wine bottles. The late-night Friday and Saturday window from nine to eleven is the one locals know. More happy hours at the link.
 
 **Tags:** #minneapolis #saintpaul #twincities #onlyinmn #mnpls #mplsbars #twincitiescocktails #mnbeer
 
 ---
 
-## 3. Chase This Truck: Gastrotruck
-**Format:** Reel (10-15s)  ·  **Post:** Wed 5:30 PM
+## 3. A Perfect Day in Northeast Minneapolis
+**Format:** Reel or carousel  ·  **Post:** Wed 5:30 PM
+
+**Hook:** On screen: "Where to eat and drink in Northeast Minneapolis, ranked by a local"
+
+**Shot list:**
+- Stargazer (Cocktail Bars) — quick exterior + one signature shot
+- Black Duck Spirits & Hearth (Burgers & Juicy Lucys) — quick exterior + one signature shot
+- Dream Creamery (Burgers & Juicy Lucys) — quick exterior + one signature shot
+- The Anchor Fish & Chips (Restaurants) — quick exterior + one signature shot
+- Northeast Social Club (Restaurants) — quick exterior + one signature shot
+
+**Caption:** One neighborhood, a whole day. Northeast Minneapolis done right. Full neighborhood guide at the link.
+
+**Tags:** #minneapolis #saintpaul #twincities #onlyinmn #mnpls #mplsfood #twincitieseats #mnfood #eatlocalmn
+
+---
+
+## 4. Chase This Truck: Potter's Pasties & Pies
+**Format:** Reel (10-15s)  ·  **Post:** Thu 11:30 AM
 
 **Hook:** On screen: "The food truck worth tracking down"
 
 **Shot list:**
-- Gastrotruck truck, wide
+- Potter's Pasties & Pies truck, wide
 - The food, hero shot
-- Text overlay: New American street food
+- Text overlay: British pasties
 
-**Caption:** Gastrotruck. Chef Stephen Trojahn brings two decades of kitchen chops to a truck built on fresh, local, low-waste cooking. The seasonal menu leans into elevated comfort, and the weekday lunch service is where you catch it. Equal parts roving truck and catering operation. We keep a running map of where the trucks are, link in bio.
+**Caption:** Potter's Pasties & Pies. Hand-crimped British pasties baked into a perfect handheld meal, from the traditional beef to rotating veggie versions. The Union Jack trucks turn up at breweries, festivals, and events all over the metro. There is a Como Avenue shop too, but the truck still roves hard. We keep a running map of where the trucks are, link in bio.
 
 **Tags:** #minneapolis #saintpaul #twincities #onlyinmn #mnpls #mplsfood #twincitieseats #mnfood #eatlocalmn #foodtruck
 
 ---
 
-## 4. Twin Cities Horoscope
-**Format:** Carousel (3-4 slides)  ·  **Post:** Thu 11:30 AM
+## 5. Twin Cities Horoscope
+**Format:** Carousel (3-4 slides)  ·  **Post:** Fri 4:00 PM
 
 **Hook:** Slide 1: "Your Minneapolis horoscope this week"
 
 **Shot list:**
-- Pisces: "The light in the kitchen is doing something remarkable. You make something that is only fo..."
 - Aries: "You are, today, the most useful person within a one-block radius. A favor offered freely c..."
 - Taurus: "A familiar room becomes interesting again. You realize you have grown past something you u..."
+- Gemini: "You overhear something on the bus that makes the day better. A long-stalled conversation f..."
 
 **Caption:** A weekly reading written for the metro. All twelve signs at the link. Which one are you.
 
 **Tags:** #minneapolis #saintpaul #twincities #onlyinmn #mnpls #horoscope #minneapolis
-
----
-
-## 5. Cocktail Bars
-**Format:** Reel or carousel  ·  **Post:** Fri 4:00 PM
-
-**Hook:** On screen: "Where to actually get a good cocktail"
-
-**Shot list:**
-- Norseman Distillery (Northeast Minneapolis) — signature shot
-- Earl Giles (Northeast Minneapolis) — signature shot
-- Bar at Spoon and Stable (North Loop) — signature shot
-- Dakota Jazz Club bar (Downtown Minneapolis) — signature shot
-- Char Bar (North Loop) — signature shot
-
-**Caption:** The bars that take the drink seriously. Full list at the link.
-
-**Tags:** #minneapolis #saintpaul #twincities #onlyinmn #mnpls #mplsfood #twincitieseats #mnfood #eatlocalmn
 
 ---
 
@@ -94,11 +94,11 @@
 **Hook:** On screen: "The burger Minneapolis invented and will fight you about"
 
 **Shot list:**
-- Company Bar (Kingfield) — signature shot
 - Dark Horse Bar & Eatery (Lowertown) — signature shot
 - Black Duck Spirits & Hearth (Northeast Minneapolis) — signature shot
 - Dream Creamery (Northeast Minneapolis) — signature shot
 - Angry Line Cook (Food truck) — signature shot
+- Burger Daddies (Food truck) — signature shot
 
 **Caption:** The Juicy Lucy and the best burgers in the metro. Full ranking at the link.
 
@@ -106,16 +106,34 @@
 
 ---
 
-## 7. New and Worth the Table
-**Format:** Carousel  ·  **Post:** Sun 11:00 AM
+## 7. Pizza
+**Format:** Reel or carousel  ·  **Post:** Sun 11:00 AM
+
+**Hook:** On screen: "Best pizza in the Twin Cities, no chains"
+
+**Shot list:**
+- Hello Pizza (Edina) — signature shot
+- Mothership Pizza Paradise (50th & France) — signature shot
+- Tono Pizzeria + Cheesesteaks (50th & France) — signature shot
+- Pizzeria Lola (Armatage) — signature shot
+- Black Sheep Coal-Fired Pizza (North Loop) — signature shot
+
+**Caption:** Where to get a real slice. Full list at the link.
+
+**Tags:** #minneapolis #saintpaul #twincities #onlyinmn #mnpls #mplsfood #twincitieseats #mnfood #eatlocalmn
+
+---
+
+## 8. New and Worth the Table
+**Format:** Carousel  ·  **Post:** Mon 12:00 PM
 
 **Hook:** Slide 1: "New Twin Cities restaurants people are actually talking about"
 
 **Shot list:**
-- Mestiizo — Mexican-Asian, cocktail bar
 - Bar Oscar — Cocktail and wine bar
 - Jook Sing — Cantonese American, Mike Yuen + Tony Gao
 - Oro by Nixta — Mexican, masa-driven
+- Estelle — Southern European, Jason Hansen
 
 **Caption:** The openings worth your next reservation. More at the link.
 
