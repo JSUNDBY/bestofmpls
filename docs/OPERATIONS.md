@@ -9,7 +9,7 @@ One page. What runs itself, what Josh does, and the commands behind everything. 
 | 4x daily | Event scrape (43 sources) + site rebuild + deploy | bestofmpls.com |
 | Weekdays 7:30am | Daily short generated (day's recipe + rotating music lane) | your chat, awaiting "go" |
 | Mondays 7:30am | Week Ahead IG carousel alongside the video | your chat |
-| Sunday 6pm | Ping: 30 seconds for your human paragraph | your chat |
+| Sunday 6pm | Telegram text from @sundby_brain_bot: 30 seconds for your human paragraph. Reply to it, typed or voice memo. | your phone |
 | Sunday 10:30pm | Your note becomes the email's opening, committed | your chat shows the paragraph |
 | Monday ~12:47am | The newsletter is built and handed to Kit, **scheduled for 10:00am**. It shows in Kit → Broadcasts as *Scheduled* until then; open it to read, edit, or cancel until 10am. | Kit (scheduled) |
 | Monday 10:00am | Kit sends it. Automatic — nobody presses Send. (`NEWSLETTER_MODE=draft` in the workflow flips it to draft-and-you-send.) | subscriber inboxes |
@@ -22,7 +22,7 @@ One page. What runs itself, what Josh does, and the commands behind everything. 
 
 ## Your week (about 90 minutes)
 
-- **Sunday, 30 seconds:** when the 6pm ping arrives, drop a voice memo (`~/Desktop/IN/bomm*.m4a`) or two typed sentences (`~/Desktop/IN/bomm-note.txt`). That's the email's one human paragraph. Skip it and the email goes out clean — it is never faked.
+- **Sunday, 30 seconds:** the 6pm text arrives on Telegram. Reply to that message, typed or as a voice memo, and it lands in the vault for the 10:30pm builder. (Fallback still works: a voice memo at `~/Desktop/IN/bomm*.m4a` or two sentences in `~/Desktop/IN/bomm-note.txt`.) Skip it and the email goes out clean — it is never faked.
 - **Friday, ~1 hour, the sales block:** send or follow up partner pitches. Ready-to-send giveaway pitches: `~/Desktop/bestofmpls-posts/giveaway-pitches.md`.
 - **One night out as the face.** Ten seconds of vertical video from a real room beats an hour of desk work.
 - **Shoot as you go.** `docs/PHOTO-SHOTLIST.md` ranks every place that needs a photo, grouped by neighborhood. Save each shot with the exact filename shown into `public/img/places/`, tell Claude "commit the photos" (or commit yourself), and the next build puts it on the entry page automatically. Say "shotlist" to Claude for a fresh list anytime.
