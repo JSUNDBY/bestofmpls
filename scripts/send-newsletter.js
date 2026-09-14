@@ -627,7 +627,7 @@ async function alreadySentThisWeek(subject) {
 // broadcast for a fixed SEND_HOUR on Monday, Central time, and Kit delivers
 // it. If the script happens to run after that hour (dropped crons), it
 // sends within minutes — still Monday morning.
-const SEND_HOUR_CENTRAL = 6; // 6:00am Monday, Minneapolis
+const SEND_HOUR_CENTRAL = 10; // 10:00am Monday, Minneapolis — mid-morning, when "what's this week" is a live question (Josh: 6am is too early to plan your week)
 
 function mondaySendAtISO() {
   const [y, m, d] = thisMonday().split('-').map(Number);
