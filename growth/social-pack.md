@@ -10,13 +10,13 @@
 **Hook:** On screen, frame 1: "5 things to do this weekend in Minneapolis"
 
 **Shot list:**
-- Summer Cypher Presents Cedar Cypher at The Cedar Cultural Center (11:00) — b-roll of the venue or a poster
-- BALLS Cabaret at Strike Theater (14:00) — b-roll of the venue or a poster
-- Emmy Woods and friends at The 331 Club (16:00) — b-roll of the venue or a poster
-- Open Mic Sundays Hosted by James Stanley at Laugh Camp Comedy Club (18:00) — b-roll of the venue or a poster
-- honestav - The Sweet American Boy Tour at Varsity Theater (19:00) — b-roll of the venue or a poster
+- Ben LaMar Gay: The World of Ben LaMar Gay at Walker Art Center (03:00) — b-roll of the venue or a poster
+- Sheridan Zuther and Raymond Berg at Crooners Supper Club (17:00) — b-roll of the venue or a poster
+- Mumblin’ Drew’s Oldfangled Orchestrators at White Squirrel Bar (18:00) — b-roll of the venue or a poster
+- Songwriter Night: Hosted by Tom Peschges and Featuring Tim Fast at Crooners Supper Club (18:00) — b-roll of the venue or a poster
+- Gregory Uhlmann w/ Lonefront at Berlin (19:00) — b-roll of the venue or a poster
 
-**Caption:** Five ways to spend the weekend, no scrolling six apps required. Full calendar and more at the link. The Cedar Cultural Center, Strike Theater, The 331 Club and more.
+**Caption:** Five ways to spend the weekend, no scrolling six apps required. Full calendar and more at the link. Walker Art Center, Crooners Supper Club, White Squirrel Bar and more.
 
 **Tags:** #minneapolis #saintpaul #twincities #onlyinmn #mnpls #mplsevents #twincitieslife #thingstodomn
 
@@ -78,9 +78,9 @@
 **Hook:** Slide 1: "Your Minneapolis horoscope this week"
 
 **Shot list:**
-- Aries: "You are, today, the most useful person within a one-block radius. A favor offered freely c..."
-- Taurus: "A familiar room becomes interesting again. You realize you have grown past something you u..."
-- Gemini: "You overhear something on the bus that makes the day better. A long-stalled conversation f..."
+- Aries: "The plan you made on Sunday holds up beautifully. You are asked a question you have a good..."
+- Taurus: "A small purchase you have been thinking about turns out to be worth it. Money behaves pred..."
+- Gemini: "The morning has more options than yesterday and you use them well. You meet someone twice ..."
 
 **Caption:** A weekly reading written for the metro. All twelve signs at the link. Which one are you.
 
