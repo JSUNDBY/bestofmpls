@@ -621,10 +621,32 @@ async function alreadySentThisWeek(subject) {
   return (data.broadcasts || []).some(b => b.subject === subject);
 }
 
+// The send time is Kit's job, not GitHub's. The 2026-09-14 issue went out at
+// 8:48pm Sunday because a delayed cron crossed midnight UTC; GitHub's clock
+// is not reliable enough to pick the minute. So: the script schedules the
+// broadcast for a fixed SEND_HOUR on Monday, Central time, and Kit delivers
+// it. If the script happens to run after that hour (dropped crons), it
+// sends within minutes — still Monday morning.
+const SEND_HOUR_CENTRAL = 6; // 6:00am Monday, Minneapolis
+
+function mondaySendAtISO() {
+  const [y, m, d] = thisMonday().split('-').map(Number);
+  // Try the CDT guess (UTC-5), then correct if Central shows a different hour.
+  let guess = Date.UTC(y, m - 1, d, SEND_HOUR_CENTRAL + 5, 0, 0);
+  const centralHour = () => Number(new Intl.DateTimeFormat('en-US', { timeZone: 'America/Chicago', hour: '2-digit', hour12: false }).format(new Date(guess)));
+  if (centralHour() !== SEND_HOUR_CENTRAL) guess += (SEND_HOUR_CENTRAL - centralHour()) * 3600000;
+  return new Date(guess).toISOString();
+}
+
 async function postToKit(subject, html, preheader) {
-  // send_at a couple of minutes out = Kit dispatches automatically, no
-  // dashboard step. subscriber_filter pins it to the bestofmpls-monday tag
-  // so nothing ever leaks to the other brands' audiences on this account.
+  // subscriber_filter pins it to the bestofmpls-monday tag so nothing ever
+  // leaks to the other brands' audiences on this account.
+  // NEWSLETTER_MODE=draft creates it unscheduled: Josh presses Send in Kit.
+  const draftMode = process.env.NEWSLETTER_MODE === 'draft';
+  let sendAt = mondaySendAtISO();
+  if (new Date(sendAt).getTime() < Date.now() + 2 * 60 * 1000) {
+    sendAt = new Date(Date.now() + 3 * 60 * 1000).toISOString(); // past the hour: go now, still Monday
+  }
   const body = {
     subject,
     preview_text: preheader,
@@ -633,8 +655,8 @@ async function postToKit(subject, html, preheader) {
     public: false,
     email_address: FROM_ADDRESS,
     subscriber_filter: [{ all: [{ type: 'tag', ids: [KIT_TAG_ID] }] }],
-    send_at: new Date(Date.now() + 3 * 60 * 1000).toISOString(),
   };
+  if (!draftMode) body.send_at = sendAt;
   const res = await fetch('https://api.kit.com/v4/broadcasts', {
     method: 'POST',
     headers: KIT_HEADERS,
@@ -695,7 +717,8 @@ async function main() {
   const preheader = `${events.length} things to do in the Twin Cities this week, plus openings, a happy hour pick, and your horoscope.`;
   const result = await postToKit(subject, html, preheader);
   const b = result.broadcast || result;
-  console.log(`  ✓ Posted to Kit — broadcast ${b.id}, sends at ${b.send_at}\n`);
+  const when = b.send_at ? new Date(b.send_at).toLocaleString('en-US', { timeZone: 'America/Chicago', weekday: 'short', hour: 'numeric', minute: '2-digit' }) + ' Central' : 'DRAFT (Josh presses Send in Kit)';
+  console.log(`  ✓ Posted to Kit — broadcast ${b.id}, ${b.send_at ? 'scheduled for ' + when : when}\n`);
   const n = await tagSubscriberCount();
   if (n !== undefined) console.log(`  Active subscribers (bestofmpls-monday tag): ${n}\n`);
 }

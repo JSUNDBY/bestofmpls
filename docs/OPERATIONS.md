@@ -11,7 +11,8 @@ One page. What runs itself, what Josh does, and the commands behind everything. 
 | Mondays 7:30am | Week Ahead IG carousel alongside the video | your chat |
 | Sunday 6pm | Ping: 30 seconds for your human paragraph | your chat |
 | Sunday 10:30pm | Your note becomes the email's opening, committed | your chat shows the paragraph |
-| Monday ~12:47am | Monday newsletter sends itself (Kit) — first scheduled run after the note builder | subscriber inboxes |
+| Monday ~12:47am | The newsletter is built and handed to Kit, **scheduled for 6:00am**. It shows in Kit → Broadcasts as *Scheduled* until then; open it to read, edit, or cancel. | Kit (scheduled) |
+| Monday 6:00am | Kit sends it. Automatic — nobody presses Send. (`NEWSLETTER_MODE=draft` in the workflow flips it to draft-and-you-send.) | subscriber inboxes |
 
 ## Your day (about 30 minutes)
 
