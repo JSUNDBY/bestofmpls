@@ -67,12 +67,16 @@ jobs:
       # Any Monday scheduled run may attempt the send (GitHub drops crons
       # sometimes — 2026-08-31 the 5:47 run never fired); the script's
       # already-sent-this-week check makes only the first attempt post.
+      # "Monday" is CENTRAL time on purpose: the UTC check sent the 2026-09-14
+      # issue at 8:48pm Sunday Central — before the 10:30pm note builder, so
+      # Josh's paragraph would have missed the send. First Central-Monday run
+      # is the 05:47 UTC cron (12:47am), safely after the builder.
       # workflow_dispatch also allowed: the manual send-now lever (the
       # already-sent check makes it safe to fire any time).
       - name: Send weekly newsletter (Mondays only)
         if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
         run: |
-          DAY=$(date -u +%u)
+          DAY=$(TZ=America/Chicago date +%u)
           if [ "$DAY" = "1" ]; then
             echo "Monday — sending newsletter"
             node scripts/send-newsletter.js
@@ -86,7 +90,7 @@ jobs:
       - name: Generate weekly social pack (Mondays only)
         if: github.event_name == 'schedule'
         run: |
-          DAY=$(date -u +%u)
+          DAY=$(TZ=America/Chicago date +%u)
           if [ "$DAY" = "1" ]; then
             echo "Monday — generating social pack"
             node scripts/social-ideas.js > /dev/null

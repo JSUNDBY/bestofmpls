@@ -11,7 +11,7 @@ One page. What runs itself, what Josh does, and the commands behind everything. 
 | Mondays 7:30am | Week Ahead IG carousel alongside the video | your chat |
 | Sunday 6pm | Ping: 30 seconds for your human paragraph | your chat |
 | Sunday 10:30pm | Your note becomes the email's opening, committed | your chat shows the paragraph |
-| Sunday ~11:47pm | Monday newsletter sends itself (Kit) | subscriber inboxes |
+| Monday ~12:47am | Monday newsletter sends itself (Kit) — first scheduled run after the note builder | subscriber inboxes |
 
 ## Your day (about 30 minutes)
 
