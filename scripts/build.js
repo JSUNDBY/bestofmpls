@@ -9731,6 +9731,11 @@ function renderShoot() {
 // drop up to a handful of photos. Same review inbox as the Shot Hunt:
 // nothing ships without a pull + Josh's commit.
 function renderVenuePhotos() {
+  // Every place's real display name, so the page never has to guess from
+  // the slug (which turned "A Baker's Wife" into "a baker s wife").
+  const names = {};
+  for (const r of buildVenueRoster()) names[r.place] = r.name;
+  writeFile('photos/places.json', JSON.stringify(names));
   return head({ title: 'Add your photos', description: 'Share photos of your place with Best of MPLS.', slug: 'photos', theme: 'default', noindex: true }) +
     `<style>
       .vp-wrap { max-width: 560px; margin: 0 auto; padding: 26px 18px 90px; }
@@ -9771,11 +9776,11 @@ function renderVenuePhotos() {
       var place = qs.get('p') || '', k = qs.get('k') || '';
       if (!/^[a-z0-9-]+--[a-z0-9-]+$/.test(place) || !k) { document.getElementById('vp-invalid').hidden = false; return; }
       document.getElementById('vp-form-wrap').hidden = false;
-      // Pretty name from the Shot Hunt target pool when we have it.
-      fetch('/shoot/targets.json').then(function(r){ return r.json(); }).then(function(d){
-        var t = (d.targets || []).find(function(x){ return x.f === place + '.jpg'; });
-        document.getElementById('vp-place').textContent = t ? t.n : place.split('--').pop().replace(/-/g, ' ');
-      }).catch(function(){ document.getElementById('vp-place').textContent = place.split('--').pop().replace(/-/g, ' '); });
+      // Real display name from the build's roster; never show the raw slug.
+      document.getElementById('vp-place').textContent = 'your place';
+      fetch('/photos/places.json').then(function(r){ return r.json(); }).then(function(names){
+        if (names[place]) document.getElementById('vp-place').textContent = names[place];
+      }).catch(function(){});
 
       var busy = false;
       document.getElementById('vp-pick').addEventListener('click', function(){
