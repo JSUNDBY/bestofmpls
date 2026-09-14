@@ -33,6 +33,13 @@ const SCRAPERS = [
   require('./scrapers/trylon.js'),
   require('./scrapers/dakota.js'),
   require('./scrapers/hook.js'),
+  // Comedy rooms (2026-09-13): the lane behind /comedy/tonight/
+  require('./scrapers/acme.js'),
+  require('./scrapers/comedycorner.js'),
+  require('./scrapers/houseofcomedy.js'),
+  require('./scrapers/sisyphus.js'),
+  require('./scrapers/strike.js'),
+  require('./scrapers/laughcamp.js'),
   require('./scrapers/berlin.js'),
   require('./scrapers/club331.js'),
   require('./scrapers/varsity.js'),

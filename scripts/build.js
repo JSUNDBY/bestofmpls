@@ -5994,7 +5994,7 @@ function renderFive() {
   const rng = (function(a){ return function(){ a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; })(seedNum);
 
   const isFree = e => /\bfree\b|no cover|^\$0$/i.test(String(e.price || '')) || /\bfree\b|no cover/i.test(`${e.title || ''} ${e.subtitle || ''}`);
-  const CAT_LABEL = { music: 'Music', film: 'On screen', lecture: 'A talk', performance: 'On stage', art: 'Art' };
+  const CAT_LABEL = { music: 'Music', film: 'On screen', lecture: 'A talk', performance: 'On stage', art: 'Art', comedy: 'Comedy' };
 
   const pool = dedupeNonFilms((eventsData.events || []).filter(e => e.date === TODAY_ISO && !isNoiseEvent(e)));
   // Seeded shuffle, then a greedy pass with variety rules: one per venue, at
@@ -7456,7 +7456,7 @@ const JAZZ_VENUES = new Set(['Dakota Jazz Club & Restaurant', 'Dakota Jazz Club'
 const isJazzEvent = e => JAZZ_VENUES.has(e.venue) || /\bjazz\b/i.test(`${e.title} ${e.subtitle || ''}`);
 const COMEDY_RE = /\b(comedy|comedian|comedians|stand-?up|improv|sketch show|open mic comedy|roast battle)\b/i;
 const COMEDY_VENUES = new Set(['Acme Comedy Co', 'Acme Comedy Company', 'Comedy Corner Underground', 'Brave New Workshop', 'HUGE Theater', 'HUGE Improv Theater', 'House of Comedy', 'Rick Bronson’s House of Comedy', 'Sisyphus Brewing']);
-const isComedyEvent = e => COMEDY_VENUES.has(e.venue) || COMEDY_RE.test(`${e.title} ${e.subtitle || ''}`);
+const isComedyEvent = e => e.category === 'comedy' || COMEDY_VENUES.has(e.venue) || COMEDY_RE.test(`${e.title} ${e.subtitle || ''}`);
 
 function renderLaneTonight(lane) {
   const all = dedupeNonFilms((eventsData.events || []).filter(e => !isFilmEvent(e) && !isNoiseEvent(e) && e.date >= TODAY_ISO && lane.match(e)))
