@@ -5234,7 +5234,23 @@ function renderVenuePage(v) {
   // Turns the venue page from "what's playing" into "how to plan the
   // whole night around this show."
   const ba = v.directory && v.directory.before_after;
-  const beforeAfterBlock = ba ? `
+  // Featured partners never get competing recommendations on their own
+  // pages (Josh, 2026-09-15: sending Icehouse's guests to Nightingale on
+  // Icehouse's page "feels weird"). Their night-plan stays in-house and
+  // points at the featured entry page for menu + reservations.
+  const fvVenue = v.directory ? featuredVenues[`live-music--${entrySlug(v.directory.name)}`] : null;
+  const beforeAfterBlock = fvVenue ? `
+    <section class="venue-ba">
+      <header class="venue-ba-head">
+        <span class="venue-ba-eyebrow">Plan the night</span>
+        <h2 class="venue-ba-title">Make it the whole night</h2>
+      </header>
+      <dl class="venue-ba-list">
+        ${fvVenue.menuNote ? `<div class="venue-ba-row"><dt>Eat before</dt><dd>${esc(fvVenue.menuNote.replace(/^From the [^·]+·\s*/i, ''))} <a href="/live-music/${entrySlug(v.directory.name)}/">Menu picks and a table →</a></dd></div>` : ''}
+        <div class="venue-ba-row"><dt>Drink</dt><dd>Stay put. The bar is the back of the show.</dd></div>
+        ${fvVenue.reserveUrl ? `<div class="venue-ba-row"><dt>Table</dt><dd><a target="_blank" rel="noopener" href="${esc(fvVenue.reserveUrl)}">${esc(fvVenue.reserveLabel || 'Reserve')} ↗</a></dd></div>` : ''}
+      </dl>
+    </section>` : ba ? `
     <section class="venue-ba">
       <header class="venue-ba-head">
         <span class="venue-ba-eyebrow">Plan the night</span>
