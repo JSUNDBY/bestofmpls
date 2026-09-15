@@ -1245,6 +1245,26 @@ function header({ activeSlug } = {}) {
 // site footer and at the bottom of every category page. Honest about
 // launch state — we're collecting a list, the first dispatch lands when
 // it lands.
+// A one-line signup for the top of high-intent pages. Someone arriving from
+// a Nextdoor post or a search lands on a 168-row list, gets their answer and
+// leaves — the only capture was at the very bottom, past everything
+// (2026-09-15). This sits under the deck, before the list. One field, one
+// promise, no popup.
+function inlineSignup(line) {
+  return `
+    <div class="wrap">
+      <section class="quick-signup" aria-label="Newsletter signup">
+        <p class="quick-signup-line">${esc(line)}</p>
+        <form class="quick-signup-form" data-newsletter-form>
+          <input type="email" name="email" placeholder="you@email.com" required autocomplete="email" aria-label="Your email">
+          <input class="newsletter-hp" type="text" name="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <button type="submit">Get it free</button>
+        </form>
+        <p class="newsletter-status" data-newsletter-status></p>
+      </section>
+    </div>`;
+}
+
 function newsletterCapture({ context = 'home', compact = false } = {}) {
   const decks = {
     home:      'What\'s happening in the Twin Cities, every Monday. Shows, happy hours, neighborhood picks, and a weekly horoscope written for Minneapolis.',
@@ -5558,6 +5578,7 @@ function renderMusicFree() {
         ${musicCrossChips('/live-music/free/')}
       </div>
     </section>
+    ${inlineSignup("Free shows every week, in one Monday email.")}
     <section class="wrap mt">
       <div class="mt-standing">
         <h2 class="mt-day">The no-cover room</h2>
@@ -5695,6 +5716,7 @@ function renderWeekend() {
          ${freshnessNote()}
        </div>
      </section>
+    ${inlineSignup("Every weekend, free, in your inbox Monday morning.")}
      ${freeBlock}
      <section class="weekend-grid">
        <div class="wrap weekend-grid-inner">${dayBlocks}</div>
@@ -6531,6 +6553,7 @@ function renderTonight() {
          </div>
        </div>
      </section>
+     ${inlineSignup("Tonight in your inbox every Monday, free. One email a week.")}
      <section class="tonight-events-section" data-tonight-today-block>${renderTonightBlock(tonightEventsServer)}</section>
      <section class="tonight-events-section tonight-events-tomorrow" data-tonight-tomorrow-block>${renderTomorrowBlock(tomorrowEventsServer)}</section>
      ${weekBlock}
@@ -7461,6 +7484,7 @@ function renderOpenMonday() {
         ${freshnessNote()}
       </div>
     </section>
+    ${inlineSignup("The whole week, free, every Monday morning. No spam, one email.")}
     <section class="wrap">
       <h2 class="openday-h2">Dinner</h2>
       <p class="openday-note">Door hours — kitchens can wind down 30–60 minutes before close.</p>
@@ -7741,6 +7765,7 @@ function renderDogFriendly() {
         ${freshnessNote(contentDate('dogs', places.map(p => p.name + p.note)))}
       </div>
     </section>
+    ${inlineSignup("One email a week with what is actually worth leaving the house for.")}
     <section class="wrap">
       <ul class="openday-list">${places.map(row).join('')}</ul>
       <p class="openday-note">Know a patio that welcomes dogs and isn’t here? <a href="/contribute/">Tell us</a> — we verify with the venue and add it.</p>
