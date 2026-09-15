@@ -63,14 +63,6 @@ module.exports = {
       price: '$'
     },
     {
-      name: 'Cardamom',
-      neighborhood: 'Linden Hills, Minneapolis',
-      style: 'Persian-inspired pastry',
-      description: 'A small Linden Hills pastry shop using saffron, rose, pistachio, and orange blossom in ways that read different than every other bakery in town. The saffron rice pudding is the standout. Pair with a Persian tea.',
-      address: 'Linden Hills, Minneapolis',
-      price: '$$'
-    },
-    {
       name: 'Mel-O-Glaze Bakery',
       neighborhood: 'Longfellow, Minneapolis',
       style: 'Old-school doughnut counter, since 1961',

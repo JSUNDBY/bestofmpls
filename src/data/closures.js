@@ -353,5 +353,21 @@ module.exports = {
       closed: "2026",
       epitaph: "The Como Avenue waffle window near the U closed in August 2026; Vitality Roasting took the space. The St. Paul, Roseville, and Fargo shops carry on."
     },
+    {
+      name: "Cardamom",
+      kind: "Persian-Inspired Pastry",
+      neighborhood: "Linden Hills, Minneapolis",
+      opened: "2021",
+      closed: "2026",
+      epitaph: "Saffron, rose, pistachio, orange blossom \u2014 pastry that read different than anything else in town, and a saffron rice pudding worth the trip. Closed 2026."
+    },
+    {
+      name: "Pho Tau Bay",
+      kind: "Vietnamese",
+      neighborhood: "Whittier (Eat Street), Minneapolis",
+      opened: "1995",
+      closed: "2026",
+      epitaph: "Three decades of pho on Nicollet, run by the sisters who built it. Eat Street lost its anchor while the street itself was torn up for reconstruction."
+    },
   ]
 };

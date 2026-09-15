@@ -16,15 +16,6 @@ module.exports = {
       price: '$'
     },
     {
-      name: 'Pho Tau Bay',
-      neighborhood: 'Whittier (Eat Street), Minneapolis',
-      style: 'Pho and rice plates',
-      description: 'A longtime neighbor to Quang on Eat Street, doing generous bowls of pho and the usual run of vermicelli and broken rice. Casual, family-owned, and a steady reliable choice.',
-      address: '2837 Nicollet Ave S, Minneapolis',
-      website: 'https://www.photaubaymn.com',
-      price: '$'
-    },
-    {
       name: 'Hai Hai',
       neighborhood: 'Northeast Minneapolis',
       style: 'Southeast Asian street food and tiki bar',
