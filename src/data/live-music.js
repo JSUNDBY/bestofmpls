@@ -98,6 +98,7 @@ module.exports = {
     },
     {
       name: 'Icehouse',
+      featured: true,
       neighborhood: 'Eat Street, Minneapolis',
       style: 'Listening room + restaurant',
       description: 'Half restaurant, half listening room, with a back stage that hosts jazz, indie, and quiet singer-songwriter sets. The food is real and the room is acoustically tuned. If you want to actually hear the music, this is one of the best small rooms in the city. New for the warm months: a courtyard patio with its own outdoor stage, so the music spills outside all summer.',

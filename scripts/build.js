@@ -576,6 +576,9 @@ const rightnowData  = loadJsonOptional(path.join(SRC, 'data/rightnow.json')) || 
 const hoursData     = loadJsonOptional(path.join(SRC, 'data/hours.json')) || {};
 // Crew photo credits + rights grants, maintained by scripts/pull-photos.js.
 const photoCredits  = loadJsonOptional(path.join(SRC, 'data/photo-credits.json')) || {};
+// Featured venue pages (the partner product): src/data/featured-venues.js
+let featuredVenues = {};
+try { featuredVenues = require(path.join(SRC, 'data/featured-venues.js')); } catch (_) {}
 const skywaySegmentsData = loadJsonOptional(path.join(SRC, 'data/skyway-segments.json')) || { cities: { minneapolis: { segments: [] }, saintpaul: { segments: [] } } };
 
 // Resolve the best lat/lng for an entry. Preference order:
@@ -3058,6 +3061,30 @@ function renderEntry(c, e, allCategories) {
 
   const photo = placePhoto(c.slug, slug);
   if (photo) schema.image = `${SITE}${photo}`;
+  // Featured venue: the partner layout (calendar + menu + facts + CTA) on
+  // top of the editorial entry. Words stay ours; the mark is honest.
+  const fv = featuredVenues[`${c.slug}--${slug}`] || null;
+  const fvShowCount = fv ? (eventsData.events || []).filter(ev => ev.date >= TODAY_ISO && (ev.venue === e.name || venueHref(ev.venue) === venueHref(e.name))).length : 0;
+  const fvBlock = fv ? `
+       <section class="fv-facts" aria-label="Facts">
+         ${(fv.facts || []).map(([k, v]) => `<div class="fv-fact"><b>${esc(k)}</b><span>${esc(v)}</span></div>`).join('')}
+         ${fv.reserveUrl ? `<div class="fv-fact"><b>Table</b><span><a href="${esc(fv.reserveUrl)}" target="_blank" rel="noopener">${esc(fv.reserveLabel || 'Reserve')} ↗</a></span></div>` : ''}
+       </section>
+       <div class="fv-grid">
+         <div>
+           ${upcomingShowsBlock ? `<p class="fv-sub"><span class="pulse"></span>Live from the venue's calendar · refreshed 4× daily</p>${upcomingShowsBlock}` : `<h2 class="fv-h2">This week</h2><p class="fv-note">Their calendar is coming online here.</p>`}
+         </div>
+         ${fv.menu && fv.menu.length ? `
+         <aside>
+           <h2 class="fv-h2">Before the show</h2>
+           ${fv.menuNote ? `<p class="fv-sub">${esc(fv.menuNote)}</p>` : ''}
+           <div class="fv-menu">
+             ${fv.menu.map(sec => `<div class="fv-menu-sec">${esc(sec.section)}</div>${sec.items.map(([n, pr]) => `<div class="fv-item"><b>${esc(n)}</b><span>${esc(pr)}</span></div>`).join('')}`).join('')}
+           </div>
+           ${fv.menuUrl ? `<a class="fv-cta" href="${esc(fv.menuUrl)}" target="_blank" rel="noopener">Full menu ↗</a>` : ''}
+           ${fv.checked ? `<p class="fv-note">Menu items and prices checked ${esc(fv.checked)}; the venue's site is the source of truth.</p>` : ''}
+         </aside>` : ''}
+       </div>` : '';
   return head({ title: `${e.name} · ${e.neighborhood || 'Minneapolis'} · ${c.title}`, description, slug: `${c.slug}/${slug}`, theme: c.hero_color, image: photo }) +
     header({ activeSlug: c.slug }) +
     `<nav class="breadcrumb wrap">
@@ -3077,6 +3104,7 @@ function renderEntry(c, e, allCategories) {
          </div>
          <h1 class="entry-detail-name">${esc(e.name)}</h1>
          ${BEST_OF_LIVE && isBestOfWinner(c.slug, e.name) ? `<a class="bestof-ribbon" href="/best-of-${BEST_OF_YEAR}/">★ Best of MPLS ${BEST_OF_YEAR}: ${esc(bestOfAwardLabel(c.slug))}</a>` : ''}
+         ${fv ? `<div class="fv-badges"><a class="fv-badge is-featured" href="/partner/" title="Paid partner placement — the words stay ours">Featured partner</a>${e.style ? `<span class="fv-badge">${esc(e.style)}</span>` : ''}${fvShowCount ? `<span class="fv-badge is-live">${fvShowCount} shows on the calendar</span>` : ''}</div>` : ''}
        </header>
 
        ${(() => {
@@ -3087,7 +3115,7 @@ function renderEntry(c, e, allCategories) {
          // pre-ledger pulls) just show no line.
          const creditFor = p2 => { const rec = photoCredits[p2.split('/').pop()]; return rec && rec.credit && rec.credit !== 'anonymous' && rec.source !== 'venue' ? rec.credit : null; };
          const heroCredit = creditFor(shots[0]);
-         const hero = `<figure class="entry-photo"><img src="${esc(shots[0])}" alt="${esc(e.name)}" loading="eager" decoding="async">${heroCredit ? `<figcaption class="entry-photo-credit">Photo: ${esc(heroCredit)}</figcaption>` : ''}</figure>`;
+         const hero = `<figure class="entry-photo"><img src="${esc(shots[0])}" alt="${esc(e.name)}" loading="eager" decoding="async">${heroCredit ? `<figcaption class="entry-photo-credit">Photo: ${esc(heroCredit)}</figcaption>` : (fv && fv.photoCredit ? `<figcaption class="entry-photo-credit">Photos: ${esc(fv.photoCredit)}</figcaption>` : '')}</figure>`;
          const rest = shots.slice(1, 5).map(p2 => `<img src="${esc(p2)}" alt="${esc(e.name)}" loading="lazy" decoding="async" title="${creditFor(p2) ? esc('Photo: ' + creditFor(p2)) : ''}">`).join('');
          return hero + (rest ? `<div class="entry-photo-row">${rest}</div>` : '');
        })()}
@@ -3100,6 +3128,8 @@ function renderEntry(c, e, allCategories) {
            <figcaption class="entry-video-cap">Filmed for the guide${e.videoCredit ? ` · ${esc(e.videoCredit)}` : ''}</figcaption>
          </figure>` : ''}
        </section>
+
+       ${fvBlock}
 
        ${lbActionsBlock}
 
@@ -3145,7 +3175,7 @@ function renderEntry(c, e, allCategories) {
          <a href="/near/" class="entry-detail-back">Everything near here →</a>
        </section>` : ''}
 
-       ${upcomingShowsBlock}
+       ${fv ? '' : upcomingShowsBlock}
        ${galleryShowsBlock}
      </article>
 ` +

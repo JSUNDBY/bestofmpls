@@ -6932,3 +6932,29 @@ html[data-mode="dark"] .home-board { background: #050505; border-top: 1px solid 
 /* Extra place photos: the angle row */
 .entry-photo-row { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 8px; margin: 8px 0; }
 .entry-photo-row img { width: 100%; aspect-ratio: 4/3; object-fit: cover; border-radius: 6px; display: block; }
+
+/* ---- Featured venue pages (the partner product) ---- */
+.fv-badges { display: flex; gap: 8px; flex-wrap: wrap; margin: 10px 0 4px; }
+.fv-badge { font-family: var(--font-mono); font-size: 10.5px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; padding: 4px 10px; border-radius: 999px; border: 1px solid var(--rule); color: var(--ink-soft); text-decoration: none; }
+.fv-badge.is-featured { background: var(--clay); border-color: var(--clay); color: #F4F2EC; }
+.fv-badge.is-live { border-color: #2E7D32; color: #2E7D32; }
+.fv-facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1px; background: var(--rule-soft); border: 1px solid var(--rule-soft); margin: 18px 0 6px; }
+.fv-fact { background: var(--paper); padding: 12px 14px; }
+.fv-fact b { display: block; font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 4px; font-weight: 600; }
+.fv-fact span { font-family: var(--font-body); font-size: 15px; }
+.fv-fact a { color: var(--clay); font-weight: 600; text-decoration: none; }
+.fv-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 40px; margin: 28px 0 8px; }
+@media (max-width: 760px) { .fv-grid { grid-template-columns: 1fr; gap: 28px; } }
+.fv-grid .entry-upcoming-shows { margin: 0; }
+.fv-sub { font-family: var(--font-mono); font-size: 11px; color: var(--ink-faint); letter-spacing: 0.06em; text-transform: uppercase; margin: 0 0 12px; }
+.fv-sub .pulse { display: inline-block; width: 8px; height: 8px; border-radius: 99px; background: #2E7D32; margin-right: 6px; vertical-align: middle; }
+.fv-menu { border-top: 2px solid var(--ink); }
+.fv-menu-sec { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-faint); margin: 14px 0 4px; font-weight: 600; }
+.fv-item { display: flex; justify-content: space-between; gap: 12px; padding: 7px 0; border-bottom: 1px solid var(--rule-soft); font-family: var(--font-body); font-size: 15px; }
+.fv-item b { font-weight: 600; }
+.fv-item span { font-family: var(--font-mono); color: var(--ink-soft); font-variant-numeric: tabular-nums; }
+.fv-cta { display: inline-block; margin: 14px 8px 0 0; background: var(--clay); color: #F4F2EC; font-family: var(--font-label); font-weight: 800; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; padding: 11px 18px; border-radius: 999px; text-decoration: none; }
+.fv-cta.ghost { background: transparent; color: var(--ink); border: 1px solid var(--ink); }
+.fv-h2 { font-family: var(--font-display); font-weight: 800; font-size: 24px; margin: 0 0 4px; }
+.fv-photo-credit { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-faint); margin: 6px 0 0; }
+.fv-note { font-family: var(--font-body); font-size: 12.5px; color: var(--ink-faint); margin-top: 10px; }
