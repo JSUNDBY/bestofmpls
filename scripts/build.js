@@ -3064,11 +3064,17 @@ function renderEntry(c, e, allCategories) {
   // Featured venue: the partner layout (calendar + menu + facts + CTA) on
   // top of the editorial entry. Words stay ours; the mark is honest.
   const fv = featuredVenues[`${c.slug}--${slug}`] || null;
+  // Partner links route through the worker's counter so /partner/'s monthly
+  // receipt promise is backed by a real number. Readers just get a redirect;
+  // if the worker is ever down the raw link still works (see out()).
+  const out = (kind, href) => (fv && POLL_WORKER_URL && /^https?:/.test(href || ''))
+    ? `${POLL_WORKER_URL}/out/${c.slug}--${slug}/${kind}?to=${encodeURIComponent(href)}`
+    : href;
   const fvShowCount = fv ? (eventsData.events || []).filter(ev => ev.date >= TODAY_ISO && (ev.venue === e.name || venueHref(ev.venue) === venueHref(e.name))).length : 0;
   const fvBlock = fv ? `
        <section class="fv-facts" aria-label="Facts">
          ${(fv.facts || []).map(([k, v]) => `<div class="fv-fact"><b>${esc(k)}</b><span>${esc(v)}</span></div>`).join('')}
-         ${fv.reserveUrl ? `<div class="fv-fact"><b>Table</b><span><a href="${esc(fv.reserveUrl)}" target="_blank" rel="noopener">${esc(fv.reserveLabel || 'Reserve')} ↗</a></span></div>` : ''}
+         ${fv.reserveUrl ? `<div class="fv-fact"><b>Table</b><span><a href="${esc(out('reserve', fv.reserveUrl))}" target="_blank" rel="noopener">${esc(fv.reserveLabel || 'Reserve')} ↗</a></span></div>` : ''}
        </section>
        <div class="fv-grid">
          <div>
@@ -3081,7 +3087,7 @@ function renderEntry(c, e, allCategories) {
            <div class="fv-menu">
              ${fv.menu.map(sec => `<div class="fv-menu-sec">${esc(sec.section)}</div>${sec.items.map(([n, pr]) => `<div class="fv-item"><b>${esc(n)}</b><span>${esc(pr)}</span></div>`).join('')}`).join('')}
            </div>
-           ${fv.menuUrl ? `<a class="fv-cta" href="${esc(fv.menuUrl)}" target="_blank" rel="noopener">Full menu ↗</a>` : ''}
+           ${fv.menuUrl ? `<a class="fv-cta" href="${esc(out('menu', fv.menuUrl))}" target="_blank" rel="noopener">Full menu ↗</a>` : ''}
            ${fv.checked ? `<p class="fv-note">Menu items and prices checked ${esc(fv.checked)}; the venue's site is the source of truth.</p>` : ''}
          </aside>` : ''}
        </div>` : '';

@@ -582,6 +582,70 @@ export default {
       }
     }
 
+    // ===== GET /out/<place>/<kind> — the outbound click receipt =====
+    // /partner/ promises every partner a monthly count of what we sent them,
+    // so we have to actually count it. One KV counter per place+kind+day,
+    // then a 302 to the venue. Bots and repeat clicks are filtered: no
+    // counting without a referer from our own site, and one count per
+    // IP+place+kind per hour. The reader just sees a redirect.
+    if (request.method === 'GET' && url.pathname.startsWith('/out/')) {
+      const parts = url.pathname.slice(5).split('/');
+      const place = clean(parts[0], 120);
+      const kind = clean(parts[1], 20);
+      const to = url.searchParams.get('to') || '';
+      const KINDS = new Set(['tickets', 'reserve', 'menu', 'site']);
+      let dest;
+      try { dest = new URL(to); } catch (_) { return json({ error: 'bad destination' }, 400, origin); }
+      if (!/^https?:$/.test(dest.protocol)) return json({ error: 'bad destination' }, 400, origin);
+      if (!/^[a-z0-9-]+--[a-z0-9-]+$/.test(place) || !KINDS.has(kind)) {
+        return Response.redirect(dest.href, 302); // never block the reader
+      }
+      const ref = request.headers.get('Referer') || '';
+      const ua = request.headers.get('User-Agent') || '';
+      const human = ref.includes('bestofmpls.com') && !/bot|crawl|spider|preview|curl|wget|headless/i.test(ua);
+      if (human) {
+        const ip = request.headers.get('CF-Connecting-IP') || '0.0.0.0';
+        const ipHash = (await sha256Hex(ip)).slice(0, 12);
+        const dedupeKey = `outrl:${ipHash}:${place}:${kind}`;
+        ctx.waitUntil((async () => {
+          if (await env.POLLS.get(dedupeKey)) return;
+          await env.POLLS.put(dedupeKey, '1', { expirationTtl: 3600 });
+          const day = new Date().toISOString().slice(0, 10);
+          const key = `click:${place}:${day}`;
+          let rec = {};
+          try { const raw = await env.POLLS.get(key); if (raw) rec = JSON.parse(raw); } catch (_) {}
+          rec[kind] = (rec[kind] || 0) + 1;
+          // 400 days: long enough for a year-over-year receipt, then it ages out.
+          await env.POLLS.put(key, JSON.stringify(rec), { expirationTtl: 60 * 60 * 24 * 400 });
+        })());
+      }
+      return Response.redirect(dest.href, 302);
+    }
+
+    // ===== GET /admin/clicks?place=&from=&to= — the receipt data =====
+    if (request.method === 'GET' && url.pathname === '/admin/clicks') {
+      if (!(await adminAuthed())) return json({ error: 'unauthorized' }, 401, origin);
+      const from = (url.searchParams.get('from') || '').slice(0, 10);
+      const to = (url.searchParams.get('to') || '9999-99-99').slice(0, 10);
+      const only = clean(url.searchParams.get('place') || '', 120);
+      const list = await env.POLLS.list({ prefix: only ? `click:${only}:` : 'click:' });
+      const byPlace = {};
+      for (const k of list.keys) {
+        const m = k.name.match(/^click:(.+):(\d{4}-\d{2}-\d{2})$/);
+        if (!m) continue;
+        const [, place, day] = m;
+        if (day < from || day > to) continue;
+        let rec = {};
+        try { rec = JSON.parse(await env.POLLS.get(k.name)) || {}; } catch (_) {}
+        byPlace[place] = byPlace[place] || { tickets: 0, reserve: 0, menu: 0, site: 0, total: 0, days: 0 };
+        let dayTotal = 0;
+        for (const [kind, n] of Object.entries(rec)) { byPlace[place][kind] = (byPlace[place][kind] || 0) + n; dayTotal += n; }
+        byPlace[place].total += dayTotal;
+        byPlace[place].days += 1;
+      }
+      return json({ from, to, places: byPlace }, 200, origin);
+    }
+
     // ===== Venue contacts (private): GET reads, PUT replaces =====
     // Harvested from venues' own sites by scripts/venue-contacts.js and
     // pushed here by scripts/push-contacts.js. They live in KV, never in

@@ -35,6 +35,8 @@ One page. What runs itself, what Josh does, and the commands behind everything. 
 - "add [venue]" — new scraper investigation (VenuePilot venues take minutes).
 - "make a spot for [event]" — bespoke wildcard video through the same review gate.
 - "pull the photos" — fetch the Shot Hunt crew's AND venues' uploads for review + commit (credits + rights records land in `src/data/photo-credits.json` automatically).
+- "receipts" — build this month's venue receipts from real click counts (`node scripts/receipts.js [YYYY-MM]` → `growth/receipts/`). Read them, then YOU send. The script never emails anyone.
+- "push the contacts" — send the local venue-contact harvest to the worker (`node scripts/venue-contacts.js && node scripts/push-contacts.js`). Contacts live in KV, never in the public repo.
 - "venue photo link for [place]" — mints that venue's private upload page (`node scripts/venue-link.js "<place>"`) with a paste-ready message. Owners affirm rights on the page; uploads wait in the same review inbox.
 - The Shot Hunt: bestofmpls.com/shoot/ on any phone — crew code in `~/Desktop/IN/shot-hunt-crew-code.txt`. Share the URL + code to add crew.
 

@@ -37,3 +37,6 @@ growth/featured-ledger.json
 # Local copy lives at src/data/venue-contacts.json (gitignored); the CRM
 # reads them from the worker (admin-authed), never from a static file.
 src/data/venue-contacts.json
+
+# Venue receipts: real counts for real businesses, kept local.
+growth/receipts/
