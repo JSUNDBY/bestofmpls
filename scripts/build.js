@@ -4935,15 +4935,31 @@ function renderCalendar() {
 // location with a street address, so pass the resolved venue record when
 // one exists (its live-music directory entry carries the address). Returns
 // a plain object ready for JSON.stringify inside an ld+json script.
-// Add `h` hours to a date+time and return an ISO string in the same -05:00
-// offset the startDate uses, with correct day rollover (a 10pm + 3h show ends
-// at 1am the next day). Used to supply a sensible endDate when the source
+// Central time offset for a given date: -05:00 in summer (CDT), -06:00 in
+// winter (CST). Hardcoding -05:00 made every schema startDate an hour early
+// from the November DST switch through March — Google, Siri and calendar
+// apps would all have shown winter shows at the wrong time (caught
+// 2026-09-15, six weeks before it would have gone live).
+function centralOffset(dateStr) {
+  const noon = new Date(`${dateStr}T12:00:00Z`);
+  const name = new Intl.DateTimeFormat('en-US', { timeZone: 'America/Chicago', timeZoneName: 'shortOffset' })
+    .formatToParts(noon).find(pt => pt.type === 'timeZoneName').value; // "GMT-5" / "GMT-6"
+  const hours = Math.abs(parseInt(name.replace(/[^0-9-]/g, ''), 10)) || 6;
+  return `-${String(hours).padStart(2, '0')}:00`;
+}
+
+// Add `h` hours to a date+time and return an ISO string in the correct
+// Central offset for that date, with day rollover (a 10pm + 3h show ends at
+// 1am the next day). Used to supply a sensible endDate when the source
 // doesn't give one.
 function plusHoursISO(dateStr, timeStr, h) {
-  const dt = new Date(`${dateStr}T${timeStr}:00-05:00`);
-  const local = new Date(dt.getTime() + h * 3600000 - 5 * 3600000);
+  const off = centralOffset(dateStr);
+  const offH = Number(off.slice(0, 3));
+  const dt = new Date(`${dateStr}T${timeStr}:00${off}`);
+  const local = new Date(dt.getTime() + h * 3600000 + offH * 3600000);
   const p = n => String(n).padStart(2, '0');
-  return `${local.getUTCFullYear()}-${p(local.getUTCMonth() + 1)}-${p(local.getUTCDate())}T${p(local.getUTCHours())}:${p(local.getUTCMinutes())}:00-05:00`;
+  const endDate = `${local.getUTCFullYear()}-${p(local.getUTCMonth() + 1)}-${p(local.getUTCDate())}`;
+  return `${endDate}T${p(local.getUTCHours())}:${p(local.getUTCMinutes())}:00${centralOffset(endDate)}`;
 }
 
 function eventJsonLd(e, venue) {
@@ -4958,7 +4974,7 @@ function eventJsonLd(e, venue) {
     '@type': 'Event',
     name: e.title,
     description,
-    startDate: e.time ? `${e.date}T${e.time}:00-05:00` : e.date,
+    startDate: e.time ? `${e.date}T${e.time}:00${centralOffset(e.date)}` : e.date,
     endDate: e.end_date || (e.time ? plusHoursISO(e.date, e.time, 3) : e.date),
     eventStatus: 'https://schema.org/EventScheduled',
     eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
