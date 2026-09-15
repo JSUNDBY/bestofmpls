@@ -576,6 +576,24 @@ const rightnowData  = loadJsonOptional(path.join(SRC, 'data/rightnow.json')) || 
 const hoursData     = loadJsonOptional(path.join(SRC, 'data/hours.json')) || {};
 // Crew photo credits + rights grants, maintained by scripts/pull-photos.js.
 const photoCredits  = loadJsonOptional(path.join(SRC, 'data/photo-credits.json')) || {};
+
+// Is this event actually free to attend? A loose /\bfree\b/ over the blurb
+// tagged "Return of the Jedi in Concert" free because the plot summary says
+// "to free Han Solo" — a $60 orchestra ticket on the free list (caught in
+// the 2026-09-15 audit). Free is a claim about ADMISSION, so it has to look
+// like one: the price field, or an admission phrase in the listing.
+const FREE_PRICE_RE = /\bfree\b|no cover|^\$?0(\.00)?$/i;
+// No trailing \b: scrapers emit run-ons like "NO COVER10:00pm Show".
+const FREE_CLAIM_RE = /\b(no cover|free admission|free entry|free show|free event|free events|free to attend|free and open|admission (is )?free|donation at the door|pay what you (can|want))/i;
+function isFreeEvent(e) {
+  if (!e) return false;
+  if (e.free === true) return true;
+  const price = String(e.price || '').trim();
+  if (price) return FREE_PRICE_RE.test(price);
+  const text = `${e.title || ''} ${e.subtitle || ''}`;
+  // "Free" leading the listing is a price claim; mid-sentence usually isn't.
+  return FREE_CLAIM_RE.test(text) || /^\s*free\b/i.test(text);
+}
 // Featured venue pages (the partner product): src/data/featured-venues.js
 let featuredVenues = {};
 try { featuredVenues = require(path.join(SRC, 'data/featured-venues.js')); } catch (_) {}
@@ -5619,7 +5637,7 @@ function renderWeekend() {
   };
 
   // Free this weekend — surface the explicitly free/no-cover shows as a highlight.
-  const isFree = e => /\bfree\b|no cover/i.test(e.price || '') || /\bfree\b|no cover/i.test(e.subtitle || '');
+  const isFree = isFreeEvent;
   const freeShows = weekendDays
     .flatMap(d => d.events.map(e => ({ ...e, _day: d.label })))
     .filter(isFree)
@@ -6063,7 +6081,7 @@ function renderFive() {
   const seedNum = Number(TODAY_ISO.replace(/-/g, ''));
   const rng = (function(a){ return function(){ a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; })(seedNum);
 
-  const isFree = e => /\bfree\b|no cover|^\$0$/i.test(String(e.price || '')) || /\bfree\b|no cover/i.test(`${e.title || ''} ${e.subtitle || ''}`);
+  const isFree = isFreeEvent;
   const CAT_LABEL = { music: 'Music', film: 'On screen', lecture: 'A talk', performance: 'On stage', art: 'Art', comedy: 'Comedy' };
 
   const pool = dedupeNonFilms((eventsData.events || []).filter(e => e.date === TODAY_ISO && !isNoiseEvent(e)));
