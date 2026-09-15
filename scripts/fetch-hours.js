@@ -11,6 +11,7 @@
  *
  * Usage:
  *   GOOGLE_PLACES_API_KEY=... node scripts/fetch-hours.js
+ *   GOOGLE_PLACES_API_KEY=... node scripts/fetch-hours.js --max-age=30  # monthly refresh (stay inside Google's 30-day cache rule)
  *   GOOGLE_PLACES_API_KEY=... node scripts/fetch-hours.js --force      # refetch everything
  *   GOOGLE_PLACES_API_KEY=... node scripts/fetch-hours.js --slug=pizza  # only one category
  */
@@ -29,6 +30,12 @@ if (!KEY) {
 }
 
 const FORCE = process.argv.includes('--force');
+// Google's terms allow caching Place content for 30 days; "cache forever"
+// left the hours 131 days old while the site called them verified
+// (2026-09-15 audit). --max-age=N refetches anything older than N days, so
+// a monthly run is cheap and keeps us inside the terms.
+const MAX_AGE_ARG = (process.argv.find(a => a.startsWith('--max-age=')) || '').split('=')[1];
+const MAX_AGE_DAYS = MAX_AGE_ARG ? Number(MAX_AGE_ARG) : (FORCE ? 0 : Infinity);
 const SLUG_FILTER = (process.argv.find(a => a.startsWith('--slug=')) || '').split('=')[1] || null;
 const SLEEP_MS = 250; // Stay well under quota
 
@@ -128,8 +135,22 @@ function pad(n) { return String(n ?? 0).padStart(2, '0'); }
 async function main() {
   const cache = FORCE ? {} : loadCache();
   const entries = collectEntries();
-  const todo = entries.filter(e => !cache[key(e.slug, e.name)]);
-  console.log(`\n${entries.length} entries; ${todo.length} need hours fetched.\n`);
+  const staleBefore = Number.isFinite(MAX_AGE_DAYS) ? Date.now() - MAX_AGE_DAYS * 86400000 : -Infinity;
+  const todo = entries.filter(e => {
+    const rec = cache[key(e.slug, e.name)];
+    if (!rec) return true;
+    if (!Number.isFinite(MAX_AGE_DAYS)) return false;
+    const when = Date.parse(rec.fetched_at || 0);
+    return !when || when < staleBefore;
+  });
+  const oldest = Object.values(cache).map(r => r && r.fetched_at).filter(Boolean).sort()[0];
+  console.log(`\n${entries.length} entries; ${todo.length} to fetch` +
+    (Number.isFinite(MAX_AGE_DAYS) ? ` (new, or older than ${MAX_AGE_DAYS} days)` : ' (new only)') +
+    (oldest ? `. Oldest cached record: ${oldest.slice(0, 10)}.` : '.') + '\n');
+  if (!Number.isFinite(MAX_AGE_DAYS)) {
+    console.log('  Tip: run with --max-age=30 monthly. Google allows 30 days of caching,');
+    console.log('  and the site now prints the check date next to every hours claim.\n');
+  }
 
   let i = 0, ok = 0, miss = 0, hoursOk = 0;
   for (const e of todo) {

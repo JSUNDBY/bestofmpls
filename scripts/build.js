@@ -577,6 +577,29 @@ const hoursData     = loadJsonOptional(path.join(SRC, 'data/hours.json')) || {};
 // Crew photo credits + rights grants, maintained by scripts/pull-photos.js.
 const photoCredits  = loadJsonOptional(path.join(SRC, 'data/photo-credits.json')) || {};
 
+// How old is the hours data? Google's terms allow caching Place content for
+// 30 days, and a four-month-old "Open now" badge is exactly the stale
+// listicle this site exists to beat (2026-09-15 audit found the cache 131
+// days old while /open/monday/ called it "verified"). Everything that shows
+// hours reads these and tells the truth about it.
+const HOURS_CHECKED = (() => {
+  let newest = null;
+  for (const r of Object.values(hoursData)) {
+    if (r && r.fetched_at && (!newest || r.fetched_at > newest)) newest = r.fetched_at;
+  }
+  return newest ? newest.slice(0, 10) : null;
+})();
+const HOURS_AGE_DAYS = HOURS_CHECKED
+  ? Math.round((Date.parse(TODAY_ISO) - Date.parse(HOURS_CHECKED)) / 86400000)
+  : 9999;
+// Past this we stop implying a live status and say when we last checked.
+const HOURS_STALE = HOURS_AGE_DAYS > 30;
+const hoursCheckedLabel = () => {
+  if (!HOURS_CHECKED) return '';
+  const [y, m, d] = HOURS_CHECKED.split('-').map(Number);
+  return new Date(y, m - 1, d).toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+};
+
 // Is this event actually free to attend? A loose /\bfree\b/ over the blurb
 // tagged "Return of the Jedi in Concert" free because the plot summary says
 // "to free Han Solo" — a $60 orchestra ticket on the free list (caught in
@@ -2471,8 +2494,8 @@ function renderCategory(c) {
       <div class="wrap opennow-bar-inner">
         <span class="cal-filter-label">Filter:</span>
         <button class="cal-chip cal-chip-all is-on" data-opennow="all" type="button">All ${c.entries.length}</button>
-        <button class="cal-chip" data-opennow="open" type="button"><span class="opennow-dot"></span> Open right now</button>
-        <span class="opennow-note">Hours from Google for ${entriesWithHours} of ${c.entries.length}.</span>
+        <button class="cal-chip" data-opennow="open" type="button"><span class="opennow-dot"></span> ${HOURS_STALE ? 'Usually open now' : 'Open right now'}</button>
+        <span class="opennow-note">Hours via Google for ${entriesWithHours} of ${c.entries.length}${HOURS_CHECKED ? `, last checked ${esc(hoursCheckedLabel())}` : ''}. Call ahead for a special trip.</span>
       </div>
     </div>` : '';
 
@@ -7410,7 +7433,7 @@ function renderOpenMonday() {
   const faq = [
     { q: 'What restaurants are open on Monday in Minneapolis?', a: `${food.length} places we track serve on Monday evenings, including ${food.slice(0, 4).map(p => p.name).join(', ')}. The full list on this page comes from verified Google hours and links to our entry on each place.` },
     { q: 'Why are so many Twin Cities restaurants closed on Mondays?', a: 'Monday is the industry’s traditional day off — the slowest night of the week, and the one most independent kitchens use for deep cleaning, deliveries, and giving staff a real weekend. That’s why the places that DO open on Monday earn a loyal crowd.' },
-    { q: 'Are these hours accurate?', a: `Hours come from Google’s listings for each place${fetchedAt ? `, last refreshed ${fetchedAt}` : ''}, and cover the front door — kitchens can close earlier than the room. For a special trip, check the place’s own site (linked from each entry).` }
+    { q: 'Are these hours accurate?', a: `They come from each place’s Google listing${HOURS_CHECKED ? `, last checked ${hoursCheckedLabel()}` : ''}, and cover the front door — kitchens often close earlier than the room, and hours move with the season. Treat this as the shortlist, not a guarantee: for a special trip, check the place’s own site (linked from each entry) or call.` }
   ];
   const faqSchema = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.map(f => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) };
   const listSchema = { '@context': 'https://schema.org', '@type': 'ItemList', name: 'Open on Monday in Minneapolis & St. Paul', numberOfItems: food.length + drink.length, itemListElement: [...food, ...drink].map((p, i) => ({ '@type': 'ListItem', position: i + 1, name: p.name, url: `${SITE}${p.url}` })) };
@@ -7432,9 +7455,9 @@ function renderOpenMonday() {
     header({ activeSlug: '' }) + css +
     `<section class="section-head">
       <div class="wrap">
-        <div class="section-eyebrow">${food.length + drink.length} places · verified hours</div>
+        <div class="section-eyebrow">${food.length + drink.length} places · hours via Google${HOURS_CHECKED ? `, checked ${esc(hoursCheckedLabel())}` : ''}</div>
         <h1 class="section-title">Open on Monday <em>in the Twin Cities</em></h1>
-        <p class="section-deck">Monday is the day this town's kitchens rest — and the night the "open now" search burns you. Every place below is open Monday until at least 8pm, from verified hours. Sorted by who stays open latest.</p>
+        <p class="section-deck">Monday is the day this town's kitchens rest — and the night the "open now" search burns you. Every place below keeps Monday hours until at least 8pm according to its Google listing${HOURS_CHECKED ? `, last checked ${esc(hoursCheckedLabel())}` : ''}. Sorted by who stays open latest. Hours move; call ahead for a special trip.</p>
         ${freshnessNote()}
       </div>
     </section>
