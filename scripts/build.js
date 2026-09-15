@@ -8299,7 +8299,7 @@ function renderPartner() {
 
       <h2 class="tonight-section-title" style="margin-top: 48px;">What we do not do</h2>
       <ul class="skyway-tips" style="grid-template-columns: 1fr;">
-        <li>Banner ads, display ads, third-party trackers, retargeting pixels.</li>
+        <li>Banner ads, display ads, retargeting pixels, or selling your visit to a data broker. (We do run Google Analytics to see which pages get read — it is the only third-party script on the site, and <a href="/privacy/">the privacy page</a> says so.)</li>
         <li>Sponsored content that pretends to be editorial.</li>
         <li>Paid reviews. We do not review places; we pick places we like.</li>
         <li>Affiliate links that go anywhere except OpenTable / Resy for actual reservations.</li>
@@ -10368,6 +10368,29 @@ function build() {
   }
   const publicDir = path.join(ROOT, 'public');
   if (fs.existsSync(publicDir)) copyPublic(publicDir, '');
+
+  // Venues Google marks closed. Deliberately a warning, not a filter:
+  // Google's closure flags are user-reported and wrong often enough that
+  // auto-removing would delete live rooms (Palmer's Bar is flagged and very
+  // much open). This queues them for a human sweep — the dog-patio sweep
+  // found four genuinely dead venues this way (2026-09-15 audit).
+  (() => {
+    const flagged = [];
+    for (const cat of categories) {
+      for (const e of cat.entries || []) {
+        const rec = hoursData[`${cat.slug}:${e.name}`];
+        if (rec && rec.business_status && rec.business_status !== 'OPERATIONAL') {
+          flagged.push(`${e.name} (${cat.title}) — Google says ${rec.business_status.toLowerCase().replace('_', ' ')}`);
+        }
+      }
+    }
+    if (flagged.length) {
+      console.log(`\n  ⚑ ${flagged.length} listed places are flagged closed by Google — verify, then remove or keep:`);
+      for (const f of flagged.slice(0, 30)) console.log(`     ${f}`);
+      if (flagged.length > 30) console.log(`     …and ${flagged.length - 30} more`);
+      console.log('     (Flags are user-reported and often wrong. Check before deleting anything.)');
+    }
+  })();
 
   writeFreshness();
   console.log(`\n✓ Built to dist/\n`);
