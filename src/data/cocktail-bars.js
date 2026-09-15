@@ -124,25 +124,6 @@ module.exports = {
       price: '$$$$'
     },
     {
-      name: 'Stargazer',
-      neighborhood: 'Northeast Minneapolis',
-      style: 'Cocktails + Italian small plates',
-      description: 'The Travail crew built a cocktail bar around a digital galaxy of a menu, drinks grouped into clusters like the Agave Field and the Fermentation Firmament. It would be a stunt if the drinks were not this good and the housemade pasta this real. Intimate, ambitious, the most fun a QR-code menu has ever been.',
-      address: '1304 NE 2nd St, Minneapolis',
-      website: 'https://stargazermpls.com/',
-      price: '$$$'
-    },
-    {
-      name: 'Du Nord Cocktail Room',
-      neighborhood: 'Longfellow, Minneapolis',
-      style: 'Distillery cocktail room',
-      description: 'The spiritual successor to Du Nord’s original room, now in the historic Coliseum Building on East Lake. New Orleans flair, cocktails built on the spirits they distill a few blocks away, and the rare distillery bar that feels like a real neighborhood hangout rather than a tasting-room afterthought.',
-      address: '2700 E Lake St, Minneapolis',
-      website: 'https://dunordsocialspirits.com/',
-      hours: 'Tue–Thu 5–10 PM · Fri–Sat 5 PM–midnight',
-      price: '$$'
-    },
-    {
       name: 'The Dampfwerk Distillery',
       neighborhood: 'St. Louis Park',
       style: 'Distillery cocktail lounge',

@@ -15,15 +15,6 @@ module.exports = {
       price: '$'
     },
     {
-      name: 'Mesa Pizza',
-      neighborhood: 'Dinkytown, Minneapolis',
-      style: 'By-the-slice pizza',
-      description: 'Big slices, novelty toppings (mac and cheese, gyro, chicken alfredo), and a counter that stays open well past midnight on weekends. A Dinkytown rite of passage for U of M students.',
-      address: '1323 4th St SE, Minneapolis',
-      website: 'http://www.mesapizzamn.com',
-      price: '$'
-    },
-    {
       name: 'Pizza Lucé Downtown',
       neighborhood: 'Warehouse District, Minneapolis',
       style: 'Pizza chain with a deep menu',

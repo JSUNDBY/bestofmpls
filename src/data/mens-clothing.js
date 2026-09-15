@@ -22,14 +22,6 @@ module.exports = {
       price: '$$$'
     },
     {
-      name: 'Askov Finlayson',
-      neighborhood: 'Minneapolis',
-      style: 'Climate-positive cold-weather brand',
-      description: 'A Minneapolis-born brand built around the idea that the North is a place worth dressing for. Their winter parkas have a national following, and the flagship carries the full collection plus a curated selection of complementary brands. Signed up to climate-positive operations.',
-      address: 'Minneapolis',
-      price: '$$$$'
-    },
-    {
       name: 'Black Blue',
       neighborhood: 'St. Paul',
       style: 'Designer menswear',

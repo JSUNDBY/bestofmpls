@@ -200,15 +200,6 @@ module.exports = {
       hours: 'Sun–Fri 3–6pm; Sun–Thu 8:30pm–close'
     },
     {
-      name: 'Red Cow (Uptown)',
-      neighborhood: 'Uptown, Minneapolis',
-      style: 'Burger bar',
-      description: 'The Uptown outpost of the metro\'s reliable burger standard. Tuesday through Friday from two to 5:30: seven-dollar taps and wine, eight-dollar cocktails including the Espresso Martini, and the eighteen-dollar Adult Happy Meal that bundles a cheeseburger, small fry, and a classic cocktail. One of the better bar deals in the neighborhood.',
-      address: '2626 Hennepin Ave, Minneapolis',
-      price: '$$',
-      hours: 'Tue–Fri 2–5:30pm'
-    },
-    {
       name: 'Pizza Luce (Uptown)',
       neighborhood: 'Uptown, Minneapolis',
       style: 'Pizza, late night',
@@ -366,15 +357,6 @@ module.exports = {
       address: '79 Western Ave N, St. Paul',
       price: '$$$',
       hours: 'Wed–Thu 4–6pm; Fri–Sat 9–11pm'
-    },
-    {
-      name: 'The Gnome Craft Pub',
-      neighborhood: 'Cathedral Hill, St. Paul',
-      style: 'Craft beer bar',
-      description: 'A genuine craft-beer bar that runs a daily happy hour with two dollars off all apps and a tight beer list at five dollars: Two Hearted, Pacifico, Coors Light, Hamm\'s, Summer Shandy. Two-Hearted for five bucks is the Cathedral Hill steal. The espresso martini at nine if you are staying.',
-      address: '498 Selby Ave, St. Paul',
-      price: '$$',
-      hours: 'Mon–Thu 3–6pm'
     },
     {
       name: 'J. Selby\'s',

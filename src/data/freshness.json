@@ -44,7 +44,7 @@
   "date": "2026-09-13"
  },
  "cat:coffee-shops": {
-  "hash": "590bec99324a",
+  "hash": "8b3d4228f99a",
   "date": "2026-09-15"
  },
  "cat:pastries-and-bakeries": {
@@ -112,12 +112,12 @@
   "date": "2026-09-13"
  },
  "cat:late-night": {
-  "hash": "cc2074732206",
-  "date": "2026-09-13"
+  "hash": "a8396f44d09a",
+  "date": "2026-09-15"
  },
  "cat:cocktail-bars": {
-  "hash": "6b1a84600487",
-  "date": "2026-09-13"
+  "hash": "96d82643e287",
+  "date": "2026-09-15"
  },
  "cat:breweries": {
   "hash": "9b16bf7e5bdf",
@@ -132,8 +132,8 @@
   "date": "2026-09-13"
  },
  "cat:best-happy-hours": {
-  "hash": "62f26d353473",
-  "date": "2026-09-13"
+  "hash": "db8dc615296d",
+  "date": "2026-09-15"
  },
  "cat:independent-shops": {
   "hash": "6f7457195cc4",
@@ -148,8 +148,8 @@
   "date": "2026-09-13"
  },
  "cat:mens-clothing": {
-  "hash": "87e11d93e039",
-  "date": "2026-09-13"
+  "hash": "ddec3139b6c5",
+  "date": "2026-09-15"
  },
  "cat:womens-clothing": {
   "hash": "add03c53920a",

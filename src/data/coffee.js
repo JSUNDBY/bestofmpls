@@ -42,7 +42,7 @@ module.exports = {
       neighborhood: 'Dinkytown and Northeast',
       style: 'Coffee + Belgian waffles',
       description: 'A small operation that takes Belgian liège waffles seriously and serves coffee that is genuinely good alongside. The Dinkytown location stays open late, which is more useful than it sounds.',
-      address: '1500 Como Ave SE, Minneapolis (and others)',
+      address: '2180 Marshall Ave, St. Paul (and Roseville)',
       price: '$'
     },
     {

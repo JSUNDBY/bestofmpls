@@ -10369,6 +10369,19 @@ function build() {
   const publicDir = path.join(ROOT, 'public');
   if (fs.existsSync(publicDir)) copyPublic(publicDir, '');
 
+  // Venues with programmed dark periods read as "closed" to Google every
+  // cycle — a gallery between installs, a seasonal shop in winter. Their
+  // own sites say "closed between exhibits" and Google believes it. These
+  // are exempt from the closure queue so the same three entries don't come
+  // up for deletion every month (2026-09-15: Google's "temporarily closed"
+  // was wrong on 3 of 4, and all three were galleries or seasonal).
+  const CLOSURE_FLAG_EXEMPT = new Set([
+    'Soo Visual Arts Center',      // dark between installs, by design
+    'Rogue Buddha Gallery',        // by appointment outside art-fair season
+    'Katherine E. Nash Gallery',   // university gallery, academic calendar
+    'Sonny\u2019s Ice Cream',          // seasonal: Fri-Sun, Oct through Memorial Day
+  ]);
+
   // Venues Google marks closed. Deliberately a warning, not a filter:
   // Google's closure flags are user-reported and wrong often enough that
   // auto-removing would delete live rooms (Palmer's Bar is flagged and very
@@ -10379,7 +10392,7 @@ function build() {
     for (const cat of categories) {
       for (const e of cat.entries || []) {
         const rec = hoursData[`${cat.slug}:${e.name}`];
-        if (rec && rec.business_status && rec.business_status !== 'OPERATIONAL') {
+        if (rec && rec.business_status && rec.business_status !== 'OPERATIONAL' && !CLOSURE_FLAG_EXEMPT.has(e.name)) {
           flagged.push(`${e.name} (${cat.title}) — Google says ${rec.business_status.toLowerCase().replace('_', ' ')}`);
         }
       }
@@ -10388,7 +10401,9 @@ function build() {
       console.log(`\n  ⚑ ${flagged.length} listed places are flagged closed by Google — verify, then remove or keep:`);
       for (const f of flagged.slice(0, 30)) console.log(`     ${f}`);
       if (flagged.length > 30) console.log(`     …and ${flagged.length - 30} more`);
-      console.log('     (Flags are user-reported and often wrong. Check before deleting anything.)');
+      console.log('     (Verify before deleting. Google is good at "this address is dead" and bad at:');
+      console.log('      one location closing on a multi-location brand · a gallery between installs ·');
+      console.log('      a rebrand (delete + add the new name) · seasonal hours. Exempt list in build.js.)');
     }
   })();
 

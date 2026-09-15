@@ -297,5 +297,61 @@ module.exports = {
       closed: "2026",
       epitaph: "Seventeen years as the Hamline-Midway living room: coffee bar, bakery case, weekend brunch, and a corner built for lingering. A fire in May 2025 took the space, and in February 2026 they said they would not reopen. Chef Nicole Pederson-Bates has since opened Bewick Cafe in the room."
     },
+    {
+      name: "Mesa Pizza",
+      kind: "Late-Night Pizza",
+      neighborhood: "Dinkytown + Uptown, Minneapolis",
+      opened: "2004",
+      closed: "2025",
+      epitaph: "The slice you ate at 2am on the way home. Uptown went dark on Halloween night 2025; Dinkytown followed within days after a 39 percent rent increase. An Iowa City shop carries the name now."
+    },
+    {
+      name: "Du Nord Cocktail Room",
+      kind: "Cocktail Room",
+      neighborhood: "Longfellow, Minneapolis",
+      opened: "2024",
+      closed: "2025",
+      epitaph: "Eight months in the Coliseum building on East Lake, closed May 31, 2025 alongside Lagniappe. Du Nord Social Spirits still distills a few blocks away, and the Du Nord Foundation still runs Krewe Du Nord. Minnesota caps cocktail rooms at 40,000 gallons of production, so the room cannot simply reopen."
+    },
+    {
+      name: "Stargazer",
+      kind: "Cocktail Bar",
+      neighborhood: "Northeast Minneapolis",
+      opened: "2023",
+      closed: "2026",
+      epitaph: "The ambitious cocktail bar on NE 2nd, last call September 5, 2026. The Travail Collective is reopening the same room in October as Stelline Italian Kitchen \u2014 a rebrand, not a return."
+    },
+    {
+      name: "The Gnome Craft Pub",
+      kind: "Craft Pub",
+      neighborhood: "Cathedral Hill, Saint Paul",
+      opened: "2020",
+      closed: "2026",
+      epitaph: "Six years on Selby. Brian Ingram closed it in August 2026 after a roof leak exposed building damage he could not fix as a tenant. He was clear that the burglary weeks earlier was not the reason."
+    },
+    {
+      name: "Askov Finlayson",
+      kind: "Outfitter",
+      neighborhood: "North Loop, Minneapolis",
+      opened: "2011",
+      closed: "2019",
+      epitaph: "The North quite literally on a hat. The North Loop shop closed in January 2019, the outerwear label wound down by 2023, and the domain now points at Eric Dayton's climate-software company. The 'Keep the North Cold' pledge outlived the store."
+    },
+    {
+      name: "Red Cow Uptown",
+      kind: "Burgers + Beer",
+      neighborhood: "Uptown, Minneapolis",
+      opened: "2016",
+      closed: "2026",
+      epitaph: "A decade on Hennepin, closed June 1, 2026 after two years of street reconstruction cut sales by two thirds. Staff moved to the other Red Cows, which are all still open."
+    },
+    {
+      name: "Black: Coffee + Waffle Bar (Como)",
+      kind: "Coffee + Waffles",
+      neighborhood: "Como, Minneapolis",
+      opened: "2015",
+      closed: "2026",
+      epitaph: "The Como Avenue waffle window near the U closed in August 2026; Vitality Roasting took the space. The St. Paul, Roseville, and Fargo shops carry on."
+    },
   ]
 };
