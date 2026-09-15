@@ -32,3 +32,8 @@ growth/outbox/
 .youtube-client.json
 .youtube-token.json
 growth/featured-ledger.json
+
+# Harvested venue contacts — public repo, keep them out of it.
+# Local copy lives at src/data/venue-contacts.json (gitignored); the CRM
+# reads them from the worker (admin-authed), never from a static file.
+src/data/venue-contacts.json

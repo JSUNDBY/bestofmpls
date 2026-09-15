@@ -3619,8 +3619,12 @@ ${aeoBlock}
 // Static roster (this build) + what Josh types (worker KV crm:all). One
 // table: who, how to reach them, where the relationship stands, their
 // upload link, whether their photos have landed. Same admin key as /admin/.
+// The roster is PUBLIC (dist/admin/venues.json), so it carries only what the
+// site already publishes: names, categories, neighborhoods, photo state.
+// Harvested emails and handles are private — the CRM fetches those from the
+// worker (admin-authed, KV) and merges them in the browser. Never put a
+// contact list on the open web (caught 2026-09-15).
 function buildVenueRoster() {
-  const contacts = loadJsonOptional(path.join(SRC, 'data/venue-contacts.json')) || {};
   const SKIP = new Set(['festivals', 'history', 'departed', 'outdoors', 'hidden-gems', 'curiosities', 'skyway', 'openings', 'trails']);
   const seen = new Set();
   const roster = [];
@@ -3632,16 +3636,13 @@ function buildVenueRoster() {
       if (seen.has(slug)) continue;
       seen.add(slug);
       const place = `${cat.slug}--${slug}`;
-      const c = contacts[place] || {};
       roster.push({
         place,
         name: e.name,
         cat: cat.slug,
         catTitle: cat.title,
         hood: (e.neighborhood || '').split(',')[0].trim(),
-        website: e.website || c.website || '',
-        emails: c.emails || [],
-        instagram: e.instagram || c.instagram || '',
+        website: e.website || '',
         photo: placePhotos(cat.slug, slug).length,
         url: `/${cat.slug}/${slug}/`,
         scraped: !!venueHref(e.name),
@@ -3654,8 +3655,6 @@ function buildVenueRoster() {
 function renderAdminVenues() {
   const roster = buildVenueRoster();
   writeFile('admin/venues.json', JSON.stringify({ built: TODAY_ISO, roster }));
-  const withEmail = roster.filter(r => r.emails.length).length;
-  const withIg = roster.filter(r => r.instagram).length;
   return `<!DOCTYPE html>
 <html lang="en"><head>
 <meta charset="UTF-8">
@@ -3731,7 +3730,7 @@ ${header({ activeSlug: '' })}
       <tbody id="crm-rows"></tbody>
     </table>
     </div>
-    <p class="ops-note" style="margin-top:14px;font-family:var(--font-body);font-size:12.5px;color:var(--ink-faint)">Roster built ${esc(TODAY_ISO)}: ${roster.length} places, ${withEmail} with an email found on their site, ${withIg} with Instagram. Contacts refresh with <code>node scripts/venue-contacts.js</code>. Edits save as you type.</p>
+    <p class="ops-note" style="margin-top:14px;font-family:var(--font-body);font-size:12.5px;color:var(--ink-faint)">Roster built ${esc(TODAY_ISO)}: ${roster.length} places. Contacts load from the worker (they are never published); refresh them with <code>node scripts/venue-contacts.js &amp;&amp; node scripts/push-contacts.js</code>. Edits save as you type.</p>
   </div>
   <div class="crm-toast" id="crm-toast"></div>
 </main>
@@ -3845,10 +3844,13 @@ ${header({ activeSlug: '' })}
   Promise.all([
     fetch('/admin/venues.json').then(function(r){ return r.json(); }),
     auth('/admin/crm').then(function(r){ return r.json(); }),
-    auth('/admin/photos').then(function(r){ return r.json(); }).catch(function(){ return { keys: [] }; })
+    auth('/admin/photos').then(function(r){ return r.json(); }).catch(function(){ return { keys: [] }; }),
+    auth('/admin/contacts').then(function(r){ return r.json(); }).catch(function(){ return { contacts: {} }; })
   ]).then(function(res){
     roster = res[0].roster || [];
     crm = (res[1] && res[1].crm) || {};
+    var contacts = (res[3] && res[3].contacts) || {};
+    roster.forEach(function(r){ var c = contacts[r.place] || {}; r.emails = c.emails || []; r.instagram = c.instagram || ''; if (!r.website && c.website) r.website = c.website; });
     (res[2].keys || []).forEach(function(k){ var m = k.match(/^photo:\\d+-([a-z0-9-]+--[a-z0-9-]+)/); if (m) pending[m[1]] = (pending[m[1]] || 0) + 1; });
     var cats = {}, hoods = {};
     roster.forEach(function(r){ cats[r.cat] = r.catTitle; if (r.hood) hoods[r.hood] = 1; });

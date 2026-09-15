@@ -582,6 +582,26 @@ export default {
       }
     }
 
+    // ===== Venue contacts (private): GET reads, PUT replaces =====
+    // Harvested from venues' own sites by scripts/venue-contacts.js and
+    // pushed here by scripts/push-contacts.js. They live in KV, never in
+    // the public repo or the public roster — an aggregated contact list on
+    // the open web is a spam gift and a bad look (caught 2026-09-15).
+    if (url.pathname === '/admin/contacts') {
+      if (!(await adminAuthed())) return json({ error: 'unauthorized' }, 401, origin);
+      if (request.method === 'GET') {
+        const raw = await env.POLLS.get('crm:contacts');
+        return json({ contacts: raw ? JSON.parse(raw) : {} }, 200, origin);
+      }
+      if (request.method === 'PUT') {
+        let body;
+        try { body = await request.json(); } catch (_) { return json({ error: 'invalid json' }, 400, origin); }
+        if (!body || typeof body.contacts !== 'object') return json({ error: 'contacts object required' }, 400, origin);
+        await env.POLLS.put('crm:contacts', JSON.stringify(body.contacts));
+        return json({ ok: true, count: Object.keys(body.contacts).length }, 200, origin);
+      }
+    }
+
     // ===== GET /admin/venue-link?place=cat--slug — mint an upload link =====
     if (request.method === 'GET' && url.pathname === '/admin/venue-link') {
       if (!(await adminAuthed())) return json({ error: 'unauthorized' }, 401, origin);
