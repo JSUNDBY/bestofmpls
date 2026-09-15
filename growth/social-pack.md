@@ -10,13 +10,13 @@
 **Hook:** On screen, frame 1: "5 things to do this weekend in Minneapolis"
 
 **Shot list:**
-- *CANCELED* Sheridan Zuther and Raymond Berg at Crooners Supper Club (17:00) — b-roll of the venue or a poster
-- Mumblin’ Drew’s Oldfangled Orchestrators at White Squirrel Bar (18:00) — b-roll of the venue or a poster
 - Gregory Uhlmann w/ Lonefront at Berlin (19:00) — b-roll of the venue or a poster
 - Lucía at Dakota Jazz Club (19:00) — b-roll of the venue or a poster
 - Uproar Comedy Open Mic at Bryant Lake Bowl Theater (19:00) — b-roll of the venue or a poster
+- Roe Family Singers at The 331 Club (20:00) — b-roll of the venue or a poster
+- Kamelot at First Avenue — b-roll of the venue or a poster
 
-**Caption:** Five ways to spend the weekend, no scrolling six apps required. Full calendar and more at the link. Crooners Supper Club, White Squirrel Bar, Berlin and more.
+**Caption:** Five ways to spend the weekend, no scrolling six apps required. Full calendar and more at the link. Berlin, Dakota Jazz Club, Bryant Lake Bowl Theater and more.
 
 **Tags:** #minneapolis #saintpaul #twincities #onlyinmn #mnpls #mplsevents #twincitieslife #thingstodomn
 
