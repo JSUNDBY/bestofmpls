@@ -286,6 +286,26 @@ function writeCaption(mode2, props, extraPool) {
 
 if (DAY_MODES[mode]) {
   const props = DAY_MODES[mode]();
+  // B-roll (Josh, 2026-09-15: "throw some shots of minneapolis in there from
+  // time to time"): if a real shot in ~/Desktop/bestofmpls-posts/broll/ matches
+  // the lead pick's venue by filename, it goes behind the hook. Copied into
+  // the Remotion public dir so staticFile() can serve it. Never stock/AI —
+  // that folder's README carries the rule.
+  try {
+    const brollDir = path.join(require('os').homedir(), 'Desktop/bestofmpls-posts/broll');
+    const lead = (props.items && props.items[0]) || null;
+    if (lead && fs.existsSync(brollDir)) {
+      const venueKey = String(lead.venue || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+      const match = fs.readdirSync(brollDir).find(f => /\.(jpe?g|png)$/i.test(f) && venueKey && f.toLowerCase().includes(venueKey.split('-')[0]) && venueKey.split('-')[0].length > 3);
+      if (match) {
+        const dest = path.join(require('os').homedir(), 'Code/remotion-studio/public/broll');
+        fs.mkdirSync(dest, { recursive: true });
+        fs.copyFileSync(path.join(brollDir, match), path.join(dest, match));
+        props.hookImage = `broll/${match}`;
+        console.log(`b-roll: ${match} behind the hook (matched ${lead.venue})`);
+      }
+    }
+  } catch (_) {}
   fs.writeFileSync(path.join(outDir, `${mode}.json`), JSON.stringify(props, null, 2));
   writeCaption(mode, props, pool(todayIso, weekEnd));
   ledger.days[mode] = props.items.map(i => `${i.title}|${i.venue}`);
