@@ -1549,10 +1549,19 @@ function footer() {
 // the user's local time, badge each one, and let an "Open right now" filter
 // hide the closed entries on category pages.
 (function(){
-  var now = new Date();
+  // The venues are in Central; the reader may not be. Reading the clock with
+  // getHours() badged every entry against the visitor's own timezone — a
+  // reader in Denver or on a plane saw wrong open/closed pips (2026-09-15
+  // audit). Ask Intl for Minneapolis time instead.
+  function bomCentralNow(){
+    var p = new Intl.DateTimeFormat('en-US', { timeZone: 'America/Chicago', weekday: 'short', hour: '2-digit', minute: '2-digit', hour12: false }).formatToParts(new Date());
+    var g = function(t){ var f = p.find(function(x){ return x.type === t; }); return f ? f.value : ''; };
+    var DOW = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 };
+    var h = parseInt(g('hour'), 10); if (h === 24) h = 0;
+    return { dow: DOW[g('weekday')], min: h * 60 + parseInt(g('minute'), 10) };
+  }
   // The hours data uses days where 0 = Sunday (Google convention).
-  var dow = now.getDay();
-  var nowMin = now.getHours() * 60 + now.getMinutes();
+  var bomNow = bomCentralNow(), dow = bomNow.dow, nowMin = bomNow.min;
 
   function isOpen(periods) {
     for (var i = 0; i < periods.length; i++) {
@@ -5817,10 +5826,15 @@ function renderMap() {
              else map.removeLayer(m);
            });
          }
+         function bomCentralNow(){
+           var p = new Intl.DateTimeFormat('en-US', { timeZone: 'America/Chicago', weekday: 'short', hour: '2-digit', minute: '2-digit', hour12: false }).formatToParts(new Date());
+           var g = function(t){ var f = p.find(function(x){ return x.type === t; }); return f ? f.value : ''; };
+           var DOW = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 };
+           var h = parseInt(g('hour'), 10); if (h === 24) h = 0;
+           return { dow: DOW[g('weekday')], min: h * 60 + parseInt(g('minute'), 10) };
+         }
          function isOpenNow(periods) {
-           var now = new Date();
-           var dow = now.getDay();
-           var nm = now.getHours() * 60 + now.getMinutes();
+           var bn = bomCentralNow(), dow = bn.dow, nm = bn.min;
            function pt(s){ var p = s.split(':'); return parseInt(p[0],10)*60 + parseInt(p[1],10); }
            for (var i = 0; i < periods.length; i++){
              var p = periods[i];
@@ -6699,9 +6713,16 @@ function renderNear() {
                    Math.sin(dLng/2) * Math.sin(dLng/2);
            return 2 * R * Math.asin(Math.sqrt(a));
          }
+         function bomCentralNow(){
+           var p = new Intl.DateTimeFormat('en-US', { timeZone: 'America/Chicago', weekday: 'short', hour: '2-digit', minute: '2-digit', hour12: false }).formatToParts(new Date());
+           var g = function(t){ var f = p.find(function(x){ return x.type === t; }); return f ? f.value : ''; };
+           var DOW = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 };
+           var h = parseInt(g('hour'), 10); if (h === 24) h = 0;
+           return { dow: DOW[g('weekday')], min: h * 60 + parseInt(g('minute'), 10) };
+         }
          function isOpenNow(periods){
            if (!periods) return null;
-           var now = new Date(), dow = now.getDay(), nm = now.getHours()*60 + now.getMinutes();
+           var bn = bomCentralNow(), dow = bn.dow, nm = bn.min;
            function pt(s){ var p = s.split(':'); return parseInt(p[0],10)*60 + parseInt(p[1],10); }
            for (var i=0;i<periods.length;i++){ var p=periods[i]; if (p.day!==dow) continue; var o=pt(p.open), c=p.close?pt(p.close):1440; if (c<=o) c+=1440; if (nm>=o && nm<c) return true; }
            var y = (dow+6)%7;
