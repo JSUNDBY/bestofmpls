@@ -64,7 +64,9 @@ function collectEntries() {
     if (!f.endsWith('.js')) continue;
     const mod = require(path.join(dataDir, f));
     if (mod.layout === 'seasonal') continue;
-    if (!mod.entries) continue;
+    // guides.js exports an ARRAY (its .entries is Array.prototype.entries,
+    // a function) — guard on the actual shape, not truthiness.
+    if (!Array.isArray(mod.entries)) continue;
     if (SLUG_FILTER && mod.slug !== SLUG_FILTER) continue;
     for (const e of mod.entries) {
       if (!e.address || !e.name) continue;
