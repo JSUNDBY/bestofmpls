@@ -8154,12 +8154,12 @@ function renderPartner() {
       const stat = (num, label) => `<div class="partner-stat"><span class="partner-stat-num">${num}</span><span class="partner-stat-label">${label}</span></div>`;
       return `<section class="wrap" style="max-width: 760px; padding: 32px var(--gutter) 0;">
       <div class="partner-numbers">
-        ${stat(spots + '+', 'spots covered')}
-        ${stat(events, 'events tracked')}
-        ${stat(venues, 'venues')}
         ${stat('4×', 'refreshed daily')}
+        ${stat('0', 'banner ads')}
+        ${stat('1', 'featured per category')}
+        ${stat('100%', 'of placements labeled')}
       </div>
-      <p class="partner-numbers-note">Independent and locally run, updated daily. Ask for current monthly traffic and newsletter numbers and we'll share the real figures.</p>
+      <p class="partner-numbers-note">Independent and locally run. Every partner gets a monthly receipt: how many people we sent to your site, tickets, or reservations. Real counts, not impressions.</p>
     </section>`;
     })()}
     <section class="wrap" style="max-width: 760px; padding: 48px var(--gutter);">
