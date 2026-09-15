@@ -23,6 +23,7 @@ const path = require('path');
 
 const ROOT = path.resolve(__dirname, '..');
 const OUT  = path.join(ROOT, 'src/data/events.json');
+const TODAY = new Date().toISOString().slice(0, 10);
 
 const SCRAPERS = [
   require('./scrapers/first-avenue.js'),
@@ -177,6 +178,15 @@ async function main() {
     process.exit(0);
   }
 
+  // --only is a debugging flag: it runs a handful of scrapers, so writing its
+  // result would replace the whole feed with a fragment (1,640 events → 62,
+  // hit live 2026-09-15). Print and exit instead.
+  if (only) {
+    console.log(`\n  (--only run: ${fresh.length} events scraped, events.json left untouched)\n`);
+    for (const r of results) console.log(`     ${r.source.padEnd(18)} ${String(r.count).padStart(4)} ${r.ok ? '' : '· ' + String(r.error).slice(0, 60)}`);
+    return;
+  }
+
   fs.writeFileSync(OUT, JSON.stringify(output, null, 2));
   console.log(`\n  → wrote ${fresh.length} events to src/data/events.json (${(fs.statSync(OUT).size / 1024).toFixed(1)} KB)\n`);
 
@@ -185,6 +195,33 @@ async function main() {
   if (ok === 0) {
     console.error('All scrapers failed. Not exiting nonzero so build can still proceed with stale data.');
   }
+
+  // Per-source regression guard. A scraper that returns [] reports ok:true,
+  // so a venue can vanish from the site while every check says success —
+  // Trylon (the metro's fourth-busiest room by screenings) has been empty
+  // for weeks exactly this way (2026-09-15 audit). Compare each source to
+  // its last-known-good count and shout when one collapses.
+  const BASELINE = path.join(ROOT, 'src/data/sources-baseline.json');
+  let baseline = {};
+  try { baseline = JSON.parse(fs.readFileSync(BASELINE, 'utf8')); } catch (_) {}
+  const collapsed = [];
+  for (const r of results) {
+    const was = baseline[r.source];
+    if (was && was.count >= 5 && r.count === 0) {
+      collapsed.push(`${r.source}: ${was.count} → 0 (last good ${was.date})${r.error ? ` · ${String(r.error).slice(0, 60)}` : ' · no error, just empty'}`);
+    }
+    // Only a real result advances the baseline, so a bad day never becomes
+    // the new normal.
+    if (r.count > 0) baseline[r.source] = { count: r.count, date: TODAY };
+  }
+  try { fs.writeFileSync(BASELINE, JSON.stringify(baseline, null, 1) + '\n'); } catch (_) {}
+  if (collapsed.length) {
+    console.error(`\n  !! ${collapsed.length} source${collapsed.length === 1 ? '' : 's'} dropped to zero:`);
+    for (const line of collapsed) console.error(`     ${line}`);
+    console.error('     Fix the scraper or remove it — a silent zero is a venue missing from the site.\n');
+  }
+  const stillZero = results.filter(r => r.count === 0).map(r => r.source);
+  if (stillZero.length) console.warn(`  (${stillZero.length} source${stillZero.length === 1 ? '' : 's'} at zero: ${stillZero.join(', ')})`);
 }
 
 if (require.main === module) main().catch(e => {
