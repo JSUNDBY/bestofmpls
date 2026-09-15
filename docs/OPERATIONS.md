@@ -6,7 +6,7 @@ One page. What runs itself, what Josh does, and the commands behind everything. 
 
 | When | What | Where it lands |
 |---|---|---|
-| 4x daily | Event scrape (43 sources) + site rebuild + deploy | bestofmpls.com |
+| 4x daily | Event scrape (48 sources incl. the comedy rooms) + site rebuild + deploy | bestofmpls.com |
 | Weekdays 7:30am | Daily short generated (day's recipe + rotating music lane) | your chat, awaiting "go" |
 | Mondays 7:30am | Week Ahead IG carousel alongside the video | your chat |
 | Sunday 6pm | Telegram text from @sundby_brain_bot: 30 seconds for your human paragraph. Reply to it, typed or voice memo. | your phone |
