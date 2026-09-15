@@ -8149,7 +8149,7 @@ function renderPartner() {
     <section class="wrap" style="max-width: 760px; padding: 48px var(--gutter);">
       <h2 class="tonight-section-title">How it works</h2>
       <ul class="skyway-tips" style="grid-template-columns: 1fr;">
-        <li><b>Top placement</b> in a single category list (Cocktail Bars, Pizza, Hidden Gems, etc.) for the partnership term.</li>
+        <li><b>Your own page, upgraded.</b> Your entry in the guide gets your photos, your live calendar (or services), the menu items you pick, a reserve or tickets link, and top placement in your category with the Featured mark, for the term.</li>
         <li><b>A small "Featured" mark</b> on the listing, with a tooltip linking back to this page. Readers always know what is paid and what is editorial.</li>
         <li><b>The editorial copy stays ours.</b> We write the description, the neighborhood note, and the "why" the way we would for any place we covered. You can suggest, you can correct facts; we hold the pen.</li>
         <li><b>One featured slot per category per month.</b> So the list never becomes a stack of ads.</li>
@@ -8158,20 +8158,22 @@ function renderPartner() {
       </ul>
 
       <h2 class="tonight-section-title" style="margin-top: 48px;">What Featured looks like</h2>
-      <article class="entry entry--featured" aria-label="Example of a featured listing" style="margin-top: 24px;">
-        <div class="entry-body">
-          <div class="entry-meta"><span class="entry-meta-pick" title="Paid partner placement — see /partner/">Featured</span><span class="entry-meta-style">Your category here</span></div>
-          <h2 class="entry-name">Your Business Name</h2>
-          <p class="entry-description">The editorial copy stays ours — written the way we would write about any place we cover. Your listing moves to the top of its category list, gets this treatment, and carries an honest "Featured" mark.</p>
-        </div>
-      </article>
-      <p style="font-family: var(--font-body); font-size: 14px; line-height: 1.5; color: var(--ink-faint); margin-top: 8px;">Rendered above with the exact styling a featured listing gets on its category page.</p>
+      <p style="font-family: var(--font-body); font-size: 17px; line-height: 1.6; color: var(--ink); max-width: 640px;">Don't take our word for it. <a href="/live-music/icehouse/" style="color: var(--clay); font-weight: 600;">Icehouse's page</a> is a live featured page, and it's what yours would look like:</p>
+      <ul class="skyway-tips" style="grid-template-columns: 1fr; margin-top: 12px;">
+        <li><b>Your photos</b> up top and in a row &mdash; the room, the food, the front &mdash; uploaded through a private link, credited to you.</li>
+        <li><b>Your calendar, live.</b> Every show or event we already pull from your site, refreshed four times a day, with ticket links. Restaurants and shops get hours and a reserve or order link instead.</li>
+        <li><b>Your menu or services</b> &mdash; the five to ten things you want people to see, with prices, checked and dated.</li>
+        <li><b>The Featured mark</b> on your page and at the top of your category list. It links here, so readers always know what's paid.</li>
+        <li><b>Our words stay ours.</b> The editorial paragraph is the same one we'd write anyway. That's why the mark means something.</li>
+        <li><b>Off the page:</b> an "on tonight" card on the Tonight board whenever you have a show, one spotlight a month in the Monday email, and one short a month in our daily video feed, tagged, yours to repost.</li>
+      </ul>
+      <p style="font-family: var(--font-body); font-size: 14px; line-height: 1.5; color: var(--ink-faint); margin-top: 8px;">Every month you also get a plain receipt: how many people we sent to your site, tickets, or reservations. If the number isn't worth the price, you'll be the first to know.</p>
 
       <h2 class="tonight-section-title" style="margin-top: 48px;">The menu</h2>
       <div class="partner-menu">
         <div class="partner-option">
-          <div class="partner-option-head"><span class="partner-option-name">Featured listing</span><span class="partner-option-price">$99 / month</span></div>
-          <p class="partner-option-body">Top of your category with the Featured mark, for the term. <b>Founding rate: $49 / month for the first five partners</b>, locked for twelve months, in exchange for an honest testimonial.</p>
+          <div class="partner-option-head"><span class="partner-option-name">Featured</span><span class="partner-option-price">$249 / month</span></div>
+          <p class="partner-option-body">The page above, plus top of your category with the mark, the Tonight card, the monthly email spotlight, and the monthly short. $2,490 for the year (two months free). <b>Founding rate: $149 / month for the first five partners</b>, locked for twelve months, first ninety days free, in exchange for your photos and an honest testimonial.</p>
         </div>
         <div class="partner-option">
           <div class="partner-option-head"><span class="partner-option-name">Video profile</span><span class="partner-option-price">$750, one time</span></div>
@@ -8190,7 +8192,7 @@ function renderPartner() {
 
 
       <h2 class="tonight-section-title" style="margin-top: 48px;">Cannabis brands</h2>
-      <p style="font-family: var(--font-body); font-size: 17px; line-height: 1.6; color: var(--ink); max-width: 640px;">Minnesota dispensaries are largely shut out of advertising on Google and Meta. bestofmpls is a brand-safe, local, opt-in audience already deciding where to go and spend. Licensed operators can take a featured listing, a spot in the dispensary guide, or a newsletter sponsorship.</p>
+      <p style="font-family: var(--font-body); font-size: 17px; line-height: 1.6; color: var(--ink); max-width: 640px;">Minnesota dispensaries are largely shut out of advertising on Google and Meta. bestofmpls is a brand-safe, local, opt-in audience already deciding where to go and spend. Licensed operators can take a Featured page, a spot in the dispensary guide, or a newsletter sponsorship.</p>
       <p style="font-family: var(--font-body); font-size: 17px; line-height: 1.6; color: var(--ink-soft); max-width: 640px; margin-top: 12px;">Same rules as everyone else: the placement is clearly labeled, and the editorial picks stay ours.</p>
 
       <h2 class="tonight-section-title" style="margin-top: 48px;">What we do not do</h2>
@@ -8216,7 +8218,7 @@ function renderPartner() {
         <div>
           <label for="p-opt">What are you curious about?</label>
           <select id="p-opt" name="option" class="partner-select">
-            <option>Featured listing</option>
+            <option>Featured (the page)</option>
             <option>Video profile</option>
             <option>The full build</option>
             <option>Homepage takeover</option>
