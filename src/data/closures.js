@@ -289,5 +289,13 @@ module.exports = {
       closed: "2025",
       epitaph: "Minnesota’s first cooperatively owned brewery closed its Central Avenue taproom on December 7, 2025. The brand still brews in St. Paul; the room is gone."
     },
+    {
+      name: "Groundswell",
+      kind: "Cafe + Bakery",
+      neighborhood: "Hamline-Midway, Saint Paul",
+      opened: "2008",
+      closed: "2026",
+      epitaph: "Seventeen years as the Hamline-Midway living room: coffee bar, bakery case, weekend brunch, and a corner built for lingering. A fire in May 2025 took the space, and in February 2026 they said they would not reopen. Chef Nicole Pederson-Bates has since opened Bewick Cafe in the room."
+    },
   ]
 };

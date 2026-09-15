@@ -147,14 +147,5 @@ module.exports = {
       website: 'https://www.claddagh-coffee.com',
       price: '$'
     },
-    {
-      name: 'Groundswell',
-      neighborhood: 'Frogtown, St. Paul',
-      style: 'Cafe + bakery',
-      description: 'A Hamline-Midway cafe, coffee bar, and bakery that recently expanded into a bigger corner space at Thomas and Hamline. Weekend brunch is the move, the in-house bakery carries the pastry case, and the room is built for lingering. A genuine neighborhood anchor on the St. Paul side.',
-      address: '1340 Thomas Ave, St. Paul',
-      website: 'https://groundswellmn.com',
-      price: '$'
-    }
   ]
 };
